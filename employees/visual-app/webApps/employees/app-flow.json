@@ -1,0 +1,12 @@
+{
+  "applicationModelVersion": "0.9.7",
+  "id": "starter",
+  "description": "A new VB app",
+  "shellPage": "shell",
+  "defaultPage": "start",
+  "pages": [ "start" ],
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

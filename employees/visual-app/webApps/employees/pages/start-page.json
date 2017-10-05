@@ -1,0 +1,9 @@
+{
+  "pageModelVersion": "0.9.7",
+  "title": "My start page",
+  "description": "The starting page of the app",
+  "variables": {},
+  "chains": {},
+  "eventListeners": {},
+  "imports": {}
+}
