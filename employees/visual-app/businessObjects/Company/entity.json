@@ -1,0 +1,59 @@
+{
+    "fields": [
+        {
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "a207c7a6-0cbc-41e0-8fe0-e2334cca552d",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "id": "creationDate",
+            "internal": true,
+            "oid": "2c2f7951-9a80-43f4-9a2f-7df66f619d35",
+            "singularName": "Created",
+            "type": "datetime"
+        },
+        {
+            "id": "lastUpdateDate",
+            "internal": true,
+            "oid": "23bb850d-fdbd-4dd5-a859-7e7cf123d7b1",
+            "singularName": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "id": "createdBy",
+            "internal": true,
+            "oid": "9da99301-8a21-4584-942b-21ededdf496c",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "oid": "c6a443f9-c19e-4a28-acd6-ed63c30d8b22",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "oid": "e5ca5d4c-0047-4ca6-a5a8-17cd09ab15a4",
+            "singularName": "<internal>",
+            "type": "number"
+        },
+        {
+            "id": "name",
+            "oid": "1dd4a649-5b13-4939-98a7-bcd290bcfce6",
+            "singularName": "name",
+            "type": "string"
+        }
+    ],
+    "id": "Company",
+    "oid": "37297975-b2bd-4a36-b342-36f7226681cf",
+    "singularName": "Company"
+}

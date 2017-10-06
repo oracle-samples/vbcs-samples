@@ -6,7 +6,23 @@
   "defaultPage": "start",
   "pages": [ "start" ],
   "chains": {},
-  "services": {},
-  "types": {},
+  "services": {
+    "person": "../../resources/businessObjects/Person.json",
+    "company": "../../resources/businessObjects/Company.json"
+  },
+  "types": {
+    "person": {
+      "id": "number",
+      "firstName": "string",
+      "lastName": "string",
+      "ref2Company": "number"
+    },
+    "company": {
+      "type": {
+        "id": "number",
+        "name": "string"
+      }
+    }
+  },
   "variables": {}
 }

@@ -1,0 +1,88 @@
+{
+    "fields": [
+        {
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "80787afb-0125-467e-8422-66241de86dd3",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "id": "creationDate",
+            "internal": true,
+            "oid": "5a9847df-f5d7-4d0c-899b-2fd213184bc3",
+            "singularName": "Created",
+            "type": "datetime"
+        },
+        {
+            "id": "lastUpdateDate",
+            "internal": true,
+            "oid": "cab61187-4235-422b-835f-217d9972e9f9",
+            "singularName": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "id": "createdBy",
+            "internal": true,
+            "oid": "e167168c-6618-4b40-8f5b-61cae871f683",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "oid": "f51ad737-af19-456d-98e2-4652af7b86ac",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "oid": "90d77ba3-f926-477e-8330-c69b4e8e8033",
+            "singularName": "<internal>",
+            "type": "number"
+        },
+        {
+            "id": "firstName",
+            "oid": "b321e9ca-ac6c-48eb-a68f-35b2b6a58213",
+            "singularName": "firstName",
+            "type": "string"
+        },
+        {
+            "id": "lastName",
+            "oid": "619a928b-5c67-4b11-9567-01586b70dafe",
+            "singularName": "lastName",
+            "type": "string"
+        },
+        {
+            "id": "ref2Company",
+            "oid": "4768b9ae-c831-4032-811d-884016b11c7b",
+            "singularName": "company",
+            "type": "reference"
+        }
+    ],
+    "id": "Person",
+    "oid": "b72a2104-efd8-4f37-a8b7-dec027098af7",
+    "singularName": "Person",
+    "pluralName": "People",
+    "relations": [
+        {
+            "accessorId": "company",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "name",
+            "deleteRule": "restrict",
+            "mappingFieldId": "ref2Company",
+            "derivedRelationInfoMap": {
+                "$reverse": {
+                    "accessorId": "personCollection"
+                }
+            },
+            "sourceEntityId": "Person",
+            "targetEntityId": "Company"
+        }
+    ]
+}
