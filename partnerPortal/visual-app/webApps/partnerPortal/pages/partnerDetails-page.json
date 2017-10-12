@@ -1,0 +1,131 @@
+{
+  "id": "Partner Details",
+  "pageModelVersion": "0.9.0",
+  "title": "Partner Details",
+  "description": "Partner Details page",
+  "variables": {
+    "companyNumber": {
+      "type": "string",
+      "description": "The ID of the Partner",
+      "required" : true,
+      "input": "fromUrl"
+    },
+    "currentPartner": {
+      "type": "application:partner"
+    },
+    "selectedTabPane": {
+      "type": "string"
+    },
+    "redrawMap": {
+      "type": "string",
+      "defaultValue" : "true"
+    }
+  },
+  "chains": {
+    "fetchPartnerChain": {
+      "root": {
+        "id": "loadCurrentPartnerAction",
+        "module": "vb/action/builtin/restAction",
+        "parameters": {
+          "endpoint": "partners2/getPartnersId",
+          "uriParams": {
+            "id": "{{ $page.variables.companyNumber }}",
+            "expand": "all"
+          }
+        },
+        "outcomes": {
+          "success": {
+            "id": "assignVariables-currentPartner",
+            "module": "vb/action/builtin/assignVariablesAction",
+            "parameters": {
+              "$page.variables.currentPartner": {
+                "source": "{{ $chain.results.loadCurrentPartnerAction.body }}"
+              }
+            },
+            "outcomes": {
+                "success": {
+                    "id": "xxx",
+                    "module": "vb/action/builtin/callComponentMethodAction",
+                    "parameters": {
+                        "component": "{{ $page.components.byId('googleMap') }}",
+                        "method": "showOnePartner",
+                        "params": ["{{ $chain.results.loadCurrentPartnerAction.body }}"]
+                      }
+
+                }
+            }
+          }
+        }
+      }
+    },
+    "goBack": {
+      "root": {
+        "id": "goBack",
+        "module": "vb/action/builtin/navigateBackAction"
+      }
+    },
+    "redrawMap": {
+      "variables": {
+        "selectedPaneId": {
+          "type": "number",
+          "input": "fromCaller",
+          "required": true
+        }
+      },
+      "root": {
+        "id": "redrawMap",
+        "module": "vb/action/builtin/ifAction",
+        "parameters": {
+              "condition": "{{ $page.variables.redrawMap === 'true' && $variables.selectedPaneId === 1 }}"
+        },
+        "outcomes": {
+          "true": {
+            "id": "xx",
+            "module": "vb/action/builtin/assignVariablesAction",
+            "parameters": {
+              "$page.variables.redrawMap": { "source": "false" }
+            },
+            "outcomes" : {
+                "success" : {
+                    "id": "xxx",
+                    "module": "vb/action/builtin/callComponentMethodAction",
+                    "parameters": {
+                        "component": "{{ $page.components.byId('googleMap') }}",
+                        "method": "redrawMap",
+                        "params": []
+                      }
+                }
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains" :[
+        {
+          "chainId": "fetchPartnerChain"
+        }
+      ]
+    },
+    "onBackButtonClick": {
+      "chains": [
+        {
+          "chainId": "goBack"
+        }
+      ]
+    },
+    "onTabPaneChange" : {
+      "chains" : [
+        {
+          "chainId": "redrawMap",
+          "parameters": {
+            "selectedPaneId": "{{ $event.ui.value }}"
+          }
+        }
+      ]
+    }
+    
+  }
+}

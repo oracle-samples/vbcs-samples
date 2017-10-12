@@ -1,0 +1,132 @@
+{
+  "id": "partnerRegistration",
+  "description": "Partner Registration page",
+  "title": "Partner Registration",
+  "pageModelVersion": "0.9.0",
+  "variables": {
+    "partner": {
+      "type": "application:partner"
+    },
+    "contact": {
+      "type": "application:contact",
+      "onValueChanged": [
+        {
+          "actionsId": "updateContactsArray"
+        }
+      ]
+    },
+    "industryNames": {
+      "type": "array",
+      "definition": {
+         "id": {
+           "type": "string"
+         },
+         "displayName": {
+           "type": "string"
+         }
+      },
+      "defaultValue" : [
+        {"id": "High Technology", "displayName": "High Technology"},
+        {"id": "Communications", "displayName": "Communications"},
+        {"id": "Chemicals", "displayName": "Chemicals"},
+        {"id": "Healthcare", "displayName": "Healthcare"},
+        {"id": "Natural Resources", "displayName": "Natural Resources"},
+        {"id": "Financial Services", "displayName": "Financial Services"},
+        {"id": "Retail", "displayName": "Retail"},
+        {"id": "Professional Services", "displayName": "Professional Services"}
+    ]
+    },
+    "partnerTypes": {
+      "type": "array",
+      "definition": "string",
+      "onValueChanged": [
+        {
+          "actionsId": "updatePartnerTypeArray"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "updatePartnerTypeArray": {
+      "root": {
+        "id": "setUpdatedPartnerTypeList",
+        "module": "vb/action/builtin/assignVariablesAction",
+        "parameters": {
+          "$page.variables.partner.types": {
+            "source": "{{ $page.variables.partnerTypes }}",
+            "mapping": { "$target.PartnerTypeName": "$source" }
+          }
+        }
+      }
+    },
+    "updateContactsArray": {
+      "root": {
+        "id": "setUpdatedContactsList",
+        "module": "vb/action/builtin/assignVariablesAction",
+        "parameters": {
+          "$page.variables.partner.contacts": {
+            "source": "{{ $page.variables.contact }}"
+           }
+        }
+      }
+    },
+    "updateIndustriesArray": {
+      "variables": {
+        "industries": {
+          "type": "array",
+          "definition": "string"
+        }
+      },
+      "root": {
+        "id": "setUpdatedIndustryList",
+        "module": "vb/action/builtin/assignVariablesAction",
+        "parameters": {
+          "$page.variables.partner.industries": {
+            "source": "{{ $variables.industries }}",
+            "mapping": {
+              "$target.ClassificationName": "$source"
+            }
+          }
+        }
+      }
+    },
+    "savePartnerChain": {
+      "variables": {},
+      "root": {
+        "id": "savePartner",
+        "module": "vb/action/builtin/restAction",
+        "parameters": {
+          "endpoint": "partners2/createPartner",
+          "body": "{{ $page.variables.partner }}"
+        },
+        "outcomes": {
+          "success": {
+            "id": "navigateBack",
+            "module": "vb/action/builtin/navigateBackAction",
+            "parameters": {},
+            "outcomes": {}
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "onSubmitClick": {
+      "chains": [
+        {
+          "chainId": "savePartnerChain"
+        }
+      ]
+    },
+    "onIndustryChange": {
+      "chains": [
+        {
+          "chainId": "updateIndustriesArray",
+          "parameters": {
+            "industries": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  }
+}

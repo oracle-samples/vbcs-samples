@@ -1,0 +1,159 @@
+{
+    "basePath": "/crmRestApi/resources/latest",
+    "host": "fuscdrmsmc38-fa-ext.us.oracle.com",
+    "info": {
+        "title": "Partners",
+        "version": "1.0.0",
+        "x-vb": {
+            "headers": {
+                "REST-Framework-Version": "2"
+            },
+            "serviceAuthentication": {
+                "type": "basic"
+            }
+        }
+    },
+    "paths": {
+        "/fndStaticLookups": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "getPartnerTypes",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "finder",
+                        "type": "string",
+                        "x-vb-defaultValue": "LookupTypeActiveEnabledOrBindCodeFinder%3BBindLookupType%3DZPM_PARTNER_CHANNEL_TYPES"
+                    },
+                    {
+                        "in": "query",
+                        "name": "onlyData",
+                        "type": "string",
+                        "x-vb-defaultValue": "true"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "type": "string",
+                        "x-vb-defaultValue": "LookupCode,Meaning"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "examples": {
+                            "application/json": "{\n    \"items\": [\n        {\n            \"LookupType\": \"ZPM_PARTNER_CHANNEL_TYPES\",\n            \"LookupCode\": \"CCP\"\n        },\n        {\n            \"LookupType\": \"ZPM_PARTNER_CHANNEL_TYPES\",\n            \"LookupCode\": \"ESP\"\n        }\n    ],\n    \"count\": 2,\n    \"hasMore\": false,\n    \"limit\": 25,\n    \"offset\": 0,\n    \"links\": [\n        {\n            \"rel\": \"self\",\n            \"href\": \"https://fuscdrmsmc38-fa-ext.us.oracle.com:443/crmRestApi/resources/11.13.17.11/fndStaticLookups\",\n            \"name\": \"fndStaticLookups\",\n            \"kind\": \"collection\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/partners": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "getPartners",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "onlyData",
+                        "type": "boolean",
+                        "x-vb-defaultValue": "true"
+                    },
+                    {
+                        "in": "query",
+                        "name": "q",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server."
+                    }
+                },
+                "x-vb-actionHint": "retrieveMany"
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "createPartner",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server."
+                    }
+                },
+                "x-vb-actionHint": "create"
+            }
+        },
+        "/partners/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "getPartnersId",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server."
+                    }
+                },
+                "x-vb-actionHint": "retrieveOne"
+            },
+            "patch": {
+                "consumes": [
+                    "application/json"
+                ],
+                "operationId": "patchPartnersId",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server."
+                    }
+                },
+                "x-vb-actionHint": "update"
+            }
+        }
+    },
+    "schemes": [
+        "https"
+    ],
+    "swagger": "2.0"
+}

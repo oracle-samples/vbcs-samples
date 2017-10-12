@@ -1,0 +1,279 @@
+{
+    "pageModelVersion": "0.9.0",
+    "title": "Partner Finder",
+  "variables": {
+    "partnerList": {
+      "type": "vb/ServiceDataSource",
+      "persisted": "history",
+      "input": "none",
+      "defaultValue": {
+        "endpoint": "partners2/getPartners",
+        "idAttribute": "CompanyNumber",
+        "itemsPath": "items",
+        "uriParameters": {
+          "onlyData": "true",
+          "fields": "OrganizationName,CompanyNumber,AddressLineOne,City,Country,PostalCode,State;types:PartnerTypeName"
+        },
+        "sortCriteria": [
+          {
+            "name": "name",
+            "direction": "ascending"
+          }
+        ],
+        "filterCriteria": [
+          {
+            "name": "Status",
+            "op": "eq",
+            "value": "ACTIVE"
+          }
+        ],
+        "transforms": {
+          "request": {
+            "sort": "{{ $page.functions.sort }}",
+            "filter": "{{ $page.functions.filter }}"
+          }
+        }
+      }
+    },
+    "filterCriteriaHolder": {
+      "type": "object",
+      "persisted": "history",
+      "definition": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "partnerTypeLOV": {
+      "type": "array",
+      "persisted": "history",
+      "definition": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "defaultValue" : [
+        { "id": "OEM", "name": "Original equipment manufacturer"},
+        { "id": "ISV", "name": "Independent software supplier"}
+      ]
+    }
+  },
+    "chains": {
+        "navigateToPageChain": {
+            "variables": {
+                "page": {
+                    "type": "string",
+                    "description": "target page",
+                    "input": "fromCaller",
+                    "required": true
+                },
+                "params": {
+                    "type": "object",
+                    "description": "event",
+                    "input": "fromCaller",
+                    "required": false
+                }
+            },
+            "root": {
+                "id": "navigateToPage",
+                "module": "vb/action/builtin/navigateToPageAction",
+                "parameters": {
+                    "page": "{{ $variables.page }}",
+                    "params": "{{ $variables.params }}"
+                },
+                "outcomes": {}
+            }
+        },
+        "openPartnerDetail": {
+            "variables": {
+                "companyNumber": {
+                    "type": "string",
+                    "input": "fromCaller",
+                    "required": true
+                }
+            },
+            "root": {
+                "id": "navigateToPage",
+                "module": "vb/action/builtin/navigateToPageAction",
+                "parameters": {
+                    "page": "partnerDetails",
+                    "params": {
+                        "companyNumber": "{{ $variables.companyNumber }}"
+                    }
+                },
+                "outcomes": {}
+            }
+        },
+        "filterPartnersChain": {
+            "root": {
+                "id": "filterPartners",
+                "module": "vb/action/builtin/assignVariablesAction",
+                "parameters": {
+                    "$page.variables.partnerList.filterCriteria": {
+                        "source": [
+                            {
+                                "name": "OrganizationName",
+                                "op": "co",
+                                "value": "{{$page.variables.filterCriteriaHolder.name}}"
+                            },
+                            {
+                                "name": "FormattedAddress",
+                                "op": "co",
+                                "value": "{{$page.variables.filterCriteriaHolder.location}}"
+                            },
+                            {
+                                "name": "types.PartnerTypeCode ",
+                                "op": "eq",
+                                "value": "{{$page.variables.filterCriteriaHolder.type}}"
+                            },
+                            {
+                                "name": "Status",
+                                "op": "eq",
+                                "value": "ACTIVE"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "resetPartnersChain": {
+            "root": {
+                "id": "resetPartners",
+                "module": "vb/action/builtin/assignVariablesAction",
+                "parameters": {
+                    "$page.variables.filterCriteriaHolder": {
+                        "source": {
+                            "name": "",
+                            "location": "",
+                            "type": ""
+                        }
+                    }
+                },
+                "outcomes": {
+                    "success": {
+                        "id": "resetPartners2",
+                        "module": "vb/action/builtin/assignVariablesAction",
+                        "parameters": {
+                            "$page.variables.partnerList.filterCriteria": {
+                                "source": [
+                                    {
+                                        "name": "Status",
+                                        "op": "eq",
+                                        "value": "ACTIVE"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "fetchPartnerTypes": {
+            "variables": {},
+            "root": {
+                "id": "fetchPartnerTypes",
+                "module": "vb/action/builtin/restAction",
+                "parameters": {
+                    "endpoint": "partners2/getPartnerTypes"
+                },
+                "outcomes": {
+                    "success": {
+                        "id": "assignPartnerTypes",
+                        "module": "vb/action/builtin/assignVariablesAction",
+                        "parameters": {
+                            "$page.variables.partnerTypeLOV": {
+                                "source": "{{ $chain.results.fetchPartnerTypes.body.items }}",
+                                "mapping": {
+                                    "$target.id": "$source.LookupCode",
+                                    "$target.name": "$source.Meaning"
+                                }
+                            }
+                        },
+                        "outcomes": {}
+                    }
+                }
+            }
+        },
+        "selectPartnerOnMap": {
+            "variables": {
+                "companyNumber": {
+                    "type": "string",
+                    "input": "fromCaller",
+                    "required": true
+                }
+            },
+            "root": {
+                "id": "xxx",
+                "module": "vb/action/builtin/callComponentMethodAction",
+                "parameters": {
+                    "component": "{{ $page.components.byId('googleMap') }}",
+                    "method": "focusPartner",
+                    "params": "{{ $variables.companyNumber }}"
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "vbEnter": {
+            "chains" : [
+                {
+                "chainId": "fetchPartnerTypes",
+                "parameters": {}
+                }
+            ]
+        },
+        "onFilterButtonClick": {
+            "chains": [
+                {
+                    "chainId": "filterPartnersChain"
+                }
+            ]
+        },
+        "onResetButtonClick": {
+            "chains": [
+                {
+                    "chainId": "resetPartnersChain"
+                }
+            ]
+        },
+        "onRegisterButtonClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToPageChain",
+                    "parameters": {
+                        "page": "partnerRegistration"
+                    }
+                }
+            ]
+        },
+        "onPartnerLinkClicked": {
+            "chains": [
+                {
+                    "chainId": "openPartnerDetail",
+                    "parameters": {
+                        "companyNumber": "{{ $event.CompanyNumber}}"
+                    }
+                }
+            ]
+        },
+        "onPartnerSelected": {
+            "chains": [
+                {
+                    "chainId": "selectPartnerOnMap",
+                    "parameters": {
+                        "companyNumber": "{{ $event.detail.value }}"
+                    }
+                }
+            ]
+        }
+    }
+}

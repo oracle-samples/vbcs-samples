@@ -1,0 +1,130 @@
+<div id="form-container">
+
+  <h1>Join the Partner Program</h1>
+  <p>Contact us to become a partner. Complete this form to begin the application process.</p>
+  <h3>Contact Information</h3>
+  <div class="oj-form-layout">
+    <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">
+
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="EmailAddress">Email Address</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="EmailAddress" value="{{$variables.contact.EmailAddress}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="FirstName">First Name</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="FirstName" value="{{$variables.contact.FirstName}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="LastName">Last Name</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="LastName" value="{{$variables.contact.LastName}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="WorkPhoneNumber">Contact Phone</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="WorkPhoneNumber" value="{{$variables.contact.WorkPhoneNumber}}" required="true"></oj-input-text>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>Company Information</h3>
+  <div class="oj-form-layout">
+    <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">
+
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="OrganizationName">Organization Name</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="OrganizationName" value="{{$variables.partner.OrganizationName}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="AddressLineOne">Address Line 1</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="AddressLineOne" value="{{$variables.partner.AddressLineOne}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="City">City</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="City" value="{{$variables.partner.City}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="PostalCode">Postal Code</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="PostalCode" value="{{$variables.partner.PostalCode}}" required="true"></oj-input-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="Country">Country</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-input-text id="Country" value="{{$variables.partner.Country}}" required="true"></oj-input-text>
+        </div>
+      </div>
+
+
+
+      <div class="oj-flex">
+        <div class="oj-flex-item">
+          <label for="combobox">Industries Served</label>
+        </div>
+        <div class="oj-flex-item">
+          <oj-combobox-many id="combobox"
+                            options="[[ $page.variables.industryNames ]]"
+                            options-keys='{ "value": "id", "label": "displayName" }'
+                            on-value-changed="[[ $page.componentEvents.onIndustryChange ]]" >
+          </oj-combobox-many>    
+        </div>
+      </div>  
+    </div>
+  </div>
+
+
+  <h3>Which type of partnership are you interested in?</h3>
+  <div>
+    <oj-checkboxset id="partnerTypes" value="{{$variables.partnerTypes}}">
+      <span class="oj-choice-item">
+            <input id="channel" type="checkbox" value="SI">
+            <label for="channel">Channel Partners resell Siemens PLM Software products and/or sell their implementation services directly to end users.</label>
+          </span>
+      <span class="oj-choice-item">
+            <input id="st" type="checkbox" value="ISV">
+            <label for="st">S&T Partners sell standard software or hardware products that complement Siemens PLM Software products.</label>
+          </span>
+      <span class="oj-choice-item">
+            <input id="csi" type="checkbox" value="ESP">
+            <label for="csi">C&SI Partners provide business process consulting to align a client's PLM strategy to their transformation agenda.</label>
+          </span>
+      <span class="oj-choice-item">
+            <input id="goplm" type="checkbox" value="OEM">
+            <label for="goplm">The GO PLM Program includes Academic Partnership Programs, Global Community Relations Programs, Regional Productivity Programs, Youth and Displaced Worker Development Programs, and Partners for the Advancement of Collaborative Engineering Education (PACE).</label>
+          </span>
+    </oj-checkboxset>
+  </div>
+
+  <oj-button id='submit' on-click='[[$componentEvents.onSubmitClick]]'>Submit</oj-button>
+
+</div>

@@ -1,0 +1,88 @@
+<H1>Partner Finder</h1>
+    <div>
+        <div>
+            <div class="oj-flex">
+                <div class="oj-flex-item oj-lg-4">
+                    <oj-input-text id="nameFilterInput"
+                                   maxlength='30'
+                                   placeholder="Company Search"
+                                   value="{{$page.variables.filterCriteriaHolder.name}}"/>
+                </div>
+                <div class="oj-flex-item oj-lg-4">
+                    <oj-input-text id="locationFilter"
+                                   maxlength='30'
+                                   placeholder="Location Search"
+                                   value="{{$page.variables.filterCriteriaHolder.location}}"/>
+                </div>
+                <div class="oj-flex-item oj-lg-2">
+                    <oj-button id='filter'
+                               on-click='[[$componentEvents.onFilterButtonClick]]'>Search</oj-button>
+                    <oj-button id='reset'
+                               on-click='[[$componentEvents.onResetButtonClick]]'>Reset</oj-button>
+                </div>
+                <div class="oj-flex-item oj-lg-2">
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item oj-lg-4">
+                    <oj-select-one id="partnerTypeFilter" value="{{$page.variables.filterCriteriaHolder.type}}" placeholder="Partner Type Search">
+                        <!-- ko foreach: $page.variables.partnerTypeLOV -->
+                        <oj-option data-bind="attr: {value:id}"><span data-bind="text: name"></span></oj-option>
+                        <!-- /ko -->
+                    </oj-select-one>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="mainContent" class="oj-flex">
+        <div id="list" class="oj-flex-item oj-lg-4 ">
+            <oj-list-view id="listview" class="partnersList"
+                          data="{{$variables.partnerList}}"
+                          scrollPolicy="loadMoreOnScroll"
+                          selection-mode="single"
+                          scrollPolicyOptions="{fetchSize: 5}"
+                          on-selection-changed="[[$componentEvents.onPartnerSelected]]"
+                          item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('customRowTemplate', true)]]">
+            </oj-list-view>
+        </div>
+        <div id="map" class="oj-flex-item oj-lg-8">
+            <div id="composite-container">
+              <google-map id="googleMap" key="[[$application.variables.googleApiKey]]" datasource="[[$variables.partnerList]]" height='500'/>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/html" id="customRowTemplate">
+    <li>
+        <div class="oj-flex">
+            <div class="oj-lg-12">
+                <div class="oj-flex row">
+                    <div class="oj-lg-12">
+                        <b><a data-bind="text: OrganizationName, click:$parent.$componentEvents.onPartnerLinkClicked"></a></b>
+                    </div>
+                </div>
+                <div class="oj-flex row">
+                    <div class="oj-flex-item oj-lg-6">
+                        <span class="data">
+                              <span data-bind="text: AddressLineOne"></span><br>
+                              <span data-bind="text: City"></span>&nbsp<span data-bind="text: State"></span>&nbsp<span data-bind="text: PostalCode"></span><br>
+                              <span data-bind="text: Country"></span>
+                        </span>
+                    </div>
+                    <div class="oj-flex-item oj-lg-6">
+                        <span class="data">Partner Types:
+                        <ul>
+                        <!-- ko foreach: types -->
+                        <li><span data-bind="text: PartnerTypeName"></span></li>
+                            <!-- /ko -->
+                        </ul>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</script>

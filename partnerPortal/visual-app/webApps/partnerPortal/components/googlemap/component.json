@@ -1,0 +1,39 @@
+{
+  "name": "google-map",
+  "description": "An component for displaying partners on Google map.",
+  "version": "1.2",
+  "jetVersion": "^3.0.0",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "height": {
+      "type": "number"
+    },
+    "datasource": {
+      "type": "object"
+    },
+    "partner": {
+      "type": "object"
+    }
+  },
+  "methods": {
+    "focusPartner": {
+        "description": "ID of partner to be focused on the map when datasource is used to diplay many partners on the map",
+        "params": {
+            "name": "companyNumber",
+            "type": "string"
+        }
+    },
+    "showOnePartner": {
+        "description": "Display given partner address on the map and focus it",
+        "params": {
+            "name": "partner",
+            "type": "object"
+        }
+    },
+    "redrawMap": {
+        "description": "Google Map in tab pane does not render correctly. And this is workaround."
+    }
+  }
+}
