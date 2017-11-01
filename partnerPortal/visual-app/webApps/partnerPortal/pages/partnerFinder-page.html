@@ -25,10 +25,8 @@
             </div>
             <div class="oj-flex">
                 <div class="oj-flex-item oj-lg-4">
-                    <oj-select-one id="partnerTypeFilter" value="{{$page.variables.filterCriteriaHolder.type}}" placeholder="Partner Type Search">
-                        <!-- ko foreach: $page.variables.partnerTypeLOV -->
-                        <oj-option data-bind="attr: {value:id}"><span data-bind="text: name"></span></oj-option>
-                        <!-- /ko -->
+                    <oj-select-one id="partnerTypeFilter" value="{{$page.variables.filterCriteriaHolder.type}}" 
+                                placeholder="Partner Type Search" options="[[$page.variables.partnerTypeLOV]]">
                     </oj-select-one>
 
                 </div>

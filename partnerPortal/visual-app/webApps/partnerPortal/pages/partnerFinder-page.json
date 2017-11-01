@@ -52,18 +52,17 @@
     },
     "partnerTypeLOV": {
       "type": "array",
-      "persisted": "history",
       "definition": {
-        "id": {
+        "value": {
           "type": "string"
         },
-        "name": {
+        "label": {
           "type": "string"
         }
       },
       "defaultValue" : [
-        { "id": "OEM", "name": "Original equipment manufacturer"},
-        { "id": "ISV", "name": "Independent software supplier"}
+        { "value": "OEM", "label": "Original equipment manufacturer"},
+        { "value": "ISV", "label": "Independent software supplier"}
       ]
     }
   },
@@ -191,10 +190,11 @@
                         "module": "vb/action/builtin/assignVariablesAction",
                         "parameters": {
                             "$page.variables.partnerTypeLOV": {
+                                "reset": "empty",
                                 "source": "{{ $chain.results.fetchPartnerTypes.body.items }}",
                                 "mapping": {
-                                    "$target.id": "$source.LookupCode",
-                                    "$target.name": "$source.Meaning"
+                                    "$target.value": "$source.LookupCode",
+                                    "$target.label": "$source.Meaning"
                                 }
                             }
                         },
