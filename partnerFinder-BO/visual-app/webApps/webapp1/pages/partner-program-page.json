@@ -1,0 +1,124 @@
+{
+    "pageModelVersion": "0.9.8",
+    "title": "Partner Program",
+    "description": "Information about our partner program",
+    "variables": {},
+    "chains": {
+        "navigateToPartnerApplication": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-apply"
+                    }
+                }
+            }
+        },
+        "navigateToPartnerFinder": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-finder"
+                    }
+                }
+            }
+        },
+        "navigateToPartnerBenefits": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-benefits"
+                    }
+                }
+            }
+        },
+        "navigateToPartnerPortal": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-portal-login"
+                    }
+                }
+            }
+        },
+        "navigateToPartnerTraining": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-training"
+                    }
+                }
+            }
+        },
+        "navigateToPartnerServices": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-services"
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButtonFinderClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToPartnerFinder"
+                }
+            ]
+        },
+        "aServicesClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToPartnerBenefits"
+                }
+            ]
+        },
+        "aBenefitsClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToPartnerBenefits"
+                }
+            ]
+        },
+        "ojButtonJoinClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToPartnerApplication"
+                }
+            ]
+        },
+        "ojButtonPortalClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToPartnerPortal"
+                }
+            ]
+        }
+    },
+    "imports": {}
+}

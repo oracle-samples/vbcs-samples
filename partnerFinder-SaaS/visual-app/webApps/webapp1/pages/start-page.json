@@ -1,0 +1,32 @@
+{
+    "pageModelVersion": "0.9.8",
+    "title": "My start page",
+    "description": "The starting page of the app",
+    "variables": {},
+    "chains": {
+        "goToPartnerFinder": {
+            "description": "",
+            "variables": {},
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partners"
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton9791137281Click": {
+            "chains": [
+                {
+                    "chainId": "goToPartnerFinder"
+                }
+            ]
+        }
+    },
+    "imports": {}
+}

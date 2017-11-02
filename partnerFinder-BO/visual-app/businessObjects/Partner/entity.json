@@ -1,0 +1,172 @@
+{
+    "fields": [
+        {
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "89beddd4-fe35-4b2b-a657-0c4a95776070",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "id": "creationDate",
+            "internal": true,
+            "oid": "9ad9553c-05ac-4dc8-b68e-3ce2f93f5cf7",
+            "singularName": "Created",
+            "type": "datetime"
+        },
+        {
+            "id": "lastUpdateDate",
+            "internal": true,
+            "oid": "4ba58373-9586-450f-955c-4af7f41be0e0",
+            "singularName": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "id": "createdBy",
+            "internal": true,
+            "oid": "3988e507-43c3-4f8b-b263-abe5201a0f88",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "oid": "dca987c9-5c16-4a2a-9f05-cd6d6d00800c",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "oid": "b8463d42-8279-4cf6-b134-a9672f999fe6",
+            "singularName": "<internal>",
+            "type": "number"
+        },
+        {
+            "id": "companyNumber",
+            "oid": "b0fd5fbc-b109-49f2-bc30-8d7010ee2293",
+            "singularName": "CompanyNumber",
+            "type": "string"
+        },
+        {
+            "id": "organizationName",
+            "oid": "58d7e165-015b-4986-9180-f0e9750bbe9d",
+            "singularName": "OrganizationName",
+            "type": "string"
+        },
+        {
+            "id": "addressLineOne",
+            "oid": "8586fc8c-76b7-4769-a6d7-c74d2b377372",
+            "singularName": "addressLineOne",
+            "type": "string"
+        },
+        {
+            "id": "addressLineTwo",
+            "oid": "84566253-2633-40ac-9f14-73ad8fc08649",
+            "singularName": "addressLineTwo",
+            "type": "string"
+        },
+        {
+            "id": "country",
+            "oid": "c74af770-8fe0-4253-af31-a32b23f870ab",
+            "singularName": "country",
+            "type": "string"
+        },
+        {
+            "id": "city",
+            "oid": "0f126191-0117-4256-a874-1f0f175215b1",
+            "singularName": "city",
+            "type": "string"
+        },
+        {
+            "id": "state",
+            "oid": "16dba42b-aabf-4239-b8e6-260845cd4631",
+            "singularName": "state",
+            "type": "string"
+        },
+        {
+            "id": "postalCode",
+            "oid": "6e696d49-8076-4855-8478-05c279dae8ad",
+            "singularName": "postalCode",
+            "type": "string"
+        },
+        {
+            "id": "status",
+            "oid": "00c1e7e7-2981-4927-b793-47d207150430",
+            "singularName": "status",
+            "type": "string"
+        },
+        {
+            "id": "synergy",
+            "oid": "3a9f784b-aad8-4701-9131-8df0478d1290",
+            "singularName": "synergy",
+            "type": "string"
+        },
+        {
+            "id": "phone",
+            "oid": "2a4c902f-9e58-4124-944d-eeb95d37c26b",
+            "singularName": "phone",
+            "type": "string"
+        },
+        {
+            "id": "url",
+            "oid": "ab613f16-dfee-4f0c-a9d2-804824e094ca",
+            "singularName": "url",
+            "type": "string"
+        },
+        {
+            "id": "email",
+            "oid": "d2471a64-0dd3-40d9-8a58-82bb5a179bb1",
+            "singularName": "email",
+            "type": "string"
+        },
+        {
+            "id": "organizationSize",
+            "oid": "4e1dbb82-ed17-4ad4-b87c-15751f50d28d",
+            "singularName": "organizationSize",
+            "type": "string"
+        },
+        {
+            "id": "stockSymbol",
+            "oid": "85e3398a-0753-4bd8-b1de-c2e2e9c8cc92",
+            "singularName": "stockSymbol",
+            "type": "string"
+        },
+        {
+            "id": "tierId",
+            "oid": "70f14d68-225d-43b8-b7a2-b427570cb89a",
+            "singularName": "Tier",
+            "type": "reference",
+            "unique": false
+        },
+        {
+            "id": "logoUrl",
+            "oid": "9c01e082-23cd-4c8c-ac10-c6ed1f94a66e",
+            "singularName": "logoUrl",
+            "type": "string"
+        }
+    ],
+    "id": "Partner",
+    "oid": "da636ed4-3aa5-4eb0-b217-fb96a3b096af",
+    "singularName": "Partner",
+    "relations": [
+        {
+            "accessorId": "tier",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "name",
+            "deleteRule": "restrict",
+            "mappingFieldId": "tierId",
+            "derivedRelationInfoMap": {
+                "$reverse": {
+                    "accessorId": "partnerCollection"
+                }
+            },
+            "sourceEntityId": "Partner",
+            "targetEntityId": "Tier"
+        }
+    ]
+}

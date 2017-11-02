@@ -1,0 +1,28 @@
+{
+    "applicationModelVersion": "0.9.8",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "start",
+    "pages": [
+        "start"
+    ],
+    "chains": {},
+    "services": {
+        "Partner": "../../services/Partner/service.json"
+    },
+    "types": {
+        "getallPartnersResponse": {
+            "items": [
+                {
+                    "CompanyNumber": "string",
+                    "OrganizationName": "string",
+                    "OwnerName": "string",
+                    "State": "string",
+                    "Synergy": "string"
+                }
+            ]
+        }
+    },
+    "variables": {}
+}

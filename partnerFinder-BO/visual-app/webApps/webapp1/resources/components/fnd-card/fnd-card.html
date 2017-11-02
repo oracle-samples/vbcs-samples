@@ -1,0 +1,103 @@
+<div class="ocaj-card-flipContainer" data-bind="css: $props.theme == 'dark' ? 'ocaj-card-box-darkgrey' : 'ocaj-card-box-lightgrey', 
+    style:{height: cardHeight()+'px', minWidth: '270px'}">
+    <div class="ocaj-card-front-side">
+        <!-- header section of card front-->
+        <div style="padding: 10px 0 10px 10px;" data-bind="style: {height: $props.imagePosition === 'header' ? '51px' : '35px'}">
+            <table style="width: 100%; border-spacing: 0px; height: 22px; margin-left: -2px;">
+                <tbody style="width: 100%;">
+                    <tr>
+                        <td style="max-width: 75px;" data-bind="visible: $props.imagePosition === 'header'">
+                            <div class="header-cover-photo" data-bind="attr: {title: labelImage}, style: {backgroundImage:  'url(\''+ ($props.userImagePath ? $props.userImagePath : 'images/personImage.png') + '\')'}"></div>
+                        </td>
+                        <td style="width: auto">
+                            <div class="text-normal-1 bold largeText" data-bind="visible: $props.titleClickable === false, text:$props.cardTitle"></div>
+                            <a href="#" class="oj-link linkColor bold largeText cl-ellipsis" aria-label="Title"
+                               data-bind="event: {mouseover: function(){showPCAHanlder()}, mouseout: function(){hidePCAHanlder()}}, click: function(data, event){cardTitleHandler($props.keyAttribute)}, 
+                            attr: { title: $props.cardTitle }, visible: $props.titleClickable, text:$props.cardTitle, style: {maxWidth: cardWidth() + 'px'}"></a>
+                            <div class="text-normal-2 smallText cl-ellipsis" data-bind="text:$props.subTitle"></div>
+                        </td>
+                        <td style="width: 100%; vertical-align: top;" data-bind="event: {mouseover: function(){showPCAHanlder()}, mouseout: function(){hidePCAHanlder()}}">
+                            <div data-bind="attr: { id: 'FCM_pcalink'+$unique }">
+                                <a class="card-contexual-actions" href="#"
+                                   data-bind="attr: { title: labelContextualActions, ariaLabel: labelContextualActions }, style:{display: pcaFlagRendered() ? 'block' : 'none'}, click: function(){launchCardPCAHanlder($unique, 'FCM_pcalink'+$unique, $props.keyAttribute)}"></a>
+                            </div>
+                        </td>
+                        <td style="width:20px; vertical-align: top;">
+                            <a class="oj-link" href="#"><div class="flip-card-actions-menu" 
+                                    data-bind="visible: $props.renderActionsMenu, attr: { id: 'FCM_frontActionsMenu'+$unique, title: labelActionsMenu, ariaLabel: labelActionsMenu }, click: function(){launchCardActionsMenuHanlder('CM_frontActionsMenu'+$unique)}"></div></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>  
+            
+        </div>
+        <!-- content section of card front-->
+        <div class="" data-bind="css: $props.type === 'simple' ? '' : 'ocaj-card-content-style'">
+            <div class="hidden-scrollbar" data-bind="style:{height: $props.imagePosition === 'header' ? cardHeight()-71+'px' : cardHeight()-55+'px'}">
+                <div class="oj-flex">
+                    <div class="oj-flex-item" style="max-width: 75px;" data-bind="visible: $props.imagePosition === 'content'">
+                        <div class="cover-photo" data-bind="attr: {title: labelImage}, style: {backgroundImage:  'url(\''+ ($props.userImagePath ? $props.userImagePath : 'images/personImage.png') + '\')'}"></div>
+                    </div>
+                    <div class="oj-flex-item" data-bind="style: {width: $props.imagePosition === 'content' ? '70%' : '100%'}">
+                        <div style="margin-top: 10px; padding: 0 15px;">
+                            <oj-slot name="frontSlot"></oj-slot>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="oj-link" href="#" data-bind="visible: cardFlipFlag() !== 'back'">
+                <div class="ocaj-flip-icon ocaj-flip-icon-background" 
+                 data-bind="attr: { title: labelFlipCard }, style:{display: cardFlipFlag() === 'front' ? '' : 'none'}, event: {click: cardFlipHandler}"></div>   
+            </a>    
+        </div>    
+    </div>
+    <div class="ocaj-card-back-side">
+        <!-- header section of card back-->
+        <div style="padding: 10px 0 10px 10px;" data-bind="style: {height: $props.imagePosition === 'header' ? '51px' : '35px'}">
+            <table style="width: 100%; border-spacing: 0px; height: 22px; margin-left: -2px;">
+                <tbody style="width: 100%;">
+                    <tr>
+                        <td style="max-width: 75px;" data-bind="visible: $props.imagePosition === 'header'">
+                            <div class="header-cover-photo" data-bind="attr: {title: labelImage}, style: {backgroundImage:  'url(\''+ ($props.userImagePath ? $props.userImagePath : 'images/personImage.png') + '\')'}"></div>
+                        </td>
+                        <td style="width: auto">
+                            <div class="text-normal-1 bold largeText" data-bind="visible: $props.titleClickable === false, text:$props.cardTitle"></div>
+                            <a href="#" class="oj-link linkColor bold largeText cl-ellipsis" aria-label="Title"
+                               data-bind="event: {mouseover: function(){showPCAHanlder()}, mouseout: function(){hidePCAHanlder()}}, click: function(data, event){cardTitleHandler($props.keyAttribute)}, 
+                            attr: { title: $props.cardTitle }, visible: $props.titleClickable, text:$props.cardTitle, style: {maxWidth: cardWidth() + 'px'}"></a>
+                            <div class="text-normal-2 smallText cl-ellipsis" data-bind="text:$props.subTitle"></div>
+                        </td>
+                        <td style="width: 100%; vertical-align: top;" data-bind="event: {mouseover: function(){showPCAHanlder()}, mouseout: function(){hidePCAHanlder()}}">
+                            <div data-bind="attr: { id: 'BCM_pcalink'+$unique }">
+                                <a class="card-contexual-actions" href="#"
+                                   data-bind="attr: { title: labelContextualActions, ariaLabel: labelContextualActions }, style:{display: pcaFlagRendered() ? 'block' : 'none'}, click: function(){launchCardPCAHanlder($unique, 'BCM_pcalink'+$unique, $props.keyAttribute)}"></a>
+                            </div>
+                        </td>
+                        <td style="width:20px; vertical-align: top;">
+                             <a class="oj-link" href="#"><div class="flip-card-actions-menu" 
+                                                     data-bind="visible: $props.renderActionsMenu, attr: { id: 'BCM_frontActionsMenu'+$unique, title: labelActionsMenu, ariaLabel: labelActionsMenu }, click: function(){launchCardActionsMenuHanlder('CM_frontActionsMenu'+$unique)}"></div></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>  
+        </div>
+        <!-- content section of card back-->
+        <div data-bind="css: $props.type === 'simple' ? '' : 'ocaj-card-content-style'">
+            <div data-bind="style:{height: $props.imagePosition === 'header' ? cardHeight()-71+'px' : cardHeight()-55+'px'}" 
+                 class="hidden-scrollbar" style="padding-left: 10px;">
+                <div class="ocaj-card-inner-back-side" style="margin-top: 10px;">
+                    <oj-slot name="backSlot"></oj-slot>
+                </div>
+            </div> 
+            <a class="oj-link" href="#" data-bind="visible: cardFlipFlag() === 'back'">
+                <div class="ocaj-flip-icon ocaj-flip-icon-background" 
+                 data-bind="attr: { title: labelFlipCard }, style:{display: cardFlipFlag() === 'back' ? '' : 'none'}, event: {click: cardFlipHandler}"></div>   
+            </a>  
+        </div>
+    </div>
+</div>
+<!--<div data-oj-context style="display:none; min-width: 310px; min-height: 300px;" 
+     data-bind="attr: { id: 'mediaPCAPopup'+$unique }, ojComponent:{component: 'ojPopup'}">
+    <hcm-contextual-action key-attribute="{{selectedRecordId()}}" data-bind="event: { closeAction :closePCAPopupHandler}" >
+    </hcm-contextual-action>
+</div>-->

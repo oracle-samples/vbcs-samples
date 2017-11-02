@@ -1,0 +1,148 @@
+{
+    "pageModelVersion": "0.9.8",
+    "title": "Partner Finder",
+    "description": "Search for a partner",
+    "variables": {
+        "partnerList": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Partner",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "uriParameters": {},
+                "transforms": {
+                    "request": {
+                        "filter": "{{ $page.functions.filter }}"
+                    }
+                },
+                "responseType": null
+            }
+        },
+        "selectedAddress": {
+            "type": "string",
+            "defaultValue": "undefined"
+        }
+    },
+    "chains": {
+        "navigateToPartnerApplication": {
+            "description": "",
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "partner-apply"
+                    }
+                }
+            }
+        },
+        "filterRows": {
+            "root": "assignVariables1",
+            "actions": {
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "outcomes": {
+                        "success": ""
+                    },
+                    "parameters": {
+                        "$page.variables.partnerList.filterCriteria": {
+                            "source": [
+                                {
+                                    "name": "organizationName",
+                                    "op": "co",
+                                    "value": "{{ $application.variables.partnerSearchCriteria.partnerName }}"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "listSelectionChanged": {
+            "description": "",
+            "variables": {
+                "inputAddress": {
+                    "type": "string",
+                    "input": "fromCaller"
+                }
+            },
+            "root": "assignVariables1",
+            "actions": {
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.selectedAddress": {
+                            "source": "{{ $chain.variables.inputAddress }}",
+                            "reset": "",
+                            "mapping": ""
+                        }
+                    }
+                },
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/get_Partner",
+                        "uriParams": {
+                            "Partner_Id": "{{ $chain.variables.inputAddress }}"
+                        },
+                        "responseType": "application:partnerType"
+                    },
+                    "outcomes": {
+                        "success": "callModuleFunction1"
+                    }
+                },
+                "callModuleFunction1": {
+                    "module": "vb/action/builtin/callModuleFunctionAction",
+                    "outcomes": {
+                        "success": "assignVariables1"
+                    },
+                    "parameters": {
+                        "module": "{{ $page.functions }}",
+                        "functionName": "debugit",
+                        "params": [
+                            "{{ $chain.results.rest1.body }}"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton15267438791Click": {
+            "chains": [
+                {
+                    "chainId": "navigateToPartnerApplication"
+                }
+            ]
+        },
+        "ojButton15267438792Click": {
+            "chains": [
+                {
+                    "chainId": "filterRows"
+                }
+            ]
+        },
+        "ojListView15267438791Selection": {
+            "chains": [
+                {
+                    "chainId": "listSelectionChanged",
+                    "parameters": {
+                        "inputAddress": "{{ $event.detail.value[0] }}"
+                    }
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "ojx-google-map": {
+                "path": "resources/components/ojx-google-map/loader"
+            },
+            "fnd-card": {
+                "path": "resources/components/fnd-card/loader"
+            }
+        }
+    }
+}

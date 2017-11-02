@@ -1,0 +1,72 @@
+[
+    {
+        "key": "import-zip-dev",
+        "messages": [
+            {
+                "file": "PartnerType.xlsx",
+                "line": 46,
+                "entityName": "Partner_Type",
+                "sheet": "PartnerType",
+                "entity": "PartnerType"
+            },
+            {
+                "file": "PartnerType.xlsx",
+                "line": 46,
+                "entityName": "Partner_Type",
+                "sheet": "PartnerType",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"1\" referenced by 6 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"6\" referenced by 6 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"2\" referenced by 7 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"4\" referenced by 5 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"5\" referenced by 4 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"8\" referenced by 6 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"3\" referenced by 5 record(s)",
+                "entity": "PartnerType"
+            },
+            {
+                "messageOrigin": "Uploading",
+                "messageType": "error",
+                "message": "Unknown \"Partner\" ID \"7\" referenced by 6 record(s)",
+                "entity": "PartnerType"
+            }
+        ],
+        "importStatus": "Uploading",
+        "timestamp": "2017-10-24T08:43:35.86",
+        "userId": "brian.fry@oracle.com"
+    }
+]

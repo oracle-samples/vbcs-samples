@@ -1,0 +1,107 @@
+{
+    "name": "fnd-card",
+    "version": "1.0.0-beta.20170602",
+    "jetVersion": ">=3.0.0",
+    "displayName": "Applcore card layout",
+    "description": "Card layout which supports user image, title and subtitle. Optional actions and back facet.",
+    "properties": {
+        "cardTitle": {
+            "type": "string",
+            "writeback": "false",
+            "description": "Title of card"
+        },
+        "subTitle": {
+            "type": "string",
+            "writeback": "false",
+            "description": "Subtitle of card"
+        },
+        "keyAttribute": {
+            "type": "number",
+            "writeback": "false",
+            "description": "Primary key attribute value to be passed when card title is clicked"
+        },
+        "userImagePath": {
+            "type": "string",
+            "writeback": "false",
+            "description": "User image URL"
+        },
+        "imagePosition": {
+            "type": "string",
+            "writeback": "false",
+            "value": "content",
+            "description": "Image can be added in the header section, content section or at top as banner."
+        },
+        "theme": {
+            "type": "string",
+            "writeback": "false",
+            "value": "dark",
+            "description": "Card theme i.e. dark/light. Default is dark"
+        },
+        "size": {
+            "type": "string",
+            "writeback": "false",
+            "value": "small",
+            "description": "Dimension of the card. Valid values are small, medium and large"
+        },
+        "titleClickable": {
+            "type": "boolean",
+            "writeback": "false",
+            "value": false,
+            "description": "Title link flag i.e. true, false. True will make title a link"
+        },
+        "renderActionsMenu": {
+            "type": "boolean",
+            "writeback": "false",
+            "value": false,
+            "description": "Whether to show the orange actions menu icon. Default is false."
+        }
+    },
+    "events": {
+        "cardTitleClicked": {
+            "description": "Event to be dispatched when card title is clicked",
+            "bubbles": true,
+            "detail": {
+                "keyAttribute": {
+                    "description": "parameter to be passed with cardTitleClicked event",
+                    "type": "string"
+                }
+            }
+        },
+        "cardContextualActions": {
+            "description": "Event to be dispatched when card context actions icon is clicked",
+            "bubbles": true,
+            "detail": {
+                "keyAttribute": {
+                    "description": "Key attribute value for the card",
+                    "type": "string"
+                },
+                "alignId": {
+                    "description": "ID of the element wrt which the PCA popup would be aligned",
+                    "type": "string"
+                }
+            }
+        },
+        "cardActionsMenuEvent": {
+            "description": "Event to be raised when actions menu orange icon is clicked",
+            "bubbles": true,
+            "detail": {
+                "alignId": {
+                    "description": "ID of the element wrt which the PCA would be aligned",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "license": "https://opensource.org/licenses/UPL",
+    "extension": {
+        "catalog": {
+            "owner": "saurabh.s.mehta@oracle.com",
+            "status": "Beta",
+            "category": "Template",
+            "tags": ["card", "media card", "photo card"],
+            "coverImage": "extension/catalog/images/media-card-cover.png",
+            "screenshots": {"0":"extension/catalog/images/media-card-example1.png","1":"extension/catalog/images/media-card-example2.png"},
+            "demoLink": "http://ux.us.oracle.com/Prototypes/UX_Demos/saurabh/demos/hcm-jet-integ/hcm-jet-integ/dist/FndOverview.html"
+        }
+    }
+}

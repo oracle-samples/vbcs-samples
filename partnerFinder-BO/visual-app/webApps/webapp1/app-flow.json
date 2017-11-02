@@ -1,0 +1,108 @@
+{
+    "applicationModelVersion": "0.9.8",
+    "id": "starter",
+    "description": "Partner Program Application",
+    "shellPage": "shell",
+    "defaultPage": "partner-program",
+    "pages": [
+        "start",
+        "partner-finder",
+        "partner-program",
+        "partner-apply",
+        "partner-benefits",
+        "partner-portal-login",
+        "partner-training",
+        "partner-services"
+    ],
+    "chains": {},
+    "services": {
+        "businessObjects": "../../services/businessObjects/service.json"
+    },
+    "types": {
+        "partnerType": {
+            "items": {
+                "id": "number",
+                "creationDate": "string",
+                "lastUpdateDate": "string",
+                "createdBy": "string",
+                "lastUpdatedBy": "string",
+                "abcsChangeNumber": "number",
+                "companyNumber": "string",
+                "organizationName": "string",
+                "addressLineOne": "string",
+                "addressLineTwo": "string",
+                "country": "string",
+                "city": "string",
+                "state": "string",
+                "postalCode": "string",
+                "status": "string",
+                "synergy": "string",
+                "phone": "string",
+                "url": "string",
+                "email": "string",
+                "organizationSize": "string",
+                "stockSymbol": "string",
+                "tierId": "number",
+                "logoUrl": "string",
+                "tier": {
+                    "items": {
+                        "id": "number",
+                        "creationDate": "string",
+                        "lastUpdateDate": "string",
+                        "createdBy": "string",
+                        "lastUpdatedBy": "string",
+                        "abcsChangeNumber": "number",
+                        "name": "string",
+                        "description": "string",
+                        "ranking": "number",
+                        "deleteFlag": "boolean"
+                    }
+                },
+                "partnerFocusAreaCollect": {
+                    "items": {
+                        "id": "number",
+                        "creationDate": "string",
+                        "lastUpdateDate": "string",
+                        "createdBy": "string",
+                        "lastUpdatedBy": "string",
+                        "abcsChangeNumber": "number",
+                        "partnerId": "number",
+                        "focusAreaId": "number",
+                        "effectiveDateStart": "string",
+                        "effectiveDateEnd": "string",
+                        "focusArea": {
+                            "items": {
+                                "id": "number",
+                                "creationDate": "string",
+                                "lastUpdateDate": "string",
+                                "createdBy": "string",
+                                "lastUpdatedBy": "string",
+                                "abcsChangeNumber": "number",
+                                "name": "string",
+                                "description": "string",
+                                "activeFlag": "boolean",
+                                "positionNumber": "number",
+                                "focusAreaParentId": "number"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "variables": {
+        "userLogin": {
+            "type": "string",
+            "defaultValue": "Matt Hooper"
+        },
+        "appName": {
+            "type": "string",
+            "defaultValue": "Partners"
+        },
+        "partnerSearchCriteria": {
+            "type": {
+                "partnerName": "string"
+            }
+        }
+    }
+}

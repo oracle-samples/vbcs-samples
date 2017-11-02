@@ -1,0 +1,53 @@
+{
+    "pageModelVersion": "0.9.8",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {
+        "partnerId": {
+            "type": "string",
+            "input": "fromUrl"
+        },
+        "partnerDetails": {
+            "type": "application:get_partners"
+        }
+    },
+    "chains": {
+        "fetchPartnerDetail": {
+            "root": "rest1",
+            "actions": {
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "Partner/get_partners",
+                        "uriParams": {
+                            "partners_Id": "{{ $page.variables.partnerId }}"
+                        },
+                        "responseType": "application:get_partners"
+                    },
+                    "outcomes": {
+                        "success": "assignVariables1"
+                    }
+                },
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.partnerDetails": {
+                            "source": "{{ $chain.results.rest1 }}"
+                        }
+                    }
+                }
+            },
+            "description": ""
+        }
+    },
+    "eventListeners": {
+        "vbEnter": [
+            {
+                "chainId": "fetchPartnerDetail",
+                "parameters": {}
+            }
+        ]
+    },
+    "imports": {}
+}

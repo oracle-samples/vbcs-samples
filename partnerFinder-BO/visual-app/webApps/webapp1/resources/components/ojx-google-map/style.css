@@ -1,0 +1,12 @@
+ojx-google-map:not(.oj-complete){
+    visibility: hidden;
+}
+
+ojx-google-map{
+    display:block;
+}
+
+ojx-google-map mapframe {
+    border: none;
+    border-style: none;
+}

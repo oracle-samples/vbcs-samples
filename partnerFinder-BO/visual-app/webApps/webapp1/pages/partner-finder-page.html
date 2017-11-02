@@ -1,0 +1,97 @@
+<div class="oj-flex-items-pad" style="max-width: 1400px; margin: auto;">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-4">
+            <div class="oj-panel" id="div-joindiv" style="border: none;">               
+                <div class="oj-flex-items-pad">
+                    <div class="oj-flex">
+                        <div class="oj-flex-item oj-sm-12 oj-md-12">
+                            <h2 id="h1-1526743879-1">Grow your business!</h2>
+                            <p id="p-1526743879-1">Join our ever growing community of valued partners and expand your business along with us.</p>
+                        </div></div>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item oj-sm-12 oj-md-12">
+                            <oj-button class="oj-button-primary" id="oj-button-1526743879-1" chroming="full" on-click="[[$listeners.ojButton15267438791Click]]">Join Our Partner Program</oj-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-8">
+            <img id="img-1526743879-1" src="resources/images/lots-of-people.jpg" width="100%" style="-webkit-mask-image:-webkit-gradient(linear, 50% top, left top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0))); max-height: 300px;">
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-8">
+            <div class="oj-panel" id="div-1526743879-1" style="margin-top: 24px; margin-bottom: 16px;">
+                <div class="oj-flex-items-pad">
+                    <div class="oj-flex">
+                        <div class="oj-flex-item oj-sm-12 oj-md-10">
+                            <oj-input-text style="max-width: 1024px;" id="oj-input-text-1526743879-1" value="{{ $application.variables.partnerSearchCriteria.partnerName }}" placeholder="Search by partner name"></oj-input-text>
+                        </div>
+                        <div class="oj-flex-item oj-sm-12 oj-md-2">
+                            <oj-button id="oj-button-1526743879-2" display="icons" chroming="outlined" on-click="[[$listeners.ojButton15267438792Click]]">Search</oj-button>
+                        </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-8">
+         <div id="listview-container">
+            <oj-list-view id="oj-list-view-1526743879-1" data="{{ $variables.partnerList }}" selection-mode="single" scroll-policy="loadMoreOnScroll" scroll-policy-options.fetch-size="5" style="width:100%;height:600px;overflow:auto" on-selection-changed="[[$listeners.ojListView15267438791Selection]]">
+                <template slot="itemTemplate">
+                    <div class="oj-flex-items-pad">
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                    <div class="oj-flex-items-pad">
+                                        <div class="oj-flex"></div>
+                                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                                <img id="img-logo" :src="[[ $current.data.logoUrl ]]" height="64" style="max-width: 100px;">
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-7">
+                                <p>
+                                    </p><h3 id="h-partnername"><oj-bind-text value="[[$current.data.organizationName]]"></oj-bind-text></h3>
+                                <p></p>
+                                <p id="p-1526743879-1"><oj-bind-text value="[[$current.data.synergy]]"></oj-bind-text></p>
+                                <!--<p>
+                                    Specializes in: <oj-bind-text value="[[$current.data.companyNumber]]"></oj-bind-text>
+                                </p> -->
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                    <div class="oj-flex-items-pad">
+                                        <div class="oj-flex"></div>
+                                            <div class="oj-flex-item oj-sm-12 oj-md-2" style="margin: auto;">
+                                                <img id="img-badge" :src="[[ 'resources/images/tier' + $current.data.tierId + '.png']]" width="64" height="64">
+                                            </div>
+                                             
+                                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                                <p id="p-tierlevel"><oj-bind-text value="[[$current.data.tier_name]]"></oj-bind-text></p>
+                                            </div>  
+                                    </div>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-1">
+                                    <div class="oj-flex-items-pad">
+                                        <div class="oj-flex"></div>
+                                            <div class="oj-flex-item oj-sm-12 oj-md-2" style="margin: auto;">
+                                                <i class="fa fa-lg fa-map-marker icon-left" aria-hidden="true" style="color: #D4A017; padding-top: 10px;"></i>
+                                            </div>
+                                            <div class="oj-flex-item oj-sm-12 oj-md-2" style="margin: auto;">
+                                                <i class="fa fa-lg fa-globe icon-left" aria-hidden="true" style="color: #D4A017; padding-top: 10px;"></i>
+                                            </div>
+                                            <div class="oj-flex-item oj-sm-12 oj-md-2" style="margin: auto;">
+                                                <i class="fa fa-lg fa-envelope icon-left" aria-hidden="true" style="color: #D4A017; padding-top: 10px;"></i>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div></template>
+            </oj-list-view>
+            </div>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-4">
+            <ojx-google-map style="min-height: 600px" id="ojx-google-map-1526743879-1" api-key="AIzaSyAIAD99tu0obwiRkwC_inZqfWB33u_gJ5w" address="{{ $variables.selectedAddress }}"></ojx-google-map>
+        </div>
+    </div>
+</div>

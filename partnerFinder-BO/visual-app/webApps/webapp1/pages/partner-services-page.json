@@ -1,0 +1,16 @@
+{
+    "pageModelVersion": "0.9.8",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {},
+    "chains": {
+        "someActionChain": {
+            "description": "",
+            "variables": {},
+            "root": "",
+            "actions": {}
+        }
+    },
+    "eventListeners": {},
+    "imports": {}
+}

@@ -1,0 +1,43 @@
+{
+    "applicationModelVersion": "0.9.8",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "start",
+    "pages": [
+        "start",
+        "partners",
+        "new-page",
+        "CreatePartners"
+    ],
+    "chains": {},
+    "services": {
+        "Partner": "../../resources/services/Partner.json"
+    },
+    "types": {
+        "getallPartnersResponse": {
+            "items": [
+                {
+                    "CompanyNumber": "string",
+                    "EmailAddress": "string",
+                    "FormattedAddress": "string",
+                    "IndustryName": "string",
+                    "OrganizationName": "string",
+                    "OrganizationSize": "string",
+                    "PhoneAreaCode": "string",
+                    "PhoneNumber": "string",
+                    "PostalCode": "string",
+                    "Synergy": "string",
+                    "URL": "string"
+                }
+            ]
+        },
+        "create_partnersRequest": {
+            "AddressLineOne": "string",
+            "AddressLineTwo": "string",
+            "BusinessScope": "string",
+            "EmailAddress": "string"
+        }
+    },
+    "variables": {}
+}

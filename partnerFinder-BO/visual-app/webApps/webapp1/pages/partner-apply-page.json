@@ -1,0 +1,71 @@
+{
+    "pageModelVersion": "0.9.8",
+    "title": "Partner Application",
+    "description": "Apply to join our partner program",
+    "variables": {
+        "partnerData": {
+            "type": "application:partnerType"
+        }
+    },
+    "chains": {
+        "createPartnerChain": {
+            "root": "callCreatePartner",
+            "actions": {
+                "callCreatePartner": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "Partner/create_partners",
+                        "uriParams": {},
+                        "body": "{{ $page.variables.partnerData }}"
+                    },
+                    "outcomes": {
+                        "success": "showSuccessMessage",
+                        "failure": "getErrorResponse"
+                    }
+                },
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction",
+                    "outcomes": {
+                        "success": ""
+                    }
+                },
+                "getErrorResponse": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "outcomes": {
+                        "success": "handleError"
+                    }
+                },
+                "handleError": {
+                    "module": "vb/action/builtin/callModuleFunctionAction",
+                    "parameters": {
+                        "functionName": "message",
+                        "module": "{{ $page.functions }}",
+                        "params": []
+                    }
+                },
+                "showSuccessMessage": {
+                    "module": "vb/action/builtin/fireNotificationAction",
+                    "outcomes": {
+                        "ok": "navigateBack1"
+                    },
+                    "parameters": {
+                        "message": "Thank you for submitting your application to join the partner program. A representative will contact you soon.",
+                        "type": "info",
+                        "displayMode": "short"
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton11071521211Click": {
+            "chains": [
+                {
+                    "chainId": "createPartnerChain"
+                }
+            ]
+        }
+    },
+    "imports": {}
+}

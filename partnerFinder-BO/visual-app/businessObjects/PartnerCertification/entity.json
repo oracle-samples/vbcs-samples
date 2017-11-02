@@ -1,0 +1,109 @@
+{
+    "fields": [
+        {
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "88be7554-d437-497d-96ae-461bf2228024",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "id": "creationDate",
+            "internal": true,
+            "oid": "bf35af64-4198-405d-afcc-2f6357d7bed4",
+            "singularName": "Created",
+            "type": "datetime"
+        },
+        {
+            "id": "lastUpdateDate",
+            "internal": true,
+            "oid": "139aa6c0-8f2a-40a5-bbed-52fb23ae5d47",
+            "singularName": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "id": "createdBy",
+            "internal": true,
+            "oid": "70006883-e431-4649-9cb8-71b5fc5affee",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "oid": "70f8f101-4df7-4a66-8b51-8e2ace2b9afb",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "oid": "1e1d6e42-4976-461d-91c8-261f5e330795",
+            "singularName": "<internal>",
+            "type": "number"
+        },
+        {
+            "id": "partnerId",
+            "required": true,
+            "singularName": "Partner",
+            "type": "reference",
+            "unique": false
+        },
+        {
+            "id": "certificationId",
+            "required": true,
+            "singularName": "Certification",
+            "type": "reference",
+            "unique": false
+        },
+        {
+            "id": "effectiveDateStart",
+            "oid": "558a9f73-056c-4e2c-9754-470bd899dcf6",
+            "singularName": "effectiveDateStart",
+            "type": "date"
+        },
+        {
+            "id": "certificationExpiration",
+            "oid": "a523e71d-88f5-4aa8-ae9a-4701932e3521",
+            "singularName": "certificationExpiration",
+            "type": "date"
+        }
+    ],
+    "id": "PartnerCertification",
+    "oid": "fd39bca4-7a9b-49e5-bab8-ada4f66f01be",
+    "relations": [
+        {
+            "accessorId": "partner",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "companyNumber",
+            "deleteRule": "restrict",
+            "mappingFieldId": "partnerId",
+            "derivedRelationInfoMap": {
+                "$reverse": {
+                    "accessorId": "partnerCertificationCol"
+                }
+            },
+            "sourceEntityId": "PartnerCertification",
+            "targetEntityId": "Partner"
+        },
+        {
+            "accessorId": "certification",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "certificationName",
+            "deleteRule": "restrict",
+            "mappingFieldId": "certificationId",
+            "derivedRelationInfoMap": {
+                "$reverse": {
+                    "accessorId": "partnerCertificationCol"
+                }
+            },
+            "sourceEntityId": "PartnerCertification",
+            "targetEntityId": "Certification"
+        }
+    ],
+    "singularName": "Partner_Certification"
+}

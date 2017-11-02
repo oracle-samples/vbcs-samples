@@ -1,0 +1,77 @@
+{
+    "fields": [
+        {
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "a20ca7db-5286-4ac8-950b-72fb398a9814",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "id": "creationDate",
+            "internal": true,
+            "oid": "6d1b8170-d5d4-49b2-be1b-4d7dfa918fce",
+            "singularName": "Created",
+            "type": "datetime"
+        },
+        {
+            "id": "lastUpdateDate",
+            "internal": true,
+            "oid": "d5815aad-9c85-44a5-b00e-f9e0580f6451",
+            "singularName": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "id": "createdBy",
+            "internal": true,
+            "oid": "d3ea82f6-7aa8-486c-be66-11d785777b2e",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "oid": "17940b82-3885-40c2-b4e5-114abc91c3a6",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "oid": "8d87c4a9-6cda-4fdd-8e58-173e6b3a359a",
+            "singularName": "<internal>",
+            "type": "number"
+        },
+        {
+            "id": "certificationCode",
+            "oid": "44a280ec-9cd6-45ab-88a7-75cbd9d95311",
+            "singularName": "certificationCode",
+            "type": "string"
+        },
+        {
+            "id": "certificationName",
+            "oid": "4206a8e5-c6bf-4039-a571-cf6e61357f67",
+            "singularName": "certificationName",
+            "type": "string"
+        },
+        {
+            "id": "description",
+            "oid": "999c65cb-fdc2-414a-b330-1e95645e1f3d",
+            "singularName": "description",
+            "type": "string"
+        },
+        {
+            "id": "activeFlag",
+            "oid": "c186137a-4782-43cb-8ae1-58eed7db9f3a",
+            "singularName": "activeFlag",
+            "type": "boolean"
+        }
+    ],
+    "id": "Certification",
+    "oid": "1b36f03b-aba8-4f57-a8f9-db15e66c9043",
+    "singularName": "Certification"
+}

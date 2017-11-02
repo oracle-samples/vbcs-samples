@@ -1,0 +1,33 @@
+{
+    "name": "ojx-google-map",
+    "displayName": "Component to embed a Google map",
+    "version": "1.0.0",
+    "description": "A component which will display a Google map focused on a particular location ",
+    "jetVersion": ">=2.3.0",
+    "icon": {
+        "iconPath": "extension/images/map_ena.png",
+        "hoverIconPath": "extension/images/map_hov.png"
+    },
+    "properties": {
+        "address": {
+            "type": "string",
+            "description": "The location to pinpoint on the map",
+            "writeback":false
+        },
+        "apiKey" : {
+            "type" : "string", 
+            "description":"Google Maps API key (See README.md). (Required)", 
+            "writeback":false
+        }
+    },
+    "extension": {
+        "catalog": {
+            "category": "Visualization",
+            "tags": ["Map"],
+            "owners": [
+                "duncan.mills@oracle.com"
+            ],
+            "coverImage": "extension/images/coverimage.png"
+        }
+    }
+}
