@@ -100,7 +100,11 @@
           "module": "vb/action/builtin/fireDataProviderEventAction",
           "parameters": {
             "target": "{{ $page.variables.personList }}",
-            "refresh": null
+            "add": {
+              "data": {
+                "items": "{{ [$chain.results.createPersonPost.body] }}"
+              }
+            }
           }
         }
       }
