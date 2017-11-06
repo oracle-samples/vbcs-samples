@@ -7,7 +7,7 @@
       "type": "vb/ServiceDataProvider",
       "input": "none",
       "defaultValue": {
-        "endpoint": "person/getall_Person",
+        "endpoint": "EmployeeService/getall_Person",
         "idAttribute": "id",
         "itemsPath": "items",
         "fetchChainId": "fetchPeopleListChain"
@@ -37,7 +37,7 @@
         "fetchPeopleList": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "person/getall_Person",
+            "endpoint": "EmployeeService/getall_Person",
             "hookHandler": "{{ $variables.configuration.hookHandler }}"
           },
           "outcomes": {
@@ -89,7 +89,7 @@
         "createPersonPost": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "person/create_Person",
+            "endpoint": "EmployeeService/create_Person",
             "body": "{{ $page.variables.newPerson }}"
           },
           "outcomes": {
@@ -97,14 +97,10 @@
           }
         },
         "updateList": {
-          "module": "vb/action/builtin/callModuleFunctionAction",
+          "module": "vb/action/builtin/fireDataProviderEventAction",
           "parameters": {
-            "module": "{{ $page.functions }}",
-            "functionName": "updateList",
-            "params": [
-              "{{$page.variables.personList}}",
-              "{{$chain.results.createPersonPost.body}}"
-            ]
+            "target": "{{ $page.variables.personList }}",
+            "refresh": null
           }
         }
       }

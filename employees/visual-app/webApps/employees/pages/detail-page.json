@@ -27,7 +27,7 @@
         "restGetPerson": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "person/get_Person",
+            "endpoint": "EmployeeService/get_Person",
             "uriParams": {
               "Person-Id": "{{ $page.variables.personId }}"
             }
@@ -52,7 +52,7 @@
         "restGetCompanies": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "company/getall_Company"
+            "endpoint": "EmployeeService/getall_Company"
           },
           "outcomes": {
             "success": "setCompanyPickListValues"
@@ -78,7 +78,7 @@
         "saveIncident": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "person/update_Person",
+            "endpoint": "EmployeeService/update_Person",
             "uriParams": {
               "Person-Id": "{{ $page.variables.personId }}"
             },

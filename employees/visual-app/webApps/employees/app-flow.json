@@ -7,8 +7,7 @@
   "pages": [ "start" ],
   "chains": {},
   "services": {
-    "person": "../../resources/businessObjects/Person.json",
-    "company": "../../resources/businessObjects/Company.json"
+    "EmployeeService": "../../services/businessObjects/service.json"
   },
   "types": {
     "person": {
