@@ -2,9 +2,9 @@
 
 Each directory of this repository represents an example that can be used within VB.
 
-<sample_name>
-+ visual-app
-+ data
+  <sample_name>
+  + visual-app
+  + data
 
 Within each directory, the contents of the 'visual-app' directory can be imported to an existing
 app via the 'import resources' feature of VB.
