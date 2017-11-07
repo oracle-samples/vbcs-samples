@@ -1,0 +1,4 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,firstname,lastname,email,phone,birthday
+1,2017-11-03T18:05:07,2017-11-03T22:09:30,brian.fry@oracle.com,brian.fry@oracle.com,Andrea,Adams,andrea.adams@gmail.com,410-771-4741,1972-06-14
+2,2017-11-03T18:06:14,2017-11-03T18:06:14.008,brian.fry@oracle.com,brian.fry@oracle.com,John,Johnson,jjohnson@foo.com,252.151.7782,1980-02-03
+3,2017-11-03T18:07:20,2017-11-03T18:07:20.004,brian.fry@oracle.com,brian.fry@oracle.com,Mary,Graham,mary@yahoo.com,(131) 814-5552,1969-04-06

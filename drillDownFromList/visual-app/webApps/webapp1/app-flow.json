@@ -1,0 +1,34 @@
+{
+    "applicationModelVersion": "0.9.9",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "contact-list",
+    "pages": [
+        "contact-detail",
+        "contact-list"
+    ],
+    "chains": {},
+    "services": {
+        "businessObjects": "../../services/businessObjects/service.json"
+    },
+    "types": {
+        "contactSummaryType": {
+            "items": [
+                {
+                    "firstname": "string",
+                    "lastname": "string",
+                    "id": "number"
+                }
+            ]
+        },
+        "contactDetailType": {
+            "firstname": "string",
+            "lastname": "string",
+            "email": "string",
+            "phone": "string",
+            "birthday": "string"
+        }
+    },
+    "variables": {}
+}

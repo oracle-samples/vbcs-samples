@@ -1,0 +1,32 @@
+
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h2 id="h1--108481433-1">Contacts</h2>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-list-view id="oj-list-view--108481433-1" data="{{ $page.variables.contactList }}">
+                <template slot="itemTemplate">
+                    <div class="oj-flex-items-pad">
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <p>
+                                    <oj-bind-text value="[[$current.data.firstname]]"></oj-bind-text>
+                                </p>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <p>
+                                    <oj-bind-text value="[[$current.data.lastname]]"></oj-bind-text>
+                                </p>
+                            </div>
+                             <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <a id="a--108481433-1" target="_blank" data-bind="click: function(e) { $listeners.ojButton1084814331Click(e, $current); }">Details</a>
+                            </div>
+                        </div>
+                    </div></template>
+            </oj-list-view>
+        </div>
+    </div>
+</div>
