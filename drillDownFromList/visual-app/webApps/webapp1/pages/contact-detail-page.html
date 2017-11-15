@@ -1,0 +1,21 @@
+
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-10">
+            <h3 id="h1--1532674726-2"><oj-bind-text value="[[ 'Contact details for ' + $page.variables.contactDetail.firstname + ' ' + $page.variables.contactDetail.lastname ]]"></oj-bind-text></h3>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-2">
+            <oj-button id="oj-button--1532674726-1" on-click="[[$listeners.ojButton15326747261Click]]">Back</oj-button>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout--1532674726-1" label-edge="start">
+                <oj-input-text id="oj-input-text--1532674726-1" style="" label-hint="First Name:" readonly="true" value="[[ $page.variables.contactDetail.firstname ]]"></oj-input-text>
+                <oj-input-text id="oj-input-text--1532674726-2" style="" label-hint="Last Name:" readonly="true" value="[[ $page.variables.contactDetail.lastname ]]"></oj-input-text>
+                <oj-input-text id="oj-input-text--1532674726-3" style="" label-hint="Email:" readonly="true" value="[[ $page.variables.contactDetail.email ]]"></oj-input-text>
+                <oj-input-text id="oj-input-text--1532674726-4" style="" label-hint="Phone:" readonly="true" value="[[ $page.variables.contactDetail.phone ]]"></oj-input-text>
+                <oj-input-text id="oj-input-text--1532674726-5" style="" label-hint="Birthday:" readonly="true" value="[[ $page.variables.contactDetail.birthday ]]"></oj-input-text></oj-form-layout>
+        </div>
+    </div>
+</div>

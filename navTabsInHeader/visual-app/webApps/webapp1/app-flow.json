@@ -1,0 +1,22 @@
+{
+    "applicationModelVersion": "0.9.9",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "home",
+    "pages": [
+        "home",
+        "about",
+        "customers",
+        "incidents"
+    ],
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {
+        "appName": {
+            "type": "string",
+            "defaultValue": "Navigation Demo"
+        }
+    }
+}

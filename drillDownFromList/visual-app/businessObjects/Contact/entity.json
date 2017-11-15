@@ -1,0 +1,83 @@
+{
+    "fields": [
+        {
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "2a883a6f-1067-4fc4-af53-8123c8234d3a",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "id": "creationDate",
+            "internal": true,
+            "oid": "93c04062-2018-4c1c-b5c1-43fbb39ced80",
+            "singularName": "Created",
+            "type": "datetime"
+        },
+        {
+            "id": "lastUpdateDate",
+            "internal": true,
+            "oid": "19fdcaf6-36ff-40ce-af8b-538353686683",
+            "singularName": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "id": "createdBy",
+            "internal": true,
+            "oid": "e3aa8687-a91c-4b5f-8e79-01f0b2829bd9",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "oid": "2ed4d7a4-cb14-4c26-9675-f33a7fff00da",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "oid": "c4ecedeb-53b8-42fe-ae0e-989f83cf6be1",
+            "singularName": "<internal>",
+            "type": "number"
+        },
+        {
+            "id": "firstname",
+            "oid": "923dd9ab-8b1b-4ccb-8954-4778285ffa3f",
+            "singularName": "firstname",
+            "type": "string"
+        },
+        {
+            "id": "lastname",
+            "oid": "94d48f3b-0651-47cf-9819-2d4105c20964",
+            "singularName": "lastname",
+            "type": "string"
+        },
+        {
+            "id": "email",
+            "oid": "4c895c55-9ec2-4a05-957c-e89f52554533",
+            "singularName": "email",
+            "type": "string"
+        },
+        {
+            "id": "phone",
+            "oid": "133797a8-f73b-4b56-ae54-bfd45c7304f3",
+            "singularName": "phone",
+            "type": "string"
+        },
+        {
+            "id": "birthday",
+            "oid": "1b9d5df8-f98f-4f50-b20c-711f705a0ed2",
+            "singularName": "birthday",
+            "type": "date"
+        }
+    ],
+    "id": "Contact",
+    "oid": "e49c2c56-0498-43d2-ae00-87f578dc9154",
+    "singularName": "Contact"
+}
