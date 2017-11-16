@@ -29,7 +29,7 @@
           "parameters": {
             "endpoint": "EmployeeService/get_Person",
             "uriParams": {
-              "Person-Id": "{{ $page.variables.personId }}"
+              "Person_Id": "{{ $page.variables.personId }}"
             }
           },
           "outcomes": {
@@ -80,7 +80,7 @@
           "parameters": {
             "endpoint": "EmployeeService/update_Person",
             "uriParams": {
-              "Person-Id": "{{ $page.variables.personId }}"
+              "Person_Id": "{{ $page.variables.personId }}"
             },
             "body": "{{ $page.variables.person }}"
           },
