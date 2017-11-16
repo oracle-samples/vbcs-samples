@@ -1,0 +1,174 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "My start page",
+    "description": "The starting page of the app",
+    "variables": {
+        "contactListServiceDataProvider": {
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Contact",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallContactResponse"
+            },
+            "type": "vb/ServiceDataProvider"
+        },
+        "selectedRowId": {
+            "type": "string"
+        }
+    },
+    "chains": {
+        "navigateToCreateContactChain": {
+            "root": "navigateToCreate",
+            "actions": {
+                "navigateToCreate": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "create-contact",
+                        "params": {}
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "navigateToDetails": {
+            "description": "",
+            "variables": {},
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "contact-detail",
+                        "params": {
+                            "currentId": "{{ $page.variables.selectedRowId }}"
+                        }
+                    }
+                }
+            }
+        },
+        "updateSelectedRow": {
+            "description": "",
+            "variables": {},
+            "root": "assignVariables1",
+            "actions": {
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.selectedRowId": {
+                            "source": "{{ $event.detail.value[0] }}"
+                        }
+                    }
+                }
+            }
+        },
+        "navigateToEdit": {
+            "description": "",
+            "variables": {},
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "edit-contact",
+                        "params": {
+                            "contactId": "{{ $page.variables.selectedRowId }}"
+                        }
+                    }
+                }
+            }
+        },
+        "deleteContact": {
+            "description": "",
+            "variables": {
+                "contactId": {
+                    "type": "string",
+                    "input": "fromCaller"
+                }
+            },
+            "root": "rest1",
+            "actions": {
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/delete_Contact",
+                        "uriParams": {
+                            "Contact_Id": "{{ $chain.variables.contactId }}"
+                        }
+                    },
+                    "outcomes": {
+                        "success": "fireDataProviderEvent1"
+                    }
+                },
+                "fireDataProviderEvent1": {
+                    "module": "vb/action/builtin/fireDataProviderEventAction",
+                    "parameters": {
+                        "target": "{{ $page.variables.contactListServiceDataProvider }}",
+                        "refresh": null
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "createContactButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "navigateToCreateContactChain"
+                }
+            ]
+        },
+        "ojButton9791137282Click": {
+            "chains": [
+                {
+                    "chainId": "navigateToDetails"
+                }
+            ]
+        },
+        "ojListView9791137281Selection": {
+            "chains": [
+                {
+                    "chainId": "updateSelectedRow"
+                }
+            ]
+        },
+        "ojButton9791137283Click": {
+            "chains": [
+                {
+                    "chainId": "navigateToEdit"
+                }
+            ]
+        },
+        "ojButton9791137284Click": {
+            "chains": [
+                {
+                    "chainId": "deleteContact",
+                    "parameters": {
+                        "contactId": "{{ $page.variables.selectedRowId }}"
+                    }
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-list-view": {
+                "path": "ojs/ojlistview"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-9">
+            <h2 id="h1--1865488615-1">Edit Contact </h2>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-toolbar chroming="full" id="oj-toolbar--1865488615-1">
+                <oj-button id="oj-button--1865488615-1" class="oj-button-primary" on-click="[[$listeners.ojButton18654886151Click]]">Save</oj-button>
+                <oj-button id="oj-button--1865488615-2" on-click="[[$listeners.ojButton18654886152Click]]">Cancel</oj-button></oj-toolbar>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout--1865488615-2" label-edge="start">
+                <oj-input-text id="oj-input-text--1865488615-3" label-hint="ID" readonly="false" disabled="true" value="{{ $page.variables.contactData.id }}"></oj-input-text>
+                <oj-input-text id="oj-input-text--1865488615-4" label-hint="First Name" value="{{ $page.variables.contactData.firstname }}"></oj-input-text>
+                <oj-input-text id="oj-input-text--1865488615-5" label-hint="Last Name" value="{{ $page.variables.contactData.lastname }}"></oj-input-text>
+                <oj-input-text validators="[[[{type:&quot;regexp&quot;, options:{pattern:&quot;([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})&quot;, hint:&quot;Enter an email address.&quot;, messageDetail: &quot;Value must be of the form xxx@xxx.xx&quot;}}]]]" id="oj-input-text--1865488615-7" label-hint="Email" value="{{ $page.variables.contactData.email }}"></oj-input-text></oj-form-layout>
+        </div>
+    </div>
+</div>

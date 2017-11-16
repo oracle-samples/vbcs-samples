@@ -1,0 +1,95 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {
+        "contactDetail": {
+            "type": "application:get_ContactType"
+        },
+        "currentId": {
+            "type": "string",
+            "input": "fromUrl"
+        }
+    },
+    "chains": {
+        "returnBack": {
+            "description": "",
+            "variables": {},
+            "root": "navigateBack1",
+            "actions": {
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction"
+                }
+            }
+        },
+        "fetchContactDetails": {
+            "root": "rest1",
+            "actions": {
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/get_Contact",
+                        "uriParams": {
+                            "Contact_Id": "{{ $chain.variables.contactId }}"
+                        },
+                        "responseType": "application:get_ContactType"
+                    },
+                    "outcomes": {
+                        "success": "assignVariables1"
+                    }
+                },
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.contactDetail": {
+                            "source": "{{ $chain.results.rest1.body }}"
+                        }
+                    }
+                }
+            },
+            "description": "",
+            "variables": {
+                "contactId": {
+                    "type": "string",
+                    "input": "fromCaller"
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton15326747261Click": {
+            "chains": [
+                {
+                    "chainId": "returnBack"
+                }
+            ]
+        },
+        "vbEnter": {
+            "chains": [
+                {
+                    "chainId": "fetchContactDetails",
+                    "parameters": {
+                        "contactId": "{{ $page.variables.currentId }}"
+                    }
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-form-layout": {
+                "path": "ojs/ojformlayout"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            }
+        }
+    }
+}

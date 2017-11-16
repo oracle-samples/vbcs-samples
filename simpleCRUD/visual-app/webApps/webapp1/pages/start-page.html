@@ -1,0 +1,60 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar chroming="full" id="oj-toolbar-979113728-1">
+                <oj-button on-click="[[$page.listeners.createContactButtonClicked]]" id="oj-button-979113728-1" class="oj-button-primary">New Contact</oj-button>
+                <oj-button id="oj-button-979113728-2" on-click="[[$listeners.ojButton9791137282Click]]">Get Details</oj-button>
+                <oj-button id="oj-button-979113728-3" on-click="[[$listeners.ojButton9791137283Click]]">Edit</oj-button>
+                <oj-button id="oj-button-979113728-4" on-click="[[$listeners.ojButton9791137284Click]]">Delete</oj-button></oj-toolbar>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-list-view id="oj-list-view-979113728-1" data="[[$page.variables.contactListServiceDataProvider]]" selection-mode="single" on-selection-changed="[[$listeners.ojListView9791137281Selection]]">
+                <template slot="itemTemplate">
+                    <div class="oj-flex-items-pad">
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                <oj-label>id</oj-label>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <p>
+                                    <oj-bind-text value="[[$current.data['id']]]"></oj-bind-text>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                <oj-label>firstname</oj-label>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <p>
+                                    <oj-bind-text value="[[$current.data['firstname']]]"></oj-bind-text>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                <oj-label>email</oj-label>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <p>
+                                    <oj-bind-text value="[[$current.data['email']]]"></oj-bind-text>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-2">
+                                <oj-label>lastname</oj-label>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                                <p>
+                                    <oj-bind-text value="[[$current.data['lastname']]]"></oj-bind-text>
+                                </p>
+                            </div>
+                        </div>
+                    </div></template>
+            </oj-list-view>
+        </div>
+    </div>
+</div>

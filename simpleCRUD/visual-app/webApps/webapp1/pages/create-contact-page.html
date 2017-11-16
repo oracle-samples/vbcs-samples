@@ -1,0 +1,24 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1-2010777035-1">Contact</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout-2010777035-1" label-edge="start" max-columns="1">
+                <oj-input-text label-hint="email" value="{{ $page.variables.contact.email }}" id="oj-input-text-2010777035-1"></oj-input-text>
+                <oj-input-text label-hint="firstname" value="{{ $page.variables.contact.firstname }}" id="oj-input-text-2010777035-2"></oj-input-text>
+                <oj-input-text label-hint="lastname" value="{{ $page.variables.contact.lastname }}" id="oj-input-text-2010777035-3"></oj-input-text>
+            </oj-form-layout>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar id="oj-toolbar-2010777035-1" chroming="full">
+                <oj-button id="oj-button-2010777035-1" on-click="[[$page.listeners.saveButtonClicked]]">Save</oj-button>
+                <oj-button id="oj-button-2010777035-2" on-click="[[$page.listeners.backButtonClicked]]">Back</oj-button>
+            </oj-toolbar>
+        </div>
+    </div>
+</div>

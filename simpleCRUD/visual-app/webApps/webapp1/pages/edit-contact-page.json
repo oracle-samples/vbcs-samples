@@ -1,0 +1,150 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {
+        "contactId": {
+            "type": "string",
+            "input": "fromUrl"
+        },
+        "contactData": {
+            "type": "application:update_ContactType"
+        }
+    },
+    "chains": {
+        "fetchContactInfo": {
+            "root": "rest1",
+            "actions": {
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/get_Contact",
+                        "uriParams": {
+                            "Contact_Id": "{{ $chain.variables.contactId }}"
+                        },
+                        "responseType": "application:update_ContactType"
+                    },
+                    "outcomes": {
+                        "success": "assignVariables1"
+                    }
+                },
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.contactData": {
+                            "source": "{{ $chain.results.rest1.body }}"
+                        }
+                    }
+                }
+            },
+            "description": "",
+            "variables": {
+                "contactId": {
+                    "type": "string",
+                    "input": "fromCaller"
+                }
+            }
+        },
+        "navigateBack": {
+            "description": "",
+            "variables": {},
+            "root": "navigateBack1",
+            "actions": {
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction"
+                }
+            }
+        },
+        "updateContact": {
+            "description": "",
+            "variables": {},
+            "root": "rest1",
+            "actions": {
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/update_Contact",
+                        "responseType": "application:update_ContactType",
+                        "uriParams": {
+                            "Contact_Id": "{{ $page.variables.contactData.id }}"
+                        },
+                        "body": "{{ $page.variables.contactData }}"
+                    },
+                    "outcomes": {
+                        "success": "fireNotificationEvent1",
+                        "failure": "fireNotificationEvent2"
+                    }
+                },
+                "fireNotificationEvent1": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "Contact Updated",
+                        "displayMode": "transient",
+                        "type": "info"
+                    },
+                    "outcomes": {
+                        "success": "navigateBack1"
+                    }
+                },
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction"
+                },
+                "fireNotificationEvent2": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "Failed to update contact",
+                        "displayMode": "persist",
+                        "type": "error"
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "vbEnter": {
+            "chains": [
+                {
+                    "chainId": "fetchContactInfo",
+                    "parameters": {
+                        "contactId": "{{ $page.variables.contactId }}"
+                    }
+                }
+            ]
+        },
+        "ojButton18654886152Click": {
+            "chains": [
+                {
+                    "chainId": "navigateBack"
+                }
+            ]
+        },
+        "ojButton18654886151Click": {
+            "chains": [
+                {
+                    "chainId": "updateContact"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-form-layout": {
+                "path": "ojs/ojformlayout"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            }
+        }
+    }
+}
