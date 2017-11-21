@@ -1,0 +1,71 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "My start page",
+    "description": "The starting page of the app",
+    "variables": {
+        "contactsListServiceDataProvider": {
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Contacts",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallContactsResponse",
+                "filterCriteria": []
+            },
+            "type": "vb/ServiceDataProvider"
+        },
+        "searchTerm": {
+            "type": "string"
+        }
+    },
+    "chains": {
+        "filterRows": {
+            "description": "",
+            "variables": {},
+            "root": "assignVariables1",
+            "actions": {
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.contactsListServiceDataProvider.filterCriteria": {
+                            "source": [
+                                {
+                                    "attribute": "lastname",
+                                    "op": "co",
+                                    "value": "{{ $page.variables.searchTerm }}"
+                                }
+                            ]
+                        }
+                    },
+                    "outcomes": {
+                        "success": "fireDataProviderEvent1"
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton9791137281Click": {
+            "chains": [
+                {
+                    "chainId": "filterRows"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-list-view": {
+                "path": "ojs/ojlistview"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            }
+        }
+    }
+}

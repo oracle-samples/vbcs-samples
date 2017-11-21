@@ -1,0 +1,31 @@
+{
+    "applicationModelVersion": "1.0.0",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "start",
+    "pages": [
+        "start"
+    ],
+    "chains": {},
+    "services": {
+        "businessObjects": "../../services/businessObjects/service.json"
+    },
+    "types": {
+        "getallContactsResponse": {
+            "items": [
+                {
+                    "id": "number",
+                    "firstname": "string",
+                    "lastname": "string",
+                    "email": "string"
+                }
+            ]
+        }
+    },
+    "variables": {},
+    "userConfig": {
+        "type": "vb/UserSecurityProvider",
+        "configuration": {}
+    }
+}
