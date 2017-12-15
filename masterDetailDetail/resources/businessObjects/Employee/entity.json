@@ -1,0 +1,106 @@
+{
+    "fields": [
+        {
+            "hidden": false,
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "b7c3bcb5-3ce7-4f6b-8015-939b1e6c9a92",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "hidden": false,
+            "id": "creationDate",
+            "internal": true,
+            "key": false,
+            "oid": "bd2ef6c6-398b-4ab7-bde4-2fbc0b862316",
+            "singularName": "Creation Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdateDate",
+            "internal": true,
+            "key": false,
+            "oid": "1ed24caf-3fb1-4ac9-9dc7-991a02e2d267",
+            "singularName": "Last Update Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "createdBy",
+            "internal": true,
+            "key": false,
+            "oid": "3a0a73f5-e833-41a2-a2cc-5d9b4aff15ee",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "key": false,
+            "oid": "5f27a013-12eb-4d45-9cca-da4294189888",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "key": false,
+            "oid": "6a0767ba-79de-4076-a4dd-845906b96f42",
+            "singularName": "Update ID",
+            "type": "number"
+        },
+        {
+            "id": "firstname",
+            "oid": "d74b7867-2fae-40c0-b18e-927cb6dc2dff",
+            "singularName": "firstname",
+            "type": "string"
+        },
+        {
+            "id": "lastname",
+            "oid": "97e1b428-f42f-45d2-9fa1-05e9cefb1d3d",
+            "singularName": "lastname",
+            "type": "string"
+        },
+        {
+            "id": "title",
+            "oid": "e5ddff64-ed48-43d4-a952-f92d2b629085",
+            "singularName": "title",
+            "type": "string"
+        },
+        {
+            "id": "salary",
+            "oid": "ac40753b-831d-4af8-b6cc-4961b902aac0",
+            "singularName": "salary",
+            "type": "number"
+        },
+        {
+            "id": "hiredate",
+            "oid": "e85e0327-466d-4686-a043-723f26f0cb4f",
+            "singularName": "hiredate",
+            "type": "date"
+        },
+        {
+            "id": "isEmployed",
+            "oid": "fdb5335f-08df-4419-820f-f2dc18cbfadc",
+            "singularName": "isEmployed",
+            "type": "boolean"
+        },
+        {
+            "id": "department",
+            "oid": "abe00d78-d44f-44cd-8a84-330a452af53f",
+            "singularName": "department",
+            "type": "number"
+        }
+    ],
+    "hidden": false,
+    "id": "Employee",
+    "oid": "39f67d56-45c0-40b3-9c67-7942be3d4b76",
+    "singularName": "Employee"
+}

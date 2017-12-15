@@ -1,0 +1,159 @@
+{
+    "pageModelVersion": "18.1.1",
+    "title": "Employee Navigator",
+    "description": "The starting page of the app",
+    "variables": {
+        "departmentListServiceDataProvider": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Department",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallDepartmentResponse"
+            }
+        },
+        "selectedDepartment": {
+            "type": "number",
+            "onValueChanged": {
+                "chains": [
+                    {
+                        "chainId": "updateEmpFilter",
+                        "parameters": {}
+                    }
+                ]
+            }
+        },
+        "employeeListServiceDataProvider": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Employee",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallEmployeeResponse2",
+                "filterCriteria": [
+                    {
+                        "attribute": "department",
+                        "op": "eq",
+                        "value": "{{ $variables.selectedDepartment }}"
+                    }
+                ]
+            }
+        },
+        "currentEmployee": {
+            "type": "application:get_Employee"
+        },
+        "selectedEmployee": {
+            "type": "number",
+            "onValueChanged": {
+                "chains": [
+                    {
+                        "chainId": "getSelectedEmpDetails",
+                        "parameters": {}
+                    }
+                ]
+            }
+        }
+    },
+    "chains": {
+        "updateDeptSelection": {
+            "description": "",
+            "variables": {},
+            "root": "assignVariables1",
+            "actions": {
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.selectedDepartment": {
+                            "source": "{{ $event.detail.value[0] }}"
+                        }
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "getSelectedEmpDetails": {
+            "description": "",
+            "variables": {},
+            "root": "rest1",
+            "actions": {
+                "rest1": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/get_Employee",
+                        "uriParams": {
+                            "Employee_Id": "{{ $page.variables.selectedEmployee }}"
+                        },
+                        "responseType": "application:get_Employee"
+                    },
+                    "outcomes": {
+                        "success": "assignVariables1"
+                    }
+                },
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.currentEmployee": {
+                            "source": "{{ $chain.results.rest1.body }}"
+                        }
+                    }
+                }
+            }
+        },
+        "updateEmpSelection": {
+            "description": "",
+            "variables": {},
+            "root": "assignVariables1",
+            "actions": {
+                "assignVariables1": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.selectedEmployee": {
+                            "source": "{{ $event.detail.value[0].startKey.row }}"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojListView9791137281Selection": {
+            "chains": [
+                {
+                    "chainId": "updateDeptSelection"
+                }
+            ]
+        },
+        "ojTable9791137281Selection": {
+            "chains": [
+                {
+                    "chainId": "updateEmpSelection"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-list-view": {
+                "path": "ojs/ojlistview"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-input-number": {
+                "path": "ojs/ojinputnumber"
+            },
+            "oj-table": {
+                "path": "ojs/ojtable"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-input-date": {
+                "path": "ojs/ojdatetimepicker"
+            }
+        }
+    }
+}

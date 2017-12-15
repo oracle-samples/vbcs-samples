@@ -1,0 +1,251 @@
+[
+    {
+        "importStatus": "Import Complete",
+        "key": "import-zip-dev",
+        "messages": [
+            {
+                "file": "Department.csv",
+                "entityName": "Department",
+                "entity": "Department"
+            },
+            {
+                "file": "Employee.csv",
+                "entityName": "Employee",
+                "entity": "Employee"
+            }
+        ],
+        "timestamp": "2017-12-12T19:27:45.803",
+        "userId": "brian.fry@oracle.com"
+    },
+    {
+        "datatypeFailAction": "ERROR",
+        "entities": {
+            "Department": {
+                "model": {
+                    "fields": [
+                        {
+                            "hidden": false,
+                            "id": "id",
+                            "internal": true,
+                            "key": true,
+                            "oid": "36d7bcfa-23fd-4064-b6f0-fa1a0eacfa40",
+                            "required": true,
+                            "singularName": "Id",
+                            "type": "number",
+                            "unique": true
+                        },
+                        {
+                            "hidden": false,
+                            "id": "creationDate",
+                            "internal": true,
+                            "key": false,
+                            "oid": "6b2c2a87-3ce7-4816-80b6-93c56550b1a5",
+                            "singularName": "Creation Date",
+                            "type": "datetime"
+                        },
+                        {
+                            "hidden": false,
+                            "id": "lastUpdateDate",
+                            "internal": true,
+                            "key": false,
+                            "oid": "f9b0b5ec-c23e-4593-a618-2309ea0bb9ed",
+                            "singularName": "Last Update Date",
+                            "type": "datetime"
+                        },
+                        {
+                            "hidden": false,
+                            "id": "createdBy",
+                            "internal": true,
+                            "key": false,
+                            "oid": "7b6d261a-b8d5-4875-9512-8a8f9e8a528b",
+                            "singularName": "Created By",
+                            "type": "string"
+                        },
+                        {
+                            "hidden": false,
+                            "id": "lastUpdatedBy",
+                            "internal": true,
+                            "key": false,
+                            "oid": "ff8205e0-5f8a-4bbf-817b-0677de752eaf",
+                            "singularName": "Last Updated By",
+                            "type": "string"
+                        },
+                        {
+                            "hidden": true,
+                            "id": "abcsChangeNumber",
+                            "internal": true,
+                            "key": false,
+                            "oid": "c1a6f4eb-dda2-4ef7-93e0-5739d5356702",
+                            "singularName": "Update ID",
+                            "type": "number"
+                        },
+                        {
+                            "id": "name",
+                            "oid": "d82e5818-878a-4dac-8be6-cf6e2c9d3beb",
+                            "singularName": "name",
+                            "type": "string"
+                        },
+                        {
+                            "id": "location",
+                            "oid": "dbd8c73d-4526-4621-a952-4fb194506dd0",
+                            "singularName": "location",
+                            "type": "string"
+                        },
+                        {
+                            "id": "budget",
+                            "oid": "4d712ca2-cd6b-480b-aa4e-7a19d6b6ac6e",
+                            "singularName": "budget",
+                            "type": "number"
+                        }
+                    ],
+                    "hidden": true,
+                    "id": "Department",
+                    "oid": "31350417-c56e-485b-b6f9-092e7375e2ed",
+                    "singularName": "Department"
+                }
+            },
+            "Employee": {
+                "model": {
+                    "fields": [
+                        {
+                            "hidden": false,
+                            "id": "id",
+                            "internal": true,
+                            "key": true,
+                            "oid": "b7c3bcb5-3ce7-4f6b-8015-939b1e6c9a92",
+                            "required": true,
+                            "singularName": "Id",
+                            "type": "number",
+                            "unique": true
+                        },
+                        {
+                            "hidden": false,
+                            "id": "creationDate",
+                            "internal": true,
+                            "key": false,
+                            "oid": "bd2ef6c6-398b-4ab7-bde4-2fbc0b862316",
+                            "singularName": "Creation Date",
+                            "type": "datetime"
+                        },
+                        {
+                            "hidden": false,
+                            "id": "lastUpdateDate",
+                            "internal": true,
+                            "key": false,
+                            "oid": "1ed24caf-3fb1-4ac9-9dc7-991a02e2d267",
+                            "singularName": "Last Update Date",
+                            "type": "datetime"
+                        },
+                        {
+                            "hidden": false,
+                            "id": "createdBy",
+                            "internal": true,
+                            "key": false,
+                            "oid": "3a0a73f5-e833-41a2-a2cc-5d9b4aff15ee",
+                            "singularName": "Created By",
+                            "type": "string"
+                        },
+                        {
+                            "hidden": false,
+                            "id": "lastUpdatedBy",
+                            "internal": true,
+                            "key": false,
+                            "oid": "5f27a013-12eb-4d45-9cca-da4294189888",
+                            "singularName": "Last Updated By",
+                            "type": "string"
+                        },
+                        {
+                            "hidden": true,
+                            "id": "abcsChangeNumber",
+                            "internal": true,
+                            "key": false,
+                            "oid": "6a0767ba-79de-4076-a4dd-845906b96f42",
+                            "singularName": "Update ID",
+                            "type": "number"
+                        },
+                        {
+                            "id": "firstname",
+                            "oid": "d74b7867-2fae-40c0-b18e-927cb6dc2dff",
+                            "singularName": "firstname",
+                            "type": "string"
+                        },
+                        {
+                            "id": "lastname",
+                            "oid": "97e1b428-f42f-45d2-9fa1-05e9cefb1d3d",
+                            "singularName": "lastname",
+                            "type": "string"
+                        },
+                        {
+                            "id": "title",
+                            "oid": "e5ddff64-ed48-43d4-a952-f92d2b629085",
+                            "singularName": "title",
+                            "type": "string"
+                        },
+                        {
+                            "id": "salary",
+                            "oid": "ac40753b-831d-4af8-b6cc-4961b902aac0",
+                            "singularName": "salary",
+                            "type": "number"
+                        },
+                        {
+                            "id": "hiredate",
+                            "oid": "e85e0327-466d-4686-a043-723f26f0cb4f",
+                            "singularName": "hiredate",
+                            "type": "date"
+                        },
+                        {
+                            "id": "isEmployed",
+                            "oid": "fdb5335f-08df-4419-820f-f2dc18cbfadc",
+                            "singularName": "isEmployed",
+                            "type": "boolean"
+                        },
+                        {
+                            "id": "department",
+                            "oid": "abe00d78-d44f-44cd-8a84-330a452af53f",
+                            "singularName": "department",
+                            "type": "number"
+                        }
+                    ],
+                    "hidden": true,
+                    "id": "Employee",
+                    "oid": "39f67d56-45c0-40b3-9c67-7942be3d4b76",
+                    "singularName": "Employee"
+                }
+            }
+        },
+        "importFilename": "masterdetaildetail-masterdetaildetail-1.0.zip",
+        "importStatus": "Import Complete",
+        "key": "import-newbo-dev",
+        "loggerName": "vbdt/bo-datamanager/binding/ImportCreateBOWizardBinding",
+        "messages": [
+            {
+                "entity": "Department",
+                "entityName": "Department",
+                "file": "Department.csv",
+                "message": "<b>5 exist</b>",
+                "messageOrigin": "Uploading",
+                "messageType": "info"
+            },
+            {
+                "entity": "Department",
+                "entityName": "Department",
+                "file": "Department.csv"
+            },
+            {
+                "entity": "Employee",
+                "entityName": "Employee",
+                "file": "Employee.csv",
+                "message": "<b>20 exist</b>",
+                "messageOrigin": "Uploading",
+                "messageType": "info"
+            },
+            {
+                "entity": "Employee",
+                "entityName": "Employee",
+                "file": "Employee.csv"
+            }
+        ],
+        "timestamp": "2017-11-22T01:21:38.677",
+        "userId": "brian.fry@oracle.com"
+    }
+]

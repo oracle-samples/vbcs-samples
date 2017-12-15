@@ -1,0 +1,45 @@
+<div id="page" class="oj-web-applayout-page">
+  <header role="banner" class="oj-web-applayout-header">
+    <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+      <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+        <!-- Logo can go here -->
+        <!--span role="img" class="oj-icon" title="Oracle Logo"></span-->
+        <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">
+          <oj-bind-text value="Employee Navigator"></oj-bind-text>
+        </h1>
+      </div>
+      <div class="oj-flex-bar-end">
+        <oj-toolbar>
+          <oj-menu-button id="userMenu" display="[[$application.responsive.SM_ONLY === false ? 'icons' : 'all']]"
+                          chroming="half">
+            <oj-bind-text value="[[$application.user.email]]"></oj-bind-text>
+            <span slot="endIcon" css="oj-component-icon oj-button-menu-dropdown-icon"></span>
+            <oj-menu slot="menu" id="menu1" style="display:none" on-oj-action="[[$listeners.vbUserMenuClicked]]">
+              <oj-option id="logout" value="logout">Sign Out</oj-option>
+            </oj-menu>
+          </oj-menu-button>
+        </oj-toolbar>
+      </div>
+    </div>
+  </header>
+
+  <!-- for message notifications -->
+  <vbcs-message-bar id="vbDefaultNotifier"></vbcs-message-bar>
+
+  <div class="oj-web-applayout-content-nopad oj-web-spacing oj-web-applayout-max-width oj-flex">
+    <div class="oj-web-applayout-content oj-flex oj-flex-items-pad">
+        <!-- Where Visual Pages will be rendered -->
+        <div class="vbcs-pages-module oj-flex-item" data-bind="ojModule: visualBuilderPages"></div>
+    </div>
+  </div>
+  <footer class="oj-web-applayout-footer" role="contentinfo">
+    <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
+      <ul>
+        <li><a href="">About</a></li>
+      </ul>
+    </div>
+    <div class="oj-web-applayout-footer-item oj-text-secondary-color oj-text-sm oj-web-applayout-max-width">
+      Created with Visual Builder, Copyright © 2018
+    </div>
+  </footer>
+</div>
