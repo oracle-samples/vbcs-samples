@@ -1,22 +1,21 @@
 {
-    "applicationModelVersion": "0.9.9",
+    "applicationModelVersion": "18.1.1",
     "id": "starter",
     "description": "A new VB app",
     "shellPage": "shell",
     "defaultPage": "home",
     "pages": [
         "home",
-        "about",
         "customers",
-        "incidents"
+        "incidents",
+        "about"
     ],
     "chains": {},
     "services": {},
     "types": {},
-    "variables": {
-        "appName": {
-            "type": "string",
-            "defaultValue": "Navigation Demo"
-        }
+    "variables": {},
+    "userConfig": {
+        "type": "vb/UserSecurityProvider",
+        "configuration": {}
     }
 }
