@@ -1,0 +1,101 @@
+{
+    "applicationModelVersion": "1.0.0",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "start",
+    "pages": [
+        "start",
+        "gotolatestforlocation"
+    ],
+    "chains": {},
+    "services": {
+        "airquality": "../../services/airquality/service.json"
+    },
+    "types": {
+        "getLocationsResponse": {
+            "results": [
+                {
+                    "city": "string",
+                    "country": "string",
+                    "lastUpdated": "string",
+                    "location": "string"
+                }
+            ]
+        },
+        "getLatestResponse": {
+            "results": [
+                {
+                    "location": "string",
+                    "city": "string",
+                    "country": "string",
+                    "measurements": [
+                        {
+                            "parameter": "string",
+                            "value": "number",
+                            "lastUpdated": "string",
+                            "unit": "string",
+                            "sourceName": "string",
+                            "averagingPeriod": {
+                                "value": "number",
+                                "unit": "string"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "getMeasurements": {
+            "results": [
+                {
+                    "measurements": [
+                        {
+                            "averagingPeriod": {
+                                "unit": "string",
+                                "value": "number"
+                            },
+                            "lastUpdated": "string",
+                            "parameter": "string",
+                            "sourceName": "string",
+                            "unit": "string",
+                            "value": "number"
+                        }
+                    ]
+                }
+            ]
+        },
+        "getLatest": {
+            "results": [
+                {
+                    "measurements": [
+                        {
+                            "averagingPeriod": {
+                                "unit": "string",
+                                "value": "number"
+                            },
+                            "lastUpdated": "string",
+                            "parameter": "string",
+                            "sourceName": "string",
+                            "unit": "string",
+                            "value": "number"
+                        }
+                    ]
+                }
+            ]
+        },
+        "getLocationsResponse2": {
+            "results": [
+                {
+                    "city": "string",
+                    "country": "string",
+                    "location": "string"
+                }
+            ]
+        }
+    },
+    "variables": {},
+    "userConfig": {
+        "type": "vb/UserSecurityProvider",
+        "configuration": {}
+    }
+}

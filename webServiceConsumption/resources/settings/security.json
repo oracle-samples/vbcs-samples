@@ -1,0 +1,17 @@
+{
+    "identity": {
+        "selected": ["cloud"],
+        "cloud": {
+        },
+        "anonymous": {
+        }
+    },
+    "roles" : {
+        "mapping": [],
+        "pages": {
+            "anonymous": [],
+            "protected": {}
+        }
+    },
+    "embedding": "deny"
+}

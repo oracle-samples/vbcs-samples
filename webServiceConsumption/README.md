@@ -1,4 +1,4 @@
--- in progress --
+-- ready for review --
 
 **Name:**
 
@@ -6,7 +6,7 @@ Web Service Consumption
 
 **Description:**
 
-This sample shows several patterns for drilling down from a list to a details page. Specifically using links, images, or buttons embedded in the list, or by clicking on the list row itself. 
+This sample application illustrates consuming an external web service with no authentication and displaying data from that service in an application.  The service uses an open api for obtaining the latest pollutant measurements for a particular location based on the latitude and longitude coordinates.   
 
 **Environment Requirements:**
 
@@ -14,7 +14,7 @@ This sample shows several patterns for drilling down from a list to a details pa
 
 **Setup instructions:**
 
-1. Import the sample application zip (DrillDownFromList.zip) using the application import option
+1. Import the sample application zip (WebServiceConsumption.zip) using the application import option
 1. After the import is successful, open the application and hit the play button
 
 **External Dependencies:**
