@@ -1,0 +1,106 @@
+{
+    "pageModelVersion": "18.1.1",
+    "title": "Contact Detail",
+    "description": "Displays record for Contact",
+    "variables": {
+        "contactRecord": {
+            "type": "application:getContactResponse"
+        },
+        "contactId": {
+            "type": "string",
+            "required": true,
+            "input": "fromUrl"
+        }
+    },
+    "chains": {
+        "goBackChain": {
+            "root": "navigateBack",
+            "actions": {
+                "navigateBack": {
+                    "module": "vb/action/builtin/navigateBackAction",
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "loadContactChain": {
+            "root": "loadContact",
+            "actions": {
+                "loadContact": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "endpoint": "businessObjects/get_Contact",
+                        "requestType": "json",
+                        "uriParams": {
+                            "Contact_Id": "{{ $page.variables.contactId }}"
+                        }
+                    },
+                    "outcomes": {
+                        "success": "assignPayload",
+                        "failure": "fireErrorNotification"
+                    }
+                },
+                "assignPayload": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.contactRecord": {
+                            "source": "{{ $chain.results.loadContact.body }}"
+                        }
+                    },
+                    "outcomes": {}
+                },
+                "fireErrorNotification": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "{{ 'Could not load data: status ' + $chain.results.loadContact.payload.status }}",
+                        "type": "error",
+                        "displayMode": "persist"
+                    },
+                    "outcomes": {}
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "backButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "goBackChain"
+                }
+            ]
+        },
+        "vbEnter": {
+            "chains": [
+                {
+                    "chainId": "loadContactChain"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-form-layout": {
+                "path": "ojs/ojformlayout"
+            },
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-text-area": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-input-date": {
+                "path": "ojs/ojdatetimepicker"
+            }
+        }
+    }
+}

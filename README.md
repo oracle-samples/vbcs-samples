@@ -1,22 +1,23 @@
--- work in progress --
+Each directory of this repository represents an example that can be used within Visual Builder Cloud Services (VBCS).
 
-Each directory of this repository represents an example that can be used within VB.
-
+```
   <sample_name>
-  + visual-app
-  + data
+  + resources
+  + <sample_name>.zip
+  + readme.md
+```
 
-Within each directory, the contents of the 'visual-app' directory can be imported to an existing
-app via the 'import resources' feature of VB.
-- from the visual-app folder of the desired app, "zip -r <filename>.zip ."
-- create a new app in design-time (or use an existing app; the new web app will be added)
-- import the ZIP using 'Import Resources'. Choose the option to delete existing files and resources before import.
+readme.md
+---
 
-Data required for the app (imported into the business objects) are within the 'data' directory.
-- from the data folder of the desired app, "zip -r <filename>.zip ."
-- go to Business Objects in VB designer and bring up the Data Manager
-- choose the 'Import from File' option to import the zipped data file
+The readme.md file in each sample describes what the sample does and what you need in order to run it. Any dependencies or prerequisites will be called out in this file. 
 
-For content authors producing samples in VB designer:
-- use the 'Export Resources' option to produce a zip file of all the resources that should be in the visual-app folder
-- use the 'Export All Data' button in the Data Manager to produce a zip file of all the data that should be in the data folder
+<sample_name>.zip
+---
+
+This zip file can be used in the VB designer from the "Import" button to import the sample into your environment. Note that additional set up steps may be required, and if so, they will be noted in the readme.md for that sample.
+
+resources directory
+---
+
+The resources directory contains the source code for the sample. This is provided as a convenience in case you just want to browse the code in the git repository without installing the sample.

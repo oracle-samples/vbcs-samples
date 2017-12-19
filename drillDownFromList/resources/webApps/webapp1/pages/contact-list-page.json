@@ -1,0 +1,97 @@
+{
+    "pageModelVersion": "18.1.1",
+    "title": "My start page",
+    "description": "The starting page of the app",
+    "variables": {
+        "contactListServiceDataProvider": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Contact",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallContactResponse"
+            }
+        },
+        "contactListServiceDataProvider2": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Contact",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallContactResponse2"
+            }
+        }
+    },
+    "chains": {
+        "navigateToContactDetailChain": {
+            "root": "navigateToDetail",
+            "actions": {
+                "navigateToDetail": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "contact-detail",
+                        "params": {
+                            "contactId": "{{ $chain.variables.contactId }}"
+                        }
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            },
+            "variables": {
+                "contactId": {
+                    "type": "number",
+                    "required": true,
+                    "input": "fromCaller"
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "detailsLinkClick": {
+            "chains": [
+                {
+                    "chainId": "navigateToContactDetailChain",
+                    "parameters": {
+                        "contactId": "[[ $current.data.id ]]"
+                    }
+                }
+            ]
+        },
+        "ojButton1084814331Click": {
+            "chains": [
+                {
+                    "chainId": "navigateToContactDetailChain",
+                    "parameters": {
+                        "contactId": "[[ $current.data.id ]]"
+                    }
+                }
+            ]
+        },
+        "ojListView1084814332Selection": {
+            "chains": [
+                {
+                    "chainId": "navigateToContactDetailChain",
+                    "parameters": {
+                        "contactId": "{{ $event.detail.value[0] }}"
+                    }
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-list-view": {
+                "path": "ojs/ojlistview"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            }
+        }
+    }
+}

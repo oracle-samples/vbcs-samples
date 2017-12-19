@@ -1,13 +1,8 @@
 {
     "identity": {
-        "selected": ["cloud"],
-        "cloud": {
-        },
-        "anonymous": {
-        }
+        "selected": ["cloud"]
     },
     "roles" : {
-        "mapping": [],
         "pages": {
             "anonymous": [],
             "protected": {}

@@ -1,0 +1,49 @@
+{
+    "applicationModelVersion": "18.1.1",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "contact-list",
+    "pages": [
+        "contact-list",
+        "contact-detail"
+    ],
+    "chains": {},
+    "services": {
+        "businessObjects": "../../services/businessObjects/service.json"
+    },
+    "types": {
+        "getallContactResponse": {
+            "items": [
+                {
+                    "id": "number",
+                    "firstname": "string",
+                    "lastname": "string"
+                }
+            ]
+        },
+        "getContactResponse": {
+            "firstname": "string",
+            "lastname": "string",
+            "email": "string",
+            "phone": "string",
+            "notes": "string",
+            "birthday": "string"
+        },
+        "getallContactResponse2": {
+            "items": [
+                {
+                    "id": "number",
+                    "firstname": "string",
+                    "lastname": "string",
+                    "email": "string"
+                }
+            ]
+        }
+    },
+    "variables": {},
+    "userConfig": {
+        "type": "vb/UserSecurityProvider",
+        "configuration": {}
+    }
+}
