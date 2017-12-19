@@ -15,7 +15,7 @@ The readme.md file in each sample describes what the sample does and what you ne
 _sample_name_.zip
 ---
 
-This zip file can be used in the VB designer from the "Import" button to import the sample into your environment. Note that additional set up steps may be required, and if so, they will be noted in the readme.md for that sample.
+This zip file can be used in the VB designer from the "Import" button on the landing page to import the sample into your environment. Note that additional set up steps may be required, and if so, they will be noted in the readme.md for that sample. 
 
 resources directory
 ---
