@@ -1,0 +1,76 @@
+{
+    "fields": [
+        {
+            "hidden": false,
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "3c1e8a3e-61a9-4046-8b0f-a4ab643370ce",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "hidden": false,
+            "id": "creationDate",
+            "internal": true,
+            "key": false,
+            "oid": "5b7d6c7c-148d-4a6a-8975-e1559fe3c8f0",
+            "singularName": "Creation Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdateDate",
+            "internal": true,
+            "key": false,
+            "oid": "38bf40ed-df60-49cd-861c-512bf5672b49",
+            "singularName": "Last Update Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "createdBy",
+            "internal": true,
+            "key": false,
+            "oid": "e87a7dd1-1902-40ff-aa18-670b2a584cf5",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "key": false,
+            "oid": "062406ce-260b-4a42-8468-a66b99f71608",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "key": false,
+            "oid": "30c77ae1-2788-44ed-bfe0-ba608ea0acb1",
+            "singularName": "Update ID",
+            "type": "number"
+        },
+        {
+            "id": "name",
+            "oid": "5d6def48-440b-4984-aeab-0d259a3497e5",
+            "singularName": "Name",
+            "type": "string"
+        },
+        {
+            "id": "specialism",
+            "oid": "07d92def-4004-4606-bfba-7dc1c01977c8",
+            "singularName": "Specialism",
+            "type": "string"
+        }
+    ],
+    "hidden": false,
+    "id": "Speakers",
+    "oid": "90c147cb-be93-440e-9062-a70c6a3828c6",
+    "singularName": "Speakers"
+}

@@ -1,0 +1,82 @@
+{
+    "fields": [
+        {
+            "hidden": false,
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "f995436d-ecf2-4b3e-afaa-8c6e8967106e",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "hidden": false,
+            "id": "creationDate",
+            "internal": true,
+            "key": false,
+            "oid": "0a00d7cc-87ae-465b-9e60-cc3eca8b1ea5",
+            "singularName": "Creation Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdateDate",
+            "internal": true,
+            "key": false,
+            "oid": "107d3a62-c6ae-4ff3-ac27-e1aac7ddf614",
+            "singularName": "Last Update Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "createdBy",
+            "internal": true,
+            "key": false,
+            "oid": "dfb93c14-3a93-48be-afa9-9de8a5165642",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "key": false,
+            "oid": "85482096-3a1d-4f23-88ad-3bd99ae00b72",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "key": false,
+            "oid": "a76651c4-297f-47fa-9dd1-de05e56f6722",
+            "singularName": "Update ID",
+            "type": "number"
+        },
+        {
+            "id": "roomName",
+            "oid": "d8fd0b60-c3f2-4f23-ae93-8e4b186c62ad",
+            "singularName": "Room Name",
+            "type": "string"
+        },
+        {
+            "id": "floor",
+            "oid": "260ea7e4-dbb7-4d1b-b4e7-ab4d52d23bdf",
+            "singularName": "Floor",
+            "type": "number"
+        },
+        {
+            "id": "capacity",
+            "oid": "967aa7a6-f424-4ea6-9a98-7cb2ad749d67",
+            "singularName": "Capacity",
+            "type": "number"
+        }
+    ],
+    "hidden": false,
+    "id": "Rooms",
+    "oid": "6192358f-9822-411e-9a9c-10652b334f9a",
+    "singularName": "Rooms"
+}

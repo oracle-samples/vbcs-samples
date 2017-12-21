@@ -1,0 +1,88 @@
+{
+    "fields": [
+        {
+            "hidden": false,
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "21b8cdba-c9e4-4430-a263-b07c42d651dd",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "hidden": false,
+            "id": "creationDate",
+            "internal": true,
+            "key": false,
+            "oid": "36b2c88f-147c-453a-9ba7-34522d4c8ee0",
+            "singularName": "Creation Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdateDate",
+            "internal": true,
+            "key": false,
+            "oid": "72ad5cc5-d1a5-426a-956d-ef5576790eba",
+            "singularName": "Last Update Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "createdBy",
+            "internal": true,
+            "key": false,
+            "oid": "4c713346-3bac-41e7-a404-b2512105ae5f",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "key": false,
+            "oid": "ac290cff-878f-48c2-be77-57c025efe530",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "key": false,
+            "oid": "e8ff99ce-7644-4478-8adb-d9e2c597dc1b",
+            "singularName": "Update ID",
+            "type": "number"
+        },
+        {
+            "id": "displayName",
+            "oid": "bffbecb4-e792-4955-8e7e-f6f80efca076",
+            "singularName": "displayName",
+            "type": "string"
+        },
+        {
+            "id": "sequence_",
+            "oid": "96dd6959-627e-494f-a169-6d67a47c9e6f",
+            "singularName": "sequence_",
+            "type": "number"
+        },
+        {
+            "id": "description",
+            "oid": "99e0a88b-6205-429b-911a-236e18854f93",
+            "singularName": "description",
+            "type": "string"
+        },
+        {
+            "id": "active",
+            "oid": "5f93d3d8-db09-448b-af27-11272e97d734",
+            "singularName": "active",
+            "type": "boolean"
+        }
+    ],
+    "hidden": false,
+    "id": "Status",
+    "oid": "6b8f8c5c-5440-4fb4-8546-d6b6c10ef908",
+    "singularName": "Status"
+}
