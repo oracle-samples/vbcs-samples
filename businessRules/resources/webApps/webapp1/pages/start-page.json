@@ -1,25 +1,9 @@
 {
-    "pageModelVersion": "1.0.0",
-    "title": "My start page",
-    "description": "The starting page of the app",
-    "variables": {
-        "expensesListServiceDataProvider": {
-            "defaultValue": {
-                "endpoint": "businessObjects/getall_Expenses",
-                "idAttribute": "id",
-                "itemsPath": "items",
-                "responseType": "application:getallExpensesResponse2"
-            },
-            "type": "vb/ServiceDataProvider"
-        }
-    },
-    "chains": {},
-    "eventListeners": {},
-    "imports": {
-        "components": {
-            "oj-table": {
-                "path": "ojs/ojtable"
-            }
-        }
-    }
+  "pageModelVersion": "1.0.0",
+  "title": "My start page",
+  "description": "The starting page of the app",
+  "variables": {},
+  "chains": {},
+  "eventListeners": {},
+  "imports": {}
 }

@@ -1,15 +1,10 @@
 {
-    "pageModelVersion": "1.0.0",
-    "title": "Expense Detail",
-    "description": "Displays record for Expenses",
+    "pageModelVersion": "18.1.1",
+    "title": "Create Expense",
+    "description": "Creates new Expenses",
     "variables": {
-        "expensesRecord": {
-            "type": "application:getExpensesResponse"
-        },
-        "expensesId": {
-            "type": "string",
-            "required": true,
-            "input": "fromUrl"
+        "expenses": {
+            "type": "application:createExpensesRequest"
         }
     },
     "chains": {
@@ -24,40 +19,45 @@
                 }
             }
         },
-        "loadExpensesChain": {
-            "root": "loadExpenses",
+        "createExpensesChain": {
+            "root": "createExpenses",
             "actions": {
-                "loadExpenses": {
+                "createExpenses": {
                     "module": "vb/action/builtin/restAction",
                     "parameters": {
-                        "endpoint": "businessObjects/get_Expenses",
-                        "requestType": "json",
-                        "uriParams": {
-                            "Expenses_Id": "{{ $page.variables.expensesId }}"
-                        }
+                        "endpoint": "businessObjects/create_Expenses",
+                        "body": "{{ $page.variables.expenses }}"
                     },
                     "outcomes": {
-                        "success": "assignPayload",
+                        "success": "fireSuccessNotification",
                         "failure": "fireErrorNotification"
                     }
                 },
-                "assignPayload": {
-                    "module": "vb/action/builtin/assignVariablesAction",
+                "fireSuccessNotification": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
                     "parameters": {
-                        "$page.variables.expensesRecord": {
-                            "source": "{{ $chain.results.loadExpenses.body }}"
-                        }
+                        "message": "Expenses record successfully created",
+                        "type": "confirmation",
+                        "displayMode": "transient"
                     },
-                    "outcomes": {}
+                    "outcomes": {
+                        "success": "navigateBack"
+                    }
                 },
                 "fireErrorNotification": {
                     "module": "vb/action/builtin/fireNotificationEventAction",
                     "parameters": {
-                        "message": "{{ 'Could not load data: status ' + $chain.results.loadExpenses.payload.status }}",
+                        "message": "{{ 'Could not create new Expenses: status ' + $chain.results.createExpenses.payload.status }}",
                         "type": "error",
                         "displayMode": "persist"
                     },
                     "outcomes": {}
+                },
+                "navigateBack": {
+                    "module": "vb/action/builtin/navigateBackAction",
+                    "outcomes": {
+                        "success": ""
+                    }
                 }
             }
         }
@@ -70,10 +70,10 @@
                 }
             ]
         },
-        "vbEnter": {
+        "saveButtonClicked": {
             "chains": [
                 {
-                    "chainId": "loadExpensesChain"
+                    "chainId": "createExpensesChain"
                 }
             ]
         }
@@ -85,9 +85,6 @@
             },
             "oj-input-text": {
                 "path": "ojs/ojinputtext"
-            },
-            "oj-switch": {
-                "path": "ojs/ojswitch"
             },
             "oj-form-layout": {
                 "path": "ojs/ojformlayout"

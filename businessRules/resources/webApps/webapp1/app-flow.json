@@ -3,12 +3,11 @@
     "id": "starter",
     "description": "A new VB app",
     "shellPage": "shell",
-    "defaultPage": "ExpensesList",
+    "defaultPage": "expensesList",
     "pages": [
         "start",
-        "CreateExpenses",
-        "ExpensesDetail",
-        "ExpensesList"
+        "expensesList",
+        "CreateExpense"
     ],
     "chains": {},
     "services": {
@@ -32,26 +31,6 @@
             "amount": "number",
             "dateIncurred": "string",
             "category": "string"
-        },
-        "getExpensesResponse": {
-            "id": "number",
-            "description": "string",
-            "amount": "number",
-            "dateIncurred": "string",
-            "category": "string",
-            "approved": "boolean"
-        },
-        "getallExpensesResponse2": {
-            "items": [
-                {
-                    "id": "number",
-                    "description": "string",
-                    "amount": "number",
-                    "dateIncurred": "string",
-                    "category": "string",
-                    "approved": "boolean"
-                }
-            ]
         }
     },
     "variables": {},
