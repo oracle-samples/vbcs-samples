@@ -1,0 +1,103 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "Expense Detail",
+    "description": "Displays record for Expenses",
+    "variables": {
+        "expensesRecord": {
+            "type": "application:getExpensesResponse"
+        },
+        "expensesId": {
+            "type": "string",
+            "required": true,
+            "input": "fromUrl"
+        }
+    },
+    "chains": {
+        "goBackChain": {
+            "root": "navigateBack",
+            "actions": {
+                "navigateBack": {
+                    "module": "vb/action/builtin/navigateBackAction",
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "loadExpensesChain": {
+            "root": "loadExpenses",
+            "actions": {
+                "loadExpenses": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "endpoint": "businessObjects/get_Expenses",
+                        "requestType": "json",
+                        "uriParams": {
+                            "Expenses_Id": "{{ $page.variables.expensesId }}"
+                        }
+                    },
+                    "outcomes": {
+                        "success": "assignPayload",
+                        "failure": "fireErrorNotification"
+                    }
+                },
+                "assignPayload": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.expensesRecord": {
+                            "source": "{{ $chain.results.loadExpenses.body }}"
+                        }
+                    },
+                    "outcomes": {}
+                },
+                "fireErrorNotification": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "{{ 'Could not load data: status ' + $chain.results.loadExpenses.payload.status }}",
+                        "type": "error",
+                        "displayMode": "persist"
+                    },
+                    "outcomes": {}
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "backButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "goBackChain"
+                }
+            ]
+        },
+        "vbEnter": {
+            "chains": [
+                {
+                    "chainId": "loadExpensesChain"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-input-number": {
+                "path": "ojs/ojinputnumber"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-switch": {
+                "path": "ojs/ojswitch"
+            },
+            "oj-form-layout": {
+                "path": "ojs/ojformlayout"
+            },
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            }
+        }
+    }
+}

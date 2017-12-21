@@ -1,0 +1,19 @@
+[
+    {
+        "key": "export-zip-dev",
+        "timestamp": "2017-11-15T23:24:53.917Z"
+    },
+    {
+        "key": "import-zip-dev",
+        "messages": [
+            {
+                "file": "Expenses.csv",
+                "entityName": "Expenses",
+                "entity": "Expenses"
+            }
+        ],
+        "importStatus": "Import Complete",
+        "timestamp": "2017-12-21T19:36:49.675",
+        "userId": "sherry.yu@oracle.com"
+    }
+]

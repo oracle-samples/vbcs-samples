@@ -1,0 +1,115 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {
+        "expensesListServiceDataProvider": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Expenses",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallExpensesResponse"
+            }
+        },
+        "oj_table_1593635605_1SelectedId": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "chains": {
+        "navigateToCreateExpensesChain": {
+            "root": "navigateToCreate",
+            "actions": {
+                "navigateToCreate": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "CreateExpenses",
+                        "params": {}
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "oj_table_1593635605_1ChangeSelectionChain": {
+            "variables": {
+                "expensesId": {
+                    "type": "string",
+                    "input": "fromCaller",
+                    "defaultValue": ""
+                }
+            },
+            "root": "assignVariable",
+            "actions": {
+                "assignVariable": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.oj_table_1593635605_1SelectedId": {
+                            "source": "[[ $chain.variables.expensesId ]]"
+                        }
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "navigateToExpensesDetailChain": {
+            "root": "navigateToDetail",
+            "actions": {
+                "navigateToDetail": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "ExpensesDetail",
+                        "params": {
+                            "expensesId": "[[ $page.variables.oj_table_1593635605_1SelectedId ]]"
+                        }
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "createExpensesButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "navigateToCreateExpensesChain"
+                }
+            ]
+        },
+        "oj_table_1593635605_1SelectionChanged": {
+            "chains": [
+                {
+                    "chainId": "oj_table_1593635605_1ChangeSelectionChain",
+                    "parameters": {
+                        "expensesId": "[[ ($event.detail.value && 'row' in $event.detail.value[0].startKey) ? $event.detail.value[0].startKey.row : '' ]]"
+                    }
+                }
+            ]
+        },
+        "expensesDetailButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "navigateToExpensesDetailChain"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-table": {
+                "path": "ojs/ojtable"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            }
+        }
+    }
+}

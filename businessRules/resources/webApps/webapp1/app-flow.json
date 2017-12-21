@@ -1,0 +1,62 @@
+{
+    "applicationModelVersion": "1.0.0",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "ExpensesList",
+    "pages": [
+        "start",
+        "CreateExpenses",
+        "ExpensesDetail",
+        "ExpensesList"
+    ],
+    "chains": {},
+    "services": {
+        "businessObjects": "../../services/businessObjects/service.json"
+    },
+    "types": {
+        "getallExpensesResponse": {
+            "items": [
+                {
+                    "id": "number",
+                    "description": "string",
+                    "amount": "number",
+                    "dateIncurred": "string",
+                    "category": "string",
+                    "approved": "boolean"
+                }
+            ]
+        },
+        "createExpensesRequest": {
+            "description": "string",
+            "amount": "number",
+            "dateIncurred": "string",
+            "category": "string"
+        },
+        "getExpensesResponse": {
+            "id": "number",
+            "description": "string",
+            "amount": "number",
+            "dateIncurred": "string",
+            "category": "string",
+            "approved": "boolean"
+        },
+        "getallExpensesResponse2": {
+            "items": [
+                {
+                    "id": "number",
+                    "description": "string",
+                    "amount": "number",
+                    "dateIncurred": "string",
+                    "category": "string",
+                    "approved": "boolean"
+                }
+            ]
+        }
+    },
+    "variables": {},
+    "userConfig": {
+        "type": "vb/UserSecurityProvider",
+        "configuration": {}
+    }
+}

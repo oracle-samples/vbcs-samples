@@ -1,0 +1,25 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1--1331558445-1">Create Expense</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout--1331558445-1" label-edge="start" max-columns="1">
+                <oj-input-number label-hint="amount" value="{{ $page.variables.expenses.amount }}" id="oj-input-number--1331558445-1"></oj-input-number>
+                <oj-input-text label-hint="category" value="{{ $page.variables.expenses.category }}" id="oj-input-text--1331558445-1"></oj-input-text>
+                <oj-input-date label-hint="dateIncurred" value="{{ $page.variables.expenses.dateIncurred }}" id="oj-input-date--1331558445-1"></oj-input-date>
+                <oj-input-text label-hint="description" value="{{ $page.variables.expenses.description }}" id="oj-input-text--1331558445-2"></oj-input-text>
+            </oj-form-layout>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar id="oj-toolbar--1331558445-1" chroming="full">
+                <oj-button id="oj-button--1331558445-1" on-click="[[$page.listeners.saveButtonClicked]]">Save</oj-button>
+                <oj-button id="oj-button--1331558445-2" on-click="[[$page.listeners.backButtonClicked]]">Back</oj-button>
+            </oj-toolbar>
+        </div>
+    </div>
+</div>
