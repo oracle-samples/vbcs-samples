@@ -2,7 +2,7 @@
 
 **Name:**
 
-Business rules
+Import BOs From Excel
 
 **Description:**
 

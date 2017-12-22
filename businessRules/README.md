@@ -6,7 +6,7 @@ Business rules
 
 **Description:**
 
-This sample shows a table of expenses, with a Create Expense button linking to a Create page. Business rules are configured so that when a new expense is created, it is auto-approved (the Approved field is set to true) if the expense <= $200 and sends an email to that effect. If the expense is greater than $200, an email notification is sent noting that the expense is pending approval. 
+This sample shows an Expenses business object rendered as a table, with a Create Expense button linking to a Create page. Business rules are configured so that when a new expense is created, it is auto-approved (the Approved field is set to true) if the expense <= $200 and sends an email to that effect. If the expense is greater than $200, an email notification is sent noting that the expense is pending approval. 
 
 **Environment Requirements:**
 
