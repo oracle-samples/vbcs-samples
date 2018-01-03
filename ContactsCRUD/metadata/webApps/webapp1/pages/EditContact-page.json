@@ -1,0 +1,108 @@
+{
+    "pageModelVersion": "18.1.1",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {
+        "contactId": {
+            "type": "string",
+            "required": true,
+            "input": "fromCaller"
+        },
+        "editContactVar": {
+            "type": "application:getContactsResponse",
+            "required": true,
+            "input": "fromCaller"
+        }
+    },
+    "chains": {
+        "navigateBack": {
+            "description": "",
+            "variables": {},
+            "root": "navigateBack1",
+            "actions": {
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction"
+                }
+            }
+        },
+        "saveContactUpdates": {
+            "description": "",
+            "variables": {},
+            "root": "updateContact",
+            "actions": {
+                "updateContact": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "requestType": "json",
+                        "endpoint": "businessObjects/update_Contacts",
+                        "uriParams": {
+                            "Contacts_Id": "{{ $page.variables.contactId }}"
+                        },
+                        "body": "{{ $page.variables.editContactVar }}"
+                    },
+                    "outcomes": {
+                        "success": "fireNotificationSuccess",
+                        "failure": "fireNotificationFailure"
+                    }
+                },
+                "fireNotificationSuccess": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "Contact updated successfully!",
+                        "displayMode": "transient",
+                        "type": "confirmation"
+                    },
+                    "outcomes": {
+                        "success": "navigateBack1"
+                    }
+                },
+                "fireNotificationFailure": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "Contact update failed! Please try again!",
+                        "displayMode": "transient",
+                        "type": "error"
+                    }
+                },
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction"
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton2937929081Click": {
+            "chains": [
+                {
+                    "chainId": "navigateBack"
+                }
+            ]
+        },
+        "ojButton2937929082Click": {
+            "chains": [
+                {
+                    "chainId": "saveContactUpdates"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-form-layout": {
+                "path": "ojs/ojformlayout"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            }
+        }
+    }
+}

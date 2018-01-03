@@ -1,0 +1,24 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1--293792908-1">Edit Contact</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout--293792908-1" label-edge="start">
+                <oj-input-text id="oj-input-text--293792908-1" label-hint="First Name" value="{{ $page.variables.editContactVar.firstName}}"></oj-input-text>
+                <oj-input-text id="oj-input-text--293792908-2" label-hint="Last Name" value="{{ $page.variables.editContactVar.lastName}}"></oj-input-text>
+                <oj-input-text id="oj-input-text--293792908-3" label-hint="Company" value="{{ $page.variables.editContactVar.company}}"></oj-input-text>
+                <oj-input-text id="oj-input-text--293792908-4" label-hint="Email" value="{{ $page.variables.editContactVar.email}}"></oj-input-text>
+                <oj-input-text id="oj-input-text--293792908-5" label-hint="Phone" value="{{ $page.variables.editContactVar.phone}}"></oj-input-text></oj-form-layout>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar chroming="full" id="oj-toolbar--293792908-2">
+                <oj-button id="oj-button--293792908-1" on-click="[[$listeners.ojButton2937929081Click]]">Cancel</oj-button>
+                <oj-button id="oj-button--293792908-2" on-click="[[$listeners.ojButton2937929082Click]]">OK</oj-button></oj-toolbar>
+        </div>
+    </div>
+</div>

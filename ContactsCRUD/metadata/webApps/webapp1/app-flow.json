@@ -1,0 +1,50 @@
+{
+    "applicationModelVersion": "18.1.1",
+    "id": "starter",
+    "description": "A new VB app",
+    "shellPage": "shell",
+    "defaultPage": "start",
+    "pages": [
+        "start",
+        "CreateContacts",
+        "ContactsDetail",
+        "EditContact"
+    ],
+    "chains": {},
+    "services": {
+        "businessObjects": "../../services/businessObjects/service.json"
+    },
+    "types": {
+        "getallContactsResponse": {
+            "items": [
+                {
+                    "id": "number",
+                    "firstName": "string",
+                    "lastName": "string",
+                    "company": "string",
+                    "email": "string",
+                    "phone": "string"
+                }
+            ]
+        },
+        "createContactsRequest": {
+            "firstName": "string",
+            "lastName": "string",
+            "company": "string",
+            "email": "string",
+            "phone": "string"
+        },
+        "getContactsResponse": {
+            "firstName": "string",
+            "lastName": "string",
+            "company": "string",
+            "email": "string",
+            "phone": "string"
+        }
+    },
+    "variables": {},
+    "userConfig": {
+        "type": "vb/UserSecurityProvider",
+        "configuration": {}
+    }
+}

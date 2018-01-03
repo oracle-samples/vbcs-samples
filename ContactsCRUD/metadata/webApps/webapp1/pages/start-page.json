@@ -1,0 +1,181 @@
+{
+    "pageModelVersion": "18.1.1",
+    "title": "My start page",
+    "description": "The starting page of the app",
+    "variables": {
+        "contactsListServiceDataProvider": {
+            "type": "vb/ServiceDataProvider",
+            "defaultValue": {
+                "endpoint": "businessObjects/getall_Contacts",
+                "idAttribute": "id",
+                "itemsPath": "items",
+                "responseType": "application:getallContactsResponse"
+            }
+        },
+        "oj_list_view_979113728_1SelectedId": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "chains": {
+        "navigateToCreateContactsChain": {
+            "root": "navigateToCreate",
+            "actions": {
+                "navigateToCreate": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "CreateContacts",
+                        "params": {}
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "oj_list_view_979113728_1ChangeSelectionChain": {
+            "variables": {
+                "contactsId": {
+                    "type": "string",
+                    "input": "fromCaller",
+                    "defaultValue": ""
+                }
+            },
+            "root": "assignVariable",
+            "actions": {
+                "assignVariable": {
+                    "module": "vb/action/builtin/assignVariablesAction",
+                    "parameters": {
+                        "$page.variables.oj_list_view_979113728_1SelectedId": {
+                            "source": "[[ $chain.variables.contactsId ]]"
+                        }
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "navigateToContactsDetailChain": {
+            "root": "navigateToDetail",
+            "actions": {
+                "navigateToDetail": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "ContactsDetail",
+                        "params": {
+                            "contactsId": "[[ $page.variables.oj_list_view_979113728_1SelectedId ]]"
+                        }
+                    },
+                    "outcomes": {
+                        "success": ""
+                    }
+                }
+            }
+        },
+        "deleteContactsChain": {
+            "root": "deleteContacts",
+            "variables": {
+                "contactsId": {
+                    "type": "string",
+                    "input": "fromCaller",
+                    "defaultValue": "{{ $page.variables.oj_list_view_979113728_1SelectedId }}"
+                }
+            },
+            "actions": {
+                "deleteContacts": {
+                    "module": "vb/action/builtin/restAction",
+                    "parameters": {
+                        "endpoint": "businessObjects/delete_Contacts",
+                        "uriParams": {
+                            "Contacts_Id": "{{ $chain.variables.contactsId }}"
+                        }
+                    },
+                    "outcomes": {
+                        "success": "refreshDataProvider",
+                        "failure": "fireErrorNotification"
+                    }
+                },
+                "refreshDataProvider": {
+                    "module": "vb/action/builtin/fireDataProviderEventAction",
+                    "outcomes": {
+                        "success": "fireSuccessNotification"
+                    },
+                    "parameters": {
+                        "refresh": "",
+                        "target": "{{ $page.variables.contactsListServiceDataProvider }}"
+                    }
+                },
+                "fireSuccessNotification": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "{{ 'Contacts [' + $chain.variables.contactsId + '] successfully deleted' }}",
+                        "type": "confirmation",
+                        "displayMode": "transient"
+                    },
+                    "outcomes": {}
+                },
+                "fireErrorNotification": {
+                    "module": "vb/action/builtin/fireNotificationEventAction",
+                    "parameters": {
+                        "message": "{{ 'Could not delete data: status ' + $chain.results.deleteContacts.payload.status }}",
+                        "type": "error",
+                        "displayMode": "persist"
+                    },
+                    "outcomes": {}
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "createContactsButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "navigateToCreateContactsChain"
+                }
+            ]
+        },
+        "oj_list_view_979113728_1SelectionChanged": {
+            "chains": [
+                {
+                    "chainId": "oj_list_view_979113728_1ChangeSelectionChain",
+                    "parameters": {
+                        "contactsId": "[[ $event.detail.value[0] || '' ]]"
+                    }
+                }
+            ]
+        },
+        "contactsDetailButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "navigateToContactsDetailChain"
+                }
+            ]
+        },
+        "deleteContactsButtonClicked": {
+            "chains": [
+                {
+                    "chainId": "deleteContactsChain"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-list-view": {
+                "path": "ojs/ojlistview"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            }
+        }
+    }
+}

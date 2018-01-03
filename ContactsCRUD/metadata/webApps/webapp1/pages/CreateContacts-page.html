@@ -1,0 +1,26 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1--449708277-1">Create Contact</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout--449708277-1" label-edge="start" max-columns="1">
+                <oj-input-text label-hint="First Name" value="{{ $page.variables.contacts.firstName }}" id="oj-input-text--449708277-3"></oj-input-text>
+                <oj-input-text label-hint="Last Name" value="{{ $page.variables.contacts.lastName }}" id="oj-input-text--449708277-4"></oj-input-text>
+                <oj-input-text label-hint="Company" value="{{ $page.variables.contacts.company }}" id="oj-input-text--449708277-2"></oj-input-text>
+                <oj-input-text label-hint="Email" value="{{ $page.variables.contacts.email }}" id="oj-input-text--449708277-1"></oj-input-text>
+                <oj-input-text label-hint="Phone" value="{{ $page.variables.contacts.phone }}" id="oj-input-text--449708277-5"></oj-input-text>
+            </oj-form-layout>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar id="oj-toolbar--449708277-1" chroming="full">
+                <oj-button id="oj-button--449708277-2" on-click="[[$page.listeners.backButtonClicked]]">Cancel</oj-button>
+                <oj-button id="oj-button--449708277-1" on-click="[[$page.listeners.saveButtonClicked]]">OK</oj-button>
+            </oj-toolbar>
+        </div>
+    </div>
+</div>
