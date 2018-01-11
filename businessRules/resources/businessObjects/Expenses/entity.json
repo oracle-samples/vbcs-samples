@@ -88,5 +88,15 @@
             "refId": "ae113131-c2e2-43f7-8ea1-40e8d80fd4d1",
             "type": "BeforeInsert"
         }
+    ],
+    "validators": [
+        {
+            "definition": "newValue >= 0\n",
+            "displayName": "Amount must be positive",
+            "errorMessage": "Enter a positive number for Amount.",
+            "name": "amount_Validation_Rule_0",
+            "refId": "6d58535b-c49f-42b8-b63a-7b7c412202a7",
+            "onProperty": "amount"
+        }
     ]
 }

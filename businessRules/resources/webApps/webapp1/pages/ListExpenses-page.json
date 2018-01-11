@@ -1,7 +1,7 @@
 {
     "pageModelVersion": "1.0.0",
-    "title": "Page",
-    "description": "VB page",
+    "title": "List Expenses",
+    "description": "List Expenses",
     "variables": {
         "expensesListServiceDataProvider": {
             "type": "vb/ServiceDataProvider",

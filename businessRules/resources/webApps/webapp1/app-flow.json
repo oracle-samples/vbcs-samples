@@ -1,13 +1,13 @@
 {
     "applicationModelVersion": "1.0.0",
     "id": "starter",
-    "description": "A new VB app",
+    "description": "Expenses",
     "shellPage": "shell",
-    "defaultPage": "expensesList",
+    "defaultPage": "ListExpenses",
     "pages": [
         "start",
-        "expensesList",
-        "CreateExpense"
+        "CreateExpense",
+        "ListExpenses"
     ],
     "chains": {},
     "services": {

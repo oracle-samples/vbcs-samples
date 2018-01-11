@@ -4,14 +4,11 @@
       <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
         <!-- Logo can go here -->
         <!--span role="img" class="oj-icon" title="Oracle Logo"></span-->
-        <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">
-          <oj-bind-text value="My Application"></oj-bind-text>
-        </h1>
+        <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Expenses</h1>
       </div>
       <div class="oj-flex-bar-end">
         <oj-toolbar>
-          <oj-menu-button id="userMenu" display="[[$application.responsive.SM_ONLY === false ? 'icons' : 'all']]"
-                          chroming="half">
+          <oj-menu-button id="userMenu" display="[[$application.responsive.SM_ONLY === false ? 'icons' : 'all']]" chroming="half">
             <oj-bind-text value="[[$application.user.email]]"></oj-bind-text>
             <span slot="endIcon" css="oj-component-icon oj-button-menu-dropdown-icon"></span>
             <oj-menu slot="menu" id="menu1" style="display:none" on-oj-action="[[$listeners.vbUserMenuClicked]]">

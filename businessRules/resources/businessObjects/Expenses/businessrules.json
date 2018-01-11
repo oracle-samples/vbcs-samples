@@ -1,5 +1,17 @@
 {
-    "fieldValidators": [],
+    "fieldValidators": [
+        {
+            "active": "active",
+            "description": "Amount must be a positive number.",
+            "displayName": "Amount must be positive",
+            "errorMessage": "Enter a positive number for Amount.",
+            "functionBody": "newValue >= 0",
+            "lastUpdate": "2018-01-10T22:01:36",
+            "oid": "6d58535b-c49f-42b8-b63a-7b7c412202a7",
+            "scriptMimeType": "application/x-adf-groovy",
+            "onField": "amount"
+        }
+    ],
     "objectFunctions": [],
     "objectValidators": [],
     "triggers": [
@@ -7,7 +19,7 @@
             "active": "active",
             "description": "If expense <= 200, set approved = Y and send email notification.\nIf expense > 200, send email notification that the expense is pending approval.",
             "displayName": "Auto-approve Expenses",
-            "lastUpdate": "2017-12-21T22:19:06",
+            "lastUpdate": "2018-01-10T22:10:52",
             "oid": "ae113131-c2e2-43f7-8ea1-40e8d80fd4d1",
             "scriptMimeType": "application/x-adf-groovy",
             "triggerEvents": [
