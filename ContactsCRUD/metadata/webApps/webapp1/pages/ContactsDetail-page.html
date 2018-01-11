@@ -1,0 +1,27 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1-11164128-1">Contact Detail</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout-11164128-1" label-edge="start" max-columns="1">
+                <oj-input-text label-hint="First Name" value="{{ $page.variables.contactsRecord.firstName }}" readonly="true" id="oj-input-text-11164128-1"></oj-input-text>
+                <oj-input-text label-hint="Last Name" value="{{ $page.variables.contactsRecord.lastName }}" readonly="true" id="oj-input-text-11164128-2"></oj-input-text>
+                <oj-input-text label-hint="Company" value="{{ $page.variables.contactsRecord.company }}" readonly="true" id="oj-input-text-11164128-3"></oj-input-text>
+                <oj-input-text label-hint="Email" value="{{ $page.variables.contactsRecord.email }}" readonly="true" id="oj-input-text-11164128-4"></oj-input-text>
+                <oj-input-text label-hint="Phone" value="{{ $page.variables.contactsRecord.phone }}" readonly="true" id="oj-input-text-11164128-5"></oj-input-text>
+            </oj-form-layout>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar id="oj-toolbar-11164128-1" chroming="full">
+                <oj-button id="oj-button-11164128-1" on-click="[[$page.listeners.backButtonClicked]]">Back</oj-button>
+                <oj-toolbar chroming="full" id="oj-toolbar-11164128-2"></oj-toolbar>
+                <oj-button id="oj-button-11164128-2" on-click="[[$listeners.ojButton111641282Click]]">Edit</oj-button>
+            </oj-toolbar>
+        </div>
+    </div>
+</div>
