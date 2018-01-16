@@ -1,0 +1,87 @@
+{
+  "applicationModelVersion": "18.1.1",
+  "id": "starter",
+  "description": "A new VB app",
+  "shellPage": "shell",
+  "defaultPage": "start",
+  "pages": [ "start",
+    "CreateBeer",
+    "EditBeer"
+  ],
+  "chains": {},
+  "services": {
+    "businessObjects": "../../services/businessObjects/service.json"
+  },
+  "types": {
+    "beerResponse": {
+      "items": [
+        {
+          "name": "string",
+          "alcoholPercentage": "number",
+          "beerQualityCollection": {
+            "items": [
+              {
+                "id": "number",
+                "quality": "number",
+                "qualityObject": {
+                  "items": [
+                    {
+                      "id": "number",
+                      "name": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "beerTypeObject": {
+            "items": [
+              {
+                "id": "number",
+                "name": "string"
+              }
+            ]
+          },
+          "countryObject": {
+            "items": [
+              {
+                "id": "number",
+                "name": "string"
+              }
+            ]
+          },
+          "id": "number"
+        }
+      ]
+    },
+    "createBeerRequest": {
+      "name": "string",
+      "alcoholPercentage": "number",
+      "country": "number",
+      "beerType": "number",
+      "beerQualityCollection": [
+        {
+          "quality": "number"
+        }
+      ]
+    },
+    "update_Beer": {
+      "name": "string",
+      "alcoholPercentage": "number",
+      "country": "number",
+      "beerType": "number",
+      "beerQualityCollection": {
+        "items": [
+          {
+            "quality": "number"
+          }
+        ]
+      }
+    }
+  },
+  "variables": {},
+  "userConfig": {
+    "type": "vb/UserSecurityProvider",
+    "configuration": {}
+  }
+}
