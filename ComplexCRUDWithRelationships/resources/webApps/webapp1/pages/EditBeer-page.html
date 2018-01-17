@@ -1,0 +1,26 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1--903747466-1">Edit Beer</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout id="oj-form-layout--903747466-1" label-edge="start">
+                <oj-input-text label-hint="Name" value="{{ $page.variables.beerRecord.name }}" id="oj-input-text--903747466-1"></oj-input-text>
+                <oj-input-number label-hint="Alcohol Percentage" value="{{ $page.variables.beerRecord.alcoholPercentage }}" id="oj-input-number--903747466-2"></oj-input-number>
+                <oj-select-one id="oj-select-one--908220376-1" label-hint="Beer Type" value="{{ $page.variables.beerRecord.beerType }}" options="{{ $page.variables.beerTypeOptions }}" placeholder=" "></oj-select-one>
+                <oj-select-one id="oj-select-one--908220376-2" label-hint="Country" value="{{ $page.variables.beerRecord.country }}" options="{{ $page.variables.countryOptions }}" placeholder=" "></oj-select-one>
+                <oj-select-many id="oj-select-many--908220376-1" label-hint="Qualities" value="{{ $page.variables.selectedQualities }}" options="{{ $page.variables.qualityOptions }}"></oj-select-many>
+            </oj-form-layout>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar id="oj-toolbar--903747466-1" chroming="full">
+                <oj-button id="oj-button--903747466-1" on-click="[[$page.listeners.backButtonClicked]]">Back</oj-button>
+                <oj-button id="oj-button--903747466-2" on-click="[[$page.listeners.saveButtonClicked]]">Save</oj-button>
+            </oj-toolbar>
+        </div>
+    </div>
+</div>

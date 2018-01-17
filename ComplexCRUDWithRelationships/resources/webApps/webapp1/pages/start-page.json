@@ -1,0 +1,122 @@
+{
+  "pageModelVersion": "18.1.1",
+  "title": "My start page",
+  "description": "The starting page of the app",
+  "variables": {
+    "beerListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Beer",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "application:beerResponse",
+        "uriParameters": {
+          "expand": "beerQualityCollection",
+          "fields": "id,name,alcoholPercentage;beerQualityCollection:id,quality;beerQualityCollection.qualityObject:id,name;beerTypeObject:id,name;countryObject:id,name"
+        }
+      }
+    },
+    "oj_list_view_979113728_1SelectedId": {
+      "defaultValue": "",
+      "type": "string"
+    }
+  },
+  "chains": {
+    "navigateToCreateBeerChain": {
+      "root": "navigateToCreate",
+      "actions": {
+        "navigateToCreate": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "history": "push",
+            "page": "CreateBeer",
+            "params": {}
+          },
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    },
+    "oj_list_view_979113728_1ChangeSelectionChain": {
+      "variables": {
+        "beerId": {
+          "defaultValue": "",
+          "type": "string",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignVariable",
+      "actions": {
+        "assignVariable": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.oj_list_view_979113728_1SelectedId": {
+              "source": "[[ $chain.variables.beerId ]]"
+            }
+          },
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    },
+    "navigateToEditBeerChain": {
+      "root": "navigateToEdit",
+      "actions": {
+        "navigateToEdit": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "history": "push",
+            "page": "EditBeer",
+            "params": {
+              "beerId": "[[ $page.variables.oj_list_view_979113728_1SelectedId ]]"
+            }
+          },
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "createBeerButtonClicked": {
+      "chains": [
+        {
+          "chainId": "navigateToCreateBeerChain"
+        }
+      ]
+    },
+    "oj_list_view_979113728_1SelectionChanged": {
+      "chains": [
+        {
+          "chainId": "oj_list_view_979113728_1ChangeSelectionChain",
+          "parameters": {
+            "beerId": "[[ $event.detail.value[0] || '' ]]"
+          }
+        }
+      ]
+    },
+    "editBeerButtonClicked": {
+      "chains": [
+        {
+          "chainId": "navigateToEditBeerChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

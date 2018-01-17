@@ -1,0 +1,108 @@
+{
+    "fields": [
+        {
+            "hidden": false,
+            "id": "id",
+            "internal": true,
+            "key": true,
+            "oid": "542b5362-1729-4494-aa65-114db60d9546",
+            "required": true,
+            "singularName": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "hidden": false,
+            "id": "creationDate",
+            "internal": true,
+            "key": false,
+            "oid": "1684ae06-5e5c-46aa-b120-d896b4457abb",
+            "singularName": "Creation Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdateDate",
+            "internal": true,
+            "key": false,
+            "oid": "c8a26256-0aeb-44e2-a436-4716bdc9ddd3",
+            "singularName": "Last Update Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "id": "createdBy",
+            "internal": true,
+            "key": false,
+            "oid": "966c7d11-f3f2-41a7-813a-06a4365c3987",
+            "singularName": "Created By",
+            "type": "string"
+        },
+        {
+            "hidden": false,
+            "id": "lastUpdatedBy",
+            "internal": true,
+            "key": false,
+            "oid": "544a6758-3d10-4834-8a3c-df601ffe8b4b",
+            "singularName": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "id": "abcsChangeNumber",
+            "internal": true,
+            "key": false,
+            "oid": "8f381f70-d4a5-4184-80c3-9e7a3f44e2b6",
+            "singularName": "Update ID",
+            "type": "number"
+        },
+        {
+            "id": "name",
+            "oid": "2d8e64ae-179b-4bba-ad63-17ae8405ea2e",
+            "singularName": "name",
+            "type": "string"
+        },
+        {
+            "id": "alcoholPercentage",
+            "oid": "99e908f8-bc13-453e-a183-e16512759c6e",
+            "singularName": "alcoholPercentage",
+            "type": "number"
+        },
+        {
+            "id": "country",
+            "oid": "b7626c29-3110-4f69-aa05-0b6893f5f73b",
+            "singularName": "country",
+            "type": "reference"
+        },
+        {
+            "id": "beerType",
+            "oid": "d8a7a918-5bc1-47e7-929a-e9cd79a45803",
+            "singularName": "beerType",
+            "type": "reference"
+        }
+    ],
+    "hidden": false,
+    "id": "Beer",
+    "oid": "18755bbb-d6ce-49c6-ad80-11ca1ccc94f8",
+    "relations": [
+        {
+            "accessorId": "countryObject",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "name",
+            "deleteRule": "restrict",
+            "mappingFieldId": "country",
+            "sourceEntityId": "Beer",
+            "targetEntityId": "Country"
+        },
+        {
+            "accessorId": "beerTypeObject",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "name",
+            "deleteRule": "restrict",
+            "mappingFieldId": "beerType",
+            "sourceEntityId": "Beer",
+            "targetEntityId": "BeerType"
+        }
+    ],
+    "singularName": "Beer"
+}
