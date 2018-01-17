@@ -5,7 +5,7 @@
             "id": "id",
             "internal": true,
             "key": true,
-            "oid": "ac7fe77e-13a3-4a4e-b2b9-2297df1b2337",
+            "oid": "271a9a0a-06cc-4f4c-839f-946a7a245ac1",
             "required": true,
             "singularName": "Id",
             "type": "number",
@@ -16,7 +16,7 @@
             "id": "creationDate",
             "internal": true,
             "key": false,
-            "oid": "5381e1d1-dd61-4ab6-b6a1-3003a23af3c4",
+            "oid": "787743ac-2ffa-43d3-b464-96e83f351d07",
             "singularName": "Creation Date",
             "type": "datetime"
         },
@@ -25,7 +25,7 @@
             "id": "lastUpdateDate",
             "internal": true,
             "key": false,
-            "oid": "3455338b-1239-4c47-8860-5324562eefe1",
+            "oid": "e1dcbcd3-6aa0-41b3-8e25-0d74bebee867",
             "singularName": "Last Update Date",
             "type": "datetime"
         },
@@ -34,7 +34,7 @@
             "id": "createdBy",
             "internal": true,
             "key": false,
-            "oid": "76c3a868-d782-4aff-99be-6c9d2ed70519",
+            "oid": "f703ec64-6c01-495d-9d59-f14880b52cd8",
             "singularName": "Created By",
             "type": "string"
         },
@@ -43,7 +43,7 @@
             "id": "lastUpdatedBy",
             "internal": true,
             "key": false,
-            "oid": "c92214b0-ba01-4f84-add2-ae4e8790955a",
+            "oid": "3c5f7835-2b36-4c6d-98e4-a141085fce74",
             "singularName": "Last Updated By",
             "type": "string"
         },
@@ -52,37 +52,19 @@
             "id": "abcsChangeNumber",
             "internal": true,
             "key": false,
-            "oid": "e42e3d31-3927-4a5b-b946-10d1e7d76d84",
+            "oid": "23bf477e-a5c4-415c-b6db-ec025c70d907",
             "singularName": "Update ID",
             "type": "number"
         },
         {
             "id": "displayName",
-            "oid": "ccb72d3e-63fa-4a6a-85c9-cec28395992d",
+            "oid": "d02e1625-5a51-4b96-85c2-28f595c8c4cc",
             "singularName": "displayName",
             "type": "string"
-        },
-        {
-            "id": "sequence_",
-            "oid": "2a9631bc-2457-4e61-8c4a-0856450cdd93",
-            "singularName": "sequence_",
-            "type": "number"
-        },
-        {
-            "id": "description",
-            "oid": "151f81a2-5d40-4e4a-ac65-0c45cd0b0b77",
-            "singularName": "description",
-            "type": "string"
-        },
-        {
-            "id": "active",
-            "oid": "5bd2183e-a8c1-485e-ab32-8b3d2254b47d",
-            "singularName": "active",
-            "type": "boolean"
         }
     ],
     "hidden": false,
     "id": "SessionType",
-    "oid": "17debcf8-30e6-4505-a3f2-de59aeed3c0c",
+    "oid": "858b2f9e-e635-4c09-9c5a-040a932541cb",
     "singularName": "SessionType"
 }
