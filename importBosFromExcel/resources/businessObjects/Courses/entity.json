@@ -5,7 +5,7 @@
             "id": "id",
             "internal": true,
             "key": true,
-            "oid": "b223c1ca-b037-47ab-b14b-33b7e1ec5af0",
+            "oid": "6644b2ac-1171-44e1-852f-cdb2ac3e900f",
             "required": true,
             "singularName": "Id",
             "type": "number",
@@ -16,7 +16,7 @@
             "id": "creationDate",
             "internal": true,
             "key": false,
-            "oid": "f5430df4-eb60-416a-a896-5862c118a3f0",
+            "oid": "b57a4a28-f6bb-47bc-a45f-c128d20925e1",
             "singularName": "Creation Date",
             "type": "datetime"
         },
@@ -25,7 +25,7 @@
             "id": "lastUpdateDate",
             "internal": true,
             "key": false,
-            "oid": "bae4852e-0754-4996-a5c2-b05397dd64b7",
+            "oid": "4eef7ec3-716f-4f41-a080-a0d2deb766f0",
             "singularName": "Last Update Date",
             "type": "datetime"
         },
@@ -34,7 +34,7 @@
             "id": "createdBy",
             "internal": true,
             "key": false,
-            "oid": "203f2aec-000a-4cb4-82eb-ab27d2a4926e",
+            "oid": "c3c9a4f5-064f-43bd-83a6-5ab96284e7d3",
             "singularName": "Created By",
             "type": "string"
         },
@@ -43,7 +43,7 @@
             "id": "lastUpdatedBy",
             "internal": true,
             "key": false,
-            "oid": "672bda72-2adb-4124-b578-8874613ad843",
+            "oid": "459723bd-1996-4f7f-932e-ea10f7a92d3f",
             "singularName": "Last Updated By",
             "type": "string"
         },
@@ -52,98 +52,89 @@
             "id": "abcsChangeNumber",
             "internal": true,
             "key": false,
-            "oid": "ec4973e0-4f2c-4e52-8b00-780392348035",
+            "oid": "eef9b1a6-d151-4e78-820a-22f598d3d20e",
             "singularName": "Update ID",
             "type": "number"
         },
         {
             "id": "sessionID",
-            "oid": "6b0c0a20-7d22-4e24-9d1c-c78e3752be3a",
+            "oid": "612d5281-629d-4588-b634-d1503c5254e7",
             "singularName": "Session ID",
             "type": "string"
         },
         {
             "id": "preregistered",
-            "oid": "d187cbed-c7f9-4c75-88dc-089361f5506b",
+            "oid": "36be9860-41fa-43dc-81bb-ad33fe235ca7",
             "singularName": "Preregistered",
             "type": "number"
         },
         {
             "id": "status",
-            "oid": "d06405a0-4b2e-4a4b-af87-537d97584d8c",
+            "oid": "5c4b5bab-1bf9-45ae-b480-f9fdb5f521ad",
             "singularName": "Status",
             "type": "reference"
         },
         {
             "id": "speaker",
-            "oid": "b8bbb4a3-dfc8-4ec1-92be-5778d3402814",
+            "oid": "4a2effc7-783a-43ac-97a8-62a43167e8e3",
             "singularName": "Speaker",
             "type": "reference"
         },
         {
             "id": "title",
-            "oid": "b3138d68-a5b3-473f-a288-33d01fe6aba3",
+            "oid": "16c82f78-024a-49fb-9285-639481b778d7",
             "singularName": "Title",
             "type": "string"
         },
         {
             "id": "sessionType",
-            "oid": "3695abc2-1a5d-4620-8791-a8a4826a8a5c",
+            "oid": "151f4059-dc62-4515-9da0-4b4e7227a49a",
             "singularName": "Session Type",
             "type": "reference"
         },
         {
             "id": "length",
-            "oid": "acce748a-f109-404d-8f4b-db14b915df75",
+            "oid": "63fe0e09-e11a-4700-b125-8f3d1383d9e1",
             "singularName": "Length",
             "type": "number"
         },
         {
             "id": "date_",
-            "oid": "fd3eca25-99ec-45c5-b940-8b73bd8689c9",
+            "oid": "62245c2d-5fea-4499-a5f7-3a23c42bafed",
             "singularName": "Date",
             "type": "datetime"
         },
         {
             "id": "time_",
-            "oid": "77d28f8b-659e-4b24-bb1b-7101b765799a",
+            "oid": "b54ea64b-bd0c-413b-bee6-af682e7b9172",
             "singularName": "Time",
             "type": "time"
         },
         {
             "id": "room",
-            "oid": "0b1e63e8-f932-4e65-bbd3-c61070dd830c",
+            "oid": "989f9023-2b3f-4ee1-b4e7-7d3a00b1a34a",
             "singularName": "Room",
             "type": "reference"
         },
         {
             "id": "cost",
-            "oid": "027524f8-9564-4dcf-be92-b0c97ea4add7",
+            "oid": "2aeebd1b-b82d-411f-8b81-ef7c18b9cb94",
             "singularName": "Cost",
             "type": "string"
         }
     ],
     "hidden": false,
     "id": "Courses",
-    "oid": "dc783a03-df0f-45f4-9483-fe502db85096",
+    "oid": "cb8e577e-138c-4768-9e63-0168e137814b",
     "relations": [
         {
-            "accessorId": "statusObject",
+            "accessorId": "roomObject",
             "cardinality": "manyToOne",
-            "defaultDisplayFieldId": "displayName",
+            "defaultDisplayFieldId": "roomName",
             "deleteRule": "restrict",
-            "mappingFieldId": "status",
+            "mappingFieldId": "room",
             "sourceEntityId": "Courses",
-            "targetEntityId": "Status"
-        },
-        {
-            "accessorId": "speakerObject",
-            "cardinality": "manyToOne",
-            "defaultDisplayFieldId": "name",
-            "deleteRule": "restrict",
-            "mappingFieldId": "speaker",
-            "sourceEntityId": "Courses",
-            "targetEntityId": "Speakers"
+            "targetEntityId": "Rooms"
         },
         {
             "accessorId": "sessionTypeObject",
@@ -155,13 +146,22 @@
             "targetEntityId": "SessionType"
         },
         {
-            "accessorId": "roomObject",
+            "accessorId": "speakerObject",
             "cardinality": "manyToOne",
-            "defaultDisplayFieldId": "roomName",
+            "defaultDisplayFieldId": "name",
             "deleteRule": "restrict",
-            "mappingFieldId": "room",
+            "mappingFieldId": "speaker",
             "sourceEntityId": "Courses",
-            "targetEntityId": "Rooms"
+            "targetEntityId": "Speakers"
+        },
+        {
+            "accessorId": "statusObject",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "displayName",
+            "deleteRule": "restrict",
+            "mappingFieldId": "status",
+            "sourceEntityId": "Courses",
+            "targetEntityId": "Status"
         }
     ],
     "singularName": "Courses"
