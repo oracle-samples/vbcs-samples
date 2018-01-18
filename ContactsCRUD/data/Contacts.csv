@@ -1,4 +1,0 @@
-id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,firstName,lastName,company,email,phone
-1,2017-12-29T18:24:46,2017-12-30T06:38:49,srini.indla@oracle.com,srini.indla@oracle.com,Jamie,Lanister,GOT1,jl@got.com,441234567890
-2,2017-12-29T18:25:28,2017-12-29T18:25:28.004,srini.indla@oracle.com,srini.indla@oracle.com,Jon,Snow,GOT,js@got.com,441234567890
-3,2017-12-29T18:31:25,2017-12-29T18:31:25.003,srini.indla@oracle.com,srini.indla@oracle.com,Tyrion,Lanister,GOT,tl@got.com,441234567890
