@@ -73,7 +73,8 @@
       "beerQualityCollection": {
         "items": [
           {
-            "quality": "number"
+            "quality": "number",
+            "id": "number"
           }
         ]
       }
