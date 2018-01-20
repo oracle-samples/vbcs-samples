@@ -22,17 +22,6 @@
                 }
             ]
         },
-        "getallEmployeeResponse": {
-            "items": [
-                {
-                    "id": "number",
-                    "firstname": "string",
-                    "lastname": "string",
-                    "title": "string",
-                    "salary": "number"
-                }
-            ]
-        },
         "getallEmployeeResponse2": {
             "items": [
                 {

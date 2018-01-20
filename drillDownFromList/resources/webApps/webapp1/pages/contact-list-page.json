@@ -50,17 +50,7 @@
         }
     },
     "eventListeners": {
-        "detailsLinkClick": {
-            "chains": [
-                {
-                    "chainId": "navigateToContactDetailChain",
-                    "parameters": {
-                        "contactId": "[[ $current.data.id ]]"
-                    }
-                }
-            ]
-        },
-        "ojButton1084814331Click": {
+        "detailsItemClick": {
             "chains": [
                 {
                     "chainId": "navigateToContactDetailChain",

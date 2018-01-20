@@ -1,2 +1,7 @@
-define([],function(){'use strict';return function(){}});
-//# sourceMappingURL=start-page.js.map
+define([], function() {
+  'use strict';
+
+  var PageModule = function PageModule() {};
+
+  return PageModule;
+});
