@@ -1,4 +1,3 @@
--- ready for final review --
 
 **Name:**
 
