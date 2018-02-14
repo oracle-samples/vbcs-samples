@@ -1,0 +1,8 @@
+{"fields":[{"id":"id","internal":true,"key":true,"oid":"a8f97275-ef37-47f5-bdeb-43a2059fa82c","required":true,"singularName":"Id","type":"number","unique":true},{"id":"creationDate","internal":true,"oid":"db0790f3-fa07-4fc1-8710-3d0defd2abd1","singularName":"Created","type":"datetime"},{"id":"lastUpdateDate","internal":true,"oid":"beb46521-17fb-4bc8-9600-62d0f2962d2e","singularName":"Last Updated","type":"datetime"},{"id":"createdBy","internal":true,"oid":"01af79da-fcec-4a2b-8e73-7308dd92d64a","singularName":"Created By","type":"string"},{"id":"lastUpdatedBy","internal":true,"oid":"ea9879bb-9d1c-4ea0-9006-4b1a56512b18","singularName":"Last Updated By","type":"string"},{"hidden":true,"id":"abcsChangeNumber","internal":true,"oid":"6b52a617-e744-4860-af86-dbd6ca6488e5","singularName":"<internal>","type":"number"},
+        {
+            "id": "name",
+            "oid": "845afbd4-d423-469b-a350-ad011a6913da",
+            "singularName": "name",
+            "type": "string"
+        }
+      ],"id":"Continent","oid":"3ee3ff97-a0cc-4611-a8c6-8a66e66ec1a6","singularName":"Continent"}

@@ -1,0 +1,13 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name,country
+1,2018-01-09T22:35:40,2018-01-09T22:35:40.019,david.konecny@oracle.com,david.konecny@oracle.com,Toronto,3
+2,2018-01-09T22:35:57,2018-01-09T22:35:57.003,david.konecny@oracle.com,david.konecny@oracle.com,Havana,6
+3,2018-01-09T22:36:06,2018-01-09T22:36:06.002,david.konecny@oracle.com,david.konecny@oracle.com,Brno,1
+4,2018-01-09T22:36:24,2018-01-09T22:36:24.005,david.konecny@oracle.com,david.konecny@oracle.com,Cairo,5
+5,2018-01-09T22:36:32,2018-01-09T22:36:32.006,david.konecny@oracle.com,david.konecny@oracle.com,Berlin,2
+6,2018-01-09T22:36:53,2018-01-09T22:36:53.003,david.konecny@oracle.com,david.konecny@oracle.com,Harare,4
+7,2018-01-09T23:24:34,2018-01-09T23:24:34.006,david.konecny@oracle.com,david.konecny@oracle.com,Ottawa,3
+8,2018-01-09T23:25:25,2018-01-09T23:25:25.003,david.konecny@oracle.com,david.konecny@oracle.com,Santiago de Cuba,6
+9,2018-01-09T23:25:33,2018-01-09T23:25:33.003,david.konecny@oracle.com,david.konecny@oracle.com,Ostrava,1
+10,2018-01-09T23:25:54,2018-01-09T23:25:54.003,david.konecny@oracle.com,david.konecny@oracle.com,Giza,5
+11,2018-01-09T23:26:07,2018-01-09T23:26:07.002,david.konecny@oracle.com,david.konecny@oracle.com,Frankfurt,2
+12,2018-01-09T23:26:32,2018-01-09T23:26:32.002,david.konecny@oracle.com,david.konecny@oracle.com,Mutare,4
