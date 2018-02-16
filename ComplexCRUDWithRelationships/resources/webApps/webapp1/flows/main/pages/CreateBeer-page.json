@@ -1,15 +1,10 @@
 {
   "pageModelVersion": "18.1.1",
-  "title": "Edit Beer",
-  "description": "Updates single Beer record",
+  "title": "Create Beer",
+  "description": "Creates new Beer",
   "variables": {
-    "beerRecord": {
-      "type": "application:update_Beer"
-    },
-    "beerId": {
-      "required": true,
-      "type": "string",
-      "input": "fromUrl"
+    "beer": {
+      "type": "application:createBeerRequest"
     },
     "countryOptions": {
       "type": [
@@ -51,130 +46,24 @@
         }
       }
     },
-    "loadBeerChain": {
-      "root": "loadBeer",
+    "createBeerChain": {
+      "root": "assignQualities",
       "actions": {
-        "loadBeer": {
+        "createBeer": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "businessObjects/get_Beer",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}",
-              "expand": "beerQualityCollection"
-            }
-          },
-          "outcomes": {
-            "success": "assignPayload",
-            "failure": "fireErrorNotification"
-          }
-        },
-        "assignPayload": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.beerRecord": {
-              "source": "{{ $chain.results.loadBeer.body }}"
-            }
-          },
-          "outcomes": {
-            "success": "assignSelectedQualities"
-          }
-        },
-        "fireErrorNotification": {
-          "module": "vb/action/builtin/fireNotificationEventAction",
-          "parameters": {
-            "message": "{{ 'Could not load data: status ' + $chain.results.loadBeer.payload.status }}",
-            "type": "error",
-            "displayMode": "persist"
-          },
-          "outcomes": {}
-        },
-        "assignSelectedQualities": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.selectedQualities": {
-              "functionName": "assignStoredBeerQualities"
-            }
-          }
-        }
-      }
-    },
-    "saveBeerChain": {
-      "root": "createPayload",
-      "actions": {
-        "createPayload": {
-          "module": "vb/action/builtin/callModuleFunctionAction",
-          "parameters": {
-            "module": "{{$page.functions}}",
-            "functionName": "createPayload2",
-            "params": [
-              "{{ $page.variables.beerRecord }}",
-              "{{ $page.variables.selectedQualities }}"
-            ]
-          },
-          "outcomes": {
-            "success": "iterateRecordsToDelete"
-          }
-        },
-        "iterateRecordsToDelete": {
-          "module": "vb/action/builtin/forEachAction",
-          "parameters": {
-            "items": "{{ $chain.results.createPayload.recordsToDelete }}",
-            "actionId": "deleteBeerQuality"
-          },
-          "outcomes": {
-            "success": "iterateRecordsToCreate",
-            "failure": "fireErrorNotification"
-          }
-        },
-        "iterateRecordsToCreate": {
-          "module": "vb/action/builtin/forEachAction",
-          "parameters": {
-            "items": "{{ $chain.results.createPayload.recordsToCreate }}",
-            "actionId": "createBeerQuality"
-          },
-          "outcomes": {
-            "success": "updateBeer",
-            "failure": "fireErrorNotification"
-          }
-        },
-        "updateBeer": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/update_Beer",
-            "body": "{{ $chain.results.createPayload.beerToSave }}",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}"
-            }
+            "endpoint": "businessObjects/create_Beer",
+            "body": "{{ $page.variables.beer }}"
           },
           "outcomes": {
             "success": "fireSuccessNotification",
             "failure": "fireErrorNotification"
           }
         },
-        "deleteBeerQuality": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/delete_Beer-beerQualityCollection",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}",
-              "Beer_beerQualityCollection_Id": "{{ $current.data }}"
-            }
-          }
-        },
-        "createBeerQuality": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/create_Beer-beerQualityCollection",
-            "body": "{{ $current.data }}",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}"
-            }
-          }
-        },
         "fireSuccessNotification": {
           "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
-            "message": "Beer record successfully updated",
+            "message": "Beer record successfully created",
             "type": "confirmation",
             "displayMode": "transient"
           },
@@ -185,7 +74,7 @@
         "fireErrorNotification": {
           "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
-            "message": "{{ 'Could not update Beer: status ' + $chain.results.updateBeer.payload.status }}",
+            "message": "{{ 'Could not create new Beer: status ' + $chain.results.createBeer.payload.status }}",
             "type": "error",
             "displayMode": "persist"
           },
@@ -195,6 +84,20 @@
           "module": "vb/action/builtin/navigateBackAction",
           "outcomes": {
             "success": ""
+          }
+        },
+        "assignQualities": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "outcomes": {
+            "success": "createBeer"
+          },
+          "parameters": {
+            "$page.variables.beer.beerQualityCollection": {
+              "source": "{{ $page.variables.selectedQualities }}",
+              "mapping": {
+                "$target.quality": "$source"
+              }
+            }
           }
         }
       }
@@ -208,8 +111,8 @@
           "parameters": {
             "endpoint": "businessObjects/getall_Country",
             "uriParams": {
-              "limit": "{{ 500 }}",
-              "orderBy": "name"
+                "limit": "500",
+                "orderBy": "name\n"
             }
           },
           "outcomes": {
@@ -296,15 +199,12 @@
     "saveButtonClicked": {
       "chains": [
         {
-          "chainId": "saveBeerChain"
+          "chainId": "createBeerChain"
         }
       ]
     },
     "vbEnter": {
       "chains": [
-        {
-          "chainId": "loadBeerChain"
-        },
         {
           "chainId": "populateCountries",
           "parameters": {}
@@ -336,6 +236,15 @@
       },
       "oj-button": {
         "path": "ojs/ojbutton"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
       }
     }
   }
