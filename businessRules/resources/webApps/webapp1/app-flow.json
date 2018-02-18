@@ -1,14 +1,8 @@
 {
-    "applicationModelVersion": "1.0.0",
+    "applicationModelVersion": "18.1.5",
     "id": "starter",
     "description": "Expenses",
-    "shellPage": "shell",
-    "defaultPage": "ListExpenses",
-    "pages": [
-        "start",
-        "CreateExpense",
-        "ListExpenses"
-    ],
+    "defaultPage": "app",
     "chains": {},
     "services": {
         "businessObjects": "../../services/businessObjects/service.json"

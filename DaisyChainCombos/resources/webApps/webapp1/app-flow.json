@@ -4,7 +4,9 @@
   "description": "A new VB app",
   "defaultPage": "start",
   "chains": {},
-  "services": {},
+  "services": {
+    "businessObjects": "../../services/businessObjects/service.json"
+  },
   "types": {},
   "variables": {},
   "userConfig": {

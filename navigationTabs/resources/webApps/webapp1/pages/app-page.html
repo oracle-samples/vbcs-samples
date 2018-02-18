@@ -21,6 +21,16 @@
         </oj-toolbar>
       </div>
     </div>
+    <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
+      <oj-navigation-list aria-label="Choose a navigation item" navigationlevel="application" drill-mode="none" display="all" edge="top" selection="{{ $application.currentPage.id }}" class= "oj-md-condense oj-md-justify-content-flex-end" on-selection-changed="[[$listeners.ojNavigationListSelection]]">
+        <ul>
+          <li id="home"><a href="#">Home</a></li>
+          <li id="customers"><a href="#" target="_blank">Customers</a></li>
+          <li id="incidents"><a href="#">Incidents</a></li>
+          <li id="about"><a href="#">About</a></li>
+        </ul>
+      </oj-navigation-list>
+    </div>
   </header>
  
   <!-- for message notifications -->
