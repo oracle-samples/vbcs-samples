@@ -94,6 +94,9 @@
             },
             "oj-button": {
                 "path": "ojs/ojbutton"
+            },
+            "oj-input-date": {
+                "path": "ojs/ojdatetimepicker"
             }
         }
     }

@@ -55,6 +55,9 @@
             },
             "oj-input-text": {
                 "path": "ojs/ojinputtext"
+            },
+            "oj-input-date": {
+                "path": "ojs/ojdatetimepicker"
             }
         }
     }

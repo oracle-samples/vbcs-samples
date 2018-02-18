@@ -2,7 +2,7 @@
   "applicationModelVersion": "18.1.5",
   "id": "starter",
   "description": "A new VB app",
-  "defaultPage": "start",
+  "defaultPage": "app",
   "chains": {},
   "services": {},
   "types": {},

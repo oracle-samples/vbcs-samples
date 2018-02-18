@@ -45,7 +45,7 @@
                 }
             }
         }
-    
+
   },
   "eventListeners": {
     "vbNotification": {
@@ -67,7 +67,7 @@
                     }
                 }
             ]
-        }    
+        }
   },
   "imports": {
     "components": {

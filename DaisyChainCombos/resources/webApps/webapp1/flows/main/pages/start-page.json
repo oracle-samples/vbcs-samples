@@ -109,7 +109,7 @@
             },
             "$page.variables.selectedCountry": {
               "source":  ""
-            }            
+            }
           }
         },
         "ifContinent": {
@@ -164,7 +164,7 @@
             },
             "$page.variables.selectedCity": {
               "source":  ""
-            }            
+            }
           }
         },
         "ifCountry": {
