@@ -1,0 +1,85 @@
+{
+  "pageModelVersion": "18.1.5",
+  "description": "Application Starter Page",
+  "routerFlow": "main",
+  "variables": {},
+  "chains": {
+    "showNotificationChain": {
+      "variables": {
+        "eventPayload": {
+          "type": "object"
+        }
+      },
+      "root": "showNotificationBar",
+      "actions": {
+        "showNotificationBar": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ $page.components.byId('vbDefaultNotifier') }}",
+            "method": "show",
+            "params": [
+              "{{ $variables.eventPayload.type }}",
+              "{{ $variables.eventPayload.message }}",
+              "{{ $variables.eventPayload.displayMode === 'transient' }}"
+            ]
+          }
+        }
+      }
+    },
+        "navigateToSelectedPage": {
+            "root": "navigateToPage1",
+            "actions": {
+                "navigateToPage1": {
+                    "module": "vb/action/builtin/navigateToPageAction",
+                    "parameters": {
+                        "history": "push",
+                        "page": "[[ $chain.variables.selectedPage ]]"
+                    }
+                }
+            },
+            "description": "",
+            "variables": {
+                "selectedPage": {
+                    "type": "string",
+                    "input": "fromCaller"
+                }
+            }
+        }
+    
+  },
+  "eventListeners": {
+    "vbNotification": {
+      "chains": [
+        {
+          "chainId": "showNotificationChain",
+          "parameters": {
+            "eventPayload": "{{ $event }}"
+          }
+        }
+      ]
+    },
+        "ojNavigationListSelection": {
+            "chains": [
+                {
+                    "chainId": "navigateToSelectedPage",
+                    "parameters": {
+                        "selectedPage": "{{ $event.detail.value }}"
+                    }
+                }
+            ]
+        }    
+  },
+  "imports": {
+    "components": {
+      "vb-message-bar": {
+        "path": "vb/components/messagebar/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-navigation-list": {
+        "path": "ojs/ojnavigationlist"
+      }
+    }
+  }
+}
