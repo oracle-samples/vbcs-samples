@@ -32,8 +32,7 @@
                 "navigateToPage1": {
                     "module": "vb/action/builtin/navigateToPageAction",
                     "parameters": {
-                        "history": "push",
-                        "page": "[[ $chain.variables.selectedPage ]]"
+                        "page": "[[ '/' + $variables.selectedPage ]]"
                     }
                 }
             },
@@ -45,7 +44,6 @@
                 }
             }
         }
-
   },
   "eventListeners": {
     "vbNotification": {
