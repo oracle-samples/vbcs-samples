@@ -1,13 +1,8 @@
 {
-    "applicationModelVersion": "1.0.0",
+    "applicationModelVersion": "18.1.5",
     "id": "starter",
     "description": "A new VB app",
-    "shellPage": "shell",
-    "defaultPage": "start",
-    "pages": [
-        "start",
-        "gotolatestforlocation"
-    ],
+    "defaultPage": "app",
     "chains": {},
     "services": {
         "airquality": "../../services/airquality/service.json"

@@ -1,0 +1,26 @@
+{"fields":[{"id":"id","internal":true,"key":true,"oid":"3c153869-8077-4fc5-8619-ece392e12288","required":true,"singularName":"Id","type":"number","unique":true},{"id":"creationDate","internal":true,"oid":"2fb8da80-ffb4-437f-bf6a-aa77763d9930","singularName":"Created","type":"datetime"},{"id":"lastUpdateDate","internal":true,"oid":"faee123c-6ec6-484f-9742-1c4812c4a7e3","singularName":"Last Updated","type":"datetime"},{"id":"createdBy","internal":true,"oid":"ef5e8b26-3d55-42e2-a854-3c28b262c7a4","singularName":"Created By","type":"string"},{"id":"lastUpdatedBy","internal":true,"oid":"392846a0-e371-420b-99b6-0c33bdf4b992","singularName":"Last Updated By","type":"string"},{"hidden":true,"id":"abcsChangeNumber","internal":true,"oid":"434f3bbe-0ec3-4ba4-8c5d-808bfa004b66","singularName":"<internal>","type":"number"},
+        {
+            "id": "name",
+            "oid": "a4b49176-63b1-4202-9fe6-455cdf318a2c",
+            "singularName": "name",
+            "type": "string"
+        },
+        {
+            "id": "continent",
+            "oid": "81f46983-afbb-40d7-b7ee-7311801610f3",
+            "singularName": "continent",
+            "type": "reference"
+        }
+      ],"id":"Country","oid":"445b6c3a-7e90-41fc-9381-4e2b87509971","singularName":"Country",
+    "relations": [
+        {
+            "accessorId": "continentObject",
+            "cardinality": "manyToOne",
+            "defaultDisplayFieldId": "name",
+            "deleteRule": "restrict",
+            "mappingFieldId": "continent",
+            "sourceEntityId": "Country",
+            "targetEntityId": "Continent"
+        }
+    ]
+   }

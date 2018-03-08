@@ -1,0 +1,251 @@
+{
+  "pageModelVersion": "18.1.1",
+  "title": "Create Beer",
+  "description": "Creates new Beer",
+  "variables": {
+    "beer": {
+      "type": "application:createBeerRequest"
+    },
+    "countryOptions": {
+      "type": [
+        {
+          "label": "string",
+          "value": "number"
+        }
+      ]
+    },
+    "beerTypeOptions": {
+      "type": [
+        {
+          "label": "string",
+          "value": "number"
+        }
+      ]
+    },
+    "qualityOptions": {
+      "type": [
+        {
+          "label": "string",
+          "value": "number"
+        }
+      ]
+    },
+    "selectedQualities": {
+      "type": "number[]"
+    }
+  },
+  "chains": {
+    "goBackChain": {
+      "root": "navigateBack",
+      "actions": {
+        "navigateBack": {
+          "module": "vb/action/builtin/navigateBackAction",
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    },
+    "createBeerChain": {
+      "root": "assignQualities",
+      "actions": {
+        "createBeer": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/create_Beer",
+            "body": "{{ $page.variables.beer }}"
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "message": "Beer record successfully created",
+            "type": "confirmation",
+            "displayMode": "transient"
+          },
+          "outcomes": {
+            "success": "navigateBack"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "message": "{{ 'Could not create new Beer: status ' + $chain.results.createBeer.payload.status }}",
+            "type": "error",
+            "displayMode": "persist"
+          },
+          "outcomes": {}
+        },
+        "navigateBack": {
+          "module": "vb/action/builtin/navigateBackAction",
+          "outcomes": {
+            "success": ""
+          }
+        },
+        "assignQualities": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "outcomes": {
+            "success": "createBeer"
+          },
+          "parameters": {
+            "$page.variables.beer.beerQualityCollection": {
+              "source": "{{ $page.variables.selectedQualities }}",
+              "mapping": {
+                "$target.quality": "$source"
+              }
+            }
+          }
+        }
+      }
+    },
+    "populateCountries": {
+      "root": "callGetAllCountries",
+      "description": "",
+      "actions": {
+        "callGetAllCountries": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Country",
+            "uriParams": {
+                "limit": "500",
+                "orderBy": "name\n"
+            }
+          },
+          "outcomes": {
+            "success": "assignCountries"
+          }
+        },
+        "assignCountries": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.countryOptions": {
+              "source": "{{ $chain.results.callGetAllCountries.body.items }}",
+              "mapping": {
+                "$target.value": "$source.id",
+                "$target.label": "$source.name"
+              }
+            }
+          }
+        }
+      }
+    },
+    "populateBeerTypes": {
+      "root": "callGetAllBeerTypes",
+      "description": "",
+      "actions": {
+        "callGetAllBeerTypes": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_BeerType"
+          },
+          "outcomes": {
+            "success": "assignBeerTypes"
+          }
+        },
+        "assignBeerTypes": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.beerTypeOptions": {
+              "source": "{{ $chain.results.callGetAllBeerTypes.body.items }}",
+              "mapping": {
+                "$target.value": "$source.id",
+                "$target.label": "$source.name"
+              }
+            }
+          }
+        }
+      }
+    },
+    "populateQualities": {
+      "root": "callGetAllQualities",
+      "description": "",
+      "actions": {
+        "callGetAllQualities": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Quality"
+          },
+          "outcomes": {
+            "success": "assignQualities"
+          }
+        },
+        "assignQualities": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.qualityOptions": {
+              "source": "{{ $chain.results.callGetAllQualities.body.items }}",
+              "mapping": {
+                "$target.value": "$source.id",
+                "$target.label": "$source.name"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "backButtonClicked": {
+      "chains": [
+        {
+          "chainId": "goBackChain"
+        }
+      ]
+    },
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chainId": "createBeerChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "populateCountries",
+          "parameters": {}
+        },
+        {
+          "chainId": "populateBeerTypes",
+          "parameters": {}
+        },
+        {
+          "chainId": "populateQualities",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      }
+    }
+  }
+}

@@ -1,15 +1,8 @@
 {
-    "applicationModelVersion": "18.1.1",
+    "applicationModelVersion": "18.1.5",
     "id": "starter",
     "description": "A new VB app",
-    "shellPage": "shell",
-    "defaultPage": "home",
-    "pages": [
-        "home",
-        "customers",
-        "incidents",
-        "about"
-    ],
+    "defaultPage": "app",
     "chains": {},
     "services": {},
     "types": {},

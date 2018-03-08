@@ -1,0 +1,64 @@
+{
+    "pageModelVersion": "1.0.0",
+    "title": "Page",
+    "description": "VB page",
+    "variables": {
+        "CurrentLocation": {
+            "type": "string",
+            "input": "fromCaller",
+            "defaultValue": "San Francisco"
+        },
+        "getLatestListServiceDataProvider": {
+            "defaultValue": {
+                "endpoint": "airquality/getLatest",
+                "idAttribute": "location",
+                "itemsPath": "results[0].measurements",
+                "responseType": "application:getLatestResponse",
+                "uriParameters": {
+                    "location": "{{$variables.CurrentLocation}}"
+                }
+            },
+            "type": "vb/ServiceDataProvider"
+        }
+    },
+    "chains": {
+        "NavigateBack": {
+            "description": "",
+            "variables": {},
+            "root": "navigateBack1",
+            "actions": {
+                "navigateBack1": {
+                    "module": "vb/action/builtin/navigateBackAction"
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "ojButton1339076341Click": {
+            "chains": [
+                {
+                    "chainId": "NavigateBack"
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-list-view": {
+                "path": "ojs/ojlistview"
+            },
+            "oj-label": {
+                "path": "ojs/ojlabel"
+            },
+            "oj-input-text": {
+                "path": "ojs/ojinputtext"
+            },
+            "oj-input-date": {
+                "path": "ojs/ojdatetimepicker"
+            }
+        }
+    }
+}

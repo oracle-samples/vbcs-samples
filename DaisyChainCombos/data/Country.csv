@@ -1,0 +1,7 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name,continent
+1,2018-01-09T22:33:39,2018-01-09T22:33:39.019,david.konecny@oracle.com,david.konecny@oracle.com,Czech Republic,3
+2,2018-01-09T22:33:48,2018-01-09T22:33:48.004,david.konecny@oracle.com,david.konecny@oracle.com,Germany,3
+3,2018-01-09T22:33:56,2018-01-09T22:33:56.003,david.konecny@oracle.com,david.konecny@oracle.com,Canada,2
+4,2018-01-09T22:34:18,2018-01-09T22:34:18.003,david.konecny@oracle.com,david.konecny@oracle.com,Zimbabwe,1
+5,2018-01-09T22:34:29,2018-01-09T22:34:29.003,david.konecny@oracle.com,david.konecny@oracle.com,Egypt,1
+6,2018-01-09T22:35:14,2018-01-09T22:35:14.003,david.konecny@oracle.com,david.konecny@oracle.com,Cuba,2

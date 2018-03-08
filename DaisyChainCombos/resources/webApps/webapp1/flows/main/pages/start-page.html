@@ -1,0 +1,36 @@
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1-979113728-1">Daisy Chain Comboboxes</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <hr id="hr-979113728-1">
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-label id="oj-label-979113728-1" for="oj-select-one-979113728-1">Continent</oj-label>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-select-one id="oj-select-one-979113728-1" style="max-width: 100%;" placeholder="select continent" value="{{ $page.variables.selectedContinent }}" options="{{ $page.variables.continents }}"></oj-select-one>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-label id="oj-label-979113728-2" for="oj-select-one-979113728-2">Country</oj-label>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-select-one id="oj-select-one-979113728-2" style="max-width: 100%;" placeholder="select continent first" value="{{ $page.variables.selectedCountry }}" options="{{ $page.variables.countries }}"></oj-select-one>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-label id="oj-label-979113728-3" for="oj-select-one-979113728-3">City</oj-label>
+        </div>
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+            <oj-select-one id="oj-select-one-979113728-3" style="max-width: 100%;" value="{{ $page.variables.selectedCity }}" options="{{ $page.variables.cities }}" placeholder=" select country first"></oj-select-one>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,348 @@
+{
+  "pageModelVersion": "18.1.1",
+  "title": "Edit Beer",
+  "description": "Updates single Beer record",
+  "variables": {
+    "beerRecord": {
+      "type": "application:update_Beer"
+    },
+    "beerId": {
+      "required": true,
+      "type": "string",
+      "input": "fromUrl"
+    },
+    "countryOptions": {
+      "type": [
+        {
+          "label": "string",
+          "value": "number"
+        }
+      ]
+    },
+    "beerTypeOptions": {
+      "type": [
+        {
+          "label": "string",
+          "value": "number"
+        }
+      ]
+    },
+    "qualityOptions": {
+      "type": [
+        {
+          "label": "string",
+          "value": "number"
+        }
+      ]
+    },
+    "selectedQualities": {
+      "type": "number[]"
+    }
+  },
+  "chains": {
+    "goBackChain": {
+      "root": "navigateBack",
+      "actions": {
+        "navigateBack": {
+          "module": "vb/action/builtin/navigateBackAction",
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    },
+    "loadBeerChain": {
+      "root": "loadBeer",
+      "actions": {
+        "loadBeer": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Beer",
+            "uriParams": {
+              "Beer_Id": "{{ $page.variables.beerId }}",
+              "expand": "beerQualityCollection"
+            }
+          },
+          "outcomes": {
+            "success": "assignPayload",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "assignPayload": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.beerRecord": {
+              "source": "{{ $chain.results.loadBeer.body }}"
+            }
+          },
+          "outcomes": {
+            "success": "assignSelectedQualities"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "message": "{{ 'Could not load data: status ' + $chain.results.loadBeer.payload.status }}",
+            "type": "error",
+            "displayMode": "persist"
+          },
+          "outcomes": {}
+        },
+        "assignSelectedQualities": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.selectedQualities": {
+              "functionName": "assignStoredBeerQualities"
+            }
+          }
+        }
+      }
+    },
+    "saveBeerChain": {
+      "root": "createPayload",
+      "actions": {
+        "createPayload": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "createPayload2",
+            "params": [
+              "{{ $page.variables.beerRecord }}",
+              "{{ $page.variables.selectedQualities }}"
+            ]
+          },
+          "outcomes": {
+            "success": "iterateRecordsToDelete"
+          }
+        },
+        "iterateRecordsToDelete": {
+          "module": "vb/action/builtin/forEachAction",
+          "parameters": {
+            "items": "{{ $chain.results.createPayload.recordsToDelete }}",
+            "actionId": "deleteBeerQuality"
+          },
+          "outcomes": {
+            "success": "iterateRecordsToCreate",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "iterateRecordsToCreate": {
+          "module": "vb/action/builtin/forEachAction",
+          "parameters": {
+            "items": "{{ $chain.results.createPayload.recordsToCreate }}",
+            "actionId": "createBeerQuality"
+          },
+          "outcomes": {
+            "success": "updateBeer",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "updateBeer": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/update_Beer",
+            "body": "{{ $chain.results.createPayload.beerToSave }}",
+            "uriParams": {
+              "Beer_Id": "{{ $page.variables.beerId }}"
+            }
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "deleteBeerQuality": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/delete_Beer-beerQualityCollection",
+            "uriParams": {
+              "Beer_Id": "{{ $page.variables.beerId }}",
+              "Beer_beerQualityCollection_Id": "{{ $current.data }}"
+            }
+          }
+        },
+        "createBeerQuality": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/create_Beer-beerQualityCollection",
+            "body": "{{ $current.data }}",
+            "uriParams": {
+              "Beer_Id": "{{ $page.variables.beerId }}"
+            }
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "message": "Beer record successfully updated",
+            "type": "confirmation",
+            "displayMode": "transient"
+          },
+          "outcomes": {
+            "success": "navigateBack"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "message": "{{ 'Could not update Beer: status ' + $chain.results.updateBeer.payload.status }}",
+            "type": "error",
+            "displayMode": "persist"
+          },
+          "outcomes": {}
+        },
+        "navigateBack": {
+          "module": "vb/action/builtin/navigateBackAction",
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    },
+    "populateCountries": {
+      "root": "callGetAllCountries",
+      "description": "",
+      "actions": {
+        "callGetAllCountries": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Country",
+            "uriParams": {
+              "limit": "{{ 500 }}",
+              "orderBy": "name"
+            }
+          },
+          "outcomes": {
+            "success": "assignCountries"
+          }
+        },
+        "assignCountries": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.countryOptions": {
+              "source": "{{ $chain.results.callGetAllCountries.body.items }}",
+              "mapping": {
+                "$target.value": "$source.id",
+                "$target.label": "$source.name"
+              }
+            }
+          }
+        }
+      }
+    },
+    "populateBeerTypes": {
+      "root": "callGetAllBeerTypes",
+      "description": "",
+      "actions": {
+        "callGetAllBeerTypes": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_BeerType"
+          },
+          "outcomes": {
+            "success": "assignBeerTypes"
+          }
+        },
+        "assignBeerTypes": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.beerTypeOptions": {
+              "source": "{{ $chain.results.callGetAllBeerTypes.body.items }}",
+              "mapping": {
+                "$target.value": "$source.id",
+                "$target.label": "$source.name"
+              }
+            }
+          }
+        }
+      }
+    },
+    "populateQualities": {
+      "root": "callGetAllQualities",
+      "description": "",
+      "actions": {
+        "callGetAllQualities": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Quality"
+          },
+          "outcomes": {
+            "success": "assignQualities"
+          }
+        },
+        "assignQualities": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.qualityOptions": {
+              "source": "{{ $chain.results.callGetAllQualities.body.items }}",
+              "mapping": {
+                "$target.value": "$source.id",
+                "$target.label": "$source.name"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "backButtonClicked": {
+      "chains": [
+        {
+          "chainId": "goBackChain"
+        }
+      ]
+    },
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chainId": "saveBeerChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "loadBeerChain"
+        },
+        {
+          "chainId": "populateCountries",
+          "parameters": {}
+        },
+        {
+          "chainId": "populateBeerTypes",
+          "parameters": {}
+        },
+        {
+          "chainId": "populateQualities",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      }
+    }
+  }
+}

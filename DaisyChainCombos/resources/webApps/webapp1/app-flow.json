@@ -1,0 +1,16 @@
+{
+  "applicationModelVersion": "18.1.5",
+  "id": "starter",
+  "description": "A new VB app",
+  "defaultPage": "app",
+  "chains": {},
+  "services": {
+    "businessObjects": "../../services/businessObjects/service.json"
+  },
+  "types": {},
+  "variables": {},
+  "userConfig": {
+    "type": "vb/UserSecurityProvider",
+    "configuration": {}
+  }
+}
