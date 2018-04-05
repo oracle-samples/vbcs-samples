@@ -32,7 +32,7 @@ define([], function () {
             alcoholPercentage: beerRecord.alcoholPercentage,
             imageURL: beerRecord.imageURL,
             country: beerRecord.country,
-            beerType: beerRecord.beerRecord
+            beerType: beerRecord.beerType
         };
         changes.beerToSave = beerToSave;
         changes.recordsToDelete = qualitiesToDelete;

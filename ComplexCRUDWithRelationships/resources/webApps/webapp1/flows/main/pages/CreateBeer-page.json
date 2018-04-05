@@ -112,7 +112,7 @@
             "endpoint": "businessObjects/getall_Country",
             "uriParams": {
                 "limit": "500",
-                "orderBy": "name\n"
+                "orderBy": "name"
             }
           },
           "outcomes": {
