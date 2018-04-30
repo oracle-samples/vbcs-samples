@@ -1,5 +1,3 @@
--- ready for review --
-
 **Name:**
 
 Web Service Consumption

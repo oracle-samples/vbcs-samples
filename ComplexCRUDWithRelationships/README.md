@@ -1,5 +1,3 @@
--- ready for final review --
-
 **Name:**
 
 Complex CRUD with Relationships (Beer Tracker)
