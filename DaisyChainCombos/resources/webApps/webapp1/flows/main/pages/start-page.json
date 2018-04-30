@@ -109,7 +109,7 @@
             },
             "$page.variables.selectedCountry": {
               "source":  ""
-            }            
+            }
           }
         },
         "ifContinent": {
@@ -119,7 +119,7 @@
             "false": "resetCountry"
           },
           "parameters": {
-            "condition": "{{ $page.variables.selectedContinent !== '' }}"
+            "condition": "{{ $page.variables.selectedContinent !== '' && $page.variables.selectedContinent !== null }}"
           }
         },
         "resetCountry": {
@@ -164,7 +164,7 @@
             },
             "$page.variables.selectedCity": {
               "source":  ""
-            }            
+            }
           }
         },
         "ifCountry": {
