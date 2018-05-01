@@ -6,30 +6,31 @@ Each directory of this repository represents an example that can be used within 
 
 ```
 + _sample_name_
-  + resources
-  + README.md
   + LICENSE.txt
+  + README.md
+  + resources
+  + _sample_name_.ovb
 ```
-
-### README.md
-
-The readme.md file in each sample describes what the sample does and what you need in order to run it. Any dependencies or prerequisites will be called out in this file. 
 
 ### LICENSE.txt
 
 The license governs rights to the sample. 
 
+### README.md
+
+The readme.md file in each sample describes what the sample does and what you need in order to run it. Any dependencies or prerequisites will be called out in this file. 
+
 ### resources directory
 
 The resources directory contains the source code for the sample. This is provided as a convenience in case you just want to browse the code in the git repository without installing the sample.
 
-### other
+## _sample_name_.ovb
+
+The ovb file is the final packaged sample. Download the ovb file from this repository. You can then use the "Import" button in the Visual Builder landing page to load the sample into your Visual Builder environment. Some samples may require additional setup which will be documented in that sample's README.md file. 
+
+### other directory
 
 Depending on the sample, there may be additional resources made available in order to facilate use of the sample. 
-
-## Releases
-
-The vbcs-samples repository makes use of releases containing zip files for each sample. This zip file can be used in the VB designer from the "Import" button on the landing page to import the sample into your environment. Note that additional set up steps may be required, and if so, they will be noted in the README.md for that sample. 
 
 ## List of Samples
 
@@ -44,6 +45,10 @@ This sample explores Many:One and Many:Many relationships and performing CRUD op
 ### ContaactsCRUD
 
 Simple application with pages for data retrieval (fetch), create, udpdate, and delete operations on a business object. 
+
+### DaisyChainCombos
+
+This sample shows three cascading combo boxes and how a city selection can be broken down first into selection of continent, then country in that content, and finally city in that country.
 
 ### drillDownFromList
 
