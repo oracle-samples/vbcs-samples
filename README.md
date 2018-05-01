@@ -24,7 +24,7 @@ The readme.md file in each sample describes what the sample does and what you ne
 
 The resources directory contains the source code for the sample. This is provided as a convenience in case you just want to browse the code in the git repository without installing the sample.
 
-## _sample_name_.ovb
+### _sample_name_.ovb
 
 The ovb file is the final packaged sample. Download the ovb file from this repository. You can then use the "Import" button in the Visual Builder landing page to load the sample into your Visual Builder environment. Some samples may require additional setup which will be documented in that sample's README.md file. 
 
