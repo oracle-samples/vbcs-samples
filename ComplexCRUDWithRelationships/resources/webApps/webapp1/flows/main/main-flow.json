@@ -2,9 +2,90 @@
   "flowModelVersion": "18.1.5",
   "id": "main",
   "description": "Flow main",
-  "defaultPage": "start",
+  "defaultPage": "Beers",
   "chains": {},
   "services": {},
-  "types": {},
+  "types": {
+    "getallBeerResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string",
+          "alcoholPercentage": "number",
+          "beerQualityCollection": {
+            "items": [
+              {
+                "qualityObject": {
+                  "items": [
+                    {
+                      "name": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "beerTypeObject": {
+            "items": [
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "countryObject": {
+            "items": [
+              {
+                "name": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "@decorators.getallBeerResponse": {
+      "endpoint": "getall_Beer",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallBeerTypeResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "@decorators.getallBeerTypeResponse": {
+      "endpoint": "getall_BeerType",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallCountryResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "@decorators.getallCountryResponse": {
+      "endpoint": "getall_Country",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallQualityResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "@decorators.getallQualityResponse": {
+      "endpoint": "getall_Quality",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
   "variables": {}
 }

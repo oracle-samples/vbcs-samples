@@ -6,32 +6,50 @@
     "beer": {
       "type": "application:createBeerRequest"
     },
-    "countryOptions": {
-      "type": [
-        {
-          "label": "string",
-          "value": "number"
-        }
-      ]
-    },
-    "beerTypeOptions": {
-      "type": [
-        {
-          "label": "string",
-          "value": "number"
-        }
-      ]
-    },
-    "qualityOptions": {
-      "type": [
-        {
-          "label": "string",
-          "value": "number"
-        }
-      ]
-    },
     "selectedQualities": {
       "type": "number[]"
+    },
+    "beerTypeListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_BeerType",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallBeerTypeResponse",
+        "sortCriteria": [
+          {
+            "attribute": "{{ 'name' }}"
+          }
+        ]
+      }
+    },
+    "countryListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Country",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallCountryResponse",
+        "sortCriteria": [
+          {
+            "attribute": "{{ 'name' }}"
+          }
+        ]
+      }
+    },
+    "qualityListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Quality",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallQualityResponse",
+        "sortCriteria": [
+          {
+            "attribute": "{{ 'name' }}"
+          }
+        ]
+      }
     }
   },
   "chains": {
@@ -101,91 +119,6 @@
           }
         }
       }
-    },
-    "populateCountries": {
-      "root": "callGetAllCountries",
-      "description": "",
-      "actions": {
-        "callGetAllCountries": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_Country",
-            "uriParams": {
-                "limit": "500",
-                "orderBy": "name"
-            }
-          },
-          "outcomes": {
-            "success": "assignCountries"
-          }
-        },
-        "assignCountries": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.countryOptions": {
-              "source": "{{ $chain.results.callGetAllCountries.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            }
-          }
-        }
-      }
-    },
-    "populateBeerTypes": {
-      "root": "callGetAllBeerTypes",
-      "description": "",
-      "actions": {
-        "callGetAllBeerTypes": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_BeerType"
-          },
-          "outcomes": {
-            "success": "assignBeerTypes"
-          }
-        },
-        "assignBeerTypes": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.beerTypeOptions": {
-              "source": "{{ $chain.results.callGetAllBeerTypes.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            }
-          }
-        }
-      }
-    },
-    "populateQualities": {
-      "root": "callGetAllQualities",
-      "description": "",
-      "actions": {
-        "callGetAllQualities": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_Quality"
-          },
-          "outcomes": {
-            "success": "assignQualities"
-          }
-        },
-        "assignQualities": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.qualityOptions": {
-              "source": "{{ $chain.results.callGetAllQualities.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            }
-          }
-        }
-      }
     }
   },
   "eventListeners": {
@@ -200,22 +133,6 @@
       "chains": [
         {
           "chainId": "createBeerChain"
-        }
-      ]
-    },
-    "vbEnter": {
-      "chains": [
-        {
-          "chainId": "populateCountries",
-          "parameters": {}
-        },
-        {
-          "chainId": "populateBeerTypes",
-          "parameters": {}
-        },
-        {
-          "chainId": "populateQualities",
-          "parameters": {}
         }
       ]
     }

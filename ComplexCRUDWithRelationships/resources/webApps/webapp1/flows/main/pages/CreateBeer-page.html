@@ -6,12 +6,12 @@
     </div>
     <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-md-12">
-            <oj-form-layout id="oj-form-layout--908220376-1" label-edge="start">
+            <oj-form-layout id="oj-form-layout--908220376-1" label-edge="start" max-columns="2">
                 <oj-input-text label-hint="Name" value="{{ $page.variables.beer.name }}" id="oj-input-text--908220376-1"></oj-input-text>
                 <oj-input-number label-hint="Alcohol Percentage" value="{{ $page.variables.beer.alcoholPercentage }}" id="oj-input-number--908220376-2"></oj-input-number>
-                <oj-select-one id="oj-select-one--908220376-1" label-hint="Beer Type" value="{{ $page.variables.beer.beerType }}" options="{{ $page.variables.beerTypeOptions }}" placeholder=" "></oj-select-one>
-                <oj-select-one id="oj-select-one--908220376-2" label-hint="Country" value="{{ $page.variables.beer.country }}" options="{{ $page.variables.countryOptions }}" placeholder=" "></oj-select-one>
-                <oj-select-many id="oj-select-many--908220376-1" label-hint="Qualities" value="{{ $page.variables.selectedQualities }}" options="{{ $page.variables.qualityOptions }}"></oj-select-many>
+                <oj-select-one id="oj-select-one--908220376-1" label-hint="Beer Type" value="{{ $page.variables.beer.beerType }}" placeholder=" " options="[[$page.variables.beerTypeListServiceDataProvider]]" options-keys.value="id" options-keys.label="name"></oj-select-one>
+                <oj-select-one id="oj-select-one--908220376-2" label-hint="Country" value="{{ $page.variables.beer.country }}" placeholder=" " options="[[$page.variables.countryListServiceDataProvider]]" options-keys.value="id" options-keys.label="name"></oj-select-one>
+                <oj-select-many id="oj-select-many--908220376-1" label-hint="Qualities" value="{{ $page.variables.selectedQualities }}" options="[[$page.variables.qualityListServiceDataProvider]]" options-keys.value="id" options-keys.label="name"></oj-select-many>
             </oj-form-layout>
         </div>
     </div>

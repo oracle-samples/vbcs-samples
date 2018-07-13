@@ -1,0 +1,10 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name
+1,2018-01-08T23:40:35,2018-01-08T23:40:35.009,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Nutty
+2,2018-01-08T23:40:45,2018-01-08T23:40:45.007,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Bitter
+3,2018-01-09T00:35:11,2018-01-09T00:35:11.009,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Smooth
+4,2018-01-09T00:35:15,2018-01-09T00:35:15.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Hoppy
+5,2018-01-09T00:35:19,2018-01-09T00:35:19.006,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Sour
+7,2018-01-12T23:22:14,2018-01-12T23:22:14.008,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Crisp
+8,2018-01-12T23:23:00,2018-01-12T23:23:00.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Bold
+9,2018-01-12T23:23:39,2018-01-12T23:23:39.012,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Dark
+10,2018-01-12T23:23:44,2018-01-12T23:23:44.002,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Light

@@ -11,32 +11,44 @@
       "type": "string",
       "input": "fromUrl"
     },
-    "countryOptions": {
-      "type": [
-        {
-          "label": "string",
-          "value": "number"
-        }
-      ]
-    },
-    "beerTypeOptions": {
-      "type": [
-        {
-          "label": "string",
-          "value": "number"
-        }
-      ]
-    },
-    "qualityOptions": {
-      "type": [
-        {
-          "label": "string",
-          "value": "number"
-        }
-      ]
-    },
     "selectedQualities": {
       "type": "number[]"
+    },
+    "beerTypeListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_BeerType",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallBeerTypeResponse",
+        "sortCriteria": [{
+          "attribute": "{{ 'name' }}"
+        }]
+      }
+    },
+    "countryListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Country",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallCountryResponse",
+        "sortCriteria": [{
+          "attribute": "{{ 'name' }}"
+        }]
+      }
+    },
+    "qualityListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Quality",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallQualityResponse",
+        "sortCriteria": [{
+          "attribute": "{{ 'name' }}"
+        }]
+      }
     }
   },
   "chains": {
@@ -92,7 +104,10 @@
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$page.variables.selectedQualities": {
-              "functionName": "assignStoredBeerQualities"
+                "source": "{{ $chain.results.loadBeer.body.beerQualityCollection.items }}",
+                "mapping": {
+                  "$target": "$source.quality"
+                }
             }
           }
         }
@@ -105,70 +120,25 @@
           "module": "vb/action/builtin/callModuleFunctionAction",
           "parameters": {
             "module": "{{$page.functions}}",
-            "functionName": "createPayload2",
+            "functionName": "createPayload",
             "params": [
               "{{ $page.variables.beerRecord }}",
               "{{ $page.variables.selectedQualities }}"
             ]
           },
           "outcomes": {
-            "success": "iterateRecordsToDelete"
-          }
-        },
-        "iterateRecordsToDelete": {
-          "module": "vb/action/builtin/forEachAction",
-          "parameters": {
-            "items": "{{ $chain.results.createPayload.recordsToDelete }}",
-            "actionId": "deleteBeerQuality"
-          },
-          "outcomes": {
-            "success": "iterateRecordsToCreate",
-            "failure": "fireErrorNotification"
-          }
-        },
-        "iterateRecordsToCreate": {
-          "module": "vb/action/builtin/forEachAction",
-          "parameters": {
-            "items": "{{ $chain.results.createPayload.recordsToCreate }}",
-            "actionId": "createBeerQuality"
-          },
-          "outcomes": {
-            "success": "updateBeer",
-            "failure": "fireErrorNotification"
+            "success": "updateBeer"
           }
         },
         "updateBeer": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "businessObjects/update_Beer",
-            "body": "{{ $chain.results.createPayload.beerToSave }}",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}"
-            }
+            "endpoint": "businessObjects/batch",
+            "body": "{{ $chain.results.createPayload }}"
           },
           "outcomes": {
             "success": "fireSuccessNotification",
             "failure": "fireErrorNotification"
-          }
-        },
-        "deleteBeerQuality": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/delete_Beer-beerQualityCollection",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}",
-              "Beer_beerQualityCollection_Id": "{{ $current.data }}"
-            }
-          }
-        },
-        "createBeerQuality": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/create_Beer-beerQualityCollection",
-            "body": "{{ $current.data }}",
-            "uriParams": {
-              "Beer_Id": "{{ $page.variables.beerId }}"
-            }
           }
         },
         "fireSuccessNotification": {
@@ -199,123 +169,69 @@
         }
       }
     },
-    "populateCountries": {
-      "root": "callGetAllCountries",
+    "deleteBeerChain": {
+      "root": "callRestEndpoint1",
       "description": "",
       "actions": {
-        "callGetAllCountries": {
+        "callRestEndpoint1": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "businessObjects/getall_Country",
+            "endpoint": "businessObjects/delete_Beer",
             "uriParams": {
-              "limit": "{{ 500 }}",
-              "orderBy": "name"
+              "Beer_Id": "{{ $page.variables.beerId }}"
             }
           },
           "outcomes": {
-            "success": "assignCountries"
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
           }
         },
-        "assignCountries": {
-          "module": "vb/action/builtin/assignVariablesAction",
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
-            "$page.variables.countryOptions": {
-              "source": "{{ $chain.results.callGetAllCountries.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            }
-          }
-        }
-      }
-    },
-    "populateBeerTypes": {
-      "root": "callGetAllBeerTypes",
-      "description": "",
-      "actions": {
-        "callGetAllBeerTypes": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_BeerType"
+            "message": "Beer record successfully removed",
+            "type": "confirmation",
+            "displayMode": "transient"
           },
           "outcomes": {
-            "success": "assignBeerTypes"
+            "success": "navigateBack1"
           }
         },
-        "assignBeerTypes": {
-          "module": "vb/action/builtin/assignVariablesAction",
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
-            "$page.variables.beerTypeOptions": {
-              "source": "{{ $chain.results.callGetAllBeerTypes.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            }
-          }
-        }
-      }
-    },
-    "populateQualities": {
-      "root": "callGetAllQualities",
-      "description": "",
-      "actions": {
-        "callGetAllQualities": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_Quality"
+            "message": "{{ 'Could not remove Beer: status ' + $chain.results.callRestEndpoint1.payload.status }}",
+            "type": "error",
+            "displayMode": "persist"
           },
-          "outcomes": {
-            "success": "assignQualities"
-          }
+          "outcomes": {}
         },
-        "assignQualities": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.qualityOptions": {
-              "source": "{{ $chain.results.callGetAllQualities.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            }
-          }
+        "navigateBack1": {
+          "module": "vb/action/builtin/navigateBackAction"
         }
       }
     }
   },
   "eventListeners": {
     "backButtonClicked": {
-      "chains": [
-        {
-          "chainId": "goBackChain"
-        }
-      ]
+      "chains": [{
+        "chainId": "goBackChain"
+      }]
     },
     "saveButtonClicked": {
-      "chains": [
-        {
-          "chainId": "saveBeerChain"
-        }
-      ]
+      "chains": [{
+        "chainId": "saveBeerChain"
+      }]
     },
     "vbEnter": {
+      "chains": [{
+        "chainId": "loadBeerChain"
+      }]
+    },
+    "ojButton14650013701Click": {
       "chains": [
         {
-          "chainId": "loadBeerChain"
-        },
-        {
-          "chainId": "populateCountries",
-          "parameters": {}
-        },
-        {
-          "chainId": "populateBeerTypes",
-          "parameters": {}
-        },
-        {
-          "chainId": "populateQualities",
-          "parameters": {}
+          "chainId": "deleteBeerChain"
         }
       ]
     }

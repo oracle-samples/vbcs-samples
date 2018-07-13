@@ -1,0 +1,15 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,quality,beer
+1,2018-01-12T21:19:50,2018-01-12T21:19:50.009,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,2,1
+2,2018-01-12T22:06:40.015,2018-01-12T22:06:40.024,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,1,5
+6,2018-01-12T23:28:27,2018-01-12T23:28:27.004,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,3,4
+7,2018-01-12T23:28:28,2018-01-12T23:28:28.021,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,7,4
+8,2018-01-12T23:28:28,2018-01-12T23:28:28.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,10,4
+9,2018-01-12T23:29:29,2018-01-12T23:29:29.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,3,3
+10,2018-01-12T23:29:30,2018-01-12T23:29:30.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,7,3
+11,2018-01-12T23:29:30,2018-01-12T23:29:30.004,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,10,3
+12,2018-01-12T23:31:05,2018-01-12T23:31:05.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,9,2
+13,2018-01-12T23:31:05,2018-01-12T23:31:05.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,8,2
+14,2018-01-12T23:32:10,2018-01-12T23:32:10.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,4,1
+15,2018-01-12T23:32:10,2018-01-12T23:32:10.004,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,7,1
+16,2018-01-12T23:33:55,2018-01-12T23:33:55.004,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,10,5
+18,2018-01-17T20:45:38,2018-01-17T20:45:38.007,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,3,5

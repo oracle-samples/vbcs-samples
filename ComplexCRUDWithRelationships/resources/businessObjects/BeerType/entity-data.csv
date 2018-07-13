@@ -1,0 +1,8 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name
+1,2018-01-08T23:40:19,2018-01-08T23:40:19.007,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Pilsner
+2,2018-01-08T23:40:24,2018-01-08T23:40:24.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Stout
+3,2018-01-12T23:24:12,2018-01-12T23:24:12.005,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Pale Ale
+4,2018-01-12T23:24:17,2018-01-12T23:24:17.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,IPA
+5,2018-01-12T23:24:35,2018-01-12T23:24:35.002,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Sour
+6,2018-01-12T23:24:44,2018-01-12T23:24:44.003,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Porter
+7,2018-01-12T23:24:53,2018-01-12T23:24:53.002,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,Light Beer
