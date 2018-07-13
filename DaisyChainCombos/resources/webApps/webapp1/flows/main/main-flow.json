@@ -5,6 +5,46 @@
   "defaultPage": "start",
   "chains": {},
   "services": {},
-  "types": {},
+  "types": {
+    "getallContinentResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "@decorators.getallContinentResponse": {
+      "endpoint": "getall_Continent",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallCountryResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "@decorators.getallCountryResponse": {
+      "endpoint": "getall_Country",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallCityResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "@decorators.getallCityResponse": {
+      "endpoint": "getall_City",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
   "variables": {}
 }

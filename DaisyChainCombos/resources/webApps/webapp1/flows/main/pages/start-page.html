@@ -5,32 +5,18 @@
         </div>
     </div>
     <div class="oj-flex">
-        <div class="oj-flex-item oj-sm-12 oj-md-12">
-            <hr id="hr-979113728-1">
-        </div>
+        <hr id="hr--907703204-1" class="oj-flex-item oj-sm-12 oj-md-12">
     </div>
     <div class="oj-flex">
-        <div class="oj-flex-item oj-sm-12 oj-md-3">
-            <oj-label id="oj-label-979113728-1" for="oj-select-one-979113728-1">Continent</oj-label>
-        </div>
-        <div class="oj-flex-item oj-sm-12 oj-md-3">
-            <oj-select-one id="oj-select-one-979113728-1" style="max-width: 100%;" placeholder="select continent" value="{{ $page.variables.selectedContinent }}" options="{{ $page.variables.continents }}"></oj-select-one>
-        </div>
+        <oj-label id="oj-label--907703204-1" for="oj-select-one--907703204-1" class="oj-flex-item oj-sm-12 oj-md-2">Continent</oj-label>
+        <oj-select-one id="oj-select-one--907703204-1" class="oj-flex-item oj-sm-12 oj-md-4" placeholder="select continent" options="[[$page.variables.continentListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" value="{{ $page.variables.selectedContinent }}"></oj-select-one>
     </div>
     <div class="oj-flex">
-        <div class="oj-flex-item oj-sm-12 oj-md-3">
-            <oj-label id="oj-label-979113728-2" for="oj-select-one-979113728-2">Country</oj-label>
-        </div>
-        <div class="oj-flex-item oj-sm-12 oj-md-3">
-            <oj-select-one id="oj-select-one-979113728-2" style="max-width: 100%;" placeholder="select continent first" value="{{ $page.variables.selectedCountry }}" options="{{ $page.variables.countries }}"></oj-select-one>
-        </div>
+        <oj-label id="oj-label--907703204-2" for="oj-select-one--907703204-2" class="oj-flex-item oj-sm-12 oj-md-2">Country</oj-label>
+        <oj-select-one id="oj-select-one--907703204-2" class="oj-flex-item oj-sm-12 oj-md-4" placeholder="{{ $page.variables.selectedContinent === undefined || $page.variables.selectedContinent === '' ? 'select continent first' : 'select country' }}" options="[[$page.variables.countryListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" value="{{ $page.variables.selectedCountry }}" disabled="{{ $page.variables.selectedContinent === undefined || $page.variables.selectedContinent === '' }}"></oj-select-one>
     </div>
     <div class="oj-flex">
-        <div class="oj-flex-item oj-sm-12 oj-md-3">
-            <oj-label id="oj-label-979113728-3" for="oj-select-one-979113728-3">City</oj-label>
-        </div>
-        <div class="oj-flex-item oj-sm-12 oj-md-3">
-            <oj-select-one id="oj-select-one-979113728-3" style="max-width: 100%;" value="{{ $page.variables.selectedCity }}" options="{{ $page.variables.cities }}" placeholder=" select country first"></oj-select-one>
-        </div>
+        <oj-label id="oj-label--907703204-3" for="oj-select-one--907703204-3" class="oj-flex-item oj-sm-12 oj-md-2">City</oj-label>
+        <oj-select-one id="oj-select-one--907703204-3" class="oj-flex-item oj-sm-12 oj-md-4" placeholder="{{ $page.variables.selectedCountry === undefined || $page.variables.selectedCountry === '' ? 'select country first' : 'select city' }}" options="[[$page.variables.cityListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" value="{{ $page.variables.selectedCity }}" disabled="{{ $page.variables.selectedCountry === undefined || $page.variables.selectedCountry === '' }}"></oj-select-one>
     </div>
 </div>

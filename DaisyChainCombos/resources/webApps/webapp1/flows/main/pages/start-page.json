@@ -3,189 +3,106 @@
   "title": "My start page",
   "description": "The starting page of the app",
   "variables": {
-    "continents": {
-      "type": [
-        {
-          "value": "string",
-          "label": "string"
-        }
-      ]
-    },
     "selectedContinent": {
-      "type": "string",
+      "type": "any",
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "populateCountries",
+            "chainId": "resetCountry",
             "parameters": {}
           }
         ]
       }
     },
-    "countries": {
-      "type": [
-        {
-          "value": "string",
-          "label": "string"
-        }
-      ]
-    },
-    "cities": {
-      "type": [
-        {
-          "value": "string",
-          "label": "string"
-        }
-      ]
-    },
     "selectedCountry": {
-      "type": "string",
+      "type": "any",
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "populateCities",
+            "chainId": "resetCity",
             "parameters": {}
           }
         ]
       }
     },
     "selectedCity": {
-      "type": "string"
+      "type": "any"
+    },
+    "continentListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Continent",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallContinentResponse"
+      }
+    },
+    "countryListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Country",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallCountryResponse",
+        "filterCriterion": {
+          "criteria": [
+            {
+              "attribute": "continent",
+              "op": "$eq",
+              "value": "{{ $page.variables.selectedContinent }}"
+            }
+          ],
+          "op": "$and"
+        }
+      }
+    },
+    "cityListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_City",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "flow:getallCityResponse",
+        "filterCriterion": {
+          "criteria": [
+            {
+              "attribute": "country",
+              "op": "$eq",
+              "value": "{{ $page.variables.selectedCountry }}"
+            }
+          ],
+          "op": "$and"          
+        }
+      }
     }
   },
   "chains": {
-    "populateContinents": {
-      "root": "fetchContinents",
+    "resetCountry": {
+      "root": "assignVariables1",
       "description": "",
       "actions": {
-        "fetchContinents": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_Continent"
-          },
-          "outcomes": {
-            "success": "assignContinents"
-          }
-        },
-        "assignContinents": {
+        "assignVariables1": {
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
-            "$page.variables.continents": {
-              "source": "{{ $chain.results.fetchContinents.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
+            "$page.variables.selectedCountry": {
+              "source": "{{ '' }}"
+            },
+            "$page.variables.selectedCity": {
+              "source": "{{ '' }}"
             }
           }
         }
       }
     },
-    "populateCountries": {
+    "resetCity": {
+      "root": "assignVariables1",
       "description": "",
-      "root": "ifContinent",
       "actions": {
-        "fetchCountries": {
-          "module": "vb/action/builtin/restAction",
-          "outcomes": {
-            "success": "assignCountries"
-          },
-          "parameters": {
-            "endpoint": "businessObjects/getall_Country",
-            "uriParams": {
-              "q": "{{ 'continent=' + $page.variables.selectedContinent }}"
-            }
-          }
-        },
-        "assignCountries": {
+        "assignVariables1": {
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
-            "$page.variables.countries": {
-              "source": "{{ $chain.results.fetchCountries.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            },
-            "$page.variables.selectedCountry": {
-              "source":  ""
-            }
-          }
-        },
-        "ifContinent": {
-          "module": "vb/action/builtin/ifAction",
-          "outcomes": {
-            "true": "fetchCountries",
-            "false": "resetCountry"
-          },
-          "parameters": {
-            "condition": "{{ $page.variables.selectedContinent !== '' && $page.variables.selectedContinent !== null }}"
-          }
-        },
-        "resetCountry": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.countries": {
-              "source":  "{{ [] }}",
-              "reset": "empty"
-            },
-            "$page.variables.selectedCountry": {
-              "source":  ""
-            }
-          }
-        }
-      }
-    },
-    "populateCities": {
-      "description": "",
-      "root": "ifCountry",
-      "actions": {
-        "fetchCities": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "businessObjects/getall_City",
-            "uriParams": {
-              "q": "{{ 'country=' + $page.variables.selectedCountry }}"
-            }
-          },
-          "outcomes": {
-            "success": "assignCities"
-          }
-        },
-        "assignCities": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.cities": {
-              "source": "{{ $chain.results.fetchCities.body.items }}",
-              "mapping": {
-                "$target.value": "$source.id",
-                "$target.label": "$source.name"
-              }
-            },
             "$page.variables.selectedCity": {
-              "source":  ""
-            }
-          }
-        },
-        "ifCountry": {
-          "module": "vb/action/builtin/ifAction",
-          "parameters": {
-            "condition": "{{ $page.variables.selectedCountry !== '' }}"
-          },
-          "outcomes": {
-            "true": "fetchCities",
-            "false": "resetCity"
-          }
-        },
-        "resetCity": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.cities": {
-              "source":  "{{ [] }}",
-              "reset": "empty"
-            },
-            "$page.variables.selectedCity": {
-              "source":  ""
+              "source": "{{ '' }}"
             }
           }
         }
@@ -193,14 +110,6 @@
     }
   },
   "eventListeners": {
-    "vbEnter": {
-      "chains": [
-        {
-          "chainId": "populateContinents",
-          "parameters": {}
-        }
-      ]
-    }
   },
   "imports": {
     "components": {
@@ -212,6 +121,9 @@
       },
       "oj-combobox-one": {
         "path": "ojs/ojselectcombobox"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
       }
     }
   }
