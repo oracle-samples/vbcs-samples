@@ -1,4 +1,4 @@
-# vbcs-ssamples Repository
+# vbcs-samples Repository
 
 Each directory of this repository represents an example that can be used within Visual Builder Cloud Services (VBCS).
 
@@ -42,7 +42,7 @@ This sample shows how server-side triggers and scripting can be used to implemen
 
 This sample explores Many:One and Many:Many relationships and performing CRUD operations on related data.
 
-### ContaactsCRUD
+### ContactsCRUD
 
 Simple application with pages for data retrieval (fetch), create, udpdate, and delete operations on a business object. 
 
