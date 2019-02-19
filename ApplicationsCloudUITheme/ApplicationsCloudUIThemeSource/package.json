@@ -1,0 +1,22 @@
+{
+  "name": "ApplicationsCloudUIThemeSource",
+  "version": "1.0.0",
+  "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
+  "dependencies": {
+    "@oracle/oraclejet": "~6.1.0"
+  },
+  "devDependencies": {
+    "@oracle/grunt-oraclejet": "~6.1.0",
+    "@oracle/oraclejet-tooling": "~6.1.0",
+    "grunt": "^1.0.1",
+    "load-grunt-config": "0.19.2",
+    "node-sass": "^4.7.2",
+    "qunit": "^2.4.1",
+    "qunit-reporter-junit": "^1.1.1",
+    "archiver": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "private": true
+}

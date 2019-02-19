@@ -1,0 +1,111 @@
+/**
+ * @license
+ * Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ * The Universal Permissive License (UPL), Version 1.0
+ */
+
+//These are the core values that you are most likely to have to change 
+
+//Assets
+$ApplicationsCloudUI-Watermark : url(images/bkgd_watermarkcloud.png);
+
+//Core Color Ramp
+$ApplicationsCloudUI-BrandColor:#0572ce;
+$ApplicationsCloudUI-NeutralColor1:#fff;
+$ApplicationsCloudUI-NeutralColor2:#fcfdfe;
+$ApplicationsCloudUI-NeutralColor4:#f7f8f9;
+$ApplicationsCloudUI-NeutralColor5:#e9f2fb;
+$ApplicationsCloudUI-NeutralColor6:#e4e8ea;
+$ApplicationsCloudUI-NeutralColor7:#dfe4e7;
+$ApplicationsCloudUI-NeutralColor9:#c4ced7;
+$ApplicationsCloudUI-NeutralColor12: #878c90;
+$ApplicationsCloudUI-BrandColorLight1:#85bbe7;
+$ApplicationsCloudUI-BrandColorDark1:#0572ce;
+
+//Core Text
+$ApplicationsCloudUI-TextColor1: #000;
+$ApplicationsCloudUI-TextColor2: #252525;
+$ApplicationsCloudUI-TextColor3:#333;
+$ApplicationsCloudUI-TextColor4:#2e444c;
+$ApplicationsCloudUI-TextColor5: #4f4f4f;
+
+
+//Headers and Footers
+$ApplicationsCloudUI-HeaderBackgroundColor : #8CD3FF;
+$ApplicationsCloudUI-HeadingFontWeight:400;
+$ApplicationsCloudUI-heading1Size: oj-px-to-rem(21px, $baseFontSize: 14px);
+$ApplicationsCloudUI-heading2Size: oj-px-to-rem(18px, $baseFontSize: 14px);
+$ApplicationsCloudUI-heading3Size: oj-px-to-rem(16px, $baseFontSize: 14px);
+$ApplicationsCloudUI-heading4Size: 1rem;
+$ApplicationsCloudUI-heading5Size: 1rem;
+
+//Buttons
+$ApplicationsCloudUI-ButtonBackgroundImage:linear-gradient(to bottom,#fff 0,#f1f3f4 3.64%,#e8ebed 50%,#e4e8ea 100%);
+$ApplicationsCloudUI-ButtonCornerRadius:2px;
+$ApplicationsCloudUI-ButtonFontWeight:700;
+
+//Labels 
+$ApplicationsCloudUI-FormLabelWeight: 700;
+
+//Collections
+$ApplicationsCloudUI-collectionHeadingSize: oj-px-to-rem(14px, $baseFontSize: 14px);
+$ApplicationsCloudUI-navListBorder: 3px 1px 0 1px;
+
+//Tabsets
+$ApplicationsCloudUI-tabVerticalBorder: 1px 0 1px 3px;
+$ApplicationsCloudUI-tabHorizBorder: 3px 1px 0 1px;
+
+//Special Styles for the theme  - these are applied on top of the basic theme styling
+//And create some of the special effects for the ApplicationsCloudUI Theme
+$ApplicationsCloudUI-mainNavigationIconColor: #d7e8f7;
+
+.ApplicationsCloudUI-watermark {
+  background-image: $ApplicationsCloudUI-Watermark;
+}
+
+#ApplicationsCloudUI-navigation-list-main .oj-navigationlist-listview-container {
+  overflow: inherit;
+}
+#ApplicationsCloudUI-navigation-list-main .oj-hover .oj-navigationlist-item-icon {
+  background-color: $ApplicationsCloudUI-BrandColor;
+}
+#ApplicationsCloudUI-navigation-list-main .oj-selected .oj-navigationlist-item-icon {
+  background-color: $ApplicationsCloudUI-BrandColor;
+  color: $ApplicationsCloudUI-NeutralColor5;
+}
+#ApplicationsCloudUI-navigation-list-main .oj-navigationlist-item-icon {
+  width: 24px;
+  height: 24px; 
+  font-size: 24px; 
+  background-color:$ApplicationsCloudUI-BrandColorLight1; 
+  color: $ApplicationsCloudUI-mainNavigationIconColor;
+  border-radius: 30px; 
+  padding: 18px;
+}
+
+.ApplicationsCloudUI-menu-selection-indicator {
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid ;
+  color: rgba(0,0,0,0);
+  position: relative;
+  top: 111px;
+  left: -55px;
+}
+
+#ApplicationsCloudUI-navigation-list-main .oj-hover .ApplicationsCloudUI-menu-selection-indicator {
+  border-bottom: 10px solid white;
+}
+#ApplicationsCloudUI-navigation-list-main .oj-selected .ApplicationsCloudUI-menu-selection-indicator {
+  border-bottom: 10px solid white;  
+}
+#ApplicationsCloudUI-navigation-list-main .oj-navigationlist-item {
+  border-color: rgba(0,0,0,0);
+}
+#ApplicationsCloudUI-navigation-list-main .oj-navigationlist-item-label {
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+

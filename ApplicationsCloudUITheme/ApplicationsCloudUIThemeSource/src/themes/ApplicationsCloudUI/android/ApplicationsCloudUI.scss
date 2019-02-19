@@ -1,0 +1,17 @@
+/**
+ * @license
+ * Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ * The Universal Permissive License (UPL), Version 1.0
+ */
+// Note that the order in the aggregating file is important
+//
+// 1. custom variables file: Due to the way sass default works, 
+//    the custom variable file must be imported before the platform theme 
+//    aggregating file (where the platform variable file will be imported).
+// 2. platform theme aggregating file
+
+//import custom variable overrides
+@import "ApplicationsCloudUI.android.settings";
+
+// import alta-android aggregating file
+@import "../../../../node_modules/@oracle/oraclejet/dist/scss/alta-android/oj-alta";
