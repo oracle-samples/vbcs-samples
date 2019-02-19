@@ -1,6 +1,6 @@
-# vbcs-ssamples Repository
+# vbcs-samples Repository
 
-Each directory of this repository represents an example that can be used within Visual Builder Cloud Services (VBCS).
+Each directory of this repository represents an example that can be used within Visual Builder Cloud Services (VBCS), with the exception of ApplicationsCloudUITheme which is a JET project used to create a Theme (look and feel) for VBCS to use.
 
 ## Layout
 
@@ -42,7 +42,7 @@ This sample shows how server-side triggers and scripting can be used to implemen
 
 This sample explores Many:One and Many:Many relationships and performing CRUD operations on related data.
 
-### ContaactsCRUD
+### ContactsCRUD
 
 Simple application with pages for data retrieval (fetch), create, udpdate, and delete operations on a business object. 
 
@@ -69,3 +69,7 @@ Sample application with tabs in the header area used for navigation between page
 ### webServiceConsumption
 
 This sample shows how to consume an external REST API and create custom UI to interact with the data from that API.
+
+### ApplicationsCloudUITheme
+
+This is the source code project for a custom SaaS theme for use in JET and VBCS projects. See the README.md file for information on how to generate and install the theme.
