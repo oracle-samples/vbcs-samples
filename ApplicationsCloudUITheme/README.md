@@ -1,7 +1,7 @@
 # Source for the Sample Applications Cloud UI Theme
-Version 1.1.0
+Version 2.0.0 - Visual Builder 19.3.1 compatible
 
-Feb 2019
+September 2019
 
 ## About
 This distribution is a sample UI theme for Oracle JET and Oracle Visual Builder. This provides a look and feel similar to the Oracle SaaS lightBlue theme and can be used as the basis for creating customized themes of your own.
@@ -9,7 +9,7 @@ This distribution is a sample UI theme for Oracle JET and Oracle Visual Builder.
 This theme sample currently only contains a web theme.
 
 ## Prerequisites
-In order to customize or develop new themes you will need to have installed the Oracle JET command line tooling. This involves installing nodejs and the node package manager followed by installation of the JET command line tooling package. This sample currently uses JET 6.1.0 and the details of this installation process can be found in the [JET Developers Guide](https://docs.oracle.com/en/middleware/jet/6.1/develop/prerequisites-developing-applications-oracle-jet.html#GUID-6AEB5A00-22D8-4BC1-AAB3-4134F906C1C0)
+In order to customize or develop new themes you will need to have installed the Oracle JET command line tooling. This involves installing nodejs and the node package manager followed by installation of the JET command line tooling package. This sample currently uses JET 7 and the details of this installation process can be found in the [JET Developers Guide](https://docs.oracle.com/en/middleware/developer-tools/jet/7.2/develop/choose-development-environment-oracle-jet.html#GUID-ABE2373F-287F-4C3A-BEBD-02F179F399FD)
 
 ## Getting Started
 Having installed the JET CLI and unpacked this distribution, carry out the following steps:
