@@ -9,12 +9,12 @@ Each directory of this repository represents an example that can be used within 
   + LICENSE.txt
   + README.md
   + resources
-  + _sample_name_.ovb
+  + _sample_name_.zip
 ```
 
 ### LICENSE.txt
 
-The license governs rights to the sample. 
+The license governs rights to the sample.
 
 ### README.md
 
@@ -24,13 +24,13 @@ The readme.md file in each sample describes what the sample does and what you ne
 
 The resources directory contains the source code for the sample. This is provided as a convenience in case you just want to browse the code in the git repository without installing the sample.
 
-### _sample_name_.ovb
+### _sample_name_.zip
 
-The ovb file is the final packaged sample. Download the ovb file from this repository. You can then use the "Import" button in the Visual Builder landing page to load the sample into your Visual Builder environment. Some samples may require additional setup which will be documented in that sample's README.md file. 
+The zip file is the final packaged sample. Download the zip file from this repository. You can then use the "Import" > "Application from File" button in the Visual Builder landing page to load the sample into your Visual Builder environment. Some samples may require additional setup which will be documented in that sample's README.md file.
 
 ### other directory
 
-Depending on the sample, there may be additional resources made available in order to facilate use of the sample. 
+Depending on the sample, there may be additional resources made available in order to facilate use of the sample.
 
 ## List of Samples
 
