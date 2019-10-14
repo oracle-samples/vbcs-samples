@@ -1,0 +1,5 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,firstname,lastname,email,phone,birthday,notes
+1,2017-12-14T08:36:55,2017-12-14T08:36:55.006,brian.fry@oracle.com,brian.fry@oracle.com,Andrea,Adams,aadams@example.com,410-771-4741,1972-06-14,Kids names are Tara and Blake
+2,2017-12-14T08:38:20,2017-12-14T08:38:20.003,brian.fry@oracle.com,brian.fry@oracle.com,John,Johnson,john.johnson@example.com,252.151.7782,1980-02-03,Met on trip to Denver
+3,2017-12-14T08:40:08,2017-12-14T08:40:08.003,brian.fry@oracle.com,brian.fry@oracle.com,Mary,Madsen,madsen82@example.org,(313) 814-5522,1982-04-06,Last contacted Feb7
+4,2017-12-14T08:42:50,2017-12-14T08:42:50.004,brian.fry@oracle.com,brian.fry@oracle.com,Steve,Simpson,steven_simpson@example.com,812-209-0199,1979-12-18,Friend of Shelly's 

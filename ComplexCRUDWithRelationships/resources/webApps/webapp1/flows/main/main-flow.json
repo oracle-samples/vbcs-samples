@@ -7,40 +7,30 @@
   "services": {},
   "types": {
     "getallBeerResponse": {
-      "items": [
-        {
-          "id": "number",
-          "name": "string",
-          "alcoholPercentage": "number",
-          "beerQualityCollection": {
-            "items": [
-              {
-                "qualityObject": {
-                  "items": [
-                    {
-                      "name": "string"
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          "beerTypeObject": {
-            "items": [
-              {
+      "items": [{
+        "id": "number",
+        "name": "string",
+        "alcoholPercentage": "number",
+        "beerQualityCollection": {
+          "items": [{
+            "qualityObject": {
+              "items": [{
                 "name": "string"
-              }
-            ]
-          },
-          "countryObject": {
-            "items": [
-              {
-                "name": "string"
-              }
-            ]
-          }
+              }]
+            }
+          }]
+        },
+        "beerTypeObject": {
+          "items": [{
+            "name": "string"
+          }]
+        },
+        "countryObject": {
+          "items": [{
+            "name": "string"
+          }]
         }
-      ]
+      }]
     },
     "@decorators.getallBeerResponse": {
       "endpoint": "getall_Beer",
@@ -48,12 +38,10 @@
       "path": "response"
     },
     "getallBeerTypeResponse": {
-      "items": [
-        {
-          "id": "number",
-          "name": "string"
-        }
-      ]
+      "items": [{
+        "id": "number",
+        "name": "string"
+      }]
     },
     "@decorators.getallBeerTypeResponse": {
       "endpoint": "getall_BeerType",
@@ -61,12 +49,10 @@
       "path": "response"
     },
     "getallCountryResponse": {
-      "items": [
-        {
-          "id": "number",
-          "name": "string"
-        }
-      ]
+      "items": [{
+        "id": "number",
+        "name": "string"
+      }]
     },
     "@decorators.getallCountryResponse": {
       "endpoint": "getall_Country",
@@ -74,12 +60,10 @@
       "path": "response"
     },
     "getallQualityResponse": {
-      "items": [
-        {
-          "id": "number",
-          "name": "string"
-        }
-      ]
+      "items": [{
+        "id": "number",
+        "name": "string"
+      }]
     },
     "@decorators.getallQualityResponse": {
       "endpoint": "getall_Quality",

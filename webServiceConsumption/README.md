@@ -21,4 +21,4 @@ This sample application illustrates consuming an external web service with no au
 
 **Compatibility**
 
-* 18.1.1
+* 19.3.1

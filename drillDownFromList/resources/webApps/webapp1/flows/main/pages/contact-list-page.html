@@ -1,3 +1,8 @@
+<!--
+  Copyright (c) 2018, 2019, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
+
 <div class="oj-flex-items-pad">
     <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-md-6">
@@ -9,7 +14,7 @@
     </div>
     <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-md-6">
-            <h4 id="h1--108481433-2">Drill down by link / button / image</h4>
+            <h4 id="h1--108481433-2">Drill down by image / button / link</h4>
         </div>
         <div class="oj-flex-item oj-sm-12 oj-md-6">
             <h4 id="h1--108481433-4">Drill down by row</h4>
@@ -20,23 +25,22 @@
             <oj-list-view id="oj-list-view--108481433-1" data="[[$page.variables.contactListServiceDataProvider]]">
                 <template slot="itemTemplate">
                     <div class="oj-flex-items-pad">
-                        <div class="oj-flex">
-                            <div class="oj-flex-item oj-sm-12 oj-md-5">
-                                <p>
-                                    <oj-bind-text value="[[$current.data.lastname + &quot;, &quot; + $current.data.firstname]]"></oj-bind-text>
-                                </p>
+                        <div class="oj-flex oj-sm-align-items-center">
+                            <div class="oj-flex-item" style="width: 50%">
+                                <span>
+                                    <oj-bind-text value='[[$current.data.lastname + ", " + $current.data.firstname]]'></oj-bind-text>
+                                </span>
                             </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-2">
-                                <img id="img--108481433-1" height="32" src="resources/images/magnify.png" data-bind="click: function(e) { $listeners.detailsItemClick(e, $current); }">
+                            <div class="oj-flex-item">
+                                <img id="img--108481433-1" height="32" :src="[[ $application.path + 'resources/images/magnify.png' ]]" on-click="[[$listeners.img1084814331Click]]">
                             </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-2">
-                                <oj-button id="oj-button--108481433-1" display="icons" on-click="[[$listeners.detailsItemClick]]">Next
+                            <div class="oj-flex-item">
+                                <oj-button id="oj-button--108481433-1" display="icons" on-oj-action="[[$listeners.ojButton1084814331OjAction]]">Next
                                   <span slot="endIcon" class="oj-fwk-icon oj-fwk-icon-next"></span>
                                 </oj-button>
                             </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-2">
-                                <a id="a--108481433-1" data-bind="click: function(e) { $listeners.detailsItemClick(e, $current); }">Details</a>
+                            <div class="oj-flex-item">
+                                <a id="a--108481433-1" on-click="[[$listeners.a1084814331Click]]">Details</a>
                             </div>
                         </div>
                     </div></template>
@@ -46,21 +50,19 @@
         <div class="oj-flex-item oj-sm-12 oj-md-6">
             <oj-list-view id="oj-list-view--108481433-2" data="[[$page.variables.contactListServiceDataProvider2]]" selection-mode="single" on-selection-changed="[[$listeners.ojListView1084814332Selection]]">
                 <template slot="itemTemplate">
-                    <div class="oj-flex-items-pad">
-                        <div class="oj-flex">
-                            <div class="oj-flex-item oj-sm-12 oj-md-6">
-                                <p>
-                                    <oj-bind-text value="[[$current.data.lastname + &quot;, &quot; + $current.data.firstname]]"></oj-bind-text>
-                                </p>
+                        <div class="oj-flex-items-pad oj-flex-bar oj-sm-align-items-center">
+                            <div class="oj-flex-bar-start" style="width: 50%">
+                                <span>
+                                    <oj-bind-text value='[[$current.data.lastname + ", " + $current.data.firstname]]'></oj-bind-text>
+                                </span>
                             </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-4">
-                                <p>
+                            <div class="oj-flex-bar-end">
+                                <span>
                                     <oj-bind-text value="[[$current.data.email]]"></oj-bind-text>
-                                </p>
+                                </span>
                             </div>
                         </div>
-                    </div></template>
+               </template>
             </oj-list-view>
         </div>
     </div>

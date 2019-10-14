@@ -21,4 +21,4 @@ This sample shows several patterns for drilling down from a list to a details pa
 
 **Compatibility**
 
-* 18.1.1
+* 19.3.1

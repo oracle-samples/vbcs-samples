@@ -1,53 +1,73 @@
 {
-    "pageModelVersion": "1.0.0",
-    "title": "List Expenses",
-    "description": "List Expenses",
-    "variables": {
-        "expensesListServiceDataProvider": {
-            "type": "vb/ServiceDataProvider",
-            "defaultValue": {
-                "endpoint": "businessObjects/getall_Expenses",
-                "idAttribute": "id",
-                "itemsPath": "items",
-                "responseType": "application:getallExpensesResponse"
-            }
-        }
-    },
-    "chains": {
-        "navigateToCreateExpensesChain": {
-            "root": "navigateToCreate",
-            "actions": {
-                "navigateToCreate": {
-                    "module": "vb/action/builtin/navigateToPageAction",
-                    "parameters": {
-                        "history": "push",
-                        "page": "CreateExpense",
-                        "params": {}
-                    },
-                    "outcomes": {
-                        "success": ""
-                    }
-                }
-            }
-        }
-    },
-    "eventListeners": {
-        "createExpensesButtonClicked": {
-            "chains": [
-                {
-                    "chainId": "navigateToCreateExpensesChain"
-                }
-            ]
-        }
-    },
-    "imports": {
-        "components": {
-            "oj-table": {
-                "path": "ojs/ojtable"
-            },
-            "oj-button": {
-                "path": "ojs/ojbutton"
-            }
-        }
+  "pageModelVersion": "1.0.0",
+  "title": "List Expenses",
+  "description": "List Expenses",
+  "variables": {
+    "expensesListServiceDataProvider": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Expenses",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "getall_Expenses"
+      }
     }
+  },
+  "types" : {
+    "@decorators.getall_Expenses": {
+      "endpoint": "getall_Expenses",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Expenses": {
+      "items": [
+        {
+          "amount": "number",
+          "approved": "boolean",
+          "category": "string",
+          "dateIncurred": "string",
+          "description": "string",
+          "id": "number"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "navigateToCreateExpensesChain": {
+      "root": "navigateToCreate",
+      "actions": {
+        "navigateToCreate": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "history": "push",
+            "page": "CreateExpense",
+            "params": {}
+          },
+          "outcomes": {
+            "success": ""
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "createExpensesButtonClicked": {
+      "chains": [{
+        "chainId": "navigateToCreateExpensesChain"
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      }
+    }
+  }
 }

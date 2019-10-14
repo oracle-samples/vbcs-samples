@@ -1,3 +1,8 @@
+<!--
+  Copyright (c) 2017, 2019, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
+
 <div class="oj-flex-items-pad">
     <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-md-12">
@@ -7,10 +12,10 @@
     <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-md-12">
             <oj-form-layout id="oj-form-layout--846357318-1" label-edge="start" max-columns="1">
-                <oj-input-number label-hint="amount" value="{{ $page.variables.expenses.amount }}" id="oj-input-number--846357318-1"></oj-input-number>
-                <oj-input-text label-hint="category" value="{{ $page.variables.expenses.category }}" id="oj-input-text--846357318-1"></oj-input-text>
-                <oj-input-date label-hint="dateIncurred" value="{{ $page.variables.expenses.dateIncurred }}" id="oj-input-date--846357318-1"></oj-input-date>
-                <oj-input-text label-hint="description" value="{{ $page.variables.expenses.description }}" id="oj-input-text--846357318-2"></oj-input-text>
+                <oj-input-text label-hint="Description" value="{{ $page.variables.expenses.description }}" id="oj-input-text--846357318-2"></oj-input-text>
+                <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}' id="oj-input-number-1399453206-1" label-hint="Amount" value="{{ $page.variables.expenses.amount }}"></oj-input-number>
+                <oj-input-text label-hint="Category" value="{{ $page.variables.expenses.category }}" id="oj-input-text--846357318-1"></oj-input-text>
+                <oj-input-date label-hint="Date Incurred" value="{{ $page.variables.expenses.dateIncurred }}" id="oj-input-date--846357318-1"></oj-input-date>
             </oj-form-layout>
         </div>
     </div>
