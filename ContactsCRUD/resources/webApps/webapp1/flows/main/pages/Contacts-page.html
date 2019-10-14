@@ -1,0 +1,45 @@
+<!--
+  Copyright (c) 2018, 2019, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
+
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-toolbar chroming="full" id="oj-toolbar-979113728-1">
+                <oj-button on-click="[[$page.listeners.createContactsButtonClicked]]" id="oj-button-979113728-1">Create</oj-button>
+                <oj-button on-click="[[$page.listeners.contactsDetailButtonClicked]]" disabled="[[ $page.variables.oj_list_view_979113728_1SelectedId === '' ]]" id="oj-button-979113728-2">Detail</oj-button>
+                <oj-button on-click="[[$page.listeners.deleteContactsButtonClicked]]" disabled="[[ $page.variables.oj_list_view_979113728_1SelectedId === '' ]]" id="oj-button-979113728-3">Delete</oj-button></oj-toolbar>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-list-view id="oj-list-view-979113728-1" data="[[$page.variables.contactsListServiceDataProvider]]" selection-mode="single" on-selection-changed="[[ $page.listeners.oj_list_view_979113728_1SelectionChanged ]]">
+                <template slot="itemTemplate">
+                    <div class="oj-flex-items-pad">
+                    
+                     <div class="oj-flex row">
+                            <div class="oj-lg-4 oj-md-4 oj-sm-12">
+                                <span class="data"><b><oj-bind-text value="[[$current.data.firstName + ' ' + $current.data.lastName]]"></oj-bind-text> </b></span>
+                            </div>
+                            <div class="oj-lg-4 oj-md-4 oj-sm-12">
+                                <span class="data"><b>Company: </b><oj-bind-text value="[[$current.data.company]]"></oj-bind-text></span>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                     <div class="oj-flex row">
+                            <div class="oj-lg-4 oj-md-4 oj-sm-12">
+                                <span class="data"><b>Email: </b><oj-bind-text value="[[$current.data.email]]"></oj-bind-text></span>
+                            </div>
+                            <div class="oj-lg-4 oj-md-4 oj-sm-12">
+                                <span class="data"><b>Phone: </b><oj-bind-text value="[[$current.data.phone]]"></oj-bind-text></span>
+                            </div>
+                            
+                        </div>
+                    </div></template>
+            </oj-list-view>
+        </div>
+    </div>
+</div>

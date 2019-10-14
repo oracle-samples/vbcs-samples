@@ -1,46 +1,32 @@
 {
-    "applicationModelVersion": "18.1.5",
-    "id": "starter",
-    "description": "A new VB app",
-    "defaultPage": "app",
-    "chains": {},
-    "services": {
-        "businessObjects": "../../services/businessObjects/service.json"
-    },
-    "types": {
-        "getallDepartmentResponse": {
-            "items": [
-                {
-                    "id": "number",
-                    "name": "string",
-                    "location": "string",
-                    "budget": "number"
-                }
-            ]
-        },
-        "getallEmployeeResponse2": {
-            "items": [
-                {
-                    "id": "number",
-                    "firstname": "string",
-                    "lastname": "string",
-                    "title": "string"
-                }
-            ]
-        },
-        "get_Employee": {
-            "id": "number",
-            "firstname": "string",
-            "lastname": "string",
-            "title": "string",
-            "salary": "number",
-            "hiredate": "string",
-            "isEmployed": "boolean"
-        }
-    },
-    "variables": {},
-    "userConfig": {
-        "type": "vb/UserSecurityProvider",
-        "configuration": {}
+  "applicationModelVersion": "19.3.1",
+  "id": "webapp1",
+  "description": "Master Detail sample application",
+  "defaultPage": "shell",
+  "chains": {},
+  "services": {
+    "businessObjects": {
+      "path": "./services/businessObjects/service.json"
     }
+  },
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      }
+    }
+  },
+  "types": {},
+  "variables": {},
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {}
 }

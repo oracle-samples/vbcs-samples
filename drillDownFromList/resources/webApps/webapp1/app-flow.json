@@ -1,44 +1,32 @@
 {
-    "applicationModelVersion": "18.1.5",
-    "id": "starter",
-    "description": "A new VB app",
-    "defaultPage": "app",
-    "chains": {},
-    "services": {
-        "businessObjects": "../../services/businessObjects/service.json"
-    },
-    "types": {
-        "getallContactResponse": {
-            "items": [
-                {
-                    "id": "number",
-                    "firstname": "string",
-                    "lastname": "string"
-                }
-            ]
-        },
-        "getContactResponse": {
-            "firstname": "string",
-            "lastname": "string",
-            "email": "string",
-            "phone": "string",
-            "notes": "string",
-            "birthday": "string"
-        },
-        "getallContactResponse2": {
-            "items": [
-                {
-                    "id": "number",
-                    "firstname": "string",
-                    "lastname": "string",
-                    "email": "string"
-                }
-            ]
-        }
-    },
-    "variables": {},
-    "userConfig": {
-        "type": "vb/UserSecurityProvider",
-        "configuration": {}
+  "applicationModelVersion": "19.3.1",
+  "id": "webapp1",
+  "description": "A new VB app",
+  "defaultPage": "shell",
+  "chains": {},
+  "services": {
+    "businessObjects": {
+      "path": "./services/businessObjects/service.json"
     }
+  },
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      }
+    }
+  },
+  "types": {},
+  "variables": {},
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {}
 }

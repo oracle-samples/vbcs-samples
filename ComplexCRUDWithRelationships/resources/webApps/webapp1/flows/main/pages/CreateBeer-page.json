@@ -16,11 +16,9 @@
         "idAttribute": "id",
         "itemsPath": "items",
         "responseType": "flow:getallBeerTypeResponse",
-        "sortCriteria": [
-          {
-            "attribute": "{{ 'name' }}"
-          }
-        ]
+        "sortCriteria": [{
+          "attribute": "{{ 'name' }}"
+        }]
       }
     },
     "countryListServiceDataProvider": {
@@ -30,11 +28,9 @@
         "idAttribute": "id",
         "itemsPath": "items",
         "responseType": "flow:getallCountryResponse",
-        "sortCriteria": [
-          {
-            "attribute": "{{ 'name' }}"
-          }
-        ]
+        "sortCriteria": [{
+          "attribute": "{{ 'name' }}"
+        }]
       }
     },
     "qualityListServiceDataProvider": {
@@ -44,11 +40,9 @@
         "idAttribute": "id",
         "itemsPath": "items",
         "responseType": "flow:getallQualityResponse",
-        "sortCriteria": [
-          {
-            "attribute": "{{ 'name' }}"
-          }
-        ]
+        "sortCriteria": [{
+          "attribute": "{{ 'name' }}"
+        }]
       }
     }
   },
@@ -123,18 +117,14 @@
   },
   "eventListeners": {
     "backButtonClicked": {
-      "chains": [
-        {
-          "chainId": "goBackChain"
-        }
-      ]
+      "chains": [{
+        "chainId": "goBackChain"
+      }]
     },
     "saveButtonClicked": {
-      "chains": [
-        {
-          "chainId": "createBeerChain"
-        }
-      ]
+      "chains": [{
+        "chainId": "createBeerChain"
+      }]
     }
   },
   "imports": {

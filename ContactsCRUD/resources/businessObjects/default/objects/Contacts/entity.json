@@ -1,0 +1,83 @@
+{
+    "fields": [
+        {
+            "name": "id",
+            "internal": true,
+            "key": true,
+            "oid": "34c989d7-97b5-4167-887e-b3761cb1d37b",
+            "required": true,
+            "displayLabel": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "name": "creationDate",
+            "internal": true,
+            "oid": "571ebee2-6fcf-49ab-8e02-ee3274b76730",
+            "displayLabel": "Created",
+            "type": "datetime"
+        },
+        {
+            "name": "lastUpdateDate",
+            "internal": true,
+            "oid": "f995a9fa-cdce-4169-b4f5-2e66be51c7dd",
+            "displayLabel": "Last Updated",
+            "type": "datetime"
+        },
+        {
+            "name": "createdBy",
+            "internal": true,
+            "oid": "932661c3-37bd-4950-b4bd-953994105230",
+            "displayLabel": "Created By",
+            "type": "string"
+        },
+        {
+            "name": "lastUpdatedBy",
+            "internal": true,
+            "oid": "9893242e-0231-4c7c-8523-96c88a55516f",
+            "displayLabel": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "name": "abcsChangeNumber",
+            "internal": true,
+            "oid": "da427a15-1c47-4559-a8ca-6eb3775c858a",
+            "displayLabel": "<internal>",
+            "type": "number"
+        },
+        {
+            "name": "firstName",
+            "oid": "7cf89cc5-886c-4048-ab2e-e2dc70a7d24d",
+            "displayLabel": "First Name",
+            "type": "string"
+        },
+        {
+            "name": "lastName",
+            "oid": "24ae243e-a266-4468-9355-c67df33be60d",
+            "displayLabel": "Last Name",
+            "type": "string"
+        },
+        {
+            "name": "company",
+            "oid": "c24a3d99-df8d-47c1-844d-cc521ba9561c",
+            "displayLabel": "Company",
+            "type": "string"
+        },
+        {
+            "name": "email",
+            "oid": "573a9051-0039-45d6-9eac-12daa692055c",
+            "displayLabel": "Email",
+            "type": "string"
+        },
+        {
+            "name": "phone",
+            "oid": "fb394a03-d779-447e-be20-ecfe717ccc44",
+            "displayLabel": "Phone",
+            "type": "string"
+        }
+    ],
+    "name": "Contacts",
+    "oid": "5e5e7f3a-f82a-4c93-a964-7ae851c76b1f",
+    "displayLabel": "Contacts"
+}

@@ -1,10 +1,9 @@
 {
-  "flowModelVersion": "18.1.5",
+  "flowModelVersion": "19.3.1",
   "id": "main",
-  "description": "Flow main",
+  "description": "Expenses application",
   "defaultPage": "ListExpenses",
   "chains": {},
-  "services": {},
   "types": {},
   "variables": {}
 }

@@ -1,9 +1,9 @@
 {
-    "applicationModelVersion": "18.1.5",
-    "id": "starter",
-    "description": "A new VB app",
-    "defaultPage": "app",
-    "chains": {},
+  "applicationModelVersion": "19.3.1",
+  "id": "webapp1",
+  "description": "A new VB app",
+  "defaultPage": "shell",
+  "chains": {},
     "services": {
         "airquality": "../../services/airquality/service.json"
     },
@@ -88,9 +88,23 @@
             ]
         }
     },
-    "variables": {},
-    "userConfig": {
-        "type": "vb/UserSecurityProvider",
-        "configuration": {}
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
     }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      }
+    }
+  },
+  "variables": {},
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {}
 }

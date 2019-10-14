@@ -1,2 +1,12 @@
-define([],function(){'use strict';return function(){};});
-//# sourceMappingURL=start-page.js.map
+/**
+ * Copyright (c) 2018, 2019, Oracle and/or its affiliates.
+ * The Universal Permissive License (UPL), Version 1.0
+ */
+
+define([], function() {
+  'use strict';
+
+  var PageModule = function PageModule() {};
+
+  return PageModule;
+});

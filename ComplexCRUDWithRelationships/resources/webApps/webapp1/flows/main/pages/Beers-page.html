@@ -1,3 +1,8 @@
+<!--
+  Copyright (c) 2018, 2019, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
+
 <div class="oj-flex">
 
   <oj-bind-if test="[[$page.variables.showAdvancedFilter]]">
@@ -19,8 +24,8 @@
           <oj-select-many id="oj-select-many--2146513699-1" class="" options="[[$page.variables.beerTypeListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" label-hint="Type" value="{{ $page.variables.beerFilterCriteria.selectedTypes }}"></oj-select-many>
           <oj-select-many id="oj-select-many--2146513699-2" class="" options="[[$page.variables.qualityListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" style="max-width: 100%;" label-hint="Qualities" value="{{ $page.variables.beerFilterCriteria.selectedQualities }}"></oj-select-many>
           <oj-select-many id="oj-select-many-979113728-1" style="max-width: 100%;" options="[[$page.variables.countryListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" label-hint="Country" value="{{ $page.variables.beerFilterCriteria.selectedCountries }}"></oj-select-many>
-          <oj-input-number id="oj-input-number-979113728-1" style="max-width: 100%;" converter="{&quot;options&quot;:{&quot;style&quot;:&quot;decimal&quot;},&quot;type&quot;:&quot;number&quot;}" value="{{ $page.variables.beerFilterCriteria.minAlcohol }}" label-hint="Min Alcohol"></oj-input-number>
-          <oj-input-number converter="{&quot;options&quot;:{&quot;style&quot;:&quot;decimal&quot;,&quot;decimalFormat&quot;:&quot;standard&quot;},&quot;type&quot;:&quot;number&quot;}" id="oj-input-number-979113728-2" style="max-width: 100%;" value="{{ $page.variables.beerFilterCriteria.maxAlcohol }}" label-hint="Max Alcohol"></oj-input-number>
+          <oj-input-number id="oj-input-number-979113728-1" style="max-width: 100%;" converter='{"options":{"style":"decimal"},"type":"number"}' value="{{ $page.variables.beerFilterCriteria.minAlcohol }}" label-hint="Min Alcohol"></oj-input-number>
+          <oj-input-number converter='{"options":{"style":"decimal","decimalFormat":"standard"},"type":"number"}' id="oj-input-number-979113728-2" style="max-width: 100%;" value="{{ $page.variables.beerFilterCriteria.maxAlcohol }}" label-hint="Max Alcohol"></oj-input-number>
         </oj-form-layout>
       </div>
     </div>
@@ -47,7 +52,7 @@
 
     <div class="oj-flex">
       <div class="oj-flex-item oj-sm-12 oj-md-12">
-            <oj-table scroll-policy="loadMoreOnScroll" style="width: 100%; height: 70vh;" id="oj-table-792924772-1" data="[[$page.variables.beerListServiceDataProvider]]" columns="[{&quot;headerText&quot;:&quot;Name&quot;,&quot;field&quot;:&quot;name&quot;,&quot;template&quot;:&quot;Name&quot;},{&quot;headerText&quot;:&quot;Type&quot;,&quot;field&quot;:&quot;beerTypeObject&quot;,&quot;sortProperty&quot;:&quot;beerTypeObject.name&quot;,&quot;template&quot;:&quot;nameCellTemplate3&quot;},{&quot;headerText&quot;:&quot;Alcohol&quot;,&quot;field&quot;:&quot;alcoholPercentage&quot;,&quot;template&quot;:&quot;Alcohol&quot;},{&quot;headerText&quot;:&quot;countryObject&quot;,&quot;field&quot;:&quot;countryObject&quot;,&quot;template&quot;:&quot;countryObject&quot;},{&quot;headerText&quot;:&quot;Qualities&quot;,&quot;field&quot;:&quot;beerQualityCollection&quot;,&quot;sortable&quot;:&quot;disabled&quot;,&quot;template&quot;:&quot;nameCellTemplate5&quot;}]">
+            <oj-table scroll-policy="loadMoreOnScroll" style="width: 100%; height: 70vh;" id="oj-table-792924772-1" data="[[$page.variables.beerListServiceDataProvider]]" columns='[{"headerText":"Name","field":"name","template":"Name"},{"headerText":"Type","field":"beerTypeObject","sortProperty":"beerTypeObject.name","template":"nameCellTemplate3"},{"headerText":"Alcohol","field":"alcoholPercentage","template":"Alcohol"},{"headerText":"Country","field":"countryObject","template":"countryObject"},{"headerText":"Qualities","field":"beerQualityCollection","sortable":"disabled","template":"nameCellTemplate5"}]'>
                   <template slot="nameCellTemplate3">
                         <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].name : undefined ]]"></oj-bind-text>
                   </template>

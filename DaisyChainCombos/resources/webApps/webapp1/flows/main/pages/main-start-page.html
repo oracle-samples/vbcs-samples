@@ -1,0 +1,27 @@
+<!--
+  Copyright (c) 2018, 2019, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
+
+<div class="oj-flex-items-pad">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <h1 id="h1-979113728-1">Daisy Chain Combo Boxes</h1>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <hr id="hr--907703204-1" class="oj-flex-item oj-sm-12 oj-md-12">
+    </div>
+    <div class="oj-flex">
+        <oj-label id="oj-label--907703204-1" for="oj-select-one--907703204-1" class="oj-flex-item oj-sm-12 oj-md-2">Continent</oj-label>
+        <oj-select-one id="oj-select-one--907703204-1" class="oj-flex-item oj-sm-12 oj-md-4" placeholder="select continent" options="[[$page.variables.continentListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" value="{{ $page.variables.selectedContinent }}"></oj-select-one>
+    </div>
+    <div class="oj-flex">
+        <oj-label id="oj-label--907703204-2" for="oj-select-one--907703204-2" class="oj-flex-item oj-sm-12 oj-md-2">Country</oj-label>
+        <oj-select-one id="oj-select-one--907703204-2" class="oj-flex-item oj-sm-12 oj-md-4" placeholder="{{ $page.variables.selectedContinent === undefined || $page.variables.selectedContinent === '' ? 'select continent first' : 'select country' }}" options="[[$page.variables.countryListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" value="{{ $page.variables.selectedCountry }}" disabled="{{ $page.variables.selectedContinent === undefined || $page.variables.selectedContinent === '' }}"></oj-select-one>
+    </div>
+    <div class="oj-flex">
+        <oj-label id="oj-label--907703204-3" for="oj-select-one--907703204-3" class="oj-flex-item oj-sm-12 oj-md-2">City</oj-label>
+        <oj-select-one id="oj-select-one--907703204-3" class="oj-flex-item oj-sm-12 oj-md-4" placeholder="{{ $page.variables.selectedCountry === undefined || $page.variables.selectedCountry === '' ? 'select country first' : 'select city' }}" options="[[$page.variables.cityListServiceDataProvider]]" options-keys.value="id" options-keys.label="name" value="{{ $page.variables.selectedCity }}" disabled="{{ $page.variables.selectedCountry === undefined || $page.variables.selectedCountry === '' }}"></oj-select-one>
+    </div>
+</div>

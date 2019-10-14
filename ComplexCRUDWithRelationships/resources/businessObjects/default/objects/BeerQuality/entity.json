@@ -1,0 +1,87 @@
+{
+    "displayLabel": "Beer Quality",
+    "name": "BeerQuality",
+    "oid": "98d2f142-3a26-46b1-94e0-92233c2d5313",
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "unique": true,
+            "name": "id",
+            "oid": "88fafcb8-d76b-4192-90af-3071bff6917d",
+            "type": "number",
+            "key": true,
+            "required": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "7c0d184f-b771-41f3-8903-f272c628de35",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "2a513197-ca03-4524-9834-1ae1abb92ce5",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "0f3dc57c-2341-4708-936b-6d9905eeca95",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "a25ad04d-87dd-4d7b-94ad-7c1ae12e1251",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "internal": true,
+            "hidden": true,
+            "name": "abcsChangeNumber",
+            "oid": "5b11de26-49cb-4000-ae6d-4a0443b30765",
+            "type": "number"
+        },
+        {
+            "displayLabel": "Quality",
+            "name": "quality",
+            "oid": "025723e3-2475-4b32-b72a-08d7a0e37b76",
+            "type": "reference",
+            "required": true
+        },
+        {
+            "displayLabel": "Beer",
+            "name": "beer",
+            "oid": "d4b13b04-6cc4-4c63-a656-959352673d97",
+            "type": "reference",
+            "required": true
+        }
+    ],
+    "relationships": [
+        {
+            "deleteRule": "cascade",
+            "exposeAccessor": true,
+            "mappingField": "quality",
+            "name": "qualityObject",
+            "reverseRelationship": "beerQualityCollection",
+            "targetEntity": "Quality",
+            "type": "outgoing"
+        },
+        {
+            "deleteRule": "cascade",
+            "exposeAccessor": true,
+            "mappingField": "beer",
+            "name": "beerObject",
+            "reverseRelationship": "beerQualityCollection",
+            "targetEntity": "Beer",
+            "type": "outgoing"
+        }
+    ]
+}

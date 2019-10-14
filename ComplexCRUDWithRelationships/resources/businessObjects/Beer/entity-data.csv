@@ -3,4 +3,4 @@ id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name,alcoholPercentage,co
 2,2018-01-08T23:42:46,2018-01-12T23:31:05,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,John's Stout,5.8,235,2
 3,2018-01-09T00:12:16,2018-01-16T20:50:29,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,John's Session Lager,4.2,235,1
 4,2018-01-11T18:14:09,2018-01-12T23:28:28,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,John's Session Pilsner,5.2,235,1
-5,2018-01-12T22:06:40,2018-01-12T23:33:55,john.jullion-ceccarelli@oracle.com,john.jullion-ceccarelli@oracle.com,John's LIte Beer,4.2,235,7
+5,2018-01-12T22:06:40,2019-10-09T01:13:21,john.jullion-ceccarelli@oracle.com,david.konecny@oracle.com,John's Lite Beer,4.2,235,7

@@ -1,0 +1,116 @@
+{
+    "pageModelVersion": "19.3.1",
+    "description": "",
+    "routerFlow": "main",
+    "variables": {
+        "messagesADP": {
+            "type": "vb/ArrayDataProvider",
+            "defaultValue": {
+                "idAttribute": "id",
+                "itemType": "page:messageType"
+            }
+        }
+    },
+    "metadata": {},
+    "types": {
+        "messageType": {
+            "id": "string",
+            "severity": "string",
+            "category": "string",
+            "summary": "string",
+            "detail": "string",
+            "timestamp": "string",
+            "autoTimeout": "number"
+        }
+    },
+    "chains": {
+        "showNotification": {
+            "description": "Displays notifications sent by the Fire Notification action using the oj-messages component on this page.",
+            "variables": {
+                "eventPayload": {
+                    "type": "messageType",
+                    "input": "fromCaller"
+                }
+            },
+            "root": "displayMessage",
+            "actions": {
+                "displayMessage": {
+                    "module": "vb/action/builtin/fireDataProviderEventAction",
+                    "parameters": {
+                        "target": "{{ $page.variables.messagesADP }}",
+                        "add": {
+                            "data": "{{ [ $chain.variables.eventPayload ] }}"
+                        }
+                    }
+                }
+            }
+        },
+        "closeNotificationHandler": {
+            "description": "Removes the notification message when its dismiss gesture has been invoked.",
+            "variables": {
+                "eventMessage": {
+                    "type": "messageType",
+                    "input": "fromCaller"
+                }
+            },
+            "root": "removeMessage",
+            "actions": {
+                "removeMessage": {
+                    "module": "vb/action/builtin/fireDataProviderEventAction",
+                    "parameters": {
+                        "target": "{{ $page.variables.messagesADP }}",
+                        "remove": {
+                            "keys": "{{ [ $variables.eventMessage.id ] }}"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "eventListeners": {
+        "vbNotification": {
+            "chains": [
+                {
+                    "chainId": "showNotification",
+                    "parameters": {
+                        "eventPayload": "{{ { id: $event.key, summary: $event.summary, detail: $event.message, severity: $event.type, autoTimeout: $event.displayMode === 'transient' ? 0 : -1, timestamp: oj.IntlConverterUtils.dateToLocalIso(new Date()) } }}"
+                    }
+                }
+            ]
+        },
+        "onMessageClose": {
+            "chains": [
+                {
+                    "chainId": "closeNotificationHandler",
+                    "parameters": {
+                        "eventMessage": "{{ $event.detail.message }}"
+                    }
+                }
+            ]
+        }
+    },
+    "imports": {
+        "components": {
+            "oj-messages": {
+                "path": "ojs/ojmessages"
+            },
+            "oj-menu": {
+                "path": "ojs/ojmenu"
+            },
+            "oj-menu-button": {
+                "path": "ojs/ojbutton"
+            },
+            "oj-option": {
+                "path": "ojs/ojoption"
+            },
+            "oj-toolbar": {
+                "path": "ojs/ojtoolbar"
+            }
+        }
+    },
+    "translations": {
+        "shell": {
+            "path": "./resources/strings/shell/nls/shell-strings"
+        }
+    }
+}

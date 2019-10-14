@@ -21,4 +21,4 @@ This sample shows how to perform CRUD over Business Objects that contain 1:M and
 
 **Compatibility**
 
-* 18.1.1
+* 19.3.1

@@ -104,10 +104,10 @@
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$page.variables.selectedQualities": {
-                "source": "{{ $chain.results.loadBeer.body.beerQualityCollection.items }}",
-                "mapping": {
-                  "$target": "$source.quality"
-                }
+              "source": "{{ $chain.results.loadBeer.body.beerQualityCollection.items }}",
+              "mapping": {
+                "$target": "$source.quality"
+              }
             }
           }
         }
@@ -229,11 +229,9 @@
       }]
     },
     "ojButton14650013701Click": {
-      "chains": [
-        {
-          "chainId": "deleteBeerChain"
-        }
-      ]
+      "chains": [{
+        "chainId": "deleteBeerChain"
+      }]
     }
   },
   "imports": {

@@ -1,0 +1,82 @@
+{
+    "fields": [
+        {
+            "hidden": false,
+            "name": "id",
+            "internal": true,
+            "key": true,
+            "oid": "36d7bcfa-23fd-4064-b6f0-fa1a0eacfa40",
+            "required": true,
+            "displayLabel": "Id",
+            "type": "number",
+            "unique": true
+        },
+        {
+            "hidden": false,
+            "name": "creationDate",
+            "internal": true,
+            "key": false,
+            "oid": "6b2c2a87-3ce7-4816-80b6-93c56550b1a5",
+            "displayLabel": "Creation Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "name": "lastUpdateDate",
+            "internal": true,
+            "key": false,
+            "oid": "f9b0b5ec-c23e-4593-a618-2309ea0bb9ed",
+            "displayLabel": "Last Update Date",
+            "type": "datetime"
+        },
+        {
+            "hidden": false,
+            "name": "createdBy",
+            "internal": true,
+            "key": false,
+            "oid": "7b6d261a-b8d5-4875-9512-8a8f9e8a528b",
+            "displayLabel": "Created By",
+            "type": "string"
+        },
+        {
+            "hidden": false,
+            "name": "lastUpdatedBy",
+            "internal": true,
+            "key": false,
+            "oid": "ff8205e0-5f8a-4bbf-817b-0677de752eaf",
+            "displayLabel": "Last Updated By",
+            "type": "string"
+        },
+        {
+            "hidden": true,
+            "name": "abcsChangeNumber",
+            "internal": true,
+            "key": false,
+            "oid": "c1a6f4eb-dda2-4ef7-93e0-5739d5356702",
+            "displayLabel": "Update ID",
+            "type": "number"
+        },
+        {
+            "name": "name",
+            "oid": "d82e5818-878a-4dac-8be6-cf6e2c9d3beb",
+            "displayLabel": "name",
+            "type": "string"
+        },
+        {
+            "name": "location",
+            "oid": "dbd8c73d-4526-4621-a952-4fb194506dd0",
+            "displayLabel": "location",
+            "type": "string"
+        },
+        {
+            "name": "budget",
+            "oid": "4d712ca2-cd6b-480b-aa4e-7a19d6b6ac6e",
+            "displayLabel": "budget",
+            "type": "number"
+        }
+    ],
+    "hidden": false,
+    "name": "Department",
+    "oid": "31350417-c56e-485b-b6f9-092e7375e2ed",
+    "displayLabel": "Department"
+}

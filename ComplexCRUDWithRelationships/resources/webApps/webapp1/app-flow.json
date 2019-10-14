@@ -1,64 +1,66 @@
 {
-  "applicationModelVersion": "18.1.5",
-  "id": "starter",
+  "applicationModelVersion": "19.3.1",
+  "id": "webapp1",
   "description": "A new VB app",
-  "defaultPage": "app",
+  "defaultPage": "shell",
   "chains": {},
   "services": {
-    "businessObjects": "../../services/businessObjects/service.json"
+    "businessObjects": {
+      "path": "./services/businessObjects/service.json"
+    }
+  },
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      }
+    }
   },
   "types": {
     "beerResponse": {
-      "items": [
-        {
-          "name": "string",
-          "alcoholPercentage": "number",
-          "beerQualityCollection": {
-            "items": [
-              {
-                "id": "number",
-                "quality": "number",
-                "qualityObject": {
-                  "items": [
-                    {
-                      "id": "number",
-                      "name": "string"
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          "beerTypeObject": {
-            "items": [
-              {
+      "items": [{
+        "name": "string",
+        "alcoholPercentage": "number",
+        "beerQualityCollection": {
+          "items": [{
+            "id": "number",
+            "quality": "number",
+            "qualityObject": {
+              "items": [{
                 "id": "number",
                 "name": "string"
-              }
-            ]
-          },
-          "countryObject": {
-            "items": [
-              {
-                "id": "number",
-                "name": "string"
-              }
-            ]
-          },
-          "id": "number"
-        }
-      ]
+              }]
+            }
+          }]
+        },
+        "beerTypeObject": {
+          "items": [{
+            "id": "number",
+            "name": "string"
+          }]
+        },
+        "countryObject": {
+          "items": [{
+            "id": "number",
+            "name": "string"
+          }]
+        },
+        "id": "number"
+      }]
     },
     "createBeerRequest": {
       "name": "string",
       "alcoholPercentage": "number",
       "country": "number",
       "beerType": "number",
-      "beerQualityCollection": [
-        {
-          "quality": "number"
-        }
-      ]
+      "beerQualityCollection": [{
+        "quality": "number"
+      }]
     },
     "update_Beer": {
       "id": "number",
@@ -67,18 +69,18 @@
       "country": "number",
       "beerType": "number",
       "beerQualityCollection": {
-        "items": [
-          {
-            "quality": "number",
-            "id": "number"
-          }
-        ]
+        "items": [{
+          "quality": "number",
+          "id": "number"
+        }]
       }
     }
   },
   "variables": {},
   "userConfig": {
-    "type": "vb/UserSecurityProvider",
-    "configuration": {}
-  }
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {}
 }

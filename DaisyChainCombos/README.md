@@ -21,4 +21,4 @@ This sample shows three cascading combo boxes and how a city selection can be br
 
 **Compatibility**
 
-* 18.1.5
+* 19.3.1

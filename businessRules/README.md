@@ -24,4 +24,4 @@ This sample shows an Expenses business object rendered as a table, with a Create
 
 **Compatibility**
 
-* 18.1.1
+* 19.3.1
