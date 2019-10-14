@@ -62,10 +62,6 @@ This sample demonstrates how business objects can be created from a spreadsheet 
 
 This application presents 3 levels of master-detail on a single page.
 
-### navigationTabs
-
-Sample application with tabs in the header area used for navigation between pages.
-
 ### webServiceConsumption
 
 This sample shows how to consume an external REST API and create custom UI to interact with the data from that API.
