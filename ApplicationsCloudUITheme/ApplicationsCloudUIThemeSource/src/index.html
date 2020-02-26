@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
- Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ Copyright (c) 2014, 2020, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
  -->
 
@@ -23,77 +23,77 @@
   section from what is defined, you should also change the role value for that
   section to represent the appropriate content type.
   ***************************** IMPORTANT INFORMATION ************************************ -->
-<html lang="en-us">
+  <html lang="en-us">
 
-<head>
-  <title>Oracle JET - SaaS theme</title>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-  <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
-
-  <!-- This is the main css file for the default Alta theme -->
-  <!-- injector:theme -->
-  <link rel="stylesheet" href="css/libs/oj/v7.0.1/alta/oj-alta-min.css" type="text/css" />
-  <!-- endinjector -->
-
-</head>
-
-<body class="oj-web-applayout-body">
-  <div id="globalBody" class="oj-web-applayout-page">
-    <header role="banner" class="oj-web-applayout-header ApplicationsCloudUI-watermark">
-      <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-        <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
-          <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">
-            <oj-bind-text value="[[appName]]"></oj-bind-text>
-          </h1>
+    <head>
+      <title>Oracle JET - SaaS theme</title>
+    
+      <meta charset="UTF-8">
+      <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+      <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+    
+      <!-- This is the main css file for the default Alta theme -->
+      <!-- injector:theme -->
+      <link rel="stylesheet" href="css/libs/oj/v8.1.0/alta/oj-alta-min.css" type="text/css"/>
+      <!-- endinjector -->
+    
+    </head>
+    
+    <body class="oj-web-applayout-body">
+      <div id="globalBody" class="oj-web-applayout-page">
+        <header role="banner" class="oj-web-applayout-header ApplicationsCloudUI-watermark">
+          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+            <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+              <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">
+                <oj-bind-text value="[[appName]]"></oj-bind-text>
+              </h1>
+            </div>
+            <div class="oj-flex-bar-end">
+              <!-- Responsive Toolbar -->
+              <span>Oracle JET <oj-bind-text value="[[oj.version]]"></oj-bind-text></span>
+            </div>
+          </div>
+        </header>
+        <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+          <div class="oj-panel oj-panel-shadow-sm">
+            <h1>Information</h1>
+            <p>This is the source project for the ApplicationsCloudUI sample theme for JET. You can test out the theme by
+              adding various components to the page below.</p>
+            <p><em>Note:</em> If you just see the normal Oracle JET look and feel make sure that you run the project with
+              the theme flag e.g.</p>
+            <div class="oj-panel-alt1" style="padding:20px;margin:10px;">
+              <code>ojet serve --theme=ApplicationsCloudUI:web</code></div>
+            <p>Once you have built or run this project you will find a
+              <strong>deploy/ApplicationsCloudUI-export.zip</strong> containing the generated theme files in the
+              <em>/deploy</em> folder. You can take this file and import it within the <strong>/resources/css</strong>
+              folder of your VBCS application</p>
+          </div>
+          <div class="oj-text-sm oj-text-secondary-color" style="margin-top:2em;">
+            <p>Add your own testing components here...</p>
+          </div>
+    
         </div>
-        <div class="oj-flex-bar-end">
-          <!-- Responsive Toolbar -->
-          <span>Oracle JET <oj-bind-text value="[[oj.version]]"></oj-bind-text></span>
-        </div>
+        <footer class="oj-web-applayout-footer" role="contentinfo">
+          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
+            <ul>
+              <oj-bind-for-each data="[[footerLinks]]">
+                <template>
+                  <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]">
+                      <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+                    </a></li>
+                </template>
+              </oj-bind-for-each>
+            </ul>
+          </div>
+          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
+            Copyright © 2014, 2020 Oracle and/or its affiliates All rights reserved.
+          </div>
+        </footer>
       </div>
-    </header>
-    <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
-      <div class="oj-panel oj-panel-shadow-sm">
-        <h1>Information</h1>
-        <p>This is the source project for the ApplicationsCloudUI sample theme for JET. You can test out the theme by
-          adding various components to the page below.</p>
-        <p><em>Note:</em> If you just see the normal Oracle JET look and feel make sure that you run the project with
-          the theme flag e.g.</p>
-        <div class="oj-panel-alt1" style="padding:20px;margin:10px;">
-          <code>ojet serve --theme=ApplicationsCloudUI:web</code></div>
-        <p>Once you have built or run this project you will find a
-          <strong>deploy/ApplicationsCloudUI-export.zip</strong> containing the generated theme files in the
-          <em>/deploy</em> folder. You can take this file and import it within the <strong>/resources/css</strong>
-          folder of your VBCS application</p>
-      </div>
-      <div class="oj-text-sm oj-text-secondary-color" style="margin-top:2em;">
-        <p>Add your own testing components here...</p>
-      </div>
-
-    </div>
-    <footer class="oj-web-applayout-footer" role="contentinfo">
-      <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
-        <ul>
-          <oj-bind-for-each data="[[footerLinks]]">
-            <template>
-              <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]">
-                  <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
-                </a></li>
-            </template>
-          </oj-bind-for-each>
-        </ul>
-      </div>
-      <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
-        Copyright © 2014, 2019 Oracle and/or its affiliates All rights reserved.
-      </div>
-    </footer>
-  </div>
-
-  <script type="text/javascript" src="js/libs/require/require.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-
-</body>
-
-</html>
+    
+      <script type="text/javascript" src="js/libs/require/require.js"></script>
+      <script type="text/javascript" src="js/main.js"></script>
+    
+    </body>
+    
+    </html>

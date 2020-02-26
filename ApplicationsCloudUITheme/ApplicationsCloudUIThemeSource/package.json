@@ -1,18 +1,14 @@
 {
   "name": "ApplicationsCloudUIThemeSource",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Developement Application for Fusion Applications Cloud Look and Feel theme",
   "dependencies": {
-    "@oracle/oraclejet": "~7.0.1"
+    "@oracle/oraclejet": "~8.1.0"
   },
   "devDependencies": {
-    "@oracle/oraclejet-tooling": "~7.0.0",
+    "@oracle/oraclejet-tooling": "~8.1.0",
     "archiver": "^2.1.1",
-    "grunt": "^1.0.1",
-    "load-grunt-config": "0.19.2",
-    "node-sass": "^4.7.2",
-    "qunit": "^2.4.1",
-    "qunit-reporter-junit": "^1.1.1"
+    "node-sass": "^4.13.0"
   },
   "engines": {
     "node": ">=0.10.0"

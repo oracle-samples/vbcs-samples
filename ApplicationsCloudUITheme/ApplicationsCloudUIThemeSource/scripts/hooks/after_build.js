@@ -21,7 +21,6 @@ module.exports = function (configObj) {
       fs.mkdirSync(archiveDirectory);
     }
     //Based on the build type release | dev remove any surplus copies of the theme css that will just bulk up the export and are not needed
-    let altCSS;
     const themeConfig = JSON.parse(fs.readFileSync(configFile, "utf8"));
     const themeCSSOutput = path.join(sourceDirectory, themeName, themeConfig.version, 'web');
     //Check to make sure the theme was actually requested.  If not abort the packaging
@@ -31,18 +30,13 @@ module.exports = function (configObj) {
       resolve(); //Don't reject because user may be reverting to default theme for testing 
     }
     else {
-      if (configObj.buildType === 'release') {
-        altCSS = path.join(themeCSSOutput, themeName + '.css');
-      }
-      else {
-        altCSS = path.join(themeCSSOutput, themeName + '.min.css');
-        const msg = 'You are building an un-optimized version of the theme. Consider re-running with the "--release" flag on the command line';
-        console.warn(`\x1b[33mWarning: ${msg}\x1b[0m`);
+      const debugFile =  path.join(themeCSSOutput, themeName + '.css');
+      const minfiedFile =  path.join(themeCSSOutput, themeName + '.min.css');
+      if (fs.existsSync(minfiedFile)) {
+        fs.removeSync(debugFile);
+        fs.renameSync(minfiedFile, debugFile);
       }
 
-      if (fs.existsSync(altCSS)) {
-        fs.removeSync(altCSS);
-      }
       console.log("Packaging theme ZIP file.....");
       const output = fs.createWriteStream(destination);
       const archive = archiver('zip');
