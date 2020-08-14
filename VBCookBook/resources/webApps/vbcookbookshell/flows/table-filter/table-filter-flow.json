@@ -1,0 +1,10 @@
+    {
+        "flowModelVersion": "18.3.3",
+        "id": "editable-table",
+        "description": "Flow main",
+        "defaultPage": "table-filter-start",
+        "chains": {},
+        "services": {},
+        "types": {},
+        "variables": {}
+    }

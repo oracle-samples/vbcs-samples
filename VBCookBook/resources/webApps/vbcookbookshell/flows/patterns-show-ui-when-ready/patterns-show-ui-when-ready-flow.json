@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "patterns-show-ui-when-ready",
+  "description": "Flow main",
+  "defaultPage": "patterns-show-ui-when-ready-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

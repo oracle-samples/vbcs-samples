@@ -1,0 +1,149 @@
+{
+  "pageModelVersion": "18.3.3",
+  "title": "My start page",
+  "description": "The starting page of the flow",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallDepartmentResponse2"
+      }
+    },
+    "selection": {
+      "type": [{
+        "endIndex": {
+          "row": "number"
+        },
+        "endKey": {
+          "row": "number"
+        },
+        "startIndex": {
+          "row": "number"
+        },
+        "startKey": {
+          "row": "number"
+        }
+      }]
+    }
+  },
+  "types": {
+    "@decorators.getall_Department": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallDepartmentResponse2": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Department": {
+      "items": [{
+        "id": "number",
+        "departmentName": "string",
+        "manager": "number",
+        "location": "number"
+      }]
+    },
+    "getallDepartmentResponse": {
+      "items": [{
+        "id": "number",
+        "departmentName": "string",
+        "manager": "number",
+        "location": "number"
+      }]
+    },
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallDepartmentResponse2": {
+      "items": [{
+        "departmentName": "string",
+        "id": "number",
+        "location": "number",
+        "manager": "number"
+      }]
+    }
+  },
+  "chains": {
+    "SyncCheckboxesInTableAction": {
+      "description": "",
+      "variables": {
+        "index": {
+          "type": "number",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "targetId": {
+          "type": "number",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "root": "if1",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.selection": {
+              "source": "[[$page.variables.selection.concat([\n {\n  \"endIndex\": {\n   \"row\":  $variables.index \n  },\n  \"startIndex\": {\n   \"row\":  $variables.index \n  },\n  \"endKey\": {\n   \"row\":  $variables.targetId \n  },\n  \"startKey\": {\n   \"row\":  $variables.targetId \n  }\n }\n])]]",
+              "reset": "empty"
+            }
+          }
+        },
+        "if1": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.selection.filter(function(s){return s.startKey.row===$chain.variables.targetId }).length ]]"
+          },
+          "outcomes": {
+            "false": "assignVariables1",
+            "true": "assignVariables2"
+          }
+        },
+        "assignVariables2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.selection": {
+              "source": "{{ $page.variables.selection.filter(function(s){ return s.startKey.row !== $chain.variables.targetId}) }}",
+              "reset": "empty"
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "syncCheckboxesInTable": {
+      "stopPropagation": "{{ true }}",
+      "chains": [{
+        "chainId": "SyncCheckboxesInTableAction",
+        "parameters": {
+          "targetId": "{{ $current.key }}",
+          "index": "{{ $current.index }}"
+        }
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      }
+    }
+  }
+}

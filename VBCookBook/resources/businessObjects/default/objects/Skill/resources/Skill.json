@@ -1,0 +1,48 @@
+{
+    "resources": {
+        "employeeSkillCollection": {
+            "resources": {
+                "employeeObject": {
+                }
+            }
+        },
+        "employeeCollection": {
+            "resources": {
+                "managerObject": {
+                },
+                "employeeSkillCollection": {
+                    "resources": {
+                        "employeeObject": {
+                            "resources": {
+                                "managerObject": {
+                                },
+                                "departmentObject": {
+                                    "resources": {
+                                        "departmentManager": {
+                                            "resources": {
+                                                "managerObject": {
+                                                }
+                                            }
+                                        },
+                                        "locationObject": {
+                                            "resources": {
+                                                "locationCountry": {
+                                                    "resources": {
+                                                        "inRegion": {
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "jobObject": {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

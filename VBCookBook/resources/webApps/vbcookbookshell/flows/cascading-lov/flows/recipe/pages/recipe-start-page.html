@@ -1,0 +1,70 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>The first dropdown's selected value can be used to filter second dropdown's options.
+  Similarly second dropdown's selected value will be used to filter third dropdown
+  options, and so on. We logic to check if a parent LOV has been set and reset any
+  child LOVs accordingly. In the end, we call a REST service to fetch the postal
+  code and assign it to the postalCode variable.</p>
+<oj-accordion id="accordionPage">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Create the UI</span>
+    <div>
+      <ol>
+        <li>Add the Form Layout, Select One components, Input Text component, and Button
+          to the page.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Create the Page Model and Bind the UI</span>
+    <div>
+      <ol>
+        <li>Create a new type called <code>SelectedItemType</code>. Add the following
+          fields:
+          <ul>
+            <li><code>value</code> - Number</li>
+            <li><code>label</code> - String</li>
+          </ul>
+        </li>
+        <li>Create the following page variables, all of type <code>SelectedItemType</code>:
+          <ul>
+            <li><code>selectedRegion</code></li>
+            <li><code>selectedCountry</code></li>
+            <li><code>selectedLocation</code></li>
+          </ul>
+        </li>
+        <li>Bind the value for each of the Select One components to the three variables
+          above.</li>
+        <li>Add a <code>postalCode</code> String variable and bind it to the Postal Code
+          field.</li>
+        <li>Use the Quickstart to set the options for each Select One component. For
+          the Country picker, set the
+          <code>filterCriterion</code> to country equals
+          <code>{{$page.variables.selectedRegion ? $page.variables.selectedRegion.value : undefined }}</code>.
+          For the Location picker, set the <code>filterCriterion</code> to country
+          equals
+          <code>{{ $page.variables.selectedCountry ? $page.variables.selectedCountry.value : undefined }}</code>.</li>
+        <li>In the HTML editor, change each Select One component to use <code>value-option</code>          instead of
+          <code>value</code>.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Create the Events and Action Chains</span>
+    <div>
+      <ol>
+        <li>Add a <code>valueChanged</code> event for each Select One component. In each
+          action chain, check that the
+          <code>value</code> of the <code>Region/Country/Location</code> exists,
+          and if not, reset the cascading values below. In the Location value change
+          event, also add logic to call the Location REST endpoint and populate the
+          postalCode variable.</li>
+        <li>Add an <code>ojAction</code> event to the Reset button and in the action
+          chain reset all page variables.
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>

@@ -1,0 +1,181 @@
+{
+  "pageModelVersion": "19.1.1",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "uriParameters": {
+          "limit": 10
+        }
+      }
+    },
+    "currentEmployee": {
+      "type": "get_Employee"
+    }
+  },
+  "types": {
+    "getallEmployeeResponse": {
+      "items": [{
+        "email": "string",
+        "firstName": "string",
+        "id": "number",
+        "lastName": "string",
+        "salary": "number"
+      }]
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string",
+      "salary": "number"
+    }
+  },
+  "chains": {
+    "UpdateEmployeeChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "ErrorNotification",
+      "actions": {
+        "ErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "Record updated succesfully!",
+            "type": "confirmation",
+            "displayMode": "persist",
+            "message": "Record updated succesfully!"
+          },
+          "outcomes": {
+            "success": "CloseDialog"
+          }
+        },
+        "CloseDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+            "method": "close"
+          }
+        }
+      }
+    },
+    "OpenDialogChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "AssignEmployeeRecord",
+      "actions": {
+        "AssignEmployeeRecord": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentEmployee": {
+              "source": "{{ $chain.variables.current }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "OpenDialog"
+          }
+        },
+        "OpenDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+            "method": "open"
+          }
+        }
+      }
+    }
+
+  },
+  "eventListeners": {
+    "aClick": {
+      "chains": [{
+        "chainId": "OpenDialogChain",
+        "parameters": {
+          "current": "{{ $current }}"
+        }
+      }]
+    },
+    "ojButtonOjAction": {
+      "chains": [{
+        "chainId": "UpdateEmployeeChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    },
+    "spanClick": {
+      "chains": [{
+        "chainId": "OpenDialogChain",
+        "parameters": {
+          "current": "{{ $current.row }}"
+        }
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This recipe shows you how to get data from an instance of Oracle Data REST Services
+  that you can filter, sort and paginate in your Visual Builder application.
+</div>
+<style>
+  .matchedText {
+    font-weight: bold;
+    color: green
+  }
+</style>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex oj-sm-align-items-center oj-sm-flex-items-initial oj-flex-items-pad"
+      style="padding-left:12px;">
+      <oj-label id="filterInputLabel" for="filterInputText" class="oj-flex-item">Search
+      </oj-label>
+
+      <oj-sample-input-text-typeahead id="oj-sample-input-text-typeahead--1933717278-1"
+        style="min-width: 300px;" class="oj-flex-item" clear-icon="conditional" placeholder="Enter a text to search..."
+        raw-value="{{ $variables.searchText }}" value="{{ $variables.searchText }}"></oj-sample-input-text-typeahead>
+    </div>
+
+    <div class="oj-flex">
+      <oj-table id="filters-table" scroll-policy="loadMoreOnScroll" scroll-policy-options='{"fetchSize": 5}'
+        style="height: 300px;" columns='[
+        {
+          "headerText":"Employee No",
+          "field":"empno"
+        },
+        {
+          "headerText":"Employee Name",
+          "field":"ename",
+          "template" : "name"
+        }
+      ]' data="{{ $page.variables.getEmployeesListSDP }}">
+      <template slot="name">
+        <oj-sample-highlight-text value="[[ ''+($current.data ? $current.data : '') ]]" highlight-value="[[ $variables.searchText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+      </template>
+      </oj-table>
+    </div>
+  </div>
+
+    <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+      <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+        <div class="recipe-box oj-flex-item">
+          <h1>Recipe</h1>
+          <div class="oj-flex">
+            <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+          </div>
+        </div>
+      </div>
+    </oj-bind-if>
+</div>

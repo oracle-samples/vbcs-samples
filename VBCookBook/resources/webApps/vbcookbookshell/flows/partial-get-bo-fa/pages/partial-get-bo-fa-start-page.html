@@ -1,0 +1,43 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo shows how you can implement fetching partial fields in a REST call to Business
+  Objects (BOs) or Fusion Apps resources.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex" style="max-height: 400px;">
+      <oj-list-view id="partial-get-bo-fa" class="oj-flex-item oj-sm-12 oj-md-12" data="[[$page.variables.departmentListSDP]]"
+        style="max-height:400px;">
+        <template slot="itemTemplate">
+      <div class="oj-flex">
+        <oj-label class="oj-flex-item oj-lg-6 oj-sm-6 oj-md-6">Department Name</oj-label>
+        <div class="oj-flex-item oj-lg-6 oj-sm-6 oj-md-6">
+          <oj-bind-text value="[[ $current.data.departmentName ]]"></oj-bind-text>
+        </div>
+      </div>
+      <div class="oj-flex">
+        <oj-label class="oj-flex-item oj-lg-6 oj-sm-6 oj-md-6">City</oj-label>
+        <div class="oj-flex-item oj-lg-6 oj-sm-6 oj-md-6">
+          <oj-bind-text value="[[ $current.data.locationObject.items[0] ? $current.data.locationObject.items[0].city : '' ]]"></oj-bind-text>
+        </div>
+      </div>
+    </template>
+      </oj-list-view>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

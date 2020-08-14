@@ -1,0 +1,340 @@
+{
+  "pageModelVersion": "19.3.1",
+  "title": "",
+  "description": "",
+  "variables": {
+    "formDept": {
+      "type": "department"
+    },
+    "cleanEmp": {
+      "type": "employee"
+    },
+    "formEmp": {
+      "type": "employee"
+    },
+    "cleanDept": {
+      "type": "department"
+    },
+    "dirtyForm": {
+      "type": "boolean",
+      "defaultValue": "[[ ($page.variables.currentTab == 'employee' && $page.functions.unsavedChange($page.variables.cleanEmp, $page.variables.formEmp)) || $page.functions.unsavedChange($page.variables.cleanDept, $page.variables.formDept) ]]"
+    },
+    "tabToSwitch": {
+      "type": "string"
+    },
+    "currentTab": {
+      "type": "string",
+      "defaultValue": "employee"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.department": {
+      "endpoint": "get_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "department": {
+      "departmentName": "string"
+    },
+    "@decorators.employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "employee": {
+      "firstName": "string",
+      "lastName": "string"
+    }
+  },
+  "chains": {
+    "loadData": {
+      "root": "runInParallel1",
+      "description": "",
+      "actions": {
+        "runInParallel1": {
+          "module": "vb/action/builtin/forkAction",
+          "parameters": {
+            "actions": {
+              "callRestEndpoint1": "getEmp",
+              "callRestEndpoint2": "getDept"
+            }
+          }
+        },
+        "getEmp": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Employee",
+            "uriParams": {
+              "Employee_Id": "100"
+            }
+          },
+          "outcomes": {
+            "success": "assignEmp"
+          }
+        },
+        "getDept": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Department",
+            "uriParams": {
+              "Department_Id": "4"
+            }
+          },
+          "outcomes": {
+            "success": "assignDept"
+          }
+        },
+        "assignEmp": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.cleanEmp": {
+              "source": "{{ $chain.results.getEmp.body }}",
+              "auto": "always"
+            },
+            "$page.variables.formEmp": {
+              "source": "{{ $chain.results.getEmp.body }}",
+              "auto": "always"
+            }
+          }
+        },
+        "assignDept": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.cleanDept": {
+              "source": "{{ $chain.results.getDept.body }}",
+              "auto": "always"
+            },
+            "$page.variables.formDept": {
+              "source": "{{ $chain.results.getDept.body }}",
+              "auto": "always"
+            }
+          }
+        }
+      }
+    },
+    "beforeTabChange": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "ifFormIsDirty",
+      "actions": {
+        "ifFormIsDirty": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.dirtyForm ]]"
+          },
+          "outcomes": {
+            "true": "setTabToSwitch"
+          }
+        },
+        "setTabToSwitch": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.tabToSwitch": {
+              "source": "{{ $chain.variables.detail.key }}"
+            }
+          },
+          "outcomes": {
+            "success": "openConfirmDialog"
+          }
+        },
+        "openConfirmDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+            "method": "open"
+          }
+        }
+      }
+    },
+    "YesButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "if1",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.formEmp": {
+              "source": "{{ $page.variables.cleanEmp }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "closeConfirmDialog"
+          }
+        },
+        "if1": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.currentTab === 'employee']]"
+          },
+          "outcomes": {
+            "true": "assignVariables1",
+            "false": "assignVariables2"
+          }
+        },
+        "assignVariables2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.formDept": {
+              "source": "{{ $page.variables.cleanDept }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "closeConfirmDialog"
+          }
+        },
+        "closeConfirmDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+            "method": "close"
+          },
+          "outcomes": {
+            "success": "switchToNewTab"
+          }
+        },
+        "switchToNewTab": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('tab-bar-1') }}",
+            "method": "setProperty",
+            "params": [
+              "selection",
+              "{{ $page.variables.tabToSwitch }}"
+            ]
+          }
+        }
+      }
+    },
+    "NoButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callComponentMethod1",
+      "actions": {
+        "callComponentMethod1": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+            "method": "close"
+          }
+        }
+      }
+    },
+    "SaveButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "fireNotification1",
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "Record updated successfully!",
+            "message": "Record updated successfully!",
+            "type": "confirmation"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "loadData",
+          "parameters": {}
+        }
+      ]
+    },
+    "tabBar1BeforeSelect": {
+      "chains": [
+        {
+          "chainId": "beforeTabChange",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ],
+      "preventDefault": "[[ $variables.dirtyForm ]]"
+    },
+    "yesButtonAction": {
+      "chains": [
+        {
+          "chainId": "YesButtonActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "noButtonAction": {
+      "chains": [
+        {
+          "chainId": "NoButtonActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "saveButtonAction": {
+      "chains": [
+        {
+          "chainId": "SaveButtonActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-tab-bar": {
+        "path": "ojs/ojnavigationlist"
+      },
+      "oj-switcher": {
+        "path": "ojs/ojswitcher"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      }
+    }
+  }
+}

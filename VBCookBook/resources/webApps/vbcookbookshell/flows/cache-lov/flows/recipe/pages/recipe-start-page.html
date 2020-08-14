@@ -1,0 +1,61 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h4>Summary</h4>
+<ul>
+  <li>At the flow level, add a Type from Endpoint based on the Country business object.</li>
+  <li>At the flow level, add an ArrayDataProvider variable with the get_Country item
+    type.</li>
+  <li>At the flow level, add an action chain to call Country REST API and map response
+    tothe ADP.</li>
+  <li>At the page level where LOV will be used, add a vbEnter event that fires the flow
+    action chain you created in the last step.</li>
+  <li>In the form, bind your oj-select-one to the ADP.</li>
+</ul>
+<oj-accordion id="accordionPage">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Step 1: Creating the Type and Variable</span>
+    <div>
+      <ol>
+        <li>Create a cache-lov flow with a page called cache-lov-demo.</li>
+        <li>Click the cache-lov node to open the flow editor. In the flow editor, create
+          a <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Type from Endpoint</a>          based on the Country business object.</li>
+        <li>Create an <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/array-data-provider.html">ArrayDataProvider</a>          called countryADP. Mark the Item Type as get_Country and the Key Attribute
+          as id.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Step 2: Creating the Event and Action Chain</span>
+    <div>
+      <ol>
+        <li>In the populateCountries action chain, add an If action and set the condition
+          to {{ $flow.variables.countryADPInitialized === false }}</li>
+        <li><a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/add-call-rest-endpoint-action.html">Drop a Call REST Endpoint action</a>.
+          Set it to call the getall_Country REST endpoint. Set the limit parameter
+          to a high number like 500 so that it fetches all records. Customize the
+          requestTransformOption to sort the response by the countryName attribute.</li>
+        <li>In the success path, <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/add-assign-variables-action.html">add an Assign Variables action</a>.
+          Assign body.items from the previous REST call action to countryADP.data</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step3">
+    <span slot="header">Step 3: Binding the oj-select-one</span>
+    <div>
+      <ol>
+        <li>Open the cache-lov-demo page and drop an oj-select-one component on the page.</li>
+        <li>In the General tab of the Property Inspector, set the Label Hint to Country</li>
+        <li>In the Data tab of the Property Inspector, set the Data property to [[ $flow.variables.countryADP
+          ]].</li>
+        <li>In the All tab of the Property Inspector, set options-keys.value to id and
+          options-keys.label to countryName.</li>
+        <li>Optionally, create a String page variable called value and set the oj-select-one's
+          Value property to variables.value. </li>
+        <li>In the cache-lov-demo page, <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/start-action-chains-events.html">add a vbEnter event</a>          and set it to fire a new flow-level action chain called populateCountries.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

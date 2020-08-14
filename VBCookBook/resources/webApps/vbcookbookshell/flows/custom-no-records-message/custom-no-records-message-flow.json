@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "custom-no-records-message",
+  "description": "Flow main",
+  "defaultPage": "custom-no-records-message-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

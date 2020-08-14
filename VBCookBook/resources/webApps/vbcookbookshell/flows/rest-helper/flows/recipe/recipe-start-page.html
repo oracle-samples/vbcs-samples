@@ -1,0 +1,83 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-accordion id="accordionPage">
+    <oj-collapsible id="step1" expanded>
+        <span slot="header">Introduction</span>
+        <div>
+            <p>
+                The value entered in Email ID field is validated by making a Rest call using <b>vb/helpers/rest</b> to make sure that it is unique. It is compared with email field of the Employees present in the Employee Business Object. If user enters
+                any email from the table below, proper user feedback is shown with the firstName of the matching employee.
+            </p>
+        </div>
+    </oj-collapsible>
+    <oj-collapsible id="step2" expanded>
+        <span slot="header">Step 1: Create Employee Form with Input elements</span>
+        <div>
+            <ol>
+                <li>Open Variables & Types tab, goto types and create a new type from Employee create Endpoint </li>
+                <li>Switch back to Variables tab and create a variable named employee of type created in last step</li>
+                <li> Open design view</li>
+                <li>
+                    DnD Validation Group and drop a Form Layout component into it.
+                </li>
+                <li> Dnd Email element on to page and set following properties using PI.
+                    <ul>
+                        <li>"value" property to "{{$variables.employee.email}}" to capture the entered value.
+                        </li>
+                        <li>"async-validators" to "{{[$functions.uniqueEmailValidator()]}}", a function defined on PageModule. This is an object that duck-types <a href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.AsyncValidator.html" target="_blank">AsyncValidator</a>. Its API is validate(): Promise and hint: Promise. Note: Async validator type is
+                            not supported as variables in Oracle Visual Builder so have to use "$page.functions.*" . Also, if your Visual Builder uses JET 8 or above you can specify async validators through the validators property directly.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </oj-collapsible>
+ 
+    <oj-collapsible id="step3" expanded>
+        <span slot="header">Step 2: Use vb/helpers/rest to implement the async validator</span>
+        <div>
+            <ol>
+                <li>Switch to JS view and create a new function named uniqueEmailValidator.</li>
+                <li>The function should return an Object with 2 properties:</li>
+                <ul>
+                    <li>hint: A promise which resolves into hint text.</li>
+                    <li>validate: A function which returns a promise. Inside this promise we will be making our rest calling using the rest helper module and either reject or resolve the promise based on the response.</li>
+                </ul>
+            </ol>
+        </div>
+    </oj-collapsible>
+    <oj-collapsible id="step4" >
+        <span slot="header">Code for validate() function</span>
+        <div>
+            <pre>
+                <code>
+PageModule.prototype.uniqueEmailValidator = function() {
+    return {
+        hint: Promise.resolve('Provide a unique email to the Employee'),
+        validate: value => {
+            return new Promise((resolve, reject) => {
+                Rest.get('businessObjects/getall_Employee').parameters({
+                        q: `email = '${value}'`
+                    }).fetch()
+                    .then(res => {
+                        if (res.body.items.length > 0) {
+                            reject({
+                                detail: 'Duplicate entry found for Employee ' +
+                                    res.body.items[0].firstName
+                            })
+                        } else {
+                            resolve()
+                        }
+                    })
+            })
+        }
+    }
+}
+                </code>
+            </pre>
+        </div>
+    </oj-collapsible>
+ 
+</oj-accordion>

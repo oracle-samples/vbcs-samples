@@ -1,0 +1,123 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<p>Create a service connection to Oracle REST Data Services (ORDS) from the <code>employees</code> endpoint that gets
+  the list of employees from the sample service that ORDS provides.
+  Add a Table component to a page in your application that displays the data returned by the endpoint. You’ll also add
+  an Input Text component where a user enters a search
+  term that filters the data returned by ORDS. Finally, you’ll configure the Transform functions associated
+  with the service connection to filter and paginate
+  the data returned by ORDS. The Table component has in-built sort controls on each column header.</p>
+
+<p>For examples of queries and other operations that you can perform with ORDS, see
+  the <a target="_blank"
+    href="https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/18.3/aelig/developing-REST-applications.html#GUID-8701726C-E050-47AA-AD79-3B14396CD23B">Oracle
+    REST Services documentation</a>.</p>
+
+<!-- step1 -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step1" expanded="true">
+      <h1 slot="header">Create a Service Connection</h1>
+      <p>
+        <a target="_blank"
+          href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">
+          Create a service connection </a>using the <code>employee</code> endpoint that returns employee
+        data (<code>https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees</code>).</p>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<!-- step2  -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step2">
+      <h1 slot="header">Create the UI</h1>
+      <p>Add a Table component to a page in your application and bind it to the data returned by the <code>employees</code> endpoint.</p>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add Data Quick Start</a> to map your Table component to the <code>employees</code> endpoint.</li>
+          <li>In the Bind Data page of the Add Data dialog, select the following items from the endpoint structure:
+              <ul>
+                <li><code>empno</code></li>
+                <li><code>ename</code></li>
+              </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<!-- step3  -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step3">
+      <h1 slot="header">Add Search Functionality</h1>
+      <p>Add an Input Text component to your app’s page. The value that users enter filters the data returned by the service.</p>
+      <div>
+        <ol>
+          <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create a page variable</a>
+          named <code>searchText</code> of type String.
+          </li>
+          <li>In the Component Palette, drag an Input Text component and drop it on the page. </li>
+          <li>In the Data tab of the Input Text component’s Property Inspector, select the <code>searchText</code> page variable as the value for the Value property. </li>
+          <li>In the Variables & Type tab of your page, select the <code>getEmployeesListSDP</code> SDP variable that the Table Component's Add Data Quick Start generated.</li>
+          <li>In the Property Inspector for the getEmployeesListSDP SDP variable, click <strong>filterCriterion</strong> and map the <code>searchText</code> page variable to the target parameter's <code>filterCriterion</code>.</li>
+        </ol>
+        <p>You'll complete the configuration necessary to implement this feature when you write the Transform function to filter data.</p>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<!-- step4  -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step4">
+      <h1 slot="header">Add Pagination Functionality</h1>
+      <p>Configure the scroll policy properties on the Table component to determine the application behavior as the user scrolls through the data.</p>
+      <div>
+        <p>In the All tab of the Table component´s Property Inspector, configure the following properties:</p>
+        <ul>
+          <li>           
+            scroll-policy = <code>loadMoreOnScroll</code>
+          </li>
+          <li>
+            scroll-policy-options = <code>{"fetchSize": 5}</code>
+          </li>
+        </ul>
+        <p>When the user scolls the page, the Table component calls the service and sends the values of the current limit and offset query parameters. You'll complete the configuration necessary to implement this feature when you write the Transform function to paginate the data returned by the service.</p>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+
+</div>
+
+<!-- step5  -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step5">
+      <h1 slot="header">Enable Transforms in the Service Connection</h1>
+      <p>Write custom JavaScript functions to filter, sort, and paginate the data returned by ORDS.</p>
+      <div>
+        <ol>
+          <li>In the Transform tab of the service connection, select the <strong>Enable filtering, sorting and pagination transforms</strong> checkbox to enable the JavaScript editor. </li>
+          <li>Modify each transform function to support the corresponding functionality (filtering, sorting, and pagination):
+            <ul>
+              <li>For the filtering (search) functionality, locate the <code>Request.prototype.filter()</code> function and modify it to filter data according to ORDS support. </li>
+              <li>For pagination, locate the <code>Request.prototype.paginate()</code> function and modify it to use the limit and offset query parameters that ORDS supports.</li>
+              <li>For sorting, locate the <code>Request.prototype.sort()</code> function and modify it to use the <code>?q={"$orderby":{"sal":"ASC"}}</code> style of sort option that ORDS supports.</li>
+            </ul>
+          </li>
+          <li>Inspect the code in the demo app that accompanies this recipe to see how transforms use the service’s capabilities.</li>
+        </ol>
+      </div>
+      
+    </oj-collapsible>
+  </oj-accordion>
+</div>

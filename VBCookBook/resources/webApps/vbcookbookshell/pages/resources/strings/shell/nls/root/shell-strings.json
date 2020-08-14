@@ -1,0 +1,22 @@
+{
+    "shell_header_title": "Visual Builder Cookbook",
+    "@shell_header_title": {
+        "description": "Title on shell header"
+    },
+    "shell_footer_about_link": "About",
+    "@shell_footer_about_link": {
+        "description": "About link on shell footer"
+    },
+    "shell_footer_copyright": "Created with Visual Builder, Copyright © 2019",
+    "@shell_footer_copyright": {
+        "description": "Copyright text on shell footer"
+    },
+    "shell_title_tooltip": "Visual Builder Cookbook",
+    "@shell_title_tooltip": {
+        "description": "Tooltip on shell title text"
+    },
+    "shell_sign_out": "Sign Out",
+    "@shell_sign_out": {
+        "description": "Text on menu option to log out of the application"
+    }
+}

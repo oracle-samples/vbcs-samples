@@ -1,0 +1,33 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {},
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "flow:populateCountries",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      }
+    }
+  }
+}

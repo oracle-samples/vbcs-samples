@@ -1,0 +1,64 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo displays list of employees in card layout.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <oj-list-view id="cardlayout" class="oj-listview-card-layout oj-panel oj-flex-item oj-sm-12 oj-md-12 cardLayoutCustom" data="[[ $variables.employeeListSDP ]]" style="background-color: #eee;max-height: 82vh;overflow-y: scroll;min-height: 176px;">
+  <template slot="itemTemplate">
+                <div class="oj-flex">
+                <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-12">
+                      <div class="oj-flex" style="font-weight:bold;">
+                        <oj-bind-text value="[[$current.data.firstName+' '+ $current.data.lastName ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-bind-text>
+                      </div>
+                      <div class="oj-flex">
+                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-4" style="border:none;">
+                          <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-4">
+                              <oj-avatar src="[[ $application.path + 'resources/images/employees/' + $current.data.id + '.png' ]]"></oj-avatar>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-8" style="border:none">
+                          <div class="oj-flex">
+                            <oj-label class="oj-flex-item oj-sm-12 oj-md-7" style="font-weight:bold;color:#000000;">Salary</oj-label>
+                          </div>
+                          <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-11">
+                              <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}' :id="[['oj-input-number--' + $current.index]]" value="{{ $current.data.salary }}" readonly="true" style="margin-top:-8px;"></oj-input-number>
+                            </div>
+                          </div>
+                          <div class="oj-flex">
+                            <oj-label class="oj-flex-item oj-sm-12 oj-md-7" style="font-weight:bold;color:#000000;">Email</oj-label>
+                          </div>
+                          <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-12">
+                              <oj-bind-text value="[[$current.data.email]]"></oj-bind-text>
+<!--                               <oj-input-text readonly="true" value="[[$current.data.email]]" virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'></oj-input-text> -->
+                              
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                </div>
+                </div>
+            </template>
+</oj-list-view>
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,83 @@
+    {
+      "pageModelVersion": "18.3.3",
+      "title": "My start page",
+      "description": "The starting page of the flow",
+      "variables": {
+        "inputValid": {
+          "type": "string"
+        },
+        "quantityLimit": {
+          "type": "number"
+        },
+        "validators": {
+          "type":"object[]",
+          "defaultValue":[
+            {
+              "type": "numberrange",
+              "options": {
+                "min": 100,
+                "messageDetail": "Your min quantity is 100"
+                }
+            }
+          ]
+        },
+        "converter": {
+          "type":"object",
+          "defaultValue": {
+              "type":"number", 
+              "options": {
+                "style": "currency", 
+                "currency": "USD", 
+                "currencyDisplay": "code", 
+                "pattern": "¤ ##,##0.00"
+            }
+          }
+        }
+      },
+      "types": {},
+      "chains": {
+        "InputTextValidChange": {
+          "description": "",
+          "variables": {
+            "valid": {
+              "required": true,
+              "type": "any",
+              "input": "fromCaller"
+            }
+          },
+          "root": "assignVariables1",
+          "actions": {
+            "assignVariables1": {
+              "module": "vb/action/builtin/assignVariablesAction",
+              "parameters": {
+                "$page.variables.inputValid": {
+                  "source": "{{ $chain.variables.valid }}"
+                }
+              }
+            }
+          }
+        }
+      },
+      "eventListeners": {
+        "textInputValid": {
+          "chains": [
+            {
+              "chainId": "InputTextValidChange",
+              "parameters": {
+                "valid": "{{ $event.detail.value }}"
+              }
+            }
+          ]
+        }
+      },
+      "imports": {
+        "components": {
+          "oj-input-text": {
+            "path": "ojs/ojinputtext"
+          },
+          "oj-form-layout": {
+            "path": "ojs/ojformlayout"
+          }
+        }
+      }
+    }

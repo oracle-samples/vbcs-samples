@@ -1,0 +1,10 @@
+    {
+        "flowModelVersion": "18.3.3",
+        "id": "multi-select-listview",
+        "description": "Flow main",
+        "defaultPage": "listview-multi-select-start",
+        "chains": {},
+        "services": {},
+        "types": {},
+        "variables": {}
+    }

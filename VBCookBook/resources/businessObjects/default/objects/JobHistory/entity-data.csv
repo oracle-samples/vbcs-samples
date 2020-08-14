@@ -1,0 +1,11 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,employee,startDate,endDate,job,department
+1,2020-02-03T14:51:36,2020-02-03T14:51:36.01,jane.smith@example.com,jane.smith@example.com,102,2001-01-01,2006-07-24,15,6
+2,2020-02-03T14:52:32,2020-02-03T14:52:32.007,jane.smith@example.com,jane.smith@example.com,101,1997-09-21,2001-10-27,5,11
+3,2020-02-03T14:53:17,2020-02-03T14:53:17.006,jane.smith@example.com,jane.smith@example.com,101,2001-10-28,2005-03-15,6,11
+4,2020-02-03T14:53:59,2020-02-03T14:53:59.006,jane.smith@example.com,jane.smith@example.com,201,2004-02-17,2007-12-19,17,2
+5,2020-02-03T14:54:58,2020-02-03T14:54:58.005,jane.smith@example.com,jane.smith@example.com,114,2006-03-24,2007-12-31,13,5
+6,2020-02-03T14:55:39,2020-02-03T14:55:39.011,jane.smith@example.com,jane.smith@example.com,122,2007-01-01,2007-12-31,13,5
+7,2020-02-03T14:56:18,2020-02-03T14:56:18.006,jane.smith@example.com,jane.smith@example.com,200,1995-09-17,2001-06-17,3,9
+8,2020-02-03T14:57:05,2020-02-03T14:57:05.009,jane.smith@example.com,jane.smith@example.com,176,2006-03-24,2006-12-31,9,8
+9,2020-02-03T14:57:41,2020-02-03T14:57:41.011,jane.smith@example.com,jane.smith@example.com,176,2007-01-01,2007-12-31,8,8
+10,2020-02-03T14:59:15,2020-02-03T14:59:15.006,jane.smith@example.com,jane.smith@example.com,200,2002-01-07,2006-12-31,7,9

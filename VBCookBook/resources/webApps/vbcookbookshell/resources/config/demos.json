@@ -1,0 +1,785 @@
+{
+  "add-new-demo": {
+    "id": "add-new-demo",
+    "defaultOrientation": false,
+    "runtime": "vb",
+    "label": "Add New Demo",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "otherFiles": [
+      "flows/add-new-demo/pages/recipe-page.html",
+      "flows/add-new-demo/pages/recipe-page.js",
+      "flows/add-new-demo/pages/recipe-page.json"
+    ],
+    "openFiles": [
+      "flows/add-new-demo/pages/recipe-page.html",
+      "flows/add-new-demo/pages/recipe-page.js",
+      "flows/add-new-demo/pages/recipe-page.json"
+    ],
+    "demoPageName": "add-new-demo-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "batch-editable-table": {
+    "id": "batch-editable-table",
+    "runtime": "vb",
+    "label": "Batch Editable Table",
+    "defaultOrientation": false,
+    "seealso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=editableArrayTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojInputDate",
+        "type": "jetdoc",
+        "url": "oj.ojInputDate.html"
+      },
+      {
+        "label": "ojCheckboxset",
+        "type": "jetdoc",
+        "url": "oj.ojCheckboxset.html"
+      },
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      },
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      }
+    ],
+    "demoPageName": "batch-editable-table-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "cache-lov": {
+    "id": "cache-lov",
+    "runtime": "vb",
+    "imageUrl": "select_one_list.png",
+    "label": "Caching LOV Values",
+    "minHeightLandscape": "450",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "demoPageName": "cache-lov-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "cascading-lov-fetchbykeys": {
+    "id": "cascading-lov-fetchbykeys",
+    "runtime": "vb",
+    "imageUrl": "select_one_grid.png",
+    "label": "Using value",
+    "minHeightLandscape": "450",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "demoPageName": "cascading-lov-fetchbykeys-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "cascading-lov": {
+    "id": "cascading-lov",
+    "runtime": "vb",
+    "imageUrl": "select_one_grid.png",
+    "label": "Using value-option",
+    "minHeightLandscape": "450",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "demoPageName": "cascading-lov-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "conditional-styling": {
+    "id": "conditional-styling",
+    "defaultOrientation": false,
+    "demoType": "complex",
+    "runtime": "vb",
+    "label": "Conditional Styling",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3",
+    "demoPageName": "conditional-styling-start",
+    "recipeFlowName": "recipe"
+  },
+  "confirmation-dialog": {
+    "id": "confirmation-dialog",
+    "runtime": "vb",
+    "imageUrl": "dialog_grid.png",
+    "label": "Unsaved Data Confirmation",
+    "minHeightLandscape": "450",
+    "seealso": [
+      {
+        "label": "JET Form Layout",
+        "type": "jetdemo",
+        "url": "?component=ojFormLayout&demo=form1colinlineofl"
+      },
+      {
+        "label": "JET Dialog",
+        "type": "jetdemo",
+        "url": "?component=dialog&demo=modal"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      },
+      {
+        "label": "ojDialog",
+        "type": "jetdoc",
+        "url": "oj.ojDialog.html"
+      },
+      {
+        "label": "ojTabBar",
+        "type": "jetdoc",
+        "url": "oj.ojTabBar.html"
+      }
+    ],
+    "demoPageName": "confirmation-dialog-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "custom-no-records-message": {
+    "id": "custom-no-records-message",
+    "runtime": "vb",
+    "imageUrl": "custom-no-records-message-flow.png",
+    "label": "Custom No Records Message",
+    "minHeightLandscape": "600",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      }
+    ],
+    "demoPageName": "custom-no-records-message-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "date-converter": {
+    "id": "date-converter",
+    "runtime": "vb",
+    "label": "Date Converter",
+    "seealso": [
+      {
+        "label": "JET Date Converter",
+        "type": "jetdemo",
+        "url": "?component=date&demo=converter"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojInputDate",
+        "type": "jetdoc",
+        "url": "oj.ojInputDate.html"
+      },
+      {
+        "label": "ojComboboxOne",
+        "type": "jetdoc",
+        "url": "oj.ojComboboxOne.html"
+      }
+    ],
+    "demoPageName": "date-converter-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "editable-table": {
+    "id": "editable-table",
+    "runtime": "vb",
+    "label": "Editable Table",
+    "seealso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=editableArrayTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojInputDate",
+        "type": "jetdoc",
+        "url": "oj.ojInputDate.html"
+      },
+      {
+        "label": "ojCheckboxset",
+        "type": "jetdoc",
+        "url": "oj.ojCheckboxset.html"
+      },
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      },
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      }
+    ],
+    "demoPageName": "editable-table-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "fa-lovs": {
+    "id": "fa-lovs",
+    "label": "Dynamic Choice List",
+    "defaultOrientation": true,
+    "runtime": "vb",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 600,
+    "demoPageName": "fa-lovs-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "form-layout-inline": {
+    "id": "form-layout-inline",
+    "runtime": "vb",
+    "demoOrientation": "false",
+    "imageUrl": "formlayout_grid.png",
+    "label": "Inline",
+    "seealso": [
+      {
+        "label": "JET Form Layout",
+        "type": "jetdemo",
+        "url": "?component=ojFormLayout&demo=form1colinlineofl"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ],
+    "otherFiles": [
+      "flows/form-layout-inline/resources/css/demo-responsive.css"
+    ],
+    "openFiles": [
+      "flows/form-layout-inline/resources/css/demo-responsive.css"
+    ],
+    "demoPageName": "form-layout-inline-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "inputnumber-eating-chars": {
+    "id": "inputnumber-eating-chars",
+    "runtime": "vb",
+    "defaultOrientation": true,
+    "imageUrl": "inputnumber_grid.png",
+    "label": "Eating Non-Numbers",
+    "seealso": [
+      {
+        "label": "JET InputNumber",
+        "type": "jetdemo",
+        "url": "?component=inputNumber&demo=inputNumber"
+      },
+      {
+        "label": "Form Layout",
+        "type": "vbdemo",
+        "url": "form-layout-inline"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojInputNumber",
+        "type": "jetdoc",
+        "url": "oj.ojInputNumber.html"
+      },
+      {
+        "label": "IntlNumberConverter",
+        "type": "jetdoc",
+        "url": "oj.IntlNumberConverter.html"
+      },
+      {
+        "label": "NumberRangeValidator",
+        "type": "jetdoc",
+        "url": "oj.NumberRangeValidator.html"
+      }
+    ],
+    "demoPageName": "inputnumber-eating-chars-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "listview-filter": {
+    "id": "listview-filter",
+    "runtime": "vb",
+    "label": "Filtering",
+    "defaultOrientation": false,
+    "seealso": [
+      {
+        "label": "JET ListView Filter",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=filterSortListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojLabel",
+        "type": "jetdoc",
+        "url": "oj.ojLabel.html"
+      },
+      {
+        "label": "ojCheckboxset",
+        "type": "jetdoc",
+        "url": "oj.ojCheckboxset.html"
+      },
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      },
+      {
+        "label": "ojRatingGauge",
+        "type": "jetdoc",
+        "url": "oj.ojRatingGauge.html"
+      },
+      {
+        "label": "ojPagingControl",
+        "type": "jetdoc",
+        "url": "oj.ojPagingControl.html"
+      },
+      {
+        "label": "ojButton",
+        "type": "jetdoc",
+        "url": "oj.ojButton.html"
+      }
+    ],
+    "demoPageName": "listview-filter-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "listview-master-detail": {
+    "id": "listview-master-detail",
+    "runtime": "vb",
+    "label": "Master Detail",
+    "defaultOrientation": false,
+    "seealso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      },
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ],
+    "demoPageName": "listview-master-detail-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "listview-multi-select": {
+    "id": "listview-multi-select",
+    "runtime": "vb",
+    "label": "Multi Select",
+    "seealso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      }
+    ],
+    "demoPageName": "listview-multi-select-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "listview-sorting": {
+    "id": "listview-sorting",
+    "runtime": "vb",
+    "label": "Sorting",
+    "seealso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      }
+    ],
+    "demoPageName": "listview-sorting-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "listview-cardlayout": {
+    "id": "listview-cardlayout",
+    "runtime": "vb",
+    "label": "Card Layout",
+    "seealso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      }
+    ],
+    "demoPageName": "listview-cardlayout-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "partial-get-bo-fa": {
+    "id": "partial-get-bo-fa",
+    "runtime": "vb",
+    "label": "Partial GET BO/FA",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "partial-get-bo-fa-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "patterns-show-ui-when-ready": {
+    "id": "patterns-show-ui-when-ready",
+    "label": "Show UI When Ready",
+    "defaultOrientation": true,
+    "runtime": "vb",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "demoPageName": "patterns-show-ui-when-ready-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "rest-cec-upload": {
+    "id": "rest-cec-upload",
+    "defaultOrientation": false,
+    "runtime": "vb",
+    "label": "CEC Upload",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 600,
+    "demoPageName": "rest-cec-upload-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "rest-fa-attachments": {
+    "id": "rest-fa-attachments",
+    "defaultOrientation": false,
+    "runtime": "vb",
+    "label": "FA Attachments",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 600,
+    "demoPageName": "rest-fa-attachments-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "rest-helper": {
+    "id": "rest-helper",
+    "runtime": "vb",
+    "imageUrl": "component-async-validators_grid.png",
+    "label": "Rest Helper",
+    "apiRef": [
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      },
+      {
+        "label": "ojValidationGroup",
+        "type": "jetdoc",
+        "url": "oj.ojValidationGroup.html"
+      }
+    ],
+    "defaultOrientation": false,
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3",
+    "demoPageName": "rest-helper-start",
+    "recipeFlowName": "recipe"
+  },
+  "rest-ords-integration": {
+    "id": "rest-ords-integration",
+    "runtime": "vb",
+    "label": "ORDS REST Integration",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "rest-ords-integration-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "multi-edit-batch-save": {
+    "id": "multi-edit-batch-save",
+    "runtime": "vb",
+    "label": "Multi Edit Batch Save",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "multi-edit-batch-save-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-actions": {
+    "id": "table-actions",
+    "label": "Actions",
+    "defaultOrientation": true,
+    "runtime": "vb",
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "table-actions-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-filter": {
+    "id": "table-filter",
+    "runtime": "vb",
+    "label": "Filtering",
+    "defaultOrientation": false,
+    "seealso": [
+      {
+        "label": "JET Table Filter",
+        "type": "jetdemo",
+        "url": "?component=table&demo=filteringTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojLabel",
+        "type": "jetdoc",
+        "url": "oj.ojLabel.html"
+      },
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      }
+    ],
+    "demoPageName": "table-filter-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-master-detail": {
+    "id": "table-master-detail",
+    "runtime": "vb",
+    "label": "Master Detail",
+    "defaultOrientation": false,
+    "seealso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=basicTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ],
+    "demoPageName": "table-master-detail-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-multi-select": {
+    "id": "table-multi-select",
+    "runtime": "vb",
+    "label": "Multi Select",
+    "seealso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=checkboxSelectableTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      }
+    ],
+    "demoPageName": "table-multi-select-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-sorting": {
+    "id": "table-sorting",
+    "runtime": "vb",
+    "label": "Sorting",
+    "seealso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=basicTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      }
+    ],
+    "demoPageName": "table-sorting-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "validation-async-validators": {
+    "id": "validation-async-validators",
+    "runtime": "vb",
+    "imageUrl": "component-async-validators_grid.png",
+    "label": "Async Validators",
+    "seealso": [
+      {
+        "label": "JET Async validators",
+        "type": "jetdemo",
+        "url": "?component=validationUsecases&demo=asyncValidators"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      },
+      {
+        "label": "editableValue",
+        "type": "jetdoc",
+        "url": "oj.editableValue.html"
+      },
+      {
+        "label": "ojValidationGroup",
+        "type": "jetdoc",
+        "url": "oj.ojValidationGroup.html"
+      }
+    ],
+    "demoPageName": "validation-async-validators-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-complex-filters": {
+    "id": "table-complex-filters",
+    "defaultOrientation": false,
+    "runtime": "vb",
+    "label": "Complex Filters",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "demoPageName": "table-complex-filters-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "list-load-more-on-scroll":{
+    "id": "list-load-more-on-scroll",
+    "defaultOrientation": false,
+    "runtime": "vb",
+    "label": "Load More on Scroll",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "demoPageName": "list-load-more-on-scroll-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  }
+}

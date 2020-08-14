@@ -1,0 +1,136 @@
+{
+  "pageModelVersion": "18.4.5",
+  "title": "",
+  "description": "",
+  "variables": {
+    "booksListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "input": "none",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Books",
+        "responseType": "getall_Books",
+        "itemsPath": "items",
+        "idAttribute": "id",
+        "filterCriterion": "{{ $page.variables.filterCriteria }}"
+      }
+    },
+    "currentAuthor": {
+      "type": "string[]",
+      "defaultValue": []
+    },
+    "currentPrice": {
+      "type": "number[]",
+      "defaultValue": []
+    },
+    "currentRating": {
+      "type": "number[]",
+      "defaultValue": []
+    },
+    "filterCriteria": {
+      "type": "object"
+    },
+    "filterDisplayText": {
+      "type": "string"
+    }
+  },
+  "types": {
+  	"@decorators.getall_Books": {
+  		"endpoint": "getall_Books",
+  		"service": "businessObjects",
+  		"path": "response"
+  	},
+  	"getall_Books": {
+  		"count": "number",
+  		"items": [
+  			{
+  				"id": "number",
+  				"title": "string",
+  				"author": "string",
+  				"publishDate": "string",
+  				"price": "number",
+  				"rating": "number",
+  				"imageUrl": "string",
+  				"reviews": "number"
+  			}
+  		]
+  	}
+  },
+  "eventListeners": {
+    "onFilterSelectionChanged": {
+      "chains": [
+        {
+          "chainId": "FiltersValueChangeChain",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "chains": {
+    "FiltersValueChangeChain": {
+      "description": "",
+      "variables": {
+          "value": {
+              "required": true,
+              "type": "any[]",
+              "input": "fromCaller"
+          }
+      },
+      "root": "prepareFilterCriteria",
+      "actions": {
+        "prepareFilterCriteria": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "prepareFilterCriteria",
+            "params": [
+              "{{ {prices: $page.variables.currentPrice, authors: $page.variables.currentAuthor, ratings: $page.variables.currentRating} }}"
+            ],
+            "returnType": "object"
+          },
+          "outcomes": {
+            "success": "assignFilterCriterion"
+          },
+          "label": "Capture Filter Selections"
+        },
+        "assignFilterCriterion": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.filterCriteria": {
+              "source": "{{ $chain.results.prepareFilterCriteria.fCriteria }}",
+              "auto": "always"
+            },
+            "$page.variables.filterDisplayText": {
+              "source": "{{ $chain.results.prepareFilterCriteria.filterDisplay }}",
+              "auto": "always"
+            }
+          },
+          "label": "Assign Filter Criteria"
+        }
+      }
+    }
+  },
+ "imports": {
+  "components": {
+   "oj-label": {
+			"path": "ojs/ojlabel"
+		},
+   "oj-checkboxset": {
+			"path": "ojs/ojcheckboxset"
+		},
+   "oj-option": {
+			"path": "ojs/ojoption"
+		},
+   "oj-list-view": {
+			"path": "ojs/ojlistview"
+		},
+   "oj-rating-gauge": {
+			"path": "ojs/ojgauge"
+		},
+   "oj-button": {
+			"path": "ojs/ojbutton"
+    }
+  }
+ }
+}

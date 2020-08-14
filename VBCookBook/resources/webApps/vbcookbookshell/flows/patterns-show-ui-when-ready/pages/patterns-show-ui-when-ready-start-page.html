@@ -1,0 +1,64 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo shows how to show UI when data is ready
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex">
+      <div class="oj-flex-item oj-sm-12 oj-md-12">
+        <oj-bind-if test="[[ !$variables.pageReady ]]">
+          <div class="oj-flex">
+            <div class="oj-flex-item oj-sm-12 oj-md-5"></div>
+            <div class="oj-flex-item oj-sm-12 oj-md-1">
+              <img :src="[[ $application.path + 'resources/images/spinner_full.gif' ]]" width="40" height="40" id="spinner_image">
+            </div>
+            <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
+            <div class="oj-flex-item oj-sm-12 oj-md-5"></div>
+          </div>
+        </oj-bind-if>
+      </div>
+    </div>
+    <oj-bind-if test="[[ $variables.pageReady ]]">
+      <div class="oj-flex">
+        <h2 class="oj-flex-item oj-sm-12 oj-md-12" id="heading">Employee Edit Form</h2>
+      </div>
+
+      <div class="oj-flex">
+        <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-9">
+          <oj-label for="oj-input-text-657417648-1" class="oj-label-inline">First Name</oj-label>
+          <oj-input-text id="oj-input-text-657417648-1" value="{{ $variables.employee.firstName }}"></oj-input-text>
+          <oj-label for="oj-input-text-657417648-2" class="oj-label-inline">Last Name</oj-label>
+          <oj-input-text id="oj-input-text-657417648-2" value="{{ $variables.employee.lastName }}"></oj-input-text>
+          <oj-label for="oj-input-text-657417648-3" class="oj-label-inline">Phone Number</oj-label>
+          <oj-input-text id="oj-input-text-657417648-3" value="{{ $variables.employee.phoneNumber }}"></oj-input-text>
+          <oj-label for="oj-input-text-657417648-5">Email</oj-label>
+          <oj-input-text id="oj-input-text-657417648-5" value="{{ $variables.employee.email }}"></oj-input-text>
+          <oj-label for="oj-input-text-657417648-3" class="oj-label-inline">Salary</oj-label>
+          <oj-input-text id="oj-input-text-657417648-4" value="{{ $variables.employee.salary }}"></oj-input-text>
+        </oj-form-layout>
+      </div>
+      <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-2"></div>
+        <div class="oj-flex-item oj-sm-12 oj-md-3">
+          <oj-button disabled="[[ $variables.isSaveDisabled ]]" on-oj-action="[[$listeners.ojButtonOjAction]]" id="save-btn">Save</oj-button>
+        </div>
+      </div>
+
+    </oj-bind-if>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

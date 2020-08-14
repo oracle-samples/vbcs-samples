@@ -1,0 +1,66 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  A Table component that displays department data. An Input Text component assigns the value
+  that the user enters to a page variable, and the page variable is used by the <code>{}filterCriterion</code>.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create the Page Model</span>
+      <div>
+        <ol>
+          <li><a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+                a page variable</a> of type String named <code>filterText</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create the UI</span>
+      <div>
+        <p>Add an Input Text component for the user to enter the text value that will
+          filter the Table component’s data.</p>
+        <ol>
+          <li>Add the Input Text and Label components to the page.</li>
+          <li>In the Data Tab of the Property Inspector, bind the Value property to <code>$variables.filterText</code>.
+          </li>
+          <li>Add the Table component below the Input Text and Label.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step3">
+      <span slot="header">Bind the Table Component to Data</span>
+      <div>
+        <ol>
+          <li>With the Table component selected, <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">use
+              the Add Data Quick Start</a> to bind the Table component to the GET
+            /Departments endpoint.
+          </li>
+          <li>In the Bind Data page of the Add Data dialog, add the following fields
+            to the Table component:
+            <ul>
+              <li>id</li>
+              <li>departmentName</li>
+              <li>location</li>
+              <li>manager</li>
+            </ul>
+          </li>
+          <li>In the Define Query page, click the <code>{}filterCriterion</code> variable under Target and <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-6C4B5785-906D-4576-9AE0-07114C2D1207">add the following conditions</a>:
+            <ul>
+              <li>id = <code>$co $variables.filterText</code></li>
+              <li>departmentName = <code>$co $variables.filterText</code></li>
+              <li>location = <code>$co $variables.filterText</code> </li>
+              <li>manager = <code>$co $variables.filterText</code></li>
+            </ul>
+          </li>
+          <li>Select Match Any.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

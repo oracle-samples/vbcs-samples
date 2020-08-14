@@ -1,0 +1,121 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "booksListADP": {
+      "type": "vb/ArrayDataProvider",
+      "defaultValue": {
+        "data": "{{ $page.variables.booksList }}",
+        "itemType": "getallBooksResponse",
+        "keyAttributes": "id"
+      }
+    },
+    "booksList": {
+      "type": "getallBooksResponse",
+      "defaultValue": [
+        {
+          "id": 100,
+          "creationDate": "2018-09-14T07:52:56",
+          "lastUpdateDate": "2018-12-27T13:04:06",
+          "createdBy": "muralidharan.selvaraj@oracle.com",
+          "lastUpdatedBy": "muralidharan.selvaraj@oracle.com",
+          "title": "Java: A Beginner's Guide",
+          "author": "Herbert Schildt",
+          "publishDate": "2014-04-15",
+          "price": 40,
+          "rating": 1,
+          "imageUrl": "book1.jpg",
+          "reviews": 37
+        },
+        {
+          "id": 102,
+          "creationDate": "2018-09-14T07:52:56",
+          "lastUpdateDate": "2018-12-27T13:04:06",
+          "createdBy": "muralidharan.selvaraj@oracle.com",
+          "lastUpdatedBy": "muralidharan.selvaraj@oracle.com",
+          "title": "Iron-Clad Java: Building Secure Web Applications",
+          "author": "Jim Manico & August Detlefsen",
+          "publishDate": "2014-09-12",
+          "price": 40,
+          "rating": 5,
+          "imageUrl": "book3.jpg",
+          "reviews": 9
+        },
+        {
+          "id": 104,
+          "creationDate": "2018-09-14T07:52:56",
+          "lastUpdateDate": "2018-12-27T13:04:06",
+          "createdBy": "muralidharan.selvaraj@oracle.com",
+          "lastUpdatedBy": "muralidharan.selvaraj@oracle.com",
+          "title": "Java EE and HTML5 Enterprise Application Development",
+          "author": "John Brock;Arun Gupta",
+          "publishDate": "2014-03-25",
+          "price": 35,
+          "rating": 4,
+          "imageUrl": "book5.jpg",
+          "reviews": 9
+        },
+        {
+          "id": 108,
+          "creationDate": "2018-09-14T07:52:56",
+          "lastUpdateDate": "2018-12-27T13:04:06",
+          "createdBy": "muralidharan.selvaraj@oracle.com",
+          "lastUpdatedBy": "muralidharan.selvaraj@oracle.com",
+          "title": "Java WebSocket Programming",
+          "author": "Danny Coward",
+          "publishDate": "2013-09-18",
+          "price": 40,
+          "rating": 2,
+          "imageUrl": "book9.jpg",
+          "reviews": 9
+        },
+        {
+          "id": 111,
+          "creationDate": "2018-09-14T07:52:56",
+          "lastUpdateDate": "2018-12-27T13:04:06",
+          "createdBy": "muralidharan.selvaraj@oracle.com",
+          "lastUpdatedBy": "muralidharan.selvaraj@oracle.com",
+          "title": "Java Programming",
+          "author": "Poornachandra Sarang",
+          "publishDate": "2012-01-20",
+          "price": 50,
+          "rating": 3,
+          "imageUrl": "book12.jpg",
+          "reviews": 15
+        }
+      ]
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallBooksResponse": [
+      {
+        "author": "string",
+        "id": "number",
+        "imageUrl": "string",
+        "price": "number",
+        "rating": "number",
+        "reviews": "number",
+        "title": "string",
+        "creationDate": "string",
+        "lastUpdateDate": "string",
+        "createdBy": "string",
+        "lastUpdatedBy": "string",
+        "publishDate": "string"
+      }
+    ]
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-led-gauge": {
+        "path": "ojs/ojgauge"
+      }
+    }
+  }
+}

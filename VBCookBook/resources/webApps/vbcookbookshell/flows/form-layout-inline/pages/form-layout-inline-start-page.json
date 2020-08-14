@@ -1,0 +1,22 @@
+{
+	"pageModelVersion": "18.3.3",
+	"title": "My start page",
+	"description": "The starting page of the flow",
+	"variables": {},
+	"types": {},
+	"chains": {},
+	"eventListeners": {},
+	"imports": {
+		"components": {
+			"oj-input-text": {
+				"path": "ojs/ojinputtext"
+			},
+			"oj-form-layout": {
+				"path": "ojs/ojformlayout"
+			},
+			"oj-text-area": {
+				"path": "ojs/ojinputtext"
+			}
+		}
+	}
+}

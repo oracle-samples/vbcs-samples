@@ -1,0 +1,841 @@
+{
+  "pageModelVersion": "19.3.1",
+  "title": "Edit Activity Attachments",
+  "description": "Manage single activity attachments",
+  "variables": {
+    "fileUpload": {
+      "type": "UploadType"
+    },
+    "filePreview": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "fileBodyForPreview": {
+      "type": "any"
+    },
+    "testingActivityId": {
+      "type": "number",
+      "defaultValue": 451952
+    },
+    "attachmentsSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "activities/getall_activities-Attachments",
+        "idAttribute": "AttachedDocumentId",
+        "itemsPath": "items",
+        "responseType": "page:getallActivitiesAttachmentsResponse",
+        "uriParameters": {
+          "activities_Id": "{{ $variables.testingActivityId }}"
+        }
+      }
+    },
+    "faServerBusy": {
+      "type": "boolean",
+      "defaultValue": false
+    }
+  },
+  "types": {
+    "getallActivitiesAttachmentsResponse": {
+      "items": [{
+        "links": [{
+          "href": "string",
+          "rel": "string"
+        }],
+        "AttachedDocumentId": "number",
+        "FileName": "string",
+        "UploadedFileContentType": "string",
+        "Title": "string",
+        "Description": "string",
+        "CreationDate": "string"
+      }]
+    },
+    "@decorators.getallActivitiesAttachmentsResponse": {
+      "endpoint": "getall_activities-Attachments",
+      "service": "activities",
+      "path": "response"
+    },
+    "UploadType": {
+      "Title": "string",
+      "FileName": "string",
+      "Description": "string",
+      "File": "any",
+      "FileContents": "string",
+      "UploadedFileContentType": "string",
+      "Size": "number"
+    }
+  },
+  "chains": {
+    "ShowUploadDialog": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "resetFileUploadVar",
+      "actions": {
+        "resetFileUploadVar": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.fileUpload"
+            ]
+          },
+          "outcomes": {
+            "success": "callDialogOpenComponentMethod"
+          }
+        },
+        "callDialogOpenComponentMethod": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('modalDialog1') }}",
+            "method": "open"
+          }
+        }
+      }
+    },
+    "CancelUploadDialog": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callDialogCloseComponentMethod",
+      "actions": {
+        "callDialogCloseComponentMethod": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('modalDialog1') }}",
+            "method": "close"
+          }
+        }
+      }
+    },
+    "FilePickerSelectionChanged": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "resetFileUploadVar",
+      "actions": {
+        "updateFileUploadVar": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.fileUpload": {
+              "source": {
+                "FileName": "{{ $chain.variables.detail.files[0].name }}",
+                "Size": "{{ $chain.variables.detail.files[0].size }}",
+                "File": "{{ $chain.variables.detail.files[0] }}"
+              },
+              "reset": "none",
+              "auto": "always"
+            }
+          }
+        },
+        "resetFileUploadVar": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.fileUpload"
+            ]
+          },
+          "outcomes": {
+            "success": "updateFileUploadVar"
+          }
+        }
+      }
+    },
+    "UploadFile": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callDialogCloseComponentMethod",
+      "actions": {
+        "callDialogCloseComponentMethod": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('modalDialog1') }}",
+            "method": "close"
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusBusy"
+          }
+        },
+        "updateFAServerStatusBusy": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "getBase64FromFile"
+          }
+        },
+        "getBase64FromFile": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "getBase64StringFromFile",
+            "params": [
+              "{{ $page.variables.fileUpload.File }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updateFileUploadVar"
+          }
+        },
+        "updateFileUploadVar": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.fileUpload": {
+              "source": {
+                "FileContents": "{{ $chain.results.getBase64FromFile.base64 }}",
+                "File": "{{ undefined }}",
+                "Size": "{{ undefined }}",
+                "UploadedFileContentType": "{{ $chain.results.getBase64FromFile.contentType }}"
+              },
+              "reset": "none",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "callCreateAttachmentRestEndpoint"
+          }
+        },
+        "callCreateAttachmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "activities/create_activities-Attachments",
+            "uriParams": {
+              "activities_Id": "{{ $page.variables.testingActivityId }}"
+            },
+            "body": "{{ $page.variables.fileUpload }}"
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "transient",
+            "type": "info",
+            "summary": "{{ 'File ' + $page.variables.fileUpload.FileName + ' was successfully uploaded' }}"
+          },
+          "outcomes": {
+            "success": "refreshDataProvider"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Upload failed"
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "refreshDataProvider": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.attachmentsSDP ]]",
+            "refresh": null
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "updateFAServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        }
+      }
+    },
+    "DownloadAttachment": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "updateFAServerStatusBusy",
+      "actions": {
+        "getAttachmentId": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "getRealAttachedDocumentId",
+            "params": [
+              "{{ $chain.variables.current.row }}"
+            ]
+          },
+          "outcomes": {
+            "success": "callGetAttachmentRestEndpoint"
+          }
+        },
+        "callDownloadFunction": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "download",
+            "params": [
+              "{{ $chain.results.callGetAttachmentRestEndpoint.body }}",
+              "{{ $chain.variables.current.row.UploadedFileContentType }}",
+              "{{ $chain.variables.current.row.FileName }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Download failed"
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "updateFAServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "updateFAServerStatusBusy": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "outcomes": {
+            "success": "getAttachmentId"
+          },
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ true }}"
+            }
+          }
+        },
+        "callGetAttachmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "activities/get_activities-Attachments-FileContents",
+            "uriParams": {
+              "activities_Id": "{{ $page.variables.testingActivityId }}",
+              "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}"
+            },
+            "responseBodyFormat": "blob"
+          },
+          "outcomes": {
+            "success": "callDownloadFunction",
+            "failure": "fireErrorNotification"
+          }
+        }
+      }
+    },
+    "PreviewAttachment": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "updateStateVariables",
+      "actions": {
+        "getAttachmentId": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "getRealAttachedDocumentId",
+            "params": [
+              "{{ $chain.variables.current.row }}"
+            ]
+          },
+          "outcomes": {
+            "success": "callGetAttachmentRestEndpoint"
+          }
+        },
+        "generatePreview": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "preview",
+            "params": [
+              "{{ $chain.results.callGetAttachmentRestEndpoint.body }}",
+              "{{ $chain.variables.current.row.UploadedFileContentType }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updatePreviewVariables"
+          }
+        },
+        "updateStateVariables": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.filePreview": {
+              "source": false
+            },
+            "$page.variables.faServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "getAttachmentId"
+          }
+        },
+        "callGetAttachmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "activities/get_activities-Attachments-FileContents",
+            "uriParams": {
+              "activities_Id": "{{ $page.variables.testingActivityId }}",
+              "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}"
+            },
+            "responseBodyFormat": "blob"
+          },
+          "outcomes": {
+            "success": "generatePreview",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "updatePreviewVariables": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.fileBodyForPreview": {
+              "source": "{{ $chain.results.generatePreview }}"
+            },
+            "$page.variables.filePreview": {
+              "source": true
+            }
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Download failed"
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "updateFAServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        }
+      }
+    },
+    "DeleteFile": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "getAttachmentId",
+      "actions": {
+        "getAttachmentId": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "getRealAttachedDocumentId",
+            "params": [
+              "{{ $chain.variables.current.row }}"
+            ]
+          },
+          "outcomes": {
+            "success": "callDeleteAttachmentRestEndpoint"
+          }
+        },
+        "callDeleteAttachmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "activities/delete_activities-Attachments",
+            "uriParams": {
+              "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}",
+              "activities_Id": "{{ $page.variables.testingActivityId }}"
+            }
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "[[ 'File ' + $chain.variables.current.row.FileName + ' was deleted' ]]",
+            "displayMode": "transient",
+            "type": "confirmation"
+          },
+          "outcomes": {
+            "success": "refreshDataProvider"
+          }
+        },
+        "refreshDataProvider": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "refresh": null,
+            "target": "[[ $page.variables.attachmentsSDP ]]"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Delete operation failed"
+          }
+        }
+      }
+    },
+    "TakePhotoChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "takePhoto1",
+      "actions": {
+        "takePhoto1": {
+          "module": "vb/action/builtin/takePhotoAction",
+          "parameters": {
+            "mediaType": "image"
+          },
+          "outcomes": {
+            "success": "generateFileName"
+          }
+        },
+        "generateFileName": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "generateFileName",
+            "params": [
+              "{{ $chain.results.takePhoto1.file }}"
+            ]
+          },
+          "outcomes": {
+            "success": "ifValidFileName"
+          }
+        },
+        "ifValidFileName": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.generateFileName !== undefined ]]"
+          },
+          "outcomes": {
+            "true": "ifValidFileSize",
+            "false": "fireErrorNotification4"
+          }
+        },
+        "ifValidFileSize": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.takePhoto1.file.size < 1100000 ]]"
+          },
+          "outcomes": {
+            "true": "updateFAServerStatusBusy",
+            "false": "fireErrorNotification3"
+          }
+        },
+        "updateFAServerStatusBusy": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "createBase64FromFile"
+          }
+        },
+        "createBase64FromFile": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "getBase64StringFromFile",
+            "params": [
+              "{{ $chain.results.takePhoto1.file }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updateFileUploadVar"
+          }
+        },
+        "updateFileUploadVar": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.fileUpload": {
+              "source": {
+                "FileContents": "{{ $chain.results.createBase64FromFile.base64 }}",
+                "UploadedFileContentType": "{{ $chain.results.createBase64FromFile.contentType }}",
+                "FileName": "{{ $chain.results.generateFileName }}",
+                "Title": "Photo",
+                "Description": "Taken photo"
+              },
+              "reset": "empty",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "callCreateAttachmentRestEndpoint"
+          }
+        },
+        "callCreateAttachmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "activities/create_activities-Attachments",
+            "uriParams": {
+              "activities_Id": "{{ $page.variables.testingActivityId }}"
+            },
+            "body": "{{ $page.variables.fileUpload }}"
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "transient",
+            "type": "info",
+            "summary": "{{ 'File ' + $chain.results.generateFileName + ' was successfully uploaded' }}"
+          },
+          "outcomes": {
+            "success": "refreshDataProvider"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Upload failed"
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "refreshDataProvider": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.attachmentsSDP ]]",
+            "refresh": null
+          },
+          "outcomes": {
+            "success": "updateFAServerStatusReady"
+          }
+        },
+        "updateFAServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.faServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "fireErrorNotification3": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "File is too big. (1MB is limit)"
+          }
+        },
+        "fireErrorNotification4": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "Only jpeg, gif and png formats are supported."
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "downloadClick": {
+      "chains": [
+        {
+          "chainId": "DownloadAttachment",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "previewClick": {
+      "chains": [
+        {
+          "chainId": "PreviewAttachment",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "uploadButtonAction": {
+      "chains": [
+        {
+          "chainId": "UploadFile",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "takePhotoAction": {
+      "chains": [
+        {
+          "chainId": "TakePhotoChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "cancelButtonAction": {
+      "chains": [
+        {
+          "chainId": "CancelUploadDialog",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "showUploadDialogAction": {
+      "chains": [
+        {
+          "chainId": "ShowUploadDialog",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "deleteFileAction": {
+      "chains": [
+        {
+          "chainId": "DeleteFile",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "fileSelectionChanged": {
+      "chains": [
+        {
+          "chainId": "FilePickerSelectionChanged",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-file-picker": {
+        "path": "ojs/ojfilepicker"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      }
+    }
+  }
+}

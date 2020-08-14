@@ -1,0 +1,24 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,streetAddress,postalCode,stateProvince,country,city
+1,2020-01-30T16:49:56,2020-01-30T16:50:41,jane.smith@example.com,jane.smith@example.com,1297 Via Cola di Rie,00989,,1,Roma
+2,2020-01-30T16:49:56,2020-01-30T16:50:41,jane.smith@example.com,jane.smith@example.com,93091 Calle della Testa,10934,,1,Venice
+3,2020-01-30T16:49:56,2020-01-30T17:24:53,jane.smith@example.com,jane.smith@example.com,2017 Shinjuku-ku,1689,Tokyo Prefecture,4,Tokyo
+4,2020-01-30T16:49:56,2020-01-30T17:25:02,jane.smith@example.com,jane.smith@example.com,9450 Kamiya-cho,6823,,4,Hiroshima
+5,2020-01-30T16:49:56,2020-01-30T17:25:44,jane.smith@example.com,jane.smith@example.com,2014 Jabberwocky Rd,26192,Texas,2,Southlake
+6,2020-01-30T16:49:56,2020-01-30T17:25:55,jane.smith@example.com,jane.smith@example.com,2011 Interiors Blvd,99236,California,2,South San Francisco
+7,2020-01-30T16:49:56,2020-01-30T17:26:06,jane.smith@example.com,jane.smith@example.com,2007 Zagora St,50090,New Jersey,2,South Brunswick
+8,2020-01-30T16:49:56,2020-01-30T17:26:16,jane.smith@example.com,jane.smith@example.com,2004 Charade Rd,98199,Washington,2,Seattle
+9,2020-01-30T16:49:56,2020-01-30T17:26:28,jane.smith@example.com,jane.smith@example.com,147 Spadina Ave,M5V 2L7,Ontario,3,Toronto
+10,2020-01-30T16:49:56,2020-01-30T17:26:38,jane.smith@example.com,jane.smith@example.com,6092 Boxwood St,YSW 9T2,Yukon,3,Whitehorse
+11,2020-01-30T16:49:56,2020-01-30T17:26:48,jane.smith@example.com,jane.smith@example.com,40-5-12 Laogianggen,190518,,5,Beijing
+12,2020-01-30T16:49:56,2020-01-30T17:26:58,jane.smith@example.com,jane.smith@example.com,1298 Vileparle (E),490231,Maharashtra,6,Bombay
+13,2020-01-30T16:49:56,2020-01-30T17:27:06,jane.smith@example.com,jane.smith@example.com,12-98 Victoria Street,2901,New South Wales,7,Sydney
+14,2020-01-30T16:49:56,2020-01-30T17:27:15,jane.smith@example.com,jane.smith@example.com,198 Clementi North,540198,,9,Singapore
+15,2020-01-30T16:49:56,2020-01-30T17:27:28,jane.smith@example.com,jane.smith@example.com,8204 Arthur St,,,10,London
+16,2020-01-30T16:49:56,2020-01-30T17:27:38,jane.smith@example.com,jane.smith@example.com,Magdalen Centre - The Oxford Science Park,OX9 9ZB,Oxfordshire,10,Oxford
+17,2020-01-30T16:49:56,2020-01-30T17:27:49,jane.smith@example.com,jane.smith@example.com,9702 Chester Road,,Manchester,10,Stretford
+18,2020-01-30T16:49:56,2020-01-30T17:28:00,jane.smith@example.com,jane.smith@example.com,Schwanthalerstr. 7031,80925,Bavaria,12,Munich
+19,2020-01-30T16:49:56,2020-01-30T17:28:15,jane.smith@example.com,jane.smith@example.com,Rua Frei Caneca 1360,01307-002,Sao Paulo,15,Sao Paulo
+20,2020-01-30T16:49:56,2020-01-30T17:28:33,jane.smith@example.com,jane.smith@example.com,20 Rue des Corps-Saints,1730,Geneve,16,Geneva
+21,2020-01-30T16:49:56,2020-01-30T17:28:47,jane.smith@example.com,jane.smith@example.com,Murtenstrasse 921,3095,BE,16,Bern
+22,2020-01-30T16:49:56,2020-01-30T17:28:59,jane.smith@example.com,jane.smith@example.com,Pieter Breughelstraat 837,3029SK,Utrecht,17,Utrecht
+23,2020-01-30T16:49:56,2020-01-30T17:29:12,jane.smith@example.com,jane.smith@example.com,Mariano Escobedo 9991,11932,Distrito Federal,18,Mexico City

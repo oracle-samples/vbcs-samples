@@ -1,0 +1,37 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo shows how you can implement sorting in table. Click any column to sort
+  the table.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex">
+      <oj-table as="cell" id="department-table" class="oj-flex-item oj-sm-12 oj-md-12"
+        data="{{ $variables.departmentListSDP}}" selection-mode.row="single" style="max-height: 400px"
+        columns='[{"headerText":"ID", "field":"id"},
+                    {"headerText":"Department Name", "field":"departmentName"},
+                    {"headerText":"Location Id", "field":"location"},
+                    {"headerText":"Manager Id", "field":"manager"},
+                    {"headerText": "Last Activity Date", "field": "lastUpdateDate", "template": "lastUpdateDateTemplate"}]'>
+        <template slot="lastUpdateDateTemplate">
+      <oj-bind-text value="[[cell.data.split('T')[0]]]" ></oj-bind-text>
+  </template>
+      </oj-table>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

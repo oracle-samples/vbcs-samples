@@ -1,0 +1,270 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="[[true]]">
+    <oj-collapsible id="oj-collapsible-1494599579-1" expanded>
+      <span slot="header">Create The Employee Table </span>
+      <div>
+        <ol>
+          <li>Drag and Drop a table from the component palette to the designer
+          </li>
+          <li>
+            Select the table on the designer to open the property inspector.
+          </li>
+          <li>
+            Use the quick start Add Data to connect your table with Employee BO
+            data. Select the below fields in the Add Data wizard
+            <ul>
+              <li>
+                <code>id</code>
+              </li>
+              <li>
+                <code>firstName</code>
+              </li>
+              <li>
+                <code>salary</code>
+              </li>
+              <li>
+                <code>departmentObject.departmentName</code>
+              </li>
+              <li>
+                <code>skillCollection.name</code>
+              </li>
+              <li>
+                <code>jobObject.jobTitle</code>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Update the departmentTable with value expression with
+            <code>$current.data.items.map((r)=>r.departmentName).join(', ')</code>
+          </li>
+          <li>
+            Update the skill template value expression with
+            <code>$current.data.items.map((r)=>r.name).join(', ')</code>
+          </li>
+          <li>
+            Update the job title template value expression with
+            <code>$current.data.items.map((r)=>r.jobTitle).join(', ')</code>
+          </li>
+          <li>
+            Specify the following property on the table using property inspector
+            <ul>
+              <li>
+                <code>style="max-height: 500px"</code>
+              </li>
+              <li>
+                <code>scroll-policy="loadMoreOnScroll"</code>
+              </li>
+              <li>
+                <code>scroll-policy-options.fetch-size="15"</code>
+              </li>
+              <li>
+                <code>scroll-policy-options.max-count="1000"</code>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-2">
+      <span slot="header">Create a Filter Variable</span>
+      <div>
+        <ol>
+          <li>Create a new custom type named <code>filter</code> of type <code>object</code></li>
+          <li>Add the following types to the <code>filter</code> type<ul>
+              <li><code>attribute</code> of type <code>string</code></li>
+              <li><code>op</code> of type <code>string</code></li>
+              <li><code>value</code> of type <code>any</code></li>
+            </ul>
+          </li>
+
+          <li>Create a variable named <code>filters</code> of type <code>array</code> and item type <code>filter</code></li>
+          <li>Specify a default value to the above filters array variable
+            <pre>
+              <code>
+[
+    {
+        "op": "$sw",
+        "attribute": "firstName",
+        "value": ""
+    },
+    {
+        "op": "$eq",
+        "attribute": "departmentObject.id",
+        "value": null
+    },
+    {
+        "op": "$ge",
+        "attribute": "salary",
+        "value": null
+    },
+    {
+        "op": "$le",
+        "attribute": "salary",
+        "value": null
+    },
+    {
+        "op": "$eq",
+        "attribute": "skillCollection.id",
+        "value": []
+    }
+]
+              </code>
+            </pre>
+          </li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step3">
+      <span slot="header">Add Offcanvas Support</span>
+      <div>
+        <ol>
+          <li>Refer to <a
+              href="https://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html?component=offcanvas&demo=basic">JET
+              Cookbook</a> for Offcanvas support</li>
+          <li>Add a Module function for Offcanvas toggle support
+            <pre>
+                <code>
+PageModule.prototype.toggle = function() {
+  const options = {
+    selector: '#filterDrawer',
+    content: '#mainContent',
+    modality: 'modeless',
+    displayMode: 'push',
+    autoDismiss: 'none'
+  }
+  return OffcanvasUtils.toggle(options)
+}
+                </code>
+              </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step4">
+      <span slot="header">Create Filter Form</span>
+      <div>
+        <ol>
+          <li>Drag and Drop a form component from the component palette onto the drawer panel of the offcanvas</li>
+          <li>Drop the following form controls inside the form
+            <ul>
+              <li>Input Text<ol>
+                  <li><code>label-hint: Name</code></li>
+                  <li><code>value : {{ $variables.filters[0].value }}</code></li>
+                  <li><code>clear-icon: conditional</code></li>
+                </ol>
+              </li>
+              <li>Single Select <ol>
+                  <li><code>label-hint: Department</code></li>
+                  <li><code>value: {{ $variables.filters[1].value }}</code></li>
+                  <li>Use the quick start - Add Options to configure single select to fetch data from from Department
+                    BO. select the following fields <ul>
+                      <li><code>departmentName</code></li>
+                      <li><code>id</code></li>
+                    </ul>
+                  </li>
+                  <li>Make sure that the item-text is set to <code>departmentName</code> and data has been set to
+                    <code>[[$page.variables.departmentListSDP]]</code>, optionally, provide a <code>placeholder</code> like 'Department'</li>
+                </ol>
+              </li>
+              <li>Select Many <ol>
+                  <li>label-hint : Skill(s)</li>
+                  <li><code>value : {{ $variables.filters[4].value }}</code></li>
+                  <li>Use the quick start - Add Options to configure select many to fetch data from from Skill
+                    BO. select the following fields <ul>
+                      <li><code>name</code></li>
+                      <li><code>id</code></li>
+                    </ul>
+                  </li>
+                  <li>Make sure that the <code>options-keys.value</code> is set to <code>id</code>, <code>options-keys.label</code> is set to <code>name</code> and
+                    <code>options</code> has been set to
+                    <code>[[$page.variables.skillListSDP]]</code>, optionally, provide a <code>placeholder</code> like 'Skill(s)'</li>
+                </ol>
+              </li>
+              <li>Input Number <ol>
+                  <li><code>label-hint : From Salary</code></li>
+                  <li><code>value: {{ $variables.filters[2].value }}</code></li>
+                  <li><code>min: 0</code></li>
+                </ol>
+              </li>
+
+              <li>Input Number <ol>
+                  <li><code>label-hint : To Salary</code></li>
+                  <li><code>value: {{ $variables.filters[3].value }}</code></li>
+                  <li><code>min: {{ $variables.filters[2].value }}</code></li>
+                </ol>
+              </li>
+
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible >
+    <oj-collapsible id="step5">
+      <span slot="header">Add Filter Capability to Employee Table</span>
+      <div>
+        <ol>
+          <li>Create a function (<code>mapToCriteria</code>) to map filters variable to <code>employeeListSDP</code> <code>filterCriterion</code>
+            <pre>
+              <code>
+PageModule.prototype.mapToCriteria = function(filters) {
+  var criteria = [];
+  filters.filter(f => {
+    if (Array.isArray(f.value) && f.value.length > 0) {
+      return true;
+    } else if (typeof f.value === 'string' && f.value) {
+      return true;
+    } else if (typeof f.value === 'number' && f.value !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }).forEach(f => {
+    if (Array.isArray(f.value)) {
+      var arrayCriteria = [];
+      f.value.forEach(val => {
+        arrayCriteria.push({
+          op: f.op,
+          attribute: f.attribute,
+          value: val
+        })
+      })
+      criteria.push({
+        op: '$or',
+        criteria: arrayCriteria
+      })
+    } else if (f.value) {
+      criteria.push(f)
+    }
+  })
+  return criteria;
+}
+              </code>
+            </pre>
+          </li>
+          <li>Locate the code for <code>employeeListSDP</code> in page json and manually map <code>filterCriterion.critera</code> with the
+            above declared function
+            <pre>
+              <code>
+"filterCriterion": {
+  "op": "$and",
+  "criteria": "[[$functions.mapToCriteria($variables.filters)]]"
+}
+              </code>
+            </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

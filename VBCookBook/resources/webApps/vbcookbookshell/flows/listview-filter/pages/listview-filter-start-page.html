@@ -1,0 +1,201 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo shows how to implement filters in List view.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <style>
+      .price-block {
+        margin-top: 10px;
+      }
+
+      .medium-item-price {
+        font-size: 25px;
+        line-height: 28px;
+        font-weight: bold;
+        color: #49494a;
+      }
+
+      .sku-model {
+        font-size: 11px;
+      }
+
+      .sku-model span.label {
+        font-weight: bold;
+      }
+
+      .sku-model ul {
+        padding-top: 5px;
+        padding-left: 0;
+      }
+
+      .sku-model li {
+        margin: 0 7px 0 0;
+        padding: 0 7px 0 0;
+        display: inline-block;
+        white-space: nowrap;
+        line-height: 1.2;
+        border-right: 1px solid #333;
+      }
+
+      .sku-model li:last-child {
+        border-right: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+
+      .offers ul {
+        padding-left: 0;
+        font-size: 11px;
+        list-style-type: disc;
+      }
+
+      .refined {
+        color: #999;
+        font-size: 17px;
+        padding-bottom: 10px;
+        padding-top: 6px;
+      }
+    </style>
+
+    <div class="oj-flex oj-sm-flex-wrap-nowrap">
+      <div class="oj-sm-flex-wrap-nowrap oj-flex oj-sm-flex-direction-column">
+        <oj-label id="oj-label-1710103623-1" style="font-size:150%" class="oj-flex-item oj-sm-flex-initial">Refined by</oj-label>
+        <div class="oj-flex oj-sm-flex-direction-column oj-sm-justify-content-center oj-sm-flex-items-initial oj-flex-item">
+          <oj-label id="price-label" for="price-checkbox-set" class="oj-flex-item oj-sm-align-self-flex-start">Price</oj-label>
+          <oj-checkboxset id="price-checkbox-set" class="oj-flex-item" value="{{ $page.variables.currentPrice }}"
+            on-value-changed="[[$listeners.onFilterSelectionChanged]]">
+            <oj-option value="lt30">Less than $30</oj-option>
+            <oj-option value="30to40">$30 - $39.99</oj-option>
+            <oj-option value="40to50">$40 - $49.99</oj-option>
+            <oj-option value="gte50">$50 or more</oj-option>
+          </oj-checkboxset>
+        </div>
+        <div class="oj-flex oj-sm-flex-items-initial oj-sm-flex-direction-column oj-sm-justify-content-center oj-flex-item">
+          <oj-label id="author-label" for="author-checkbox-set" class="oj-flex-item">Author</oj-label>
+          <oj-checkboxset id="author-checkbox-set" class="oj-flex-item" value="{{ $page.variables.currentAuthor }}"
+            on-value-changed="[[$listeners.onFilterSelectionChanged]]">
+            <oj-option value="dcoward">Danny Coward</oj-option>
+            <oj-option value="hschildt">Herbert Schildt</oj-option>
+            <oj-option value="jmanico">Jim Manico</oj-option>
+            <oj-option value="jbrock">John Brock</oj-option>
+            <oj-option value="mnaftalin">Maurice Naftalin</oj-option>
+          </oj-checkboxset>
+        </div>
+        <div class="oj-flex oj-sm-flex-direction-column oj-sm-justify-content-center oj-flex-item">
+          <oj-label id="reviews-label" for="reviews-checkbox-set" class="oj-flex-item">Customer Rating</oj-label>
+          <oj-checkboxset id="reviews-checkbox-set" class="oj-flex-item" value="{{ $page.variables.currentRating }}"
+            on-value-changed="[[$listeners.onFilterSelectionChanged]]">
+            <oj-option value="five">5 Stars</oj-option>
+            <oj-option value="four">4 or More Stars</oj-option>
+            <oj-option value="three">3 or More Stars</oj-option>
+            <oj-option value="two">Less than 3 Stars</oj-option>
+          </oj-checkboxset>
+        </div>
+      </div>
+      <div class="oj-flex oj-sm-flex-direction-column oj-flex-item">
+        <oj-list-view id="books-list-view" class="oj-flex-item" data="{{ $page.variables.booksListSDP }}"
+          style="height:600px;">
+          <template slot="itemTemplate">
+        <div class="oj-flex">
+          
+          <div class="oj-lg-3 oj-md-3 oj-sm-4 oj-flex-item" style="max-width:150px;padding-left:0;padding-right:10px">
+            <div :style.background-image="[['url(resources/images/' + $current.data.imageUrl + ')']]" 
+              :style.background-repeat='no-repeat' :style.background-size='100%' :style.background-position='center'
+              :style.height='172px' :style.width='100%'>
+            </div>
+          </div>
+
+          <div class="oj-lg-9 oj-md-9 oj-sm-8 oj-flex-item">
+            <div class="oj-flex">
+              <div class="oj-lg-9 oj-md-9 oj-sm-12 oj-flex-item">
+                <div>
+                  <div><h4><a href="#"><oj-bind-text value="[[$current.data.title]]"></oj-bind-text></a></h4></div>
+                </div>
+                <div>
+                  <div><span>By <a href="#"><oj-bind-text value="[[$current.data.author]]"></oj-bind-text></a></span></div>
+                </div>
+
+                <div class="oj-flex">
+                  <div class="oj-lg-12 oj-md-12 oj-sm-only-hide oj-flex-item" style="padding:0">
+                    <div class="sku-model">
+                      <ul>
+                        <li><span class="label">SKU:</span> <span><oj-bind-text value="[[$current.data.id]]"></oj-bind-text></span></li>
+                        <li><span class="label">Release Date:</span> <span><oj-bind-text value="{{$page.functions.getDateConverter().format($current.data.publishDate)}}"></oj-bind-text></span></li>
+                        <li><span class="label">Format:</span> <span>Paperback</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="oj-flex">
+                  <div class="oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item" style="padding:0">
+                    <div style="width:100%">
+                      <oj-rating-gauge value="[[$current.data.rating]]" readonly="" style="width:86px;height:20px;display:inline-block;vertical-align:text-bottom">
+                      </oj-rating-gauge>
+                      <span><oj-bind-text value="[[$current.data.rating]]"></oj-bind-text></span>
+                      <span>(<a href="#" class="tab-link"><oj-bind-text value="[[$current.data.reviews]]"></oj-bind-text> Reviews</a>)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="oj-flex">
+                  <div class="oj-lg-12 oj-md-12 oj-sm-only-hide oj-flex-item" style="padding:10px 0">
+                    <a class="sku-model" href="#">Check Shipping &amp; Availability</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="oj-lg-3 oj-md-3 oj-sm-12 oj-flex-item">
+              <div>
+                <div class="price-block">
+                  <div class="priceblock priceblock-medium">
+                    <div class="medium-item-price">
+                      <span class="denominator"><oj-bind-text value="{{$page.functions.getCurrencyConverter().format($current.data.price)}}"></oj-bind-text></span>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 5px 0">
+                  <oj-button>Add to cart</oj-button>
+                </div>
+              </div>
+              <div class="oj-flex">
+                <div class="oj-lg-12 oj-md-12 oj-sm-only-hide oj-flex-item" style="padding:0">
+                  <div class="offers">
+                    <ul>
+                      <li><a href="#">Free Shipping on Orders $35 and Up</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+        </oj-list-view>
+        <div class="oj-flex oj-flex-item oj-sm-flex-direction-column">
+          <oj-label id="oj-label-1710103623-2" class="oj-flex-item">Selected Filter Criteria:</oj-label>
+          <div class="oj-flex-item">
+            <oj-bind-text value="[[$page.variables.filterDisplayText]]"></oj-bind-text>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,34 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h4>Summary</h4>
+<ul>
+  <li>Create Business Objects.</li>
+  <li>Create a ListView component.</li>
+  <li>Bind the Department BO data into the ListView component. Select partial fields of the BO and related BOs.</li> 
+</ul>
+<oj-accordion id="accordionPage">
+  <oj-collapsible id="step1">
+  <span slot="header">Step 1: Create Business Object</span>
+  <div>
+    <ol>
+      <li>Create <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/working-business-objects1.html">Department and Location Business Object</a></li>
+    </ol>
+  </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+  <span slot="header">Step 2: Add ListView UI component to page and populate data</span>
+  <div>
+    <ol>
+      <li>Create a new page and drag and drop a ListView component from Component Palette.</li>
+      <li>From Quick Start menu select Add Data for the ListView component.</li>
+      <li>From the list of data sources select Department BO.</li>
+      <li>When configuring the fields to be displayed in the ListView select departmentName, and locationObject.city. Finish the wizard.</li>
+      <li>Run the page. The ListView gets populated with the fields selected.</li>
+      <li>Observe in the chrome console->network tab that the REST call made to fetch the data makes use of 'fields' query parameter to fetch only the required fields. The required fields are determined by the type definition of 'getallDepartmentResponse'. Should you need to modify the data required to populate the UI, you must update the definition of this data type.</li>
+    </ol>
+  </div>
+  </oj-collapsible>
+</oj-accordion>

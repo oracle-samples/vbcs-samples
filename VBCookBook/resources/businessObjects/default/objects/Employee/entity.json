@@ -1,0 +1,243 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "edc9f961-e8a8-4c17-98e2-03dbcf739d0e",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "9c77cb49-f7d5-4d5e-83c7-523f2f6da4e7",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "cc53e20d-087c-4a9d-8ed1-06a1de32a468",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "aabf0be5-0018-40ac-b1f3-dcaf26652860",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "557f604f-b85c-4659-9aea-22696597f69b",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "ae76a47b-160b-4263-b270-dd0c7b535fd9",
+            "type": "number"
+        },
+        {
+            "name": "firstName",
+            "oid": "133959fb-99d4-4322-a310-81cbeb99901c",
+            "required": true,
+            "displayLabel": "First Name",
+            "type": "string"
+        },
+        {
+            "name": "lastName",
+            "oid": "5b7b9b9e-7fef-4e07-8a04-c1bc0bdbfa3e",
+            "required": true,
+            "displayLabel": "Last Name",
+            "type": "string"
+        },
+        {
+            "name": "email",
+            "format": "email",
+            "oid": "21272a5b-1894-42cc-85b7-ad357f54cfb9",
+            "required": true,
+            "displayLabel": "Email",
+            "type": "string",
+            "unique": true
+        },
+        {
+            "name": "phoneNumber",
+            "format": "phone",
+            "oid": "6487398c-b363-41be-ba89-87af781380ad",
+            "displayLabel": "Phone number",
+            "type": "string"
+        },
+        {
+            "name": "hireDate",
+            "oid": "66de37eb-99fd-4531-9478-bdd037df907d",
+            "required": true,
+            "displayLabel": "Hire date",
+            "type": "date"
+        },
+        {
+            "name": "job",
+            "oid": "044ab1ed-788d-40a2-b868-a933f5b3196b",
+            "required": true,
+            "displayLabel": "Job",
+            "type": "reference"
+        },
+        {
+            "name": "salary",
+            "minimum": 0,
+            "oid": "3a706b13-03e6-490c-afa8-64670566a469",
+            "precision": 8,
+            "scale": 2,
+            "displayLabel": "Salary",
+            "type": "number"
+        },
+        {
+            "name": "commissionPct",
+            "format": "percentage",
+            "oid": "32b99357-d57a-4ec0-967d-ec5c04d4309e",
+            "displayLabel": "Commission Percent",
+            "type": "number"
+        },
+        {
+            "name": "manager",
+            "oid": "96b54272-ca12-45e9-adb4-978cd554b60f",
+            "displayLabel": "Manager",
+            "type": "reference"
+        },
+        {
+            "name": "department",
+            "oid": "3b4287e2-e136-41b0-9fe3-b0c2bda2022c",
+            "displayLabel": "Department",
+            "type": "reference"
+        }
+    ],
+    "name": "Employee",
+    "oid": "b6da0161-991d-4a12-86e4-f4309ecec66d",
+    "displayLabel": "Employee",
+    "pluralLabel": "Employees",
+    "relationships": [
+        {
+            "name": "jobObject",
+            "reverseRelationship": "employeeCollection",
+            "targetEntity": "Job",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "job",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "managerObject",
+            "reverseRelationship": "employeeCollection",
+            "targetEntity": "Employee",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "manager",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "employeeCollection",
+            "reverseRelationship": "managerObject",
+            "targetEntity": "Employee",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "lastName"
+        },
+        {
+            "name": "departmentObject",
+            "reverseRelationship": "employeeCollection",
+            "targetEntity": "Department",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "department",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "managesDepartments",
+            "reverseRelationship": "departmentManager",
+            "targetEntity": "Department",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "lastName"
+        },
+        {
+            "name": "jobHistoryCollection",
+            "reverseRelationship": "employeeObject",
+            "targetEntity": "JobHistory",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "email"
+        },
+        {
+            "name": "employeeSkillCollection",
+            "reverseRelationship": "employeeObject",
+            "targetEntity": "EmployeeSkill",
+            "type": "incoming",
+            "exposeAccessor": true,
+            "displayField": "email"
+        },
+        {
+            "name": "skillCollection",
+            "reverseRelationship": "employeeCollection",
+            "intersectionRelationship": "employeeSkillCollection",
+            "targetEntity": "Skill",
+            "type": "manyToMany",
+            "exposeAccessor": true
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

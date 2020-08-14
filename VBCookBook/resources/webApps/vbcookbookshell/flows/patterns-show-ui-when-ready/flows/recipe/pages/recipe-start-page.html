@@ -1,0 +1,133 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <h2 class="oj-flex-item oj-sm-12 oj-md-12">Summary</h2>
+</div>
+<div class="oj-flex">
+  <ol class="oj-flex-item oj-sm-12 oj-md-12">
+    <li>Add loading spinner to be displayed till data to display UI is ready</li>
+    <li>Create Employee Edit form layout and retrieve employee data </li>
+    <li>Display loading spinner till employee details is retrieved and updated successfully</li>
+  </ol>
+</div>
+<div class="oj-flex">
+  <h4 class="oj-flex-item oj-sm-12 oj-md-12">Detailed Steps:</h4>
+</div>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Add Loading Spinner GIF </h1>
+      <div>
+
+        <ol>
+          <li> Create a variable “pageReady” of type Boolean with default value false
+
+          </li>
+          <li>
+            DnD the oj-bind-if component, in PI and set Test variable to [[ !$variables.pageReady
+            ]]
+          </li>
+
+          <li>
+            DnD image component from components Platelet as child of oj-bind-if, in PI, set data
+            to [[ $application.path + 'resources/images/spinner_full.gif' ]] and
+            width,height to 40.
+          </li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-2">
+      <h1 slot="header">Create the Edit Employee Form </h1>
+      <div>
+
+        <ol>
+
+
+          <li> Create a variable type get_Employee from Endpoint (Employee/employee_id)
+
+          </li>
+          <li>Create a variable(employee) of type get_Employee</li>
+
+
+          <li>
+            Create a new action chain on vbenter event
+            <ul>
+              <li>Dnd a rest action and select businessObjects/getall_employee with limit
+                param set to 1</li>
+              <li>
+                Dnd a assign variable action employee with { "data": "{{ $chain.results.callRestEndpoint1.body.items
+                }}" }
+              </li>
+              <li>on success of callRestEndpoint1 action, Dnd a if logic with condition
+                [[ $page.variables.employee.id ]]</li>
+              <li>
+                Dnd a assign variable and set pageReady to true.
+              </li>
+            </ul>
+          </li>
+          <li>
+            DnD the oj-bind-if component, in PI and set Test variable to [[ $variables.pageReady
+            ]] and add these components as child:
+            <ul>
+              <li>
+                Dnd heading and set text to "Employee Edit Form"
+              </li>
+              <li>
+                Dnd a form layout and 5 input text fields each for:
+                <ul>
+                  <li>
+                    FirstName: {{ $variables.employee.firstName }} LastName: {{ $variables.employee.lastName
+                    }} PhoneNumber: {{ $variables.employee.phoneNumber }} Salary:
+                    {{ $variables.employee.salary }} Email: {{ $variables.employee.email
+                    }}
+                  </li>
+                </ul>
+              </li>
+              <ul>
+              </ul>
+            </ul>
+          </li>
+          <li>
+            Create a variable isSaveDisabled of type boolean with default value false
+          </li>
+          <li>
+            Dnd a button “save” on UI and assign disabled attribute in PI with [[ $variables.isSaveDisabled
+            ]]
+
+          </li>
+          <li>
+            Call an action chain on button ojAction event
+            <ul>
+              <li>
+                Dnd assign variable and set isSaveDisabled to true, to prevent double click.
+              </li>
+              <li>
+                call an rest endpoint and select Employee/employee_id patch endpoint and input parameters
+                employeeid to {{$page.variables.employee.id}} and body to {{$page.variables.employee}}
+              </li>
+              <li>
+                on success, Fire Notification Confirmation message "Record updated successfully.
+                Reload the page to see updated record!"
+              </li>
+              <li>
+                Assign variable isSaveDisabled to false
+              </li>
+              <ul>
+
+              </ul>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

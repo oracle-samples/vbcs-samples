@@ -1,0 +1,10 @@
+    {
+        "flowModelVersion": "18.3.3",
+        "id": "multi-select-table",
+        "description": "Flow main",
+        "defaultPage": "table-multi-select-start",
+        "chains": {},
+        "services": {},
+        "types": {},
+        "variables": {}
+    }

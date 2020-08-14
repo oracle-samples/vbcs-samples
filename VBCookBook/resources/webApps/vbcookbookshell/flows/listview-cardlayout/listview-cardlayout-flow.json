@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "listview-cardlayout",
+  "description": "Flow main",
+  "defaultPage": "listview-cardlayout-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

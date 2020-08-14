@@ -1,0 +1,241 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "keyAttributes": [
+          "id"
+        ],
+        "itemsPath": "items",
+        "responseType": "page:getallDepartmentResponse"
+      }
+    },
+    "drawerOpen": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": [
+          "id"
+        ],
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "uriParameters": {
+
+        },
+        "filterCriterion": {
+          "op": "$and",
+          "criteria": "[[$functions.mapToCriteria($variables.filters)]]"
+        },
+        "capabilities": {}
+      }
+    },
+    "filters": {
+      "type": "filter[]",
+      "defaultValue": [{
+          "op": "$sw",
+          "attribute": "firstName",
+          "value": ""
+        },
+        {
+          "op": "$eq",
+          "attribute": "department",
+          "value": null
+        },
+        {
+          "op": "$ge",
+          "attribute": "salary",
+          "value": null
+        },
+        {
+          "op": "$le",
+          "attribute": "salary",
+          "value": null
+        },
+        {
+          "op": "$in",
+          "attribute": "skillCollection.id",
+          "value": []
+        }
+      ]
+    },
+    "skillListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Skill",
+        "keyAttributes": [
+          "id"
+        ],
+        "itemsPath": "items",
+        "responseType": "page:getallSkillResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallSkillResponse": {
+      "endpoint": "getall_Skill",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "filter": {
+      "attribute": "string",
+      "op": "string",
+      "value": "any"
+    },
+    "getallDepartmentResponse": {
+      "items": [{
+        "departmentName": "string",
+        "id": "number"
+      }]
+    },
+    "getallEmployeeResponse": {
+      "items": [{
+        "departmentObject": {
+          "items": [{
+            "departmentName": "string"
+          }]
+        },
+        "email": "string",
+        "firstName": "string",
+        "id": "number",
+        "jobObject": {
+          "items": [{
+            "jobTitle": "string"
+          }]
+        },
+        "lastName": "string",
+        "salary": "number",
+        "skillCollection": {
+          "items": [{
+            "name": "string"
+          }]
+        }
+      }]
+    },
+    "getallSkillResponse": {
+      "items": [{
+        "id": "number",
+        "name": "string"
+      }]
+    }
+  },
+  "chains": {
+    "resetFilterCriterion": {
+      "description": "",
+      "root": "resetFilters",
+      "actions": {
+        "resetFilters": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.filters"
+            ]
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "toggleFilterPane": {
+      "description": "",
+      "root": "toggle",
+      "actions": {
+        "toggle": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "toggle"
+          },
+          "outcomes": {
+            "success": "assignToggleState"
+          }
+        },
+        "assignToggleState": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.drawerOpen": {
+              "source": "{{ !$page.variables.drawerOpen }}"
+            }
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "clearFilterAction": {
+      "chains": [{
+        "chainId": "resetFilterCriterion",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    },
+    "toggleFilterAction": {
+      "chains": [{
+        "chainId": "toggleFilterPane",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+    }
+  },
+  "routerFlow": ""
+}

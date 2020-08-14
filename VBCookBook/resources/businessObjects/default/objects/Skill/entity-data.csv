@@ -1,0 +1,9 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name
+1,2020-02-04T11:24:25,2020-02-04T11:24:25.005,jane.smith@example.com,jane.smith@example.com,Project Management
+2,2020-02-04T11:24:49,2020-02-04T11:24:49.003,jane.smith@example.com,jane.smith@example.com,Java
+3,2020-02-04T11:24:59,2020-02-04T11:24:59.003,jane.smith@example.com,jane.smith@example.com,Database Administration
+4,2020-02-04T11:25:12,2020-02-04T11:27:19,jane.smith@example.com,jane.smith@example.com,Agile Methodologies
+5,2020-02-04T11:26:14,2020-02-04T11:26:14.009,jane.smith@example.com,jane.smith@example.com,Management
+6,2020-02-04T11:26:22,2020-02-04T11:26:22.004,jane.smith@example.com,jane.smith@example.com,Account Management
+7,2020-02-04T11:26:43,2020-02-04T11:26:43.004,jane.smith@example.com,jane.smith@example.com,Human Resources Information Systems
+8,2020-02-04T11:27:00,2020-02-04T11:27:00.003,jane.smith@example.com,jane.smith@example.com,Direct Sales

@@ -1,0 +1,99 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+
+   This recipe shows you how to implement an editable table where users can edit multiple existing rows 
+    or create new rows, before they submit all their changes in one transaction to the backend service. 
+    The recipe also demonstrates how to implement validation. It ensures, for example, that a change to an 
+    employee's salary remains within the minimum and maximum values for that employee’s job classification. 
+
+
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex">
+      <h1 id="h1-1829646926-1" class="oj-flex-item oj-sm-12 oj-md-9">Employees</h1>
+      <div class="oj-flex-item oj-sm-12 oj-flex oj-sm-align-items-center oj-md-3 oj-flex-items-pad oj-sm-justify-content-flex-end">
+        <div class="oj-flex-item oj-sm-flex-initial">
+          <oj-button id="insert-row-button" on-oj-action="[[$listeners.ojButtonOjAction2]]">Insert Row</oj-button>
+        </div>
+        <div class="oj-flex-item oj-sm-flex-initial">
+          <oj-button on-oj-action="[[$listeners.ojButtonOjAction3]]" disabled="[[ JSON.stringify($variables.rowStatus) === '{}' ]]">Save</oj-button>
+        </div>
+      </div>
+    </div>
+    <oj-validation-group id="tracker">
+      <div class="oj-flex">
+        <oj-table edit-row="{{ $page.variables.editRow }}" scroll-position="{{ $page.variables.scrollPosition }}"
+          scroll-policy="loadAll" id="batch-editable-table" class="oj-flex-item oj-sm-12 oj-md-12"
+          data="[[ $variables.employeesADP ]]" columns='[{"headerText":"First Name","field":"firstName","template":"First Name","style":"min-width: 15em; max-width: 15em; width: 15em;"},{"headerText":"Last Name","field":"lastName","template":"Last Name","style":"min-width: 15em; max-width: 15em; width: 15em;"},{"headerText":"Job","field":"jobObject","template":"Job", "sortable":"disabled", "style":"min-width: 15em; max-width: 20em; width: 20em;"},{"headerText":"Salary","field":"salary","template":"Salary", "style":"min-width: 15em; max-width: 15em; width: 15em; padding: 0"},{"headerText":"Salary Range","template":"Salary Range", "sortable":"disabled", "className" : "oj-read-only", "resizable" : "disabled", "style":"min-width: 15em; max-width: 15em; width: 15em;"},{"headerText":"Actions","field":"","template":"Actions", "sortable":"disabled", "resizable" : "disabled", "style":"min-width: 5em; max-width: 5em; width: 5em; padding-top: 0px; padding-bottom: 0px; text-align: center;"}]'
+          style="max-height: 400px;" scroll-policy-options.fetch-size="999" scroll-policy-options.max-count="999"
+          edit-mode="rowEdit" on-oj-before-row-edit="[[$listeners.ojTable18296469261OjBeforeRowEdit]]"
+          on-oj-before-row-edit-end="[[$listeners.ojTable18296469261OjBeforeRowEditEnd]]">
+          <template slot="Job">
+      <oj-bind-if test='[[$current.mode === "navigation"]]'>
+        <oj-bind-text value="[[ $current.data.items[0] !== undefined ? $current.data.items[0].jobTitle : '' ]]"></oj-bind-text>
+      </oj-bind-if>
+      <oj-bind-if test='[[$current.mode === "edit"]]'>
+        <oj-select-one value-option.value="{{ $page.variables.currentRowBuffer.job }}" value-option.label="{{ $page.variables.currentRowBuffer.jobObject.items[0].jobTitle }}" options="[[$page.variables.jobListSDP]]" options-keys.value="id" options-keys.label="jobTitle" on-value-changed="[[$listeners.ojSelectOneValue]]" :id="[['oj-select-one-1829646926-1-' + $current.index]]"></oj-select-one>
+      </oj-bind-if>
+    </template>
+          <template slot="Salary Range">
+      <oj-bind-if test='[[$current.mode === "navigation"]]'>
+        <oj-bind-text value="[[ $page.functions.getFormattedSalaryRange($current.row, false) ]]"></oj-bind-text>
+      </oj-bind-if>
+      <oj-bind-if test='[[$current.mode === "edit"]]'>
+        <oj-bind-text value="[[ $page.functions.getFormattedSalaryRange($page.variables.currentRowBuffer, $page.variables.disableRowEditExit) ]]"></oj-bind-text>
+      </oj-bind-if>
+    </template>
+          <template slot="Salary">
+      <oj-bind-if test='[[$current.mode === "navigation"]]'>
+        <oj-input-text converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}' value='[[typeof $current.data === "number" ? $current.data : null]]' :id="[['oj-input-number-1829646926-1-' + $current.index]]" readonly="true"></oj-input-text>
+      </oj-bind-if>
+      <oj-bind-if test='[[$current.mode === "edit"]]'>
+        <oj-input-text validators="{{[$functions.salaryInRangeValidator($page.variables.currentRowBuffer, $page.variables.disableRowEditExit)]}}" converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}' value="{{ $variables.currentRowBuffer.salary}}" :id="[['oj-input-number-1829646926-1-' + $current.index]]"></oj-input-text>
+      </oj-bind-if>
+    </template>
+          <template slot="First Name">
+      <oj-bind-if test='[[$current.mode === "navigation"]]'>
+        <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+      </oj-bind-if>
+      <oj-bind-if test='[[$current.mode === "edit"]]'>
+        <oj-input-text value="{{ $variables.currentRowBuffer.firstName}}" :id="[['oj-input-text-1829646926-2-' + $current.index]]" required="true"></oj-input-text>
+      </oj-bind-if>
+    </template>
+          <template slot="Last Name">
+      <oj-bind-if test='[[$current.mode === "navigation"]]'>
+        <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+      </oj-bind-if>
+      <oj-bind-if test='[[$current.mode === "edit"]]'>
+        <oj-input-text value="{{ $variables.currentRowBuffer.lastName}}" :id="[['oj-input-text-1829646926-3-' + $current.index]]" required="true"></oj-input-text>
+      </oj-bind-if>
+    </template>
+          <template slot="Actions">
+      <oj-button :id="[['delete-row-button-' + $current.row.id]]" on-oj-action="[[$listeners.ojButtonOjAction]]" chroming="borderless"><span class="vb-icon vb-icon-delete-trash-can"></span></oj-button>
+    </template>
+        </oj-table>
+      </div>
+    </oj-validation-group>
+    <div class="oj-flex oj-sm-flex-direction-column">
+      <oj-text-area id="row-status" class="oj-flex-item oj-sm-flex-initial"
+        rows="5" value="{{ 'Changes: ' + JSON.stringify($variables.rowStatus) }}" style="min-width: 50%;"></oj-text-area>
+    </div>
+
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

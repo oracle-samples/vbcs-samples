@@ -1,0 +1,59 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+    This demo shows how to use <b>vb/helpers/rest</b> to make rest calls using custom
+    JavaScript. It uses async validators to make rest call to the backend to validate
+    email. If you enter one of the employee email from the table below you will get
+    an error.
+  </div>
+  <div class="oj-flex oj-flex-item">
+    <div class="oj-flex oj-flex-item sample-box oj-flex-items-pad">
+      <div class="oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-align-items-flex-start" style="min-width: 450px;">
+        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+          <h1 class="oj-flex-item oj-sm-12 oj-md-12">Create New Employee</h1>
+        </div>
+        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+          <oj-validation-group id="tracker" class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-form-layout label-edge="start">
+              <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}"
+              required="true" id="input-first-name"></oj-input-text>
+              <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
+              required="true" id="input-last-name"></oj-input-text>
+              <oj-input-text virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
+              async-validators="{{[$functions.uniqueEmailValidator()]}}" value="{{ $variables.employee.email }}"
+              label-hint="Email ID" required="true" id="input-email"></oj-input-text>
+            </oj-form-layout>
+          </oj-validation-group>
+        </div>
+        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+          <oj-toolbar chroming="full" class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-button chroming="full" id="validate-btn" on-oj-action="[[$listeners.validateHandler]]" class="oj-button-primary">Validate</oj-button>
+          </oj-toolbar>
+        </div>
+      </div>
+      <div class="oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column">
+        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+          <h1 class="oj-flex-item oj-sm-12 oj-md-12">Existing Employees</h1>
+        </div>
+        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+          <oj-table style="max-height: 200px" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
+          data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","field":"email"}]'
+          scroll-policy-options.fetch-size="10" id="employee-table"></oj-table>
+        </div>
+      </div>
+    </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

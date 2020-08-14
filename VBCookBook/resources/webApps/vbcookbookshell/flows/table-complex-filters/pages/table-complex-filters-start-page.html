@@ -1,0 +1,91 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+ 
+   Complex server side filtering using Service Data Provider.
+ 
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+ 
+<!--   START -->
+<div class="oj-offcanvas-outer-wrapper" style="min-height:500px;">
+
+  <div id="filterDrawer" class="oj-offcanvas-start oj-offcanvas-overlay-shadow oj-panel oj-sm-padding-1x oj-panel-alt1" style="width: 250px">
+    <oj-form-layout label-edge="top">
+      <oj-input-text label-hint="Name" value="{{ $variables.filters[0].value }}" clear-icon="conditional" id="input-first-name">
+      </oj-input-text>
+      <oj-select-single value="{{ $variables.filters[1].value }}" label-hint="Department" data="[[$page.variables.departmentListSDP]]" item-text="departmentName" placeholder="Department">
+      </oj-select-single>
+
+      <oj-select-many label-hint="Skills" options="[[$page.variables.skillListSDP]]" options-keys.value="id" options-keys.label="name" placeholder="Skill(s)" value="{{ $variables.filters[4].value }}"></oj-select-many>
+      <oj-label for="sal">Salary</oj-label>
+      <div id="sal" role="group" aria-labelledby="grouplabelid" class="oj-form-control-group">
+        <oj-label for="fromSalary">
+          <span class="oj-text-sm">From</span>
+        </oj-label>
+        <oj-input-number id="fromSalary" value="{{ $variables.filters[2].value }}" min="0"></oj-input-number>
+        <oj-label for="toSalary"> <span class="oj-text-sm">To</span></oj-label>
+        <oj-input-number id="toSalary" value="{{ $variables.filters[3].value }}" min="[[ $variables.filters[2].value ]]"></oj-input-number>
+      </div>
+    </oj-form-layout>
+    <oj-button id="clear-filter" class="oj-button-sm" on-oj-action="[[$listeners.clearFilterAction]]">Clear
+    </oj-button>
+  </div>
+
+  <div id="mainContent" class="demo-main-content">
+    <div class="oj-flex">
+      <div>
+        <oj-bind-if test="[[ !$variables.drawerOpen ]]">
+          <oj-button on-oj-action="[[$listeners.toggleFilterAction]]" class="oj-button-sm" id="open-filter">
+            <span class="vb-icon vb-icon-filter-funnel"></span>
+          </oj-button>
+        </oj-bind-if>
+      </div>
+      <div>
+        <oj-bind-if test="[[ $variables.drawerOpen ]]">
+          <oj-button on-oj-action="[[$listeners.toggleFilterAction]]" class="oj-button-sm" id="close-filter">
+            <span class="vb-icon vb-icon-delete"></span>
+          </oj-button>
+        </oj-bind-if>
+      </div>
+    </div>
+    <div class="oj-flex">
+      <oj-table id="employee-table" style="max-height: 500px" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12" data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Salary","field":"salary","template":"Salary"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate6"},{"headerText":"Skill(s)","field":"skillCollection","sortProperty":"skillCollection.name","template":"nameCellTemplate7"},{"headerText":"Job Title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate8"}]' scroll-policy-options.fetch-size="15" scroll-policy-options.max-count="1000">
+        <template slot="Salary">
+          <oj-bind-text value="[[ $functions.formatCurrency($current.data) ]]">
+          </oj-bind-text>
+        </template>
+        <template slot="departmentNameCellTemplate6">
+          <oj-bind-text value="[[ $current.data.items.map((r)=>r.departmentName).join(', ') ]]">
+          </oj-bind-text>
+        </template>
+        <template slot="nameCellTemplate7">
+          <oj-bind-text value="[[ $current.data.items.map((r)=>r.name).join(', ') ]]">
+          </oj-bind-text>
+        </template>
+        <template slot="jobTitleCellTemplate8">
+          <oj-bind-text value="[[ $current.data.items.map((r)=>r.jobTitle).join(', ') ]]">
+          </oj-bind-text>
+        </template>
+      </oj-table>
+    </div>
+  </div>
+</div>
+<!-- END -->
+ 
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

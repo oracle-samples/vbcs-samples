@@ -1,0 +1,28 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-list-view class="componentCategoryItemListview oj-listview-card-layout oj-flex" selection-mode="single" drill-mode="none" data="[[ $variables.recipeListADP ]]" id="OJ-LIST-VIEW-89947901-2">
+      <template slot="itemTemplate" data-oj-as="listItem">
+        <li :id="[[listItem.data.id + '_category']]">
+            <a class="listingRef" on-click="[[$listeners.aClick]]">
+              <h4 :class="[[listItem.data.categoryBorderClass]]">
+                <div class="oj-flex oj-sm-12 sortEnabled">
+                  <span class="oj-flex-item oj-sm-12 componentCategoryInfo  oj-text-tertiary-color oj-text-sm"><oj-bind-text value="[[listItem.data.categoryName]]"></oj-bind-text></span> 
+                  <span class="oj-flex-item oj-sm-12 componentInfo"><oj-bind-text value="[[listItem.data.label]]"></oj-bind-text></span>
+                </div>
+              </h4>
+              <hr class="componentUnderline">
+              <div :id="[[listItem.data.id + '-componentImage']]" class="componentImage">
+                <oj-bind-if test="[[listItem.data.imageUrl]]">
+                  <img :src="[[$application.path +'resources/images/gallery/'+ listItem.data.imageUrl]]" :alt="[[listItem.data.label]]">
+                </oj-bind-if>
+                <oj-bind-if test="[[!listItem.data.imageUrl]]">
+                  <img :src="[[ $application.path + 'resources/images/t.gif']]" :alt="[[listItem.data.label]]">
+                </oj-bind-if>
+              </div>
+            </a>
+        </li>
+      </template>
+</oj-list-view>

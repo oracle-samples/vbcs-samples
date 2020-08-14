@@ -1,0 +1,154 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "b33be098-a056-41f5-b121-260cb001bce1",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "cc315372-6a21-4459-b26d-90f58a4b0e27",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "3bd8c978-9b9a-4f17-9296-b86ce33b380e",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "9e6a2c66-543c-43ca-8463-3f57ac81859e",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "1844b430-d9ce-4dab-9a1a-95b855d78ccb",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "d01de00d-576e-48a4-84f0-acbb338e0c21",
+            "type": "number"
+        },
+        {
+            "name": "streetAddress",
+            "oid": "375c3b4f-12b1-4e49-b5ca-b37dc9763d51",
+            "required": true,
+            "displayLabel": "StreetAddress",
+            "type": "string"
+        },
+        {
+            "name": "postalCode",
+            "oid": "0fcd3002-926d-4719-813e-f07a1d215bec",
+            "displayLabel": "Postal Code",
+            "type": "string"
+        },
+        {
+            "name": "stateProvince",
+            "oid": "a23acd35-c6b5-400a-8e38-9a5818042b5e",
+            "displayLabel": "State / Province",
+            "type": "string"
+        },
+        {
+            "name": "country",
+            "oid": "9f1a305f-1b68-4e19-8c6b-a7c0e5a4a1ab",
+            "required": true,
+            "displayLabel": "Country",
+            "type": "reference"
+        },
+        {
+            "name": "city",
+            "oid": "792e2c83-cdfb-49d4-a4a0-752567ff4c45",
+            "required": true,
+            "displayLabel": "City",
+            "type": "string"
+        }
+    ],
+    "name": "Location",
+    "oid": "5f2d3549-9240-4b0c-940d-068fd3b018e9",
+    "displayLabel": "Location",
+    "pluralLabel": "Locations",
+    "relationships": [
+        {
+            "name": "locationCountry",
+            "reverseRelationship": "locationCollection",
+            "targetEntity": "Country",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "country",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "departmentCollection",
+            "reverseRelationship": "locationObject",
+            "targetEntity": "Department",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "city"
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

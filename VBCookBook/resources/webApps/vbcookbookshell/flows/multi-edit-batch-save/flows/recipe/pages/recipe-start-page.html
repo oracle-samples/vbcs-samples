@@ -1,0 +1,161 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<p>
+  Add a Form component to display department data and a Table component to display and edit the employees associated
+  with the department. Add additional columns to the Table component to render the edit and delete actions for
+  individual Table component rows. A popup dialog displays an editable form where users can edit an existing employee’s
+  details, or create a new employee.
+</p>
+<div class="oj-flex">
+  <oj-accordion id="accordionPage" class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="stepResponseType" expanded="true">
+      <span slot="header">Create Response Type</span>
+      <div>
+        <p><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+            a custom type</a> <code>employee</code> from the GET /Employee endpoint and add these fields:</p>
+        <ul>
+          <li><code>Id</code></li>
+          <li><code>Department</code></li>
+          <li><code>firstName</code></li>
+          <li><code>lastName</code></li>
+          <li><code>email</code></li>
+          <li><code>salary</code></li>
+        </ul>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step2">
+      <span slot="header">Create Page Variables and an Array Data Provider</span>
+      <div>
+        <ol>
+          <li>Create the following page variables:
+            <ul>
+              <li><code>departmentId</code> – String with a hardcoded value of 2 for the purposes of this demo.</li>
+              <li><code>departmentName</code> - String.</li>
+              <li><code>originalDepartmentName</code> - String.</li>
+              <li><code>idForNewEmployee</code> – Number. A temporary ID for new employee rows. Default value set to -1.
+              </li>
+              <li><code>rowStatus</code> – Object. Stores the status of each employee row (based on ID).</li>
+              <li><code>currentEmployee</code> – Employee variable to store selected employee data and to display it in
+                the Form component.</li>
+            </ul>
+          </li>
+          <li>Add an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Array
+              Data Provider</a> <code>employeeListADP</code> variable of item type <code>employee</code>.</li>
+          <li>Set the filterCriterion in <code>employeeListADP</code> to filter employees based on department ID.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step3">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>Add a Form component with one field and map it to the <code>departmentName</code> variable.</li>
+          <li>Add three Button components:
+            <ul>
+              <li><strong>Refresh (Cancel All Edits)</strong> - To refresh the data from server ignoring all
+                modifications made in the UI.</li>
+              <li><strong>New Employee</strong> - To create a new employee row.</li>
+              <li><strong>Save (Batch)</strong> - To invoke a batch save call to persist all modifications at once back
+                on to the server.</li>
+            </ul>
+          </li>
+          <li>Add a Table component with columns from the <code>employeeListADP</code> fields.</li>
+          <li>Add two more columns to the Table with two action buttons, one to edit an employee and another to delete
+            an
+            employee.</li>
+          <li>Create a modal dialog with a Form component to edit employee details, and a Button component to save
+            changes. </li>
+        </ol>
+      </div>
+
+    </oj-collapsible>
+    <oj-collapsible id="step4">
+      <span slot="header">Create Action Chains</span>
+      <div>
+        <ol>
+          <li> <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-95CF14CA-6C15-42A2-A5B9-35DA0AFDFD81">Create
+              an action chain</a> <code>FetchDepartment</code> to fetch the department details.
+
+            <ul>
+              <li>Add a Call REST Endpoint action to call the <code>GET /Department/{id}</code> endpoint passing the
+                <code>departmentId</code> variable.</li>
+              <li>Set the variables <code>departmentName</code> and <code>originalDepartmentName</code> from the REST
+                call response.</li>
+            </ul>
+          </li>
+          <li>Create an action chain <code>FetchEmployees</code> to fetch the list of employees for the department.
+            <ul>
+              <li>Clear the old contents of <code>employeeListADP</code> and <code>rowStatus</code>.</li>
+              <li>Add a Call REST Endpoint action to call the <code>GET /Employees</code> endpoint passing the
+                <code>departmentId</code> variable in <code>q</code> parameter as
+                <code>?q=department={departmentId}</code>.</li>
+              <li>Set the variable <code>employeeListADP</code> data array from this REST call response.</li>
+            </ul>
+
+          </li>
+          <li>Create an action chain <code>DeleteEmployee</code> that takes the selected <code>employeeId</code> and
+            removes the corresponding row from <code>employeeListADP</code> and also set the status for this employee to
+            <code>deleted</code> in the <code>rowStatus</code> variable.</li>
+          <li>Create an action chain <code>UpdateEmployeeChain</code> that takes the employee row data from the modal
+            dialog and modifies the corresponding row in <code>employeeListADP</code>.
+            <p>It also set the status for this employee to <code>modified</code> in the <code>rowStatus</code> variable.
+              For a newly-inserted row, keep the status to <code>inserted</code> after modification.</p>
+          </li>
+          <li>Create an action chain <code>OpenDialogChain</code> that opens up the modal dialog populating values from
+            <code>currentEmployee</code> variable.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step5">
+      <span slot="header">Create Events</span>
+      <div>
+        <ol>
+
+          <li>Add an event to the <strong>Refresh (Cancel All Edits)</strong> button to clear data entered on the client
+            and to retrieve data from the server using the <code>FetchDepartment</code> action chain.</li>
+          <li>Add an event to the <strong>New Employee</strong> button and configure the geneerated action chain as
+            follows:
+            <ul>
+              <li>Add an Assign Variables action that does the following:
+                <ol>
+                  <li>Set the field values in <code>currentEmployee</code> to empty.</li>
+                  <li>Set the ID of the <code>currentEmployee</code> to the value from the <code>idForNewEmployee</code>
+                    page variable.</li>
+                </ol>
+              </li>
+              <li>Add a Call Chain action to invoke the <code>OpenDialogChain</code> action chain to open the modal
+                dialog to display empty and default values from the <code>currentEmployee</code> variable.</li>
+              <li>On <strong>Save</strong> button click invoke <code>UpdateEmployeeChain</code> to save new employee
+                data locally.</li>
+            </ul>
+          </li>
+          <li>For the <strong>Save (Batch)</strong> button, add an event and configure the generated action chain as
+            follows:
+            <ul>
+              <li>Write JavaScript functions to prepare the batch payload for <code>department</code> and
+                <code>employeeListADP</code> updates.</li>
+              <li>Add a Create Call REST Endpoint action that invokes the <code>POST /businessObjects/batch</code>
+                endpoint and uploads the payload.</li>
+              <li>Add a Fire Notification action to display the action results in the UI.</li>
+              <li>Refresh all data from the backend using the <code>FetchDepartment</code> action chain.</li>
+            </ul>
+          </li>
+
+          <li>Add an event to the Edit icon and invoke the <code>OpenDialogChain</code> action chain with
+            <code>currentEmployee</code> fields set from the selected employee row.</li>
+
+          <li>Add an event to the Delete icon and invoke the <code>DeleteEmployee</code> action chain with
+            <code>currentEmployeeID</code> from the selected employee row.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

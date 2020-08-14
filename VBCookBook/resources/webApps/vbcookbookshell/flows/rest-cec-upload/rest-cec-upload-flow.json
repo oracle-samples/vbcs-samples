@@ -1,0 +1,10 @@
+{
+    "flowModelVersion": "19.3.1",
+    "id": "rest-cec-upload",
+    "description": "Flow main",
+    "defaultPage": "rest-cec-upload-start",
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {}
+}

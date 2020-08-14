@@ -1,0 +1,62 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <p>The Input Number's <code>on-keypress</code> event calls a custom page function
+    that supresses any input that is not a number.
+  </p>
+</div>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>Drag a Form Layout and an Input Number component to the page</li>
+          <li>Set the <code>min</code> and <code>max</code> properties on the Input Number
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create the Page Model and Module Function</span>
+      <div>
+        <ol>
+          <li>Add a <code>currentValue</code> page variable of type Number.</li>
+          <li>Add the following function to the page's JS tab:
+            <pre>PageModule.prototype.isValidChar = function (event) {
+
+  var charCode = (event.which) ? event.which : event.keyCode;
+  var char = String.fromCharCode(charCode);
+  // Only allow ".0123456789" (and non-display characters)
+  var replacedValue = char.replace(/[^0-9\.]/g, '');
+  if (char !== replacedValue) {
+    return false;
+  }
+
+  return true;
+};</pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create the Page Model and Module Function</span>
+      <div>
+        <ol>
+          <li>Select the Input Number component and in the Events tab of the Property
+            Inspector add a new custom event for keypress. Set the event to launch
+            a new action chain.</li>
+          <li>Add a single Return action to the action chain.</li>
+          <li>In the Events tab, selec the <code>ojInputNumberKeypress</code> event and
+            set the Prevent Default property to <code>{{ !$page.functions.isValidChar($event) }}</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

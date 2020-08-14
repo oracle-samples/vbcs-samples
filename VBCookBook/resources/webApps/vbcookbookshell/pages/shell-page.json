@@ -1,0 +1,843 @@
+{
+  "pageModelVersion": "19.3.1",
+  "description": "",
+  "routerFlow": "home",
+  "variables": {
+    "messagesADP": {
+      "type": "vb/ArrayDataProvider",
+      "defaultValue": {
+        "idAttribute": "id",
+        "itemType": "page:messageType"
+      }
+    },
+    "selectedNavItem": {
+      "type": "string",
+      "defaultValue": "home-start"
+    },
+    "demoLabel": {
+      "type": "string",
+      "defaultValue": "All Recipes"
+    },
+    "showSearch": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "usingSubflows": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "showVersions": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "versionNumber": {
+      "type": "string",
+      "defaultValue": "Trunk (Development Build)"
+    },
+    "VBVersionItems": {
+      "type": "object[]",
+      "defaultValue": [{
+          "label": "Trunk (Development Build)",
+          "url": "http://jet.us.oracle.com/trunk/vbcookbook/webApps/vbcookbookshell/index.html"
+        },
+        {
+          "label": "Production Release",
+          "url": "http://jet.us.oracle.com/vbcookbook/webApps/vbcookbookshell/index.html"
+        }
+      ]
+    },
+    "copyright": {
+      "type": "string",
+      "defaultValue": "Copyright © 2014, 2020 Oracle and/or its affiliates All rights reserved."
+    },
+    "globalLinks": {
+      "type": "object[]",
+      "defaultValue": [{
+          "id": "aboutOracle",
+          "label": "About Oracle",
+          "url": "http://www.oracle.com/us/corporate/index.html#menu-about"
+        },
+        {
+          "id": "contactUs",
+          "label": "Contact Us",
+          "url": "http://www.oracle.com/us/corporate/contact/index.html"
+        },
+        {
+          "id": "legalNotices",
+          "label": "Legal Notices",
+          "url": "http://www.oracle.com/us/legal/index.html"
+        },
+        {
+          "id": "termsOfUse",
+          "label": "Terms Of Use",
+          "url": "http://www.oracle.com/us/legal/terms/index.html"
+        },
+        {
+          "id": "yourPrivacyRights",
+          "label": "Your Privacy Rights",
+          "url": "http://www.oracle.com/us/legal/privacy/index.html"
+        }
+      ]
+    },
+    "checkFirstPage": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "apiDocs": {
+      "type": "ReferenceType[]"
+    },
+    "breadCrumb": {
+      "type": "BreadCrumbType[]"
+    },
+    "showNavBar": {
+      "type": "boolean",
+      "defaultValue": "{{ $application.variables.isThisVBDesigner === false }}"
+    },
+    "ignoreFirstBlurOnFireFox": {
+      "type": "boolean",
+      "defaultValue": "[[ navigator.userAgent.indexOf('Mozilla') > -1]]",
+      "description": "For some reason on FireFox the first opening of recipe search combo box fires also Blur event. This variable and its use in CloseSearch chain is attempt to workaround it."
+    }
+  },
+  "metadata": {},
+  "types": {
+    "messageType": {
+      "id": "string",
+      "severity": "string",
+      "category": "string",
+      "summary": "string",
+      "detail": "string",
+      "timestamp": "string",
+      "autoTimeout": "number"
+    },
+    "ReferenceType": {
+      "label": "string",
+      "type": "string",
+      "url": "string"
+    },
+    "BreadCrumbType": {
+      "label": "string",
+      "id": "string"
+    },
+    "RecipeDescriptionType": {
+      "id": "string",
+      "label": "string",
+      "demoPageName": "string",
+      "recipePageName": "string",
+      "seealso": "ReferenceType[]",
+      "apiRef": "ReferenceType[]"
+    }
+  },
+  "chains": {
+    "showNotification": {
+      "description": "Displays notifications sent by the Fire Notification action using the oj-messages component on this page.",
+      "variables": {
+        "eventPayload": {
+          "type": "messageType",
+          "input": "fromCaller"
+        }
+      },
+      "root": "displayMessage",
+      "actions": {
+        "displayMessage": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "{{ $page.variables.messagesADP }}",
+            "add": {
+              "data": "{{ [ $chain.variables.eventPayload ] }}"
+            }
+          }
+        }
+      }
+    },
+    "closeNotificationHandler": {
+      "description": "Removes the notification message when its dismiss gesture has been invoked.",
+      "variables": {
+        "eventMessage": {
+          "type": "messageType",
+          "input": "fromCaller"
+        }
+      },
+      "root": "removeMessage",
+      "actions": {
+        "removeMessage": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "{{ $page.variables.messagesADP }}",
+            "remove": {
+              "keys": "{{ [ $variables.eventMessage.id ] }}"
+            }
+          }
+        }
+      }
+    },
+    "navigate": {
+      "description": "",
+      "variables": {
+        "selection": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "getRecipeDescriptor",
+      "actions": {
+        "getRecipeDescriptor": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $application.functions ]]",
+            "functionName": "getRecipe",
+            "params": [
+              "{{ $chain.variables.selection }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updateCurrentPageAndLabel"
+          }
+        },
+        "updateCurrentPageAndLabel": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.demoLabel": {
+              "source": "{{ $chain.results.getRecipeDescriptor.recipe.label }}"
+            },
+            "$page.variables.apiDocs": {
+              "source": "{{ $chain.results.getRecipeDescriptor.recipe.apiRef }}",
+              "auto": "always",
+              "reset": "empty"
+            },
+            "$page.variables.breadCrumb": {
+              "source": "{{ $chain.results.getRecipeDescriptor.breadCrumb }}",
+              "auto": "always",
+              "reset": "empty"
+            },
+            "$page.variables.selectedNavItem": {
+              "source": "{{ $chain.variables.selection }}"
+            }
+          },
+          "outcomes": {
+            "success": "selectRecipeInNavList"
+          }
+        },
+        "navigateToRecipe": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "page": "{{ $chain.variables.selection === 'home' ? 'shell/home' : (!$page.variables.usingSubflows || $application.variables.isThisVBDesigner ? 'shell/' + $chain.variables.selection : 'shell/' + $chain.variables.selection + '/' + $chain.results.getRecipeDescriptor.recipe.demoPageName + '/' + $chain.results.getRecipeDescriptor.recipe.recipeFlowName ) }}"
+          }
+        },
+        "selectRecipeInNavList": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "collapseAllButSelection",
+            "params": [
+              "{{ $chain.results.getRecipeDescriptor.parents }}"
+            ]
+          },
+          "outcomes": {
+            "success": "navigateToRecipe"
+          }
+        }
+      }
+    },
+    "NavigationHandler": {
+      "description": "Navigates to the flow selected in the left navigation bar.",
+      "variables": {
+        "item": {
+          "required": true,
+          "type": "string",
+          "input": "fromCaller"
+        },
+        "updatedFrom": {
+          "type": "string",
+          "input": "fromCaller"
+        }
+      },
+      "root": "ignoreExternalEvents",
+      "actions": {
+        "ignoreExternalEvents": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "{{ $variables.updatedFrom !== 'external' }}"
+          },
+          "outcomes": {
+            "true": "closeOffCanvasDrawer"
+          }
+        },
+        "callNavigateChain": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "navigate",
+            "params": {
+              "selection": "{{ $chain.variables.item }}"
+            }
+          }
+        },
+        "closeOffCanvasDrawer": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "closeDrawer"
+          },
+          "outcomes": {
+            "success": "callNavigateChain"
+          }
+        }
+      }
+    },
+    "onVersionItemSelect": {
+      "variables": {
+        "selectedVersion": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "goToVBCookbook",
+      "actions": {
+        "goToVBCookbook": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "goToVBCookbook",
+            "params": [
+              "{{ $chain.variables.selectedVersion }}",
+              "{{ $page.variables.VBVersionItems}}"
+            ]
+          },
+          "outcomes": {
+            "success": "openNewUrl"
+          }
+        },
+        "openNewUrl": {
+          "module": "vb/action/builtin/openUrlAction",
+          "parameters": {
+            "url": "{{ $chain.results.goToVBCookbook.url }}",
+            "windowName": "_self"
+          }
+        }
+      }
+    },
+    "ToggleSearch": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": false,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "toggleSearchVisiblity",
+      "actions": {
+        "toggleSearchVisiblity": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.showSearch": {
+              "source": "{{ !$page.variables.showSearch }}"
+            }
+          },
+          "outcomes": {
+            "success": "isSearchVisible"
+          }
+        },
+        "isSearchVisible": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.showSearch ]]"
+          },
+          "outcomes": {
+            "true": "focusSearchField"
+          }
+        },
+        "focusSearchField": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('recipeSearchCombo') }}",
+            "method": "focus"
+          }
+        }
+      }
+    },
+    "CloseSearch": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": false,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "ifThisFirstBlurEventOnFireFox",
+      "actions": {
+        "hideSearch": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.showSearch": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "waitForValueChangeEventToBeProcessedFirst": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "wait",
+            "params": [
+              "{{ 333 }}"
+            ]
+          },
+          "outcomes": {
+            "success": "hideSearch"
+          }
+        },
+        "refocusTheSearchBoxToo": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('recipeSearchCombo') }}",
+            "method": "focus"
+          }
+        },
+        "ifThisFirstBlurEventOnFireFox": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.ignoreFirstBlurOnFireFox ]]"
+          },
+          "outcomes": {
+            "false": "waitForValueChangeEventToBeProcessedFirst",
+            "true": "markFirstBlurAsHandled"
+          },
+          "description": "See description of ignoreFirstBlur variable"
+        },
+        "markFirstBlurAsHandled": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ignoreFirstBlurOnFireFox": {
+              "source": false
+            }
+          },
+          "outcomes": {
+            "success": "refocusTheSearchBoxToo"
+          }
+        }
+      }
+    },
+    "OpenThisRecipe": {
+      "description": "",
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "ifValidRecipeWasSelected",
+      "actions": {
+        "ifValidRecipeWasSelected": {
+          "module": "vb/action/builtin/ifAction",
+          "outcomes": {
+            "true": "runInParallel"
+          },
+          "parameters": {
+            "condition": "{{ $application.functions.getDemosMetadata()[$chain.variables.value] }}"
+          }
+        },
+        "HideSearchField": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "ToggleSearch"
+          }
+        },
+        "OpenRecipe": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "navigate",
+            "params": {
+              "selection": "{{ $chain.variables.value }}"
+            }
+          }
+        },
+        "runInParallel": {
+          "module": "vb/action/builtin/forkAction",
+          "parameters": {
+            "actions": {
+              "callActionChain1": "HideSearchField",
+              "callActionChain2": "OpenRecipe"
+            }
+          }
+        }
+      }
+    },
+    "EscapeCancelsSearch": {
+      "description": "",
+      "variables": {
+        "keyCode": {
+          "type": "number",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "root": "wasEscapePressed",
+      "actions": {
+        "HideSearchField": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "ToggleSearch"
+          }
+        },
+        "wasEscapePressed": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.variables.keyCode === 27 ]]"
+          },
+          "outcomes": {
+            "true": "HideSearchField"
+          }
+        }
+      }
+    },
+    "CheckFirstLoadedPage": {
+      "root": "ifCheckThePage",
+      "description": "When cookbook is opened via bookmark the left navigation may need to be updated",
+      "variables": {
+        "event": {
+          "required": false,
+          "input": "fromCaller",
+          "type": {
+            "previousPage": "string",
+            "previousPageParams": "any",
+            "currentPage": "string",
+            "currentPageParams": "any"
+          }
+        }
+      },
+      "actions": {
+        "ifCheckThePage": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.checkFirstPage && !$application.variables.isThisVBDesigner ]]"
+          },
+          "outcomes": {
+            "true": "markPageChecked"
+          }
+        },
+        "markPageChecked": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.checkFirstPage": {
+              "source": "{{ false }}"
+            }
+          },
+          "outcomes": {
+            "success": "ifNotHomePage"
+          }
+        },
+        "ifNotHomePage": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.variables.event.currentPage !== 'shell/home/home-start' ]]"
+          },
+          "outcomes": {
+            "true": "callNavigateChain"
+          }
+        },
+        "callNavigateChain": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "navigate",
+            "params": {
+              "selection": "{{ $chain.variables.event.currentPage.split('/')[1] }}"
+            }
+          },
+          "label": "To sync internal state"
+        }
+      }
+    },
+    "OpenAPIDoc": {
+      "root": "openUrl",
+      "description": "",
+      "variables": {
+        "url": {
+          "type": "string",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "actions": {
+        "openUrl": {
+          "module": "vb/action/builtin/openUrlAction",
+          "parameters": {
+            "url": "[[ 'https://www.oracle.com/webfolder/technetwork/jet/jsdocs/' + $chain.variables.url ]]",
+            "windowName": "apiDocs"
+          }
+        }
+      }
+    },
+    "ToggleNavBar": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "toggleValue",
+      "actions": {
+        "toggleValue": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.showNavBar": {
+              "source": "{{ !$page.variables.showNavBar }}"
+            }
+          }
+        }
+      }
+    },
+    "BreadCrumbClicked": {
+      "description": "",
+      "variables": {
+        "selection": {
+          "type": "string[]",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "root": "ifRecipeSelected",
+      "actions": {
+        "navigateToHomePage": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "navigate",
+            "params": {
+              "selection": "home"
+            }
+          }
+        },
+        "ifRecipeSelected": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.variables.selection.length > 0 ]]"
+          },
+          "outcomes": {
+            "true": "updateSelectedNodeInLeftNavMenu",
+            "false": "navigateToHomePage"
+          }
+        },
+        "updateSelectedNodeInLeftNavMenu": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "collapseAllButSelection",
+            "params": [
+              "{{ $chain.variables.selection }}"
+            ]
+          }
+        }
+      }
+    },
+    "CancelHowToOpenVBDialog": {
+      "root": "closeDialog",
+      "description": "",
+      "actions": {
+        "closeDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('howToOpenVBDialog') }}",
+            "method": "close"
+          }
+        }
+      }
+    },
+    "OpenHowToOpenVBDialog": {
+      "root": "callOpenDialog",
+      "description": "",
+      "actions": {
+        "callOpenDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('howToOpenVBDialog') }}",
+            "method": "open"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "onVersionItemSelect": {
+      "chains": [{
+        "chainId": "onVersionItemSelect",
+        "parameters": {
+          "selectedVersion": "{{ $event.target.value }}"
+        }
+      }]
+    },
+    "vbNotification": {
+      "chains": [{
+        "chainId": "showNotification",
+        "parameters": {
+          "eventPayload": "{{ { id: $event.key, summary: $event.summary, detail: $event.message, severity: $event.type, autoTimeout: $event.displayMode === 'transient' ? 0 : -1, timestamp: oj.IntlConverterUtils.dateToLocalIso(new Date()) } }}"
+        }
+      }]
+    },
+    "onMessageClose": {
+      "chains": [{
+        "chainId": "closeNotificationHandler",
+        "parameters": {
+          "eventMessage": "{{ $event.detail.message }}"
+        }
+      }]
+    },
+    "navItemSelection": {
+      "chains": [{
+        "chainId": "NavigationHandler",
+        "parameters": {
+          "item": "{{ $event.detail.value }}",
+          "updatedFrom": "{{ $event.detail.updatedFrom }}"
+        }
+      }]
+    },
+    "application:navigateToItem": {
+      "chains": [
+        {
+          "chainId": "navigate",
+          "parameters": {
+            "selection": "{{ $event.item }}"
+          }
+        }
+      ]
+    },
+    "openInVBActionClicked": {
+      "chains": [{
+        "chainId": "OpenHowToOpenVBDialog"
+      }]
+    },
+    "cancelButtonOjAction": {
+      "chains": [{
+        "chainId": "CancelHowToOpenVBDialog"
+      }]
+    },
+    "toggleSearchOjAction": {
+      "chains": [
+        {
+          "chainId": "ToggleSearch",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "recipeSearchComboValue": {
+      "chains": [
+        {
+          "chainId": "OpenThisRecipe",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "recipeSearchComboKeyup": {
+      "chains": [
+        {
+          "chainId": "EscapeCancelsSearch",
+          "parameters": {
+            "keyCode": "{{ $event.keyCode }}"
+          }
+        }
+      ]
+    },
+    "recipeSearchComboBlur": {
+      "chains": [
+        {
+          "chainId": "CloseSearch"
+        }
+      ]
+    },
+    "vbAfterNavigate": {
+      "chains": [
+        {
+          "chainId": "CheckFirstLoadedPage",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    },
+    "ojButtonOjAction5": {
+      "chains": [
+        {
+          "chainId": "OpenAPIDoc",
+          "parameters": {
+            "url": "{{ $page.variables.apiDocs[0].url }}"
+          }
+        }
+      ]
+    },
+    "ojButtonOjAction6": {
+      "chains": [
+        {
+          "chainId": "OpenAPIDoc",
+          "parameters": {
+            "url": "{{ $event.srcElement.value }}"
+          }
+        }
+      ]
+    },
+    "toggleNavListButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "ToggleNavBar",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "aClick": {
+      "chains": [
+        {
+          "chainId": "BreadCrumbClicked",
+          "parameters": {
+            "selection": "{{ $page.variables.breadCrumb.slice(1, $current.index+1).map(i => i.id) }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-messages": {
+        "path": "ojs/ojmessages"
+      },
+      "oj-menu": {
+        "path": "ojs/ojmenu"
+      },
+      "oj-menu-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-navigation-list": {
+        "path": "ojs/ojnavigationlist"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      }
+    }
+  },
+  "translations": {
+    "shell": {
+      "path": "./resources/strings/shell/nls/shell-strings"
+    }
+  }
+}

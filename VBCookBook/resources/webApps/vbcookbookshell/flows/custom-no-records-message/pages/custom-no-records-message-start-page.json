@@ -1,0 +1,86 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string"
+        }
+      ]
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "chains": {
+    "FilterActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "setQuery",
+      "actions": {
+        "setQuery": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeListSDP": {
+              "source": {
+                "filterCriterion": {
+                  "op": "$eq",
+                  "attribute": "firstName",
+                  "value": "Nonexistent"
+                }
+              },
+              "reset": "none",
+              "auto": "always"
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "filterButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "FilterActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "table-actions",
+  "description": "Flow main",
+  "defaultPage": "table-actions-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

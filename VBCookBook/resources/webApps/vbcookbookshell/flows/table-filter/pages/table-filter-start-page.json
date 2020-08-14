@@ -1,0 +1,80 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "filterText": {
+      "type": "string"
+    },
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallDepartmentResponse",
+        "filterCriterion": {
+          "op": "$or",
+          "criteria": [
+            {
+              "op": "$co",
+              "attribute": "location",
+              "value": "{{ $variables.filterText }}"
+            },
+            {
+              "op": "$co",
+              "attribute": "id",
+              "value": "{{ $variables.filterText }}"
+            },
+            {
+              "op": "$co",
+              "attribute": "manager",
+              "value": "{{ $variables.filterText }}"
+            },
+            {
+              "op": "$co",
+              "attribute": "departmentName",
+              "value": "{{ $variables.filterText }}"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number",
+          "location": "number",
+          "manager": "number"
+        }
+      ]
+    },
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-sample-highlight-text": {
+        "path": "oj-sample/highlight-text/loader"
+      },
+      "oj-sample-input-text-typeahead": {
+        "path": "oj-sample/input-text-typeahead/loader"
+      }
+    }
+  }
+}

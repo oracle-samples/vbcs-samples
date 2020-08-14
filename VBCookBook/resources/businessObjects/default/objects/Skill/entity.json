@@ -1,0 +1,125 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "67c2b7be-0545-467f-a5ea-41143cdacb99",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "3ad1e4e7-c158-4fcd-bc89-6d3aae92cbb0",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "8232c929-d7a0-43e7-93bb-b517bfd1842d",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "7a59413e-e8e0-4bc5-835c-6a551ad3ee46",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "971b6065-5f94-491d-a00d-395bc81ed926",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "58b796d4-bc57-4737-b615-af7cb1e7b492",
+            "type": "number"
+        },
+        {
+            "name": "name",
+            "oid": "65329b06-08a2-4f25-924c-376abf8dd890",
+            "displayLabel": "Name",
+            "type": "string"
+        }
+    ],
+    "name": "Skill",
+    "oid": "4e40df9f-d2f8-4783-84dc-903eb6932d66",
+    "displayLabel": "Skill",
+    "relationships": [
+        {
+            "name": "employeeSkillCollection",
+            "reverseRelationship": "skillObject",
+            "targetEntity": "EmployeeSkill",
+            "type": "incoming",
+            "exposeAccessor": true,
+            "displayField": "name"
+        },
+        {
+            "name": "employeeCollection",
+            "reverseRelationship": "skillCollection",
+            "intersectionRelationship": "employeeSkillCollection",
+            "targetEntity": "Employee",
+            "type": "manyToMany",
+            "exposeAccessor": true
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

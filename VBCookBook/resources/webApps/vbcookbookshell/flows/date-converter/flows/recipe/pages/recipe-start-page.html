@@ -1,0 +1,71 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div>
+  <h4>Summary:</h4>
+  <ol>
+    <li> Create a page variable to hold the converter options.</li>
+    <li> Create an Input Date component with setting the converter to the page variable.</li>
+    <li> Create combobox to choose desired format.</li>
+    <li> Add an on-value-changed event to update the <code>pattern</code> property of
+      the page variable.</li>
+  </ol>
+</div>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create the Page Model</span>
+      <div>
+        <ol>
+          <li>Add a <code>dateFormat</code> page variable of type Object. Give it the
+            following structure:
+            <pre>{
+  "type": "",
+  "options": {
+    "pattern": ""
+  }   
+}</pre>
+          </li>
+          <li>Give <code>dateFormat</code> the default value of:
+            <pre>{
+  "type": "datetime",
+  "options": {
+    "pattern": "MM/dd/yy"
+  }   
+}</pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>Drop the Form Layout, Date Picker, and Select One components on the page.</li>
+          <li>Give the Select One the following options:
+            <ul>
+              <li><code>yy-MM-dd</code></li>
+              <li><code>MM/dd/yy</code></li>
+            </ul>
+          </li>
+          <li>Set the <code>converter</code> property of the Date Picker to <code>[[ $variables.dateFormat ]]</code></li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step3">
+      <span slot="header">Add the Event and Action Chain</span>
+      <div>
+        <ol>
+          <li>Select the Select One component and use the Property Inspector to add an
+            event listeren for value.</li>
+          <li>Drag an Assign Variables action to the page. Use it to assign <code>$chain.variables.value</code>            to <code>$page.variables.dateFormat.options.pattern</code></li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

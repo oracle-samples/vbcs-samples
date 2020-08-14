@@ -1,0 +1,90 @@
+{
+  "backends": {
+    "vbprocess": {
+      "serviceType": "vbprocess",
+      "servers": [{
+        "url": "vb-catalog://backends/tenant-vbprocess",
+        "description": "Player Target Server",
+        "x-vb": {
+          "headers": {
+            "pcs_mode": "dev"
+          },
+          "authentication": {
+            "authenticated": {
+              "type": "cloud"
+            }
+          }
+        }
+      }, {
+        "url": "vb-catalog://backends/tenant-vbprocess",
+        "description": "Default Target Server",
+        "x-vb": {
+          "authentication": {
+            "authenticated": {
+              "type": "cloud"
+            }
+          }
+        }
+      }]
+    },
+    "ics": {
+      "serviceType": "ics",
+      "servers": [{
+        "url": "https://mockrest:443",
+        "x-vb": {
+          "authentication": {
+            "authenticated": {
+              "type": "cloud"
+            }
+          }
+        }
+      }]
+    },
+    "tenant-vbprocess": {
+      "serviceType": "vbprocess",
+      "servers": [{
+        "url": "https://mockrest:443",
+        "description": "Process Server",
+        "x-vb": {
+          "authentication": {
+            "authenticated": {
+              "type": "cloud"
+            }
+          }
+        }
+      }]
+    }
+  },
+  "services": {
+    "businessObjects": {
+      "openapi": "3.0.0",
+      "info": {
+        "title": "Business Objects",
+        "x-vb": {
+          "transforms": {
+            "path": "vb/BusinessObjectsTransforms"
+          }
+        }
+      },
+      "servers": [{
+        "url": "vb-extension://application/resources/data"
+      }],
+      "paths": {
+        "/describe": {
+          "get": {
+            "responses": {},
+            "x-vb": {
+              "headers": {
+                "Accept": "application/vnd.oracle.openapi3+json",
+                "REST-Pretty-Print": "false"
+              },
+              "queryParameters": {
+                "metadataMode": "minimal"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

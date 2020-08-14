@@ -1,0 +1,10 @@
+{
+    "flowModelVersion": "19.3.1",
+    "id": "rest-fa-attachments",
+    "description": "Flow main",
+    "defaultPage": "rest-fa-attachments-start",
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {}
+}

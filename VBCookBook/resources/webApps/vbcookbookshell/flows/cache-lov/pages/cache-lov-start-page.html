@@ -1,0 +1,40 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+
+  This demo shows how to cache LOV data in a flow-level ArrayDataProvider and bind
+  an oj-select-single to that ArrayDataProvider. In this way the REST API does not
+  need to be called every time you open the oj-select-single.
+
+
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex">
+      <h1 class="oj-flex-item oj-sm-flex-initial">Cached LOV Data</h1>
+    </div>
+    <div class="oj-flex">
+      <div class="oj-flex-item" style="word-wrap: break-word;">This oj-select-one pulls data from an ArrayDataProvider which is populated the first time you enter the flow.</div>
+    </div>
+    <div class="oj-flex">
+      <oj-form-layout label-edge="top" class="oj-flex-item oj-sm-flex-initial">
+        <oj-select-one label-hint="Country" value="{{ $variables.value }}" options="{{ $flow.variables.countryADP }}"
+          options-keys.value="id" options-keys.label="countryName"></oj-select-one>
+      </oj-form-layout>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

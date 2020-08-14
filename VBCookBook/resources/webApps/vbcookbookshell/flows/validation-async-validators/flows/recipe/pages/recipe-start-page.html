@@ -1,0 +1,41 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+    <oj-accordion id="accordionPage">
+      <oj-collapsible id="step1" expanded>
+        <span slot="header">Step 1: Create Form with Input Text element</span>
+        <div>
+          <ol>
+            <li> Open design view</li>
+            <li> Dnd Input Text element on to page and set following properties
+              using PI.
+              <ul>
+                <li>"validators" property to "[[$variables.validators]]". This
+                  is JET numberRange validator with min=100.</li>
+                <li>"converter" property to a currency converter as shown.</li>
+                <li>"value" property to "{{$variables.quantityLimit}}" to
+                  capture the entered value.</li>
+                <li>"async-validators" to
+                  "[[[$page.functions.asyncValidator]]]", a variables defined
+                  on PageModule.
+                  This is an object that duck-types AsyncValidator. Its API is
+                  validate(): Promise and hint: Promise.
+                  Note: Async validator type is not supported as variables in
+                  Oracle Visual Builder so have to use "$page.functions.*" . </li>
+              </ul>
+            </li>
+            <li>Type in 10001, you should see the async-validators error
+              message.</li>
+            <li>Type in 10000, you should see the async-validators error
+              message disappear and the valid state is valid.</li>
+            <li>Type in 99, you should see the validators error message.</li>
+            <li>Clear field and tab away, you should see the required error
+              message.</li>
+            <li>Type in 999, you should see no error messages and valid state
+              should be valid.</li>
+          </ol>
+        </div>
+      </oj-collapsible>
+    </oj-accordion>

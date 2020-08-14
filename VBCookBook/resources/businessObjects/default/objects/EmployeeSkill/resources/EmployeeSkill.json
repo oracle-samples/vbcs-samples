@@ -1,0 +1,44 @@
+{
+    "resources": {
+        "skillObject": {
+            "resources": {
+                "employeeCollection": {
+                    "resources": {
+                        "managerObject": {
+                        },
+                        "skillCollection": {
+                        },
+                        "jobObject": {
+                        },
+                        "departmentObject": {
+                            "resources": {
+                                "departmentManager": {
+                                    "resources": {
+                                        "managerObject": {
+                                        }
+                                    }
+                                },
+                                "locationObject": {
+                                    "resources": {
+                                        "locationCountry": {
+                                            "resources": {
+                                                "inRegion": {
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "employeeObject": {
+            "resources": {
+                "managerObject": {
+                }
+            }
+        }
+    }
+}

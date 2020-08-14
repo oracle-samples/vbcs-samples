@@ -1,0 +1,59 @@
+{
+  "pageModelVersion": "19.1.1",
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "getallDepartmentResponse",
+        "uriParameters": {
+          "limit": 10
+        }
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number",
+          "location" : "number",
+          "locationObject": {
+            "items": [
+              {
+                "city": "string",
+                "id": "number"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-vb-list-item": {
+        "path": "vb/components/list-item/loader"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      }
+    }
+  }
+}

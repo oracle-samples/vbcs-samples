@@ -1,0 +1,146 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "8bc75160-66f5-4677-8710-f3d5e49e6fcc",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "58f45b09-f302-40d7-b55a-a8705839d685",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "af1773da-d039-425b-8c09-c10d389b6cb6",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "359cbf21-f51b-4158-9111-d5ffd137dcf6",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "e2bb274a-f9f1-4ed9-9a91-c201844f3460",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "77017665-fdc8-4dad-8f7d-9e76779c9d27",
+            "type": "number"
+        },
+        {
+            "name": "countryName",
+            "oid": "b15921d1-ab3c-4ba3-a2de-ed23df378c70",
+            "required": true,
+            "displayLabel": "Country Name",
+            "type": "string"
+        },
+        {
+            "description": "World Region containing this country",
+            "name": "region",
+            "oid": "6c501e76-adcd-4aaa-9d5d-3732fcfa59e6",
+            "required": true,
+            "displayLabel": "Region",
+            "type": "reference"
+        },
+        {
+            "description": "Two character country code",
+            "name": "countryCode",
+            "maxLength": 2,
+            "minLength": 2,
+            "oid": "ddb3d718-bb29-4ead-a3d0-2fe760da327a",
+            "required": true,
+            "displayLabel": "Country Code",
+            "type": "string"
+        }
+    ],
+    "name": "Country",
+    "oid": "6ce2765d-dad6-4cd9-afda-bafc08d63421",
+    "displayLabel": "Country",
+    "pluralLabel": "Countries",
+    "relationships": [
+        {
+            "name": "inRegion",
+            "reverseRelationship": "countryCollection",
+            "targetEntity": "Region",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "region",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "locationCollection",
+            "reverseRelationship": "locationCountry",
+            "targetEntity": "Location",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "countryName"
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

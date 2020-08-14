@@ -1,0 +1,84 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This recipe shows you how to implement a master-detail relationship using two Table components in a Visual Builder app.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div
+      class="oj-flex oj-sm-flex-direction-column oj-flex-item oj-sm-flex-initial oj-sm-12 oj-md-8 oj-sm-flex-wrap-nowrap">
+      <h1 class="oj-flex-item oj-sm-flex-initial">Department</h1>
+      <oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-flex-initial"
+        data="[[$page.variables.departmentListSDP]]"
+        columns='[{"headerText":"Id","field":"id"},{"headerText":"Department Name","field":"departmentName"},{"headerText":"Location ID","field":"location"},{"headerText":"Manager ID","field":"manager"}]'
+        selection-mode.row="single" on-first-selected-row-changed="[[$listeners.departmentSelectedRow]]"
+        style="height: 400px" scroll-policy-options.fetch-size="15" id="department-table"></oj-table>
+      <h1 class="oj-flex-item oj-sm-flex-initial">Employee</h1>
+      <oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-flex-initial"
+        data="[[$page.variables.employeeListSDP]]"
+        columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Salary","sortable":"disabled","template":"multiFieldCellTemplate3"},{"headerText":"Hire date","sortable":"disabled","template":"multiFieldCellTemplate4"}]'
+        on-first-selected-row-changed="[[$listeners.employeeSelectedRow]]" selection-mode.row="single"
+        style="height: 400px" id="employee-table">
+        <template slot="multiFieldCellTemplate3">
+          <oj-input-number value="[[ $current.row.salary ]]" readonly="true"
+            converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'></oj-input-number>
+        </template>
+        <template slot="multiFieldCellTemplate4">
+          <oj-input-date value="[[ $current.row.hireDate ]]" readonly="true"></oj-input-date>
+        </template>
+      </oj-table>
+    </div>
+    <div class="oj-flex oj-sm-flex-direction-column oj-sm-12 oj-md-4 oj-flex-item oj-sm-flex-initial">
+      <h2 class="oj-flex-item oj-sm-flex-initial">Employee Data</h2>
+      <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+        <oj-bind-if test="[[ $variables.employee == undefined ]]">
+          <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"></oj-avatar>
+        </oj-bind-if>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+        <oj-bind-if test="[[ $variables.employee.id ]]">
+          <oj-avatar class="oj-flex-item oj-sm-flex-initial"
+            src="[[ $application.path + 'resources/images/employees/' + $variables.employee.id + '.png' ]]" size="lg">
+          </oj-avatar>
+        </oj-bind-if>
+      </div>
+      <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-flex-initial" id="empDetails">
+        <oj-input-text label-hint="Employee ID" value="{{ $variables.employee.id }}" placeholder="No value to display">
+        </oj-input-text>
+        <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}"
+          placeholder="No value to display" id="employee-first-name"></oj-input-text>
+        <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
+          placeholder="No value to display"></oj-input-text>
+        <oj-input-text virtual-keyboard="email"
+          validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
+          label-hint="Email" value="{{ $variables.employee.email }}" placeholder="No value to display"></oj-input-text>
+        <oj-input-text virtual-keyboard="tel"
+          validators='[{"type":"regexp", "options":{"pattern":"\\+? *([\\d]+ *\\( *[0-9]+ *\\))?[\\d -.]+", "hint":"Enter a valid phone number.", "messageDetail": "Value must be a valid phone number"}}]'
+          label-hint="Phone Number" value="{{ $variables.employee.phoneNumber }}" placeholder="No value to display">
+        </oj-input-text>
+        <oj-input-date label-hint="Hire Date" value="{{ $variables.employee.hireDate }}"
+          placeholder="No value to display"></oj-input-date>
+        <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'
+          label-hint="Salary" value="{{ $variables.employee.salary }}" placeholder="No value to display">
+        </oj-input-number>
+        <oj-input-text label-hint="Manager ID" value="{{ $variables.employee.manager }}"
+          placeholder="No value to display"></oj-input-text>
+      </oj-form-layout>
+    </div>
+
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

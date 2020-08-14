@@ -1,0 +1,64 @@
+{
+    "resources": {
+        "jobObject": {
+        },
+        "employeeObject": {
+            "resources": {
+                "managerObject": {
+                },
+                "skillCollection": {
+                    "resources": {
+                        "employeeCollection": {
+                            "resources": {
+                                "managerObject": {
+                                },
+                                "employeeSkillCollection": {
+                                    "resources": {
+                                        "skillObject": {
+                                            "resources": {
+                                                "employeeSkillCollection": {
+                                                    "resources": {
+                                                        "employeeObject": {
+                                                            "resources": {
+                                                                "managerObject": {
+                                                                },
+                                                                "jobObject": {
+                                                                },
+                                                                "departmentObject": {
+                                                                    "resources": {
+                                                                        "departmentManager": {
+                                                                            "resources": {
+                                                                                "managerObject": {
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "locationObject": {
+                                                                            "resources": {
+                                                                                "locationCountry": {
+                                                                                    "resources": {
+                                                                                        "inRegion": {
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "departmentObject": {
+        }
+    }
+}

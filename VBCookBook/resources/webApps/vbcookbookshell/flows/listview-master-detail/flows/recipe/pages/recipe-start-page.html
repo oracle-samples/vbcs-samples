@@ -1,0 +1,116 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>A master-detail-detail view over employees and departments. Each List View component listens
+  for selection change and updates its children accordingly.</p>
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Create the Page Model</span>
+    <div>
+      <ol>
+        <li><a href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-765FB233-EFBC-4841-8F18-27C233125C80" target="_blank">Create a Type from Endpoint</a>          based on the GET /Employee/{Employee_id} endpoint. Add the following fields
+          from the endpoint:
+          <ul>
+            <li>email</li>
+            <li>firstName</li>
+            <li>hireDate</li>
+            <li>id</li>
+            <li>lastName</li>
+            <li>manager</li>
+            <li>phoneNumber</li>
+            <li>salary</li>
+          </ul>
+        </li>
+        <li>Create the following page variables:
+          <ul>
+            <li>employee - get_Employee</li>
+            <li>selectedDepartment - Number</li>
+            <li>selectedEmployee - Number</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+
+  <oj-collapsible id="step2">
+    <span slot="header">Create the UI</span>
+    <div>
+      <ol>
+        <li>Drop a Flex container on the page.</li>
+        <li>Drop two more Flex Containers into the Flex Container above. Set the direction
+          of both to Vertical. Set the first Flex Container to not wrap and to take
+          8 columns.</li>
+        <li>Drop two List Views into the Flex Container above. Set the id property of
+          the top List View to <code>departmentList</code> and set the id property
+          of the bottom List View to <code>employeeList</code></li>
+        <li>Drop a Header above each List View. Set the Text property to <code>Departments</code>          for the first Header and <code>Employees</code> for the second Header.</li>
+        <li>Drop a Header into the second Flex Container. Set the Text property to <code>Employee Data</code>.</li>
+        <li>Drop to Bind-If components below the Header. Set the condition of the first
+          one to <code>[[ $variables.selectedEmployee == undefined ]]</code>. Set
+          the Condition of the second one to <code>[[ $variables.employee.id ]]</code>.
+          Set both to center-align.</li>
+        <li>Add an Avatar component to each Bind-If components. Set the Src property
+          of the second Avatar to <code>[[ $application.path + 'resources/images/employees/' + $variables.employee.id + '.png' ]]</code>.
+          Leave the Src property of the first Avatar blank.</li>
+        <li>Drop a Form Layout below the Header.</li>
+        <li>Drag the Input Text, Currency, Email, Phone, and InputDate components into
+          the Form Layout. Use the Property Inspector to set the Label text and bind
+          each component's data to the correct field in the employee page variable.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+
+  <oj-collapsible id="step3">
+    <span slot="header">Bind Data to the List Views</span>
+    <div>
+      <ol>
+        <li>In the Page Designer, select the departmentList List View. In the Property
+          Inspector, use the Add Data Quick Start to bind the List View to the GET
+          /Department endpoint. Add the departmentName field.</li>
+        <li>Select the employeeList List View and use the Add Data Quick Start to bind
+          it to the GET /Employees endpoint. Bind the following fields:
+          <ul>
+            <li>firstName</li>
+            <li>hireDate</li>
+            <li>lastName</li>
+            <li>id</li>
+            <li>salary</li>
+          </ul>
+          In the last page of the Quick Start, set the filterCriterion to department eq $variables.selectedDepartment.</li>
+        <li>Drag an Avatar component into the image slot of the List. Bind the Src value
+          to <code>[[ $application.path + 'resources/images/employees/' + $variables.employee.id + '.png' ]]</code></li>
+      </ol>
+    </div>
+  </oj-collapsible>
+
+  <oj-collapsible id="step4">
+    <span slot="header">Add the Events and Action Chains</span>
+    <div>
+      <ol>
+        <li>In the Page Designer, select the departmentList List View. In the Property
+          Inspector, set the Selection Mode to single.</li>
+        <li>In the Events tab of the Property Inspector, add a new event for selection
+          and set it to fire a new page action chain called <code>DepartmentSelectedChain</code>.</li>
+        <li>Drop an Assign Variables action to the action chain. Map the <code>keys</code>          action chain variable on the left to <code>selectedDepartment</code> on
+          the right.</li>
+        <li>Drop a Reset Variable action and select <code>$page.variables.selectedEmployee</code>          and <code>$page.variables.employee</code> in the Variable to Reset field.</li>
+        <li>In the Page Designer, select the employeeList List View. In the Property
+          Inspector, set the Selection Mode to single.</li>
+        <li>In the Events tab of the Property Inspector, add a new event for selection
+          and set it to fire a new page action chain called <code>EmployeeSelectedChain</code>.</li>
+        <li>Drop an Assign Variables action to the action chain. Map the <code>keys</code>          action chain variable on the left to <code>selectedEmployee</code> on the
+          right.</li>
+        <li>Drop an If action and set the condition to <code>[[ $page.variables.selectedEmployee == null ]]</code></li>
+        <li>In the true path of the If action, drop a Reset Variable action and select
+          <code>$page.variables.employee</code> in the Variable to Reset field.</li>
+        <li>In the false path of the If action, drop a Call REST Endpoint action. Set
+          the action to call the GET /Employee/{Employee_id} endpoint. Pass in <code>$page.variables.selectedEmployee</code>          as the Employee_Id input parameter.</li>
+        <li>In the success path of the Call REST Endpoint action, drop an Assign Variables
+          action. Map the body of the Call REST Endpoint action on the left to the
+          <code>employee</code> page variable on the right.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

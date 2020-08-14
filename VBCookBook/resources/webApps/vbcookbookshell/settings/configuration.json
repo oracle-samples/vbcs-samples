@@ -1,0 +1,12 @@
+{
+    "identity": {
+        "selected": ["cloud"]
+    },
+    "roles" : {
+        "pages": {
+            "anonymous": [],
+            "protected": {}
+        }
+    },
+    "embedding": "any"
+}

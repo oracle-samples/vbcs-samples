@@ -1,0 +1,10 @@
+    {
+        "flowModelVersion": "18.3.3",
+        "id": "inputnumber",
+        "description": "Flow main",
+        "defaultPage": "inputnumber-eating-chars-start",
+        "chains": {},
+        "services": {},
+        "types": {},
+        "variables": {}
+    }

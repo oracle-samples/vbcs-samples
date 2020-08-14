@@ -1,0 +1,91 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-dialog style="display:none" dialog-title="Details" id="oj-dialog--1155637190-1">
+  <div slot="body">
+    <div class="oj-flex">
+      <oj-label for="oj-input-text--150600980-1" class="oj-flex-item oj-sm-12 oj-md-4">First Name</oj-label>
+      <oj-input-text id="oj-input-text--150600980-1" value="{{ $variables.currentEmployee.firstName }}"
+        class="oj-flex-item oj-sm-12 oj-md-8"></oj-input-text>
+    </div>
+    <div class="oj-flex">
+      <oj-label for="oj-input-text--150600980-2" class="oj-flex-item oj-sm-12 oj-md-4">Last Name</oj-label>
+      <oj-input-text id="oj-input-text--150600980-2" class="oj-flex-item oj-sm-12 oj-md-8"
+        value="{{ $variables.currentEmployee.lastName }}"></oj-input-text>
+    </div>
+    <div class="oj-flex">
+      <oj-label for="oj-input-text--150600980-3" class="oj-flex-item oj-sm-12 oj-md-2">Email</oj-label>
+      <div class="oj-flex-item oj-sm-12 oj-md-2"></div>
+      <oj-input-text id="oj-input-text--150600980-3" virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
+        class="oj-flex-item oj-sm-12 oj-md-8" value="{{ $variables.currentEmployee.email }}"></oj-input-text>
+    </div>
+    <div class="oj-flex">
+      <oj-label for="oj-input-text--150600980-4" class="oj-flex-item oj-sm-12 oj-md-2">Salary</oj-label>
+      <div class="oj-flex-item oj-sm-12 oj-md-2"></div>
+      <oj-input-number id="oj-input-text--150600980-4" converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'
+        class="oj-flex-item oj-sm-12 oj-md-8" value="{{ $variables.currentEmployee.salary }}"></oj-input-number>
+    </div>
+  </div>
+  <div slot="footer">
+    <oj-button on-oj-action="[[$listeners.ojButtonOjAction]]">Save</oj-button>
+  </div>
+</oj-dialog>
+<div class="oj-margin-bottom">
+  This recipe shows how you configure your app so that users can make multiple edits on the client and save all changes to the backend service using a single REST batch call.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex oj-sm-flex-direction-column">
+  <div class="oj-flex">
+    <h2 id="h1-1829646926-1" class="oj-flex-item oj-lg-3 oj-sm-3 oj-md-3">Department</h2>
+    <div class="oj-flex-item oj-lg-9 oj-sm-9 oj-flex oj-sm-align-items-center oj-md-9 oj-flex-items-pad oj-sm-justify-content-flex-end">
+      <div class="oj-flex-item oj-sm-flex-initial">
+        <oj-button class="" on-oj-action="[[$listeners.ojButtonOjAction2]]">Refresh (Cancel All Edits)</oj-button>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial">
+        <oj-button on-oj-action="[[$listeners.ojButtonOjAction3]]">New Employee</oj-button>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial">
+        <oj-button on-oj-action="[[$listeners.ojButtonOjAction4]]">Save (Batch)</oj-button>
+      </div>
+    </div>
+  </div>
+  <div class="oj-flex oj-sm-flex-items-initial">
+    <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-flex-initial">
+      <oj-input-text label-hint="Name" value="{{ $variables.departmentName }}" class="oj-form-control-full-width"></oj-input-text>
+    </oj-form-layout>
+  </div>
+  <div class="oj-flex-item oj-sm-flex-initial oj-flex oj-sm-justify-content-space-between oj-sm-flex-items-1 oj-sm-align-items-center">
+    <h2 class="oj-flex-item oj-sm-flex-initial">Employees</h2>
+    <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+
+    </div>
+  </div>
+  <oj-table id="multi-edit-batch-save" scroll-policy="loadMoreOnScroll" style="max-height: 400px;" scroll-policy-options='{"fetchSize": 10}'
+    data="[[$page.variables.employeeListADP]]" columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"}, {"headerText":"Email","template":"cellTemplate1","resizable":"enabled"},{"headerText":"Salary","template":"cellTemplate2","resizable":"enabled"},{"headerText":"Actions","template":"cellTemplate"}]'>
+    <template slot="cellTemplate1">
+			<oj-input-text virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]' value="{{ $current.row.email }}" readonly="true"></oj-input-text>
+		</template>
+    <template slot="cellTemplate2">
+			<oj-input-number converter='{"options":{"style":"currency","currency":"USD","useGrouping":true,"currencyFormat":"standard"},"type":"number"}' value="{{ $current.row.salary }}" readonly="true"></oj-input-number>
+		</template>
+    <template slot="cellTemplate">
+			<span class="vb-icon vb-icon-pencil" on-click="[[$listeners.editEmployee]]"></span>
+			<span style="padding-left:10px;" class="vb-icon vb-icon-delete-trash-can" on-click="[[$listeners.deleteEmployee]]"></span>
+		</template>
+  </oj-table>
+</div>
+</div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

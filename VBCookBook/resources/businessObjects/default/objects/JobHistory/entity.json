@@ -1,0 +1,164 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "c1af9a58-ba32-4dad-9988-7302e8cc9699",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "8e310c63-b9bd-461c-8de7-28409395b95a",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "95290437-5b68-4f2f-ba40-44110fac6fdb",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "3c2fce6b-f1bc-4892-8793-41a4793387c9",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "d1d6e0ca-4e59-4d05-85a8-c22f436a0f84",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "59ab3428-e808-4a9c-8275-9efc0c98d724",
+            "type": "number"
+        },
+        {
+            "name": "employee",
+            "oid": "6e5e4ad7-25d4-4620-a3ed-9066fe2576d9",
+            "required": true,
+            "displayLabel": "Employee",
+            "type": "reference"
+        },
+        {
+            "name": "startDate",
+            "oid": "372a5879-5253-455c-8dbb-5aa2dd0b9a10",
+            "required": true,
+            "displayLabel": "Start date",
+            "type": "date"
+        },
+        {
+            "name": "endDate",
+            "oid": "0c001870-a448-4f4b-ba73-a9a6643200df",
+            "required": true,
+            "displayLabel": "End date",
+            "type": "date"
+        },
+        {
+            "name": "job",
+            "oid": "85a7f140-b104-4ea4-b8fe-9e98e452cb4e",
+            "required": true,
+            "displayLabel": "Job",
+            "type": "reference"
+        },
+        {
+            "name": "department",
+            "oid": "f898455c-e4f9-4f7d-b35f-6bd81d2db62a",
+            "displayLabel": "Department",
+            "type": "reference"
+        }
+    ],
+    "name": "JobHistory",
+    "oid": "0580cfb1-9bda-43ac-88be-a65975b25bce",
+    "displayLabel": "JobHistory",
+    "relationships": [
+        {
+            "name": "employeeObject",
+            "reverseRelationship": "jobHistoryCollection",
+            "targetEntity": "Employee",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "employee",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "jobObject",
+            "reverseRelationship": "jobHistoryCollection",
+            "targetEntity": "Job",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "job",
+            "deleteRule": "restrict"
+        },
+        {
+            "name": "departmentObject",
+            "reverseRelationship": "jobHistoryCollection",
+            "targetEntity": "Department",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "department",
+            "deleteRule": "restrict"
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

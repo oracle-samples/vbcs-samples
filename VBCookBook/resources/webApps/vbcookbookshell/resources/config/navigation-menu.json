@@ -1,0 +1,180 @@
+[
+  {
+    "id": "home",
+    "label": "Home"
+  },
+  {
+    "id": "collections",
+    "label": "Collections",
+    "categoryBannerClass": "rootCollections_banner",
+    "categoryBorderClass": "rootCollections_border",
+    "items": [
+      {
+        "id": "listview",
+        "label": "List View",
+        "imageUrl": "listview_grid.png",
+        "items": [
+          "listview-multi-select",
+          "listview-sorting",
+          "listview-master-detail",
+          "listview-cardlayout",
+          "list-load-more-on-scroll"
+        ]
+      },
+      {
+        "id": "table",
+        "label": "Table",
+        "imageUrl": "table_grid.png",
+        "items": [
+          "table-multi-select",
+          "batch-editable-table",
+          "table-sorting",
+          "table-filter",
+          "table-master-detail",
+          "table-actions",
+          "custom-no-records-message",
+          "table-complex-filters"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "patterns",
+    "label": "Patterns",
+    "categoryBannerClass": "rootCollections_banner",
+    "categoryBorderClass": "rootCollections_border",
+    "items": [
+      {
+        "id": "uiPatterns",
+        "label": "UI Patterns",
+        "imageUrl": "applayoutweb_grid.png",
+        "items": [
+          "patterns-show-ui-when-ready",
+          "conditional-styling"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "forms",
+    "label": "Forms",
+    "categoryBannerClass": "rootForms_banner",
+    "categoryBorderClass": "rootForms_border",
+    "items": [
+      {
+        "id": "cascadinglov",
+        "label": "Cascading LOV",
+        "imageUrl": "select_one_grid.png",
+        "items": [
+          "cascading-lov"
+        ]
+      },
+      {
+        "id": "inputnumber",
+        "label": "Input Number",
+        "imageUrl": "inputnumber_grid.png",
+        "items": [
+          "inputnumber-eating-chars"
+        ]
+      },
+      {
+        "id": "inputdate",
+        "label": "Input Date",
+        "imageUrl": "inputdate_grid.png",
+        "items": [
+          "date-converter"
+        ]
+      },
+      {
+        "id": "validation",
+        "label": "Validation",
+        "imageUrl": "validators_grid.png",
+        "items": [
+          "validation-async-validators"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout",
+    "label": "Layout & Nav",
+    "categoryBannerClass": "rootLayoutNav_banner",
+    "categoryBorderClass": "rootLayoutNav_border",
+    "items": [
+      {
+        "id": "formlayout",
+        "label": "Form Layout",
+        "imageUrl": "formlayout_grid.png",
+        "items": [
+          "form-layout-inline"
+        ]
+      },
+      {
+        "id": "dialog",
+        "label": "Dialog",
+        "imageUrl": "dialog_grid.png",
+        "items": [
+          "confirmation-dialog"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rest",
+    "label": "REST Services",
+    "categoryBannerClass": "rootRest_banner",
+    "categoryBorderClass": "rootRest_border",
+    "items": [
+      {
+        "id": "rest-upload",
+        "label": "File Upload",
+        "imageUrl": "restupload_grid.png",
+        "items": [
+          "rest-cec-upload",
+          "rest-fa-attachments"
+        ]
+      },
+      {
+        "id": "ords",
+        "label": "ORDS",
+        "imageUrl": "ords.png",
+        "items": [
+          "rest-ords-integration"
+        ]
+      },
+      {
+        "id": "multieditbatchsave",
+        "label": "Multi Edit Batch Save",
+        "imageUrl": "batchrest.png",
+        "items": [
+          "multi-edit-batch-save"
+        ]
+      },
+      {
+        "id": "helpers",
+        "label": "Helpers",
+        "imageUrl": "restHelper.png",
+        "items": [
+          "rest-helper"
+        ]
+      },
+      {
+        "id": "partial-get",
+        "label": "Partial GET",
+        "imageUrl": "partial-get-bo-fa.png",
+        "items": [
+          "partial-get-bo-fa"
+        ]
+      },
+      {
+        "id": "saas-lovs",
+        "label": "SaaS List of Values",
+        "imageUrl": "select_one_list.png",
+        "items": [
+          "cache-lov",
+          "fa-lovs"
+        ]
+      }
+    ]
+  }
+]

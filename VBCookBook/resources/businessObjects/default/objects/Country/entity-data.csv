@@ -1,0 +1,26 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,countryName,region,countryCode
+1,2020-01-30T16:33:11,2020-01-30T16:33:11.008,jane.smith@example.com,jane.smith@example.com,Italy,1,IT
+2,2020-01-30T16:33:43,2020-01-30T16:33:43.012,jane.smith@example.com,jane.smith@example.com,United States of America,2,US
+3,2020-01-30T16:34:21,2020-01-30T16:34:21.004,jane.smith@example.com,jane.smith@example.com,Canada,2,CA
+4,2020-01-30T16:34:21,2020-01-30T16:34:21.004,jane.smith@example.com,jane.smith@example.com,Japan,3,JP
+5,2020-01-30T16:34:21,2020-01-30T16:34:21.004,jane.smith@example.com,jane.smith@example.com,China,3,CN
+6,2020-01-30T16:34:21,2020-01-30T16:34:21.004,jane.smith@example.com,jane.smith@example.com,India,3,IN
+7,2020-01-30T16:34:21,2020-01-30T16:34:21.004,jane.smith@example.com,jane.smith@example.com,Australia,3,AU
+8,2020-01-30T16:34:22,2020-01-30T16:34:21.005,jane.smith@example.com,jane.smith@example.com,Zimbabwe,4,ZW
+9,2020-01-30T16:34:23,2020-01-30T16:34:21.006,jane.smith@example.com,jane.smith@example.com,Singapore,3,SG
+10,2020-01-30T16:34:24,2020-01-30T16:34:21.007,jane.smith@example.com,jane.smith@example.com,United Kingdom,1,UK
+11,2020-01-30T16:34:25,2020-01-30T16:34:21.008,jane.smith@example.com,jane.smith@example.com,France,1,FR
+12,2020-01-30T16:34:26,2020-01-30T16:34:21.009,jane.smith@example.com,jane.smith@example.com,Germany,1,DE
+13,2020-01-30T16:34:27,2020-01-30T16:34:21.01,jane.smith@example.com,jane.smith@example.com,Zambia,4,ZM
+14,2020-01-30T16:34:28,2020-01-30T16:34:21.011,jane.smith@example.com,jane.smith@example.com,Egypt,4,EG
+15,2020-01-30T16:34:29,2020-01-30T16:34:21.012,jane.smith@example.com,jane.smith@example.com,Brazil,2,BR
+16,2020-01-30T16:34:30,2020-01-30T16:34:21.013,jane.smith@example.com,jane.smith@example.com,Switzerland,1,CH
+17,2020-01-30T16:34:31,2020-01-30T16:34:21.014,jane.smith@example.com,jane.smith@example.com,Netherlands,1,NL
+18,2020-01-30T16:34:32,2020-01-30T16:34:21.015,jane.smith@example.com,jane.smith@example.com,Mexico,2,MX
+19,2020-01-30T16:34:33,2020-01-30T16:34:21.016,jane.smith@example.com,jane.smith@example.com,Kuwait,4,KW
+20,2020-01-30T16:34:34,2020-01-30T16:34:21.017,jane.smith@example.com,jane.smith@example.com,Israel,4,IL
+21,2020-01-30T16:34:35,2020-01-30T16:34:21.018,jane.smith@example.com,jane.smith@example.com,Denmark,1,DK
+22,2020-01-30T16:34:36,2020-01-30T16:34:21.019,jane.smith@example.com,jane.smith@example.com,Malaysia,3,ML
+23,2020-01-30T16:34:37,2020-01-30T16:34:21.02,jane.smith@example.com,jane.smith@example.com,Nigeria,4,NG
+24,2020-01-30T16:34:38,2020-01-30T16:34:21.021,jane.smith@example.com,jane.smith@example.com,Argentina,2,AR
+25,2020-01-30T16:34:39,2020-01-30T16:34:21.022,jane.smith@example.com,jane.smith@example.com,Belgium,1,BE

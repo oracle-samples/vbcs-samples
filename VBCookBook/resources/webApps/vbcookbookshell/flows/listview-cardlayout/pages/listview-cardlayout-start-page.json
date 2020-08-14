@@ -1,0 +1,70 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallEmployeeResponse": {
+      "items": [{
+        "email": "string",
+        "firstName": "string",
+        "id": "number",
+        "lastName": "string",
+        "salary": "number",
+        "phoneNumber":"string"
+      }]
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-vb-list-item": {
+        "path": "vb/components/list-item/loader"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

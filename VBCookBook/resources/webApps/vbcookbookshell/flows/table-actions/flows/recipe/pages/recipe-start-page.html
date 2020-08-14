@@ -1,0 +1,164 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+   <p>
+    A Table component displays employee data. An Icon component with an event listener opens a Dialog component where
+    the user updates the selected employee. An action chain calls the <code>update_Employee</code> endpoint, refreshes
+    the selected employee in the Table component, and closes the Dialog component.
+  </p>
+</div>
+
+<!-- Step 1. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1" expanded>
+      <h1 slot="header">Create an Employee Table</h1>
+      <div>
+        <p>You add a Table component to your page, bind it to employee data, and add an icon that you'll later use to
+          open a dialog where the user updates the selected employee. </p>
+        <ol>
+          <li>In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li>Use the Table component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your table to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Email</li>
+              <li>Salary</li>
+            </ul>
+          </li>
+          <li>In the Component Palette, drag an Icon component and drop it on the Table component’s Cell Template slot.
+          </li>
+          <li>In the Icon Property Inspector, click <strong>Icon</strong> to open the Icon Gallery and select a pencil
+            icon. </li>
+
+
+<li>In the Data tab of the Table component’s Property Inspector, add an Actions column to the Table Columns property:
+<br><pre>
+  ,{
+    "headerText": "Actions",
+    "template": "cellTemplate"
+  }
+</pre>
+<p>The Actions column displays the Pencil icon that the user clicks to open the Dialog component. </p>
+</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<!-- Step 2 -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Create Variables and UI Components to Update the Selected Employee</h1>
+      <div>
+        <p>You'll need to create variables to reference the selected employee and action chains that open a dialog and
+          update the selected employee. </p>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+              a type from endpoint</a> named <code>get_Employee</code> based on the GET / Employee {Employee_ID}
+            endpoint.</li>
+          <li>Add the following fields to this newly-created type:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Salary</li>
+              <li>Email</li>
+              <li>ID</li>
+            </ul>
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a page variable</a> named <code>currentEmployee</code> of type get_Employee.</li>
+              <li>In the Component Palette, drag a Dialog component and drop it on the page.</li>
+
+
+<li>In the General tab of the Property Inspector, click <strong>Show</strong> for the Temporary Override value of the Initial Visibility property.</li>
+
+              <li>In the Component Palette, drag four Input Text components and drop them on the Dialog component.</li>
+          <li>In the Property Inspector for the associated Label components, set the value of the Text property to:
+            <ul>
+              <li>First Name </li>
+              <li>Last Name</li>
+              <li>Salary </li>
+              <li>Email</li>
+            </ul>
+          </li>
+          <li>In the Data tab of each Input Text component, select the appropriate field value of the
+            <code>currentEmployee</code>
+            page variable from the Value drop-down list. For example, <code>{{ $variables.currentEmployee.firstName }}</code>.
+            </li>
+          
+          
+          </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<!-- Step 3 -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Add Event Listeners to Invoke Action Chains</h1>
+      <div>
+        <p>Add listeners for events that then invoke action chains to open the dialog and update the
+          employee data.</p>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              an event listener</a> to the Icon component.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> to the action chain named <code>AssignEmployeeRecord</code> that assigns the current variable in the Sources
+            of the action chain to the <code>currentEmployee</code> page variable in Target.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
+              a Call Component Method
+              action</a> named <code>OpenDialog</code>. </li>
+          <li>In the Property Inspector, select the <strong>oj-dialog</strong> component from the Component drop-down list and
+            <strong>open</strong> from the Method Name drop-down list.</li>
+          <li>Add an event listener to the Button component in the Dialog component.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
+              a Call REST Endpoint action</a> to the action chain
+            that assigns {}currentEmployee in the Sources page variables to the Employee_Id in Parameters.</li>
+          <li>On the success outcome path, add a Fire Data Provider Event action to refresh the employee Service Data
+            Provider page variable and a Call Component Method action to close the Dialog component. </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+
+
+<!-- Step Template Use <oj-collapsible expanded on first step, but not on subsequent steps. -->
+<!-- <div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="steptempllate" expanded>
+      <h1 slot="header">Step Title</h1>
+      <div>
+       <p>Context </p>
+          <ol>
+          <li>Step 1.</li>
+          <li>Step 2:
+            <ul>
+              <li>Sub step 1</li>
+              <li>Sub step 2</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>  -->

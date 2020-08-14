@@ -1,0 +1,92 @@
+{
+  "pageModelVersion": "19.3.1",
+  "title": "",
+  "description": "",
+  "variables": {
+    "recipeListArray": {
+      "type": "any",
+      "defaultValue": "{{ $page.functions.getRecipeListData( $application.functions.getMetadata() ) }}"
+    },
+    "recipeListADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $page.variables.recipeListArray }}",
+        "itemType": "any"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "RecipeTileClicked": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "getRecipeDetails",
+      "actions": {
+        "getRecipeDetails": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $application.functions ]]",
+            "functionName": "getRecipe",
+            "params": [
+              "{{ $chain.variables.current.data.url }}"
+            ]
+          },
+          "outcomes": {
+            "success": "fireNavigateToEvent"
+          }
+        },
+        "fireNavigateToEvent": {
+          "module": "vb/action/builtin/fireCustomEventAction",
+          "parameters": {
+            "name": "application:navigateToItem",
+            "payload": {
+              "item": "{{ $chain.results.getRecipeDetails.recipe.id }}"
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "aClick": {
+      "chains": [{
+        "chainId": "RecipeTileClicked",
+        "parameters": {
+          "detail": "{{ $event.detail }}",
+          "key": "{{ $current.key }}",
+          "index": "{{ $current.index }}",
+          "current": "{{ $current }}"
+        }
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      }
+    }
+  }
+}

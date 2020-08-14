@@ -1,0 +1,184 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallDepartmentResponse"
+      }
+    },
+    "selectedDepartmentId": {
+      "type": "number"
+    },
+    "employee": {
+      "type": "object"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "filterCriterion": {
+          "op": "$eq",
+          "attribute": "department",
+          "value": "{{ $variables.selectedDepartmentId }}"
+        }
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number",
+          "location": "number",
+          "manager": "number"
+        }
+      ]
+    },
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "EmployeeSelectedChain": {
+      "description": "",
+      "variables": {
+        "rowKey": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowData": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignEmployee",
+      "actions": {
+        "assignEmployee": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employee": {
+              "source": "{{ $chain.variables.rowData }}",
+              "auto": "always"
+            }
+          }
+        }
+      }
+    },
+    "DepartmentSelectedChain": {
+      "description": "",
+      "variables": {
+        "rowKey": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowData": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignSelectedDepartment",
+      "actions": {
+        "assignSelectedDepartment": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.selectedDepartmentId": {
+              "source": "{{ $chain.variables.rowKey }}"
+            }
+          },
+          "outcomes": {
+            "success": "resetEmployee"
+          }
+        },
+        "resetEmployee": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.employee"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "departmentSelectedRow": {
+      "chains": [
+        {
+          "chainId": "DepartmentSelectedChain",
+          "parameters": {
+            "rowKey": "{{$event.detail.value.key}}",
+            "rowData": "{{$event.detail.value.data}}"
+          }
+        }
+      ]
+    },
+    "employeeSelectedRow": {
+      "chains": [
+        {
+          "chainId": "EmployeeSelectedChain",
+          "parameters": {
+            "rowKey": "{{$event.detail.value.key}}",
+            "rowData": "{{$event.detail.value.data}}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      }
+    }
+  }
+}

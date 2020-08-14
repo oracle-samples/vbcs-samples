@@ -1,0 +1,139 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "e423c650-52a2-4d52-92e4-20f53c25df67",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "f7c51a7d-c3e2-44ed-80ef-7d7afb86644a",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "7f4f7669-649f-4a3e-9b32-fa4a3a8162c9",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "0de74efc-65ed-4eca-ac31-5450794ed1f5",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "006460e5-2629-4b2f-ab01-42a44ddf39a7",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "29674c3b-366c-42a5-abe4-75cdcb8d5c2c",
+            "type": "number"
+        },
+        {
+            "name": "jobTitle",
+            "oid": "9a11eec0-2a9e-435b-9d20-97b4f39b2916",
+            "required": true,
+            "displayLabel": "Job title",
+            "type": "string"
+        },
+        {
+            "name": "minSalary",
+            "oid": "d2002db6-2649-4bb6-9887-13ec464725f9",
+            "displayLabel": "Minimum salary",
+            "type": "number"
+        },
+        {
+            "name": "maxSalary",
+            "oid": "1e700086-14a6-474d-a592-fdb8b9b7ae29",
+            "displayLabel": "Maximum salary",
+            "type": "number"
+        }
+    ],
+    "name": "Job",
+    "oid": "08251d6f-df56-4039-afca-67219a323055",
+    "displayLabel": "Job",
+    "pluralLabel": "Jobs",
+    "relationships": [
+        {
+            "name": "employeeCollection",
+            "reverseRelationship": "jobObject",
+            "targetEntity": "Employee",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "jobTitle"
+        },
+        {
+            "name": "jobHistoryCollection",
+            "reverseRelationship": "jobObject",
+            "targetEntity": "JobHistory",
+            "type": "incoming",
+            "exposeAccessor": false,
+            "displayField": "jobTitle"
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

@@ -1,0 +1,41 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div>
+  <p>
+    When dealing with large quantity of data, it is often a good idea to load data as
+    per demand via pagination. Out of the box, List view and Tables can work with
+    Service Data Provider to load chunks of data as required.
+  </p>
+</div>
+<oj-accordion id="accordionPage" multiple="">
+
+  <oj-collapsible id="step2" expanded="true">
+    <span slot="header"> Create a List View With Employee BO</span>
+    <div>
+      <ol>
+        <li>Drag and Drop a List View component from the component palette onto the design
+          view</li>
+        <li>Use Quick Start to add Data</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+
+  <oj-collapsible id="step3">
+    <span slot="header"> Configure Pagination on List</span>
+    <div>
+      <ol>
+        <li>Use the property inspector to locate the scroll policies</li>
+        <li>Set the <code>scroll-policy</code> to loadMoreOnScroll</li>
+        <li>Expand the <code>scroll-policy-options</code> to set values for the below</li>
+        <ul>
+          <li><code>fetch-size</code> to 15</li>
+          <li><code>max-count</code> to 1000</li>
+          <li>For loadMoreOnScroll to work properly, the scroller must be visible, set <code>max-height</code>            to a fixed value via style property.</li>
+        </ul>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

@@ -1,0 +1,10 @@
+{
+    "resources": {
+        "locationCountry": {
+            "resources": {
+                "inRegion": {
+                }
+            }
+        }
+    }
+}

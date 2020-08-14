@@ -1,0 +1,66 @@
+{
+  "applicationModelVersion": "19.3.1",
+  "id": "vbcookbookshell",
+  "description": "VB Cookbook Shell",
+  "defaultPage": "shell",
+  "chains": {
+  },
+  "services": {
+    "businessObjects": {
+        "path": "vb-catalog://services/businessObjects"
+      },
+    "ords": {
+      "path": "./services/ords/openapi3.json"
+    },
+    "cec": {
+      "path": "./services/cec/openapi3.json"
+    },
+    "activities": {
+      "path": "./services/activities/openapi3.json"
+    }
+  },
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      }
+    }
+  },
+  "types": {},
+  "variables": {
+    "isThisVBDesigner": {
+      "type": "boolean",
+      "defaultValue": "{{ window.vbInitConfig.RUNTIME_ENV_CLASS === 'vbdt/preview-core/rt/DtRuntimeEnvironment' || $application.variables.hideRecipe }}",
+      "description": "This is helper variable which is used to hide some content when VB Cookbook is opened in VB Design Time. The purpose is to streamline working with individual recipes."
+    },
+    "hideRecipe": {
+      "type": "boolean",
+      "defaultValue": false,
+      "input": "fromUrl",
+      "description": "This can be set to true on URL to force VB Cookbook to behave as if it was opened in VB Designer, that is rendering without recipes subflow. It is used from functional tests execution as vb-webdriver Expectation has issues with testing pages with subflow"
+    }
+  },
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {
+    "access": {
+      "requiresAuthentication": false
+    }
+  },
+  "requirejs": {
+    "paths": {
+      "oj-sample": "build/components/oj-sample/3.1.3",
+      "resources2": "{{ location.pathname + (window.vbInitConfig.BASE_URL_TOKEN ? window.vbInitConfig.BASE_URL_TOKEN + '/' : '') + 'resources'}}"
+    }
+  },
+  "eventListeners": {
+  }
+}

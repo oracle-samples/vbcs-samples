@@ -1,0 +1,65 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo shows the behavior of an editable form control when it is created with
+  both validators attribute and the async-validators attribute set. The validators
+  attribute is set to a numberRange validator where the min is 100. The async-validators
+  attribute is set to a validator which mocks going to the server for information
+  about your credit-score, and based on that creates a numberRange validator with
+  a max, which we say is 10000.
+  <p>
+    When both validators finish, the valid state and value (if no error) is updated.
+    The editable form control shows its errors as soon as it gets them, so it is
+    the async validators message will be delayed if the validator is delayed.
+  </p>
+  <p>
+    The async validator's validate method returns a Promise that resolves to true if
+    validation passes or rejects with an Error if it fails. The async validator also
+    has a hint field that returns a Promise when resolved will give a hint with the
+    max value allowed.
+  </p>
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <oj-form-layout id="fl2" label-edge="top">
+      <oj-input-text id="text-input" required="" label-hint="Quantity Limit" on-valid-changed="[[$listeners.textInputValid]]"
+        validators="[[$variables.validators]]" async-validators="[[$page.functions.getAsyncValidator()]]"
+        value="{{$variables.quantityLimit}}" converter="[[$variables.converter]]">
+      </oj-input-text>
+    </oj-form-layout>
+
+    <div class="oj-flex">
+      <div class="oj-flex-item">&nbsp;</div>
+      <div class="oj-flex-item">
+        <span id="namevalid">
+          [Component's valid property: 
+          <oj-bind-text value="[[$variables.inputValid]]"> </oj-bind-text>]
+        </span>
+      </div>
+    </div>
+
+    <div class="oj-flex">
+      <div class="oj-flex-item">&nbsp;</div>
+      <div class="oj-flex-item">
+        <span id="namevalue">
+          [Component's value property: 
+          <oj-bind-text value="[[$variables.quantityLimit]]"> </oj-bind-text>]
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

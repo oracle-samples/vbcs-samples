@@ -1,0 +1,48 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This recipe shows you how to implement filters with a Table component.
+
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <style>
+      .matchedText {
+        font-weight: bold;
+        color: green
+      }
+    </style>
+    <div class="oj-flex oj-sm-flex-direction-column">
+      <div class="oj-flex oj-sm-align-items-center oj-flex-item ">
+        <oj-label for="oj-input-text--1933717278-1" class="oj-flex-item oj-sm-flex-initial">Filter: </oj-label>
+        <oj-sample-input-text-typeahead id="oj-sample-input-text-typeahead--1933717278-1"
+          class="oj-flex-item oj-sm-flex-initial" clear-icon="conditional" placeholder="Type to filter"
+          raw-value="{{ $variables.filterText }}" value="{{ $variables.filterText }}"></oj-sample-input-text-typeahead>
+      </div>
+      <div class="oj-flex oj-sm-flex-direction-column oj-flex-item">
+        <oj-table scroll-policy="loadMoreOnScroll" data="[[$page.variables.departmentListSDP]]"
+          columns='[{"headerText":"Id","field":"id"},{"headerText":"Department Name","field":"departmentName"},{"headerText":"Location ID","field":"location"},{"headerText":"Manager ID","field":"manager"}]'
+          class="oj-flex-item oj-sm-flex-initial" style="height:400px; max-width: 800px;">
+          <template slot="cellTemplate">
+        <oj-sample-highlight-text value="[[ ''+($current.data ? $current.data : '') ]]" highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+      </template>
+        </oj-table>
+      </div>
+    </div>
+
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

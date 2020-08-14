@@ -1,0 +1,90 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "dateFormat": {
+      "type": {
+        "type": "string",
+        "options": {
+          "pattern": "string"
+        }
+      },
+      "defaultValue": {
+        "type": "datetime",
+        "options": {
+          "pattern": "MM/dd/yy"
+        }
+      }
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "DateFormatValueChange": {
+      "description": "",
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignDateFormat",
+      "actions": {
+        "assignDateFormat": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.dateFormat": {
+              "source": {
+                "options": {
+                  "pattern": "{{ $chain.variables.value }}"
+                }
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.options": {
+                  "source": "$source.options",
+                  "reset": "none",
+                  "auto": "always"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojSelectOneValue": {
+      "chains": [
+        {
+          "chainId": "DateFormatValueChange",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      }
+    }
+  }
+}

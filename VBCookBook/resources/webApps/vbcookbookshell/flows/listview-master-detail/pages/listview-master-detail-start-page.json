@@ -1,0 +1,241 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallDepartmentResponse"
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "filterCriterion": {
+          "op": "$eq",
+          "attribute": "department",
+          "value": "{{ $variables.selectedDepartment }}"
+        }
+      }
+    },
+    "selectedDepartment": {
+      "type": "number"
+    },
+    "selectedEmployee": {
+      "type": "number"
+    },
+    "employee": {
+      "type": "get_Employee"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number"
+        }
+      ]
+    },
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "hireDate": "string",
+      "id": "number",
+      "lastName": "string",
+      "manager": "number",
+      "phoneNumber": "string",
+      "salary": "number"
+    }
+  },
+  "chains": {
+    "EmployeeSelectedChain": {
+      "description": "",
+      "variables": {
+        "keys": {
+          "required": true,
+          "type": "any[]",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignSelectedEmployee",
+      "actions": {
+        "assignEmployee": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employee": {
+              "source": "{{ $chain.results.fetchEmployee.body }}",
+              "auto": "always"
+            }
+          }
+        },
+        "assignSelectedEmployee": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.selectedEmployee": {
+              "source": "{{ $chain.variables.keys[0] }}"
+            }
+          },
+          "outcomes": {
+            "success": "if1"
+          }
+        },
+        "if1": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.selectedEmployee == null ]]"
+          },
+          "outcomes": {
+            "true": "resetEmployee",
+            "false": "fetchEmployee"
+          }
+        },
+        "resetEmployee": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.employee"
+            ]
+          }
+        },
+        "fetchEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Employee",
+            "uriParams": {
+              "Employee_Id": "{{ $page.variables.selectedEmployee }}"
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignEmployee"
+          }
+        },
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.fetchEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        }
+      }
+    },
+    "DepartmentSelectedChain": {
+      "description": "",
+      "variables": {
+        "keys": {
+          "required": true,
+          "type": "any[]",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignSelectedDepartment",
+      "actions": {
+        "assignSelectedDepartment": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.selectedDepartment": {
+              "source": "{{ $chain.variables.keys[0] }}"
+            }
+          },
+          "outcomes": {
+            "success": "resetSelectedEmployee"
+          }
+        },
+        "resetSelectedEmployee": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.selectedEmployee",
+              "$page.variables.employee"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "departmentListSelected": {
+      "chains": [
+        {
+          "chainId": "DepartmentSelectedChain",
+          "parameters": {
+            "keys": "{{ Array.from($event.detail.value.values()) }}"
+          }
+        }
+      ]
+    },
+    "employeeListSelected": {
+      "chains": [
+        {
+          "chainId": "EmployeeSelectedChain",
+          "parameters": {
+            "keys": "{{ Array.from($event.detail.value.values()) }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-vb-list-item": {
+        "path": "vb/components/list-item/loader"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      }
+    }
+  }
+}

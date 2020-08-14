@@ -1,0 +1,40 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+   <p>
+    A list view displays employees records in card layout format.
+  </p>
+</div>
+
+<!-- Step 1. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1" >
+      <h1 slot="header">Create Card Layout</h1>
+      <div>
+        <p>You add a List View component to your page, bind it to employee data and add some styling to render data in nice looking cards format </p>
+        <ol>
+          <li>In the Component Palette, drag a List View component and drop it on the page.</li>
+          <li>Use the List View component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your list to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Email</li>
+              <li>Salary</li>
+            </ul>
+          </li>
+          
+          <li>Add some style class at <code>resources/css/app.css</code>.<br> <b>Note:</b> This demo showcase a sample look and feel to display cards. Your usecase might require different user experience, so you can add your own styles and html elements to create your own demo</li>
+          
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

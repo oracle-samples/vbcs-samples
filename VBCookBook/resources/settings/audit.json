@@ -1,0 +1,22 @@
+{
+  "paths": {
+    "exclude": [
+      "webApps\\/(\\w+)\\/resources\\/components\\/(.*)",
+      "webApps\\/(\\w+)\\/resources\\/cb\\/(.*)",
+      "webApps\\/(\\w+)\\/resources\\/oj-sample-cookbook\\/(.*)"
+    ]
+  },
+  "rules": {
+    "jshint#W032": {
+      "description": "Disable unnecessary semicolon warning",
+      "disabled": true
+    },
+    "translations.audit.propertyNotTranslated": {
+      "disabled": true
+    },
+    "jshint#W119": {
+      "disabled": true
+    }
+  },
+  "auditors": {}
+}

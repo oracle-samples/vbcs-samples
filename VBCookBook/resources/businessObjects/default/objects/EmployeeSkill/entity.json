@@ -1,0 +1,135 @@
+{
+    "fields": [
+        {
+            "displayLabel": "Id",
+            "internal": true,
+            "key": true,
+            "name": "id",
+            "oid": "d139b0ac-30d0-4281-9084-3fd96fc83993",
+            "required": true,
+            "type": "number",
+            "unique": true
+        },
+        {
+            "displayLabel": "Created",
+            "internal": true,
+            "name": "creationDate",
+            "oid": "96c936ae-7960-4e57-af80-e145cb8cd63d",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Last Updated",
+            "internal": true,
+            "name": "lastUpdateDate",
+            "oid": "59fae9ed-7693-44c0-b61c-19721a842cb3",
+            "type": "datetime"
+        },
+        {
+            "displayLabel": "Created By",
+            "internal": true,
+            "name": "createdBy",
+            "oid": "99f2cf9c-d19b-4561-8099-ad5f436dc03c",
+            "type": "string"
+        },
+        {
+            "displayLabel": "Last Updated By",
+            "internal": true,
+            "name": "lastUpdatedBy",
+            "oid": "34a5daec-462b-4ed2-8be2-4630987798cd",
+            "type": "string"
+        },
+        {
+            "displayLabel": "<internal>",
+            "hidden": true,
+            "internal": true,
+            "name": "abcsChangeNumber",
+            "oid": "11f20661-50f0-4f0b-86fc-887a78515d82",
+            "type": "number"
+        },
+        {
+            "name": "skill",
+            "oid": "06fb2df5-ded7-4b5d-b3db-2d11125753c5",
+            "required": true,
+            "displayLabel": "Skill",
+            "type": "reference"
+        },
+        {
+            "name": "employee",
+            "oid": "3dc9b24a-5d61-4e21-8e2f-0f8c6d3f851b",
+            "required": true,
+            "displayLabel": "Employee",
+            "type": "reference"
+        }
+    ],
+    "name": "EmployeeSkill",
+    "oid": "4e59ef99-6c0b-4ad2-bf5c-8ecb8200b558",
+    "displayLabel": "Employee Skill",
+    "relationships": [
+        {
+            "name": "skillObject",
+            "reverseRelationship": "employeeSkillCollection",
+            "targetEntity": "Skill",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "skill",
+            "deleteRule": "cascade"
+        },
+        {
+            "name": "employeeObject",
+            "reverseRelationship": "employeeSkillCollection",
+            "targetEntity": "Employee",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "employee",
+            "deleteRule": "cascade"
+        }
+    ],
+    "security": {
+        "type": "local",
+        "acl": [
+            {
+                "roleId": "approle.anonymous.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": false
+                    },
+                    {
+                        "name": "update",
+                        "value": false
+                    },
+                    {
+                        "name": "delete",
+                        "value": false
+                    }
+                ]
+            },
+            {
+                "roleId": "approle.authenticated.user",
+                "privileges": [
+                    {
+                        "name": "view",
+                        "value": true
+                    },
+                    {
+                        "name": "create",
+                        "value": true
+                    },
+                    {
+                        "name": "update",
+                        "value": true
+                    },
+                    {
+                        "name": "delete",
+                        "value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "setupData": true
+}

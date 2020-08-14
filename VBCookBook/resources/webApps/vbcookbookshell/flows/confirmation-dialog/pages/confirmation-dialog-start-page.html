@@ -1,0 +1,73 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This demo shows how to display an unsaved data warning dialog when navigating away
+  with unsaved changes.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex">
+      <div class="oj-flex oj-flex-item">
+        <oj-tab-bar edge="top" id="tab-bar-1" selection="{{$page.variables.currentTab}}"
+          class="oj-flex-item oj-sm-12 oj-md-6" style="width: 100%" on-oj-before-select="[[$listeners.tabBar1BeforeSelect]]">
+          <ul>
+            <li id="employee">
+              <a href="#" id="employee-tab" aria-controls="employee-panel">Employees</a>
+            </li>
+            <li id="department">
+              <a href="#" id="department-tab" aria-controls="department-panel">Departments</a>
+            </li>
+          </ul>
+        </oj-tab-bar>
+      </div>
+      <oj-switcher value="[[$page.variables.currentTab]]" id="switcher-1" class="oj-flex-item oj-sm-12 oj-md-12"
+        style="margin-top: 10px;">
+        <div slot="employee" id="employee-panel" aria-labelledby="employee-tab" role="tabpanel">
+          <div class="oj-flex">
+            <oj-form-layout id="form-layout-1" class="oj-flex-item oj-sm-12 oj-md-12">
+              <oj-input-text id="input-text-1" label-hint="First Name" value="{{ $variables.formEmp.firstName }}"></oj-input-text>
+              <oj-input-text id="input-text-2" label-hint="Last Name" value="{{ $variables.formEmp.lastName }}"></oj-input-text>
+            </oj-form-layout>
+          </div>
+        </div>
+        <div slot="department" id="department-panel" aria-labelledby="department-tab" role="tabpanel">
+          <div class="oj-flex">
+            <oj-form-layout id="form-layout-2" class="oj-flex-item oj-sm-12 oj-md-12">
+              <oj-input-text id="input-text-4" label-hint="Name" value="{{ $variables.formDept.departmentName }}"></oj-input-text>
+            </oj-form-layout>
+          </div>
+        </div>
+      </oj-switcher>
+      <div class="oj-flex-item oj-flex">
+        <div class="oj-flex-item">
+          <oj-button id="save-button" on-oj-action="[[$listeners.saveButtonAction]]">Save</oj-button>
+        </div>
+      </div>
+    </div>
+    <oj-dialog style="display:none" dialog-title="Unsaved Changes" id="unsaved-data-dialog">
+      <div slot="body">
+        <div class="oj-flex">
+          <p id="p-1" class="oj-flex-item oj-sm-12 oj-md-12">Do you want to discard your unsaved changes?</p>
+        </div>
+      </div>
+      <div slot="footer">
+        <oj-button id="yes-button" on-oj-action="[[$listeners.yesButtonAction]]">Yes</oj-button>
+        <oj-button on-oj-action="[[$listeners.noButtonAction]]" id="no-button">No</oj-button>
+      </div>
+    </oj-dialog>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,120 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>A List View component displays region data. Page variables reference the user’s selection and an action chain that
+  updates these page variables is invoked from the List View component’s event listener.</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step1" expanded="true">
+      <h1 slot="header">Create the Page Model</h1>
+      <div>
+        <p><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+            the following page variables:</a></p>
+
+        <ul>
+          <li><code>firstSelectedItem</code> - Object</li>
+<li><code>isSelectionRequired</code> - Boolean</li>
+<li><code>selectedRegionIds</code> - Array of Numbers</li>
+<li><code>selectionMode</code> - string - Default Value: none</li>
+        </ul>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+
+</div>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step2">
+      <h1 slot="header">Create the UI</h1>
+      <div>
+        <ol>
+        
+          <li>In the Component Palette, drag a Flex Container and drop it on the page. </li>
+        
+        
+          <li>In the Property Inspector, set the Direction property to Vertical.</li>
+          <li>Drop a Form Layout component in the Flex Container and set the Max Columns property to <code>2</code>.</li>
+          <li>Drop a Select One component into the Form Layout component and set the Label Hint property to
+            <code>Selection Mode</code>.</li>
+          <li>Use the Select One component’s Create Static List of Options <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-3219E755-6FC5-453F-9175-1AB84A0751E5">Quick
+              Start</a> to populate a static list of options with these values:
+        
+            <ul>
+              <li><code>multiple - multiple</code> </li>
+              <li><code>single - single</code></li>
+              <li><code>none - none</code></li>
+            </ul>
+          </li>
+          <li>Bind the Select One component’s Value property to <code>$variables.selectionMode</code>.</li>
+          <li>Drop a Switch component into the Form Layout component and set the Label Hint property to
+            <code>Selection Required</code>.
+          </li>
+          <li>Bind the Switch component’s Value property to <code>$variables.isSelectionRequired</code>.</li>
+          <li>Drop a Label component below the Form Layout and set the Text property value to <code>Region List:</code>.
+          </li>
+          <li>Drop a List View component below the Label component. </li>
+          <li>In the All tab of the Property Inspector, set selection-mode to <code>$variables.selectionMode</code> and
+            set
+            selection-required to <code>$variables.isSelectionRequired</code>.</li>
+          <li>Use the <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind the List View component to the Region business object. </li>
+          <li>In the Bind Data page of the Add Data dialog, select the following items from the endpoint structure:
+            <ul>
+              <li>regionName </li>
+              <li>id</li>
+            </ul>
+          </li>
+          <li>Drop a Flex Container component below the List View component.</li>
+        
+          <li>Drop a Label and a Text component into the Flex Container and set the Label component’s Text property to
+            <code>Selected Region IDs:</code> and the Text component’s Value property to
+            <code>{{ JSON.stringify($variables.selectedRegionIds)}}</code>.</li>
+          <li>Drop another Flex Container component below the last Flex Container component and also add a Label and a Text
+            component to this new Flex Container.</li>
+          <li>Set the Label component’s Text property to <code>Data for First Selected Item:</code> and the Text component’s
+            Value property to <code>{{ JSON.stringify($variables.firstSelectedItem)}}</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="step3">
+      <h1 slot="header">Create the Events and Action Chains</h1>
+      <div>
+        <ol>
+          <li>In the Events tab of the List View's Property Inspector, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">create
+              a new event</a> for first-selected-item.</li>
+          <li>In the action chain, drag an If action onto the chain and set the Condition to
+            <code>[[ $chain.variables.rowData !== null ]]</code>.</li>
+
+
+          <li>Drag an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              Variables action</a> to the true path of the action chain and map the <code>rowData</code> Action Chain
+            Variable to the <code>firstSelectedItem</code> Page Variable.</li>
+          <li>Drag a Reset Variables action to the false path of the action chain and add
+            <code>$page.variables.firstSelectedItem</code> to the Variables to Reset.</li>
+          <li>Return to the Page Designer. In the Events tab of the List View's Property Inspector, create a new event
+            for selected.</li>
+          <li>In the action chain, drag an Assign Variables action onto the chain. Map the keys Action Chain Variable to
+            the
+            <code>selectedRegionIds</code> Page Variable.</li>
+
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

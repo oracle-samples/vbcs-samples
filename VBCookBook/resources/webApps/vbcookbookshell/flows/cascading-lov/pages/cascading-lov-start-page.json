@@ -1,0 +1,295 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "regionListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Region",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallRegionResponse"
+      }
+    },
+    "selectedRegion": {
+      "type": "SelectedItemType"
+    },
+    "selectedCountry": {
+      "type": "SelectedItemType"
+    },
+    "selectedLocation": {
+      "type": "SelectedItemType"
+    },
+    "countryListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Country",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallCountryResponse",
+        "filterCriterion": {
+          "op": "$eq",
+          "attribute": "region",
+          "value": "{{ $page.variables.selectedRegion ? $page.variables.selectedRegion.value : undefined}}"
+        }
+      }
+    },
+    "locationListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Location",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallLocationResponse",
+        "filterCriterion": {
+          "op": "$eq",
+          "attribute": "country",
+          "value": "{{ $page.variables.selectedCountry ? $page.variables.selectedCountry.value : undefined}}"
+        }
+      }
+    },
+    "postalCode": {
+      "type": "string",
+      "defaultValue": " "
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallRegionResponse": {
+      "items": [
+        {
+          "id": "number",
+          "regionName": "string"
+        }
+      ]
+    },
+    "@decorators.getallRegionResponse": {
+      "endpoint": "getall_Region",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallCountryResponse": {
+      "items": [
+        {
+          "countryName": "string",
+          "id": "number",
+          "region": "number"
+        }
+      ]
+    },
+    "@decorators.getallCountryResponse": {
+      "endpoint": "getall_Country",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "SelectedItemType": {
+      "value": "number",
+      "label": "string"
+    },
+    "getallLocationResponse": {
+      "items": [
+        {
+          "city": "string",
+          "country": "number",
+          "id": "number"
+        }
+      ]
+    },
+    "@decorators.getallLocationResponse": {
+      "endpoint": "getall_Location",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "chains": {
+    "CountryValueChange": {
+      "description": "",
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "ifCountryChange",
+      "actions": {
+        "resetLocation": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.selectedLocation",
+              "$page.variables.postalCode"
+            ]
+          }
+        },
+        "ifCountryChange": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.selectedCountry.value ]]"
+          },
+          "outcomes": {
+            "true": "resetLocation"
+          }
+        }
+      }
+    },
+    "LocationValueChange": {
+      "description": "",
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "isSelectedLocation",
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.fetchLocation.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "isSelectedLocation": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.selectedLocation.value ]]"
+          },
+          "outcomes": {
+            "true": "fetchLocation"
+          }
+        },
+        "fetchLocation": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Location",
+            "uriParams": {
+              "Location_Id": "{{ $page.variables.selectedLocation.value }}"
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignPostalCode"
+          }
+        },
+        "assignPostalCode": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.postalCode": {
+              "source": "{{ $chain.results.fetchLocation.body.postalCode }}"
+            }
+          }
+        }
+      }
+    },
+    "RegionValueChanged": {
+      "description": "",
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "resetVariables",
+      "actions": {
+        "resetVariables": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.postalCode",
+              "$page.variables.selectedCountry",
+              "$page.variables.selectedLocation"
+            ]
+          }
+        }
+      }
+    },
+    "ResetValues": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "resetVariables1",
+      "actions": {
+        "resetVariables1": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.selectedCountry",
+              "$page.variables.selectedLocation",
+              "$page.variables.selectedRegion",
+              "$page.variables.postalCode"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "regionSelectOneValue": {
+      "chains": [
+        {
+          "chainId": "RegionValueChanged",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "countrySelectOneValue": {
+      "chains": [
+        {
+          "chainId": "CountryValueChange",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "locationSelectOneValue": {
+      "chains": [
+        {
+          "chainId": "LocationValueChange",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "resetAction": {
+      "chains": [
+        {
+          "chainId": "ResetValues",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-select-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

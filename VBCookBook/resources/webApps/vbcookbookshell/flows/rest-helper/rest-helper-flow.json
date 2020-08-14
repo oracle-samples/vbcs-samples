@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "rest-helper",
+  "description": "Flow main",
+  "defaultPage": "rest-helper-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

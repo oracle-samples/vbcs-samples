@@ -1,0 +1,22 @@
+{
+  "pageModelVersion": "19.4.3",
+ "title": "",
+ "description": "",
+ "variables": {},
+ "types": {},
+ "chains": {},
+ "eventListeners": {},
+ "imports": {
+		"components": {
+			"oj-collapsible": {
+				"path": "ojs/ojcollapsible"
+			},
+			"oj-accordion": {
+				"path": "ojs/ojaccordion"
+			},
+			"oj-input-text": {
+				"path": "ojs/ojinputtext"
+			}
+		}
+	}
+}

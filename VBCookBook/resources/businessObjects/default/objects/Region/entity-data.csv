@@ -1,0 +1,5 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,regionName
+1,2020-01-30T16:24:00,2020-01-30T16:24:00.007,jane.smith@example.com,jane.smith@example.com,Europe
+2,2020-01-30T16:24:18,2020-01-30T16:24:18.002,jane.smith@example.com,jane.smith@example.com,Americas
+3,2020-01-30T16:24:26,2020-01-30T16:24:26.002,jane.smith@example.com,jane.smith@example.com,Asia
+4,2020-01-30T16:24:37,2020-01-30T16:24:37.003,jane.smith@example.com,jane.smith@example.com,Middle East and Africa

@@ -1,0 +1,58 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "getEmployeesListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "ords/getEmployees",
+        "idAttribute": "empno",
+        "itemsPath": "items",
+        "responseType": "page:getEmployeesResponse",
+        "filterCriterion": {
+          "value": "{{ $variables.searchText }}",
+          "attribute": "ename",
+          "op": "$co"
+        }
+      }
+    },
+    "searchText": {
+      "type": "string"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getEmployeesResponse": {
+      "items": [
+        {
+          "empno": "number",
+          "ename": "string"
+        }
+      ]
+    },
+    "@decorators.getEmployeesResponse": {
+      "endpoint": "getEmployees",
+      "service": "ords",
+      "path": "response"
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-sample-input-text-typeahead": {
+        "path": "oj-sample/input-text-typeahead/loader"
+      },
+      "oj-sample-highlight-text": {
+        "path": "oj-sample/highlight-text/loader"
+      }
+    }
+  }
+}

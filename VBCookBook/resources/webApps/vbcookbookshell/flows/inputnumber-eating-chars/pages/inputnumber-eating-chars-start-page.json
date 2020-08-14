@@ -1,0 +1,57 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "currentValue": {
+      "type": "number"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "InputNumberKeypressChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "return1",
+      "actions": {
+        "return1": {
+          "module": "vb/action/builtin/returnAction",
+          "parameters": {
+            "outcome": "success"
+          }
+        }
+    }
+    }
+  },
+  "eventListeners": {
+    "ojInputNumberKeypress": {
+      "preventDefault": "{{ !$page.functions.isValidChar($event) }}",
+      "chains": [
+        {
+          "chainId": "InputNumberKeypressChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"            
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      }
+    }
+  },
+  "routerFlow": ""
+}

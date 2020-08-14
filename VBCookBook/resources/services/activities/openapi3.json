@@ -1,0 +1,1276 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "activities",
+        "description": "This is used to capture task and appointment information.",
+        "version": "1.0.0",
+        "x-vb": {
+            "headers": {
+                "REST-Framework-Version": "4"
+            },
+            "serviceType": "fa",
+            "sourceUrl": "https://your-fa-instance.oracledemos.com/crmRestApi/resources/11.13.18.05/activities/describe",
+            "transforms": {
+                "path": "vb/BusinessObjectsTransforms"
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "https://your-fa-instance.oracledemos.com/crmRestApi/resources/11.13.18.05",
+            "x-vb": {
+                "authentication": {
+                    "anonymous": {
+                        "type": "as_authenticated_user"
+                    }
+                },
+                "anonymousAccess": true
+            }
+        }
+    ],
+    "paths": {
+        "/activities/{activities_Id}/child/Attachments": {
+            "get": {
+                "operationId": "getall_activities-Attachments",
+                "summary": "get",
+                "tags": [
+                    "activities/Attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "activities_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "expand",
+                        "description": "When this parameter is provided, the specified children are included in the resource payload (instead of just a link). The value of this query parameter is \"all\" or \"\". More than one child can be specified using comma as a separator. Example: ?expand=Employees,Localizations. Nested children can also be provided following the format \"Child.NestedChild\" (Example: ?expand=Employees.Managers). If a nested child is provided (Example: Employees.Managers), the missing children will be processed implicitly. For example, \"?expand=Employees.Managers\" is the same as \"?expand=Employees,Employees.Managers\" (which will expand Employees and Managers).",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "fields",
+                        "description": "This parameter filters the resource fields. Only the specified fields are returned, which means that if no fields are specified, no fields are returned (useful to get only the links). If an indirect child resource is provided (Example: Employees.Managers), the missing children will be processed implicitly. For example, \"?fields=Employees.Managers:Empname\" is the same as \"?fields=;Employees:;Employees.Managers:Empname\" (which will only return the \"Empname\" field for Managers). the value of this query parameter is a list of resource fields. The attribute can be a direct (Example: Employees) or indirect (Example: Employees.Managers) child. It cannot be combined with expand query parameter. If both are provided, only fields will be considered.<br><br>Format: ?fields=Attribute1,Attribute2<br><br>Format for fields in child resource: ?fields=Accessor1:Attribute1,Attribute2",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "onlyData",
+                        "description": "The resource item payload will be filtered in order to contain only data (no links section, for example).",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "dependency",
+                        "description": "This parameter specifies dependencies which are fields that are set before and rolled back after generating the response. Generally they are used to preview the effects of an attribute change. The fields specified in this parameter are always set in the resource instance in question. When a child resource collection is requested and the parameter is set, the fields will be set in the parent resource instance before generating the resource collection payload. The value of this query parameter is a set of dependency fields.  Example: dependency=ProductId=2<br><br>Format: &lt;attr1&gt;=&lt;val1&gt;,&lt;attr2&gt;=&lt;value2&gt;",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "links",
+                        "description": "This parameter can be used to show only certain links while accessing a singular resource or a resource collection. The parameter value format is a comma-separated list of : &lt;link_relation&gt;<br><br>Example:<br>self,canonical<br>",
+                        "in": "query",
+                        "x-vb": {
+                            "defaultValue": "self"
+                        },
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "description": "This parameter restricts the number of resources returned inside the resource collection. If the limit exceeds the resource count then the framework will only return the available resources.",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "description": "Used to define the starting position of the resource collection. If offset exceeds the resource count then no resources are returned. Default value is 0.",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "totalResults",
+                        "description": "The resource collection representation will include the \"estimated row count\" when \"?totalResults=true\", otherwise the count is not included.  The default value is \"false\".",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "description": "This query parameter defines the where clause. The resource collection will be queried using the provided expressions. The value of this query parameter is one or more expressions. Example: ?q=Deptno&gt;=10 and &lt;= 30;Loc!=NY <br><br>Format: ?q=expression1;expression2",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "description": "This parameter orders a resource collection based on the specified fields.  The parameter value is a comma-separated string of attribute names, each optionally followed by a colon and \"asc\" or \"desc\".  Specify \"asc\" for ascending and \"desc\" for descending. The default value is \"asc\".  For example, ?orderBy=field1:asc,field2:desc",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "finder",
+                        "description": "Used as a predefined finder to search the collection.<br><br>Format: ?finder=&lt;finderName&gt;;&lt;variableName&gt;=&lt;variableValue&gt;,&lt;variableName2&gt;=&lt;variableValue2&gt;<br><br>The following are the available finder names and corresponding finder variables:<br><br><ul><li>PrimaryKey  <br>Finder Variables: <ul><li>AttachedDocumentId  </li></ul></li></ul>",
+                        "in": "query",
+                        "x-adf-finder-formats": [
+                            {
+                                "name": "PrimaryKey",
+                                "properties": {
+                                    "AttachedDocumentId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "readOnly": false,
+                                        "title": "Attached Document Id",
+                                        "x-queryable": true,
+                                        "x-nullable": false,
+                                        "x-hints": {
+                                            "updatable": false,
+                                            "adf-precision": 18,
+                                            "adf-hasDefaultValueExpression": true,
+                                            "adf-properties": {
+                                                "fnd:FND_AUDIT_ATTR_ENABLED": "true",
+                                                "fnd:GLOBALLY_UNIQUE": "true"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/activities-Attachments"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            },
+            "post": {
+                "requestBody": {
+                    "description": "The following table describes the body parameters in the request for this task.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/activities-Attachments-item"
+                            }
+                        }
+                    }
+                },
+                "operationId": "create_activities-Attachments",
+                "summary": "create or upsert",
+                "tags": [
+                    "activities/Attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "activities_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Upsert-Mode",
+                        "description": "When set to true, the server will perform an Upsert operation instead of a Create. In an Upsert operation the server attempts to find an existing resource that matches the payload. If found, the server updates the existing resource instead of creating a new one. If not found, or when set to false (the default), a Create is performed.",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/activities-Attachments-item-response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "create"
+                }
+            }
+        },
+        "/activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}": {
+            "get": {
+                "operationId": "get_activities-Attachments",
+                "summary": "get",
+                "tags": [
+                    "activities/Attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "activities_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "activities_Attachments_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "expand",
+                        "description": "When this parameter is provided, the specified children are included in the resource payload (instead of just a link). The value of this query parameter is \"all\" or \"\". More than one child can be specified using comma as a separator. Example: ?expand=Employees,Localizations. Nested children can also be provided following the format \"Child.NestedChild\" (Example: ?expand=Employees.Managers). If a nested child is provided (Example: Employees.Managers), the missing children will be processed implicitly. For example, \"?expand=Employees.Managers\" is the same as \"?expand=Employees,Employees.Managers\" (which will expand Employees and Managers).",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "fields",
+                        "description": "This parameter filters the resource fields. Only the specified fields are returned, which means that if no fields are specified, no fields are returned (useful to get only the links). If an indirect child resource is provided (Example: Employees.Managers), the missing children will be processed implicitly. For example, \"?fields=Employees.Managers:Empname\" is the same as \"?fields=;Employees:;Employees.Managers:Empname\" (which will only return the \"Empname\" field for Managers). the value of this query parameter is a list of resource fields. The attribute can be a direct (Example: Employees) or indirect (Example: Employees.Managers) child. It cannot be combined with expand query parameter. If both are provided, only fields will be considered.<br><br>Format: ?fields=Attribute1,Attribute2<br><br>Format for fields in child resource: ?fields=Accessor1:Attribute1,Attribute2",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "onlyData",
+                        "description": "The resource item payload will be filtered in order to contain only data (no links section, for example).",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "dependency",
+                        "description": "This parameter specifies dependencies which are fields that are set before and rolled back after generating the response. Generally they are used to preview the effects of an attribute change. The fields specified in this parameter are always set in the resource instance in question. When a child resource collection is requested and the parameter is set, the fields will be set in the parent resource instance before generating the resource collection payload. The value of this query parameter is a set of dependency fields.  Example: dependency=ProductId=2<br><br>Format: &lt;attr1&gt;=&lt;val1&gt;,&lt;attr2&gt;=&lt;value2&gt;",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "links",
+                        "description": "This parameter can be used to show only certain links while accessing a singular resource or a resource collection. The parameter value format is a comma-separated list of : &lt;link_relation&gt;<br><br>Example:<br>self,canonical<br>",
+                        "in": "query",
+                        "x-vb": {
+                            "defaultValue": "self"
+                        },
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/activities-Attachments-item-response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getOne"
+                }
+            },
+            "delete": {
+                "operationId": "delete_activities-Attachments",
+                "summary": "delete",
+                "tags": [
+                    "activities/Attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "activities_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "activities_Attachments_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "No Content. This task does not return elements in the response body."
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "delete"
+                }
+            }
+        },
+        "/activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}/enclosure/FileContents": {
+            "get": {
+                "operationId": "get_activities-Attachments-FileContents",
+                "summary": "get",
+                "tags": [
+                    "activities/Attachments"
+                ],
+                "parameters": [
+                    {
+                        "name": "activities_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "activities_Attachments_Id",
+                        "description": "The value of this parameter could be a hash of the key that is used to uniquely identify the resource item. The client should not generate the hash key value.  Instead, the client should query on the collection resource with a filter to navigate to a specific resource item. For example: products?q=InventoryItemId=<value1>",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/octet-stream": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "link": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "title": "hyperlink reference",
+                        "description": "The URI to the related resource."
+                    },
+                    "rel": {
+                        "type": "string",
+                        "title": "relation",
+                        "description": "The name of the relation to the resource instance.  Example: self.",
+                        "enum": [
+                            "self",
+                            "lov",
+                            "parent",
+                            "canonical",
+                            "child",
+                            "enclosure",
+                            "action"
+                        ]
+                    },
+                    "properties": {
+                        "type": "object",
+                        "properties": {
+                            "changeIndicator": {
+                                "type": "string",
+                                "description": "Change indicator or the ETag value of the resource instance."
+                            }
+                        }
+                    }
+                }
+            },
+            "activities-Attachments": {
+                "type": "object",
+                "required": [
+                    "count",
+                    "hasMore",
+                    "limit",
+                    "offset",
+                    "links"
+                ],
+                "properties": {
+                    "totalResults": {
+                        "type": "integer",
+                        "description": "The estimated row count when \"?totalResults=true\", otherwise the count is not included."
+                    },
+                    "count": {
+                        "type": "integer",
+                        "description": "The number of resource instances returned in the current range."
+                    },
+                    "hasMore": {
+                        "type": "boolean",
+                        "description": "Indicates whether more resources are available on the server than the subset returned in the response. If the value is true, then there are more resources to retrieve from the server. The default value is false."
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "The actual paging size used by the server."
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "description": "The offset value used in the current page."
+                    },
+                    "links": {
+                        "type": "array",
+                        "title": "Links",
+                        "description": "The link relations associated with the resource instance.",
+                        "items": {
+                            "$ref": "#/components/schemas/link"
+                        }
+                    },
+                    "items": {
+                        "type": "array",
+                        "title": "Items",
+                        "description": "The items in the collection.",
+                        "items": {
+                            "$ref": "#/components/schemas/activities-Attachments-item-response"
+                        }
+                    }
+                }
+            },
+            "activities-Attachments-item-response": {
+                "type": "object",
+                "properties": {
+                    "links": {
+                        "type": "array",
+                        "title": "Links",
+                        "description": "The link relations associated with the resource instance.",
+                        "items": {
+                            "$ref": "#/components/schemas/link"
+                        }
+                    },
+                    "AttachedDocumentId": {
+                        "type": "integer",
+                        "title": "Attached Document Id",
+                        "readOnly": false,
+                        "format": "int64",
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-precision": 18,
+                            "adf-hasDefaultValueExpression": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true",
+                                "fnd:GLOBALLY_UNIQUE": "true"
+                            }
+                        }
+                    },
+                    "LastUpdateDate": {
+                        "type": "string",
+                        "title": "Last Update Date",
+                        "readOnly": true,
+                        "format": "date-time",
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "FMT_FORMAT": "d-MMM-yyyy HH:mm:ss"
+                            }
+                        }
+                    },
+                    "LastUpdatedBy": {
+                        "type": "string",
+                        "title": "Last Updated By",
+                        "readOnly": true,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false
+                        }
+                    },
+                    "DatatypeCode": {
+                        "type": "string",
+                        "title": "Type",
+                        "readOnly": false,
+                        "default": "FILE",
+                        "maxLength": 30,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "FileName": {
+                        "type": "string",
+                        "title": "File Name",
+                        "readOnly": false,
+                        "maxLength": 2048,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "DmFolderPath": {
+                        "type": "string",
+                        "title": "Dm Folder Path",
+                        "readOnly": false,
+                        "maxLength": 1000,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "DmDocumentId": {
+                        "type": "string",
+                        "readOnly": false,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true",
+                                "fnd:OA_TRANSLATABLE": "true"
+                            }
+                        }
+                    },
+                    "DmVersionNumber": {
+                        "type": "string",
+                        "readOnly": false,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "Url": {
+                        "type": "string",
+                        "title": "Url",
+                        "readOnly": false,
+                        "maxLength": 4000,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "CategoryName": {
+                        "type": "string",
+                        "title": "Category",
+                        "readOnly": false,
+                        "maxLength": 30,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "UserName": {
+                        "type": "string",
+                        "title": "User Name",
+                        "readOnly": true,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "Uri": {
+                        "type": "string",
+                        "title": "Uri",
+                        "readOnly": false,
+                        "maxLength": 4000,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "FileUrl": {
+                        "type": "string",
+                        "title": "File Url",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedText": {
+                        "type": "string",
+                        "title": "Uploaded Text",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedFileContentType": {
+                        "type": "string",
+                        "title": "Uploaded File Content Type",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedFileLength": {
+                        "type": "integer",
+                        "title": "File Size",
+                        "readOnly": false,
+                        "format": "int32",
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedFileName": {
+                        "type": "string",
+                        "title": "Uploaded File Name",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "ContentRepositoryFileShared": {
+                        "type": "boolean",
+                        "title": "Shared",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "Title": {
+                        "type": "string",
+                        "title": "Title",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "Description": {
+                        "type": "string",
+                        "title": "Description",
+                        "readOnly": false,
+                        "maxLength": 255,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "ErrorStatusCode": {
+                        "type": "string",
+                        "title": "Error Status Code",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "ErrorStatusMessage": {
+                        "type": "string",
+                        "title": "Error Status Message",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "CreatedBy": {
+                        "type": "string",
+                        "title": "Created By",
+                        "readOnly": true,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false
+                        }
+                    },
+                    "CreationDate": {
+                        "type": "string",
+                        "title": "Creation Date",
+                        "readOnly": true,
+                        "format": "date-time",
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false
+                        }
+                    },
+                    "FileContents": {
+                        "type": "string",
+                        "title": "File Contents",
+                        "readOnly": false,
+                        "format": "byte",
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "XML_ELEMENT": "#hide"
+                            }
+                        }
+                    },
+                    "ExpirationDate": {
+                        "type": "string",
+                        "title": "Expiration Date",
+                        "readOnly": false,
+                        "format": "date-time",
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true
+                        }
+                    },
+                    "LastUpdatedByUserName": {
+                        "type": "string",
+                        "title": "Last Updated By User",
+                        "readOnly": true,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "CreatedByUserName": {
+                        "type": "string",
+                        "title": "Created By User Name",
+                        "readOnly": true,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    }
+                }
+            },
+            "activities-Attachments-item": {
+                "title": "Attachments",
+                "type": "object",
+                "properties": {
+                    "AttachedDocumentId": {
+                        "type": "integer",
+                        "title": "Attached Document Id",
+                        "readOnly": false,
+                        "format": "int64",
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-precision": 18,
+                            "adf-hasDefaultValueExpression": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true",
+                                "fnd:GLOBALLY_UNIQUE": "true"
+                            }
+                        }
+                    },
+                    "LastUpdateDate": {
+                        "type": "string",
+                        "title": "Last Update Date",
+                        "readOnly": true,
+                        "format": "date-time",
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "FMT_FORMAT": "d-MMM-yyyy HH:mm:ss"
+                            }
+                        }
+                    },
+                    "LastUpdatedBy": {
+                        "type": "string",
+                        "title": "Last Updated By",
+                        "readOnly": true,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false
+                        }
+                    },
+                    "DatatypeCode": {
+                        "type": "string",
+                        "title": "Type",
+                        "readOnly": false,
+                        "default": "FILE",
+                        "maxLength": 30,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "FileName": {
+                        "type": "string",
+                        "title": "File Name",
+                        "readOnly": false,
+                        "maxLength": 2048,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "DmFolderPath": {
+                        "type": "string",
+                        "title": "Dm Folder Path",
+                        "readOnly": false,
+                        "maxLength": 1000,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "DmDocumentId": {
+                        "type": "string",
+                        "readOnly": false,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true",
+                                "fnd:OA_TRANSLATABLE": "true"
+                            }
+                        }
+                    },
+                    "DmVersionNumber": {
+                        "type": "string",
+                        "readOnly": false,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "Url": {
+                        "type": "string",
+                        "title": "Url",
+                        "readOnly": false,
+                        "maxLength": 4000,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "CategoryName": {
+                        "type": "string",
+                        "title": "Category",
+                        "readOnly": false,
+                        "maxLength": 30,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "true"
+                            }
+                        }
+                    },
+                    "UserName": {
+                        "type": "string",
+                        "title": "User Name",
+                        "readOnly": true,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "Uri": {
+                        "type": "string",
+                        "title": "Uri",
+                        "readOnly": false,
+                        "maxLength": 4000,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "FileUrl": {
+                        "type": "string",
+                        "title": "File Url",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedText": {
+                        "type": "string",
+                        "title": "Uploaded Text",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedFileContentType": {
+                        "type": "string",
+                        "title": "Uploaded File Content Type",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedFileLength": {
+                        "type": "integer",
+                        "title": "File Size",
+                        "readOnly": false,
+                        "format": "int32",
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "UploadedFileName": {
+                        "type": "string",
+                        "title": "Uploaded File Name",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "ContentRepositoryFileShared": {
+                        "type": "boolean",
+                        "title": "Shared",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "Title": {
+                        "type": "string",
+                        "title": "Title",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "Description": {
+                        "type": "string",
+                        "title": "Description",
+                        "readOnly": false,
+                        "maxLength": 255,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "ErrorStatusCode": {
+                        "type": "string",
+                        "title": "Error Status Code",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "ErrorStatusMessage": {
+                        "type": "string",
+                        "title": "Error Status Message",
+                        "readOnly": false,
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "CreatedBy": {
+                        "type": "string",
+                        "title": "Created By",
+                        "readOnly": true,
+                        "maxLength": 255,
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false
+                        }
+                    },
+                    "CreationDate": {
+                        "type": "string",
+                        "title": "Creation Date",
+                        "readOnly": true,
+                        "format": "date-time",
+                        "x-queryable": true,
+                        "x-nullable": false,
+                        "x-hints": {
+                            "updatable": false
+                        }
+                    },
+                    "FileContents": {
+                        "type": "string",
+                        "title": "File Contents",
+                        "readOnly": false,
+                        "format": "byte",
+                        "x-queryable": false,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true,
+                            "adf-properties": {
+                                "XML_ELEMENT": "#hide"
+                            }
+                        }
+                    },
+                    "ExpirationDate": {
+                        "type": "string",
+                        "title": "Expiration Date",
+                        "readOnly": false,
+                        "format": "date-time",
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": true
+                        }
+                    },
+                    "LastUpdatedByUserName": {
+                        "type": "string",
+                        "title": "Last Updated By User",
+                        "readOnly": true,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    },
+                    "CreatedByUserName": {
+                        "type": "string",
+                        "title": "Created By User Name",
+                        "readOnly": true,
+                        "x-queryable": true,
+                        "x-nullable": true,
+                        "x-hints": {
+                            "updatable": false,
+                            "adf-properties": {
+                                "fnd:FND_AUDIT_ATTR_ENABLED": "false"
+                            }
+                        }
+                    }
+                },
+                "x-links": [
+                    {
+                        "rel": "self",
+                        "method": "get",
+                        "title": "self",
+                        "href": "/crmRestApi/resources/11.13.18.05/activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}"
+                    },
+                    {
+                        "rel": "parent",
+                        "method": "get",
+                        "title": "parent",
+                        "href": "/crmRestApi/resources/11.13.18.05/activities/{activities_Id}"
+                    },
+                    {
+                        "rel": "canonical",
+                        "method": "get",
+                        "title": "canonical",
+                        "href": "/crmRestApi/resources/11.13.18.05/activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}"
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "activities/Attachments"
+        }
+    ]
+}

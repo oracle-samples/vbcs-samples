@@ -1,0 +1,665 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "currentEmployee": {
+      "type": "employee"
+    },
+    "departmentId": {
+      "type": "string",
+      "defaultValue": "2"
+    },
+    "departmentName": {
+      "type": "string"
+    },
+    "employeeListADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "itemType": "employee"
+      }
+    },
+    "idForNewEmployee": {
+      "type": "number",
+      "defaultValue": -1
+    },
+    "rowStatus": {
+      "type": "object"
+    },
+    "originalDepartmentName": {
+      "type": "string"
+    }
+  },
+  "types": {
+    "employee": {
+      "department": "number",
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string",
+      "salary": "number"
+    },
+    "@decorators.employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "chains": {
+    "UpdateEmployeeChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "CloseDialog",
+      "actions": {
+        "CloseDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+            "method": "close"
+          },
+          "outcomes": {
+            "success": "checkIfRowAlreadyThere"
+          }
+        },
+        "fireDataProviderEvent2": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.employeeListADP ]]",
+            "update": {
+              "keys": "{{ [ $page.variables.currentEmployee.id ] }}",
+              "data": "{{ [ $page.variables.currentEmployee ] }}"
+            }
+          }
+        },
+        "if1": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.checkIfRowAlreadyThere ]]"
+          },
+          "outcomes": {
+            "false": "assignVariables1",
+            "true": "checkIfThisIsNewRow"
+          }
+        },
+        "fireDataProviderEvent1": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.employeeListADP ]]",
+            "add": {
+              "keys": "{{ [ $page.variables.currentEmployee.id ] }}",
+              "data": "{{ [ $page.variables.currentEmployee ] }}"
+            }
+          }
+        },
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+              "source": "inserted",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "fireDataProviderEvent1"
+          }
+        },
+        "assignVariables2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+              "source": "modified",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "fireDataProviderEvent2"
+          }
+        },
+        "if2": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.checkIfThisIsNewRow ]]"
+          },
+          "outcomes": {
+            "false": "assignVariables2",
+            "true": "fireDataProviderEvent2"
+          }
+        },
+        "checkIfRowAlreadyThere": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "existsInArray",
+            "params": [
+              "{{ $page.variables.currentEmployee.id }}",
+              "{{ $page.variables.employeeListADP.data }}"
+            ]
+          },
+          "outcomes": {
+            "success": "if1"
+          }
+        },
+        "checkIfThisIsNewRow": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "isNewRow",
+            "params": [
+              "{{ $page.variables.currentEmployee.id }}",
+              "{{ $page.variables.rowStatus }}"
+            ]
+          },
+          "outcomes": {
+            "success": "if2"
+          }
+        }
+      }
+    },
+    "OpenDialogChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "AssignEmployeeRecord",
+      "actions": {
+        "AssignEmployeeRecord": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentEmployee": {
+              "source": "{{ $chain.variables.current }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "OpenDialog"
+          }
+        },
+        "OpenDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+            "method": "open"
+          }
+        }
+      }
+    },
+    "RefreshButtonChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "refreshDepartmentDetails",
+      "actions": {
+        "refreshDepartmentDetails": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "FetchDepartment"
+          }
+        }
+      }
+    },
+    "NewEmployeeButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignVariables1",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentEmployee": {
+              "source": {
+                "department": "{{ $page.variables.departmentId }}",
+                "email": "",
+                "firstName": "",
+                "id": "{{ $page.variables.idForNewEmployee }}",
+                "lastName": "",
+                "salary": "0"
+              },
+              "reset": "none",
+              "auto": "always"
+            },
+            "$page.variables.idForNewEmployee": {
+              "source": "{{ $page.variables.idForNewEmployee - 1 }}"
+            }
+          },
+          "outcomes": {
+            "success": "OpenModalDialog"
+          }
+        },
+        "OpenModalDialog": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "OpenDialogChain",
+            "params": {
+              "current": "{{ $page.variables.currentEmployee }}"
+            }
+          }
+        }
+      }
+    },
+    "SaveButtonActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "prepareDepartmentPayloadForBatch",
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callBatchRESTCall.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "if1": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.prepareEmployeesPayloadForBatch === undefined ]]"
+          },
+          "outcomes": {
+            "true": "fireNotification2",
+            "false": "callBatchRESTCall"
+          }
+        },
+        "fireNotification2": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "displayMode": "transient",
+            "type": "info",
+            "summary": "Data Upto Date",
+            "message": "Nothing to save !!"
+          }
+        },
+        "fireNotification3": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "displayMode": "transient",
+            "type": "confirmation",
+            "summary": "Success",
+            "message": "Changes saved !!"
+          },
+          "outcomes": {
+            "success": "fetchDataAgainAfterCommit"
+          }
+        },
+        "prepareDepartmentPayloadForBatch": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "prepareDepartmentBatchPayload",
+            "params": [
+              "{{ $page.variables.departmentName }}",
+              "{{ $page.variables.originalDepartmentName }}",
+              "{{ $page.variables.departmentId }}"
+            ]
+          },
+          "outcomes": {
+            "success": "prepareEmployeesPayloadForBatch"
+          }
+        },
+        "prepareEmployeesPayloadForBatch": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "prepareEmployeesBatchPayload",
+            "params": [
+              "{{ $page.variables.employeeListADP.data }}",
+              "{{ $page.variables.rowStatus }}",
+              "{{ $chain.results.prepareDepartmentPayloadForBatch }}"
+            ]
+          },
+          "outcomes": {
+            "success": "if1"
+          }
+        },
+        "callBatchRESTCall": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/batch",
+            "body": "{{ $chain.results.prepareEmployeesPayloadForBatch }}"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "fireNotification3"
+          }
+        },
+        "fetchDataAgainAfterCommit": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "FetchDepartment"
+          }
+        }
+      }
+    },
+    "DeleteEmployee": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "assignVariables1",
+      "actions": {
+        "fireDataProviderEvent1": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "remove": {
+              "keys": "{{ [ $page.variables.currentEmployee.id ] }}"
+            },
+            "target": "[[ $page.variables.employeeListADP ]]"
+          },
+          "outcomes": {
+            "success": "checkIfNewRow"
+          }
+        },
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentEmployee": {
+              "source": "{{ $chain.variables.current }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "fireDataProviderEvent1"
+          }
+        },
+        "if1": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.checkIfNewRow ]]"
+          },
+          "outcomes": {
+            "false": "assignVariables2",
+            "true": "assignVariables3"
+          }
+        },
+        "assignVariables2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+              "source": "deleted",
+              "auto": "always"
+            }
+          }
+        },
+        "assignVariables3": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+              "source": "ignore",
+              "auto": "always"
+            }
+          }
+        },
+        "checkIfNewRow": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "isNewRow",
+            "params": [
+              "{{ $page.variables.currentEmployee.id }}",
+              "{{ $page.variables.rowStatus }}"
+            ]
+          },
+          "outcomes": {
+            "success": "if1"
+          }
+        }
+      }
+    },
+    "FetchDepartment": {
+      "root": "fetchDepartmentDetails",
+      "description": "",
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.fetchDepartmentDetails.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.departmentName": {
+              "source": "{{ $chain.results.fetchDepartmentDetails.body.departmentName }}"
+            },
+            "$page.variables.originalDepartmentName": {
+              "source": "{{ $chain.results.fetchDepartmentDetails.body.departmentName }}"
+            }
+          },
+          "outcomes": {
+            "success": "fetchEmployeesDetails"
+          }
+        },
+        "fetchDepartmentDetails": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Department",
+            "uriParams": {
+              "Department_Id": "{{ $page.variables.departmentId }}"
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignVariables1"
+          }
+        },
+        "fetchEmployeesDetails": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "FetchEmployees"
+          }
+        }
+      }
+    },
+    "FetchEmployees": {
+      "root": "resetVariables1",
+      "description": "",
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.fetchAllEmployees.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeListADP": {
+              "source": {
+                "data": "{{ $chain.results.fetchAllEmployees.body.items }}"
+              },
+              "reset": "none",
+              "auto": "always"
+            }
+          }
+        },
+        "resetVariables1": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.employeeListADP",
+              "$page.variables.rowStatus"
+            ]
+          },
+          "outcomes": {
+            "success": "fetchAllEmployees"
+          }
+        },
+        "fetchAllEmployees": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Employee",
+            "uriParams": {
+              "q": "{{ \"department=\" + $page.variables.departmentId }}"
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignVariables1"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "aClick": {
+      "chains": [{
+        "chainId": "OpenDialogChain",
+        "parameters": {
+          "current": "{{ $current }}"
+        }
+      }]
+    },
+    "ojButtonOjAction": {
+      "chains": [{
+        "chainId": "UpdateEmployeeChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    },
+    "vbEnter": {
+      "chains": [{
+        "chainId": "FetchDepartment",
+        "parameters": {}
+      }]
+    },
+    "ojButtonOjAction2": {
+      "chains": [{
+        "chainId": "RefreshButtonChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    },
+    "ojButtonOjAction3": {
+      "chains": [{
+        "chainId": "NewEmployeeButtonActionChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    },
+    "editEmployee": {
+      "chains": [{
+        "chainId": "OpenDialogChain",
+        "parameters": {
+          "current": "{{ $current.row }}"
+        }
+      }]
+    },
+    "deleteEmployee": {
+      "chains": [{
+        "chainId": "DeleteEmployee",
+        "parameters": {
+          "detail": "{{ $event.detail }}",
+          "key": "{{ $current.key }}",
+          "index": "{{ $current.index }}",
+          "current": "{{ $current.row }}"
+        }
+      }]
+    },
+    "ojButtonOjAction4": {
+      "chains": [{
+        "chainId": "SaveButtonActionChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      }
+    }
+  }
+}

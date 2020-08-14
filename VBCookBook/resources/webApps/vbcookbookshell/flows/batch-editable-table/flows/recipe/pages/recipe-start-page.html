@@ -1,0 +1,139 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Create a Table component that displays editable rows of employees. For changes to salary, you’ll use a Validation
+  Group component and write a custom validator to ensure that the salary remains within a valid range. All changes are
+  stored locally in the browser until the user clicks <strong>Save</strong>, at which time a REST call posts the changes
+  to the backend
+  service. </p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Table to Display Employees</span>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-765FB233-EFBC-4841-8F18-27C233125C80">Create
+              a custom type from the GET /Employee endpoint.</a> Add the appropriate fields (name, job, and so on) to
+            the
+            Employee custom type.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Create
+              an employees ArrayDataProvider</a> variable that binds to the Employee custom type you just created. </li>
+
+          <li>Add a <code>vbEnter</code> event listener to the page that will display the Employees table. </li>
+          <li>In the action chain started by the <code>vbEnter</code> event listener, add a Call REST Endpoint action
+            that fetches the employees and populates the <code>employeesADP</code> variable.</li>
+
+          <li>In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li>In the Data tab of the Property Inspector for the newly-added Table component, bind the Data property to
+            the <code>employeesADP</code> variable.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepb">
+      <span slot="header">Make the Table Editable</span>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a page variable</a> named <code>currentRowBuffer</code> of type EmployeeType.</li>
+          <li>Add <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">an
+              ojBeforeRowEdit event listener</a> to the Table component. </li>
+          <li>In the <code>TableBeforeRowEditChain</code> action chain, add an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              Variables action</a> named <code>updateCurrentRowBuffer</code> where you assign the current row
+            data to the <code>currentRowBuffer</code> page variable.</li>
+          <li>Add an <code>ojBeforeRowEditEnd</code> event listener to the Table component.</li>
+
+          <li>In the Events editor for the newly-created <code>ojBeforeRowEditEnd</code> event listener, set the
+            following value for the Prevent Default property so that the application prevents users from ending the row
+            edit if necessary, after evaluating the following expressions:
+            <p>
+              <code>{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}</code>
+            </p>
+          </li>
+
+
+          <li>In the <code>TableBeforeRowEditEndChain</code> action chain, add the following two variables to reference
+            the original value and the current value of the row:
+            <ul>
+              <li><code>originalRowData</code> – EmployeeType</li>
+              <li><code>rowData</code> - EmployeeType</li>
+            </ul>
+          </li>
+          <li>
+            In the Property Inspector for the Table component's <code>ojBeforeRowEditEnd</code> event listener, map the
+            following two parameters:
+            <ul>
+              <li><code>originalRowData</code> to
+                <code>$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data</code>
+              </li>
+              <li><code>rowData</code> to <code>$page.variables.currentRowBuffer</code></li>
+            </ul>
+
+          </li>
+          <li>Add an If action named <code>hasRecordChanged</code> that uses a function to test if the row has changed.
+          </li>
+          <li>If the row has changed, use a Fire Data Provider Event action to update the <code>employeesADP</code>
+            variable.</li>
+          <li>Add another If action to test if this is the first update of this row.</li>
+          <li>If true, add an Assign Variables action that marks the row as updated. </li>
+          <li>In the Table component’s Property Inspector, set the edit-mode property to <code>rowEdit</code>.</li>
+          <li>From the Component Palette, drag If components (<code>oj-bind-if</code>) and drop one on each column
+            in the Table component
+            to generate a Cell Template for the column. Configure the If component to determine the behavior when the
+            column row
+            is in navigation mode. Drop a second If component to test if the row is in edit mode, and bind to the
+            <code>currentRowBuffer</code>
+            page variable for this scenario.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepc">
+      <span slot="header">Validate User Input</span>
+      <div>
+        <p>Validation ensures that each employee entry has a first and last name, and that any change to an employee's
+          salary remains within the range for the paygrade of the employee.
+          Inspect the following entries in the recipe to learn how to validate user input in an edited row.</p>
+        <ol>
+          <li>A Validation Group component wraps the Table component. </li>
+          <li>
+            In the <code>TableBeforeRowEditEndChain</code> action chain, add an If action to the start of the action
+            chain
+            to test a number of conditions that include the following custom functions:
+            <ul>
+              <li><code>isFormValid</code> - Trigger validation for the currently edited row and return true if it is
+                valid.</li>
+              <li><code>salaryInRangeValidator</code> – validates that the salary entered is within the range for the
+                employee.</li>
+              <li><code>shouldPreventDefault</code> – executes the validator in the Table component and prevents the user from
+                exiting edit mode if the validation fails.</li>
+            </ul>
+            <p>This If action performs the same task as the expression that you set for the <code>ojBeforeRowEditEnd</code> event listener's Prevent Default property when you made the Table component editable (Prevents users from exiting a row edit if they entered invalid values).</p>
+          </li>
+        </ol>
+        <p>Apart from the functions just described, note also how an Assign Variables action in the
+          <code>JobChanged</code> action chain prevents a user from
+          exiting a row edit until the Call REST Endpoint action gets job salary details necessary to perform
+          validation. </p>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepd">
+      <span slot="header">Track and Save Changes</span>
+      <div>
+        <p>A <code>rowStatus</code> page variable is updated each time that a row is created, updated, or deleted. </p>
+        <p>
+          The event listener for the <strong>Save Changes</strong> button triggers the Save Changes action chain that
+          includes a Call Module Function where the associated function creates a payload of the changes to upload.
+          The subsequent Call REST Endpoint action uploads this payload through the business objects Batch REST
+          endpoint. The <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/consume-rest/advanced-tasks.html#GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">Batch
+            REST endpoint</a> sends multiple changes in one transaction.</p>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

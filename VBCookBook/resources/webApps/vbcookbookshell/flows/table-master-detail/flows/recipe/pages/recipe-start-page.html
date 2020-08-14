@@ -1,0 +1,87 @@
+<!--
+ Copyright (c) 2018, 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<p>
+  You’ll add Table components that display data for departments and the departments’ employees. End users select a
+  department in the Department table and
+  this selection determines the list of employees that appear in the Employee table. You’ll also add a Form Layout
+  component where detailed information
+  about the selected employee appears.
+</p>
+
+<div class="oj-flex">
+
+  <oj-accordion id="accordionPage" class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="step1">
+      <span slot="header">Create Page Variables</span>
+      <div>
+        <p>Create the <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">following
+            page variables</a> to reference the selected department and employee</p>
+        <ul>
+          <li><code>selectedDepartmentId</code> – Number to reference the department ID.</li>
+          <li><code>employee</code> – Object to reference the selected employee’s information.</li>
+        </ul>
+      </div>
+    </oj-collapsible>
+
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li>Use the Table component's <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to map your table to the <code>GET / Department</code> endpoint.</li>
+          <li>In the Bind Data page of the Add Data dialog, select the following items from the endpoint structure:
+            <ul>
+              <li><code>id</code></li>
+              <li><code>name</code></li>
+              <li><code>location ID</code></li>
+            </ul>
+          </li>
+          <li>Drag another Table component and drop it on the page.</li>
+          <li>Use the Table component's Add Data Quick Start to map this table to the <code>GET / Employee</code>
+            endpoint.</li>
+          <li>In the Bind Data page of the Add Data dialog, select the following items from the endpoint structure:
+            <ul>
+              <li><code>First Name</code></li>
+              <li><code>Last Name</code></li>
+              <li><code>Salary</code></li>
+              <li><code>Hire Date</code></li>
+            </ul>
+          </li>
+          <li>In the Define Query page of the Add Data dialog, click <strong>filterCriterion</strong> and filter
+            employees based on department ID.</li>
+          <li>In the Component Palette, drag a Form Layout component and drop it on the page. Add additional components
+            as children of this Form Layout component to display information (name, salary, and so on) about the
+            selected employee. </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step3">
+      <span slot="header">Create Events and Action Chains</span>
+      <div>
+        <ol>
+          <li>Select the Table component for departments and, in the Events tab of the Property Inspector, add a
+            <code>first-selected-row</code> event.</li>
+          <li>In the generated action chain, add an Assign Variables action to assign the currently-select row to the
+            <code>selectedDepartmentID</code> page variable.</li>
+          <li>Add a Reset Variables action after the Assign Variables action and specify the <code>employee</code> page
+            variable.
+          </li>
+          <li>Select the Table component for employees, and in the Events tab of the Property Inspector, add a
+            <code>first-selected-row</code> event.</li>
+          <li>In the generated action chain, add an Assign Variables action to assign the currently-select row to the
+            employee page variable.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
