@@ -70,6 +70,6 @@ This sample shows how to consume an external REST API and create custom UI to in
 
 This is the source code project for a custom SaaS theme for use in JET and VBCS projects. See the README.md file for information on how to generate and install the theme.
 
-### VBCookBook
+### VBCookbook
 
 This is the source code project for VB Cookbook. See the README.md file for information on how to use it.
