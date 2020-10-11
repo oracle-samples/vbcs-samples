@@ -1,0 +1,172 @@
+<!--
+ Copyright (c) 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="oj-collapsible--2002602216-1" expanded="true">
+      <span slot="header">Create Employee Table</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>In the  Component Palette, drag and drop a Table component onto the page.</li>
+          <li>Use the Add Data Quick Start to configure data for the Table component.
+            <ul>
+              <li>
+                Select <code>Employee</code>business object or the getAll_Employees as the endpoint.
+              </li>
+              <li>
+                Select the following fields from the <code>Response</code>:
+                <ol>
+                  <li>
+                    <code>id</code>
+                  </li>
+                  <li>
+                    <code>firstName</code>
+                  </li>
+                  <li>
+                    <code>email</code>
+                  </li>
+                  <li>
+                    <code>skillCollection.name</code>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                Click <strong>Next</strong> and then click <strong>Finish</strong>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible--800054844-2">
+      <span slot="header">Many-To-Many Create</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>In the Component Palette, drag and drop a Dialog component onto the page.</li>
+          <li>Drag and drop a Form Layout component onto the page.</li>
+          <li>Wrap the Form layout component in a Validation Group.</li>
+          <li>Create the following variables:
+            <ul>
+              <li>
+                <code>newEmployee</code> of type<code>create_Employee</code> with
+                fields
+                <ol>
+                  <li> <code>firstName</code></li>
+                  <li> <code>lastName</code></li>
+                  <li> <code>email</code></li>
+                  <li> <code>hireDate</code></li>
+                  <li> <code>job</code></li>
+                </ol>
+              </li>
+              <li>
+                <code>createSkill</code> of type<code>Array of type number</code>
+              </li>
+            </ul>
+          </li>
+          <li>Add the following fields to the Form Layout component:
+            <ul>
+              <li>
+                Input Text for <code>$variables.newEmployee.firstName</code>
+              </li>
+              <li>
+                Input Text for <code>$variables.newEmployee.lastName</code>
+              </li>
+              <li>
+                Email for <code>$variables.newEmployee.email</code>
+              </li>
+              <li>
+                Input Date for <code>$variables.newEmployee.hireDate</code>
+              </li>
+              <li>
+                Select Single for <code>$variables.newEmployee.job</code>
+              </li>
+              <li>
+                Select Many for <code>$variables.createSkill</code>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Add a Button component for Save and add an ojAction event to call an action chain that does the following:
+            <ul>
+              <li>
+                Validates the form
+              </li>
+              <li>
+                Calls create_Employee Endpoint to create a new employee
+              </li>
+              <li>
+                Calls the module function <code>batchPayloadForCreateSkills</code> to create a batch payload for creating skills
+              </li>
+              <li>
+                Calls the business object's Batch REST endpoint to create skills</li>
+            </ul>
+          </li>
+        </ol>
+
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible--800054844-3">
+      <span slot="header">Many-To-Many Edit</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>In the Component Palette, drag and drop a Dialog component onto the page.</li>
+          <li>Drag and drop a Form Layout component onto the page.</li>
+          <li>Wrap the Form layout in a Validation Group.</li>
+          <li>Create the following variables:
+            <ul>
+              <li>
+                <code>currentEmployee</code> of type <code>update_Employee</code> with the following fields:
+                <ol>
+                  <li> <code>firstName</code></li>
+                  <li> <code>email</code></li>
+                  <li> <code>employeeSkillCollection</code></li>
+                  <li> <code>id</code></li>
+                </ol>
+              </li>
+              <li>
+                <code>currentSkills</code> of type<code>Array of type number</code>
+              </li>
+            </ul>
+          </li>
+          <li>Drop the following fields in the Form Layout:
+            <ul>
+              <li>
+                Input Text for <code>$variables.currentEmployee.firstName</code>
+              </li>
+              <li>
+                Input Text for <code>$variables.currentEmployee.email</code>
+              </li>
+
+              <li>
+                Select Many for <code>$variables.currentSkills</code>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Update variables <code>currentEmployee</code> and <code>currentSkills</code> when the Edit button is clicked.
+          </li>
+          <li>
+            Add a Button component for Save and add an ojAction event to call an action chain that does the following:
+
+            <ul>
+              <li>
+                Validates the form
+              </li>
+
+              <li>
+                Calls module function <code>batchPayloadForEdit</code> to create batch payload for updated employee and skills
+              </li>
+              <li>
+                Calls the business object's Batch REST endpoint to update employee and skills</li>
+            </ul>
+          </li>
+        </ol>
+
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

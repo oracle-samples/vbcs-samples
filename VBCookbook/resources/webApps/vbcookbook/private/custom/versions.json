@@ -1,0 +1,10 @@
+{
+  "visualDevelopmentPlatform": {
+    "cdnPath": "https://static.oracle.com/cdn/vb/",
+    "version": "2010.1.0"
+  },
+  "jet": {
+    "cdnPath": "https://static.oracle.com/cdn/jet/",
+    "version": "9.0.5"
+  }
+}

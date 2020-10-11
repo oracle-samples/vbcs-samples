@@ -660,9 +660,41 @@
           }
         }
       }
+    },
+    "takeToHomeChain": {
+      "description": "",
+      "root": "callActionChain1",
+      "actions": {
+        "callActionChain1": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "navigate",
+            "params": {
+              "selection": "home"
+            }
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
     }
   },
   "eventListeners": {
+    "aClick2": {
+      "chains": [
+        {
+          "chainId": "takeToHomeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
     "onVersionItemSelect": {
       "chains": [{
         "chainId": "onVersionItemSelect",
@@ -707,6 +739,7 @@
       ]
     },
     "openInVBActionClicked": {
+      "preventDefault": true,
       "chains": [{
         "chainId": "OpenHowToOpenVBDialog"
       }]

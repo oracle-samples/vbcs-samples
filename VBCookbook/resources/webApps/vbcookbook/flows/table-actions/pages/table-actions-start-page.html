@@ -9,7 +9,7 @@
 </div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
-    <oj-dialog style="display:none" dialog-title="Update" id="oj-dialog--1155637190-1">
+    <oj-dialog style="display:none" dialog-title="Update" id="oj-dialog--1155637190-1" cancel-behavior="icon">
       <div slot="body">
         <div class="oj-flex">
           <oj-label for="oj-input-text--150600980-1" class="oj-flex-item oj-sm-12 oj-md-4">First Name</oj-label>
@@ -39,6 +39,7 @@
       </div>
       <div slot="footer">
         <oj-button on-oj-action="[[$listeners.ojButtonOjAction]]">Save</oj-button>
+        <oj-button chroming="callToAction" on-oj-action="[[$listeners.ojButtonOjAction2]]">Cancel</oj-button>
       </div>
     </oj-dialog>
     <div class="oj-flex">
@@ -52,7 +53,7 @@
       <oj-input-number converter='{"options":{"style":"currency","currency":"USD","useGrouping":true,"currencyFormat":"standard"},"type":"number"}' value="{{ $current.row.salary }}" readonly="true"></oj-input-number>
     </template>
         <template slot="cellTemplate">
-      <span class="vb-icon vb-icon-pencil" on-click="[[$listeners.spanClick]]"></span>
+      <span class="vb-icon vb-icon-pencil" on-click="[[$listeners.spanClick]]" :id='[[ "edit"+$current.index ]]'></span>
     </template>
       </oj-table>
     </div>

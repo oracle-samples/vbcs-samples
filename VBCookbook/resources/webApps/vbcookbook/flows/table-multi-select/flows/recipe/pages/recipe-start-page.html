@@ -3,23 +3,23 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
+<!-- template -->
+<p>
+  A Table component displays department data. A Checkbox Set component with an event
+  listener updates the <code>selection</code> variable that holds an array of selected
+  department records. </p>
 <div class="oj-flex">
-  <p>
-    A Table component displays department data. A CheckboxSet component with an event
-    listener updates the <code>selection</code> variable which holds an array of selected
-    department records. </p>
-</div>
-<!-- Step 1. -->
-<div class="oj-flex">
-  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <!-- Step 1. -->
     <oj-collapsible id="oj-collapsible-1494599579-1" expanded="true">
       <span slot="header">Create a Department Table</span>
       <div>
         <p>You add a Table component to your page, bind it to department data, and add
-          a CheckBoxSet that you'll later use to select departments. </p>
+          a CheckBox Set that you'll later use to select departments. </p>
         <ol>
           <li>In the Component Palette, drag a Table component and drop it on the page.</li>
-          <li>Use the Table component’s <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+          <li>Use the Table component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your table to department data.</li>
           <li>In the Bind Data page, select the following department fields:
             <ul>
@@ -30,109 +30,118 @@
             </ul>
           </li>
           <li>
-            <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
-              a page variable</a> named <code>selection</code> of type
-            Array and Array Item Type object. Add the following fields:
-            <ul>
-              <li><code>startKey</code> of type object. Add <code>row</code> variable
-              of type number.</li>
-              <li><code>startIndex</code> of type object. Add <code>row</code> variable
-              of type number.</li>
-              <li><code>endKey</code> of type object. Add <code>row</code> variable
-              of type number.</li>
-              <li><code>endIndex</code> of type object. Add <code>row</code> variable
-              of type number.</li>
-
-            </ul>
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a page variable</a> named <code>currentSelection</code> of type
+            string.
           </li>
           <li>
-            In the Table Property Inspector, click the data table and assign <code>[[$variables.selection]]</code> to the Selection attribute.
+            Open the JavaScript tab and paste the following code snippet that reference the Row and Column Keys.
+            <pre>
+              PageModule.prototype.selectedItems = ko.observable({
+                row: new keySet.KeySetImpl(),
+                column: new keySet.KeySetImpl()
+              });
+            </pre>
           </li>
+          <li>In the Property Inspector for the Table component, select the data table and assign
+            <code>[[$functions.selectedItems]]</code> to the selected attribute</li>
+
         </ol>
       </div>
     </oj-collapsible>
-  </oj-accordion>
-</div>
-<!-- Step 2. -->
-<div class="oj-flex">
-  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Add Event Listeners to Invoke Action Chains</h1>
+      <div>
+        <p>Add listeners for events that then invoke the action chain to get selected keys and assign them to the page
+          variable
+          to display on the UI. </p>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              an event listener</a> <code>selected</code> to the Table component.</li>
+          <li>
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html">Add
+              an Call Module Function action</a> to the action chain named <code>TableSelectedChangeChain</code>. In the
+            Property Inspector of the Call Module Function action:
+            <ul>
+              <li>
+                Enter ID <code>selectedChangedModuleFunction</code>
+              </li>
+              <li>
+                Create a function named <code>selectedChangedListener</code> and assign the <code>*selected</code>
+                variable in the action chain to the <code>selected</code> variable in the target which is the name of
+                function argument.
+              </li>
+              <li>
+                Copy and paste the following code for <code>selectedChangedListener</code>
+                <pre>
+                 PageModule.prototype.selectedChangedListener = function(selected) {
+
+      var selectionText = '';
+
+      if (selected.row.isAddAll()) {
+        var iterator = selected.row.deletedValues();
+        iterator.forEach(function(key) {
+          selectionText = selectionText.length === 0 ? key :
+            selectionText + ', ' + key;
+        });
+
+        if (iterator.size > 0) {
+          selectionText = ' except ' + selectionText;
+        }
+        selectionText = 'Row Selection:\nAll rows are selected' +
+          selectionText;
+      } else {
+        if (selected.row.values().size > 0) {
+          selected.row.values().forEach(function(key) {
+            selectionText += (selectionText.length === 0 ? key :
+              ', ' + key);
+          });
+          selectionText = 'Row Selection:\nRow Keys: ' + selectionText;
+        }
+        if (selected.column.values().size > 0) {
+          selected.column.values().forEach(function(key) {
+            selectionText += (selectionText.length === 0 ? key :
+              ', ' + key);
+          });
+          selectionText = 'Column Selection:\nColumn Keys: ' +
+            selectionText;
+        }
+      }
+      return selectionText;
+    };
+               </pre>
+              </li>
+            </ul>
+          </li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> to the action chain named <code>TableSelectedChangeChain</code> that
+            assigns the output of the <code>selectedChangedModuleFunction</code> function
+            of the action chain to the <code>currentSelection</code> page variable in Target.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
     <oj-collapsible id="oj-collapsible-1494599579-2">
-      <span slot="header">Add a Panel to display selected Department(s) Records</span>
+      <h1 slot="header">Add a Text Area Component to Display Selected Department(s) Records</h1>
       <div>
-        <p>Add a Panel to display the selected department(s) records.</p>
+        <p>Add a Text Area Component to display the selected department(s) records.</p>
         <ol>
-          <li>In the Component Palette, drag a Panel component and drop it on the page.</li>
-          <li>In Property Inspector of the Panel component, go to the All Tab, General Attributes section and add <code>height:200px;overflow-y:auto;</code> in the style field.</li>
-		<li>Drag an oj-bind-for-each component and drop it in above panel.</li>
-		<li>In Template Slot of the oj-bind-for-each component:
-			<ol>
-				<li>
-				Drag an oj-label component and drop it in the template slot. In the Property Inspector, set Text to <b>Row Selection</b>.
-				</li>
-				<li>
-					Drag an oj-bind-text component and drop it in the template slot. In the Property Inspector, set the value to <code>[[ "start row index: " + $current.data.startIndex.row + ", end row index: " + $current.data.endIndex.row]]</code>.
-				</li>
-<li>
-					Drag an oj-bind-text component and drop it in the template slot. In the Property Inspector, set the value to <code>[[ "start row key: " + $current.data.startKey.row + ", end row Key: " + $current.data.endKey.row]]</code>.
-				</li>
-			</ol>
-		</li>
- </ol>
+          <li>In the Component Palette, drag a Text Area component and drop it on the page.</li>
+          <li>In Property Inspector of the Text Area component, go to the General Tab, assign label-hint attribute to
+            <code>Current Selection</code></li>
+          <li>In Property Inspector of the Text Area component, go to Data Tab, assign value field to
+            <code>{{ $variables.currentSelection }}</code></li>
+
+        </ol>
       </div>
     </oj-collapsible>
+
   </oj-accordion>
-</div>
-<!-- Step 3. -->
-<div class="oj-flex">
-  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
-    <oj-collapsible id="oj-collapsible-1494599579-3">
-      <span slot="header">Add CheckBoxSet to Table to select department(s)</span>
-      <div>
-        <p>You add a CheckBoxSet Component to your Table, then add a listener that invokes
-          the action chain to assign the selected department records to the <code>selection</code> variable. </p>
-        <ol>
-        <li>In the JS tab of the page, add the following module function:
-<pre>PageModule.prototype.checkboxSelection = function(selection, targetKey) {
-  return selection.filter(function(s) {
-    return s.startKey.row === targetKey
-  }).length ? ['checked'] : [];
-};</pre>
-            </li>
-          <li>In the Component Palette, drag a CheckBoxSet component and drop it on the
-            table as slot template.</li>
-              <li>In the Data Tab of the Property Inspector, add <code>{{ $page.functions.checkboxSelection($page.variables.selection,$current.row.id) }}</code> to the Value field.</li>
-              <li>In Sub Element (oj-option) section, add an option with an empty label and
-                value <code>checked</code>.</li>
-              <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-              an event listener</a> to the CheckBoxSet component.</li>
-              <li>Add an If Action to the chain named <code>SyncCheckboxesInTableAction</code>.</li>
-              <li>In Property Inspector of the If Action, set the condition to <code>[[ $page.variables.selection.filter(function(s){return s.startKey.row===$chain.variables.targetId }).length ]]</code> to check if the current select row key matches
-                TargetId.</li>
-              <li>In the True path of the action chain, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
-              an Assign Variables action</a> named <code>SyncCheckboxesInTableAction</code>
-              which filters the <code>selection</code> array and maps the <code>selection</code> array from source to Target <code>selection</code>. Select the <code>selection</code> array on the right and set it to
-              <code>$page.variables.selection.filter(function(s){ return s.startKey.row !== $chain.variables.targetId})</code>. Set Reset Target to empty.</li>
-          <li>In the False path of the action chain, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
-              an Assign Variables action</a> to the action chain named <code>SyncCheckboxesInTableAction</code>
-          to filter <code>selection</code> array and map <code>selection</code> array
-          from source to Target <code>selection</code>. Select <code>selection</code> array on the right and set it to: <pre>$page.variables.selection.concat([
- {
-  "endIndex": {
-   "row":  $variables.index 
-  },
-  "startIndex": {
-   "row":  $variables.index 
-  },
-  "endKey": {
-   "row":  $variables.targetId 
-  },
-  "startKey": {
-   "row":  $variables.targetId 
-  }
- }
-])</pre> Set Reset Target to empty.</li>
-</ol>
-      </div>
-    </oj-collapsible>
-  </oj-accordion>
-</div>
+  </div>

@@ -4,30 +4,37 @@
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-margin-bottom">
-  This demo shows how to use the label-edge attribute to configure an "inline" form
-  layout, meaning one where the label and field are on the same line. Try changing
+  This demo shows how to use the label-edge attribute to configure an "inline"
+  form
+  layout, meaning one where the label and field are on the same line. Try
+  changing
   the width of the browser, on small screens the labels move to the top. This is
   done by using $application.responsive.* variables.
 
 </div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
-    <div id="form-container">
 
-      <p>Demo width in <span class="demo-screen-range"></span> screen range.</p>
 
-      <oj-form-layout label-edge='[[$application.responsive.smOnly ? "top" : "start"]]'>
+    <p>Demo width in <span class="demo-screen-range"></span> screen range.</p>
 
-        <oj-input-text id="control1" required value="text" label-hint="row 1"></oj-input-text>
+    <oj-form-layout
+      label-edge='[[$application.responsive.smOnly ? "top" : "start"]]'
+      >
 
-        <oj-text-area id="control2" value='text' rows="6" label-hint="row 2">
-        </oj-text-area>
+      <oj-input-text id="control1" required value="text" label-hint="row 1"
+        label-edge="provided"></oj-input-text>
 
-        <oj-input-text id="control3" value="text" label-hint="row 3">
-        </oj-input-text>
+      <oj-text-area id="control2" value='text' rows="6" label-hint="row 2"
+        label-edge="provided">
+      </oj-text-area>
 
-      </oj-form-layout>
-    </div>
+      <oj-input-text id="control3" value="text" label-hint="row 3"
+        label-edge="provided">
+      </oj-input-text>
+
+    </oj-form-layout>
+
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
@@ -35,7 +42,8 @@
       <div class="recipe-box oj-flex-item">
         <h1>Recipe</h1>
         <div class="oj-flex">
-          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+          <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>
     </div>

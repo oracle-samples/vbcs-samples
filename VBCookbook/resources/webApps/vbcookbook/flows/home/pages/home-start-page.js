@@ -6,15 +6,15 @@
 define([], function() {
   'use strict';
 
-  var PageModule = function PageModule() {
-  };
+  var PageModule = function PageModule() {};
 
   /**
    * Get array of data to render recipe tiles on home screen.
    */
   PageModule.prototype.getRecipeListData = function(_metadata) {
     if (this.recipeArray === undefined) {
-      this.recipeArray = this._flattenGalleryList(this._getGalleryPageData(_metadata.navigationMenu, _metadata.demos));
+      this.recipeArray = this._flattenGalleryList(this
+        ._getGalleryPageData(_metadata.navigationMenu, _metadata.demos));
     }
     return this.recipeArray;
   };
@@ -52,19 +52,23 @@ define([], function() {
         menuItem = {
           "id": 'g_' + origMenuItem.id,
           "label": origMenuItem.label,
-          "categoryBannerClass": "categorygrouplabel " + origMenuItem.categoryBannerClass,
-          "categoryBorderClass": parent ? parent.categoryBorderClass : ""
+          "categoryBannerClass": "categorygrouplabel " + origMenuItem
+            .categoryBannerClass,
+          "categoryBorderClass": parent ? parent.categoryBorderClass :
+            ""
         };
         if (origMenuItem.imageUrl) {
           menuItem["imageUrl"] = origMenuItem.imageUrl;
         }
-        if (origMenuItem.items && origMenuItem.items.length > 0 && typeof origMenuItem
+        if (origMenuItem.items && origMenuItem.items.length > 0 &&
+          typeof origMenuItem
           .items[0] === "string") {
           menuItem["url"] = origMenuItem.items[0];
         }
       }
 
-      if (origMenuItem.items && origMenuItem.items.length > 0 && typeof origMenuItem
+      if (origMenuItem.items && origMenuItem.items.length > 0 &&
+        typeof origMenuItem
         .items[0] === "object")
         menuItem["items"] = this._getGalleryPageData(origMenuItem.items,
           demos, origMenuItem);

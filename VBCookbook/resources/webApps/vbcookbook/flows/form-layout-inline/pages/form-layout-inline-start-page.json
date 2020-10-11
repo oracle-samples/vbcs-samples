@@ -1,12 +1,12 @@
 {
-	"pageModelVersion": "18.3.3",
-	"title": "My start page",
-	"description": "The starting page of the flow",
-	"variables": {},
-	"types": {},
-	"chains": {},
-	"eventListeners": {},
-	"imports": {
+ "pageModelVersion": "18.3.3",
+ "title": "",
+ "description": "The starting page of the flow",
+ "variables": {},
+ "types": {},
+ "chains": {},
+ "eventListeners": {},
+ "imports": {
 		"components": {
 			"oj-input-text": {
 				"path": "ojs/ojinputtext"

@@ -70,7 +70,7 @@
     "id": "cache-lov",
     "runtime": "vb",
     "imageUrl": "select_one_list.png",
-    "label": "Caching LOV Values",
+    "label": "Caching LOV",
     "minHeightLandscape": "450",
     "seealso": [],
     "apiRef": [
@@ -285,7 +285,7 @@
     "runtime": "vb",
     "demoOrientation": "false",
     "imageUrl": "formlayout_grid.png",
-    "label": "Inline",
+    "label": "Inline Layout",
     "seealso": [
       {
         "label": "JET Form Layout",
@@ -307,6 +307,37 @@
       "flows/form-layout-inline/resources/css/demo-responsive.css"
     ],
     "demoPageName": "form-layout-inline-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "multi-step-wizard": {
+    "id": "multi-step-wizard",
+    "runtime": "vb",
+    "demoOrientation": "false",
+    "imageUrl": "formlayout_grid.png",
+    "label": "Multi Step Wizard",
+    "seealso": [
+      {
+        "label": "JET Form Layout",
+        "type": "jetdemo",
+        "url": "?component=ojFormLayout&demo=form1colinlineofl"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ],
+    "otherFiles": [
+      "flows/form-layout-inline/resources/css/demo-responsive.css"
+    ],
+    "openFiles": [
+      "flows/form-layout-inline/resources/css/demo-responsive.css"
+    ],
+    "demoPageName": "multi-step-wizard-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
@@ -506,11 +537,23 @@
   "partial-get-bo-fa": {
     "id": "partial-get-bo-fa",
     "runtime": "vb",
-    "label": "Partial GET BO/FA",
+    "label": "Fetch Only Required Fields",
     "defaultOrientation": false,
     "apiRef": [],
     "seealso": [],
     "demoPageName": "partial-get-bo-fa-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "rest-access-headers": {
+    "id": "rest-access-headers",
+    "runtime": "vb",
+    "label": "Access Response Headers",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "rest-access-headers-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
@@ -528,15 +571,15 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "rest-cec-upload": {
-    "id": "rest-cec-upload",
+  "rest-oce-upload": {
+    "id": "rest-oce-upload",
     "defaultOrientation": false,
     "runtime": "vb",
-    "label": "CEC Upload",
+    "label": "Content and Experience",
     "apiRef": [],
     "seealso": [],
     "minHeightLandscape": 600,
-    "demoPageName": "rest-cec-upload-start",
+    "demoPageName": "rest-oce-upload-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
@@ -545,7 +588,7 @@
     "id": "rest-fa-attachments",
     "defaultOrientation": false,
     "runtime": "vb",
-    "label": "FA Attachments",
+    "label": "Oracle Cloud Applications",
     "apiRef": [],
     "seealso": [],
     "minHeightLandscape": 600,
@@ -558,7 +601,7 @@
     "id": "rest-helper",
     "runtime": "vb",
     "imageUrl": "component-async-validators_grid.png",
-    "label": "Rest Helper",
+    "label": "REST Helper",
     "apiRef": [
       {
         "label": "ojInputText",
@@ -580,7 +623,7 @@
   "rest-ords-integration": {
     "id": "rest-ords-integration",
     "runtime": "vb",
-    "label": "ORDS REST Integration",
+    "label": "ORDS Integration",
     "defaultOrientation": false,
     "apiRef": [],
     "seealso": [],
@@ -756,6 +799,19 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "table-many-to-many": {
+    "id": "table-many-to-many",
+    "defaultOrientation": false,
+    "runtime": "vb",
+    "label": "Many-to-Many",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "demoPageName": "table-many-to-many-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "table-complex-filters": {
     "id": "table-complex-filters",
     "defaultOrientation": false,
@@ -782,4 +838,5 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   }
+  
 }

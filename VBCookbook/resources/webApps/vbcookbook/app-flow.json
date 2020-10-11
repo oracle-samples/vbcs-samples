@@ -1,7 +1,7 @@
 {
   "applicationModelVersion": "19.3.1",
-  "id": "vbcookbookshell",
-  "description": "VB Cookbook Shell",
+  "id": "vbcookbook",
+  "description": "VB Cookbook",
   "defaultPage": "shell",
   "chains": {
   },
@@ -12,8 +12,8 @@
     "ords": {
       "path": "./services/ords/openapi3.json"
     },
-    "cec": {
-      "path": "./services/cec/openapi3.json"
+    "oce": {
+      "path": "./services/oce/openapi3.json"
     },
     "activities": {
       "path": "./services/activities/openapi3.json"
@@ -57,10 +57,11 @@
   },
   "requirejs": {
     "paths": {
-      "oj-sample": "build/components/oj-sample/3.2.1",
-      "resources2": "{{ location.pathname + (window.vbInitConfig.BASE_URL_TOKEN ? window.vbInitConfig.BASE_URL_TOKEN + '/' : '') + 'resources'}}"
+      "oj-sample": "build/components/oj-sample/3.2.3",
+      "resources2": "resources"
     }
   },
   "eventListeners": {
-  }
+  },
+  "routerStrategy": "query"
 }

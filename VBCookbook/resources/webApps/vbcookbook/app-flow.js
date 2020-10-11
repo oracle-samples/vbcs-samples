@@ -8,17 +8,8 @@ define([
   'text!resources2/config/demos.json',
   
   
-  
-  
-  
-  
-  
 ], function(
   navigationMenu, demos,
-  
-  
-  
-  
   
 ) {
   'use strict';
@@ -33,6 +24,8 @@ define([
       demos: JSON.parse(demos)
     };
   };
+
+  
 
   /**
    * Returns metadata describing recipes and navigation menu

@@ -1,0 +1,265 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "currentJobTitle": {
+      "type": "string"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    },
+    "jobListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Job",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallJobResponse",
+        "filterCriterion": {
+          "op": "$ne",
+          "attribute": "jobTitle",
+          "value": "{{$page.variables.currentJobTitle}}"
+        }
+      }
+    },
+    "newJobTitle": {
+      "type": "object"
+    },
+    "selectedEmployee": {
+      "type": "any"
+    },
+    "selectedEmployeeItem": {
+      "type": "object"
+    },
+    "selectedLabel": {
+      "type": "string",
+      "defaultValue": "step1"
+    },
+    "selectedStep": {
+      "type": "string",
+      "defaultValue": "1"
+    },
+    "steps": {
+      "type": "object[]",
+      "defaultValue": [{
+          "id": "1",
+          "label": "Start"
+        },
+        {
+          "id": "2",
+          "label": "",
+          "disabled": true
+        },
+        {
+          "id": "3",
+          "label": "Finish",
+          "disabled": true
+        }
+      ]
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallJobResponse": {
+      "endpoint": "getall_Job",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [{
+        "email": "string",
+        "firstName": "string",
+
+        "hireDate": "string",
+        "id": "number",
+        "jobObject": {
+          "items": [{
+            "id": "number",
+            "jobTitle": "string"
+          }]
+        },
+        "lastName": "string",
+        "phoneNumber": "string",
+        "salary": "number"
+      }]
+    },
+    "getallJobResponse": {
+      "items": [{
+        "id": "number",
+        "jobTitle": "string"
+      }]
+    }
+  },
+  "chains": {
+    "NextActionChain": {
+      "description": "",
+      "root": "ifstart",
+      "actions": {
+        "AssignSteps": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.steps": {
+              "source": "{{ $page.variables.steps.map(s=> s.id === '2'? { ...s, disabled: false }: s) }}",
+              "reset": "empty"
+            },
+            "$page.variables.selectedStep": {
+              "source": "{{ 2 }}"
+            },
+            "$page.variables.currentJobTitle": {
+              "source": "{{ $page.variables.selectedEmployeeItem.data.jobObject.items[0].jobTitle }}"
+            }
+          }
+        },
+        "selectJobValidationComponentMethod": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "outcomes": {
+            "success": "CheckValidComponent"
+          },
+          "parameters": {
+            "component": "{{ document.getElementById('select-job') }}",
+            "method": "validate"
+          }
+        },
+        "assignSteps": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.steps": {
+              "source": "{{ $page.variables.steps.map(s=> s.id === '3'? { ...s, disabled: false }: s) }}",
+              "reset": "empty"
+            },
+            "$page.variables.selectedStep": {
+              "source": "3"
+            }
+          }
+        },
+        "CheckValidComponent": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.selectJobValidationComponentMethod !=='invalid' ]]"
+          },
+          "outcomes": {
+            "true": "assignSteps"
+          }
+        },
+        "ifstart": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.selectedStep  ===\"1\"]]"
+          },
+          "outcomes": {
+            "true": "AssignSteps",
+            "false": "ifnext"
+          }
+        },
+        "ifnext": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.selectedStep ===\"2\"]]"
+          },
+          "outcomes": {
+            "true": "selectJobValidationComponentMethod"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "SubmitActionChain": {
+      "description": "",
+      "root": "JobChangeSuccessNotification",
+      "actions": {
+        "JobChangeSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "Success!",
+            "message": "Employee Job Changed Successfully!",
+            "type": "confirmation"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "nextButtonOjAction": {
+      "chains": [{
+        "chainId": "NextActionChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    },
+    "submitButtonOjAction": {
+      "chains": [{
+        "chainId": "SubmitActionChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
+        }
+      }]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-train": {
+        "path": "ojs/ojtrain"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-radioset": {
+        "path": "ojs/ojradioset"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      }
+    }
+  }
+}

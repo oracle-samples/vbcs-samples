@@ -1,0 +1,525 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "createSkill": {
+      "type": "number[]"
+    },
+    "currentEmployee": {
+      "type": "update_Employee"
+    },
+    "currentSkills": {
+      "type": "number[]"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "sortCriteria": [
+          {
+            "attribute": "id",
+            "direction": "ascending"
+          }
+        ]
+      }
+    },
+    "jobListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Job",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallJobResponse"
+      }
+    },
+    "newEmployee": {
+      "type": "create_Employee"
+    },
+    "skillListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Skill",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallSkillResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.create_Employee": {
+      "endpoint": "create_Employee",
+      "service": "businessObjects",
+      "path": "request"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallJobResponse": {
+      "endpoint": "getall_Job",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallSkillResponse": {
+      "endpoint": "getall_Skill",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.update_Employee": {
+      "endpoint": "update_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "create_Employee": {
+      "email": "string",
+      "employeeSkillCollection": [
+        {
+          "skill": "number"
+        }
+      ],
+      "firstName": "string",
+      "hireDate": "string",
+      "job": "number",
+      "lastName": "string"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "employeeSkillCollection": {
+            "items": [
+              {
+                "id": "number",
+                "skill": "number"
+              }
+            ]
+          },
+          "firstName": "string",
+          "id": "number",
+          "skillCollection": {
+            "items": [
+              {
+                "id": "number",
+                "name": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "getallJobResponse": {
+      "items": [
+        {
+          "id": "number",
+          "jobTitle": "string"
+        }
+      ]
+    },
+    "getallSkillResponse": {
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
+    },
+    "update_Employee": {
+      "email": "string",
+      "employeeSkillCollection": {
+        "items": [
+          {
+            "id": "number",
+            "skill": "number"
+          }
+        ]
+      },
+      "firstName": "string",
+      "id": "number"
+    }
+  },
+  "chains": {
+    "openNewEmployeeDialogChain": {
+      "description": "",
+      "root": "openDialog",
+      "actions": {
+        "openDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('dialog-create-employee') }}",
+            "method": "open"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "createNewEmployeeChain": {
+      "description": "",
+      "root": "validate",
+      "actions": {
+        "validate": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "validateForm",
+            "params": [
+              "create-form"
+            ],
+            "returnType": "boolean"
+          },
+          "outcomes": {
+            "success": "ifValid"
+          }
+        },
+        "closeDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('dialog-create-employee') }}",
+            "method": "close"
+          }
+        },
+        "fireNotificationSuccess": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "Saved Successfully",
+            "displayMode": "transient",
+            "type": "confirmation"
+          },
+          "outcomes": {
+            "success": "closeDialog"
+          }
+        },
+        "ifValid": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.validate ]]"
+          },
+          "outcomes": {
+            "true": "assignVariables1"
+          }
+        },
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.newEmployee": {
+              "source": {
+                "employeeSkillCollection": "{{ $page.variables.createSkill }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.employeeSkillCollection": {
+                  "source": "$source.employeeSkillCollection",
+                  "reset": "empty",
+                  "auto": "always",
+                  "mapping": {
+                    "$target.skill": {
+                      "source": "$source",
+                      "reset": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "outcomes": {
+            "success": "createEmployee"
+          }
+        },
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.createEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "refreshEmployeeList": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "refresh": null,
+            "target": "[[ $page.variables.employeeListSDP ]]"
+          },
+          "outcomes": {
+            "success": "fireNotificationSuccess"
+          }
+        },
+        "createEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/create_Employee",
+            "body": "{{ $page.variables.newEmployee }}"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "refreshEmployeeList"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "openEditEmployeeChain": {
+      "description": "",
+      "root": "assignCurrent",
+      "actions": {
+        "assignCurrent": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentEmployee": {
+              "source": "{{ $variables.current.row }}",
+              "reset": "empty"
+            }
+          },
+          "outcomes": {
+            "success": "assignCurrentSkills"
+          }
+        },
+        "assignCurrentSkills": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentSkills": {
+              "source": "{{ $chain.variables.current.row.skillCollection.items }}",
+              "mapping": {
+                "$target": {
+                  "source": "$source.id",
+                  "reset": "none"
+                }
+              },
+              "reset": "empty"
+            }
+          },
+          "outcomes": {
+            "success": "openEditDialog"
+          }
+        },
+        "openEditDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('dialog-edit-employee') }}",
+            "method": "open"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "saveEmployeeChain": {
+      "description": "",
+      "root": "validate",
+      "actions": {
+        "validate": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "validateForm",
+            "params": [
+              "edit-form"
+            ],
+            "returnType": "boolean"
+          },
+          "outcomes": {
+            "success": "ifValid"
+          }
+        },
+        "ifValid": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.validate ]]"
+          },
+          "outcomes": {
+            "true": "payload"
+          }
+        },
+        "payload": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "batchPayloadForEdit",
+            "params": [
+              "{{ $page.variables.currentEmployee }}",
+              "{{ $page.variables.currentSkills }}"
+            ],
+            "returnType": "object"
+          },
+          "outcomes": {
+            "success": "saveEmployee"
+          }
+        },
+        "successNotif": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "Saved Successsfully",
+            "displayMode": "transient",
+            "type": "confirmation"
+          },
+          "outcomes": {
+            "success": "closeDialog"
+          }
+        },
+        "closeDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('dialog-edit-employee') }}",
+            "method": "close"
+          }
+        },
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.saveEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "saveEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/batch",
+            "body": "{{ $chain.results.payload }}"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "refreshEmployeeList"
+          }
+        },
+        "refreshEmployeeList": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "refresh": null,
+            "target": "[[ $page.variables.employeeListSDP ]]"
+          },
+          "outcomes": {
+            "success": "successNotif"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "openEditListener": {
+      "chains": [
+        {
+          "chainId": "openEditEmployeeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "openNewEmployeeListener": {
+      "chains": [
+        {
+          "chainId": "openNewEmployeeDialogChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "createNewEmployeeListener": {
+      "chains": [
+        {
+          "chainId": "createNewEmployeeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "updateEmployeeListener": {
+      "chains": [
+        {
+          "chainId": "saveEmployeeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+    }
+  }
+}

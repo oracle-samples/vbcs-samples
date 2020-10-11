@@ -14,6 +14,9 @@
       },
       "oj-accordion": {
         "path": "ojs/ojaccordion"
+      },
+      "oj-selector": {
+        "path": "ojs/ojselector"
       }
     }
   }

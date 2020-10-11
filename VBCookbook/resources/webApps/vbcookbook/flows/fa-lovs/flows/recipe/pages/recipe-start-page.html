@@ -7,12 +7,12 @@
   <p>
     A combobox(one) component displays employee LOVs. An icon component with an event
     listerner opens a Dialog component where the user searches for employee record. An action
-    chain assigns search criteria to <code>employeeListSDP4.filterCriterion</code>.
+    chain assigns search criteria to <code>employeeListSDP.filterCriterion</code>.
     A table with filtered row(s) displays with an event listener that assigns the user
     selected row to <code>selectedEmployee</code> variable. An OK button is enabled
     with event listener closes dialog. A Cancel button with event listener resets
     the <code>selectedEmployee</code> to default and closes the dialog. A Reset button
-    with event listerner resets <code>filters</code> and the <code>employeeListSDP4.filterCriterion</code> variable.
+    with event listerner resets <code>filters</code> and the <code>employeeListSDP.filterCriterion</code> variable.
   </p>
 </div>
 
@@ -526,7 +526,7 @@ new NumberConverter.IntlNumberConverter({
                   </li>
                   <li>
                     <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-                    an Assign Variables action</a> named <code>filtercriterionAssignVariable</code>                    with target <code>employeeListSDP4</code> to <br>
+                    an Assign Variables action</a> named <code>filtercriterionAssignVariable</code>                    with target <code>employeeListSDP</code> to <br>
 <pre>{
   "filterCriterion": {
     "op": "$and",
@@ -553,7 +553,7 @@ new NumberConverter.IntlNumberConverter({
               </li>
               <li>
                 Add a Reset Variables Action named <code>FilterResetVariables</code>                to the Action chain named <code>ResetFiltersActionChain</code>. In the Property
-                Inspector of Reset Variable, Select <code>$page.variables.employeeListSDP4.filterCriterion</code>                , <code>$page.variables.filters</code> from the drop-down Variables to
+                Inspector of Reset Variable, Select <code>$page.variables.employeeListSDP.filterCriterion</code>                , <code>$page.variables.filters</code> from the drop-down Variables to
                 Reset.
               </li>
 

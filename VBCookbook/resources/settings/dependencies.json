@@ -1,10 +1,10 @@
 {
   "component-dependencies": {
     "oj-sample": {
-      "version": "3.2.1",
+      "version": "3.2.3",
       "components": {
-        "input-text-typeahead": "1.2.1",
-        "highlight-text": "1.2.1"
+        "input-text-typeahead": "1.2.2",
+        "highlight-text": "1.2.2"
       }
     }
   }

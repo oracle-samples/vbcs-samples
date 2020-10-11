@@ -1,0 +1,101 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "responseHeaders": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "headers"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "headers": {
+      "key": "string",
+      "value": "string"
+    }
+  },
+  "chains": {
+    "callRestEndpointAction": {
+      "description": "",
+      "root": "callRestEndpoint",
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callRestEndpoint.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "callRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ords/getEmployees"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "callGetAllHeadersFunction"
+          }
+        },
+        "callGetAllHeadersFunction": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "getHeadersArray",
+            "params": [
+              "{{ $chain.results.callRestEndpoint.headers }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignHeaders"
+          }
+        },
+        "assignHeaders": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.responseHeaders": {
+              "source": {
+                "data": "{{ $chain.results.callGetAllHeadersFunction }}"
+              },
+              "reset": "empty",
+              "auto": "always"
+            }
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "onButtonClick": {
+      "chains": [
+        {
+          "chainId": "callRestEndpointAction",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+   }
+  }
+}

@@ -3,27 +3,17 @@
   "title": "",
   "description": "",
   "variables": {
-    "selectionMode": {
-      "type": "string",
-      "defaultValue": "none"
-    },
-    "isSelectionRequired": {
-      "type": "boolean"
-    },
-    "regionListSDP": {
+    "employeeListSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
-        "endpoint": "businessObjects/getall_Region",
-        "idAttribute": "id",
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallRegionResponse"
+        "responseType": "page:getallEmployeeResponse"
       }
     },
-    "selectedRegionIds": {
+    "selectedEmployeeIds": {
       "type": "number[]"
-    },
-    "selectedRegions": {
-      "type": "object[]"
     },
     "firstSelectedItem": {
       "type": "object",
@@ -31,77 +21,29 @@
     },
     "currentItemId": {
       "type": "string"
-    },
-    "currentItemName": {
-      "type": "string"
     }
   },
   "metadata": {},
   "types": {
-    "getallRegionResponse": {
-      "items": [
-        {
-          "id": "number",
-          "regionName": "string"
-        }
-      ]
-    },
-    "@decorators.getallRegionResponse": {
-      "endpoint": "getall_Region",
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
       "service": "businessObjects",
       "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
     }
   },
   "chains": {
-    "ListViewFirstSelectedItemChangeChain": {
-      "description": "",
-      "variables": {
-        "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "rowData": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "isRowDataNull",
-      "actions": {
-        "isRowDataNull": {
-          "module": "vb/action/builtin/ifAction",
-          "parameters": {
-            "condition": "[[ $chain.variables.rowData !== null ]]"
-          },
-          "outcomes": {
-            "true": "assignFirstSelectedItem",
-            "false": "resetFirstSelectedItem"
-          }
-        },
-        "assignFirstSelectedItem": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.currentItemId": {
-              "source": "{{ $chain.variables.rowKey }}"
-            },
-            "$page.variables.firstSelectedItem": {
-              "source": "{{ $chain.variables.rowData }}",
-              "auto": "always"
-            }
-          }
-        },
-        "resetFirstSelectedItem": {
-          "module": "vb/action/builtin/resetVariablesAction",
-          "parameters": {
-            "variables": [
-              "$page.variables.firstSelectedItem",
-              "$page.variables.currentItemId"
-            ]
-          }
-        }
-      }
-    },
     "ListViewSelectedChangeChain": {
       "description": "",
       "variables": {
@@ -116,7 +58,7 @@
         "assignVariables1": {
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
-            "$page.variables.selectedRegionIds": {
+            "$page.variables.selectedEmployeeIds": {
               "source": "{{ $chain.variables.keys }}"
             }
           }
@@ -125,23 +67,12 @@
     }
   },
   "eventListeners": {
-    "ojListViewFirstSelectedItem": {
-      "chains": [
-        {
-          "chainId": "ListViewFirstSelectedItemChangeChain",
-          "parameters": {
-            "rowKey": "{{$event.detail.value.key}}",
-            "rowData": "{{$event.detail.value.data}}"
-          }
-        }
-      ]
-    },
-    "ojListViewSelected": {
+    "listviewMultiselectSelected": {
       "chains": [
         {
           "chainId": "ListViewSelectedChangeChain",
           "parameters": {
-            "keys": "{{ Array.from($event.detail.value.values()) }}"
+            "keys": "{{Array.from($event.detail.value.values())}}"
           }
         }
       ]
@@ -169,6 +100,15 @@
       },
       "oj-vb-list-item": {
         "path": "vb/components/list-item/loader"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-selector": {
+        "path": "ojs/ojselector"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
       }
     }
   }

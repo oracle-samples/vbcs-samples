@@ -3,65 +3,21 @@
   "title": "My start page",
   "description": "The starting page of the flow",
   "variables": {
+    "currentSelection": {
+      "type": "string"
+    },
     "departmentListSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Department",
         "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallDepartmentResponse2"
+        "responseType": "page:getallDepartmentResponse"
       }
-    },
-    "selection": {
-      "type": [{
-        "endIndex": {
-          "row": "number"
-        },
-        "endKey": {
-          "row": "number"
-        },
-        "startIndex": {
-          "row": "number"
-        },
-        "startKey": {
-          "row": "number"
-        }
-      }]
     }
   },
   "types": {
-    "@decorators.getall_Department": {
-      "endpoint": "getall_Department",
-      "service": "businessObjects",
-      "path": "response"
-    },
-    "@decorators.getallDepartmentResponse2": {
-      "endpoint": "getall_Department",
-      "service": "businessObjects",
-      "path": "response"
-    },
-    "getall_Department": {
-      "items": [{
-        "id": "number",
-        "departmentName": "string",
-        "manager": "number",
-        "location": "number"
-      }]
-    },
     "getallDepartmentResponse": {
-      "items": [{
-        "id": "number",
-        "departmentName": "string",
-        "manager": "number",
-        "location": "number"
-      }]
-    },
-    "@decorators.getallDepartmentResponse": {
-      "endpoint": "getall_Department",
-      "service": "businessObjects",
-      "path": "response"
-    },
-    "getallDepartmentResponse2": {
       "items": [{
         "departmentName": "string",
         "id": "number",
@@ -116,18 +72,53 @@
           }
         }
       }
+    },
+    "TableSelectedChangeChain": {
+      "description": "",
+      "root": "selectedChangedModuleFunction",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentSelection": {
+              "source": "{{ $chain.results.selectedChangedModuleFunction }}"
+            }
+          }
+        },
+        "selectedChangedModuleFunction": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "selectedChangedListener",
+            "params": [
+              "{{ $variables.selected }}"
+            ],
+            "returnType": "string"
+          },
+          "outcomes": {
+            "success": "assignVariables1"
+          }
+        }
+      },
+      "variables": {
+        "selected": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
     }
   },
   "eventListeners": {
-    "syncCheckboxesInTable": {
-      "stopPropagation": "{{ true }}",
-      "chains": [{
-        "chainId": "SyncCheckboxesInTableAction",
-        "parameters": {
-          "targetId": "{{ $current.key }}",
-          "index": "{{ $current.index }}"
+    "ojTableSelected": {
+      "chains": [
+        {
+          "chainId": "TableSelectedChangeChain",
+          "parameters": {
+            "selected": "{{ $event.detail.value }}"
+          }
         }
-      }]
+      ]
     }
   },
   "imports": {
@@ -143,6 +134,9 @@
       },
       "oj-label": {
         "path": "ojs/ojlabel"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
       }
     }
   }

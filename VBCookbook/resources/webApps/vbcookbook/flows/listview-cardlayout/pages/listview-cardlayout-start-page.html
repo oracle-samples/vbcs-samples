@@ -12,35 +12,30 @@
   <template slot="itemTemplate">
                 <div class="oj-flex">
                 <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-12">
-                      <div class="oj-flex" style="font-weight:bold;">
-                        <oj-bind-text value="[[$current.data.firstName+' '+ $current.data.lastName ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-bind-text>
-                      </div>
+                     
                       <div class="oj-flex">
-                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-4" style="border:none;">
+                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-4" style="border: 0">
                           <div class="oj-flex">
                             <div class="oj-flex-item oj-sm-12 oj-md-4">
                               <oj-avatar src="[[ $application.path + 'resources/images/employees/' + $current.data.id + '.png' ]]"></oj-avatar>
                             </div>
                           </div>
                         </div>
-                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-8" style="border:none">
+                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-8" style="border: 0">
                           <div class="oj-flex">
-                            <oj-label class="oj-flex-item oj-sm-12 oj-md-7" style="font-weight:bold;color:#000000;">Salary</oj-label>
+                            <span class="oj-flex-item oj-sm-12 oj-md-7 oj-text-primary-color oj-typography-bold">Salary</span>
                           </div>
                           <div class="oj-flex">
-                            <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-11">
-                              <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}' :id="[['oj-input-number--' + $current.index]]" value="{{ $current.data.salary }}" readonly="true" style="margin-top:-8px;"></oj-input-number>
+                            <div class="oj-flex-item oj-sm-12 oj-md-12">
+                              <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}' :id="[['oj-input-number--' + $current.index]]" value="{{ $current.data.salary }}" readonly="true" aria-label="Salary" ></oj-input-number>
                             </div>
                           </div>
                           <div class="oj-flex">
-                            <oj-label class="oj-flex-item oj-sm-12 oj-md-7" style="font-weight:bold;color:#000000;">Email</oj-label>
+                            <span class="oj-flex-item oj-sm-12 oj-md-7 oj-text-primary-color oj-typography-bold">Email</span>
                           </div>
                           <div class="oj-flex">
                             <div class="oj-flex-item oj-sm-12 oj-md-12">
                               <oj-bind-text value="[[$current.data.email]]"></oj-bind-text>
-<!--                               <oj-input-text readonly="true" value="[[$current.data.email]]" virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'></oj-input-text> -->
-                              
                             </div>
                           </div>
                           

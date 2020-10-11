@@ -204,7 +204,7 @@
 
 .componentUnderline {
     margin: 0 auto;
-    width: 90%
+    width: 100%
 }
 
 .demo-main-navigation {
@@ -434,7 +434,6 @@
 
 oj-list-view:not(.oj-listview-card-layout) .oj-listview-item {
     padding: 0 15px 0 0;
-    background-color: transparent
 }
 
 oj-list-view:not(.oj-listview-card-layout) .componentImage {
@@ -635,15 +634,9 @@ html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.
 }
 
 .categorybanner {
-    padding: 29px 0 29px 6px;
-    background-color: #0096e0;
     transition: padding .4s ease-in-out;
     color: white;
     margin: 0px;
-    font-weight: lighter;
-    font-family: "SF UI Display","Helvetica Neue",Roboto,"Segoe UI",Arial,sans-serif;
-    font-size: 46px;
-    padding-left: 20px;
 }
 .sample-box, .recipe-box {
   border: 1px solid #d6dfe6;

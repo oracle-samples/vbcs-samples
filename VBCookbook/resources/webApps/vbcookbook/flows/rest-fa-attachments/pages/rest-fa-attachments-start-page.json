@@ -36,18 +36,22 @@
   },
   "types": {
     "getallActivitiesAttachmentsResponse": {
-      "items": [{
-        "links": [{
-          "href": "string",
-          "rel": "string"
-        }],
-        "AttachedDocumentId": "number",
-        "FileName": "string",
-        "UploadedFileContentType": "string",
-        "Title": "string",
-        "Description": "string",
-        "CreationDate": "string"
-      }]
+      "items": [
+        {
+          "links": [
+            {
+              "href": "string",
+              "rel": "string"
+            }
+          ],
+          "AttachedDocumentId": "number",
+          "FileName": "string",
+          "UploadedFileContentType": "string",
+          "Title": "string",
+          "Description": "string",
+          "CreationDate": "string"
+        }
+      ]
     },
     "@decorators.getallActivitiesAttachmentsResponse": {
       "endpoint": "getall_activities-Attachments",

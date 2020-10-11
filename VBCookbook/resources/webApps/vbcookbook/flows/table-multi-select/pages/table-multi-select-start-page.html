@@ -4,17 +4,16 @@
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-margin-bottom">
-  This demo shows how to enable multiple row selection in table using checkboxes.
+
+  This recipe shows you how to enable multiple row selection in a Table component using checkboxes.
 </div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
     <div class="oj-flex">
-      <oj-table  scroll-policy="loadMoreOnScroll" id="table" class="oj-flex-item oj-sm-12 oj-md-12"
-        data="[[$variables.departmentListSDP]]" columns-default='{"sortable": "disabled"}'
-        columns='[{
-                    "template": "checkTemplate",
-                    "headerText":"Selected"
-                  },
+      <oj-table scroll-policy="loadMoreOnScroll" id="table"
+        class="oj-flex-item oj-sm-12 oj-md-11"
+        data="[[$variables.departmentListSDP]]"
+        columns-default='{"sortable": "disabled"}' columns='[
                   {
                     "headerText":"Department Id",
                     "field":"id"
@@ -30,43 +29,21 @@
                   {
                     "headerText":"Location Id",
                     "field":"location"
-                  }]' selection="{{ $variables.selection }}" selection-mode.row="multiple"
-        style="height:600px;" scroll-policy-options.fetch-size="10">
+                  }]' selection-mode.row="multiple" style="height:600px;"
+        scroll-policy-options.fetch-size="10"
+        selected='{{$page.functions.selectedItems}}'
+        on-selected-changed="[[$listeners.ojTableSelected]]">
 
-        <template slot="checkTemplate">
-      <oj-checkboxset :id="[['table_checkboxset' + $current.index]]"
-        value="{{ $page.functions.checkboxSelection($page.variables.selection,$current.row.id) }}"
-        on-click="[[$listeners.syncCheckboxesInTable]]"
-        class="oj-checkboxset-no-chrome">
-        <oj-option :id="[['table_checkbox' + $current.index]]" value="checked">
-        </oj-option>
-      </oj-checkboxset>
-    </template>
+
       </oj-table>
 
     </div>
-
     <div class="oj-flex">
-      <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-12" style="height:200px;overflow-y:auto;">
-        <div class="oj-flex">
-          <div class="oj-flex-item oj-sm-12 oj-md-12">
-            <oj-bind-for-each data="[[ $variables.selection ]]">
-              <template>
-            <oj-label>Row Selection</oj-label>
-
-            <oj-bind-text
-              value='[[ "start row index: " + $current.data.startIndex.row + ", end row index: " + $current.data.endIndex.row]]'>
-            </oj-bind-text>
-            <br />
-            <oj-bind-text
-              value='[[ "start row key: " + $current.data.startKey.row + ", end row Key: " + $current.data.endKey.row]]'>
-            </oj-bind-text>
-          </template>
-            </oj-bind-for-each>
-          </div>
-        </div>
-      </div>
+      <oj-text-area label-edge='provided' label-hint='Current Selection'
+        value="{{ $variables.currentSelection }}">
+      </oj-text-area>
     </div>
+
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
@@ -74,7 +51,8 @@
       <div class="recipe-box oj-flex-item">
         <h1>Recipe</h1>
         <div class="oj-flex">
-          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+          <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>
     </div>

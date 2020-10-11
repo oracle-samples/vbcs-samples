@@ -1,0 +1,79 @@
+<!--
+ Copyright (c) 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Create a service connection for the REST service endpoint. Add a Button component in the page to invoke this REST
+  endpoint. Drag and drop a Table component under the Button to display the response headers. Write a JavaScript
+  function to fetch all response headers from the REST response. Invoke the JavaScript function after the REST call and
+  bind the headers (key-value pairs) to the Table component's data model.
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Service Connection</span>
+
+      <div>
+        <p>
+          <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">
+            Create a service connection </a>using the <code>employee</code> endpoint
+          (<code>https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees</code>).</p>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create Type and ADP</span>
+      <div>
+        <ul>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+              a type</a> <code>headers</code> in the page with <code>key</code> and <code>value</code> as fields.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Create
+              an ADP</a> <code>responseHeaders</code> with Item Type as <code>headers</code>.
+          </li>
+        </ul>
+      </div>
+    </oj-collapsible>
+
+
+    <oj-collapsible id="step3">
+      <span slot="header">Create Button and Table Components</span>
+      <div>
+        <ol>
+          <li>Drag and drop a Button component onto the page and add an ojAction event called
+            <code>onButtonClick</code>.</li>
+          <li>Drag and drop a Table component under the Button component onto the page.</li>
+          <li>In the Property Inspector, set the Data property of the Table to the <code>responseHeaders</code> ADP and
+            create two columns for <code>key</code> and <code>value</code> in the Table component using the Property
+            Inspector.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step4">
+      <span slot="header">Create Action Chain and JavaScript Function </span>
+      <div>
+        <p>Configure the action chain that is associated with the <code>onButtonClick</code> event. </p>
+        <ol>
+          <li>Drag and drop a callRestEndpoint action onto the action chain and select the service connection created
+            earlier.</li>
+          <li>Create a JavaScript function <code>getHeadersArray()</code> and invoke this function after the REST
+            endpoint call passing the <code>chain.results.callRestEndpoint.headers</code> as a parameter.</li>
+          <li>Assign the return of the function to the <code>responseHeaders</code> ADP.</li>
+          <li>In the JavaScript function, fetch the response headers using
+            <code>callRestEndpoint.headers.entries()</code> and return the array of headers (key-value pairs) from this
+            function. Alternatively you can use <code>callRestEndpoint.headers.get('headerName')</code> to fetch a
+            specific response header value.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+
+
+  </oj-accordion>
+</div>

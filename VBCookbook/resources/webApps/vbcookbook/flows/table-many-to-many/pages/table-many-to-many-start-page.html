@@ -1,0 +1,135 @@
+<!--
+ Copyright (c) 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+
+  This recipe demonstrates how you can use Table and Dialog components to manage data where a many-to-many relationship exists between Employee and Skills business objects. 
+
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+
+    <!--  START  -->
+
+    <div class="oj-flex">
+    <h1>Manage Employees</h1>
+      <oj-toolbar chroming="solid"
+        class="oj-flex-item oj-sm-12 oj-md-12 oj-toolbar-bottom-border">
+        
+        <oj-button on-oj-action="[[$listeners.openNewEmployeeListener]]"
+           id="add-new-employee" chroming="callToAction">New
+          Employee</oj-button>
+      </oj-toolbar>
+    </div>
+    <div class="oj-flex">
+      <oj-table style="max-height: 400px" scroll-policy="loadMoreOnScroll"
+        class="oÏj-flex-item oj-sm-12 oj-md-12"
+        data="[[$page.variables.employeeListSDP]]"
+        columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Email","field":"email"},{"headerText":"Skill(s)","style": "white-space:normal;word-wrap:break-word; text-align: left;vertical-align: top;","field":"skillCollection","sortProperty":"skillCollection.name","template":"nameCellTemplate4"},{"headerText":"Action","field":"action","template":"actionTemplate"}]'
+        id="employee-table" selection-mode.row="single">
+        <template slot="nameCellTemplate4">
+          <div style="text-align: left;max-width:200px;">
+            <oj-bind-text
+              value="[[ $current.data.items.map(i=>i.name).join(', ') ]]">
+            </oj-bind-text>
+          </div>
+        </template>
+        <template slot="actionTemplate">
+          <oj-button :aria-label="[['Edit '+$current.row.firstName]]"
+            :title="[['Edit '+$current.row.firstName]]"
+            on-oj-action="[[$listeners.openEditListener]]" chroming="borderless"
+            :id="[[ 'edit-employee-'+$current.index ]]">
+            <span class="vb-icon vb-icon-pencil">
+            </span>
+          </oj-button>
+        </template>
+      </oj-table>
+    </div>
+    <oj-dialog style="display:none" dialog-title="Edit Employee"
+      id="dialog-edit-employee" cancel-behavior="icon">
+      <div slot="body">
+        <div class="oj-flex">
+          <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-validation-group id="edit-form">
+              <oj-form-layout label-edge="top">
+                <oj-input-text label-hint="First Name"
+                  value="{{ $variables.currentEmployee.firstName }}"
+                  required="true" id="edit-first-name"></oj-input-text>
+                <oj-input-text virtual-keyboard="email"
+                  validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
+                  label-hint="Email"
+                  value="{{ $variables.currentEmployee.email }}" disabled="true"
+                  id="edit-email"></oj-input-text>
+                <oj-select-many label-hint="Skill(s)"
+                  options="[[ $variables.skillListSDP ]]"
+                  options-keys.label="name" options-keys.value="id"
+                  value="{{ $variables.currentSkills }}" required="true"
+                  placeholder="Skill(s)" id="edit-skill"></oj-select-many>
+              </oj-form-layout>
+            </oj-validation-group>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <oj-button on-oj-action="[[$listeners.updateEmployeeListener]]"
+          id="edit-save">Save</oj-button>
+      </div>
+    </oj-dialog>
+    <oj-dialog style="display:none;width:50vw;" dialog-title="New Employee"
+      id="dialog-create-employee" cancel-behavior="icon">
+      <div slot="body">
+        <div class="oj-flex">
+          <div class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-validation-group id="create-form">
+              <oj-form-layout label-edge="inside" max-columns="2">
+                <oj-input-text label-hint="First Name" required="true"
+                  value="{{ $variables.newEmployee.firstName }}"
+                  id="first-name"></oj-input-text>
+                <oj-input-text label-hint="Last Name"
+                  value="{{ $variables.newEmployee.lastName }}" required="true"
+                  id="last-name"></oj-input-text>
+                <oj-input-text virtual-keyboard="email"
+                  validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
+                  label-hint="Email" value="{{ $variables.newEmployee.email }}"
+                  required="true" id="email"></oj-input-text>
+                <oj-input-date label-hint="Hire Date"
+                  value="{{ $variables.newEmployee.hireDate }}" required="true"
+                  id="hire-date"></oj-input-date>
+                <oj-select-single label-hint="Job"
+                  data="[[$page.variables.jobListSDP]]" item-text="jobTitle"
+                  placeholder="Job" required="true"
+                  value="{{ $variables.newEmployee.job }}" id="job">
+                </oj-select-single>
+                <oj-select-many label-hint="Skill(s)"
+                  options="[[$page.variables.skillListSDP]]"
+                  options-keys.value="id" options-keys.label="name"
+                  placeholder="Skill(s)" value="{{ $variables.createSkill }}"
+                  id="skills"></oj-select-many>
+              </oj-form-layout>
+            </oj-validation-group>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <oj-button on-oj-action="[[$listeners.createNewEmployeeListener]]"
+          id="create-save">Create</oj-button>
+      </div>
+    </oj-dialog>
+
+    <!-- END -->
+
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

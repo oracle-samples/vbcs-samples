@@ -404,17 +404,19 @@
     }
   },
   "eventListeners": {
+    "employeeAdvSearch": {
+      "chains": [
+        {
+          "chainId": "OpenAdvancedSearchDialog",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
     "spanClick": {
       "chains": [{
         "chainId": "DeSelectEmployeeChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
-        }
-      }]
-    },
-    "spanClick2": {
-      "chains": [{
-        "chainId": "OpenAdvancedSearchDialog",
         "parameters": {
           "detail": "{{ $event.detail }}"
         }
@@ -492,6 +494,9 @@
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
       }
     }
   }

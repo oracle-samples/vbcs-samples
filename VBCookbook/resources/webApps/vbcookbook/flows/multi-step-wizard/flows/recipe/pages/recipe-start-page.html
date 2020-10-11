@@ -1,0 +1,280 @@
+<!--
+ Copyright (c) 2020, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  The Train component renders a three-step wizard that enables a user to change the job role of an employee. The first
+  step displays a Select (Single) component (oj-select-single) that you use to select the employee while the second step also uses an
+  oj-select-single component to select the new role for the selected employee. The final step displays a summary of the
+  change and a Button component to submit the change in job role.
+</div>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Add Train Component</span>
+      <div>
+        <p>You add a Train component that contains three steps.</p>
+        <ol>
+          <li>Create a variable <code>steps</code> of type array and array items type object. This variable binds the
+            steps of the Train component. Assign the default value to:
+            <br>
+            <pre>[
+    {
+        "id": "1",
+        "label": "Start"
+    },
+    {
+        "id": "2",
+        "label": "",
+        "disabled": true
+    },
+    {
+        "id": "3",
+        "label": "Finish",
+        "disabled": true
+    }
+]</pre>
+          </li>
+
+          <li>
+            In the Component Palette, drag a Train component and drop it on the page. In the Property
+            Inspector, set the Steps property to <code>[[ $variables.steps ]]</code> and Selected Step to
+            <code>"{{ $variables.selectedStep }}"</code>.
+          </li>
+          <li>Drag a Button component and drop it on the page (set text to <b>Next</b>).</li>
+          <li>
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              an event listener</a> to the Button component. Add the following actions to the action chain named
+            <code>NextActionChain</code>:
+            <ul>
+              <li>
+                Add an If Action named <code>Ifstep1</code>. In the Property
+                Inspector of the If action, set Condition to
+                <code>[[ $page.variables.selectedStep  ==="1"]]</code>.
+              </li>
+              <li>
+                For the true path of the <code>Ifstep1</code> action, <a target="_blank"
+                  href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
+                  an Assign Variables action</a>:
+                <ul>
+                  <li>
+                    <code>steps</code> set to
+                    <code>$page.variables.steps.map(s=> s.id === '2'? { ...s, disabled: false }: s)</code>
+                  </li>
+                  <li>
+                    <code>selectedStep</code> set to 2.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                For the false path of <code>IfStep1</code>, add a new If action named <code>ifstep2</code> with
+                condition <code>[[ $page.variables.selectedStep  ==="2"]]</code>.
+              </li>
+              <li>
+                For <code>ifstep2</code> is true, <a target="_blank"
+                  href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+                  an Assign Variables action</a> with:
+                <ul>
+                  <li>
+                    Set <code>steps</code> to
+                    <code>$page.variables.steps.map(s=> s.id === '3'? { ...s, disabled: false }: s)</code>
+                  </li>
+                  <li>
+                    Set <code>selectedStep</code> to 3
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+          </li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <!-- step2 -->
+    <oj-collapsible id="step2">
+      <span slot="header">Content for Start Step</span>
+      <div>
+        <p>You add an oj-select-single component to select an employee for whom the job change request needs to be
+          submitted. Once you select an employee, you display the selected employee's properties, including their
+          current job title.</p>
+        <ol>
+          <li>Create a variable <code>selectedEmployeeItem</code> of type Object. This variable binds to the value-item
+            property of the oj-select-single component.
+          </li>
+          <li>
+            Create a variable named <code>selectedStep</code> with a default value of <code>1</code>. </li>
+          <li>
+            In the Component Palette, drag the oj-select-single component and drop it on the page. In the Property
+            Inspector, set the steps to <code>[[ $variables.steps ]]</code> and selected-step to
+            <code>"{{ $variables.selectedStep }}"</code>.
+          </li>
+          <li>Use the oj-select-single component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your component to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name as label</li>
+              <li>Id as value </li>
+              <li>Last Name as row data</li>
+              <li>Job Id and Job Name as row data</li>
+              <li>Hire Date as row data</li>
+              <li>Salary as row data</li>
+              <li>Email as row data</li>
+            </ul>
+          </li>
+          <li>
+            In the Property Inspector of the oj-select-single component:
+            <ul>
+              <li>
+                In the General Tab, set Label Text to <b>Select employee for job change:</b>.
+              </li>
+              <li>
+                In the Data tab, set value item to <code>selectedEmployeeItem</code>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            In the Component Palette, drag the Form Layout component and drop it on the page. 
+            <ul>
+              <li>
+                Drag the Input Text component and drop it inside the Form Layout component as a child component.
+              </li>
+              <li>
+                In the General Tab, set Label Text to FirstName and ReadOnly. 
+              </li>
+              <li>In the Data Tab, set value to <code>{{ $variables.selectedEmployeeItem.data.firstName}}</code>.</li>
+              <li>
+                Repeat these steps for the other fields.
+              </li>
+            </ul>
+          </li>
+          <li>
+            In the Component Palette, drag an If component and drop it as a parent to Form layout. Set Test value to
+            <code>[[$variables.selectedEmployeeItem.data!=null]]</code>.
+          </li>
+          <li>
+            Drag an If component and drop it as a parent to oj-flex div surrounding the oj-select-single component.
+            Set Test value to <code>[[ $variables.selectedStep.indexOf("1") > -1 ]]</code>
+          </li>
+          <li>
+            In the Property Inspector of the Next button, set the Disabled property to
+            <code>[[ !$variables.selectedEmployeeItem.data ]]</code>. The Next button should only be
+            enabled after an employee is selected.
+          </li>
+          <li>
+            In the action chain named <code>NextActionChain</code>. For the true path of Ifstep1, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> with <code>currentJobTitle</code> set to
+            <code>$page.variables.selectedEmployeeItem.data.jobObject.items[0].jobTitle</code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step3">
+      <span slot="header">Content for Second Step</span>
+      <div>
+        <p>You add an oj-select-single component to select a new job.</p>
+        <ol>
+          <li>Create a variable <code>newJobTitle</code> of type Object. This variable binds the <code>value-item</code>
+            property of the single-select component.
+          </li>
+          <li>Use the oj-select-single component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your component to employee data.</li>
+          <li>In the Bind Data page, select the following job fields:
+            <ul>
+              <li>Job Title Name as label</li>
+              <li>id as value</li>
+            </ul>
+          </li>
+          <li>
+            In the General tab of the Property Inspector for the oj-select-single component, select
+            <strong>Required</strong>.
+          </li>
+          <li>
+            In the Data tab, set value-item to <code>{{ $variables.newJobTitle }}</code>.
+          </li>
+          <li>
+            In the Component Palette, drag an If Component and drop it on the page so that it surrounds the oj-select-single component.
+            Set Test to <code>[[ $variables.selectedStep.indexOf("2") > -1 ]]</code>.
+          </li>
+          
+          <li>
+            In the action chain named <code>NextActionChain</code>:
+            <ul>
+              <li>
+                For the true path of <code>IfStep2</code>, add a Call Component Method action named <code>selectJobComponentMethod</code>.
+              </li>
+              <li>
+                In the Property Inspector of <code>selectJobComponentMethod</code>, select the <b>select-job</b> from the
+                Component dropdown list and <b>validate</b> from the Method
+                Name dropdown list.
+              </li>
+              <li>
+                Add an If condition with condition <code>[[ $chain.results.selectJobComponentMethod !=='invalid' ]]</code>.
+              </li>
+              <li>
+                Move Assign Variable action to true condition of if3.
+              </li>
+            </ul>
+
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step4">
+      <span slot="header">Content for Final Step</span>
+      <div>
+        <p>You display old and new job roles in the final step for the user to review before they submit their changes.</p>
+        <ol>
+          <li>In the Component Palette, drag a Form Layout component and drop it on the page
+          </li>
+          <li>
+            Drag an Input Text component and drop it on the page as a child of the Form Layout component.
+          </li>
+          <li>
+            In the General Tab of the Property Inspector, set Label Text to <code>Old Job</code>. In the Data tab, set value to <code>{{ $variables.currentJobTitle }}</code>.
+          </li>
+          <li>
+            Drag an Input Text component and drop it on the page as a child of the Form Layout component.
+          </li>
+          <li>
+            In the General Tab of the Property Inspector, set Label Text to <code>New Job</code>. In the Data tab, set value to <code>{{ $variables.newJobTitle }}</code>.
+          </li>
+
+          <li>
+            Drag a Button component and drop it on the page.
+          </li>
+          <li>
+            In the General Tab of the Property Inspector for the Button component, set text to <b>Submit</b>.
+          </li>
+          <li>
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              an event listener</a> to the Button component. Add the following actions in the action chain  named <code>SubmitActionChain</code>:
+            <ul>
+              <li>
+                Add a Fire Notification Action named <code>JobChangeSuccessNotification</code>.
+
+              </li>
+              <li>
+                In the Property Inspector of the Notification action, set Summary to <b>Success!</b>, Message to <b>Employee Job Changed Successfully!</b>, and set Notification Type to Confirmation.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Drag an If component and drop it in the page so that the Form Layout component is a child of the If component.
+          </li>
+          <li>
+            In the Property Inspector of the If component, set test to <code>[[ $variables.selectedStep.indexOf("3") > -1 ]]</code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
