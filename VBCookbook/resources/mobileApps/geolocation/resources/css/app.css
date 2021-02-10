@@ -1,0 +1,81 @@
+/**
+ * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ */
+/*
+ * Section: ListView Styles
+ * Purpose: Style the border of the listview item to start after the icon
+ *
+ */
+oj-ext-mobile-page-template .vb-list-item-indent-border .oj-listview-item {
+    /* background position is based on the icon size: icon size(32px) + 20px */
+    background-position-x: 52px;
+}
+
+/*
+ * Section: Form section headers
+ * Purpose: Creates a section header for a form commonly seen in mobile patterns
+ *
+ */
+oj-ext-mobile-page-template .vb-mobile-section-header {
+    background-color: var(--oj-palette-neutral-60);
+    margin:0;
+    border-color: var(--oj-palette-neutral-70);
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+/*
+ * Section: IOS Specific form component overrides.
+ * Purpose: Overrides the labels and placeholder to be more ios like. Use default (start) justification for selects and inputs
+ *
+ */
+oj-ext-mobile-page-template.oj-ext-ios-theme oj-form-layout .oj-label {
+    /* Use standard font size and primary color for all the labels*/
+    font-size: var(--oj-typography-body-md-font-size);
+    color: var(--oj-core-text-color-primary);
+}
+
+oj-ext-mobile-page-template.oj-ext-ios-theme oj-form-layout ::placeholder {
+    /* Use standard font size and secondary color for the placeholders */
+    font-size: var(--oj-typography-body-md-font-size);
+    color: var(--oj-core-text-color-secondary);
+}
+
+oj-ext-mobile-page-template.oj-ext-ios-theme oj-form-layout .oj-select-select {
+    /* Use default direction for selects */
+    direction: unset;
+}
+
+oj-ext-mobile-page-template.oj-ext-ios-theme oj-form-layout .oj-inputdatetime-input {
+    /* Use default text-alignment for dates */
+    text-align: unset;
+}
+
+/*
+ * Section: Android Specific form component overrides.
+ * Purpose: Removes borders from the form layout since the form fields already have highlighted borders.
+ *          Makes height and underline consistent.
+ *
+ */
+oj-ext-mobile-page-template.oj-ext-android-theme oj-form-layout .oj-form > .oj-flex {
+    /* Remove the double border effect from the form. Form controls already have an underline underneath */
+    border-width: 0;
+}
+
+oj-ext-mobile-page-template.oj-ext-android-theme oj-form-layout .oj-form-control {
+    /* Since we removed the double border effect take out the margin at the bottom for better spacing */
+    margin-bottom: 0;
+}
+
+oj-ext-mobile-page-template.oj-ext-android-theme oj-form-layout input {
+    /* Use the same sizing for inputs, selects, dates for proper alignment side by side etc */
+    height: 2rem;
+}
+
+oj-ext-mobile-page-template.oj-ext-android-theme oj-form-layout .oj-read-only input[readonly],
+oj-ext-mobile-page-template.oj-ext-android-theme oj-form-layout .oj-read-only textarea[readonly] {
+    /* Add underline effect for readonly fields as well */
+    border-color: var(--oj-palette-neutral-110);
+}

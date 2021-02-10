@@ -85,6 +85,25 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "filmstrip": {
+    "id": "filmstrip",
+    "runtime": "vb",
+    "imageUrl": "select_one_list.png",
+    "label": "Film Strip",
+    "minHeightLandscape": "450",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "demoPageName": "filmstrip-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "cascading-lov-fetchbykeys": {
     "id": "cascading-lov-fetchbykeys",
     "runtime": "vb",
@@ -119,6 +138,25 @@
       }
     ],
     "demoPageName": "cascading-lov-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "select-single": {
+    "id": "select-single",
+    "runtime": "vb",
+    "imageUrl": "select_one_grid.png",
+    "label": "Select-Single Demos",
+    "minHeightLandscape": "450",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "demoPageName": "select-single-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
@@ -834,6 +872,186 @@
     "seealso": [],
     "minHeightLandscape": 300,
     "demoPageName": "list-load-more-on-scroll-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "mobile-cordova-contacts": {
+    "id": "mobile-cordova-contacts",
+    "runtime": "vb",
+    "label": "Cordova Contacts Plugin",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "mobile-cordova-contacts-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "mobile-barcode-scanner": {
+    "id": "mobile-barcode-scanner",
+    "runtime": "vb",
+    "label": "Bar Code Scanner",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "mobile-barcode-scanner-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "mobile-pwa-geolocation": {
+    "id": "mobile-pwa-geolocation",
+    "runtime": "vb",
+    "label": "Geolocation",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "mobile-pwa-geolocation-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "mobile-pwa-takephotoaction": {
+    "id": "mobile-pwa-takephotoaction",
+    "runtime": "vb",
+    "label": "Take Photo",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "mobile-pwa-takephotoaction-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "mobile-pwa-swipetoeditlistview": {
+    "id": "mobile-pwa-swipetoeditlistview",
+    "runtime": "vb",
+    "label": "Swipe to Edit List ",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "mobile-pwa-swipetoeditlistview-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "visualizations-bar-chart-basic": {
+    "id": "visualizations-bar-chart-basic",
+    "runtime": "vb",
+    "label": "Bar Chart",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "visualizations-bar-chart-basic-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-dnd": {
+    "id": "table-dnd",
+    "runtime": "vb",
+    "label": "Table Drag and Drop",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "table-dnd-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "visualizations-bar-chart-transform": {
+    "id": "visualizations-bar-chart-transform",
+    "runtime": "vb",
+    "label": "Chart With Transform",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "visualizations-bar-chart-transform-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "table-select-cols": {
+    "id": "table-select-cols",
+    "runtime": "vb",
+    "label": "Table Columns Select",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "table-select-cols-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "navigation-context":{
+    "id": "navigation-context",
+    "runtime": "vb",
+    "label": "Passing Context",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "navigation-context-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "language-switcher":{
+    "id": "language-switcher",
+    "runtime": "vb",
+    "label": "Language Switcher",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "language-switcher-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "fileloader-csv":{
+    "id": "fileloader-csv",
+    "runtime": "vb",
+    "label": "CSV File Loading",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "fileloader-csv-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "bo-triggers":{
+    "id": "bo-triggers",
+    "runtime": "vb",
+    "label": "Triggers",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "bo-triggers-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "prevent-double-submission":{
+    "id": "prevent-double-submission",
+    "runtime": "vb",
+    "label": "Prevent Double Submission",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "prevent-double-submission-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "custom-js-validator":{
+    "id": "custom-js-validator",
+    "runtime": "vb",
+    "label": "Custom JavaScript Validator",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "custom-js-validator-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"

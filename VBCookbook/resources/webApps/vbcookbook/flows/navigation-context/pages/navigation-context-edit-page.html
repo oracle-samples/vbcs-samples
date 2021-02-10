@@ -1,0 +1,23 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <h1 class="oj-flex-item oj-sm-12 oj-md-12"><oj-bind-text value="[[ 'Edit Employee #'+$variables.id ]]"></oj-bind-text></h1>
+</div>
+<div class="oj-flex">
+  <h6 class="oj-flex-item oj-sm-12 oj-md-12">When "Pass on URL" is checked for a variable, the caller navigating to that page needs to send value of that variable via URL query param. Such URL can be bookmarked and page can be reloaded and variable will be re-initialized from the URL value.</h6>
+</div>
+<div class="oj-flex">
+  <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}" readonly="true"></oj-input-text>
+    <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}" readonly="true"></oj-input-text>
+    <oj-input-text label-hint="Email" value="{{ $variables.employee.email }}" readonly="true"></oj-input-text>
+  </oj-form-layout>
+</div>
+<div class="oj-flex">
+  <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-button chroming="callToAction" on-oj-action="[[$listeners.ojButtonOjAction]]">Back</oj-button>
+  </oj-toolbar>
+</div>

@@ -1,0 +1,319 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <p>
+    Each of the following recipes demonstrates a scenario where the Select Single component is used.
+  </p>
+</div>
+
+<!-- Step 1. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Item Template</h1>
+      <div>
+        <p>This recipe demonstrates how you use the Select Single component and the itemTemplate slot to render additional
+          items in the dropdown list.</p>
+
+        <ol>
+          <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
+          <li>Use the component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              Start</a> to bind your component to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name as Label</li>
+              <li>id as Value</li>
+              <li>In the <strong>Include in row's data</strong> field, add Last Name, Phone, Salary, and so on.</li>
+            </ul>
+          </li>
+
+          <li>In the Component Palette, drag a Label component and drop it on the Select Single component’s itemTemplate
+            slot.</li>
+          <li>In the Select Single component’s Properties pane, in the Item Template section under General Tab, click
+            the <strong>Label</strong> link to open the Properties pane for the Label component associated with the
+            Select Single
+            component. </li>
+          <li>In the Text field of the Label component, enter
+            <code>[[ $current.data.firstName + ' '+$current.data.lastName]]</code>.
+          </li>
+          <li>Navigate back to the Properties pane for the Select Single component.</li>
+          <li>In the Code view of the page, drag the Label component and drop it inside the Template slot of the Select
+            Single component. Set the value of the Text field property for the Label component to <code>[[
+              $current.data.phoneNumber ]]</code>. </li>
+          <li>In the Variables tab, create a variable named <code>selectedEmployee</code> of type Object.</li>
+
+          <li>In the JavaScript tab, paste the following code:
+            <pre>
+PageModule.prototype.getName=function(context){
+   return context.data.firstName + ' ' +context.data.lastName;
+   }</pre>
+          </li>
+          <li>In the Data tab of the Properties pane for the Select Single component, set the value for the Value
+            Item property to <code>{{ $variables.selectedEmployee }}</code>.</li>
+          <li>Set the value of the Item Text property to <code>[[$functions.getName]]</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+<!-- Step 2. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Collection Template</h1>
+      <div>
+        <p>This recipe shows you how to add a Table component to the collectionTemplate slot of the Select Single
+          component.</p>
+
+        <ol>
+          <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
+          <li>Use the component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              Start</a> to bind your component to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name as Label</li>
+              <li>id as Value</li>
+              <li>In the <strong>Include in row's data</strong> field, add Last Name, Phone, Salary, and so on.</li>
+            </ul>
+          </li>
+
+          <li>In the Component Palette, drag a Table component and drop it on the Select Single component
+            collectionTemplate slot.</li>
+          <li>In the Select Single component’s Properties pane, in the Collection Template section under the General
+            tab, click the <strong>Template</strong> link. In the Properties pane for Template, set Data-Oj-As to
+            <strong>collection</strong>.</li>
+
+
+          <li>In the General tab of the Select Single component’s Properties pane, click <strong>table</strong> under
+            Collection Template.</li>
+
+          <ul>
+            <li>In the General tab of the Table component’s Properties pane, select <strong>Single</strong> from the
+              Selection Mode, Row dropdown list.</li>
+            <li>In the Data tab, set Data to <code>[[collection.data]]</code>.</li>
+            <li>In the Table Columns section, click the <strong>Edit Columns</strong> icon and add the following entries
+              to the Table Columns input field that opens to create 3 columns in the Table component.
+              <pre>[
+  {
+    "headerText": "First Name",
+    "field": "firstName",
+    "id": "firstName",
+    "template": "firstNameTemplate"
+  },
+  {
+    "headerText": "Last Name",
+    "field": "lastName",
+    "template": "lastNameTemplate"
+  },
+  {
+    "headerText": "Phone",
+    "field": "phoneNumber"
+  }
+]</pre>
+            </li>
+            <li>In the All tab, set style to <code>height:200px</code>.</li>
+
+          </ul>
+          </li>
+
+          <li>In the Code view of the page, set the value for the on-oj-row-action attribute as follows:
+            <pre>
+    &lt;oj-table scroll-policy="loadMoreOnScroll"
+          ...
+          <strong>on-oj-row-action="[[collection.handleRowAction]]"</strong>
+          style="height:200px;">
+  </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+<!-- Step 3. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Select Single Component with Array Data Provider</h1>
+      <div>
+
+        <p>This recipe shows you how to use an Array Data Provider (ADP) to display department names in a Select Single
+          component. </p>
+        <ol>
+
+          <li>In the Types tab of your page, click <strong>+ Type</strong> and <strong>From Endpoint</strong>.</li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+              a type from endpoint</a> named <code>getAll_Department</code> based on the GET / Department
+            {Department_ID} endpoint.</li>
+
+          <li>Add the following fields to this newly-created type:
+            <ul>
+              <li>Department Name</li>
+
+              <li>ID</li>
+            </ul>
+          </li>
+
+
+          <li>In the Variables tab, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create
+              a page variable</a> named <code>departmentADP</code> of type ArrayDataProvider.</li>
+          <li>
+            In the Properties pane of <code>departmentADP</code> variable, under Data, select <b>Assign Variable
+              later</b>, select <strong>Item Type</strong> as <code>getAll_Department</code>, and Key Attributes as
+            <code>id</code>.
+          </li>
+
+          <li>
+            In the Event Listeners tab, click <strong>+ Event Listener</strong>, select <strong>vbEnter</strong> and
+            click Next to <a
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-action-chain.html"
+              target="_blank">create an action chain </a> named <code>GetDeptData</code>.
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
+              a Call REST Endpoint action</a> named <code>callgetAllDepartmentRestEndpoint</code> to the action chain
+            and select <code>businessObjects/getall_Department</code> endpoint.</li>
+
+          <li>
+            In the success path of the Call REST Endpoint action, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
+              an Assign Variables action</a> named <code>assignVariableDepartmentADP</code> to assign the results of the
+            REST action from Source to <code>departmentADP</code> in Target.
+          </li>
+          <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
+          <li>In the Data tab of the Properties pane, set Data to <code>departmentADP</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+
+
+
+<!-- Step 4. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Multiple Suggestion Groups</h1>
+      <div>
+        <p>This recipe shows you how to display different categories of results by group. Here, an ArrayTreeDataProvider references hierarchical data, and allows filtering of these data items.
+        </p>
+        <ol>
+          <li>In the <strong>Types</strong> tab of your page, click <strong>+ Type</strong> and select
+            <strong>Custom</strong>. </li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+              a type from custom</a> named <code>childobj</code> of type Object.
+          </li>
+          <li>Create another variable named <code>obj</code> of type Object and add the following fields:
+            <ul>
+              <li><code>children</code> of type Array and Array Item Type of <code>childobj</code>.</li>
+              <li><code>value</code> of type Number.</li>
+              <li><code>label</code> of type String.</li>
+            </ul>
+          </li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+              Create a page variable</a> named <code>groupingDept</code> of type Array and Array Item Type of
+            <code>obj</code>. </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+              Create a page variable</a> named <code>departmentTDP</code> of type Any. </li>
+          <li>In the JavaScript tab, add the following function:
+            <pre>PageModule.prototype.getDepartmentTreeData = function(data) {
+
+    var treeDataProvider;
+    treeDataProvider = new ArrayTreeDataProvider(
+      data, {
+        keyAttributes: 'value'
+      }
+    );
+    console.log(treeDataProvider);
+    return treeDataProvider;
+  };
+            </pre>
+          </li>
+          <li>
+            Add <code>['ojs/ojarraytreedataprovider']</code> in define and add <code>ArrayTreeDataProvider</code>> as a
+            parameter to the function.</li>
+          <li>
+            In the Event Listeners tab of page, click <strong>+ Event Listener</strong>, select vbEnter and click
+            <strong>Next</strong>. <a
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-action-chain.html"
+              target="_blank"> Create an action chain </a> named <code>callDepartmentRestEndpoint</code>
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
+              a Call REST Endpoint action</a> named <code>callDepartmentRestEndpoint</code> to the action chain and
+            select <code>businessObjects/getall_Department</code> endpoint. </li>
+
+          <li>
+            In the success path of the Call REST Endpoint action, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">
+              add an Assign Variables action</a> named <code>assigngroupingdata</code> to assign the result of the REST
+            action items first index from Source to <code>assigngroupingdata</code> in Target.
+            <br>Target should have following:
+            <pre>[
+ {
+  "children": [
+   {
+    "value": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].id }}",
+    "label": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].departmentName }}"
+   }
+  ],
+  "label": "Commonly Selected",
+  "value": 234567
+ }
+]
+              </pre>
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
+              a Call REST Endpoint action</a> named <code>callDepartmentRestEndpoint</code> to the action chain and
+            select the <code>businessObjects/getall_Department</code> endpoint. </li>
+          <li>
+            In the success path of the Call REST Endpoint action, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">
+              add an Assign Variables action</a> named <code>assigngroupingdata</code> that assigns the result of the
+            REST action items from Source to <code>assigngroupingdata</code> in Target.
+            <br>Target should have following:
+            <pre>[
+ {
+  "children": "{{ $chain.results.callDepartmentRestEndpoint.body.items }}",
+  "label": "All Departments",
+  "value": 1234567
+ }
+]
+              </pre>
+          </li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html">Add
+              a Call Module Function</a> named <code>callgetDepartmentTreeDataModuleFunction</code> and, in the Property
+            Inspector, select <code>getDepartmentTreeData</code> from the Function Name dropdown list.
+          </li>
+          <li>In the Parameters section, assign <code>groupingData</code> from Source to <code>data</code> in Target.
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> named <code>assignDepartmentTDPVariable</code>. Assign the result of
+            <code>callgetDepartmentTreeDataModuleFunction</code> from Source to <code>departmentTDP</code> in Target.
+          </li>
+
+          <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
+          <li>In the Data tab of the Properties pane, assign the Data attribute to <code>departmentTDP</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

@@ -1,0 +1,71 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p class="oj-flex">
+  
+
+  Use the Batch API to upload data in a CSV file to a business object in your application. You'll also use the File Picker component to pick the CSV file that you want to upload.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="oj-collapsible-2104122894-1" expanded="true">
+      <span slot="header">
+        Add File Picker
+      </span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag and drop a File Picker component onto the Page Designer.</li>
+          <li>Drop a Button component onto the File Picker component's trigger slot. </li>
+          <li>In the Events tab of the Propery Inspector for the File Picker component, add an <code>ojSelect</code> listener event to handle file selection 
+            and call the <code>FilePickerSelectChain</code> action chain.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-2104122894-2"> <span slot="header">
+        Read CSV
+      </span>
+      <div>
+        <ol>
+          <li>In the FilePickerSelectChain action chain, add a Call Module Function, <code>readAndProcess</code>, to do the following: 
+          
+            <ul>
+              <li>Handle the reading of the file using the <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader"
+                  target="_blank">FileReader</a> API.</li>
+              <li>Generate a formatted result.</li>
+              <li>Report errors, if any.</li>
+              <li>Tip: If you are working with file formats other than CSV, this is the place to make code changes and customize the file reading and processing.</li>
+            </ul>
+          </li>
+          <li>Assign the output from the Call Module Function to page variables. The following :
+          
+            <ul>
+              <li><code>uploadDataADP</code> of type <code>ArrayDataProvider</code> to store table data.</li>
+              <li><code>columns</code> of type <code>Array</code> to store the table columns.</li>
+              <li><code>hasfileLoaded</code> of type <code>Boolean</code> to indicate the upload status.</li>
+              <li><code>current</code> of type <code>Object</code>to hold the current file under process.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-2104122894-3"> <span slot="header">
+        Generate Batch Payload
+      </span>
+      <div>
+        <ol>
+          <li>Create a Module Function, <code>preparePayload</code>, to generate the batch payload based on the table data and the selected business object operation.</li>
+          <li>Call the Batch API endpoint via the <code>call REST Enpoint</code> action and pass the payload as request body.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <!--     <oj-collapsible id="oj-collapsible-2104122894-4"></oj-collapsible>
+    <oj-collapsible id="oj-collapsible-2104122894-5"></oj-collapsible> -->
+
+  </oj-accordion>
+</div>

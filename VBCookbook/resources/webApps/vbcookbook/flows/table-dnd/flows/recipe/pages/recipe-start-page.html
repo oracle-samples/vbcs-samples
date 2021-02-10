@@ -1,0 +1,124 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="oj-collapsible--2002602216-1" expanded="true">
+      <span slot="header">Create Drag Table</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>In the Component Palette, drag and drop a Table component onto the
+            page.</li>
+          <li>Use the <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add Data Quick Start</a> to configure data for the Table
+            component.
+            <ul>
+              <li>
+                Select <code>Employee</code> business object or the
+                getAll_Employees as the endpoint.
+              </li>
+              <li>
+                Select the following fields from the <code>Response</code>:
+                <ol>
+                  <li>
+                    <code>id</code>
+                  </li>
+                  <li>
+                    <code>firstName</code>
+                  </li>
+                  <li>
+                    <code>email</code>
+                  </li>
+                  <li>
+                    <code>skillCollection.name</code>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                Click <strong>Next</strong> and then click
+                <strong>Finish</strong>.
+              </li>
+            </ul>
+          </li>
+          <li>Set table property dnd.drag.rows.data-types to
+            <code>["application/ojtablerows+json"]</code></li>
+          <li>Set table property selection-mode.row to <code>multiple</code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible--2002602216-4">
+      <span slot="header">Create Drop Table</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>In the Component Palette, drag and drop a Table component onto the
+            page.</li>
+          <li>Create a page variable <code>employeeDropListADP</code> of type Array Data Provider.</li>
+          <li>Set table property data to <code>[[ $variables.employeeDropListADP
+              ]]</code>.</li>
+          <li>Set table property columns to
+            <code>[{"headerText":"Id","field":"id"},{"headerText":"First
+              Name","field":"firstName"},{"headerText":"Department
+              Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate3"},{"headerText":"Phone
+              number","field":"phoneNumber"},{"headerText":"Job
+              title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate5"}]</code>.</li>
+          <li>Set table property dnd.drop.rows.data-types to <code>["application/ojtablerows+json"]</code>.</li>
+          <li>Set table property dnd.drop.rows.drop to <code>[[$functions.handleDropRows]]</code>.</li>
+          <li>Copy the table templates for columns from step 1</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible--800054844-2">
+      <span slot="header">Create Drag Handler</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>Add a JavaScript module function named <code>handleDropRows</code>:
+            <pre>
+            <code>
+PageModule.prototype.handleDropRows = function(event, ui) {
+  var dragData = event.dataTransfer.getData(
+    'application/ojtablerows+json');
+
+  if (dragData) {
+    this.eventHelper.fireCustomEvent('dataDropped', {
+      rows: JSON.parse(dragData).map(function(i) {
+        return i.data
+      }),
+      startIndex: ui.rowIndex
+    })
+  }
+};
+            </code>
+            </pre>
+          </li>
+
+          <li>Create a page custom event named <code>dataDropped</code> with the following payload:
+            <ul>
+              <li>rows of type Array (object)</li>
+              <li>startIndex of type Number</li>
+            </ul>
+          </li>
+
+          <li>Add an event listener to the custom event <code>dataDropped</code> that creates an action chain <code>handleDrop</code>.</li>
+          <li>Add a Call Module Function named <code>addRows</code>:
+            <pre>
+            <code>
+PageModule.prototype.addRows = function(data, rows, startIndex) {
+  return data.slice(0, startIndex).concat(rows).concat(data.slice(
+    startIndex))
+};
+            </code>
+            </pre>
+          </li>
+
+          <li>Add a Call Assign Variable action and assign the Call Module Function output to <code>employeeDropListADP.data</code>.</li>
+
+        </ol>
+
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

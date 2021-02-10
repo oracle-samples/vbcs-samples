@@ -1,0 +1,48 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallDepartmentResponse",
+        "uriParameters": {
+          "q": "totalSalary > 0"
+        }
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number",
+          "totalSalary": "number"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-chart": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-item": {
+        "path": "ojs/ojchart"
+      }
+    }
+  }
+}

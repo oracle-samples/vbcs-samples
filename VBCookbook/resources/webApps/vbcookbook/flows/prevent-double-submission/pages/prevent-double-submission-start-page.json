@@ -1,0 +1,87 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "buttonText": {
+      "type": "string",
+      "defaultValue": "Add"
+    },
+    "disableButton": {
+      "type": "boolean",
+      "defaultValue": false
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "ButtonActionChain": {
+      "description": "",
+      "root": "changeButtonText",
+      "actions": {
+        "changeButtonText": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.disableButton": {
+              "source": true
+            },            
+            "$page.variables.buttonText": {
+              "source" : "Processing..." 
+            }
+          },
+          "outcomes": {
+            "success": "callModuleFunctionWait3Seconds"
+          }
+        },
+        "callModuleFunctionWait3Seconds": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "addCountry"
+          },
+          "outcomes": {
+            "success": "setButtonTextBack"
+          }
+        },
+        "setButtonTextBack": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.disableButton": {
+              "source": false
+            },
+            "$page.variables.buttonText":  { "source" : "Add" }
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojButton2830491771OjAction": {
+      "chains": [
+        {
+          "chainId": "ButtonActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

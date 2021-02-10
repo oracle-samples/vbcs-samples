@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "prevent-double-submission",
+  "description": "Flow main",
+  "defaultPage": "prevent-double-submission-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

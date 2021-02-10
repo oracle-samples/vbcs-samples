@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -128,7 +128,7 @@
             </ul>
           </li>
           <li>
-            In the Property Inspector of the oj-select-single component:
+            In the Properties pane of the oj-select-single component:
             <ul>
               <li>
                 In the General Tab, set Label Text to <b>Select employee for job change:</b>.
@@ -162,7 +162,7 @@
             Set Test value to <code>[[ $variables.selectedStep.indexOf("1") > -1 ]]</code>
           </li>
           <li>
-            In the Property Inspector of the Next button, set the Disabled property to
+            In the Properties pane of the Next button, set the Disabled property to
             <code>[[ !$variables.selectedEmployeeItem.data ]]</code>. The Next button should only be
             enabled after an employee is selected.
           </li>
@@ -193,7 +193,7 @@
             </ul>
           </li>
           <li>
-            In the General tab of the Property Inspector for the oj-select-single component, select
+            In the General tab of the Properties pane for the oj-select-single component, select
             <strong>Required</strong>.
           </li>
           <li>
@@ -211,7 +211,7 @@
                 For the true path of <code>IfStep2</code>, add a Call Component Method action named <code>selectJobComponentMethod</code>.
               </li>
               <li>
-                In the Property Inspector of <code>selectJobComponentMethod</code>, select the <b>select-job</b> from the
+                In the Properties pane of <code>selectJobComponentMethod</code>, select the <b>select-job</b> from the
                 Component dropdown list and <b>validate</b> from the Method
                 Name dropdown list.
               </li>
@@ -238,20 +238,20 @@
             Drag an Input Text component and drop it on the page as a child of the Form Layout component.
           </li>
           <li>
-            In the General Tab of the Property Inspector, set Label Text to <code>Old Job</code>. In the Data tab, set value to <code>{{ $variables.currentJobTitle }}</code>.
+            In the General Tab of the Properties pane, set Label Text to <code>Old Job</code>. In the Data tab, set value to <code>{{ $variables.currentJobTitle }}</code>.
           </li>
           <li>
             Drag an Input Text component and drop it on the page as a child of the Form Layout component.
           </li>
           <li>
-            In the General Tab of the Property Inspector, set Label Text to <code>New Job</code>. In the Data tab, set value to <code>{{ $variables.newJobTitle }}</code>.
+            In the General Tab of the Properties pane, set Label Text to <code>New Job</code>. In the Data tab, set value to <code>{{ $variables.newJobTitle }}</code>.
           </li>
 
           <li>
             Drag a Button component and drop it on the page.
           </li>
           <li>
-            In the General Tab of the Property Inspector for the Button component, set text to <b>Submit</b>.
+            In the General Tab of the Properties pane for the Button component, set text to <b>Submit</b>.
           </li>
           <li>
             <a target="_blank"
@@ -263,7 +263,7 @@
 
               </li>
               <li>
-                In the Property Inspector of the Notification action, set Summary to <b>Success!</b>, Message to <b>Employee Job Changed Successfully!</b>, and set Notification Type to Confirmation.
+                In the Properties pane of the Notification action, set Summary to <b>Success!</b>, Message to <b>Employee Job Changed Successfully!</b>, and set Notification Type to Confirmation.
               </li>
             </ul>
           </li>
@@ -271,7 +271,7 @@
             Drag an If component and drop it in the page so that the Form Layout component is a child of the If component.
           </li>
           <li>
-            In the Property Inspector of the If component, set test to <code>[[ $variables.selectedStep.indexOf("3") > -1 ]]</code>
+            In the Properties pane of the If component, set test to <code>[[ $variables.selectedStep.indexOf("3") > -1 ]]</code>
           </li>
         </ol>
       </div>

@@ -1,0 +1,158 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeDropListADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "get_Employee",
+        "keyAttributes": [
+          "id"
+        ]
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "departmentObject": {
+        "items": [
+          {
+            "departmentName": "string"
+          }
+        ]
+      },
+      "firstName": "string",
+      "id": "number",
+      "jobObject": {
+        "items": [
+          {
+            "jobTitle": "string"
+          }
+        ]
+      },
+      "phoneNumber": "string"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string"
+              }
+            ]
+          },
+          "firstName": "string",
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "phoneNumber": "string"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "handleDrop": {
+      "root": "addRows",
+      "description": "Manipulate ADP data and update it.",
+      "variables": {
+        "event": {
+          "required": false,
+          "input": "fromCaller",
+          "type": {
+            "rows": "object[]",
+            "startIndex": "number"
+          }
+        }
+      },
+      "actions": {
+        "addRows": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "outcomes": {
+            "success": "updateADP"
+          },
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "addRows",
+            "params": [
+              "{{ $page.variables.employeeDropListADP.data }}",
+              "{{ $variables.event.rows }}",
+              "{{ $variables.event.startIndex }}"
+            ]
+          }
+        },
+        "updateADP": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeDropListADP": {
+              "source": {
+                "data": "{{ $chain.results.addRows }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.data": {
+                  "source": "$source.data",
+                  "reset": "empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "dataDropped": {
+      "chains": [
+        {
+          "chainId": "handleDrop",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  },
+  "events": {
+    "dataDropped": {
+      "payloadType": {
+        "rows": "object[]",
+        "startIndex": "number"
+      }
+    }
+  }
+}

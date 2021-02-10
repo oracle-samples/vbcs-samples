@@ -1,0 +1,98 @@
+{
+  "applicationModelVersion": "19.4.3",
+  "id": "takephotoaction",
+  "description": "A new VB app",
+  "defaultPage": "app",
+  "chains": {
+    "hideSpinner": {
+      "description": "Hides the application loading screen shown immediately after the splash screen is dismissed.",
+      "root": "hideSpinner",
+      "actions": {
+        "hideSpinner": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{ $application.functions }}",
+            "functionName": "hideSpinner"
+          }
+        }
+      }
+    },
+    "resourceChangedHandler": {
+      "root": "fireNotification1",
+      "description": "Displays a notification message when application has been updated and needs to be refreshed.",
+      "variables": {
+        "event": {
+          "required": false,
+          "input": "fromCaller",
+          "type": {
+            "error": {
+              "detail": "string"
+            }
+          }
+        }
+      },
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "[[ $chain.variables.event.error.detail ]]",
+            "target": "leaf"
+          }
+        }
+      }
+    }
+  },
+  "services": {},
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      },
+      "description": "Event to configure navigation between items/tabs."
+    }
+  },
+  "types": {},
+  "variables": {},
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "hideSpinner"
+        }
+      ]
+    },
+    "vbResourceChanged": {
+      "chains": [
+        {
+          "chainId": "resourceChangedHandler",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    }
+  },
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {
+      "authentication": {
+        "type": "oraclecloud",
+        "options": {
+          "login": "",
+          "logout": "",
+          "headers": {}
+        }
+      }
+    }
+  },
+  "security": {
+    "access": {
+      "requiresAuthentication": false
+    }
+  }
+}

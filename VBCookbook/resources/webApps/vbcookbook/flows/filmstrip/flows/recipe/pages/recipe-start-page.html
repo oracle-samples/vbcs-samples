@@ -1,0 +1,129 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+
+
+  <p>
+    You'll add a Film Strip and Table component to your application page. A <code>vbEnter</code> lifecycle event
+    listener
+    invokes the <code>loadJobsChain</code> action chain that uses a Call REST Endpoint action to get all jobs from the
+    Job
+    business object and assigns the response to the jobs variable. The Table component binds to the
+    <code>employeeListSDP</code>
+    variable to display employees.
+  </p>
+
+</div>
+
+<!-- Step 1. -->
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create Variables and Add Event Listeners to Invoke Action Chains</span>
+      <div>
+        <p>You create a jobs variable and add listeners to assign data to it as the Film Strip component will be based
+          on the data assigned to the variable. </p>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a page variable</a> named <code>jobs</code> of type Array.</li>
+
+          <li>Add a field named <code>id</code> of type Number and a field named <code>title</code> of type String.</li>
+          <li>Create a page variable named <code>currentJob</code> of type Array, add a field named <code>id</code> of
+            type String, and another field named <code>index</code> of type Number.
+            <br>The <code>currentJob</code> variable holds the current item state in the Film Strip component with a
+            unique id and index.
+          </li>
+          <li>Next, we need to invoke an action chain to call the REST endpoint that returns jobs and assigns the
+            response to the <code>jobs</code> variable you created.</li>
+          <li>In the Event Listeners Tab, click <strong>+ Event Listener</strong>, select <strong>vbenter</strong>, and
+            click <strong>Next</strong>.</li>
+          <li>Click the + icon to create a new page action chain named <code>loadJobsChain</code>.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
+              a Call REST Endpoint action</a> to the action chain named <code>jobsRestEndPoint</code>.</li>
+          <li>In the Properties pane of the action, click <strong>Select</strong> and navigate to select GET/Job
+            under the Job
+            business object.</li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> to the action chain named <code>assignVariableJobs</code> that assigns the
+            response of the
+            Call REST endpoint action variable in the Sources of the action chain to the <code>jobs</code> page variable
+            in Target.</li>
+
+          <li>During assignment from Sources to Target, in Sources, expand <code>jobsRestEndpoint -> body</code>. Assign
+            Items array to Jobs array. Then, expand <code>items</code> and assign <code>id</code> from
+            Sources to the <code>id</code> field in <code>jobs</code>. Repeat this step for the <code>title</code>
+            attribute.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
+              a Call Component Method</a> action named <code>refreshfilmstripcomponent</code>.</li>
+
+          <li>In the Properties pane, select <strong>filmstrip</strong> from the Component dropdown list and
+            <strong>refresh</strong> from the Method Name dropdown list.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Add a Film Strip Component to Navigate Jobs</span>
+      <div>
+        <p>You'll need to add a Film Strip component to display and navigate through job titles.</p>
+        <ol>
+          <li>In the Component Palette, drag a Film Strip component and drop it on the page. </li>
+
+          <li>In the General tab of the Properties pane, set id to <code>filmstrip</code> and Max Items Per Page to
+            <code>1</code>. </li>
+
+          <li>In the Data Tab, set Current Item to <code>{{ $variables.currentJob }}</code>.</li>
+
+          <li>In the Component Palette, drag a For Each (Bind for Each) component and drop it as a child of the Film
+            Strip component. </li>
+
+          <li>In the Properties pane of the Bind for Each component, set Data to <code>[[ $variables.jobs ]]</code>. </li>
+
+          <li>In the Component Palette, drag a Heading component and drop it as a child of the Template inside the Bind
+            for Each component. </li>
+          <li>In the Properties pane of the Heading component, set level to H6. </li>
+          <li>In the Bind Text component that is a child of the Heading component, set the value to <code>[[ 'List of
+            employees with designation ' +$current.data.title ]] </code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+
+
+    <oj-collapsible id="step4">
+      <span slot="header">Add a Table Component to Display Employees with the Selected Job Title</span>
+      <div>
+        <p>You'll add a Table to display employees with the job title selected in the Film Strip component.</p>
+        <ol>
+          <li>In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li>Use the Table component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your table to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Email</li>
+              <li>Hire Date</li>
+            </ul>
+          </li>
+          <li>
+            In Define Query page, Set the uri parameters to <code>{
+ "q": "{{ $variables.jobs.length==0 ?'job='+1 : 'job='+$variables.jobs[$variables.currentJob.index || 0].id }}"
+}
+            </code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

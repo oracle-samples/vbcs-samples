@@ -1,0 +1,11 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,firstName,lastName,email,phoneNumber,hireDate,job,salary,commissionPct,manager,department
+100,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Steven,King,sking@example.com,515.123.4567,2003-06-17,1,24000.0,,,9
+101,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Neena,Kochhar,nkochhar@example.com,515.123.4568,2005-09-21,2,17000.0,,100,9
+102,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Lex,De Haan,ldehaan@example.com,515.123.4569,2001-01-13,2,17000.0,,100,9
+103,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Alexander,Hunold,ahunold@example.com,590.423.4567,2006-01-03,15,9000.0,,102,6
+104,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Bruce,Ernst,bernst@example.com,590.423.4568,2007-05-21,15,6000.0,,103,6
+105,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,David,Austin,daustin@example.com,590.423.4569,2005-06-25,15,4800.0,,103,6
+106,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Valli,Pataballa,vpatabal@example.com,590.423.4560,2006-02-05,15,4800.0,,103,6
+107,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Diana,Lorentz,dlorentz@example.com,590.423.5567,2007-02-07,15,4200.0,,103,6
+108,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Nancy,Greenberg,ngreenbe@example.com,515.124.4569,2002-08-17,4,12008.0,,101,10
+109,2020-02-03T14:43:12,2020-02-03T14:43:12,jane.smith@example.com,jane.smith@example.com,Daniel,Faviet,dfaviet@example.com,515.124.4169,2002-08-16,5,9000.0,,108,10

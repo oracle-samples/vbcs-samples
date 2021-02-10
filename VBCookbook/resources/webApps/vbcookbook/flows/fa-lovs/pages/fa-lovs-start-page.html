@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -14,31 +14,27 @@
       <div class="oj-flex-item oj-sm-12 oj-md-12">
         <oj-label for="employee-list-dropdown">Employee</oj-label>
       </div>
-      <oj-bind-if test="[[ !$variables.selectedEmployee.value ]]">
+      <oj-bind-if test="[[ !$variables.selectedEmployee.key ]]">
         <oj-button display="icons"
-          on-oj-action="[[$listeners.employeeAdvSearch]]" class="oj-sm-1" id="searchicon">
+          on-oj-action="[[$listeners.employeeAdvSearch]]" class="oj-sm-1" id="searchicon" style="margin-top:5px;">
           Search Employee
           <span slot="startIcon"
             class="vb-icon vb-icon-search-magnifying-glass oj-flex-item oj-sm-flex-initial"></span>
         </oj-button>
-
-        <oj-combobox-one style="min-width:20em" id="employee-list-dropdown"
-          options-keys.value="id" options-keys.label="firstName"
-          value="{{ $variables.selectedEmployee.value }}"
-          value-option="{{ $variables.selectedEmployee }}"
-          options="[[$page.variables.employeeListSDP]]"
-          option-renderer="[[$page.functions.optionRenderer]]"
-          on-value-changed="[[$listeners.employeeListDropdownValue]]"
-          class="oj-form-control-full-width oj-sm-11"></oj-combobox-one>
+        <oj-select-single label-hint="Select employee"
+          class="oj-flex-item oj-md-5 oj-sm-flex-initial oj-form-control-width-sm oj-form-control-width-md"
+          data="[[$page.variables.employeeListSDP]]" item-text="[[ $functions.optionRenderer ]]"
+          value-item="{{ $variables.selectedEmployee }}" id="selectemployee"></oj-select-single>
 
       </oj-bind-if>
 
 
-      <oj-bind-if test="[[ $variables.selectedEmployee.value ]]">
+      <oj-bind-if test="[[ $variables.selectedEmployee.key ]]">
         <!--         <oj-label class="oj-flex-item oj-sm-12 oj-md-2" id="selectedvalue"> -->
-        <oj-input-text class="oj-sm-11 oj-form-control-full-width"
+        <oj-input-text class="oj-sm-11 oj-md-3 oj-form-control-width-sm oj-form-control-width-md"
           aria-label="Employee" id="employee-readonly"
-          value="{{ $variables.selectedEmployee.label }}" readonly="true">
+          value="{{ $variables.selectedEmployee.data.firstName + ' '+  $variables.selectedEmployee.data.lastName}}"
+          readonly="true">
         </oj-input-text>
 
 

@@ -1,0 +1,23 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-ext-mobile-page-template": {
+        "path": "vb/components/mobile-page-template/loader"
+      },
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      }
+    }
+  }
+}

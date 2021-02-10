@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="img-src 'self' blob: data: content: file: http: https:; default-src * gap://ready blob:; style-src 'self' 'unsafe-inline'; media-src * 'self' blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdvfile://* http: https:">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover">
+  <link rel="preconnect" href="https://static.oracle.com">
+  <link rel="preconnect" href="https://rt.oraclevb.com">
+  <!-- vb:inject id="headContent" theme="resources/css/dt.theme.redwood" -->
+  <link type="text/css" rel="stylesheet" href="resources/css/app.css">
+
+  <!-- Styling for the spinner screen shown during page load -->
+  <style>
+    .vb-spinner-screen {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      height: 100vh;
+      width: 100%;
+      position: fixed;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      z-index: 1000;
+      /* This makes the spinner splash screen appear only if there is a delay of at least 600ms to initialize page */
+      /* Remove the animation for displaying the spinner immediately */
+      /* Or increase the time to delay the showing of the spinner */
+      animation: vb-spinner-screen-appear .6s linear;
+    }
+
+    @keyframes vb-spinner-screen-appear {
+      0% {
+        opacity: 0;
+      }
+
+      99% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .vb-spinner-reveal-trans {
+      transition: all .2s ease-in-out;
+      left: 50%;
+      top:50%;
+      width: 0;
+      height: 0;
+    }
+
+    .vb-spinner-loader,
+    .vb-spinner-loader:after {
+      border-radius: 50%;
+      width: 6em;
+      height: 6em;
+    }
+
+    .vb-spinner-loader {
+      margin: 0 auto;
+      font-size: 10px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) translateZ(0);
+      text-indent: -9999em;
+      border-top: 1.1em solid rgba(222, 222, 222, 0.5);
+      border-right: 1.1em solid rgba(222, 222, 222, 0.5);
+      border-bottom: 1.1em solid rgba(222, 222, 222, 0.5);
+      border-left: 1.1em solid rgb(192, 192, 192);
+      animation: spin-rotate 1.1s infinite linear;
+    }
+
+    @keyframes spin-rotate {
+      0% {
+        transform: translate(-50%, -50%) translateZ(0) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) translateZ(0) rotate(360deg);
+      }
+    }
+  </style>
+  <!-- vb:inject id="pwa" -->
+</head>
+
+<body class="oj-web-applayout-body">
+
+<oj-vb-content config="[[vbApplication]]"></oj-vb-content>
+
+<!-- visualBuilderScripts -->
+
+<!-- Display a spinner until the application content is loaded and ready to display -->
+<div id="vb-spinner" class="vb-spinner-screen">
+  <div class="vb-spinner-loader">&nbsp;</div>
+</div>
+
+<link id="favicon-light" rel="icon" href="resources/images/favicon-light.ico" type="image/ico">
+<link id="favicon-dark" rel="icon" href="resources/images/favicon-dark.ico" type="image/ico">
+<script>
+  const lightIcon = document.getElementById('favicon-light');
+  const darkIcon = document.getElementById('favicon-dark');
+  const matcher = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function switchIcon() {
+    if (matcher.matches) {
+      darkIcon.remove();
+      document.head.append(lightIcon);
+    } else {
+      lightIcon.remove();
+      document.head.append(darkIcon);
+    }
+  }
+
+  matcher.addEventListener('change', switchIcon);
+  switchIcon();
+</script>
+
+</body>
+
+</html>

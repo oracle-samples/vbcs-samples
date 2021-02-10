@@ -1,54 +1,117 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<p>The first dropdown's selected value can be used to filter second dropdown's options.
-  Similarly second dropdown's selected value will be used to filter third dropdown
-  options, and so on. We logic to check if a parent LOV has been set and reset any
-  child LOVs accordingly. In the end, we call a REST service to fetch the postal
-  code and assign it to the postalCode variable.</p>
-<oj-accordion id="accordionPage">
+<p>The first dropdown's selected value can be used to filter the options that appear in the second dropdown.
+  Similarly, the second dropdown's selected value can be used to filter the options that appear in a third dropdown, and
+  so on.</p>
+<oj-accordion id="accordionPage" multiple="true">
   <oj-collapsible id="step1" expanded="true">
-    <span slot="header">Create the UI</span>
+    <span slot="header">Create the UI and Page Model, and Bind the UI </span>
     <div>
       <ol>
-        <li>Add the Form Layout, Select One components, Input Text component, and Button
-          to the page.</li>
-      </ol>
-    </div>
-  </oj-collapsible>
-  <oj-collapsible id="step2">
-    <span slot="header">Create the Page Model and Bind the UI</span>
-    <div>
-      <ol>
-        <li>Create a new type called <code>SelectedItemType</code>. Add the following
-          fields:
+        <li>In the Page Designer, add the Form Layout, Select Single, Input Text, and Button components to the page.
+        </li>
+
+        <li>In the <strong>Types</strong> tab of the page, click <strong>+ Type</strong> and select
+          <strong>Custom</strong>.</li>
+
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+            a type from custom</a> named <code>selectedObjectType</code> of type Object, and add the following fields to
+          this new type:
           <ul>
-            <li><code>value</code> - Number</li>
-            <li><code>label</code> - String</li>
+            <li>
+              <code>metadata</code> of type Object.
+            </li>
+            <li>
+              <code>Key</code> of type Number.
+            </li>
+            <li>
+              <code>data</code> of type Object.
+            </li>
           </ul>
         </li>
-        <li>Create the following page variables, all of type <code>SelectedItemType</code>:
+        <li>In the <strong>Variables</strong> tab of the page, create the following page variables, all of type
+          <code>Object</code>:
           <ul>
-            <li><code>selectedRegion</code></li>
-            <li><code>selectedCountry</code></li>
-            <li><code>selectedLocation</code></li>
+            <li><code>selectedRegion</code> of type <code>selectedObjectType</code>.</li>
+            <li><code>selectedCountry</code> of type <code>selectedObjectType</code>.</li>
+            <li><code>selectedLocation</code> of type <code>selectedObjectType</code>.</li>
+
           </ul>
         </li>
-        <li>Bind the value for each of the Select One components to the three variables
-          above.</li>
-        <li>Add a <code>postalCode</code> String variable and bind it to the Postal Code
+
+        <li>Add a <code>{{ $variables.selectedLocation.data ? $variables.selectedLocation.data.postalCode : '' }}</code>
+          variable and bind it to the Postal Code
           field.</li>
-        <li>Use the Quickstart to set the options for each Select One component. For
-          the Country picker, set the
-          <code>filterCriterion</code> to country equals
-          <code>{{$page.variables.selectedRegion ? $page.variables.selectedRegion.value : undefined }}</code>.
-          For the Location picker, set the <code>filterCriterion</code> to country
-          equals
-          <code>{{ $page.variables.selectedCountry ? $page.variables.selectedCountry.value : undefined }}</code>.</li>
-        <li>In the HTML editor, change each Select One component to use <code>value-option</code>          instead of
-          <code>value</code>.</li>
+        <li>In the Component Palette, drag and drop a Select Single component onto the page.</li>
+
+        <li>Use the Select Single component's <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Data Quick Start</a> to bind it to Region data.</li>
+        <li>In the Bind Data page, select the following fields:
+          <ul>
+            <li>Region Name</li>
+            <li>Id</li>
+          </ul>
+        </li>
+        <li>
+          In the General Tab of the Properties pane for the Select Single component, set the Label Hint property to
+          <code>Region</code>.</li>
+
+        <li>Bind the value-item property for the Select Single component to <code>selectedRegion</code> above.</li>
+
+
+
+        <li>Drag and drop another Select Single component onto the page, use the <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Data Quick Start</a> to bind it to Country data, and in the Bind Data page, select the following fields:
+          <ul>
+            <li>Country Name</li>
+            <li>Id</li>
+            <li>set filterCriterion to
+              <code>{{ $variables.selectedRegion.key!=null ? $variables.selectedRegion.key : undefined  }}</code>
+          </ul>
+        </li>
+        <li>
+          In the General Tab of the Properties pane for the Select Single component, set the Label Hint property to
+          <code>Country</code>.
+
+
+        </li>
+        <li>
+          In the General tab of the Select Single component, set the Disabled attribute to
+          <code>[[ !$variables.selectedRegion.key  ]]</code>
+        </li>
+        <li>Bind the value-item property for the Select Single component to <code>selectedCountry</code> above.</li>
+
+
+
+        <li>Drag and drop another Select Single component onto the page, use the <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Data Quick Start</a> to bind it to Location data, and in the Bind Data page, select the following fields:
+          <ul>
+            <li>City</li>
+            <li>Id</li>
+            <li>set filterCriterion to
+              <code>{{ $variables.selectedCountry.key!=null ? $variables.selectedCountry.key : undefined }}</code>
+          </ul>
+        </li>
+
+        <li>
+          In the General Tab of the Properties pane for the Select Single component, set the Label Hint property to
+          <code>Location</code>.
+
+
+        </li>
+        <li>
+          In the General tab of the Select Single component, set the Disabled attribute to
+          <code>[[ !($variables.selectedRegion.key  && $variables.selectedCountry.key) ]]</code>
+        </li>
+
+        <li>Bind the value-item property for the Select Single component to <code>selectedLocation</code> above.</li>
       </ol>
     </div>
   </oj-collapsible>
@@ -56,15 +119,31 @@
     <span slot="header">Create the Events and Action Chains</span>
     <div>
       <ol>
-        <li>Add a <code>valueChanged</code> event for each Select One component. In each
-          action chain, check that the
-          <code>value</code> of the <code>Region/Country/Location</code> exists,
-          and if not, reset the cascading values below. In the Location value change
-          event, also add logic to call the Location REST endpoint and populate the
-          postalCode variable.</li>
-        <li>Add an <code>ojAction</code> event to the Reset button and in the action
-          chain reset all page variables.
+        <li>In the Events tab of the Properties pane for the Reset Values button, add an <code>ojAction</code> event
+          and, in the resulting action chain, add a Reset Variables action to reset all page variables.
         </li>
-      </ol>
+
+        <li>In the Events tab of the Properties pane for the Region Select Single component, click <strong>+ New
+            Event</strong> and select <strong>Quick Start</strong>. </li>
+        <li>In the Properties pane of the action chain, set ID to <code>RegionValueItemChangeChain</code>. </li>
+
+
+        <li>In the Variables tab of the action chain, create a variable, <code>changeType</code>, of type Any.</li>
+        <li>In the Properties pane of the variable, select <strong>Enabled</strong> for Input Parameter.</li>
+
+        
+        <li>In the Events tab of the Properties pane for the Region Select Single component, click <strong>Assign</strong> beside the Input Parameter field 
+          and map <code>$event.details.updatedFrom</code> from Source to <code>changeType</code> in Target.</li>
+        
+          
+        
+        
+        
+<li>In the action chain, add an Assign Variable action to map <code>changeType</code> chain variable to the <code>changeType</code> page variable in Target.</li>
+<li>For the true outcome of the If action, add a Reset Variable action to reset the variable to <code>$page.variables.selectedCountry</code>.</li>
+
+<li>Add a similar value item action chain for the Country Select Single component.</li>
+
+</ol>
     </div>
   </oj-collapsible>

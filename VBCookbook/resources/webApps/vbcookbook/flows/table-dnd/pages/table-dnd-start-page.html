@@ -1,0 +1,72 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom">Drag and drop table rows onto another table
+</div>
+<style>
+thead{
+max-width:80vw !important;
+}
+tbody{
+max-width:80vw !important;
+}
+</style>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <h2 class="oj-flex-item oj-sm-flex-initial">Select and drag the rows</h2>
+    <div class="oj-flex-item">
+      <oj-table style="max-height: 40vh;" scroll-policy="loadMoreOnScroll"
+        class="oj-flex oj-sm-12 oj-md-12"
+        data="[[$page.variables.employeeListSDP]]"
+        columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate3"},{"headerText":"Phone number","field":"phoneNumber"},{"headerText":"Job title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate5"}]'
+        dnd.drag.rows.data-types='["application/ojtablerows+json"]'
+        selection-mode.row="multiple" id="drag-table">
+        <template slot="departmentNameCellTemplate3">
+          <oj-bind-text
+            value="[[ $current.data.items[0] ? $current.data.items[0].departmentName : '' ]]">
+          </oj-bind-text>
+        </template>
+        <template slot="jobTitleCellTemplate5">
+          <oj-bind-text
+            value="[[ $current.data.items[0] ? $current.data.items[0].jobTitle : '' ]]">
+          </oj-bind-text>
+        </template>
+      </oj-table>
+    </div>
+    <h2 class="oj-flex-item oj-sm-flex-initial">Drop the rows below</h2>
+    <div class="oj-flex-item">
+      <oj-table style="max-height: 40vh;" scroll-policy="loadMoreOnScroll"
+        columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate3"},{"headerText":"Phone number","field":"phoneNumber"},{"headerText":"Job title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate5"}]'
+        data="[[ $variables.employeeDropListADP ]]"
+        class="oj-flex oj-sm-12 oj-md-12"
+        dnd.drop.rows.data-types='["application/ojtablerows+json"]'
+        dnd.drop.rows.drop="[[$functions.handleDropRows]]" translations.msg-no-data="Drag and drop rows from the table above" id="drop-table"> <template
+          slot="departmentNameCellTemplate3">
+          <oj-bind-text
+            value="[[ $current.data.items[0] ? $current.data.items[0].departmentName : '' ]]">
+          </oj-bind-text>
+        </template>
+        <template slot="jobTitleCellTemplate5">
+          <oj-bind-text
+            value="[[ $current.data.items[0] ? $current.data.items[0].jobTitle : '' ]]">
+          </oj-bind-text>
+        </template>
+     
+        </oj-table>
+    </div>
+
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

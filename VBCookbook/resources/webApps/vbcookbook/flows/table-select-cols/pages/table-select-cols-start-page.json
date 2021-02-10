@@ -1,0 +1,246 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "columnOptions": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "headerText": "Id",
+          "field": "id"
+        },
+        {
+          "headerText": "First Name",
+          "field": "firstName"
+        },
+        {
+          "headerText": "Last Name",
+          "field": "lastName"
+        },
+        {
+          "headerText": "Department Name",
+          "field": "departmentObject",
+          "sortProperty": "departmentObject.departmentName",
+          "template": "departmentNameCellTemplate4"
+        },
+        {
+          "headerText": "Name",
+          "field": "skillCollection",
+          "sortProperty": "skillCollection.name",
+          "template": "nameCellTemplate5"
+        },
+        {
+          "headerText": "Email",
+          "field": "email"
+        },
+        {
+          "headerText": "Hire date",
+          "field": "hireDate"
+        },
+        {
+          "headerText": "Phone number",
+          "field": "phoneNumber"
+        },
+        {
+          "headerText": "Salary",
+          "field": "salary"
+        }
+      ]
+    },
+    "columns": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "headerText": "Id",
+          "field": "id"
+        },
+        {
+          "headerText": "First Name",
+          "field": "firstName"
+        },
+        {
+          "headerText": "Last Name",
+          "field": "lastName"
+        },
+        {
+          "headerText": "Department Name",
+          "field": "departmentObject",
+          "sortProperty": "departmentObject.departmentName",
+          "template": "departmentNameCellTemplate4"
+        },
+        {
+          "headerText": "Name",
+          "field": "skillCollection",
+          "sortProperty": "skillCollection.name",
+          "template": "nameCellTemplate5"
+        },
+        {
+          "headerText": "Email",
+          "field": "email"
+        },
+        {
+          "headerText": "Hire date",
+          "field": "hireDate"
+        },
+        {
+          "headerText": "Phone number",
+          "field": "phoneNumber"
+        },
+        {
+          "headerText": "Salary",
+          "field": "salary"
+        }
+      ],
+      "persisted": "device"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    },
+    "menuValue": {
+      "type": "string[]",
+      "defaultValue": "[[ $variables.columns.map(op=>op.field) ]]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "updateTableColumns",
+            "parameters": {
+              "event": "{{ $event }}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number",
+          "skillCollection": {
+            "items": [
+              {
+                "name": "string"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "chains": {
+    "updateTableColumns": {
+      "root": "assignColumns",
+      "description": "",
+      "variables": {
+        "event": {
+          "required": false,
+          "input": "fromCaller",
+          "type": {
+            "oldValue": "object[]",
+            "value": "object[]"
+          }
+        }
+      },
+      "actions": {
+        "assignColumns": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.columns": {
+              "source": "{{ $variables.event.value.map(v=>$page.variables.columnOptions.find(i=>i.field === v)) }}",
+              "reset": "empty"
+            }
+          }
+        }
+      }
+    },
+    "showAllColumns": {
+      "description": "",
+      "root": "assignColsAndMenuValue",
+      "actions": {
+        "assignColsAndMenuValue": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.columns": {
+              "source": "{{ $page.variables.columnOptions }}",
+              "reset": "empty"
+            },
+            "$page.variables.menuValue": {
+              "source": "{{ $page.variables.columnOptions.map(op=>op.field) }}",
+              "reset": "empty"
+            }
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "showColumnsHandler": {
+      "chains": [
+        {
+          "chainId": "showAllColumns",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-menu-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-menu": {
+        "path": "ojs/ojmenu"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-menu-select-many": {
+        "path": "ojs/ojmenuselectmany"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<h4>Summary</h4>
+<ul>
+  <li>Create a ListView component and ADP variable.</li>
+  <li>Configure Cordova Contacts plugin into your app.</li>
+  <li>Fetch the phone contacts using the Cordova plugin and populate the same into the ADP.</li>
+</ul>
+<oj-accordion id="accordionPage">
+  <oj-collapsible id="step1">
+  <span slot="header">Step 1: Create ListView Component</span>
+  <div>
+    <ol>
+      <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/building-mobile-applications.html#GUID-2021A51E-0AA0-4A8F-B90A-94CD470F837E">Create a Mobile App.</a></li>
+      <li>Create a new page and drag and drop a ListView component from Component Palette.</li>
+      <li>Create a type 'phoneContact' for the contact details. Add displayName and id fields in this type, as needed.</li>
+      <li>Create an Array Data Provider (ADP) variable with item type as 'phoneContact' type.</li>
+      <li>Configure the ADP as data source for the ListView.</li>
+      <li>Also <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/building-mobile-applications.html#GUID-647797D9-A902-46FC-BB47-2BF7001ADD08">define the Build Configuration</a> for the mobile app.</li>
+      <li>Optionally configure the mobile application to 'Allow anonymous access' from Settings->Security.</li>
+    </ol>
+  </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+  <span slot="header">Step 2: Configure Cordova Plugin</span>
+  <div>
+    <ol>      
+      <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-web-and-mobile-applications.html#GUID-E558B9DF-AA52-4DF4-867C-7BDEDD689C1D">Add Cordova Plugin to the mobile app</a></li>
+      <li>Make sure to add cordova-plugin-contacts plugin into the Cordova project.</li>
+      <li>Finally upload the Cordova project as a Custom Plugin Template in the mobile app.</li>
+      </ol>
+  </div>
+  </oj-collapsible>
+  <oj-collapsible id="step3">
+  <span slot="header">Step 3: Fetch Phone Contacts</span>
+  <div>
+    <ol>
+      <li>In Java Script tab of the page, add code for accessing phone contacts using the <i>navigator</i> object provided by Cordova.</li>
+      <pre>define([], () => {
+  'use strict';
+
+  var PageModule = function PageModule() {};
+  
+  PageModule.prototype.fetchContacts = function(arg1) 
+  {
+    return new Promise(function(resolve, reject)
+    {
+      fetchContacts(function(allContacts)
+      {
+        resolve(allContacts);
+      },
+      function(error){});
+    });
+  };
+
+  function fetchContacts(callbackFunc)
+  {    
+    document.addEventListener('deviceready', onDeviceReady);
+
+    function onDeviceReady()
+    {      
+      var options = {};
+        options.filter = ""; // no filter
+        options.multiple = true;
+        options.hasPhoneNumber = true;
+        
+      var fields = ["displayName"];
+      navigator.contacts.find(fields, function (foundContacts)
+      {
+        callbackFunc(foundContacts);
+      },
+      function (err){}, options);
+    }
+  }
+  return PageModule;
+});
+</pre>   
+<li>Add event listner vbEnter in the page and create an action chain.</li>
+<li>In the action chain invoke the JS function and assign the return of the function, which is an array of contacts, to the ADP.</li>
+    </ol>
+  </div>
+  </oj-collapsible>
+</oj-accordion>

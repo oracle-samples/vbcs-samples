@@ -16,7 +16,7 @@
     },
     "demoLabel": {
       "type": "string",
-      "defaultValue": "All Recipes"
+      "defaultValue": "Welcome to the Visual Builder Cookbook!"
     },
     "showSearch": {
       "type": "boolean",
@@ -36,7 +36,8 @@
     },
     "VBVersionItems": {
       "type": "object[]",
-      "defaultValue": [{
+      "defaultValue": [
+        {
           "label": "Trunk (Development Build)",
           "url": "http://jet.us.oracle.com/trunk/vbcookbook/webApps/vbcookbookshell/index.html"
         },
@@ -48,11 +49,12 @@
     },
     "copyright": {
       "type": "string",
-      "defaultValue": "Copyright © 2014, 2020 Oracle and/or its affiliates All rights reserved."
+      "defaultValue": "Copyright © 2014, 2021 Oracle and/or its affiliates All rights reserved."
     },
     "globalLinks": {
       "type": "object[]",
-      "defaultValue": [{
+      "defaultValue": [
+        {
           "id": "aboutOracle",
           "label": "About Oracle",
           "url": "http://www.oracle.com/us/corporate/index.html#menu-about"
@@ -79,10 +81,6 @@
         }
       ]
     },
-    "checkFirstPage": {
-      "type": "boolean",
-      "defaultValue": true
-    },
     "apiDocs": {
       "type": "ReferenceType[]"
     },
@@ -92,6 +90,10 @@
     "showNavBar": {
       "type": "boolean",
       "defaultValue": "{{ $application.variables.isThisVBDesigner === false }}"
+    },
+    "checkFirstPage": {
+      "type": "boolean",
+      "defaultValue": true
     },
     "ignoreFirstBlurOnFireFox": {
       "type": "boolean",
@@ -517,7 +519,17 @@
             "condition": "[[ $page.variables.checkFirstPage && !$application.variables.isThisVBDesigner ]]"
           },
           "outcomes": {
-            "true": "markPageChecked"
+            "true": "markPageChecked",
+            "false": "ifBrowserBackOrForwardButtonWasClicked"
+          }
+        },
+        "ifBrowserBackOrForwardButtonWasClicked": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ (($page.variables.breadCrumb !== undefined && $page.variables.breadCrumb.length > 0 && $chain.variables.event.currentPage === 'shell/home/home-start') || ($page.variables.breadCrumb !== undefined && $page.variables.breadCrumb.length === 0 && $chain.variables.event.currentPage !== 'shell/home/home-start')) && !$application.variables.isThisVBDesigner ]]"
+          },
+          "outcomes": {
+            "true": "callNavigateChain"
           }
         },
         "markPageChecked": {
@@ -696,37 +708,45 @@
       ]
     },
     "onVersionItemSelect": {
-      "chains": [{
-        "chainId": "onVersionItemSelect",
-        "parameters": {
-          "selectedVersion": "{{ $event.target.value }}"
+      "chains": [
+        {
+          "chainId": "onVersionItemSelect",
+          "parameters": {
+            "selectedVersion": "{{ $event.target.value }}"
+          }
         }
-      }]
+      ]
     },
     "vbNotification": {
-      "chains": [{
-        "chainId": "showNotification",
-        "parameters": {
-          "eventPayload": "{{ { id: $event.key, summary: $event.summary, detail: $event.message, severity: $event.type, autoTimeout: $event.displayMode === 'transient' ? 0 : -1, timestamp: oj.IntlConverterUtils.dateToLocalIso(new Date()) } }}"
+      "chains": [
+        {
+          "chainId": "showNotification",
+          "parameters": {
+            "eventPayload": "{{ { id: $event.key, summary: $event.summary, detail: $event.message, severity: $event.type, autoTimeout: $event.displayMode === 'transient' ? 0 : -1, timestamp: oj.IntlConverterUtils.dateToLocalIso(new Date()) } }}"
+          }
         }
-      }]
+      ]
     },
     "onMessageClose": {
-      "chains": [{
-        "chainId": "closeNotificationHandler",
-        "parameters": {
-          "eventMessage": "{{ $event.detail.message }}"
+      "chains": [
+        {
+          "chainId": "closeNotificationHandler",
+          "parameters": {
+            "eventMessage": "{{ $event.detail.message }}"
+          }
         }
-      }]
+      ]
     },
     "navItemSelection": {
-      "chains": [{
-        "chainId": "NavigationHandler",
-        "parameters": {
-          "item": "{{ $event.detail.value }}",
-          "updatedFrom": "{{ $event.detail.updatedFrom }}"
+      "chains": [
+        {
+          "chainId": "NavigationHandler",
+          "parameters": {
+            "item": "{{ $event.detail.value }}",
+            "updatedFrom": "{{ $event.detail.updatedFrom }}"
+          }
         }
-      }]
+      ]
     },
     "application:navigateToItem": {
       "chains": [
@@ -740,14 +760,18 @@
     },
     "openInVBActionClicked": {
       "preventDefault": true,
-      "chains": [{
-        "chainId": "OpenHowToOpenVBDialog"
-      }]
+      "chains": [
+        {
+          "chainId": "OpenHowToOpenVBDialog"
+        }
+      ]
     },
     "cancelButtonOjAction": {
-      "chains": [{
-        "chainId": "CancelHowToOpenVBDialog"
-      }]
+      "chains": [
+        {
+          "chainId": "CancelHowToOpenVBDialog"
+        }
+      ]
     },
     "toggleSearchOjAction": {
       "chains": [
@@ -839,6 +863,12 @@
   },
   "imports": {
     "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
       "oj-messages": {
         "path": "ojs/ojmessages"
       },
@@ -850,6 +880,15 @@
       },
       "oj-option": {
         "path": "ojs/ojoption"
+      },
+      "oj-radioset": {
+        "path": "ojs/ojradioset"
+      },
+      "oj-rating-gauge": {
+        "path": "ojs/ojgauge"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
       },
       "oj-toolbar": {
         "path": "ojs/ojtoolbar"
@@ -865,6 +904,9 @@
       },
       "oj-dialog": {
         "path": "ojs/ojdialog"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
       }
     }
   },
@@ -872,5 +914,6 @@
     "shell": {
       "path": "./resources/strings/shell/nls/shell-strings"
     }
-  }
+  },
+  "events": {}
 }

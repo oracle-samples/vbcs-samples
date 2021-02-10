@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2020, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2021, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -204,7 +204,7 @@
 
 .componentUnderline {
     margin: 0 auto;
-    width: 100%
+    width: 90%
 }
 
 .demo-main-navigation {
@@ -451,6 +451,24 @@ oj-list-view:not(.oj-listview-card-layout) .oj-listview-group .componentInfo {
 }
 
 
+.recipeIcon {
+    max-width: 200px;
+    padding-top: 15px;
+    font-size: 4rem;
+    color: black;
+    text-align: center;
+}
+
+.recipeBottomText {
+    text-align: center;
+    color: black;
+}
+
+.recipeTopText {
+    color: #BEBEBE;
+    font-size: .75rem;
+    text-align: center;
+}
 
 html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item {
     margin: 7.5px;
@@ -662,3 +680,8 @@ html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.
     width:21vw;
 }
 
+.fab-button{
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+}

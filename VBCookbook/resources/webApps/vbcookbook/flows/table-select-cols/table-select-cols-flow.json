@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "table-select-cols",
+  "description": "Flow main",
+  "defaultPage": "table-select-cols-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

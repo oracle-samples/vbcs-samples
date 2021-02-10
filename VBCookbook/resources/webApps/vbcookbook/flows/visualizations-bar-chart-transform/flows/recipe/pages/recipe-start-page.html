@@ -1,0 +1,95 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+
+  The Bar Chart component displays salary totals on the Y-axis and job titles on the X-axis. Before you bind data to the
+  component, you need to fetch the data from the REST service and create the fields in an object, including total
+  salary, using a JavaScript function. Finally, you use a Transforms Chart Data action to transform the data into a
+  format
+  the component understands.
+
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Service Connection</span>
+      <p>
+        <a target="_blank"
+          href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">
+          Create a service connection </a>using the <code>employee</code> endpoint that returns employee
+        data (<code>https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees</code>).</p>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Create a Bar Chart Component</span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a Bar Chart component and drop it onto the Page Designer. Do not assign any
+            data to it yet.</li>
+          <li>In the General tab of the Properties pane, select <strong>On</strong> for Stack Values.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step3">
+      <span slot="header">Create Variables, Event Listeners, and an Action Chain</span>
+      <div>
+        <ol>
+          <li>Create an object variable named <code>transformedDataObject</code>.</li>
+          <li>In the Code view of the Page Designer, set the chart’s groups and series attributes to the group and
+            series field values of the transformedDataObject variable.</li>
+          <li>In the Event Listeners section, add a new <code>vbEnter</code> event that is called when the page loads.
+          </li>
+          <li>Add a new action chain called <code>fetchDataFromService</code>.</li>
+          <li>Create an array variable <code>flattedArray</code> of type Object with group, series, and value fields.
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step4">
+      <span slot="header">Create a JavaScript Function</span>
+      <div>
+        <ol>
+          <li>In the JavaScript tab, add a new function named <code>aggregateData</code>.</li>
+          <li>In the function, get the array of data objects as input, calculate the total salary and total employees
+            count for a given job type, and add it to a new data array object.</li>
+          <li>Return the new set of data array.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step5">
+      <span slot="header">Configure the Action Chain</span>
+      <div>
+        <ol>
+          <li>In the <code>fetchDataFromService</code> action chain, add a Call REST Endpoint action and select the
+            <code>employee</code> endpoint
+            you created earlier. Set the limit query parameter to 1000 so that one call can fetch many records. By
+            default, the ORDS REST service returns 5 records.</li>
+          <li>Add an Assign Variables action named <code>flattenDataForBar</code> and map the job and salary values from
+            the REST
+            response to the <code>flattenArray</code> variable.</li>
+          <li>Add a Call Module Function action to invoke the <code>aggregateData</code> function and pass the
+            <code>flattenArray</code> variable.
+          </li>
+          <li>Add a Transform Chart Data action passing the aggregated array of data returned from the
+            <code>aggregateData</code>
+            function.</li>
+          <li>Add an Assign Variables action named <code>assignBarChartData</code> and set the value of the
+            <code>transformedDataObject</code>
+            variable to return data from the Transform Chart Data action.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+
+  </oj-accordion>
+</div>

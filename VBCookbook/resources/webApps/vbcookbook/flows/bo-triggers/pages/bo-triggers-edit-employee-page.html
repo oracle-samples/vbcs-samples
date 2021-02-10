@@ -1,0 +1,26 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex oj-sm-flex-direction-column" style="padding:10px;" >
+<div class="oj-flex">
+  <h1 class="oj-flex-item oj-sm-12 oj-md-12">Edit Employee</h1>
+</div>
+<div class="oj-flex">
+  <oj-validation-group id="validation-group" class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-form-layout class="" label-edge="start">
+      <oj-input-text value="{{ $page.variables.employee.lastName }}" readonly="false" label-hint="Last Name" required="true" disabled="true"></oj-input-text>
+      <oj-select-one value="{{ $page.variables.employee.manager }}" readonly="false" label-hint="Manager" options="[[ $page.variables.employeeListSDP ]]" options-keys.value="id" options-keys.label="lastName"></oj-select-one>
+      <oj-input-number value="{{ $page.variables.employee.salary }}" readonly="false" label-hint="Salary" min="0"></oj-input-number>
+      <oj-select-one value="{{ $page.variables.employee.job }}" readonly="false" label-hint="Job" required="true" options="[[ $page.variables.jobListSDP ]]" options-keys.value="id" options-keys.label="jobTitle"></oj-select-one>
+    </oj-form-layout>
+  </oj-validation-group>
+</div>
+<div class="oj-flex">
+  <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-button on-oj-action="[[$page.listeners.backButtonClicked]]">Cancel</oj-button>
+    <oj-button on-oj-action="[[$page.listeners.saveButtonClicked]]" disabled="[[ $page.variables.saveEmployeeChainInProgress ]]">Save</oj-button>
+  </oj-toolbar>
+</div>
+</div>

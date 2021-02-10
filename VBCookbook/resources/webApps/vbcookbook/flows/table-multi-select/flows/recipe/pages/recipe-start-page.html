@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -44,7 +44,7 @@
               });
             </pre>
           </li>
-          <li>In the Property Inspector for the Table component, select the data table and assign
+          <li>In the Properties pane for the Table component, select the data table and assign
             <code>[[$functions.selectedItems]]</code> to the selected attribute</li>
 
         </ol>
@@ -60,12 +60,24 @@
         <ol>
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-              an event listener</a> <code>selected</code> to the Table component.</li>
+              an event listener</a> <code>selected</code> to the Table component following below steps:
+              <ul>
+                <li>
+                  Under Events Tab, Click on "New Event" button and then select "New Custom Event".
+                </li>
+                <li>
+                  In Select Event Dialog, Expand "Property Changes" section, select <b>selected</b> and click on Next.
+                </li>
+                <li>
+                  In Select Action chain dialog, Either select an existing chain or create new chain following click on "New Action Chain" button.
+                </li>
+              </ul>
+              </li>
           <li>
             <a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html">Add
               an Call Module Function action</a> to the action chain named <code>TableSelectedChangeChain</code>. In the
-            Property Inspector of the Call Module Function action:
+            Properties pane of the Call Module Function action:
             <ul>
               <li>
                 Enter ID <code>selectedChangedModuleFunction</code>
@@ -134,9 +146,9 @@
         <p>Add a Text Area Component to display the selected department(s) records.</p>
         <ol>
           <li>In the Component Palette, drag a Text Area component and drop it on the page.</li>
-          <li>In Property Inspector of the Text Area component, go to the General Tab, assign label-hint attribute to
+          <li>In Properties pane of the Text Area component, go to the General Tab, assign label-hint attribute to
             <code>Current Selection</code></li>
-          <li>In Property Inspector of the Text Area component, go to Data Tab, assign value field to
+          <li>In Properties pane of the Text Area component, go to Data Tab, assign value field to
             <code>{{ $variables.currentSelection }}</code></li>
 
         </ol>

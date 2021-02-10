@@ -1,12 +1,12 @@
 {
-    "vbcs.dt.version": "20200707-20.10.0:20200722-bufp_41222",
-    "version": "1.0.34",
+    "vbcs.dt.version": "20201202-21.04.0",
+    "version": "1.1.1",
     "source.version": "2101",
     "rootURL": "vbcookbook",
     "dependencies": {
         "upgrade": "micro",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/9.0.5",
+            "jet": "https://static.oracle.com/cdn/jet/9.1.1",
             "visualRuntime": "https://static.oracle.com/cdn/vb/2010.1.0"
         }
     }

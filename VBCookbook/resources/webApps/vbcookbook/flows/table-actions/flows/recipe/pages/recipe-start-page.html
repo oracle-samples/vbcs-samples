@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -34,11 +34,11 @@
           </li>
           <li>In the Component Palette, drag an Icon component and drop it on the Table component’s Cell Template slot.
           </li>
-          <li>In the Icon Property Inspector, click <strong>Icon</strong> to open the Icon Gallery and select a pencil
+          <li>In the Icon Properties pane, click <strong>Icon</strong> to open the Icon Gallery and select a pencil
             icon. </li>
 
 
-<li>In the Data tab of the Table component’s Property Inspector, add an Actions column to the Table Columns property:
+<li>In the Data tab of the Table component’s Properties pane, add an Actions column to the Table Columns property:
 <br><pre>
   ,{
     "headerText": "Actions",
@@ -82,10 +82,10 @@
               <li>In the Component Palette, drag a Dialog component and drop it on the page.</li>
 
 
-<li>In the General tab of the Property Inspector, click <strong>Show</strong> for the Temporary Override value of the Initial Visibility property.</li>
+<li>In the General tab of the Properties pane, click <strong>Show</strong> for the Temporary Override value of the Initial Visibility property.</li>
 
               <li>In the Component Palette, drag four Input Text components and drop them on the Dialog component.</li>
-          <li>In the Property Inspector for the associated Label components, set the value of the Text property to:
+          <li>In the Properties pane for the associated Label components, set the value of the Text property to:
             <ul>
               <li>First Name </li>
               <li>Last Name</li>
@@ -125,7 +125,7 @@
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
               a Call Component Method
               action</a> named <code>OpenDialog</code>. </li>
-          <li>In the Property Inspector, select the <strong>oj-dialog</strong> component from the Component drop-down list and
+          <li>In the Properties pane, select the <strong>oj-dialog</strong> component from the Component drop-down list and
             <strong>open</strong> from the Method Name drop-down list.</li>
           <li>Add an event listener to the Button component in the Dialog component.</li>
           <li><a target="_blank"
@@ -142,23 +142,3 @@
 
 
 
-<!-- Step Template Use <oj-collapsible expanded on first step, but not on subsequent steps. -->
-<!-- <div class="oj-flex">
-  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
-    <oj-collapsible id="steptempllate" expanded>
-      <h1 slot="header">Step Title</h1>
-      <div>
-       <p>Context </p>
-          <ol>
-          <li>Step 1.</li>
-          <li>Step 2:
-            <ul>
-              <li>Sub step 1</li>
-              <li>Sub step 2</li>
-            </ul>
-          </li>
-        </ol>
-      </div>
-    </oj-collapsible>
-  </oj-accordion>
-</div>  -->

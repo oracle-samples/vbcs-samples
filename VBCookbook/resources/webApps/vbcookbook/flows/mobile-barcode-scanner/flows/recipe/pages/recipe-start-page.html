@@ -1,0 +1,83 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Create a mobile app  where you add an Apache Cordova plugin. Add a Button component to start an action chain that includes among its actions a JavaScript function call to invoke the interface that the plugin provides access to. </p>
+
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Create Mobile App</span>
+    <div>
+      <ol>
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-web-and-mobile-applications.html#GUID-99640F9E-F865-43AA-85F7-3C816C3E0FE0">Create
+            a Mobile App.</a></li>
+        <li>In the Component Palette, drag and drop a Button component onto the page.</li>
+        <li>Create a variable <code>scanResponse</code> of type String.</li>
+        <li>In the Resources folder of the mobile app, <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-application-resources.html#GUID-CEA0132A-88A6-4A30-A9A0-FFA1D290659D">import
+            a sample barcode scan image</a> as an example test scan.</li>
+        <li>In the Component Palette, drag an Image component and drop it on the page.</li>
+        <li>In the Data tab of the Properties pane, select the image that you added to the Resources folder.</li>
+        <li>In the Component Palette, drag an Input Text component and drop it on the page.</li>
+        <li>In the General tab of the Properties pane, select <strong>Readonly</strong>.</li>
+        <li>In the Data tab, bind the Value attribute to <code>{{ "Response "+$variables.scanResponse }}</code></li>
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/building-mobile-applications.html#GUID-647797D9-A902-46FC-BB47-2BF7001ADD08">
+            Define an Android build configuration</a> for the mobile app.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+
+
+
+  <oj-collapsible id="step2">
+    <span slot="header">Add an Apache Cordova Plugin to the Mobile App</span>
+    <div>
+      <p><a target="_blank"
+        href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-web-and-mobile-applications.html#GUID-E558B9DF-AA52-4DF4-867C-7BDEDD689C1D">
+        Add an Apache Cordova plugin to the mobile app.</a></p>
+      </div>
+  </oj-collapsible>
+
+
+  <oj-collapsible id="step3">
+    <span slot="header">Add Event Listeners to Invoke Action Chains</span>
+    <div>
+      <p>Add listeners for events that then invoke action chains to retrieve scanned response.</p>
+      <ol>
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+            an event listener</a> to the Button component.</li>
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html">Add
+            a Call Module Function </a> action to the action chain named <code>ScanCodeActionChain</code>.</li>
+        
+        <li>In the Properties pane of the Call Module Function action, create a function named <code>_showBarcodeScanner</code>.</li>
+        <li>In the JavaScript tab of the page, add the following code to the <code>_showBarcodeScanner</code> function:
+<pre>_showBarcodeScanner(arg1) {
+      var barcodeScannerPromise = new Promise(function(resolve, reject) {
+        window.cordova.plugins.barcodeScanner.scan(function(result) {
+
+            resolve(result.text);
+          },
+          function(err) {
+
+            reject(err);
+          });
+      });
+      return barcodeScannerPromise;
+    }
+	</pre>
+        </li>
+
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+            an Assign Variables action</a> to the action chain named <code>ScanCodeActionChain</code> that assigns the
+          result of the Call Module Function action named <code>showBarCodeFunction1</code> in the Sources
+          of the action chain to the <code>assignBarcodeScanResponse</code> page variable in Target.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

@@ -34,5 +34,8 @@
         },
         "jobObject": {
         }
-    }
+    },
+    "noCache": true,
+    "noStore": true,
+    "mustRevalidate": true
 }

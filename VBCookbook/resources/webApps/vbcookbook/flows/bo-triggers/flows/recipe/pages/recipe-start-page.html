@@ -1,0 +1,44 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>A Table component displays employee data. A business rule trigger 
+  creates a job history record when an employee’s job changes. Another 
+  business rule trigger sends an email to an employee when their manager changes. 
+  Finally, a business rule field validator ensures that employee salary changes 
+  remain within the permitted salary range.</p>
+
+
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+  <span slot="header">Create Field Triggers and Validators in the Business Rules tab of the Business Object </span>
+  <div>
+    <ol>
+      <li>In the Field Triggers node of the Business Rules tab for the Employees business object, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-rules-business-objects.html#GUID-9E645112-D528-4330-A4EB-22D1C97DC7C1">add a new field trigger</a> named <code>onJobChanged</code> on the Job field.</li>
+      <li>Configure this field trigger to always execute and add a Create Record action to create a new record in the JobHistory business object.</li>
+      <li>In the Field Triggers node of the Business Rules tab for the Employees business object, add another field trigger named on <code>onManagerChanged</code> on the Manager field.</li>
+      <li>Configure this field trigger to always execute and add a Send eMail Notification action where you select the email template and the recipients of the email that is sent whenever an employee’s manager changes.</li>
+      <li>In the Field Validators node of the Business Rules tab for the Employees business object, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-rules-business-objects.html#GUID-0DAB93F6-73C0-4ADB-BB5C-96AE5204310F">add a new field validator</a> named <code>isSalaryInRange</code> on the Salary field.</li>
+      <li>Add a Groovy script that returns true if the new value of salary is in range, and false if it outside the range. Select the minimum and maximum values of the range from the associated Job business object.</li>
+    </ol>
+
+
+
+    
+  </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+  <span slot="header">Create a Table Component</span>
+  <div>
+    <ol>
+
+      <li>In the Component Palette, drag and drop a Table component onto the page. </li>
+      <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add Data Quick Start</a> to map your table to the <code>GET / Employee</code> endpoint for the Employee business object. </li>
+      <li>Use the Table component’s <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-A579CECF-8A9C-49E3-A23B-825CEE2C4C99">Add Edit Page Quick Start</a> to add an edit page that includes the job, manager, and salary fields from the Employee business object. </li>
+
+    </ol>
+  </div>
+  </oj-collapsible>
+  
+</oj-accordion>

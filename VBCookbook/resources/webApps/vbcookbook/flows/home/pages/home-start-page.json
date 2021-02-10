@@ -67,6 +67,19 @@
           }
         }
       }
+    },
+    "OpenHowToOpenVBDialog": {
+      "root": "callOpenDialog",
+      "description": "",
+      "actions": {
+        "callOpenDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('howToOpenVBDialog') }}",
+            "method": "open"
+          }
+        }
+      }
     }
   },
   "eventListeners": {
@@ -80,10 +93,19 @@
           "current": "{{ $current }}"
         }
       }]
+    },
+    "openInVBActionClicked": {
+      "preventDefault": true,
+      "chains": [{
+        "chainId": "OpenHowToOpenVBDialog"
+      }]
     }
   },
   "imports": {
     "components": {
+      "oj-action-card": {
+        "path": "ojs/ojactioncard"
+      },
       "oj-list-view": {
         "path": "ojs/ojlistview"
       }

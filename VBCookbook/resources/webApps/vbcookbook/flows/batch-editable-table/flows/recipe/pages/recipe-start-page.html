@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -28,7 +28,7 @@
             that fetches the employees and populates the <code>employeesADP</code> variable.</li>
 
           <li>In the Component Palette, drag a Table component and drop it on the page.</li>
-          <li>In the Data tab of the Property Inspector for the newly-added Table component, bind the Data property to
+          <li>In the Data tab of the Properties pane for the newly-added Table component, bind the Data property to
             the <code>employeesADP</code> variable.</li>
         </ol>
       </div>
@@ -66,7 +66,7 @@
             </ul>
           </li>
           <li>
-            In the Property Inspector for the Table component's <code>ojBeforeRowEditEnd</code> event listener, map the
+            In the Properties pane for the Table component's <code>ojBeforeRowEditEnd</code> event listener, map the
             following two parameters:
             <ul>
               <li><code>originalRowData</code> to
@@ -82,7 +82,7 @@
             variable.</li>
           <li>Add another If action to test if this is the first update of this row.</li>
           <li>If true, add an Assign Variables action that marks the row as updated. </li>
-          <li>In the Table component’s Property Inspector, set the edit-mode property to <code>rowEdit</code>.</li>
+          <li>In the Table component’s Properties pane, set the edit-mode property to <code>rowEdit</code>.</li>
           <li>From the Component Palette, drag If components (<code>oj-bind-if</code>) and drop one on each column
             in the Table component
             to generate a Cell Template for the column. Configure the If component to determine the behavior when the

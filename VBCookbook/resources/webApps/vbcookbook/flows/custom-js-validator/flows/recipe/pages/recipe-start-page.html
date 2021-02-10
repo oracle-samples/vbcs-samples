@@ -1,0 +1,127 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+	You create a form to display Input Text and Input Date components in addition to a Button component. You also write
+	JavaScript functions to validate the text and date values that a user enters or selects.
+
+</p>
+
+<oj-accordion id="accordionPage" multiple="true">
+	<oj-collapsible id="step1" expanded="true">
+		<span slot="header">Create Form</span>
+		<div>
+			<ol>
+				<li>In the Component Palette, drag and drop a Form Layout component onto the page.</li>
+				<li>Drag and drop an Input Text, an Input Date, and a Button component onto the Form Layout component.
+				</li>
+				<li>In the General tab of the Properties pane for the Button component, set the value of the Text
+					property to <code>Submit</code>.</li>
+				<li>In the Code view of the page, wrap the <code>oj-form-layout</code> component with an
+					<code>oj-validation-group</code> component.</li>
+
+			</ol>
+		</div>
+	</oj-collapsible>
+	<oj-collapsible id="step2">
+		<span slot="header">Create JavaScript Validator Functions</span>
+		<div>
+			<ol>
+				<li>In the JavaScript tab of the page, create <code>validateText</code> and <code>validateDate</code>
+					JavaScript functions to implement custom validation logic for both the text and date fields.</li>
+
+				<pre>PageModule.prototype.validateText = function () {
+    return [{
+      validate: (value) => {
+        if (value == null || String(value) == "") {
+          throw new Error("This is a mandatory field.");
+        }
+
+        var pattern = new RegExp(/[a-zA-Z0-9]+$/);
+        var validValue = pattern.test(value);
+
+        if (!validValue) {
+          throw new Error("Please enter alphabets and numbers only.");
+        }
+      },
+      getHint: () => {
+        return "Special characters are not allowed";
+      }
+    }];
+  };</pre>
+
+				<pre>PageModule.prototype.validateDate = function (futureDate) {    
+    return [{
+      validate: (value) => {
+        if (value == null || String(value) == "") {
+          throw new Error("This is a mandatory field.");
+        }
+        var options =
+        {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric'
+        };
+        var futureDateString = futureDate.toLocaleDateString("en-US", options);
+        var enterredDate = new Date(value);
+        if (enterredDate <= futureDate) {
+          throw new Error("Entered date must be after " + futureDateString + ".");
+        }
+      }
+    }];
+  };</pre>
+
+				<li>Create a <code>validateForm</code> JavaScript function to call each field's validation.</li>
+				<pre>PageModule.prototype.validateForm = function (arg1) {
+    document.getElementById("text1").validate();
+    document.getElementById("date1").validate();
+
+    var tracker = document.getElementById("tracker");
+
+    if (tracker.valid === "valid") {
+      return true;
+    }
+    else {
+      tracker.showMessages();
+      tracker.focusOn("@firstInvalidShown");
+      return false;
+    }
+  };
+        </pre>
+
+
+        <li>Create a <code>getFutureDate</code> JavaScript function to get the date seven days from today.</li>
+				<pre>PageModule.prototype.getFutureDate = function () {
+          var today = new Date();
+          today.setDate(today.getDate() + 7); 
+          return today;
+        };
+        </pre>
+
+        
+			</ol>
+		</div>
+	</oj-collapsible>
+	<oj-collapsible id="step3">
+		<span slot="header">Set the Validator Functions</span>
+		<div>
+			<ol>
+        <li>In the Variables tab of the page, create a variable of type Any named <code>futureDate</code>.</li>
+        <li>In the Actions tab of the page, create an Action Chain named <code>onPageLoad</code> that includes a Call Function action to call <code>getFutureDate</code> and an Assign Variable action to assign the returned value to the <code>futureDate</code> variable.  </li>
+
+				<li>In the Code view of the page, set the value of the <code>validators</code> attribute for both the
+					Input Text and Input Date components as follows:
+					<br>
+          <code>validators="{{ $functions.validateText() }}"</code>
+          <br>
+          <code>validators="{{ $functions.validateDate($page.variables.futureDate) }}"</code>
+				</li>
+				<li>In the Events tab of the Properties pane for the Button component, add an ojAction event.</li>
+				<li>In the action chain that is created, add a Call Function action and, in the Function Name dropdown
+					list, select the <code>validateForm</code> function that you created earlier. </li>
+			</ol>
+		</div>
+	</oj-collapsible>
+</oj-accordion>

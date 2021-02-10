@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -39,7 +39,7 @@
       <ol>
         <li>In the JS tab, add the <code>unsavedChange</code> page module function to verify whether the form is dirty or not.</li>
         <li>Add a <code>vbEnter</code> event and <code>loadData</code> action chain that load the Employee and Department data.</li>
-        <li>Select the Tab Bar component and use the Property Inspectort to add an <code>ojBeforeSelect</code> event that launches a <code>beforeTabChange</code> action chain.</li>
+        <li>Select the Tab Bar component and use the Properties panet to add an <code>ojBeforeSelect</code> event that launches a <code>beforeTabChange</code> action chain.</li>
         <li>In the action chain, add an If action and make the condition to <code>[[ $page.variables.dirtyForm ]]</code>.</li>
         <li>In the True path, drop an Assign Variables action that assigns <code>$page.variables.tabToSwitch</code> to <code>$chain.variables.detail.key</code> and a Call Component Method action that opens the dialog.</li> 
         <li>Create the <code>YesButtonAction</code> Action Chain to reset form data and switch tabs.</li>

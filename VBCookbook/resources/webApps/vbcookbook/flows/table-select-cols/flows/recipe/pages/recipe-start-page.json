@@ -1,0 +1,23 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      },
+      "oj-menu-select-many": {
+        "path": "ojs/ojmenuselectmany"
+      }
+    }
+  }
+}

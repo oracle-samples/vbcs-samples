@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "mobile-pwa-takephotoaction",
+  "description": "Flow main",
+  "defaultPage": "mobile-pwa-takephotoaction-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

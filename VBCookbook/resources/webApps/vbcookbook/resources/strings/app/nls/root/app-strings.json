@@ -1,1 +1,26 @@
-{}
+{
+    "key_firstname": "First Name",
+    "@key_firstname": {
+        "description": ""
+    },
+    "key_lastname": "Last Name",
+    "@key_lastname": {
+        "description": ""
+    },
+    "key_hiredate": "Hire date",
+    "@key_hiredate": {
+        "description": ""
+    },
+    "key_salary": "Salary",
+    "@key_salary": {
+        "description": ""
+    },
+    "key_email": "Email",
+    "@key_email": {
+        "description": ""
+    },
+    "key_phonenumber": "Phone number",
+    "@key_phonenumber": {
+        "description": ""
+    }
+   }

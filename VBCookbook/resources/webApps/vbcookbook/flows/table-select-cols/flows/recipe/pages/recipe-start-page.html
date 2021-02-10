@@ -1,0 +1,62 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <p>
+    This recipe uses the Table component's Column property to add and remove columns to display. The
+    columns are also persisted in device storage to save user preferences.
+  </p>
+</div>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-1494599579-1" expanded>
+      <h1 slot="header">Create an Employee Table with all Columns</h1>
+      <div>
+        <p>You add a Table component to your page, bind it to employee data, and
+          add an icon that you'll later use to open a dialog where the user updates the selected employee. </p>
+        <ol>
+          <li>In the Component Palette, drag a Table component and drop it on
+            the page.</li>
+          <li>Use the Table component's <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your table to employee data.</li>
+          <li>Select all the fields that can be displayed in the table.
+
+          </li>
+          <li>Create a variable named <code>columns</code> of type <code>Array(object)</code> and move the columns content to the Default Value property of the variable.
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Create a Column Selector</h1>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a Toolbar component and drop it on top of the Table component.</li>
+          <li>Drag and drop a Menu Button component onto the Toolbar component.</li>
+          <li>Create a variable named <code>columnOptions</code> of type <code>Array(object)</code> and add the column content to the Default Value property of the variable.</li>
+          <li>Create a variable named <code>menuValue</code> of type <code>Array(String)</code> with the default value of <code>[[$variables.columns.map(op=>op.field) ]]</code>.</li>
+          <li>Add a Menu Multi Select component (<code>oj-menu-select-many</code>) under <code>oj-menu</code> with the following properties:
+            <ul>
+              <li>
+                Value set to <code>{{ $variables.menuValue }}</code>.
+              </li>
+              <li>
+                Options set to <code>[[$variables.columnOptions.map(op=>({'value':op.field,'label':op.headerText,'id':'option-'+op.field}))]]</code>.
+              </li>
+            </ul>
+          </li>
+          <li>Add a value change listener to the <code>menuValue</code> variable and call the <code>updateTableColumns</code> action chain.
+          </li>
+          <li>
+            In the <code>updateTableColumns</code> action chain, use an Assign Variable action to update the <code>columns</code> variable with the <code>$variables.event.value.map(v=>$page.variables.columnOptions.find(i=>i.field
+              === v))</code> expression.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

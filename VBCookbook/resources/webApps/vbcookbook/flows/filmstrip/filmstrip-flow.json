@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "filmstrip",
+  "description": "Flow main",
+  "defaultPage": "filmstrip-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

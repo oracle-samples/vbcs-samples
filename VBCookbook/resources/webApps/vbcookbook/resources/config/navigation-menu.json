@@ -4,27 +4,67 @@
     "label": "Home"
   },
   {
+    "id": "forms",
+    "label": "Application",
+    "categoryBannerClass": "rootForms_banner",
+    "categoryBorderClass": "rootForms_border",
+    "items": [
+      {
+        "id": "layout",
+        "label": "Layout",
+        "icon": "form-layout-jet",
+        "items": [
+          "multi-step-wizard",
+          "form-layout-inline",
+          "filmstrip"
+        ]
+      },
+      {
+        "id": "uiPatterns",
+        "label": "Patterns",
+        "icon": "code",
+        "items": [
+          "patterns-show-ui-when-ready",
+          "confirmation-dialog",
+          "prevent-double-submission",
+          "navigation-context",
+          "language-switcher"
+        ]
+      },
+      {
+        "id": "cascadinglov",
+        "label": "List of Values (LOV)",
+        "icon": "text-input-combo",
+        "items": [
+          "cascading-lov",
+          "cache-lov",
+          "fa-lovs",
+          "select-single"
+        ]
+      },
+      {
+        "id": "inputnumber",
+        "label": "Input Controls",
+        "icon": "text-input",
+        "items": [
+          "date-converter",
+          "custom-js-validator",
+          "validation-async-validators",
+          "inputnumber-eating-chars"
+        ]
+      }
+    ]
+  },
+  {
     "id": "collections",
     "label": "Collections",
     "categoryBannerClass": "rootCollections_banner",
     "categoryBorderClass": "rootCollections_border",
     "items": [
       {
-        "id": "listview",
-        "label": "List View",
-        "imageUrl": "listview_grid.png",
-        "items": [
-          "listview-master-detail",
-          "listview-multi-select",
-          "listview-sorting",
-          "list-load-more-on-scroll",
-          "listview-cardlayout"
-        ]
-      },
-      {
         "id": "table",
         "label": "Table",
-        "imageUrl": "table_grid.png",
+        "icon": "tables-basic",
         "items": [
           "table-master-detail",
           "table-multi-select",
@@ -34,47 +74,31 @@
           "table-actions",
           "table-many-to-many",
           "batch-editable-table",
+          "table-dnd",
           "custom-no-records-message",
-          "conditional-styling"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "forms",
-    "label": "Forms",
-    "categoryBannerClass": "rootForms_banner",
-    "categoryBorderClass": "rootForms_border",
-    "items": [
-      {
-        "id": "cascadinglov",
-        "label": "List of Values (LOV)",
-        "imageUrl": "select_one_grid.png",
-        "items": [
-          "cascading-lov",
-          "cache-lov",
-          "fa-lovs"
+          "conditional-styling",
+          "table-select-cols"
         ]
       },
       {
-        "id": "inputnumber",
-        "label": "Input Controls",
-        "imageUrl": "inputnumber_grid.png",
+        "id": "listview",
+        "label": "List View",
+        "icon": "list",
         "items": [
-          "date-converter",
-          "validation-async-validators",
-          "inputnumber-eating-chars"
+          "listview-master-detail",
+          "listview-multi-select",
+          "listview-sorting",
+          "list-load-more-on-scroll",
+          "listview-cardlayout"
         ]
       },
       {
-        "id": "uiPatterns",
-        "label": "Patterns",
-        "imageUrl": "applayoutweb_grid.png",
+        "id": "visualizations-chart",
+        "label": "Chart",
+        "icon": "chart",
         "items": [
-          "multi-step-wizard",
-          "patterns-show-ui-when-ready",
-          "confirmation-dialog",
-          "form-layout-inline"
+          "visualizations-bar-chart-basic",
+          "visualizations-bar-chart-transform"       
         ]
       }
     ]
@@ -86,9 +110,36 @@
     "categoryBorderClass": "rootRest_border",
     "items": [
       {
+        "id": "helpers",
+        "label": "Calling REST APIs",
+        "icon": "get-data",
+        "items": [
+          "rest-helper",
+          "rest-access-headers",
+          "partial-get-bo-fa"
+        ]
+      },
+      {
+        "id": "framework-bo",
+        "label": "Business Objects",
+        "icon": "binding-control",
+        "items": [
+          "bo-triggers"  
+        ]
+      },
+      {
+        "id": "multieditbatchsave",
+        "label": "Transactions",
+        "icon": "bind-data",
+        "items": [
+          "multi-edit-batch-save",
+          "fileloader-csv"
+        ]
+      },
+      {
         "id": "rest-upload",
         "label": "File Upload",
-        "imageUrl": "restupload_grid.png",
+        "icon": "upload",
         "items": [
           "rest-fa-attachments",
           "rest-oce-upload"
@@ -97,27 +148,27 @@
       {
         "id": "ords",
         "label": "ORDS",
-        "imageUrl": "ords.png",
+        "icon": "database",
         "items": [
           "rest-ords-integration"
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "mobile",
+    "label": "Mobile",
+    "categoryBannerClass": "rootRest_banner",
+    "categoryBorderClass": "rootRest_border",
+    "items": [
       {
-        "id": "helpers",
-        "label": "Calling REST APIs",
-        "imageUrl": "restHelper.png",
+        "id": "mobile-pwa",
+        "label": "Progressive Web Apps",
+        "icon": "cell-phone",
         "items": [
-          "rest-helper",
-          "rest-access-headers",
-          "partial-get-bo-fa"
-        ]
-      },
-      {
-        "id": "multieditbatchsave",
-        "label": "Transactions",
-        "imageUrl": "batchrest.png",
-        "items": [
-          "multi-edit-batch-save"
+          "mobile-pwa-geolocation",
+          "mobile-pwa-takephotoaction",
+          "mobile-pwa-swipetoeditlistview"
         ]
       }
     ]

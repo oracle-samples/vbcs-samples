@@ -1,0 +1,32 @@
+{
+  "key_firstname" : "Prénom",
+  "@key_firstname" : {
+    "description" : "",
+    "source_text" : "Prénom"
+  },
+  "key_lastname" : "Nom de famille",
+  "@key_lastname" : {
+    "description" : "",
+    "source_text" : "Nom de famille"
+  },
+  "key_hiredate" : "Date d'embauche",
+  "@key_hiredate" : {
+    "description" : "",
+    "source_text" : "Date d'embauche"
+  },
+  "key_salary" : "Un salaire",
+  "@key_salary" : {
+    "description" : "",
+    "source_text" : "Un salaire"
+  },
+  "key_email" : "Email",
+  "@key_email" : {
+    "description" : "",
+    "source_text" : "Email"
+  },
+  "key_phonenumber" : "Numéro de téléphone",
+  "@key_phonenumber" : {
+    "description" : "",
+    "source_text" : "Numéro de téléphone"
+  }
+}

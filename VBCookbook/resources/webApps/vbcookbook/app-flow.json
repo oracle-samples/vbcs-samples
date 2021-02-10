@@ -3,12 +3,11 @@
   "id": "vbcookbook",
   "description": "VB Cookbook",
   "defaultPage": "shell",
-  "chains": {
-  },
+  "chains": {},
   "services": {
     "businessObjects": {
-        "path": "vb-catalog://services/businessObjects"
-      },
+      "path": "vb-catalog://services/businessObjects"
+    },
     "ords": {
       "path": "./services/ords/openapi3.json"
     },
@@ -17,6 +16,9 @@
     },
     "activities": {
       "path": "./services/activities/openapi3.json"
+    },
+    "feedback": {
+      "path": "./services/feedback/openapi3.json"
     }
   },
   "translations": {
@@ -55,13 +57,14 @@
       "requiresAuthentication": false
     }
   },
+  "localization": {
+    "locale": "{{ window.localStorage.getItem('vbcs.languageSwitcherApplication.locale') || 'en' }}"
+  },
   "requirejs": {
     "paths": {
-      "oj-sample": "build/components/oj-sample/3.2.3",
-      "resources2": "resources"
+      "oj-sample": "build/components/oj-sample/3.2.3"
     }
   },
-  "eventListeners": {
-  },
+  "eventListeners": {},
   "routerStrategy": "query"
 }

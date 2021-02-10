@@ -1,0 +1,71 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "get_Employee",
+      "input": "fromCaller"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string"
+    }
+  },
+  "chains": {
+    "goBackChain": {
+      "description": "",
+      "root": "navigateBack",
+      "actions": {
+        "navigateBack": {
+          "module": "vb/action/builtin/navigateBackAction"
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "goBackChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

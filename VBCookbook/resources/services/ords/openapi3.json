@@ -56,14 +56,6 @@
                         "items": {
                             "type": "object",
                             "properties": {
-                                "uri": {
-                                    "type": "object",
-                                    "properties": {
-                                        "$ref": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
                                 "rn": {
                                     "type": "integer"
                                 },
@@ -90,15 +82,47 @@
                                 },
                                 "deptno": {
                                     "type": "integer"
+                                },
+                                "links": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "rel": {
+                                                "type": "string"
+                                            },
+                                            "href": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
-                    "first": {
-                        "type": "object",
-                        "properties": {
-                            "$ref": {
-                                "type": "string"
+                    "hasMore": {
+                        "type": "boolean"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "offset": {
+                        "type": "integer"
+                    },
+                    "count": {
+                        "type": "integer"
+                    },
+                    "links": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "rel": {
+                                    "type": "string"
+                                },
+                                "href": {
+                                    "type": "string"
+                                }
                             }
                         }
                     }

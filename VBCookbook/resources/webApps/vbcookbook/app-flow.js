@@ -1,12 +1,11 @@
 /**
- * Copyright (c) 2020, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2021, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([
-  'text!resources2/config/navigation-menu.json',
-  'text!resources2/config/demos.json',
-  
+  'text!resources/config/navigation-menu.json',
+  'text!resources/config/demos.json',
   
 ], function(
   navigationMenu, demos,
@@ -24,7 +23,6 @@ define([
       demos: JSON.parse(demos)
     };
   };
-
   
 
   /**
@@ -57,7 +55,7 @@ define([
     if (key === undefined || key.length === 0 || key === "home") {
       recipe = {
         "id": "home",
-        "label": "All Recipes",
+        "label": "Welcome to the Visual Builder Cookbook!",
         "apiRef": []
       };
     } else {

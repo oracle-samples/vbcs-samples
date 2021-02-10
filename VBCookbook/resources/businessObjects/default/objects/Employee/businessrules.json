@@ -1,0 +1,105 @@
+{
+    "fieldValidators": [
+        {
+            "active": "active",
+            "description": "check the value of salary to be in range",
+            "displayName": "isSalaryInRange",
+            "errorMessage": "Please enter valid salary value.",
+            "lastUpdate": "2020-11-11T09:02:13",
+            "oid": "5985b06d-029e-4c84-b13d-28dfa2f6a10a",
+            "scriptMimeType": "application/x-adf-groovy",
+            "onField": "salary",
+            "functionBody": "newValue == null || ( newValue >= jobObject.minSalary && newValue <=jobObject.maxSalary )"
+        }
+      ],
+    "objectFunctions": [],
+    "objectValidators": [],
+    "triggers": [
+      ],
+    "fieldTriggers": [
+        {
+            "active": "active",
+            "description": "Trigger an action of sending email when the manager value changes",
+            "displayName": "onManagerChanged",
+            "lastUpdate": "2020-11-11T08:13:17",
+            "oid": "9532db48-3017-4c02-bf52-660a78ae5534",
+            "onField": "manager",
+            "scriptMimeType": "application/x-adf-groovy",
+            "workflow": {
+                "nodeType": "criterion",
+                "type": "always",
+                "displayName": "Always Execute",
+                "outcomes": {
+                    "false": {
+                        "for": "trigger",
+                        "nodeType": "terminus",
+                        "type": "end"
+                    },
+                    "true": {
+                        "nodeType": "actionGroup",
+                        "displayName": "Action Group",
+                        "after": {
+                            "nodeType": "terminus",
+                            "type": "end",
+                            "for": "criteria"
+                        },
+                        "methodDefinition": {
+                            "typeId": "emailNotification",
+                            "archetypeId": "WorkflowPage__EmployeeDetailArchetype",
+                            "vars": {
+                                "to": "{\"expressionValue\":\"=email\",\"inputMode\":\"expression\"}",
+                                "templateId": "Manager Changed Email Template",
+                                "methodName": "onEmployeeActionGroupExecute",
+                                "pageEvent": "actionGroupExecute",
+                                "templateValues": "[{\"expressionValue\":\"=lastName\",\"referenceValue\":\"lastName\",\"inputMode\":\"reference\",\"parameter\":\"Parameter1\"},{\"expressionValue\":\"=managerObject.lastName\",\"referenceValue\":\"managerObject.lastName\",\"inputMode\":\"reference\",\"parameter\":\"Parameter2\"}]"
+                            },
+                            "outcomeHandlers": {}
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "active": "active",
+            "description": "create job history record if the job changes",
+            "displayName": "onJobChanged",
+            "lastUpdate": "2020-11-06T07:38:00",
+            "oid": "bc1b3fab-9e16-4608-8010-11833fbab3ab",
+            "onField": "job",
+            "scriptMimeType": "application/x-adf-groovy",
+            "workflow": {
+                "nodeType": "criterion",
+                "type": "always",
+                "displayName": "Always Execute",
+                "outcomes": {
+                    "false": {
+                        "nodeType": "terminus",
+                        "type": "end",
+                        "for": "trigger"
+                    },
+                    "true": {
+                        "nodeType": "actionGroup",
+                        "displayName": "Action Group",
+                        "after": {
+                            "nodeType": "terminus",
+                            "type": "continue",
+                            "for": "criteria"
+                        },
+                        "methodDefinition": {
+                            "typeId": "workflowCreateRecord",
+                            "archetypeId": "WorkflowPage__EmployeeDetailArchetype",
+                            "vars": {
+                                "index": 1,
+                                "entityId": "JobHistory",
+                                "valueUpdates": "[{\"fieldId\":\"employee\",\"expressionValue\":\"=id\",\"inputMode\":\"expression\",\"required\":true},{\"fieldId\":\"startDate\",\"expressionValue\":\"=hireDate\",\"inputMode\":\"expression\",\"required\":true},{\"fieldId\":\"endDate\",\"expressionValue\":\"=today()\",\"inputMode\":\"expression\",\"required\":true},{\"fieldId\":\"job\",\"expressionValue\":\"=job\",\"inputMode\":\"expression\",\"required\":true},{\"fieldId\":\"department\",\"expressionValue\":\"=department\",\"inputMode\":\"expression\",\"required\":false}]",
+                                "methodName": "onEmployeeActionGroupExecute",
+                                "pageEvent": "actionGroupExecute"
+                            },
+                            "outcomeHandlers": {}
+                        }
+                    }
+                }
+            }
+        }
+      ]
+}

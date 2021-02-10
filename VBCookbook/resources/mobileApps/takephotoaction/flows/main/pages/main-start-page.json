@@ -1,0 +1,98 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "holdImage": {
+      "type": "any"
+    },
+    "imageUrl": {
+      "type": "string"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "TakePhotoActionChain": {
+      "description": "",
+      "root": "takePhoto1",
+      "actions": {
+        "takePhoto1": {
+          "module": "vb/action/builtin/takePhotoAction",
+          "parameters": {
+            "mediaType": "image"
+          },
+          "outcomes": {
+            "failure": "TakePhotoActionFaliureNotification",
+            "success": "callAddImageFunction"
+          }
+        },
+        "callAddImageFunction": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "AddImageFunction",
+            "params": [
+              "{{ $chain.results.takePhoto1.file }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignFilePathToVariable"
+          }
+        },
+        "assignFilePathToVariable": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.holdImage": {
+              "source": "{{ $chain.results.callAddImageFunction.data }}"
+            },
+            "$page.variables.imageUrl": {
+              "source": "{{ $chain.results.callAddImageFunction.url }}"
+            }
+          }
+        },
+        "TakePhotoActionFaliureNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.takePhoto1.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "TakePhotoAction": {
+      "chains": [
+        {
+          "chainId": "TakePhotoActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-ext-mobile-page-template": {
+        "path": "vb/components/mobile-page-template/loader"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

@@ -64,6 +64,23 @@
             "oid": "f3434120-7247-4a14-876e-f25710bf32cb",
             "displayLabel": "Location",
             "type": "reference"
+        },
+        {
+            "aggregation": {
+                "aggregationFunction": "SUM",
+                "aggregationPath": [
+                    {
+                        "entityId": "Employee",
+                        "mappingFieldId": "department"
+                    }
+                ],
+                "aggregatedFieldId": "salary"
+            },
+            "name": "totalSalary",
+            "oid": "0a4091fe-3350-4f02-b517-752642134f85",
+            "updatable": false,
+            "displayLabel": "totalSalary",
+            "type": "number"
         }
     ],
     "name": "Department",

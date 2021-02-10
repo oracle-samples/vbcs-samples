@@ -1,0 +1,105 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+
+  
+
+This recipe shows you how to download and upload CSV files that contain data referenced by the business objects in your application.  
+
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box oj-flex">
+    <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-flex-initial">
+      <oj-file-picker on-oj-select="[[$listeners.ojFilePickerOjSelect]]"
+        selection-mode="single" accept='["text/csv"]' id="filepicker">
+        <oj-button slot="trigger" class="oj-button-sm" chroming="callToAction"
+          id="filepicker-btn">
+          Load CSV Data<span class="oj-ux-ico-upload" slot="startIcon"></span>
+        </oj-button>
+      </oj-file-picker>
+      <oj-button class="oj-button-sm"
+        on-oj-action="[[$listeners.ojButtonOjAction3]]">Download Sample Employee
+        CSV
+        <span class="oj-ux-ico-cloud-download" slot="startIcon"></span>
+      </oj-button>
+      <oj-button chroming="outlined" class="oj-button-sm"
+        on-oj-action="[[$listeners.ojButtonOjAction2]]" id="reset">Reset All
+        <span class="oj-ux-ico-reset-variable" slot="startIcon"></span>
+      </oj-button>
+      <oj-button disabled="[[!$variables.current.hasfileLoaded]]"
+        class="oj-button-sm" on-oj-action="[[$listeners.ojButtonOjAction]]"
+        id="upload">
+        <span class="oj-ux-ico-cloud-upload" slot="startIcon"></span>Upload to
+        BO</oj-button>
+    </oj-toolbar>
+    <div class="oj-flex-item oj-sm-flex-initial">
+      <oj-bind-if test="[[ $variables.isUploadingToBo ]]">
+        <oj-progress-bar value="-1"></oj-progress-bar>
+      </oj-bind-if>
+    </div>
+    <oj-bind-if test="[[ $variables.current.hasfileLoaded ]]">
+
+      <h6 class="oj-flex-item oj-sm-flex-initial">
+        <oj-bind-text value="[[ 'File : '+$variables.current.name+' , ' ]]">
+        </oj-bind-text>
+        <oj-bind-text
+          value="[[ 'Size : '+$variables.current.size +' bytes , ']]">
+        </oj-bind-text>
+        <oj-bind-text value="[[ 'Type : '+$variables.current.type ]]">
+        </oj-bind-text>
+      </h6>
+
+      <oj-table class="oj-flex-item oj-sm-flex-initial"
+        style="max-height: 50vh; max-width: 100vw;"
+        scroll-policy="loadMoreOnScroll" data="[[ $variables.uploadDataADP ]]"
+        columns="{{ $variables.columns }}" id="table"></oj-table>
+    </oj-bind-if>
+
+    <oj-bind-if test="[[ !$variables.current.hasfileLoaded ]]">
+      <oj-message
+        message.summary="Click on 'Load CSV Data' to upload CSV file. Try downloading a sample CSV by clicking on 'Download Sample CSV' before you begin."
+        message.close-affordance="none" message.severity="info"></oj-message>
+
+    </oj-bind-if>
+
+  </div>
+  <oj-dialog style="display:none" dialog-title="Upload Configuration"
+    id="oj-dialog--1728153767-1">
+    <div slot="body">
+      <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-12">
+          <oj-validation-group id="bo-config-tacker"
+            valid="{{ $variables.boFormValid }}">
+            <oj-form-layout user-assistance-density="compact">
+              <oj-select-single label-hint="Business Object" required="true"
+                data="[[ $variables.boPathOptionsDP ]]"
+                value="{{ $variables.boPath }}"></oj-select-single>
+              <oj-select-single label-hint="Mode" required="true"
+                data="[[ $variables.boOpModeOptionsDP ]]"
+                value="{{ $variables.boOp }}"></oj-select-single>
+            </oj-form-layout>
+          </oj-validation-group>
+        </div>
+      </div>
+    </div>
+    <div slot="footer">
+      <oj-button chroming="callToAction"
+        on-oj-action="[[$listeners.ojButtonOjAction4]]" id="upload-bo">Upload
+      </oj-button>
+    </div>
+  </oj-dialog>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

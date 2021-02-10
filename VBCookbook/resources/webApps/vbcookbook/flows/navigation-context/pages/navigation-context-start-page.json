@@ -1,0 +1,132 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "idAttribute": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    },
+    "selection": {
+      "type": {
+        "data": "get_Employee",
+        "key": "number"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string"
+        }
+      ]
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string"
+    }
+  },
+  "chains": {
+    "NavigateToEditActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "navigateToPage1",
+      "actions": {
+        "navigateToPage1": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "page": "navigation-context-edit",
+            "params": {
+              "id": "{{ $page.variables.selection.key }}"
+            }
+          }
+        }
+      }
+    },
+    "NavigateToDetailActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "navigateToPage1",
+      "actions": {
+        "navigateToPage1": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "page": "navigation-context-detail",
+            "params": {
+              "employee": "{{ $page.variables.selection.data }}"
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "navigateToEditListener": {
+      "chains": [
+        {
+          "chainId": "NavigateToEditActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "navigateToDetailListener": {
+      "chains": [
+        {
+          "chainId": "NavigateToDetailActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  }
+}

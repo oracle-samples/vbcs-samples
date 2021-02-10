@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "fileloader-csv",
+  "description": "Flow main",
+  "defaultPage": "fileloader-csv-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

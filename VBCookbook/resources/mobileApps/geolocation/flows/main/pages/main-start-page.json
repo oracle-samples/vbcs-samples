@@ -1,0 +1,88 @@
+{
+  "pageModelVersion": "19.4.3",
+  "title": "",
+  "description": "",
+  "variables": {
+    "latitude": {
+      "type": "string"
+    },
+    "longitude": {
+      "type": "string"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "GetLocationActionChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "GetGeoLocation",
+      "actions": {
+        "GetGeoLocation": {
+          "module": "vb/action/builtin/geolocationAction",
+          "parameters": {
+            "timeout": 10000
+          },
+          "outcomes": {
+            "failure": "GetLocationFaliureNotification",
+            "success": "AssignLocation"
+          }
+        },
+        "AssignLocation": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.latitude": {
+              "source": "{{ $chain.results.GetGeoLocation.coords.latitude }}"
+            },
+            "$page.variables.longitude": {
+              "source": "{{ $chain.results.GetGeoLocation.coords.longitude }}"
+            }
+          }
+        },
+        "GetLocationFaliureNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.GetGeoLocation.error.message ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "GetLocationEventListener": {
+      "chains": [
+        {
+          "chainId": "GetLocationActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-ext-mobile-page-template": {
+        "path": "vb/components/mobile-page-template/loader"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

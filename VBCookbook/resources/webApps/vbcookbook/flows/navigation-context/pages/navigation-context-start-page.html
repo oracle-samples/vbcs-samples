@@ -1,0 +1,34 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+
+  This recipe shows you how to pass variable values as context while navigating between pages in your application.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+
+    <div class="oj-flex-item oj-sm-12 oj-flex oj-md-12 oj-sm-flex-direction-column">
+      <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-flex-initial">
+        <oj-button disabled="[[!$variables.selection.key]]" on-oj-action="[[$listeners.navigateToEditListener]]">Navigate to Edit With Employee ID</oj-button>
+        <oj-button disabled="[[!$variables.selection.key]]" on-oj-action="[[$listeners.navigateToDetailListener]]">Navigate To Detail with Employee</oj-button>
+      </oj-toolbar>
+      <oj-table style="max-height: 500px" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-flex-initial" data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","field":"email"}]' first-selected-row="{{ $page.variables.selection }}" selection-mode.row="single"></oj-table>
+    </div>
+
+
+
+  </div> 
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

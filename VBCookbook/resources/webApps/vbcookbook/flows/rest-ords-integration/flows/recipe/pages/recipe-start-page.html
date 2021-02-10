@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -65,9 +65,9 @@
           named <code>searchText</code> of type String.
           </li>
           <li>In the Component Palette, drag an Input Text component and drop it on the page. </li>
-          <li>In the Data tab of the Input Text component’s Property Inspector, select the <code>searchText</code> page variable as the value for the Value property. </li>
+          <li>In the Data tab of the Input Text component’s Properties pane, select the <code>searchText</code> page variable as the value for the Value property. </li>
           <li>In the Variables & Type tab of your page, select the <code>getEmployeesListSDP</code> SDP variable that the Table Component's Add Data Quick Start generated.</li>
-          <li>In the Property Inspector for the getEmployeesListSDP SDP variable, click <strong>filterCriterion</strong> and map the <code>searchText</code> page variable to the target parameter's <code>filterCriterion</code>.</li>
+          <li>In the Properties pane for the getEmployeesListSDP SDP variable, click <strong>filterCriterion</strong> and map the <code>searchText</code> page variable to the target parameter's <code>filterCriterion</code>.</li>
         </ol>
         <p>You'll complete the configuration necessary to implement this feature when you write the Transform function to filter data.</p>
       </div>
@@ -82,7 +82,7 @@
       <h1 slot="header">Add Pagination Functionality</h1>
       <p>Configure the scroll policy properties on the Table component to determine the application behavior as the user scrolls through the data.</p>
       <div>
-        <p>In the All tab of the Table component´s Property Inspector, configure the following properties:</p>
+        <p>In the All tab of the Table component´s Properties pane, configure the following properties:</p>
         <ul>
           <li>           
             scroll-policy = <code>loadMoreOnScroll</code>

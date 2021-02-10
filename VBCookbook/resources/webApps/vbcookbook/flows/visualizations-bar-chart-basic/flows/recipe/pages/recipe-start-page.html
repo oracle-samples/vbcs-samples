@@ -1,0 +1,41 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  The Bar Chart component displays salary totals on the Y-axis and departments on the X-axis. Before you add the Bar
+  Chart component, you add a custom field to the Department business object that aggregates the total salary for the
+  department.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Add a Field to the Department Business Object to Aggregate Total Salary</span>
+      <p><a target="_blank"
+        href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-and-edit-business-objects.html#GUID-E68CA70D-F0AA-4810-847D-7EFADE8A3BB0">Add a totalSalary field</a> of type Number to the Department business object to aggregate data from the Employee business object’s Salary field and set the aggregation function to <code>Total</code>.</p>
+          
+      
+    </oj-collapsible>
+    <oj-collapsible id="stepb">
+      <span slot="header">Create Bar Chart Component</span>
+      <div>
+        
+        <ol>
+          <li>In the Component Palette, drag a Bar Chart component and drop it onto the Page Designer.</li>
+          <li>In the Quick Start tab of the Properties pane, use the Add Data quick start to bind the chart to data as follows:
+              <ul>
+                <li>Select the Department business object.</li>
+                <li>Add totalSalary to the Y Axis.</li>
+                <li>Add departmentName to the X Axis and the Series fields.</li>
+                <li>In the Define Query page, enter the expression <code>totalSalary > 0</code> for the q uriParameter so that the chart does not display entries for departments with a total salary less than or equal to 0.</li>
+              </ul>
+          </li>
+          <li>In the General tab of the Properties pane, select <strong>On</strong> for Stack Values.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+
+  </oj-accordion>
+</div>

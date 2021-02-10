@@ -1,0 +1,44 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">This demo allows you to switch between multiple languages and display content in the newly-selected language.</div>
+
+
+  
+    
+    <div class="oj-flex oj-flex-item">
+      <div class=" sample-box oj-md-6">
+        <oj-combobox-one label-hint="Select Language"
+  value="{{ $variables.selectedLocale }}"
+  on-value-changed="[[$listeners.ojComboboxOneValue]]"
+  class="oj-form-control-width-sm oj-form-control-width-md oj-md-4 oj-flex-item oj-sm-flex-initial" style="height:0px;" id="selectlanguage">
+  <oj-option value="en">English</oj-option>
+  <oj-option value="fr">French</oj-option>
+  </oj-combobox-one>
+        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+  <oj-table scroll-policy="loadMoreOnScroll" scroll-policy-options='{"fetchSize": 10}' data="[[$page.variables.employeeListSDP]]" columns='[[ [{"headerText":$application.translations.app.key_firstname,"field":"firstName"},{"headerText":$application.translations.app.key_lastname,"field":"lastName"},{"headerText":$application.translations.app.key_email,"field":"email"},{"headerText":$application.translations.app.key_phonenumber,"field":"phoneNumber"}] ]]' style="height:350px;margin-top:40px;" class="oj-flex-item oj-sm-12 oj-md-12"></oj-table>
+    </div>
+
+   
+  
+      </div>
+
+  
+      <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+  <div class="recipe-box oj-flex-item">
+    <h1>Recipe</h1>
+    <div class="oj-flex">
+      <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+    </div>
+  </div>
+    </div>
+      </oj-bind-if>
+  
+
+    </div>
+ 
+

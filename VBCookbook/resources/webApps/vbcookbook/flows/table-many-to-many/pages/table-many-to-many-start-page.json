@@ -19,12 +19,10 @@
         "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponse",
-        "sortCriteria": [
-          {
-            "attribute": "id",
-            "direction": "ascending"
-          }
-        ]
+        "sortCriteria": [{
+          "attribute": "id",
+          "direction": "ascending"
+        }]
       }
     },
     "jobListSDP": {
@@ -78,66 +76,52 @@
     },
     "create_Employee": {
       "email": "string",
-      "employeeSkillCollection": [
-        {
-          "skill": "number"
-        }
-      ],
+      "employeeSkillCollection": [{
+        "skill": "number"
+      }],
       "firstName": "string",
       "hireDate": "string",
       "job": "number",
       "lastName": "string"
     },
     "getallEmployeeResponse": {
-      "items": [
-        {
-          "email": "string",
-          "employeeSkillCollection": {
-            "items": [
-              {
-                "id": "number",
-                "skill": "number"
-              }
-            ]
-          },
-          "firstName": "string",
-          "id": "number",
-          "skillCollection": {
-            "items": [
-              {
-                "id": "number",
-                "name": "string"
-              }
-            ]
-          }
+      "items": [{
+        "email": "string",
+        "employeeSkillCollection": {
+          "items": [{
+            "id": "number",
+            "skill": "number"
+          }]
+        },
+        "firstName": "string",
+        "id": "number",
+        "skillCollection": {
+          "items": [{
+            "id": "number",
+            "name": "string"
+          }]
         }
-      ]
+      }]
     },
     "getallJobResponse": {
-      "items": [
-        {
-          "id": "number",
-          "jobTitle": "string"
-        }
-      ]
+      "items": [{
+        "id": "number",
+        "jobTitle": "string"
+      }]
     },
     "getallSkillResponse": {
-      "items": [
-        {
-          "id": "number",
-          "name": "string"
-        }
-      ]
+      "items": [{
+        "id": "number",
+        "name": "string"
+      }]
     },
     "update_Employee": {
       "email": "string",
       "employeeSkillCollection": {
-        "items": [
-          {
-            "id": "number",
-            "skill": "number"
-          }
-        ]
+        "items": [{
+          "id": "number",
+          "skill": "number"
+        }]
       },
       "firstName": "string",
       "id": "number"
@@ -388,7 +372,7 @@
           "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
             "target": "leaf",
-            "summary": "Saved Successsfully",
+            "summary": "Saved Successfully",
             "displayMode": "transient",
             "type": "confirmation"
           },
@@ -445,47 +429,39 @@
   },
   "eventListeners": {
     "openEditListener": {
-      "chains": [
-        {
-          "chainId": "openEditEmployeeChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}",
-            "key": "{{ $current.key }}",
-            "index": "{{ $current.index }}",
-            "current": "{{ $current }}"
-          }
+      "chains": [{
+        "chainId": "openEditEmployeeChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}",
+          "key": "{{ $current.key }}",
+          "index": "{{ $current.index }}",
+          "current": "{{ $current }}"
         }
-      ]
+      }]
     },
     "openNewEmployeeListener": {
-      "chains": [
-        {
-          "chainId": "openNewEmployeeDialogChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "openNewEmployeeDialogChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "createNewEmployeeListener": {
-      "chains": [
-        {
-          "chainId": "createNewEmployeeChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "createNewEmployeeChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "updateEmployeeListener": {
-      "chains": [
-        {
-          "chainId": "saveEmployeeChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "saveEmployeeChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     }
   },
   "imports": {

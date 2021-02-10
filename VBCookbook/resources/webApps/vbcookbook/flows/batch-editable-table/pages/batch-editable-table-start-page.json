@@ -55,11 +55,9 @@
       "commissionPct": "number",
       "department": "number",
       "departmentObject": {
-        "items": [
-          {
-            "departmentName": "string"
-          }
-        ]
+        "items": [{
+          "departmentName": "string"
+        }]
       },
       "email": "string",
       "firstName": "string",
@@ -67,13 +65,11 @@
       "id": "number",
       "job": "number",
       "jobObject": {
-        "items": [
-          {
-            "jobTitle": "string",
-            "maxSalary": "number",
-            "minSalary": "number"
-          }
-        ]
+        "items": [{
+          "jobTitle": "string",
+          "maxSalary": "number",
+          "minSalary": "number"
+        }]
       },
       "lastName": "string",
       "manager": "number",
@@ -94,12 +90,10 @@
       "items": "EmployeeType[]"
     },
     "getallJobResponse": {
-      "items": [
-        {
-          "id": "number",
-          "jobTitle": "string"
-        }
-      ]
+      "items": [{
+        "id": "number",
+        "jobTitle": "string"
+      }]
     },
     "@decorators.getallJobResponse": {
       "endpoint": "getall_Job",
@@ -465,7 +459,7 @@
             }
           }
         }
-      }
+    }
     },
     "SaveChanges": {
       "description": "",
@@ -541,7 +535,7 @@
             "success": "reloadTableAfterBatchChange"
           }
         }
-      }
+    }
     },
     "FetchEmployees": {
       "root": "fetchEmployees",
@@ -588,54 +582,46 @@
   },
   "eventListeners": {
     "vbEnter": {
-      "chains": [
-        {
-          "chainId": "FetchEmployees",
-          "parameters": {}
-        }
-      ]
+      "chains": [{
+        "chainId": "FetchEmployees",
+        "parameters": {}
+      }]
     },
     "ojTable18296469261OjBeforeRowEdit": {
-      "chains": [
-        {
-          "chainId": "TableBeforeRowEditChain",
-          "parameters": {
-            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
-            "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
-          }
+      "chains": [{
+        "chainId": "TableBeforeRowEditChain",
+        "parameters": {
+          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+          "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
         }
-      ]
+      }]
     },
     "ojTable18296469261OjBeforeRowEditEnd": {
-      "preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}",
-      "chains": [
-        {
-          "chainId": "TableBeforeRowEditEndChain",
-          "parameters": {
-            "cancelEdit": "{{$event.detail.cancelEdit}}",
-            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
-            "rowData": "{{$page.variables.currentRowBuffer}}",
-            "originalRowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
-            "event": "{{ $event }}"
-          }
+			"preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}",
+      "chains": [{
+        "chainId": "TableBeforeRowEditEndChain",
+        "parameters": {
+          "cancelEdit": "{{$event.detail.cancelEdit}}",
+          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+          "rowData": "{{$page.variables.currentRowBuffer}}",
+          "originalRowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
+          "event": "{{ $event }}"
         }
-      ]
+      }]
     },
     "ojSelectOneValue": {
-      "chains": [
-        {
-          "chainId": "JobChanged",
-          "parameters": {
-            "value": "{{ $event.detail.value }}",
-            "key": "{{ $current.key }}",
-            "index": "{{ $current.index }}",
-            "current": "{{ $current }}",
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "JobChanged",
+        "parameters": {
+          "value": "{{ $event.detail.value }}",
+          "key": "{{ $current.key }}",
+          "index": "{{ $current.index }}",
+          "current": "{{ $current }}",
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "ojButtonOjAction": {
       "chains": [

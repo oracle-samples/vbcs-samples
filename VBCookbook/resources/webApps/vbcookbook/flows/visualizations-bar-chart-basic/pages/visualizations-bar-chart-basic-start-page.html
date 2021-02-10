@@ -1,0 +1,28 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+  This recipe shows how you can use the Bar Chart component to visually present information about salaries for various departments. 
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex-item sample-box oj-flex">
+    <oj-chart type="bar" class="oj-sm-flex-initial oj-flex-item" style="max-width:100%;" data="[[$page.variables.departmentListSDP]]" y-axis.title="Salary" x-axis.title="Department" legend.title="Department" stack="on">
+      <template slot="itemTemplate">
+        <oj-chart-item value="[[ $current.data.totalSalary ]]" group-id="[[[ $current.data.departmentName ]]]" series-id="[[ $current.data.departmentName ]]"></oj-chart-item>
+      </template>
+    </oj-chart>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

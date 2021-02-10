@@ -1,0 +1,24 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">This recipe demonstrates how you can implement barcode scanner functionality in your app by using an Apache Cordova plugin.</div>
+<div class="oj-flex-item oj-flex">
+  <div class="oj-flex oj-flex-item oj-lg-4 oj-sm-12 oj-md-12 oj-sm-justify-content-center oj-sm-flex-items-initial">
+    <div class="oj-flex-item">
+      <img :src="[[ $application.path + 'resources/images/barcodescanapp.png' ]]" width="250">
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]" class="oj-flex-item oj-sm-flex-initial">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,111 @@
+{
+    "items": [
+        {
+            "rn": 1,
+            "empno": 7369,
+            "ename": "SMITH",
+            "job": "CLERK",
+            "hiredate": "1980-12-17T00:00:00Z",
+            "mgr": 7902,
+            "sal": 800,
+            "comm": null,
+            "deptno": 20,
+            "links": [
+                {
+                    "rel": "uri",
+                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7369"
+                }
+            ]
+        },
+        {
+            "rn": 2,
+            "empno": 7499,
+            "ename": "ALLEN",
+            "job": "SALESMAN",
+            "hiredate": "1981-02-20T00:00:00Z",
+            "mgr": 7698,
+            "sal": 1600,
+            "comm": 300,
+            "deptno": 30,
+            "links": [
+                {
+                    "rel": "uri",
+                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7499"
+                }
+            ]
+        },
+        {
+            "rn": 3,
+            "empno": 7521,
+            "ename": "WARD",
+            "job": "SALESMAN",
+            "hiredate": "1981-02-22T00:00:00Z",
+            "mgr": 7698,
+            "sal": 1250,
+            "comm": 500,
+            "deptno": 30,
+            "links": [
+                {
+                    "rel": "uri",
+                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7521"
+                }
+            ]
+        },
+        {
+            "rn": 4,
+            "empno": 7566,
+            "ename": "JONES",
+            "job": "MANAGER",
+            "hiredate": "1981-04-02T00:00:00Z",
+            "mgr": 7839,
+            "sal": 2975,
+            "comm": null,
+            "deptno": 20,
+            "links": [
+                {
+                    "rel": "uri",
+                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7566"
+                }
+            ]
+        },
+        {
+            "rn": 5,
+            "empno": 7654,
+            "ename": "MARTIN",
+            "job": "SALESMAN",
+            "hiredate": "1981-09-28T00:00:00Z",
+            "mgr": 7698,
+            "sal": 1250,
+            "comm": 1400,
+            "deptno": 30,
+            "links": [
+                {
+                    "rel": "uri",
+                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7654"
+                }
+            ]
+        }
+    ],
+    "hasMore": true,
+    "limit": 5,
+    "offset": 0,
+    "count": 5,
+    "links": [
+        {
+            "rel": "self",
+            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/"
+        },
+        {
+            "rel": "describedby",
+            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/metadata-catalog/hr/employees/"
+        },
+        {
+            "rel": "first",
+            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/"
+        },
+        {
+            "rel": "next",
+            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/?offset=5"
+        }
+    ]
+}

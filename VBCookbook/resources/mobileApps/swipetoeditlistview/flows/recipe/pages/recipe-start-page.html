@@ -1,0 +1,173 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-ext-mobile-page-template id="page-template" page-title="Recipe">
+  <p>This recipe shows how to edit a ListView on Right Swipe,
+  For changes to values, you’ll use a Validation Group component 
+  and write a custom validator to ensure that the values remains 
+  within a valid scope. All changes are stored locally in the browser 
+  until the user clicks <strong>Save</strong>, at which time a REST call posts the 
+  changes to the backend.</p>
+  
+  <div class="oj-flex">
+    <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+      <oj-collapsible id="step-1" expanded="true">
+        <span slot="header">Create the UI</span>
+        <div>
+          <ol>
+            <li>From the Component Palette, drag a ListView component and drop it
+              on the page.</li>
+            <li>Use the List View component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind your list to employee data.</li>
+            <li>In the Bind Data page, select the following employee fields:
+              <ul>
+                <li>First Name</li>
+                <li>Last Name</li>
+                <li>Id</li>
+                <li>Salary</li>
+              </ul>
+            </li>
+            <li>Go to Code Editor and add <code>li </code>tag right after template.</li>
+            
+          </ol>
+        </div>
+      </oj-collapsible>
+
+      <oj-collapsible id="step-2">
+        <span slot="header">Adding Swipe Action</span>
+        <div>
+          <ol>
+            <li>Click on ListView and go back to Properties pane.</li>
+            <li>Under Swipe Actions Click on Right Side and add <strong>Custom Swipe Tile</strong>.</li>
+            <li>Give it a Label <code>RightEdit</code>.</li>
+            <li>In the Properties pane Click on RightEdit and open it's Action Chain.</li>
+            <li>Drag and Drop a Navigation Action under AddCase.</li>
+            <li>In Case Value write <code>rightedit.</code></li>
+            <li>Select/Create a Target Page to Navigate to and give it Id <strong>main-EditPage</strong>.</li>
+          </ol>
+        </div>
+      </oj-collapsible>
+
+      <oj-collapsible id="step-3">
+        <span slot="header">Create the main-EditPage Model</span>
+        <div>
+          <ol>
+            <li>In the EditPage create a Variable <code>employee_ID </code>select it's type as Number and under 
+            Input Parameter select <strong>Required</strong> and tick the <strong>Pass on URL</strong> Checkbox.</li>
+            <li>Go back to main page Action Chain and assign Input Parameters to <strong>main-EditPage</strong> and map:
+              <ul>
+                <li><code>employeeid</code> to <code>employee_ID</code></li>
+              </ul>
+            </li>
+            <li>Navigate to <strong>main-EditPage</strong> and <a target="_blank"
+                href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">
+                Create a Type From EndPoint</a>, select the following Employee Fields:
+              <ul>
+                <li>First Name</li>
+                <li>Last Name</li>
+                <li>Id</li>
+                <li>Salary</li>
+              </ul>
+            </li>
+            <li> <a target="_blank"
+                href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+                Create a Variable</a> <code>editEmployeeDetails</code> and assign it the above created Type.</li>
+          </ol>
+        </div>
+      </oj-collapsible>
+
+      <oj-collapsible id="step-4">
+        <span slot="header">Fetch Employee Details</span>
+        <div>
+          <ol>
+            <li>Add a <a target="_blank"
+                href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-85B98D5E-B1A1-4AD6-9D67-CC9AE28DA668">
+                Event Listener</a> <code>vbEnter</code> to <strong>main-EditPage</strong> and create a Page Action Chain with ID <code>getDatafromMainPage</code>.</li>
+              
+            <li>In the <code>getDatafromMainPage</code> Action Chain drop a Call REST EndPoint after start and select GET <strong>Employee/{Employee_Id}</strong> as the end point.</li>
+            <li>Map <code>employee_ID</code> to <code>Employee_Id</code> under parameters and hit save.</li>
+            <li>Drop <a target="_blank"
+                href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+                Variables action</a> under success of REST Endpoint and map body of REST EndPoint to <code>editEmployeeDetails</code>.</li>
+          </ol>
+        </div>
+      </oj-collapsible>
+      <oj-collapsible id="step-5">
+        <span slot="header">Create main-EditPage UI</span>
+        <div>
+          <ol>
+            <li>From the Component Palette, drag a FormLayout component and drop it
+                on the page.</li>
+            <li>Add the following components to FormLayout
+              <ul>
+                <li>FirstName- TextArea</li>
+                <li>LastName- TextArea</li>
+                <li>Salary- Input Number</li>
+              </ul>
+            </li>
+            <li>Surround the FormLayout with a <code>oj-validation-group</code> and give it ID <strong>form_edit</strong></li>
+            <li>Set the following values:
+              <ul>
+                <li>Set the FirstName Value property to<code>{{ $variables.editEmployeeDetails.firstName }}</code></li>
+                <li>LastName Value property to <code>{{ $variables.editEmployeeDetails.lastName }} </code></li>
+                <li>Salary Value property to<code>{{ $variables.editEmployeeDetails.salary }} </code></li>
+              </ul>
+            </li>
+            <li>From the Component Palette, drag a Button and drop it
+                on the page, rename it as Save Changes.</li>
+          </ol>
+        </div>
+      </oj-collapsible>
+      
+      <oj-collapsible id="step-6">
+        <span slot="header">Save Action Chain and Form Validation</span>
+        <div>
+          <ol>
+            <li>In the Events tab of the Button Properties pane, <a target="_blank"
+                href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">create
+                a new event</a> for ojAction and give it an ID <strong>SaveEmployeeDataActionChain</strong>.</li>
+            <li>In the action chain, drag an Module Function,give it an ID<strong> Validity_tracker</strong> and create a function <code>validate_form</code> and assign input paremeters to it. </li>
+            <li>In the editor type <strong>form_edit</strong>, and hit save.</li>
+            <li>Mark its return type as <code>Boolean</code>.</li>
+            <li>Go to Module Function <code>validate_form</code> and add the following lines of code:
+              <code>
+                <pre>
+ validate_form(arg1) {
+   const el = document.getElementById(arg1);
+   if(el.valid === "valid"){
+     return true;
+   }else{
+     el.showMessages();
+     el.focusOn('@firstErrorShown');
+     return false;
+   }
+ }
+                </pre>
+              </code>
+            </li>
+            <li>In the action chain, drag an If action onto the chain and set the Condition to <code>[[ $chain.results.Validity_tracker ]]</code>.</li>
+            <li>Drag a call REST EndPoint action and drop on true path of Action Chain and select the Patch operation. </li>
+            <li>Map the following two parameters: 
+              <ul>
+                <li><code>employee_ID</code> to <code>Employee_Id</code> </li>
+                <li><code>$page.variables.editEmployeeDetails</code> to <code>body</code></li>
+              </ul>
+            </li>
+            <li>Drop a <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-9388B17C-3306-4966-BE66-2A0889879A17"> Navigate Back action</a> on success path of Action Chain.</li>
+          </ol>
+          <p> The event listener for the Save Changes button triggers the <strong>SaveEmployeeDataActionChain</strong> that includes a Call Module Function where 
+             the associated function validates the changes to upload. 
+             The subsequent Call REST Endpoint action uploads this payload through 
+             the business objects REST Endpoint.</p>
+        </div>
+      </oj-collapsible>
+      
+    </oj-accordion>
+  </div>
+  
+  
+</oj-ext-mobile-page-template>

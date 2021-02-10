@@ -7,20 +7,18 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Employee",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallEmployeeResponse"
+        "responseType": "page:getallEmployeeResponse2",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName"
+          ]
+        }
       }
     },
     "selectedEmployee": {
-      "type": {
-        "value": "string",
-        "label": "string"
-      },
-      "defaultValue": {
-        "value": "",
-        "label": ""
-      }
+      "type": "object"
     },
     "selectedRow": {
       "type": {
@@ -29,7 +27,8 @@
     },
     "filters": {
       "type": "filter[]",
-      "defaultValue": [{
+      "defaultValue": [
+        {
           "op": "$sw",
           "attribute": "firstName",
           "value": ""
@@ -91,14 +90,7 @@
   },
   "metadata": {},
   "types": {
-    "getallEmployeeResponse": {
-      "items": [{
-        "firstName": "string",
-        "id": "number",
-        "lastName": "string"
-      }]
-    },
-    "@decorators.getallEmployeeResponse": {
+    "@decorators.getallEmployeeResponse2": {
       "endpoint": "getall_Employee",
       "service": "businessObjects",
       "path": "response"
@@ -109,21 +101,34 @@
       "value": "any"
     },
     "getallDepartmentResponse": {
-      "items": [{
-        "departmentName": "string",
-        "id": "number"
-      }]
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number"
+        }
+      ]
     },
     "@decorators.getallDepartmentResponse": {
       "endpoint": "getall_Department",
       "service": "businessObjects",
       "path": "response"
     },
+    "getallEmployeeResponse2": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string"
+        }
+      ]
+    },
     "getallSkillResponse": {
-      "items": [{
-        "id": "number",
-        "name": "string"
-      }]
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
     },
     "@decorators.getallSkillResponse": {
       "endpoint": "getall_Skill",
@@ -131,27 +136,35 @@
       "path": "response"
     },
     "getallEmployeeResponseForAdvanceSearch": {
-      "items": [{
-        "departmentObject": {
-          "items": [{
-            "departmentName": "string"
-          }]
-        },
-        "firstName": "string",
-        "id": "number",
-        "jobObject": {
-          "items": [{
-            "jobTitle": "string"
-          }]
-        },
-        "lastName": "string",
-        "salary": "number",
-        "skillCollection": {
-          "items": [{
-            "name": "string"
-          }]
+      "items": [
+        {
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string"
+              }
+            ]
+          },
+          "firstName": "string",
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "salary": "number",
+          "skillCollection": {
+            "items": [
+              {
+                "name": "string"
+              }
+            ]
+          }
         }
-      }]
+      ]
     },
     "@decorators.getallEmployeeResponseForAdvanceSearch": {
       "endpoint": "getall_Employee",
@@ -160,33 +173,6 @@
     }
   },
   "chains": {
-    "ComboboxOneValueChangeChain": {
-      "description": "",
-      "variables": {
-        "value": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "selectedEmployeeAssignVariables",
-      "actions": {
-        "selectedEmployeeAssignVariables": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.selectedEmployee": {
-              "source": "{{ {\n\"value\":\"{{$chain.variables.value.data.id}}\",\n\"label\":\"{{$chain.variables.value.data.label}}\"\n} }}",
-              "auto": "ifNoMappings",
-              "reset": "empty",
-              "mapping": {
-                "$target.label": "$chain.variables.value.data.label + \" \" + $chain.variables.value.data.lastName",
-                "$target.value": "$chain.variables.value.data.id"
-              }
-            }
-          }
-        }
-      }
-    },
     "OpenAdvancedSearchDialog": {
       "description": "",
       "variables": {
@@ -242,16 +228,19 @@
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$page.variables.selectedEmployee": {
-              "source": "{\n \"value\": \"{{ $page.variables.selectedRow.key }}\",\n \"label\": \"{{$page.variables.selectedRow.data.firstName + \" \"+ $page.variables.selectedRow.data.lastName }}\"\n}",
-              "auto": "always",
-              "reset": "none",
-              "mapping": {
-                "$target.label": {
-                  "source": "$page.variables.selectedRow.data.firstName + \" \"+ $page.variables.selectedRow.data.lastName",
-                  "reset": "none"
+              "source": {
+                "data": {
+                  "firstName": "{{$page.variables.selectedRow.data.firstName}}",
+                  "id": "{{$page.variables.selectedRow.key}}",
+                  "lastName": "{{$page.variables.selectedRow.data.lastName}}"
                 },
-                "$target.value": "$page.variables.selectedRow.key"
-              }
+                "metadata": {
+                  "key": "{{$page.variables.selectedRow.key}}"
+                },
+                "key": "{{$page.variables.selectedRow.key}}"
+              },
+              "auto": "always",
+              "reset": "none"
             }
           },
           "outcomes": {
@@ -293,7 +282,6 @@
           "parameters": {
             "variables": [
               "$page.variables.selectedRow",
-              "$page.variables.selectedEmployee",
               "$page.variables.filters",
               "$page.variables.AdvanceSearchEmployeeListSDP.filterCriterion"
             ]
@@ -415,55 +403,54 @@
       ]
     },
     "spanClick": {
-      "chains": [{
-        "chainId": "DeSelectEmployeeChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "DeSelectEmployeeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
-    },
-    "employeeListDropdownValue": {
-      "chains": [{
-        "chainId": "ComboboxOneValueChangeChain",
-        "parameters": {
-          "value": "{{ $event.detail }}"
-        }
-      }]
+      ]
     },
     "okojButtonOjAction": {
-      "chains": [{
-        "chainId": "OKButtonActionChain"
-      }]
+      "chains": [
+        {
+          "chainId": "OKButtonActionChain"
+        }
+      ]
     },
     "searchojButtonOjAction": {
-      "chains": [{
-        "chainId": "ApplyFilterActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "ApplyFilterActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "resetojButtonOjAction": {
-      "chains": [{
-        "chainId": "ResetFiltersActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "ResetFiltersActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "cancelojButtonOjAction": {
-      "chains": [{
-        "chainId": "CancelButtonActionChain"
-      }]
+      "chains": [
+        {
+          "chainId": "CancelButtonActionChain"
+        }
+      ]
     }
   },
   "imports": {
     "components": {
       "oj-label": {
         "path": "ojs/ojlabel"
-      },
-      "oj-combobox-one": {
-        "path": "ojs/ojselectcombobox"
       },
       "oj-dialog": {
         "path": "ojs/ojdialog"
@@ -488,9 +475,6 @@
       },
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
-      },
-      "oj-select-many": {
-        "path": "ojs/ojselectcombobox"
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"

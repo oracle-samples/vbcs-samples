@@ -1,0 +1,173 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    },
+    "employeeListSDP2": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse2"
+      }
+    },
+    "oj_table_11161435_1SelectedId": {
+      "type": "string",
+      "defaultValue": ""
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse2": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "id": "number",
+          "job": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "manager": "number",
+          "managerObject": {
+            "items": [
+              {
+                "lastName": "string"
+              }
+            ]
+          },
+          "salary": "number"
+        }
+      ]
+    },
+    "getallEmployeeResponse2": {
+      "items": [
+        {
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "managerObject": {
+            "items": [
+              {
+                "lastName": "string"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "chains": {
+    "navigateToEditEmployeeChain": {
+      "root": "navigateToEdit",
+      "variables": {
+        "employeeId": {
+          "type": "string",
+          "input": "fromCaller",
+          "required": true
+        }
+      },
+      "actions": {
+        "navigateToEdit": {
+          "module": "vb/action/builtin/navigateToPageAction",
+          "parameters": {
+            "history": "push",
+            "page": "bo-triggers-edit-employee",
+            "params": {
+              "employeeId": "[[ $chain.variables.employeeId ]]"
+            }
+          }
+        }
+      }
+    },
+    "oj_table_11161435_1ChangeSelectionChain": {
+      "variables": {
+        "employeeId": {
+          "type": "string",
+          "input": "fromCaller",
+          "defaultValue": ""
+        }
+      },
+      "root": "assignVariable",
+      "actions": {
+        "assignVariable": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.oj_table_11161435_1SelectedId": {
+              "source": "[[ $chain.variables.employeeId ]]"
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "editEmployeeButtonClicked": {
+      "chains": [
+        {
+          "chainId": "navigateToEditEmployeeChain",
+          "parameters": {
+            "employeeId": "[[ $page.variables.oj_table_11161435_1SelectedId ]]"
+          }
+        }
+      ]
+    },
+    "oj_table_11161435_1SelectionChanged": {
+      "chains": [
+        {
+          "chainId": "oj_table_11161435_1ChangeSelectionChain",
+          "parameters": {
+            "employeeId": "[[ $event.detail.value.key || '' ]]"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

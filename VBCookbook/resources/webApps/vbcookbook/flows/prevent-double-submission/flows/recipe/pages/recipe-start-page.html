@@ -1,0 +1,47 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+
+<p>
+You'll add a Button component to your application's page and configure an action chain that disables the button and displays a different label ("Processing...") until an action completes.
+
+</p>
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+  <span slot="header">Create a Form With a Button</span>
+  <div>
+    <ol>
+      <li>In the Component Palette, drag and drop an Input Text component and a Button component onto the page.</li>
+      <li>In the Variables tab of the Page Designer, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create the following variables</a>: 
+      
+      <ul>
+        <li><code>buttonText</code> of type String.</li>
+        <li><code>disableButton</code> of type Boolean.</li>
+      </ul>
+      </li>
+      <li>In the Component Palette, drag and drop a Text component (oj-bind-text) onto the Button component and set the Value property of the Text component to <code>[[ $variables.buttonText ]]</code>.</li>
+      <li>Wrap the Text component with a span tag.</li>
+
+      
+    </ol>
+  </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+  <span slot="header">Add an Event Listener and an Action Chain to Prevent Double Click</span>
+  <div>
+    <ol>
+      
+      <li>In the Events tab of the Properties pane for the Button component, click <strong>New Event</strong> to create an ojAction event listener.</li>
+      <li>In the action chain editor, add an <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign Variables action</a> to map to the two page variables that you created previously. </li>
+      <li>In the Assign Variables dialog, assign <code>Processing....</code> to the buttonText variable in Target and set the disableButton variable in Target to <code>true</code>.</li>
+      <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E7BE6B00-7221-40E4-821D-59BEBBA0D896">Add a Call Function action</a> to call a JavaScript function, <code>addCountry</code>, that waits 1500 milliseconds.</li>
+      <li>Add another Assign Variables action to reset the buttonText and disableButton variables to their original values after the Call Function action completes. </li>
+
+      
+    </ol>
+  </div>
+  </oj-collapsible>
+</oj-accordion>

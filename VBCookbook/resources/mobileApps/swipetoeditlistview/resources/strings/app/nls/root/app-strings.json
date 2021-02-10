@@ -1,0 +1,39 @@
+{
+  "take_photo": {
+    "camera": "Camera",
+    "browse": "Browse",
+    "cancel": "Cancel"
+  },
+  "avatar_initials": "YN",
+  "@avatar_initials": {
+    "description": "Initials used to display on the avatar"
+  },
+  "avatar_label": "Avatar of Your Name",
+  "@avatar_label": {
+    "description": "The label used by assistive technologies for the Avatar"
+  },
+  "avatar_title": "Your Name",
+  "@avatar_title": {
+    "description": "Title displayed under the avatar"
+  },
+  "nav_drawer_application_title": "Your Application",
+  "@nav_drawer_application_title": {
+    "description": "Title displayed under navigation items for the application"
+  },
+  "add_to_home_screen_header": "Add to Home Screen",
+  "@add_to_home_screen_header": {
+    "description": "String displayed on the header for PWA 'Add to Home Screen' prompt"
+  },
+  "add_to_home_screen": "Application is available for install. Would you like to add it to home screen?",
+  "@add_to_home_screen": {
+    "description": "String displayed in the description for PWA 'Add to Home Screen' prompt"
+  },
+  "add_to_home_screen_cancel": "Cancel",
+  "@add_to_home_screen_cancel": {
+    "description": "Text for Cancel Button"
+  },
+  "add_to_home_screen_confirm": "Add",
+  "@add_to_home_screen_confirm": {
+    "description": "Text for Add Button"
+  }
+}

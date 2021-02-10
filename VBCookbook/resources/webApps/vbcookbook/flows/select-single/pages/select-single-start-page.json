@@ -1,0 +1,288 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "getall_Department",
+        "textFilterAttributes": [
+      "departmentName"    ],
+        "keyAttributes": [
+          "id",
+          "departmentName"
+        ]
+      }
+    },
+    "departmentTDP": {
+      "type": "any"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": ["firstName"]
+        },
+        "uriParameters": {
+          "totalResults": true
+        }
+      }
+    },
+    "groupingDept": {
+      "type": "obj[]"
+    },
+    "selectedEmployee": {
+      "type": "selectedObjectType"
+    },
+    "selectedEmployee2": {
+      "type": "selectedObjectType"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Department": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response-_-items[0]"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "childobj": {
+      "label": "string",
+      "value": "number"
+    },
+    "getall_Department": {
+      "departmentName": "string",
+      "id": "number"
+    },
+    "getallEmployeeResponse": {
+      "items": [{
+        "email": "string",
+        "firstName": "string",
+        "hireDate": "string",
+        "id": "number",
+        "lastName": "string",
+        "phoneNumber": "string",
+        "salary": "number"
+      }]
+    },
+    "obj": {
+      "children": "childobj[]",
+      "label": "string",
+      "value": "number"
+    },
+    "selectedObjectType": {
+      "data": "object",
+      "key": "number",
+      "metadata": "object"
+    }
+  },
+  "chains": {
+    "GetDeptMultipleSuggestionGroupsData": {
+      "root": "callDepartmentRestEndpoint",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callDepartmentRestEndpoint.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "assignVariables2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.groupingDept": {
+              "source": [{
+                "children": "{{ $chain.results.callDepartmentRestEndpoint.body.items }}",
+                "label": "All Departments",
+                "value": 1234567
+              }],
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.children": {
+                  "source": "$source.children",
+                  "reset": "empty",
+                  "auto": "always",
+                  "mapping": {
+                    "$target.value": {
+                      "source": "$source.id",
+                      "reset": "none"
+                    },
+                    "$target.label": {
+                      "source": "$source.departmentName",
+                      "reset": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "outcomes": {
+            "success": "callgetDepartmentTreeDataModuleFunction"
+          }
+        },
+        "callDepartmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Department"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assigngroupingdata"
+          }
+        },
+        "assigngroupingdata": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.groupingDept": {
+              "source": [{
+                "children": [{
+                  "value": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].id }}",
+                  "label": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].departmentName }}"
+                }],
+                "label": "Commonly Selected",
+                "value": 234567
+              }],
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.children": {
+                  "source": "$source.children",
+                  "reset": "empty",
+                  "auto": "always"
+                }
+              }
+            }
+          },
+          "outcomes": {
+            "success": "assignVariables2"
+          }
+        },
+        "callgetDepartmentTreeDataModuleFunction": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "getDepartmentTreeData",
+            "params": [
+              "{{ $page.variables.groupingDept }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignDepartmentTDPVariable"
+          }
+        },
+        "assignDepartmentTDPVariable": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.departmentTDP": {
+              "source": "{{ $chain.results.callgetDepartmentTreeDataModuleFunction }}"
+            }
+          }
+        }
+      }
+    },
+    "GetDeptData": {
+      "root": "callgetAllDepartmentRestEndpoint",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callgetAllDepartmentRestEndpoint.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "assignVariableDepartmentADP": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.departmentADP": {
+              "source": {
+                "data": "{{ $chain.results.callgetAllDepartmentRestEndpoint.body.items }}"
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.data": {
+                  "source": "$source.data",
+                  "reset": "empty",
+                  "auto": "always",
+                  "mapping": {
+                    "$target.departmentName": {
+                      "source": "$source.departmentName",
+                      "reset": "none"
+                    },
+                    "$target.id": {
+                      "source": "$source.id",
+                      "reset": "none"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callgetAllDepartmentRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Department"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignVariableDepartmentADP"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [{
+          "chainId": "GetDeptData",
+          "parameters": {}
+        },
+        {
+          "chainId": "GetDeptMultipleSuggestionGroupsData",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

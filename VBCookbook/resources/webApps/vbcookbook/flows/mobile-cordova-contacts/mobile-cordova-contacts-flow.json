@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "mobile-cordova-contacts",
+  "description": "Flow main",
+  "defaultPage": "mobile-cordova-contacts-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

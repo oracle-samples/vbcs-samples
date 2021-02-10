@@ -1,0 +1,108 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse"
+      }
+    },
+    "selectedLocale": {
+      "type": "any"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "ComboboxOneValueChangeChain": {
+      "description": "",
+      "root": "callModuleFunction1",
+      "actions": {
+        "callModuleFunction1": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "setAppLanguage",
+            "params": [
+              "{{ $page.variables.selectedLocale }}"
+            ]
+          },
+          "outcomes": {
+            "success": "openUrl1"
+          }
+        },
+        "openUrl1": {
+          "module": "vb/action/builtin/openUrlAction",
+          "parameters": {
+            "url": "index.html?page=shell&shell=language-switcher&language-switcher=language-switcher-start&language-switcher-start=recipe"
+          }
+        }
+      },
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojComboboxOneValue": {
+      "chains": [
+        {
+          "chainId": "ComboboxOneValueChangeChain",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      }
+    }
+  }
+}

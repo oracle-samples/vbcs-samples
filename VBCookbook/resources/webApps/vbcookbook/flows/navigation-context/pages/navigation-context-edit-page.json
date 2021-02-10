@@ -1,0 +1,120 @@
+{
+   "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "id": {
+      "type": "number",
+      "required": true,
+      "input": "fromUrl"
+    },
+    "employee": {
+      "type": "get_Employee"
+    }
+  },
+  "metadata": {},
+  "types": {"@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string"
+    }},
+  "chains": {
+    "fetchEmployeeById": {
+      "root": "fetch",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.fetch.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "fetch": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Employee",
+            "responseType": "get_Employee",
+            "uriParams": {
+              "Employee_Id": "{{ $page.variables.id }}"
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignEmployee"
+          }
+        },
+        "assignEmployee": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employee": {
+              "source": "{{ $chain.results.fetch.body }}",
+              "auto": "always"
+            }
+          }
+        }
+      }
+    },
+    "goBackChain": {
+      "description": "",
+      "root": "navigateBack",
+      "actions": {
+        "navigateBack": {
+          "module": "vb/action/builtin/navigateBackAction"
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "goBackChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "fetchEmployeeById",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

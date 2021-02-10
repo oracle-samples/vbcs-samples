@@ -1,0 +1,9 @@
+{
+  "id": "custom-js-validator",
+  "description": "Flow main",
+  "defaultPage": "custom-js-validator-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

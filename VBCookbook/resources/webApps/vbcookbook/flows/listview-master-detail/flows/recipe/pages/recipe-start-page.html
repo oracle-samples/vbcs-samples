@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -56,7 +56,7 @@
           Leave the Src property of the first Avatar blank.</li>
         <li>Drop a Form Layout below the Header.</li>
         <li>Drag the Input Text, Currency, Email, Phone, and InputDate components into
-          the Form Layout. Use the Property Inspector to set the Label text and bind
+          the Form Layout. Use the Properties pane to set the Label text and bind
           each component's data to the correct field in the employee page variable.</li>
       </ol>
     </div>
@@ -91,14 +91,14 @@
       <ol>
         <li>In the Page Designer, select the departmentList List View. In the Property
           Inspector, set the Selection Mode to single.</li>
-        <li>In the Events tab of the Property Inspector, add a new event for selection
+        <li>In the Events tab of the Properties pane, add a new event for selection
           and set it to fire a new page action chain called <code>DepartmentSelectedChain</code>.</li>
         <li>Drop an Assign Variables action to the action chain. Map the <code>keys</code>          action chain variable on the left to <code>selectedDepartment</code> on
           the right.</li>
         <li>Drop a Reset Variable action and select <code>$page.variables.selectedEmployee</code>          and <code>$page.variables.employee</code> in the Variable to Reset field.</li>
         <li>In the Page Designer, select the employeeList List View. In the Property
           Inspector, set the Selection Mode to single.</li>
-        <li>In the Events tab of the Property Inspector, add a new event for selection
+        <li>In the Events tab of the Properties pane, add a new event for selection
           and set it to fire a new page action chain called <code>EmployeeSelectedChain</code>.</li>
         <li>Drop an Assign Variables action to the action chain. Map the <code>keys</code>          action chain variable on the left to <code>selectedEmployee</code> on the
           right.</li>

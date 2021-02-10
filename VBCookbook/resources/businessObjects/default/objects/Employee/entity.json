@@ -239,5 +239,33 @@
             }
         ]
     },
-    "setupData": true
+    "setupData": true,
+    "triggers": [
+        {
+            "definition": "// Field Trigger Beginning \nprintln 'Field Trigger started: onManagerChanged, business object: Employee, field: manager';\n\ntry {\n\n  // Always Execute Criterion (Always Execute)\n  alwaysExecuteCriterion_1: {\n    // Action Group (Action Group)\n    eMailNotification_1: {\n      def variables = [:];\n      variables[\"Parameter1\"] = String.valueOf(lastName);\n      variables[\"Parameter2\"] = String.valueOf(managerObject.lastName);\n      Email.send(String.valueOf({ email }()), \"nobody@oracle.com\", \"Manager Changed Email Template\", variables);\n    };\n    return;\n  }\n\n} finally {\n\n  // Field Trigger End \n  println 'Field Trigger ended: onManagerChanged';\n\n}",
+            "displayName": "onManagerChanged",
+            "name": "manager_Field_Rule_0",
+            "refId": "9532db48-3017-4c02-bf52-660a78ae5534",
+            "type": "Modify",
+            "onProperty": "manager"
+        },
+        {
+            "definition": "// Field Trigger Beginning \nprintln 'Field Trigger started: onJobChanged, business object: Employee, field: job';\n\ntry {\n\n  // Always Execute Criterion (Always Execute)\n  alwaysExecuteCriterion_1: {\n    // Action Group (Action Group)\n    def view1 = newView('JobHistory');\n    def record1 = view1.createRow();\n    record1.employee = {\n    id\n    }.call();\n    record1.startDate = {\n    hireDate\n    }.call();\n    record1.endDate = {\n    today()\n    }.call();\n    record1.job = {\n    job\n    }.call();\n    record1.department = {\n    department\n    }.call();\n    view1.insertRow(record1);\n\n  }\n\n} finally {\n\n  // Field Trigger End \n  println 'Field Trigger ended: onJobChanged';\n\n}",
+            "displayName": "onJobChanged",
+            "name": "job_Field_Rule_0",
+            "refId": "bc1b3fab-9e16-4608-8010-11833fbab3ab",
+            "type": "Modify",
+            "onProperty": "job"
+        }
+    ],
+    "validators": [
+        {
+            "definition": "newValue == null || ( newValue >= jobObject.minSalary && newValue <=jobObject.maxSalary )\n",
+            "displayName": "isSalaryInRange",
+            "errorMessage": "Please enter valid salary value.",
+            "name": "salary_Validation_Rule_0",
+            "refId": "5985b06d-029e-4c84-b13d-28dfa2f6a10a",
+            "onProperty": "salary"
+        }
+    ]
 }

@@ -1,0 +1,98 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "futureDate": {
+      "type": "any"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {
+    "onPageLoad": {
+      "root": "callFunctionGetFutureDate",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "assignVariables": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.futureDate": {
+              "source": "{{ $chain.results.callFunctionGetFutureDate }}",
+              "auto": "always"
+            }
+          }
+        },
+        "callFunctionGetFutureDate": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "getFutureDate"
+          },
+          "outcomes": {
+            "success": "assignVariables"
+          }
+        }
+      }
+    },
+    "SubmitActionChain": {
+      "description": "",
+      "root": "callFunctionValidateForm",
+      "actions": {
+        "callFunctionValidateForm": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "validateForm"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "SubmitActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "onPageLoad",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-ext-mobile-page-template id="page-template" page-title="Take Photo Action">
+  
+  <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap ">
+    <oj-avatar class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center oj-sm-margin-2x" size="xxl" id="mypic" src="[[ $variables.holdImage ]]" ></oj-avatar>
+    <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+      <oj-button class="oj-sm-margin-2x oj-flex-item oj-sm-flex-initial" on-oj-action="[[$listeners.TakePhotoAction]]" chroming="solid">Take Image</oj-button>
+    </div>
+  </div>
+</oj-ext-mobile-page-template>

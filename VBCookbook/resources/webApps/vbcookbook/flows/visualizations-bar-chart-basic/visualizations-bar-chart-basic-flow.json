@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "visualizations-bar-chart-basic",
+  "description": "Flow main",
+  "defaultPage": "visualizations-bar-chart-basic-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

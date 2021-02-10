@@ -42,15 +42,13 @@
       "path": "response"
     },
     "FilesType": {
-      "items": [
-        {
-          "id": "string",
-          "mimeType": "string",
-          "name": "string",
-          "size": "string",
-          "type": "string"
-        }
-      ]
+      "items": [{
+        "id": "string",
+        "mimeType": "string",
+        "name": "string",
+        "size": "string",
+        "type": "string"
+      }]
     }
   },
   "chains": {

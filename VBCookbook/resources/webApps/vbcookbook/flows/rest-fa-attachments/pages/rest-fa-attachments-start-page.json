@@ -1,6 +1,6 @@
 {
   "pageModelVersion": "19.3.1",
-  "title": "Edit Activity Attachments",
+  "title": "",
   "description": "Manage single activity attachments",
   "variables": {
     "fileUpload": {
@@ -36,22 +36,18 @@
   },
   "types": {
     "getallActivitiesAttachmentsResponse": {
-      "items": [
-        {
-          "links": [
-            {
-              "href": "string",
-              "rel": "string"
-            }
-          ],
-          "AttachedDocumentId": "number",
-          "FileName": "string",
-          "UploadedFileContentType": "string",
-          "Title": "string",
-          "Description": "string",
-          "CreationDate": "string"
-        }
-      ]
+      "items": [{
+        "links": [{
+          "href": "string",
+          "rel": "string"
+        }],
+        "AttachedDocumentId": "number",
+        "FileName": "string",
+        "UploadedFileContentType": "string",
+        "Title": "string",
+        "Description": "string",
+        "CreationDate": "string"
+      }]
     },
     "@decorators.getallActivitiesAttachmentsResponse": {
       "endpoint": "getall_activities-Attachments",

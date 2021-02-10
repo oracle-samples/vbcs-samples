@@ -1,0 +1,110 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible--2002602216-1" expanded="true">
+      <span slot="header">Create Employee Table</span>
+      <div class="oj-flex">
+        <ol>
+          <li>In the Component Palette, drag and drop a Table component onto the page.</li>
+          <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add Data Quick Start</a> to configure data for the Table component:
+            <ol>
+              <li>
+                Select the <code>Employee</code> business object as the endpoint.
+              </li>
+              <li>
+                Select the following fields from the <code>Response:</code>
+                <ul>
+                  <li>
+                    <code>id</code>
+                  </li>
+                  <li>
+                    <code>firstName</code>
+                  </li>
+                  <li>
+                    <code>lastName</code>
+                  </li>
+                  <li>
+                    <code>email</code>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Click <strong>Next</strong> and then click <strong>Finish</strong>.
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+      </div>
+
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible--2002602216-2">
+      <span slot="header">Add a Navigation Toolbar</span>
+      <div class="oj-flex">
+        <ol class="oj-flex-item oj-sm-flex-initial">
+          <li>In the Variables tab of the Page Designer, create a new variable of type Object, id of <code>selection</code>, and add the following fields:
+            <ul>
+              <li><code>key</code> of type <code>Number</code></li>
+              <li><code>data</code> of type <code>get_Employee</code>. You can create <code>get_Employee</code> from the Employee business object's <code>get_Employee</code> endpoint.</li>
+            </ul>
+          </li>
+          <li>In the Component Palette, drag and drop a Toolbar component onto the page.</li>
+          <li>Drag and drop a Button component into the Toolbar component and set the value of Text to <code>Navigate to Edit With Employee ID</code>.</li>
+          <li>Drag and drop a Button component into the Toolbar and set the value of Text to <code>Navigate To Detail with Employee</code>.</li>
+          <li>In the Properties pane, set both Buttons' Disabled property to <code>[[!$variables.selection.key]]</code>.</li>
+
+          <li>In the Properties pane of the Table component, set the Selection Mode, Row property to <code>Single</code>.</li>
+          <li>In the Data tab, set the value of the First Selected Row property to <code>{{ $page.variables.selection }}</code>.</li>
+          
+        </ol>
+
+      </div>
+
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible--2002602216-3">
+      <span slot="header">Create Edit and Detail Pages</span>
+      <div class="oj-flex">
+        <ol>
+        <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/design-pages.html#GUID-41219B65-0833-4B8E-8FCA-FC3C3BA4EF72">Add Edit Quick Start</a> to create an edit page.</li>
+        <li>Create a new <code>id</code> variable of type Number in the new edit page, set the Input Parameter to <code>Required</code>, and select the <strong>Pass on URL</strong> checkbox.</li>
+          <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/design-pages.html#GUID-F1640ED2-C38E-46C1-A4C6-B500F6F3977E">Add Detail Quick Start</a> to create a new detail page.</li>    
+          <li>Create a new <code>employee</code> variable of type <code>get_Employee</code> in the new detail page, and set the Input Parameter to <code>Required</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible--2002602216-4">
+      <span slot="header">Navigate to Pages</span>
+      <div class="oj-flex">
+        <ol>
+          <li>
+            In the start page, add an <code>ojAction</code> event listener to the Navigate to Edit With Employee ID button.</li>
+          <li>
+            In the action chain, drag and drop a Navigate action.
+          </li>
+          <li>
+            In the Properties pane of the Navigate action, set the target to the edit page.
+          </li>
+          <li>
+            Map the input <code>id</code> to <code>$page.variables.selection.key</code>.
+          </li>
+          <li>
+            Add an <code>ojAction</code> event listener to the Navigate To Detail with Employee button.</li>
+          <li>
+            In the action chain, drag and drop a Navigate action.
+          </li>
+          <li>
+            In the Properties pane of the Navigate action, set the target to the detail page.
+          </li>
+          <li>
+            Map the input <code>employee</code> to <code>$page.variables.selection.data</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

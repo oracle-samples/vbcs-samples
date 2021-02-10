@@ -604,77 +604,63 @@
   },
   "eventListeners": {
     "aClick": {
-      "chains": [
-        {
-          "chainId": "OpenDialogChain",
-          "parameters": {
-            "current": "{{ $current }}"
-          }
+      "chains": [{
+        "chainId": "OpenDialogChain",
+        "parameters": {
+          "current": "{{ $current }}"
         }
-      ]
+      }]
     },
     "ojButtonOjAction": {
-      "chains": [
-        {
-          "chainId": "UpdateEmployeeChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "UpdateEmployeeChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "ojButtonOjAction2": {
-      "chains": [
-        {
-          "chainId": "RefreshButtonChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "RefreshButtonChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "ojButtonOjAction3": {
-      "chains": [
-        {
-          "chainId": "NewEmployeeButtonActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "NewEmployeeButtonActionChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "editEmployee": {
-      "chains": [
-        {
-          "chainId": "OpenDialogChain",
-          "parameters": {
-            "current": "{{ $current.row }}"
-          }
+      "chains": [{
+        "chainId": "OpenDialogChain",
+        "parameters": {
+          "current": "{{ $current.row }}"
         }
-      ]
+      }]
     },
     "deleteEmployee": {
-      "chains": [
-        {
-          "chainId": "DeleteEmployee",
-          "parameters": {
-            "detail": "{{ $event.detail }}",
-            "key": "{{ $current.key }}",
-            "index": "{{ $current.index }}",
-            "current": "{{ $current.row }}"
-          }
+      "chains": [{
+        "chainId": "DeleteEmployee",
+        "parameters": {
+          "detail": "{{ $event.detail }}",
+          "key": "{{ $current.key }}",
+          "index": "{{ $current.index }}",
+          "current": "{{ $current.row }}"
         }
-      ]
+      }]
     },
     "ojButtonOjAction4": {
-      "chains": [
-        {
-          "chainId": "SaveButtonActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+      "chains": [{
+        "chainId": "SaveButtonActionChain",
+        "parameters": {
+          "detail": "{{ $event.detail }}"
         }
-      ]
+      }]
     },
     "vbEnter": {
       "chains": [

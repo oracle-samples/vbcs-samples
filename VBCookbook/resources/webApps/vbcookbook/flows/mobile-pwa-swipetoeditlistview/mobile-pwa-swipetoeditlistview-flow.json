@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "19.4.3",
+  "id": "mobile-pwa-swipetoeditlistview",
+  "description": "Flow main",
+  "defaultPage": "mobile-pwa-swipetoeditlistview-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

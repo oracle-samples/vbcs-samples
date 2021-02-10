@@ -1,0 +1,174 @@
+{
+  "pageModelVersion": "2010.0.0",
+  "title": "",
+  "description": "",
+  "variables": {
+    "currentJob": {
+      "type": {
+          "id": "string",
+          "index": "number"
+        }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallEmployeeResponse",
+        "uriParameters": {
+          "q": "{{ $variables.jobs.length==0 ?'job='+1 : 'job='+$variables.jobs[$variables.currentJob.index || 0].id }}"
+        }
+      }
+    },
+    "jobs": {
+      "type": [
+        {
+          "id": "number",
+          "title": "string"
+        }
+      ]
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string"
+        }
+      ]
+    },
+    "jobResponseType": [
+      {
+        "id": "number",
+        "title": "string"
+      }
+    ]
+  },
+  "chains": {
+    "loadJobsChain": {
+      "root": "jobsRestEndPoint",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "fireNotification1": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.jobsRestEndPoint.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "jobsRestEndPoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Job"
+          },
+          "outcomes": {
+            "failure": "fireNotification1",
+            "success": "assignVariableJobs"
+          }
+        },
+        "refreshfilmstripcomponent": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('filmstrip') }}",
+            "method": "refresh"
+          }
+        },
+        "assignVariableJobs": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.jobs": {
+              "source": "{{ $chain.results.jobsRestEndPoint.body.items }}",
+              "mapping": {
+                "$target.id": {
+                  "source": "$source.id",
+                  "reset": "none"
+                },
+                "$target.title": {
+                  "source": "$source.jobTitle",
+                  "reset": "none"
+                }
+              }
+            }
+          },
+          "outcomes": {
+            "success": "refreshfilmstripcomponent"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "loadJobsChain",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-radioset": {
+        "path": "ojs/ojradioset"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-film-strip": {
+        "path": "ojs/ojfilmstrip"
+      },
+      "oj-defer": {
+        "path": "ojs/ojdefer"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

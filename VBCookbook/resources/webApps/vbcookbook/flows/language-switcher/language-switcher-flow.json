@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "language-switcher",
+  "description": "Flow main",
+  "defaultPage": "language-switcher-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

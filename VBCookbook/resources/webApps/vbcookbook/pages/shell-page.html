@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -25,7 +25,7 @@
   </div>
 
 
-  <div id="pageContent" class="oj-web-applayout-page">
+  <div id="pageContent"  class="oj-web-applayout-page">
     <header role="banner" class="oj-web-applayout-header">
       <div class="oj-flex-bar oj-sm-align-items-center">
         <div class="oj-flex-bar-start oj-sm-align-items-center oj-md-hide">
@@ -108,6 +108,22 @@
                 <span slot="startIcon" class="oj-ux-ico-search"></span>
               </oj-button>
             </oj-bind-if>
+           <!-- <div class="oj-sm-margin-4x-start">
+             <oj-combobox-one
+                options="[[$page.functions.createOptionsProvider($application.functions.getMetadata())]]"
+                options-keys.label="groupName" options-keys.children="items"
+                options-keys.child-keys.label="recipeName"
+                options-keys.child-keys.value="recipeId"
+                option-renderer="[[$page.functions.createSearchResultsRenderer()]]"
+                placeholder="Search for recipes"
+                style="min-width: 20rem" id="recipeSearchCombo"
+                aria-label="Search for a Recipe"
+                on-value-changed="[[$listeners.recipeSearchComboValue]]"
+                on-keyup="[[$listeners.recipeSearchComboKeyup]]"
+                on-blur="[[$listeners.recipeSearchComboBlur]]">
+                <span slot="end" class="oj-ux-ico-search vb-icon-24"></span>
+              </oj-combobox-one>
+           </div> -->
           </oj-toolbar>
         </div>
       </div>
@@ -199,7 +215,7 @@
               <div class="oj-flex-bar-end">
                 <oj-bind-if
                   test="[[ $application.currentPage.id != 'home-start' ]]">
-                  <div class="oj-margin-start">
+                  <div class="oj-margin-start oj-sm-margin-3x-end">
                     <oj-bind-if
                       test="[[ $page.variables.apiDocs.length === 1 ]]">
                       <oj-button
@@ -241,6 +257,7 @@
           </div>
         </div>
       </div>
+      
     </div>
     <footer id="cookbook-page-footer" role="contentinfo"
       class="oj-web-applayout-footer oj-sm-padding-2x-horizontal">
@@ -270,16 +287,15 @@
 
   <div id="dialogWrapper">
     <oj-dialog style="display:none; width:450px;" id="howToOpenVBDialog"
-      dialog-title="Open in Visual Builder">
+      dialog-title="Open in Visual Builder" cancel-behavior="escape">
       <div slot="body">
-        <p>To open the cookbook in Visual Builder:</p>
+        
         <ol>
-          <li>Go to the Visual Builder home page and click New</li>
-          <li>In the Application template section, click Change template</li>
-          <li>Select the Visual Builder Cookbook template</li>
-          <li>Give the project a name and ID and click Finish</li>
+          <li>In the Home page of Visual Builder, click <strong>New</strong>.</li>
+          <li>In the Create Application dialog, enter a name for your application and click <strong>Change Template</strong> to open the Select Application Template dialog.</li>
+          <li>Select <strong>Oracle Visual Builder Cookbook</strong> and click <strong>Select</strong>, then click <strong>Finish</strong>.</li>
           <oj-bind-if test="[[ $page.currentFlow !== 'home' ]]">
-            <li>Open the <oj-bind-text value="{{ $page.currentFlow }}"></oj-bind-text> flow</li>
+            <li>Open the <oj-bind-text value="{{ $page.currentFlow }}"></oj-bind-text> flow.</li>
           </oj-bind-if>
         </ol>
       </div>
@@ -288,6 +304,7 @@
           on-oj-action="[[$listeners.cancelButtonOjAction]]">Close</oj-button>
       </div>
     </oj-dialog>
+    
   </div>
 
 </div>

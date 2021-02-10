@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020, Oracle and/or its affiliates.
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -34,12 +34,12 @@
           <li>In the Component Palette, drag a Flex Container and drop it on the page. </li>
         
         
-          <li>In the Property Inspector, set the Direction property to <code>Vertical</code>.</li>
+          <li>In the Properties pane, set the Direction property to <code>Vertical</code>.</li>
           <li>Drop a Form Layout component in the Flex Container and set the Max Columns property to <code>1</code>.</li>
           <li>Drop a Label component below the Form Layout and set the Text property value to <code>Employee List:</code>.
           </li>
           <li>Drop a List View component below the Label component. </li>
-          <li>In the All tab of the Property Inspector, set selection-mode to <code>multiple</code> and
+          <li>In the All tab of the Properties pane, set selection-mode to <code>multiple</code> and
             set selected to <code>[[$function.selectedItems]]</code></li>
           <li>Use the <a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
@@ -53,7 +53,7 @@
             </ul>
           </li>
           
-          <li>To include an employee’s photo, drag an Avatar component from the Component Palette to the List View and, in the Property Inspector, set src 
+          <li>To include an employee’s photo, drag an Avatar component from the Component Palette to the List View and, in the Properties pane, set src 
               to <code>$application.path + 'resources/images/employees/' + $current.data.id + '.png'</code>. </li>
 
           <li>We currently don't have design-time support for the Selector component (oj-selector) in the Component Palette. To work around this limitation, go to the Code view of your page and enter 
@@ -86,7 +86,7 @@
       <h1 slot="header">Create the Events and Action Chains</h1>
       <div>
         <ol>
-          <li>In the Events tab of the List View's Property Inspector, create a new event
+          <li>In the Events tab of the List View's Properties pane, create a new event
             for selected.</li>
           <li>In the action chain, drag an Assign Variables action onto the chain. </li>
           <li>Map the <code>keys</code> action chain variable to the <code>selectedEmployeeIds</code> Page Variable.</li>

@@ -1,0 +1,10 @@
+{
+  "flowModelVersion": "2010.0.0",
+  "id": "mobile-barcode-scanner",
+  "description": "Flow main",
+  "defaultPage": "mobile-barcode-scanner-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

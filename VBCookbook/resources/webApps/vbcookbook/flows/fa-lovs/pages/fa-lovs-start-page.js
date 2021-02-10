@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2020, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2021, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -22,17 +22,11 @@ define(['ojs/ojoffcanvas', 'ojs/ojconverter-number'], function(OffcanvasUtils,
     return this.inrNumberConverter.format(data);
   };
 
-  PageModule.prototype.optionRenderer = function(context) {
-    var elem;
-    elem = document.createElement('oj-option');
-    var span = document.createElement('span');
-    span.className = 'oj-listbox-highlighter-section';
-    span.textContent = context.data.label + ' ' + context.data.lastName +
-      ' ';
-    elem.appendChild(span);
-    return elem;
 
-  };
+  PageModule.prototype.optionRenderer = function(context) {
+    return context.data.firstName + ' ' + context.data.lastName
+  }
+
 
   PageModule.prototype.mapToCriteria = function(filters) {
     var criteria = [];
