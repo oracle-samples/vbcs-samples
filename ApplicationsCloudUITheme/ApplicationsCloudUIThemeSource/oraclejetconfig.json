@@ -16,8 +16,7 @@
     }
   },
   "defaultBrowser": "chrome",
-  "generatorVersion": "9.0.0",
+  "generatorVersion": "11.0.0",
   "defaultTheme": "ApplicationsCloudUI",
   "defaultCssvars": "disabled"
-
 }
