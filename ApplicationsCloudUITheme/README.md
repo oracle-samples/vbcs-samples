@@ -1,7 +1,7 @@
 # Source for the Sample Applications Cloud UI Theme
-Version 4.1.0 - Visual Builder 21.04.0 compatible
+Version 4.1.1 - Visual Builder 21.04.0 compatible
 
-Febuary 2021
+March 2021
 
 ## About
 This distribution is a sample UI theme for Oracle JET and Oracle Visual Builder. This provides a look and feel similar to the Oracle SaaS lightBlue theme and can be used as the basis for creating customized themes of your own.
@@ -32,7 +32,7 @@ Once you have generated the theme export as above carry out the following steps 
 4. Leave the import location as defined and select the *ApplicationsCloudUI-export.zip* from your local disk to upload
 5. After import you will see two new folders created *ApplicationsCloudUI* and *alta*
 6. Now select the root WebApp node in the navigator and in the main editor panel select the settings editor panel to being up the settings for the webapp.
-7. The Application Settings page will appear. In the selection list labeled as *Theme* choose the option **ApplicationsCloudUI/4.1.0/web/ApplicationsCloudUI.min.css"
+7. The Application Settings page will appear. In the selection list labeled as *Theme* choose the option **ApplicationsCloudUI/4.1.1/web/ApplicationsCloudUI.min.css"
 
 ## Using the Theme in Visual Builder
 The theme you have just imported will set the broad color palette and other aspects of the look and feel, however, there are two additional tasks you can carry out to retrofit the look of a SaaS application onto your own.
