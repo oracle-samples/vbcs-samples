@@ -68,6 +68,21 @@
               <em>/deploy</em> folder. You can take this file and import it within the <strong>/resources/css</strong>
               folder of your VBCS application</p>
           </div>
+          <h4>Some Standard Compoennts Using the Theme</h4>
+          <oj-form-layout direction="row">
+            <oj-slider min="0" max="100" value="50" label-hint="Slider" > </oj-slider>
+            <oj-input-number label-hint="Input Number" min=0 max=100 step=1></oj-input-number>
+            <oj-switch value="true" label-hint="Switch"></oj-switch>
+        </oj-form-layout>
+        <oj-navigation-list selection="{{selectedNav}}"  edge="top"  aria-label="Choose a navigation item" data="[[navDataDP]]">
+        <template slot="itemTemplate" data-oj-as="item">
+           <li :id="[[item.data.id]]" 
+              :class="[[{'oj-disabled' : item.data.disabled === 'true'}]]">
+                   <oj-bind-text value="[[item.data.name]]"> </oj-bind-text>
+           </li>
+        </template>
+     </oj-navigation-list>
+
           <div class="oj-text-sm oj-text-secondary-color" style="margin-top:2em;">
             <p>Add your own testing components here...</p>
           </div>
