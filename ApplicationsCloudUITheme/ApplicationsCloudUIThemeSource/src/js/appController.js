@@ -24,7 +24,7 @@ define(['ojs/ojcore', 'knockout', "ojs/ojarraydataprovider", 'ojs/ojknockout',  
 
       var navdata = [
         { name: "Selected", id: "one" },
-        { name: "unselected", id: "two" },
+        { name: "Unselected", id: "two" },
         { name: "Disabled", disabled: "true", id: "three" }
       ];
       self.navDataDP = new ArrayDataProvider(navdata, { keyAttributes: "id" })
