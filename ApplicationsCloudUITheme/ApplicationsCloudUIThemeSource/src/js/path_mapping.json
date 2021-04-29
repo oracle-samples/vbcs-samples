@@ -3,11 +3,11 @@
   "use": "local",
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/9.0.0/default/js",
-      "css": "https://static.oracle.com/cdn/jet/9.0.0/default/css",
+      "prefix": "https://static.oracle.com/cdn/jet/10.0.4/default/js",
+      "css": "https://static.oracle.com/cdn/jet/10.0.4/default/css",
       "config": "bundles-config.js"
     },
-    "3rdparty":  "https://static.oracle.com/cdn/jet/9.0.0/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/10.0.4/3rdparty"
   },
 
   "libs": {
@@ -109,16 +109,16 @@
         "src": ["debug*/**"],
         "path": "libs/oj/v#{version}",
         "pathSuffix": "/debug' + (_ojNeedsES5 ? '_es5' : '')",
-        "cdnPath": "debug"
+        "cdnPath": ""
       },
       "release": {
         "src": ["min*/**"],
         "path": "libs/oj/v#{version}",
-		"pathSuffix": "/min'",
+		    "pathSuffix": "/min'",
         "cdnPath": "min"
       },
       "release_es5": {
-		"cwd": "min_es5",
+		    "cwd": "min_es5",
         "src": ["**"],
         "path": "libs/oj/v#{version}/min_es5",
         "cdnPath": "min_es5"
@@ -246,7 +246,7 @@
         "cdnPath": "corejs/shim.min"
       }
     },    
-        
+    
     "customElements": {
       "cdn": "3rdparty",
       "cwd": "node_modules/@webcomponents/custom-elements",
@@ -276,7 +276,7 @@
         "cdnPath": "proj4js/dist/proj4"
       }
     },
-        
+    
     "css": {
       "cdn": "3rdparty",
       "cwd": "node_modules/require-css",
@@ -289,6 +289,29 @@
         "src": ["css.min.js", "css-builder.js", "normalize.js"],
         "path": "libs/require-css/css.min.js",
         "cdnPath": "require-css/css.min"
+      }
+    },
+
+    "ojcss": {
+      "cdn": "jet",
+      "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/oj",
+      "debug": {
+        "src": ["debug/ojcss.js"],
+        "path": "libs/oj/v#{version}",
+        "pathSuffix": "/debug' + (_ojNeedsES5 ? '_es5/ojcss.js' : '/ojcss.js')",
+        "cdnPath": "ojcss"
+      },
+      "release": {
+        "src": ["min/ojcss.js"],
+        "path": "libs/oj/v#{version}",
+        "pathSuffix": "/min/ojcss'",
+        "cdnPath": "ojcss"
+      },
+      "release_es5": {
+        "cwd": "min_es5",
+        "src": ["ojcss.js"],
+        "path": "libs/oj/v#{version}/min_es5/ojcss.js",
+        "cdnPath": "ojcss"
       }
     }
   }
