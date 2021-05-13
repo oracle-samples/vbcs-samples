@@ -10,37 +10,29 @@ define(['vb/helpers/rest', 'ojs/ojdatacollection-utils', 'jsondiff'], function(R
   var PageModule = function PageModule() {};
 
   /**
-   * Execute editable table row validators and return true if validation failed
-   * and table row edit end event should be aborted and row should stay in edit mode.
-   */
-  PageModule.prototype.shouldPreventDefault = function(event, detail) {
-    if (detail.cancelEdit === true) {
-      // skip validation
-      return false;
-    }
-
-    return DataCollectionEditUtils.basicHandleRowEditEnd(event, detail) ===
-      false;
-  };
-
-  /**
    * Trigger form validation and return true if form is valid. Form in
    * this recipe is currently editted row.
    */
-  PageModule.prototype.isFormValid = function(detail) {
+  PageModule.prototype.isFormValid = function(detail, event) {
     if (detail !== undefined && detail.cancelEdit === true) {
       // skip validation
       return true;
     }
-    var tracker = document.getElementById("tracker");
 
-    if (tracker.valid === "valid") {
-      return true;
-    } else {
-      tracker.showMessages();
-      tracker.focusOn("@firstInvalidShown");
-      return false;
+    // iterate over editable fields which are marked with "editable" class
+    // and make sure they are valid:
+    var table = event.target;
+    var editables = table.querySelectorAll('.editable');
+    for (var i = 0; i < editables.length; i++) {
+      var editable = editables.item(i);
+      editable.validate();
+      // Table does not currently support editables with async validators
+      // so treating editable with 'pending' state as invalid
+      if (editable.valid !== 'valid') {
+        return false;
+      }
     }
+    return true;
   };
 
   var nextIdValue;

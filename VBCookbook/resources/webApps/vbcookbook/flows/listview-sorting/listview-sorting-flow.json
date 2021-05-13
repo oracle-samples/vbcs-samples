@@ -1,5 +1,5 @@
 {
-    "flowModelVersion": "19.1.1",
+
     "id": "listview-sorting",
     "description": "Flow main",
     "defaultPage": "listview-sorting-start",

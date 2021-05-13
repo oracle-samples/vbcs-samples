@@ -1,26 +1,9 @@
 {
-  "applicationModelVersion": "19.3.1",
   "id": "vbcookbook",
   "description": "VB Cookbook",
   "defaultPage": "shell",
   "chains": {},
-  "services": {
-    "businessObjects": {
-      "path": "vb-catalog://services/businessObjects"
-    },
-    "ords": {
-      "path": "./services/ords/openapi3.json"
-    },
-    "oce": {
-      "path": "./services/oce/openapi3.json"
-    },
-    "activities": {
-      "path": "./services/activities/openapi3.json"
-    },
-    "feedback": {
-      "path": "./services/feedback/openapi3.json"
-    }
-  },
+  "services": {},
   "translations": {
     "app": {
       "path": "./resources/strings/app/nls/app-strings"
@@ -62,7 +45,91 @@
   },
   "requirejs": {
     "paths": {
-      "oj-sample": "build/components/oj-sample/3.2.3"
+      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/10.0.0/min/",
+      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/4.0.5/min"
+    },
+    "bundles": {
+      "oj-dynamic/all-bundle": [
+        "oj-dynamic/bind-field/loader",
+        "oj-dynamic/bind-section/loader",
+        "oj-dynamic/container/loader",
+        "oj-dynamic/form/loader",
+        "oj-dynamic/table/loader",
+        "oj-dynamic/table/resources/nls",
+        "oj-dynamic/form/resources/nls",
+        "oj-dynamic/providers/MetadataProviderFactory",
+        "oj-dynamic/providers/TransformState",
+        "oj-dynamic/providers/MetadataUtils",
+        "oj-dynamic/providers/MetadataContentManager",
+        "oj-dynamic/providers/MetadataTransformer",
+        "oj-dynamic/providers/AdfBCExtension",
+        "oj-dynamic/providers/DefaultFetchable",
+        "oj-dynamic/providers/DynamicLayoutEngine",
+        "oj-dynamic/providers/MetadataProviderManager",
+        "oj-dynamic/providers/JsonMetadataProvider",
+        "oj-dynamic/providers/ServiceMetadataProvider",
+        "oj-dynamic/providers/DynamicLayoutProvider",
+        "oj-dynamic/providers/DynamicLayoutMetadataProvider",
+        "oj-dynamic/providers/DynamicLayoutMetadataProviderFactory",
+        "oj-dynamic/providers/Extension",
+        "oj-dynamic/providers/Fetchable",
+        "oj-dynamic/providers/JsonMetadataProviderFactory",
+        "oj-dynamic/providers/JsonMetadataSchema",
+        "oj-dynamic/providers/OpenAPISchema",
+        "oj-dynamic/providers/ServiceFetchable",
+        "oj-dynamic/providers/ServiceMetadataProviderFactory",
+        "oj-dynamic/providers/ContainerMetadataProviderFactory",
+        "oj-dynamic/shared/CommonUtils",
+        "oj-dynamic/shared/DynamicComponentUtil",
+        "oj-dynamic/shared/DataProviderFactory",
+        "oj-dynamic/shared/UriTemplateUtils",
+        "oj-dynamic/shared/DefaultRestDataProvider",
+        "oj-dynamic/shared/DataProviderFactoryManager",
+        "oj-dynamic/shared/DynamicInputContacts",
+        "oj-dynamic/shared/DynamicLOVUtil",
+        "oj-dynamic/shared/DynamicInputRegistry",
+        "oj-dynamic/shared/DynamicInputFactory",
+        "oj-dynamic/shared/DynamicUIMetadata",
+        "oj-dynamic/shared/MetadataProvider",
+        "oj-dynamic/shared/polyfills",
+        "oj-dynamic/shared/MicroTaskQueue",
+        "oj-dynamic/shared/UtilTypes"
+      ],
+      "oj-sample/calendar-bundle": [
+        "oj-sample/calendar/loader",
+        "oj-sample/calendar-event/loader",
+        "oj-sample/calendar-provider/loader"
+      ],
+      "oj-sample/controls-bundle": [
+        "oj-sample/checkbox-switch/loader",
+        "oj-sample/copy-text/loader",
+        "oj-sample/country-picker/loader",
+        "oj-sample/export-data/loader",
+        "oj-sample/highlight-text/loader",
+        "oj-sample/input-email/loader",
+        "oj-sample/input-text-typeahead/loader",
+        "oj-sample/input-url/loader",
+        "oj-sample/metric/loader",
+        "oj-sample/organization-tree/loader",
+        "oj-sample/organization-tree-item/loader",
+        "oj-sample/qr-code/loader",
+        "oj-sample/tooltip/loader",
+        "oj-sample/utils/validators/emailValidatorFactory",
+        "oj-sample/utils/validators/urlValidatorFactory",
+        "oj-sample/utils/validators/countryValidatorFactory",
+        "oj-sample/utils/export/dataCollectionExporter",
+        "oj-sample/utils/export/visualizationExporter",
+        "oj-sample/visualization-exporter/loader"
+      ],
+      "oj-sample/layout-bundle": [
+        "oj-sample/drawer/loader",
+        "oj-sample/flip-card/loader",
+        "oj-sample/online-detector/loader",
+        "oj-sample/orientation-detector/loader",
+        "oj-sample/pull-to-refresh/loader",
+        "oj-sample/show-when-ready/loader",
+        "oj-sample/timed-event/loader"
+      ]
     }
   },
   "eventListeners": {},

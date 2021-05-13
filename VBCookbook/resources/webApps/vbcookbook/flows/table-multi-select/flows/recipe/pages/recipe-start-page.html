@@ -5,23 +5,36 @@
  -->
 <!-- template -->
 <p>
-  A Table component displays department data. A Checkbox Set component with an event
-  listener updates the <code>selection</code> variable that holds an array of selected
-  department records. </p>
+  A Table component displays department data. A Checkbox Set component with an
+  event listener updates the <code>selection</code> variable that holds an array
+  of selected department records.
+</p>
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
     <!-- Step 1. -->
     <oj-collapsible id="oj-collapsible-1494599579-1" expanded="true">
       <span slot="header">Create a Department Table</span>
       <div>
-        <p>You add a Table component to your page, bind it to department data, and add
-          a CheckBox Set that you'll later use to select departments. </p>
+        <p>
+          You add a Table component to your page, bind it to department data,
+          and add a Checkbox Set that you'll later use to select departments.
+        </p>
         <ol>
-          <li>In the Component Palette, drag a Table component and drop it on the page.</li>
-          <li>Use the Table component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
-              Data Quick Start</a> to bind your table to department data.</li>
-          <li>In the Bind Data page, select the following department fields:
+          <li>
+            In the Component Palette, drag a Table component and drop it on the
+            page.
+          </li>
+          <li>
+            Use the Table component’s
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D"
+              >Add Data Quick Start</a
+            >
+            to bind your table to department data.
+          </li>
+          <li>
+            In the Bind Data page, select the following department fields:
             <ul>
               <li>Department Id</li>
               <li>Department Name</li>
@@ -30,130 +43,290 @@
             </ul>
           </li>
           <li>
-            <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
-              a page variable</a> named <code>currentSelection</code> of type
-            string.
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B"
+              >Create a page variable</a
+            >
+            named <code>currentSelection</code> of type String.
           </li>
           <li>
-            Open the JavaScript tab and paste the following code snippet that reference the Row and Column Keys.
+            Create a page variable named <code>rowData</code> of type Array and
+            subtype Object.
+          </li>
+          <li>
+            Open the JavaScript tab and change the import section and the constructor code to include the required dependencies:
             <pre>
-              PageModule.prototype.selectedItems = ko.observable({
-                row: new keySet.KeySetImpl(),
-                column: new keySet.KeySetImpl()
-              });
+define(['knockout', 'ojs/ojkeyset'], function (ko, keySet) {
+  "use strict";
+
+  var PageModule = function PageModule() {
+    this.selectedItems = ko.observable({
+      row: new keySet.KeySetImpl(),
+      column: new keySet.KeySetImpl()
+    });
+  };
             </pre>
           </li>
-          <li>In the Properties pane for the Table component, select the data table and assign
-            <code>[[$functions.selectedItems]]</code> to the selected attribute</li>
-
-        </ol>
-      </div>
-    </oj-collapsible>
-
-    <oj-collapsible id="oj-collapsible-1494599579-1">
-      <h1 slot="header">Add Event Listeners to Invoke Action Chains</h1>
-      <div>
-        <p>Add listeners for events that then invoke the action chain to get selected keys and assign them to the page
-          variable
-          to display on the UI. </p>
-        <ol>
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-              an event listener</a> <code>selected</code> to the Table component following below steps:
-              <ul>
-                <li>
-                  Under Events Tab, Click on "New Event" button and then select "New Custom Event".
-                </li>
-                <li>
-                  In Select Event Dialog, Expand "Property Changes" section, select <b>selected</b> and click on Next.
-                </li>
-                <li>
-                  In Select Action chain dialog, Either select an existing chain or create new chain following click on "New Action Chain" button.
-                </li>
-              </ul>
-              </li>
           <li>
-            <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html">Add
-              an Call Module Function action</a> to the action chain named <code>TableSelectedChangeChain</code>. In the
-            Properties pane of the Call Module Function action:
-            <ul>
-              <li>
-                Enter ID <code>selectedChangedModuleFunction</code>
-              </li>
-              <li>
-                Create a function named <code>selectedChangedListener</code> and assign the <code>*selected</code>
-                variable in the action chain to the <code>selected</code> variable in the target which is the name of
-                function argument.
-              </li>
-              <li>
-                Copy and paste the following code for <code>selectedChangedListener</code>
-                <pre>
-                 PageModule.prototype.selectedChangedListener = function(selected) {
-
-      var selectionText = '';
-
-      if (selected.row.isAddAll()) {
-        var iterator = selected.row.deletedValues();
-        iterator.forEach(function(key) {
-          selectionText = selectionText.length === 0 ? key :
-            selectionText + ', ' + key;
-        });
-
-        if (iterator.size > 0) {
-          selectionText = ' except ' + selectionText;
-        }
-        selectionText = 'Row Selection:\nAll rows are selected' +
-          selectionText;
-      } else {
-        if (selected.row.values().size > 0) {
-          selected.row.values().forEach(function(key) {
-            selectionText += (selectionText.length === 0 ? key :
-              ', ' + key);
-          });
-          selectionText = 'Row Selection:\nRow Keys: ' + selectionText;
-        }
-        if (selected.column.values().size > 0) {
-          selected.column.values().forEach(function(key) {
-            selectionText += (selectionText.length === 0 ? key :
-              ', ' + key);
-          });
-          selectionText = 'Column Selection:\nColumn Keys: ' +
-            selectionText;
-        }
-      }
-      return selectionText;
-    };
-               </pre>
-              </li>
-            </ul>
+            Still in the JavaScript tab, paste the following code snippet to
+            make the selected variable accessible:
+            <pre>
+PageModule.prototype.getSelectedItems = function() {
+  return this.selectedItems;
+};
+            </pre>
           </li>
-
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-              an Assign Variables action</a> to the action chain named <code>TableSelectedChangeChain</code> that
-            assigns the output of the <code>selectedChangedModuleFunction</code> function
-            of the action chain to the <code>currentSelection</code> page variable in Target.</li>
-
+          <li>
+            In the Properties pane of the Table component, select the data table
+            and assign <code>[[$page.functions.getSelectedItems()]]</code> to
+            the selected attribute.
+          </li>
         </ol>
       </div>
     </oj-collapsible>
 
     <oj-collapsible id="oj-collapsible-1494599579-2">
-      <h1 slot="header">Add a Text Area Component to Display Selected Department(s) Records</h1>
+      <span slot="header">Add Event Listeners to Invoke Action Chains</span>
       <div>
-        <p>Add a Text Area Component to display the selected department(s) records.</p>
+        <p>
+          Add listeners for events that then invoke the action chain to get
+          selected keys and assign them to the page variable to display in the
+          UI.
+        </p>
         <ol>
-          <li>In the Component Palette, drag a Text Area component and drop it on the page.</li>
-          <li>In Properties pane of the Text Area component, go to the General Tab, assign label-hint attribute to
-            <code>Current Selection</code></li>
-          <li>In Properties pane of the Text Area component, go to Data Tab, assign value field to
-            <code>{{ $variables.currentSelection }}</code></li>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314"
+              >Add an event listener</a
+            >, <code>selected</code>, to the Table component:
+            <ul>
+              <li>
+                In the Events tab, click <strong>New Event</strong> and then
+                select <strong>New Custom Event</strong>.
+              </li>
+              <li>
+                In the Select Event dialog, expand the Property Changes section,
+                select <b>selected</b> and click <strong>Next</strong>.
+              </li>
+              <li>
+                In the Select Action Chain dialog, select an existing action
+                chain or create a new action chain by clicking
+                <strong>New Action Chain</strong>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html"
+              >Add a Call Module Function action</a
+            >
+            to the action chain named <code>TableSelectedChangeChain</code>. In
+            the Properties pane of the Call Function action:
+            <ul>
+              <li>Enter ID of <code>selectedChangedModuleFunction</code>.</li>
+              <li>
+                Create a function named <code>selectedChangedListener</code> and
+                assign the <code>selected</code> variable in the action chain to
+                the <code>selected</code> variable in the target which is the
+                name of function argument.
+              </li>
+              <li>
+                Copy and paste the following code for
+                <code>selectedChangedListener</code>
+                <pre>
+PageModule.prototype.selectedChangedListener = function (selected) {
+  var selectionText = '';
 
+  if (selected.row.isAddAll()) {
+    var iterator = selected.row.deletedValues();
+    iterator.forEach(function (key) {
+      selectionText = selectionText.length === 0 ? key :
+        selectionText + ', ' + key;
+    });
+
+    if (iterator.size > 0) {
+      selectionText = ' except row key(s): ' + selectionText;
+    }
+    selectionText = 'All rows are selected' +
+      selectionText;
+  } else {
+    if (selected.row.values().size > 0) {
+      selected.row.values().forEach(function (key) {
+        selectionText += (selectionText.length === 0 ? key :
+          ', ' + key);
+      });
+      selectionText = 'Selected row key(s): ' + selectionText;
+    }
+
+  }
+  return selectionText;
+};
+</pre
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D"
+              >Add an Assign Variables action</a
+            >
+            to the action chain named <code>TableSelectedChangeChain</code> that
+            assigns the output of the
+            <code>selectedChangedModuleFunction</code> function of the action
+            chain to the <code>currentSelection</code> page variable in Target.
+          </li>
+          <li>
+            Add an If action to the action chain named
+            <code>TableSelectedChangeChain</code>. In the Properties pane of the
+            If action, set the Condition property to
+            <code>[[ !$variables.selected.row.isAddAll() ]]</code>.
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html"
+              >Add a Call Module Function action</a
+            >
+            to the action chain named <code>TableSelectedChangeChain</code>. In
+            the Properties pane of the Call Function action:
+            <ul>
+              <li>Enter ID of <code>callFunctionGetRowsForIDs</code>.</li>
+              <li>
+                Create a function named <code>getRowsForIDs</code> and assign
+                the <code>document.getElementById('table')</code> to the first
+                function argument and
+                <code>Array.from($variables.selected.row.values())</code> to the
+                second function argument.
+              </li>
+              <li>
+                Copy and paste the following code for
+                <code>getRowsForIDs</code> which iterates over row records in
+                the table and finds matching row data for selected row IDs:
+                <pre>
+PageModule.prototype.getRowsForIDs = function (table, rowIDs) {
+  var index = 0;
+  var result = [];
+  // search only in first 1000 rows:
+  while (index < 1000) {
+    var row = table.getDataForVisibleRow(index);
+    if (row === null) {
+      return result;
+    }
+    const match = rowIDs.indexOf(row.data.id);
+    if (match > -1) {
+      rowIDs.splice(match, 1);
+      result.push(row.data);
+      if (rowIDs.length === 0) {
+        return result;
+      }
+    }
+    index++;
+  }
+  return result;
+};
+</pre
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a>Add an Assign Variables action</a> to the action chain named
+            <code>TableSelectedChangeChain</code> that assigns the output of the
+            Call Function action from Sources to <code>rowData</code> in Target.
+            Reset Target to <code>none</code>.
+          </li>
         </ol>
       </div>
     </oj-collapsible>
 
+    <oj-collapsible id="oj-collapsible-1494599579-3">
+      <span slot="header"
+        >Add a Text Area Component to Display Selected Records</span
+      >
+      <div>
+        <ol>
+          <li>
+            In the Component Palette, drag a Text Area component and drop it on
+            the page.
+          </li>
+          <li>
+            In the General tab of the Text Area component's Properties pane,
+            assign label-hint attribute to <code>Current Selection</code>.
+          </li>
+          <li>
+            In the Data Tab, assign the Value field to
+            <code
+              >{{ ($variables.currentSelection ? $variables.currentSelection
+              :'') + ($variables.rowData.length === 0 ? '' : '\n'+ 'Row Data:
+              '+JSON.stringify ($variables.rowData)) }}</code
+            >.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-1494599579-4">
+      <span slot="header">Add Programmatic Selection Of Rows</span>
+      <div>
+        <p>
+          Add a button to programmatically select two rows and another button to
+          deselect all selected rows.
+        </p>
+        <ol>
+          <li>
+            In the Component Palette, drag two Button components and drop them
+            on the page.
+          </li>
+          <li>
+            In the Events tab of the Properties pane for each Button component, add an ojAction event.
+          </li>
+          <li>
+            In each of the action chains that are created, add a Call Function
+            action and click <strong>Create</strong> in the Call Function
+            Properties pane to create functions named
+            <code>deselectAll</code> and <code>selectSpecificRows</code>.
+          </li>
+          <li>
+            In the JavaScript tab, write the following code for each of the
+            functions that you created.
+            <pre> 
+PageModule.prototype.deselectAll = function () {
+  this.selectedItems({
+    row: new keySet.KeySetImpl(),
+    column: new keySet.KeySetImpl()
+  });
+};
+
+PageModule.prototype.selectSpecificRows = function () {
+  this.selectedItems({
+    row: new keySet.KeySetImpl([1,3]), // row with dept no. 1 and 3
+    column: new keySet.KeySetImpl()
+  });
+};
+
+</pre>
+          </li>
+          <li>Also in the JavaScript tab, write the following code to disable the <strong>Deselect All</strong> button when no table rows are selected.
+            <pre>
+PageModule.prototype.isSelectionEmpty = function (selection) {
+  var row = selection.row;
+  if (row.isAddAll()) {
+    return false;
+  } else {
+    return row.values().size === 0;  
+  }
+};
+            </pre>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
   </oj-accordion>
-  </div>
+</div>

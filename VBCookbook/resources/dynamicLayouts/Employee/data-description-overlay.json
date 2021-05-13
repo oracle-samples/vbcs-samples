@@ -1,0 +1,14 @@
+{
+    "addField": {
+        "fullName": {
+            "type": "string",
+            "labelHint": "Full Name",
+            "readonly": true,
+            "referencedFields": [
+                "firstName",
+                "lastName"
+            ],
+            "value": "[[$fields.firstName.value() + ' ' + $fields.lastName.value()]]"
+        }
+    }
+}

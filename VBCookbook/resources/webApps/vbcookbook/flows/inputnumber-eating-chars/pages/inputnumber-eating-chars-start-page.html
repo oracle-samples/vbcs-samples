@@ -9,8 +9,8 @@
 </div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box oj-sm-align-self-flex-start">
-    <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-4">
-      <oj-input-number min="5" max="1000" label-hint="Number" value="{{ $variables.currentValue }}" on-keypress="[[$listeners.ojInputNumberKeypress]]" style="min-width: 200px;" id="number"></oj-input-number>
+    <oj-form-layout label-edge="start" style="width: 500px;">
+      <oj-input-number min="5" max="1000" label-hint="Number" value="{{ $variables.currentValue }}" on-keypress="[[$listeners.ojInputNumberKeypress]]" id="number"></oj-input-number>
     </oj-form-layout>
     <div class="oj-flex-item oj-sm-12 oj-md-4">
       <oj-bind-text value="{{ 'Current component value is: ' + ($variables.currentValue ? $variables.currentValue : '') }}"></oj-bind-text>

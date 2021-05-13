@@ -1,5 +1,5 @@
 {
-  "flowModelVersion": "19.4.3",
+
   "id": "table-many-to-many",
   "description": "Flow main",
   "defaultPage": "table-many-to-many-start",

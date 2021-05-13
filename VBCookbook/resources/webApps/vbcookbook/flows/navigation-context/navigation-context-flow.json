@@ -1,5 +1,5 @@
 {
-  "flowModelVersion": "19.4.3",
+
   "id": "navigation-context",
   "description": "Flow main",
   "defaultPage": "navigation-context-start",

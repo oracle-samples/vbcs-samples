@@ -3,39 +3,175 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-    <oj-accordion id="accordionPage">
-      <oj-collapsible id="step1" expanded>
-        <span slot="header">Step 1: Create Form with Input Text element</span>
-        <div>
-          <ol>
-            <li> Open design view</li>
-            <li> Dnd Input Text element on to page and set following properties
-              using PI.
-              <ul>
-                <li>"validators" property to "[[$variables.validators]]". This
-                  is JET numberRange validator with min=100.</li>
-                <li>"converter" property to a currency converter as shown.</li>
-                <li>"value" property to "{{$variables.quantityLimit}}" to
-                  capture the entered value.</li>
-                <li>"async-validators" to
-                  "[[[$page.functions.asyncValidator]]]", a variables defined
-                  on PageModule.
-                  This is an object that duck-types AsyncValidator. Its API is
-                  validate(): Promise and hint: Promise.
-                  Note: Async validator type is not supported as variables in
-                  Oracle Visual Builder so have to use "$page.functions.*" . </li>
-              </ul>
-            </li>
-            <li>Type in 10001, you should see the async-validators error
-              message.</li>
-            <li>Type in 10000, you should see the async-validators error
-              message disappear and the valid state is valid.</li>
-            <li>Type in 99, you should see the validators error message.</li>
-            <li>Clear field and tab away, you should see the required error
-              message.</li>
-            <li>Type in 999, you should see no error messages and valid state
-              should be valid.</li>
-          </ol>
-        </div>
-      </oj-collapsible>
-    </oj-accordion>
+<p>
+  Create page variables to store user input, write JavaScript functions to
+  validate the user input, and create a UI to capture your user's input.
+</p>
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header"
+      >Create Page Variables and Write JavaScript Functions</span
+    >
+    <div>
+      <ol>
+        <li>
+          In the Variables tab of the Page Designer, create the following
+          variables:
+          <ul>
+            <li><code>inputValid</code> of type String.</li>
+            <li><code>quantityLimit</code> of type Number.</li>
+            <li><code>quantityLimit2</code> of type Number.</li>
+          </ul>
+        </li>
+        <li>
+          In the JavaScript tab, write a function to asynchronously validate the
+          input values. Oracle JET's
+          <a
+            target="_blank"
+            href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.NumberRangeValidator.html"
+            >NumberRangeValidator</a
+          >
+          is used with minimum and maximum values of <code>100</code> and
+          <code>10000</code>.
+          <br />
+          <pre>
+PageModule.prototype.getAsyncValidator = function () {
+  return this.asyncValidator;
+};
+
+PageModule.prototype.asyncValidator = [{
+  'validate': function (value) {
+    var converterOption = {
+      type: "number"
+    };
+    
+    var validator = oj.Validation.validatorFactory("numberrange")
+      .createValidator({
+        min: 100, max: 10000, options: converterOption
+      });
+
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        try {
+          validator.validate(value);
+          resolve(true);
+        } catch (e) {
+          reject(new Error(e.message + ' Your value is ' + value + '.'));
+        }
+      }, 2000);
+    });
+  },
+  'hint': new Promise(function (resolve, reject) { 
+    setTimeout(function () {
+      const maxPurchase = 10000;
+      const minPurchase = 100;
+
+      resolve("Enter a number between " +
+        minPurchase +
+        " and " +
+        maxPurchase +
+        " , otherwise you will see an error.");
+    }, 2000);
+  })
+}];</pre
+          >
+        </li>
+        <li>
+          Write a function, <code>validateGroup</code>, to validate the input
+          values.<br />
+          <pre>
+PageModule.prototype.validateGroup = function (arg1) {
+    var tracker = document.getElementById("tracker");
+    if (tracker.valid === "valid") {
+    }
+    else if (tracker.valid.startsWith("invalid")) {
+      if (tracker.valid === "invalidHidden") {
+        tracker.showMessages();
+      }
+      tracker.focusOn("@firstInvalidShown");
+    }
+    return tracker.valid;
+  };
+        </pre
+          >
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Create the UI</span>
+    <div>
+      <ol>
+        <li>
+          In the Component Palette, drag a Validation Group component and drop
+          it on the page.
+        </li>
+        <li>
+          In the Properties pane, set the Valid property to
+          <code>$variables.inputValid</code> and, in the Events tab, add an
+          <code>on-valid-changed</code> event listener so that the following
+          entries appear in the Code view of the page:<br />
+          <code>
+            oj-validation-group id="tracker" valid="{{$variables.inputValid}}"
+            on-valid-changed="[[$listeners.trackerValid]]"
+          </code>
+        </li>
+        <li>
+          In the Component Palette, drag and drop a Form Layout component onto
+          the Validation Group component.
+        </li>
+        <li>
+          In the Component Palette, drag and drop two Input Text components onto
+          the Form Layout component.
+        </li>
+        <li>
+          In the Data tab of the Properties pane, set the Value property for
+          each Input Text component to capture the entered value as follows:
+          <ul>
+            <li><code>{{ $variables.quantityLimit }}</code></li>
+            <li><code>{{ $variables.quantityLimit2 }}</code></li>
+          </ul>
+        </li>
+        <li>
+          <p>
+            In the Code view of the page, set the
+            <code>validators</code> property to call the
+            <code>getAsyncValidator</code> function you created previously:
+          </p>
+          <pre>validators="[[ $page.functions.getAsyncValidator()</pre>
+          <p>
+            Use the <code>$page.functions.*</code> syntax because Visual Builder
+            does not support the asynchronous validator type.
+          </p>
+        </li>
+        <li>
+          In the Component Palette, drag and drop a Button component onto the
+          Form Layout component.
+        </li>
+        <li>
+          In the Properties pane, set the value of the Button component's
+          Disabled property to
+          <code>[[$variables.inputValid === 'pending']] </code>.
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step3">
+    <span slot="header">Test the Validation</span>
+    <div>
+      <p>Enter the following values to test the validator:</p>
+      <ol>
+        <li><code>10001</code> to see the validation error message.</li>
+        <li>
+          <code>10000</code> to dismiss the error message and view the valid
+          state when you enter a valid value.
+        </li>
+        <li><code>99</code> to see the error message again.</li>
+        <li>
+          Clear the input field and tab away to dismiss the error message and
+          view the valid state when you enter a valid value.
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

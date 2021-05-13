@@ -1,83 +1,125 @@
-    {
-      "pageModelVersion": "18.3.3",
-      "title": "",
-      "description": "The starting page of the flow",
+{
+
+  "title": "",
+  "description": "The starting page of the flow",
+  "variables": {
+    "inputValid": {
+      "type": "string"
+    },
+    "quantityLimit": {
+      "type": "number"
+    },
+    "quantityLimit2": {
+      "type": "number"
+    }
+  },
+  "types": {},
+  "chains": {
+    "ButtonActionChain": {
+      "description": "",
+      "root": "callFunctionValidateGroup",
+      "actions": {
+        "callFunctionValidateGroup": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "validateGroup"
+          },
+          "outcomes": {
+            "success": "if"
+          }
+        },
+        "if": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.callFunctionValidateGroup === 'valid' ]]"
+          },
+          "outcomes": {
+            "true": "fireNotification"
+          }
+        },
+        "fireNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "displayMode": "transient",
+            "type": "confirmation",
+            "summary": "Data Is Valid",
+            "message": "Everything is valid. Submit the form."
+          }
+        }
+      },
+      "variables": {}
+    },
+    "InputTextValidChange": {
+      "description": "",
       "variables": {
-        "inputValid": {
-          "type": "string"
-        },
-        "quantityLimit": {
-          "type": "number"
-        },
-        "validators": {
-          "type":"object[]",
-          "defaultValue":[
-            {
-              "type": "numberrange",
-              "options": {
-                "min": 100,
-                "messageDetail": "Your min quantity is 100"
-                }
-            }
-          ]
-        },
-        "converter": {
-          "type":"object",
-          "defaultValue": {
-              "type":"number", 
-              "options": {
-                "style": "currency", 
-                "currency": "USD", 
-                "currencyDisplay": "code", 
-                "pattern": "¤ ##,##0.00"
-            }
-          }
+        "valid": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
         }
       },
-      "types": {},
-      "chains": {
-        "InputTextValidChange": {
-          "description": "",
-          "variables": {
-            "valid": {
-              "required": true,
-              "type": "any",
-              "input": "fromCaller"
+      "root": "assignVariables1",
+      "actions": {
+        "assignVariables1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.inputValid": {
+              "source": "{{ $chain.variables.valid }}"
             }
           },
-          "root": "assignVariables1",
-          "actions": {
-            "assignVariables1": {
-              "module": "vb/action/builtin/assignVariablesAction",
-              "parameters": {
-                "$page.variables.inputValid": {
-                  "source": "{{ $chain.variables.valid }}"
-                }
-              }
-            }
+          "outcomes": {
+            "success": "callFunctionValidateGroup"
           }
-        }
-      },
-      "eventListeners": {
-        "textInputValid": {
-          "chains": [
-            {
-              "chainId": "InputTextValidChange",
-              "parameters": {
-                "valid": "{{ $event.detail.value }}"
-              }
-            }
-          ]
-        }
-      },
-      "imports": {
-        "components": {
-          "oj-input-text": {
-            "path": "ojs/ojinputtext"
-          },
-          "oj-form-layout": {
-            "path": "ojs/ojformlayout"
+        },
+        "callFunctionValidateGroup": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "validateGroup"
           }
         }
       }
     }
+
+  },
+  "eventListeners": {
+    "submitOjAction": {
+      "chains": [
+        {
+          "chainId": "ButtonActionChain"
+        }
+      ]
+    },
+    "trackerValid": {
+      "chains": [
+        {
+          "chainId": "InputTextValidChange",
+          "parameters": {
+            "valid": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-label-value": {
+        "path": "ojs/ojlabelvalue"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

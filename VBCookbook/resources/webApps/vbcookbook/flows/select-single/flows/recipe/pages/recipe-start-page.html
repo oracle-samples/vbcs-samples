@@ -12,8 +12,8 @@
 <!-- Step 1. -->
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
-    <oj-collapsible id="oj-collapsible-1494599579-1">
-      <h1 slot="header">Item Template</h1>
+    <oj-collapsible id="oj-collapsible-1494599579-12">
+      <h1 slot="header">Render Multiple Fields Using itemTemplate Slot</h1>
       <div>
         <p>This recipe demonstrates how you use the Select Single component and the itemTemplate slot to render additional
           items in the dropdown list.</p>
@@ -64,8 +64,8 @@ PageModule.prototype.getName=function(context){
 <!-- Step 2. -->
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
-    <oj-collapsible id="oj-collapsible-1494599579-1">
-      <h1 slot="header">Collection Template</h1>
+    <oj-collapsible id="oj-collapsible-1494599579-10">
+      <h1 slot="header">Render Table Component Using collectionTemplate Slot</h1>
       <div>
         <p>This recipe shows you how to add a Table component to the collectionTemplate slot of the Select Single
           component.</p>
@@ -201,8 +201,8 @@ PageModule.prototype.getName=function(context){
 <!-- Step 4. -->
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
-    <oj-collapsible id="oj-collapsible-1494599579-1">
-      <h1 slot="header">Multiple Suggestion Groups</h1>
+    <oj-collapsible id="oj-collapsible-1494599579-11">
+      <h1 slot="header">Grouping Rows In Categories</h1>
       <div>
         <p>This recipe shows you how to display different categories of results by group. Here, an ArrayTreeDataProvider references hierarchical data, and allows filtering of these data items.
         </p>
@@ -312,6 +312,73 @@ PageModule.prototype.getName=function(context){
 
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>In the Data tab of the Properties pane, assign the Data attribute to <code>departmentTDP</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+<!-- Step 5. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-45">
+      <h1 slot="header">Search Multiple Fields with Contains Operand</h1>
+      <div>
+        <p>This recipe shows you how to implement search on multiple columns displayed in a Single Select component. By default, search uses the <code>sw</code> operand (Starts With). The recipe demonstrates how to implement search using the <code>co</code> operand (Contains).</p>
+        <ol>
+          <li>Follow the steps in the Item Template recipe to create a Single Select component showing multiple columns of data.</li>
+          <li>In the JSON tab, set a transforms request to a new JavaScript function, <code>processFilter</code>. This function overrides the default search to instead use <code>co</code> operand.
+            <pre>
+    "employeeListSDP2": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse2",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName",
+            "lastName",
+            "phoneNumber"
+          ]
+        },
+        "transforms": {
+          "request": {
+            "filter": "{{ $functions.processFilter }}"
+          }
+        }
+      }
+    }
+            </pre>
+          </li>
+
+          <li>In the JavaScript tab, include <code>vb/BusinessObjectsTransforms</code> and create a new function named <code>processFilter</code>.
+            <pre>
+  PageModule.prototype.processFilter = function (configuration, options, transformsContext) {
+    var textValue = options && options.text;
+
+    if (transformsContext && transformsContext['vb-textFilterAttributes']) {
+      var options_new = {
+        op: '$or',
+        criteria: [
+        ]
+      };
+
+      for (var i = 0; i < transformsContext['vb-textFilterAttributes'].length; i++) {
+        var itemCriterion = {};
+        itemCriterion.attribute = transformsContext['vb-textFilterAttributes'][i];
+        itemCriterion.op = '$co';
+        itemCriterion.value = textValue;
+        options_new.criteria.push(itemCriterion);
+      }
+
+      options = options_new;
+    }
+
+    return BOTransforms.request.filter(configuration, options);
+  };
+            </pre>
+          </li>
         </ol>
       </div>
     </oj-collapsible>

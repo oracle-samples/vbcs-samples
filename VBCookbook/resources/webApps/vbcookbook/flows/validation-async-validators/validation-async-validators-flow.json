@@ -1,6 +1,6 @@
     {
-        "flowModelVersion": "18.3.3",
-        "id": "combobox-one-dp",
+
+    "id": "combobox-one-dp",
         "description": "Combobox one description",
         "defaultPage": "validation-async-validators-start",
         "chains": {},

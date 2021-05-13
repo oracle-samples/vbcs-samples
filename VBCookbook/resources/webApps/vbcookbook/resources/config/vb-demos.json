@@ -7,16 +7,6 @@
     "apiRef": [],
     "seealso": [],
     "minHeightLandscape": 300,
-    "otherFiles": [
-      "flows/add-new-demo/pages/recipe-page.html",
-      "flows/add-new-demo/pages/recipe-page.js",
-      "flows/add-new-demo/pages/recipe-page.json"
-    ],
-    "openFiles": [
-      "flows/add-new-demo/pages/recipe-page.html",
-      "flows/add-new-demo/pages/recipe-page.js",
-      "flows/add-new-demo/pages/recipe-page.json"
-    ],
     "demoPageName": "add-new-demo-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
@@ -338,12 +328,6 @@
         "url": "oj.ojFormLayout.html"
       }
     ],
-    "otherFiles": [
-      "flows/form-layout-inline/resources/css/demo-responsive.css"
-    ],
-    "openFiles": [
-      "flows/form-layout-inline/resources/css/demo-responsive.css"
-    ],
     "demoPageName": "form-layout-inline-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
@@ -368,12 +352,6 @@
         "type": "jetdoc",
         "url": "oj.ojFormLayout.html"
       }
-    ],
-    "otherFiles": [
-      "flows/form-layout-inline/resources/css/demo-responsive.css"
-    ],
-    "openFiles": [
-      "flows/form-layout-inline/resources/css/demo-responsive.css"
     ],
     "demoPageName": "multi-step-wizard-start",
     "recipeFlowName": "recipe",
@@ -863,7 +841,7 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "list-load-more-on-scroll":{
+  "list-load-more-on-scroll": {
     "id": "list-load-more-on-scroll",
     "defaultOrientation": false,
     "runtime": "vb",
@@ -984,7 +962,7 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "navigation-context":{
+  "navigation-context": {
     "id": "navigation-context",
     "runtime": "vb",
     "label": "Passing Context",
@@ -996,7 +974,7 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "language-switcher":{
+  "language-switcher": {
     "id": "language-switcher",
     "runtime": "vb",
     "label": "Language Switcher",
@@ -1008,7 +986,7 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "fileloader-csv":{
+  "fileloader-csv": {
     "id": "fileloader-csv",
     "runtime": "vb",
     "label": "CSV File Loading",
@@ -1020,7 +998,7 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "bo-triggers":{
+  "bo-triggers": {
     "id": "bo-triggers",
     "runtime": "vb",
     "label": "Triggers",
@@ -1032,7 +1010,7 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "prevent-double-submission":{
+  "prevent-double-submission": {
     "id": "prevent-double-submission",
     "runtime": "vb",
     "label": "Prevent Double Submission",
@@ -1055,6 +1033,53 @@
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
+  },
+  "dynamic-container-toggle-layout":{
+    "id": "dynamic-container-toggle-layout",
+    "runtime": "vb",
+    "label": "Dynamic Container",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-container-toggle-layout-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "dynamic-form-multiple-layout":{
+    "id": "dynamic-form-multiple-layout",
+    "runtime": "vb",
+    "label": "Dynamic Form",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-form-multiple-layout-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "dynamic-table-field-template":{
+    "id": "dynamic-table-field-template",
+    "runtime": "vb",
+    "label": "Dynamic Table",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-table-field-template-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "datagrid-freeze": {
+    "id": "datagrid-freeze",
+    "runtime": "vb",
+    "label": "Freeze Column",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "datagrid-freeze-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
   }
-  
 }

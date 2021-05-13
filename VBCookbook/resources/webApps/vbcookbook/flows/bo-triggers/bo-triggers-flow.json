@@ -1,15 +1,10 @@
 {
-  "flowModelVersion": "2010.0.0",
+
   "id": "bo-triggers",
   "description": "Flow main",
   "defaultPage": "bo-triggers-start",
   "chains": {
-    "@decorators.validateFormChain": {
-      "autowire": {
-        "contextKey": "vb-quickstarts",
-        "name": "validateFormChain"
-      }
-    },
+
     "validateFormChain": {
       "description": "Validates a form within an oj-validation-group with an ID matching the passed parameter.",
       "constants": {
@@ -95,6 +90,12 @@
           },
           "label": "Return failed status",
           "description": "Returns the value (false) representing the failed validation."
+        }
+      },
+      "@dt": {
+        "autowire": {
+          "contextKey": "vb-quickstarts",
+          "name": "validateFormChain"
         }
       }
     }

@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-container-toggle-layout",
+  "description": "Flow main",
+  "defaultPage": "dynamic-container-toggle-layout-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

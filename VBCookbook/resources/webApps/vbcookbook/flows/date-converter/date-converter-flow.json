@@ -1,6 +1,6 @@
     {
-        "flowModelVersion": "18.3.3",
-        "id": "date-converter",
+
+    "id": "date-converter",
         "description": "Flow main",
         "defaultPage": "date-converter-start",
         "chains": {},

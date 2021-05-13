@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-table-field-template",
+  "description": "Flow main",
+  "defaultPage": "dynamic-table-field-template-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

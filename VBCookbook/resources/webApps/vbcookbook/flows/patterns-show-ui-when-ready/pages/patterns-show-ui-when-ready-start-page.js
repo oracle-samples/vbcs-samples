@@ -8,5 +8,11 @@ define([], function() {
 
   var PageModule = function PageModule() {};
 
+  PageModule.prototype.sleep = function() {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(), 1500);
+    });
+  };
+
   return PageModule;
 });

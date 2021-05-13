@@ -1,0 +1,224 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a
+    target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416"
+    >work with the Component Exchange</a
+  >.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Select (Single) Component</h1>
+      <div>
+        <p>
+          Add a Select (Single) component (oj-select-single) to your page, bind
+          it to employee data, and render the employee data in the Dynamic Form.
+        </p>
+
+        <ol>
+          <li>
+            In the Component Palette, drag a Select (Single) component and drop
+            it on the Page Designer.
+          </li>
+          <li>
+            In the Properties pane, use the
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D"
+              >Quick Start</a
+            >
+            to bind to employee data.
+          </li>
+          <li>
+            In the Bind Data page, select the following employee fields:
+            <ul>
+              <li><code>firstName</code> as Label</li>
+              <li><code>id</code> as Value</li>
+            </ul>
+          </li>
+          <li>
+            In the JavaScript tab, paste the following code:
+            <pre>
+PageModule.prototype.getName = function(context) {
+    var name = context.data.firstName + ' ' + context.data.lastName;
+    if (context.data.managerObject && context.data.managerObject.items.length > 0) {
+      name += " (reports to "+ context.data.managerObject.items[0].lastName + ")";
+    }
+    return name;
+  }</pre
+            >
+          </li>
+
+          <li>
+            In the Variables tab, create a variable named <code>emp1</code> of
+            type Number and assign it a default value of <code>100</code>.
+          </li>
+          <li>
+            In the Data tab of the Properties pane for the Select (Single)
+            component, set Value to
+            <code>{{ $variables.selectedEmployee }}</code>.
+          </li>
+          <li>
+            Set the value of the Item Text property to
+            <code>[[$page.functions.getName]]</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create a Dynamic Form</h1>
+      <div>
+        <ol>
+          <li>
+            Install the JET Dynamic Form component from the Component Exchange,
+            then drag and drop it on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object or REST endpoint that you want to use as the data
+            source for the form, and click <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Employee Form RuleSet</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and then click
+            <strong>Next</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+              <li><code>hireDate</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog, map
+            the <code>emp1</code> variable in the Sources section to the
+            <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">
+        Create Action Chain for the Select (Single) Component
+      </h1>
+      <div>
+        <p>
+          Configure an action chain that will load the employee that is selected
+          in the Select (Single) Component in the Dynamic Form.
+        </p>
+        <ol>
+          <li>
+            In the Events tab of the Properties pane for the Select (Single)
+            component, add a new custom event of Value for property changes.
+          </li>
+          <li>
+            In the new action chain, <code>SingleSelectValueChangeChain</code>,
+            add an Assign Variables action and assign <code>value</code> under
+            the Variables in Sources to the <code>emp1</code> page variable with
+            an expression of <code>$variables.value</code>.
+          </li>
+
+          <li>
+            Add a Call Action Chain action and select
+            <code>loadEmployeeChain</code> as the value for the Action Chain ID
+            property.
+          </li>
+          <li>
+            In the Input Parameters section, click <strong>Assign</strong> to
+            map <code>fetchedFields</code> to the
+            <code>employeeDetailFormRenderedFields</code> from Sources as
+            <code>$page.variables.employeeDetailFormRenderedFields</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-4">
+      <h1 slot="header">Create Role-Based Multiple Layout</h1>
+      <div>
+        <p>
+          Create a custom field, <code>Full Name</code>, that you can display
+          instead of two fields for first and last name. Create layouts where
+          you add the fields to display, and write an expression to describe the
+          display logic for the Dynamic Form.
+        </p>
+        <ol>
+          <li>
+            Select the Dynamic Form and, in the General tab of the Properties
+            pane, click <strong>Go to Rule Set</strong> to go to the Employee
+            Form RuleSet that you configured when you created the Dynamic Form.
+          </li>
+          <li>In the Dynamic UIs tab, select <strong>Employee</strong>.</li>
+          <li>
+            Open the <code>Employee Form RuleSet</code> that you created when
+            creating the Dynamic Form.
+          </li>
+          <li>
+            In the Fields tab, click <strong>+ Custom Field</strong> to create a
+            new custom field with an ID value of <code>fullName</code>, type
+            String, and a Value property that references
+            <code
+              >[[$fields.firstName.value() + ' ' + $fields.lastName.value()]] </code
+            >.
+          </li>
+          <li>
+            In the Layouts section of the Rule Sets tab, click
+            <strong>+</strong> to create the following three layouts:
+            <ul>
+              <li><code>myselfLayout</code></li>
+              <li><code>managerLayout</code></li>
+              <li><code>employeeLayout</code></li>
+            </ul>
+          </li>
+          <li>
+            For each layout, add the fields that you want to display when your
+            app uses the layout:
+            <ul>
+              <li>
+                employeeLayout: <code>firstName</code>, <code>lastName</code>,
+                <code>phoneNumber</code>, <code>email</code>, and
+                <code>hireDate</code>.
+              </li>
+              <li>
+                myselfLayout: <code>phoneNumber</code>, <code>email</code>, 
+                <code>hireDate</code>, and <code>salary</code>.
+              </li>
+              <li>
+                managerLayout: <code>fullName</code>,
+                <code>phoneNumber</code>, <code>email</code>,
+                <code>hireDate</code>, and <code>salary</code>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            In the <code>Employee Form RuleSet</code> Display Logic, write the
+            following expression:
+            <pre>
+$value.id === 100 ? "myselfLayout" : ($value.manager === 100 ? 'managerLayout' : 'employeeLayout')
+			</pre
+            >
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

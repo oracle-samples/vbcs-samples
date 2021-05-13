@@ -3,64 +3,152 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">This recipe demonstrates how to implement use cases that use the Select Single component (<code>oj-select-single</code>).</div>
+<div class="oj-margin-bottom">
+  This recipe demonstrates how to implement use cases that use the Select Single
+  component (<code>oj-select-single</code>).
+</div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
-    <h5 class="oj-flex-item oj-sm-flex-initial">Item Template</h5>
-    <div class="oj-flex">
-      <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-6">
-        <oj-select-single label-hint="Select Employee" data="[[$page.variables.employeeListSDP]]" item-text="[[$functions.getName]]" value-item="{{ $variables.selectedEmployee }}" class="oj-form-control-width-md">
-          <template slot="itemTemplate">
-            
-             
-            <span style="font-weight:bold;"><oj-bind-text value="[[ $current.data.firstName + ' '+$current.data.lastName]]"></oj-bind-text>
-             
-            </span>
-            
-            <span><oj-bind-text value="[[$current.data.phoneNumber ]]"></oj-bind-text></span>
-              
-          </template>
-        </oj-select-single>
-        <oj-text-area readonly="true" class="oj-form-control-width-md" value="{{ $variables.selectedEmployee.data ==null ? '' : JSON.stringify($variables.selectedEmployee) }}"></oj-text-area>
-        <h5 id="h1--1545021545-1">Collection Template</h5>
-        <oj-select-single label-hint="Select (Single)" data="[[$page.variables.employeeListSDP]]" item-text="firstName" value-item="{{ $variables.selectedEmployee2 }}" class="oj-form-control-width-md">
-          <template slot="collectionTemplate" data-oj-as="collection">
-            
-           
-            <oj-table scroll-policy="loadMoreOnScroll" data="[[collection.data]]" columns='[{"headerText":"First Name","field":"firstName","id":"firstName","template":"firstNameTemplate"},{"headerText":"Last Name","field":"lastName","template":"lastNameTemplate"},{"headerText":"Phone","field":"phoneNumber"}]' selection-mode.row="single" current-row="{{collection.currentRow}}" on-oj-row-action="[[collection.handleRowAction]]" style="height:200px;">
-              <template slot="firstNameTemplate" data-oj-as="cell">
-              <span style="font-weight:bold"> <oj-bind-text value="[[cell.data]]"></oj-bind-text> </span>
-            </template>
-             <template slot="lastNameTemplate" data-oj-as="cell">
-              <span style="font-weight:bold"> <oj-bind-text value="[[cell.data]]"></oj-bind-text> </span>
-            </template>
-            </oj-table>
-          
-          </template>
-         
-          
-        </oj-select-single>
-        <h5 id="h1--1545021545-2">Select Single with ADP</h5>
-        <oj-select-single label-hint="Department" data="[[ $variables.departmentADP ]]" item-text="departmentName" class="oj-form-control-width-md"></oj-select-single>
-        <h5 id="h1--1545021545-3">Multiple Suggestion Groups</h5>
-        <oj-select-single label-hint="Select (Single)" data="[[ $variables.departmentTDP ]]" class="oj-form-control-width-md"></oj-select-single>
-
-
-       
-      </oj-form-layout>
+    <h5>itemTemplate Slot Example</h5>
+    <div class="oj-flex-item" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example uses the itemTemplate slot to render multiple field values (full employee name and phone number). The first and last name fields are configured as searchable fields. Typed text is matched from the beginning of these fields."
+      >
+      </oj-bind-text>
     </div>
-
-
-   
+    <oj-form-layout
+      label-edge="inside"
+      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+    >
+      <oj-select-single
+        label-hint="Employee"
+        data="[[$page.variables.employeeListSDP]]"
+        item-text="[[$functions.getName]]"
+        value-item="{{ $variables.selectedEmployee }}"
+        class="oj-form-control-width-md"
+      >
+        <template slot="itemTemplate">
+          <span style="font-weight: bold">
+            <oj-bind-text
+              value="[[ $current.data.firstName + ' '+$current.data.lastName]]"
+            ></oj-bind-text>
+          </span>
+          <span>
+            <oj-bind-text value="[[$current.data.phoneNumber ]]"></oj-bind-text>
+          </span>
+        </template>
+      </oj-select-single>
+      <oj-text-area
+        readonly="true"
+        class="oj-form-control-width-md"
+        value="{{ $variables.selectedEmployee.data ==null ? '' : JSON.stringify($variables.selectedEmployee) }}"
+        rows="6"
+      >
+      </oj-text-area>
+    </oj-form-layout>
+    <h5 id="h1--1545021545-1">collectionTemplate Slot Example</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example uses the collectionTemplate slot to render matching employees in a Table component. The first and last name fields are configured as searchable fields. Typed text is matched from the beginning of these fields."
+      >
+      </oj-bind-text>
+    </div>
+    <oj-form-layout
+      label-edge="inside"
+      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+    >
+      <oj-select-single
+        label-hint="Employee"
+        data="[[$page.variables.employeeListSDP]]"
+        item-text="firstName"
+        value-item="{{ $variables.selectedEmployee2 }}"
+        class="oj-form-control-width-md"
+      >
+        <template slot="collectionTemplate" data-oj-as="collection">
+          <oj-table
+            scroll-policy="loadMoreOnScroll"
+            data="[[collection.data]]"
+            columns='[{"headerText":"First Name","field":"firstName","id":"firstName","template":"firstNameTemplate"},{"headerText":"Last Name","field":"lastName","template":"lastNameTemplate"},{"headerText":"Phone","field":"phoneNumber"}]'
+            selection-mode.row="single"
+            current-row="{{collection.currentRow}}"
+            on-oj-row-action="[[collection.handleRowAction]]"
+            style="height: 200px"
+          >
+            <template slot="firstNameTemplate" data-oj-as="cell">
+              <span style="font-weight: bold">
+                <oj-bind-text value="[[cell.data]]"></oj-bind-text>
+              </span>
+            </template>
+            <template slot="lastNameTemplate" data-oj-as="cell">
+              <span style="font-weight: bold">
+                <oj-bind-text value="[[cell.data]]"></oj-bind-text>
+              </span>
+            </template>
+          </oj-table>
+        </template>
+      </oj-select-single>
+    </oj-form-layout>
+    <h5 id="h1--1545021545-2">ArrayDataProvider-based Example</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example shows Department names from an ArrayDataProvider. Typed text is matched anywhere in the department name field. ."
+      >
+      </oj-bind-text>
+    </div>
+    <oj-form-layout
+      label-edge="inside"
+      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+    >
+      <oj-select-single
+        label-hint="Department"
+        data="[[ $variables.departmentADP ]]"
+        item-text="departmentName"
+        class="oj-form-control-width-md"
+      ></oj-select-single>
+    </oj-form-layout>
+    <h5 id="h1--1545021545-3">Grouping Example</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example uses a TreeDataProvider to group matching departments. Typed text is matched anywhere in the department name field."
+      >
+      </oj-bind-text>
+    </div>
+    <oj-form-layout
+      label-edge="inside"
+      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+    >
+      <oj-select-single
+        label-hint="Department"
+        data="[[ $variables.departmentTDP ]]"
+        class="oj-form-control-width-md"
+      ></oj-select-single>
+    </oj-form-layout>
+    <h5>Multi-field Full Text Search Example</h5>
+    <div class="oj-flex-item" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example demonstrates search of the typed value in multiple fields (first name, last name, and so on). Full-text search for the typed text is matched anywhere in the field values."
+      >
+      </oj-bind-text>
+    </div>
+    <oj-form-layout
+      label-edge="inside"
+      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+    >
+      <oj-select-single class="oj-form-control-width-md" label-hint="Employee"
+        data="[[$page.variables.employeeListSDP2]]" item-text="[[$functions.getName]]"
+      ></oj-select-single>
+    </oj-form-layout>
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
-    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px">
       <div class="recipe-box oj-flex-item">
         <h1>Recipe</h1>
         <div class="oj-flex">
-          <oj-vb-content config="[[ vbRouterFlow ]]"
-            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+          <oj-vb-content
+            config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"
+          ></oj-vb-content>
         </div>
       </div>
     </div>

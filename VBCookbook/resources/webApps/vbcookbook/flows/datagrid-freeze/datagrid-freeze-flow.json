@@ -1,0 +1,9 @@
+{
+  "id": "datagrid-freeze",
+  "description": "Flow main",
+  "defaultPage": "datagrid-freeze-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

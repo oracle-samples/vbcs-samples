@@ -7,12 +7,12 @@ define([], function() {
   'use strict';
 
   var PageModule = function PageModule() {
-
-    PageModule.prototype.addCountry = function() {
-      return new Promise((resolve) => {
-        setTimeout(() => resolve(), 1500);
-      });
-    };
+  };
+  
+  PageModule.prototype.addCountry = function() {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(), 1500);
+    });
   };
 
   return PageModule;

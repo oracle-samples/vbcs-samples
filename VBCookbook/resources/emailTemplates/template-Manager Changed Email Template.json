@@ -1,0 +1,1 @@
+{"subject":"[[Parameter1]], your manager has changed.","body":"<p>Hi [[Parameter1]],</p><p>Your manager has been changed. Your new manager is [[Parameter2]].</p><p>Cheers !!</p>","properties":{"name":"Manager Changed Email Template"}}

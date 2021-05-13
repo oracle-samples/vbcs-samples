@@ -1,5 +1,5 @@
 {
-    "flowModelVersion": "19.3.1",
+
     "id": "batch-editable-table",
     "description": "Flow main",
     "defaultPage": "batch-editable-table-start",

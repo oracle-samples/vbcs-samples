@@ -1,5 +1,5 @@
 {
-  "pageModelVersion": "19.4.3",
+
   "title": "  ",
   "description": "",
   "variables": {
@@ -182,7 +182,7 @@
         "checkWhetherEventIsBeingIgnored": {
           "module": "vb/action/builtin/ifAction",
           "parameters": {
-            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.detail) || $page.functions.shouldPreventDefault($chain.variables.event, $chain.variables.event.detail) || $chain.variables.event.detail.cancelEdit ]]"
+            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit ]]"
           },
           "outcomes": {
             "false": "hasRecordChanged"
@@ -598,7 +598,7 @@
       }]
     },
     "ojTable18296469261OjBeforeRowEditEnd": {
-			"preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}",
+			"preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail, $event) }}",
       "chains": [{
         "chainId": "TableBeforeRowEditEndChain",
         "parameters": {

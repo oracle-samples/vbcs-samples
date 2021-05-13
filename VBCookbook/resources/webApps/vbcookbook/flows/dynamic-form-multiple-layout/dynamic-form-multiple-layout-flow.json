@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-form-multiple-layout",
+  "description": "Flow main",
+  "defaultPage": "dynamic-form-multiple-layout-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

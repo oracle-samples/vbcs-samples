@@ -3,8 +3,37 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<h4>Summary</h4>
-<ul>
-  <li>Add a Table to your page and bind it to some data</li>
-  <li>Set the custom message in the table's <code>translations.msg-no-data</code> property</li>
-</ul>
+<p>
+	The first time that the page renders, each table in the page renders data. Click
+	<strong>Query That Returns No Results</strong> to view the custom messages implemented in the recipe for the
+	scenario where a query returns no data. Open the recipe in Visual Builder to view the implementation. The following
+	steps provide a high-level summary of how to implement this recipe.
+</p>
+<div class="oj-flex">
+	<oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+		<oj-collapsible id="step1" expanded="true">
+			<span slot="header">Create Custom Messages</span>
+			<div>
+				<ol>
+					<li>In the Component Palette, drag and drop a Table component onto the page. </li>
+					<li>Use the <a target="_blank"
+							href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+							Data Quick Start</a> to configure data for the Table
+						component.
+					</li>
+					<li>In the Code view of the page, set the Table component's <code>msg-no-data</code> sub-property as
+						follows:
+						<br>
+						<code>translations.msg-no-data="My Custom No Data Message"</code>.
+					</li>
+					<li>An alternative solution to writing a value for the property is to write HTML with the message to
+						display. To do this, drag and drop a second Table component onto the page.</li>
+					<li>Add a Cell Template slot named <code>noData</code> and write HTML with the message to display
+						when the query fails to return data.</li>
+					<li>Finally, in the Component Palette, drag and drop a Button component to invoke an action chain
+						that resets the variables so that the query can return data.</li>
+				</ol>
+			</div>
+		</oj-collapsible>
+	</oj-accordion>
+</div>

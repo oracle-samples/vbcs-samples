@@ -1,6 +1,6 @@
     {
-        "flowModelVersion": "18.3.3",
-        "id": "framework",
+
+    "id": "framework",
         "description": "Flow main",
         "defaultPage": "form-layout-inline-start",
         "chains": {},

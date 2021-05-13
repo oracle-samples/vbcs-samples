@@ -1,0 +1,293 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "emp1": {
+      "type": "number",
+      "defaultValue": 100,
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
+              "employeeId": "{{ $variables.emp1 }}"
+            }
+          }
+        ]
+      }
+    },
+    "employee": {
+      "type": "page:getEmployeeResponse"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
+              "employeeId": "{{ $variables.emp1 }}"
+            }
+          }
+        ]
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName"
+          ]
+        }
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getEmployeeResponse": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "managerObject": {
+            "count": "number",
+            "hasMore": "boolean",
+            "items": [
+              {
+                "commissionPct": "number",
+                "createdBy": "string",
+                "creationDate": "string",
+                "department": "number",
+                "email": "string",
+                "firstName": "string",
+                "hireDate": "string",
+                "id": "number",
+                "job": "number",
+                "lastName": "string",
+                "lastUpdateDate": "string",
+                "lastUpdatedBy": "string",
+                "links": [
+                  {
+                    "href": "string",
+                    "kind": "string",
+                    "name": "string",
+                    "properties": {
+                      "changeIndicator": "string"
+                    },
+                    "rel": "string"
+                  }
+                ],
+                "manager": "number",
+                "phoneNumber": "string",
+                "salary": "number"
+              }
+            ],
+            "limit": "number",
+            "links": [
+              {
+                "href": "string",
+                "kind": "string",
+                "name": "string",
+                "properties": {
+                  "changeIndicator": "string"
+                },
+                "rel": "string"
+              }
+            ],
+            "offset": "number",
+            "totalResults": "number"
+          }
+        }
+      ]
+    },
+    "getEmployeeResponse": "object"
+  },
+  "chains": {
+    "loadEmployeeChain": {
+      "root": "setPendingFormStatus",
+      "description": "Loads Employee record data",
+      "variables": {
+        "fetchedFields": {
+          "type": "any[]",
+          "input": "fromCaller"
+        },
+        "employeeId": {
+          "type": "string",
+          "input": "fromCaller"
+        }
+      },
+      "actions": {
+        "setPendingFormStatus": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeDetailFormLoadingStatus": {
+              "source": "pending"
+            }
+          },
+          "outcomes": {
+            "success": "resetEmployeeData"
+          },
+          "description": "Updates status of the form to Pending.",
+          "label": "Set Form status to Pending"
+        },
+        "resetEmployeeData": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.employee"
+            ]
+          },
+          "outcomes": {
+            "success": "testValidInput"
+          },
+          "description": "Clears Employee data the variable holds",
+          "label": "Reset Employee variable"
+        },
+        "testValidInput": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $variables.fetchedFields && $variables.fetchedFields.length && $variables.employeeId !== undefined ]]"
+          },
+          "outcomes": {
+            "true": "loadEmployee"
+          },
+          "description": "Tests the REST call can be initiated",
+          "label": "Test valid input"
+        },
+        "loadEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Employee",
+            "responseFields": "[[ $variables.fetchedFields ]]",
+            "uriParams": {
+              "Employee_Id": "[[ $variables.employeeId ]]"
+            }
+          },
+          "outcomes": {
+            "success": "assignEmployeeData",
+            "failure": "fireErrorNotification"
+          },
+          "description": "Initiates REST call loading Employee data",
+          "label": "Load Employee record"
+        },
+        "assignEmployeeData": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employee": {
+              "source": "{{ $chain.results.loadEmployee.body }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "setReadyFormStatus"
+          },
+          "description": "Assigns data loaded by the REST call to the Employee variable",
+          "label": "Assign Employee data"
+        },
+        "setReadyFormStatus": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeDetailFormLoadingStatus": {
+              "source": "ready"
+            }
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "Could not load data",
+            "message": "[[ 'Could not load data: status ' + $chain.results.loadEmployee.payload.status ]]",
+            "type": "error",
+            "displayMode": "persist"
+          },
+          "description": "Shows an error message informing about data load failure",
+          "label": "Show error message"
+        }
+      }
+    },
+    "SingleSelectValueChangeChain": {
+      "description": "",
+      "root": "assignVariablesEmp1",
+      "actions": {
+        "assignVariablesEmp1": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.emp1": {
+              "source": "{{ $variables.value }}"
+            }
+          },
+          "outcomes": {
+            "success": "callChainLoadEmployeeChain"
+          }
+        },
+        "callChainLoadEmployeeChain": {
+          "module": "vb/action/builtin/callChainAction",
+          "parameters": {
+            "id": "loadEmployeeChain",
+            "params": {
+              "fetchedFields": "{{ $page.variables.employeeDetailFormRenderedFields }}"
+            }
+          }
+        }
+      },
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "ojSelectSingleValue": {
+      "chains": [
+        {
+          "chainId": "SingleSelectValueChangeChain",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-dynamic-form": {
+        "path": "oj-dynamic/form/loader"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+    }
+  }
+}

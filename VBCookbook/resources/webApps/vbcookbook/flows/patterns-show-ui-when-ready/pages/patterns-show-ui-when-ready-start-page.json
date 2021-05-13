@@ -1,5 +1,5 @@
 {
-  "pageModelVersion": "19.4.3",
+
   "title": "",
   "description": "",
   "variables": {
@@ -74,7 +74,7 @@
             }
           },
           "outcomes": {
-            "success": "assignVariables2"
+            "success": "simulateSlowExecution"
           }
         },
         "assignVariables2": {
@@ -83,6 +83,16 @@
             "$page.variables.pageReady": {
               "source": true
             }
+          }
+        },
+        "simulateSlowExecution": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "sleep"
+          },
+          "outcomes": {
+            "success": "assignVariables2"
           }
         }
       }

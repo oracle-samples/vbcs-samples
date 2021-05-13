@@ -1,5 +1,5 @@
 {
-    "flowModelVersion": "19.1.1",
+
     "id": "listview-master-detail",
     "description": "Flow main",
     "defaultPage": "listview-master-detail-start",

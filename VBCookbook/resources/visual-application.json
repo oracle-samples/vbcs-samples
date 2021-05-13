@@ -1,13 +1,14 @@
 {
-    "vbcs.dt.version": "20201202-21.04.0",
-    "version": "1.1.1",
-    "source.version": "2101",
+    "vbcs.dt.version": "20210312-21.07.0:20210405-bufp_4890",
+    "version": "1.2",
+    "source.version": "2107",
     "rootURL": "vbcookbook",
     "dependencies": {
         "upgrade": "micro",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/9.1.1",
-            "visualRuntime": "https://static.oracle.com/cdn/vb/2010.1.0"
+            "jet": "https://static.oracle.com/cdn/jet/10.0.4",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2107.0.0",
+            "telemetry": "https://static.oracle.com/cdn/trace/2.0.0"
         }
     }
 }

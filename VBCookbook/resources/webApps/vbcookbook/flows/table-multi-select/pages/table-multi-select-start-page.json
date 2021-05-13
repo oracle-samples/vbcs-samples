@@ -1,5 +1,5 @@
 {
-  "pageModelVersion": "18.3.3",
+
   "title": "My start page",
   "description": "The starting page of the flow",
   "variables": {
@@ -14,6 +14,13 @@
         "itemsPath": "items",
         "responseType": "page:getallDepartmentResponse"
       }
+    },
+    "disableDeselectAll": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "rowData": {
+      "type": "object[]"
     }
   },
   "types": {
@@ -27,62 +34,22 @@
     }
   },
   "chains": {
-    "SyncCheckboxesInTableAction": {
-      "description": "",
-      "variables": {
-        "index": {
-          "type": "number",
-          "required": true,
-          "input": "fromCaller"
-        },
-        "targetId": {
-          "type": "number",
-          "required": true,
-          "input": "fromCaller"
-        }
-      },
-      "root": "if1",
-      "actions": {
-        "assignVariables1": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.selection": {
-              "source": "[[$page.variables.selection.concat([\n {\n  \"endIndex\": {\n   \"row\":  $variables.index \n  },\n  \"startIndex\": {\n   \"row\":  $variables.index \n  },\n  \"endKey\": {\n   \"row\":  $variables.targetId \n  },\n  \"startKey\": {\n   \"row\":  $variables.targetId \n  }\n }\n])]]",
-              "reset": "empty"
-            }
-          }
-        },
-        "if1": {
-          "module": "vb/action/builtin/ifAction",
-          "parameters": {
-            "condition": "[[ $page.variables.selection.filter(function(s){return s.startKey.row===$chain.variables.targetId }).length ]]"
-          },
-          "outcomes": {
-            "false": "assignVariables1",
-            "true": "assignVariables2"
-          }
-        },
-        "assignVariables2": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.selection": {
-              "source": "{{ $page.variables.selection.filter(function(s){ return s.startKey.row !== $chain.variables.targetId}) }}",
-              "reset": "empty"
-            }
-          }
-        }
-      }
-    },
     "TableSelectedChangeChain": {
       "description": "",
-      "root": "selectedChangedModuleFunction",
+      "root": "resetVariables",
       "actions": {
         "assignVariables1": {
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$page.variables.currentSelection": {
               "source": "{{ $chain.results.selectedChangedModuleFunction }}"
+            },
+            "$page.variables.disableDeselectAll": {
+              "source": "{{ $page.functions.isSelectionEmpty($variables.selected) }}"
             }
+          },
+          "outcomes": {
+            "success": "if"
           }
         },
         "selectedChangedModuleFunction": {
@@ -90,13 +57,54 @@
           "parameters": {
             "module": "[[ $functions ]]",
             "functionName": "selectedChangedListener",
-            "params": [
-              "{{ $variables.selected }}"
-            ],
+            "params": [ "{{ $variables.selected }}" ],
             "returnType": "string"
           },
           "outcomes": {
             "success": "assignVariables1"
+          }
+        },
+        "assignVariables2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.rowData": {
+              "source": "{{ $chain.results.callFunctionGetRowsForIDs }}",
+              "reset": "empty"
+            }
+          }
+        },
+        "resetVariables": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.rowData"
+            ]
+          },
+          "outcomes": {
+            "success": "selectedChangedModuleFunction"
+          }
+        },
+        "if": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ !$variables.selected.row.isAddAll() ]]"
+          },
+          "outcomes": {
+            "true": "callFunctionGetRowsForIDs"
+          }
+        },
+        "callFunctionGetRowsForIDs": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "getRowsForIDs",
+            "params": [
+              "{{ document.getElementById('table') }}",
+              "{{ Array.from($variables.selected.row.values()) }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignVariables2"
           }
         }
       },
@@ -107,15 +115,76 @@
           "input": "fromCaller"
         }
       }
+    },
+    "onDeselectAll": {
+      "description": "",
+      "root": "callFunctionDeselectAll",
+      "actions": {
+        "callFunctionDeselectAll": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "deselectAll"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "onSelectSpecificRows": {
+      "description": "",
+      "root": "callFunctionSelectSpecificRows",
+      "actions": {
+        "callFunctionSelectSpecificRows": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "selectSpecificRows"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
     }
   },
   "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "onDeselectAll",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "ojButtonOjAction2": {
+      "chains": [
+        {
+          "chainId": "onSelectSpecificRows",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
     "ojTableSelected": {
       "chains": [
         {
           "chainId": "TableSelectedChangeChain",
           "parameters": {
-            "selected": "{{ $event.detail.value }}"
+            "selected": "{{ $event.detail.value }}",
+            "detail": "{{ $event.detail }}"
           }
         }
       ]
@@ -123,6 +192,9 @@
   },
   "imports": {
     "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
       "oj-table": {
         "path": "ojs/ojtable"
       },

@@ -1,5 +1,5 @@
 {
-  "flowModelVersion": "19.4.3",
+
   "id": "multi-step-wizard",
   "description": "Flow main",
   "defaultPage": "multi-step-wizard-start",

@@ -1,6 +1,6 @@
     {
-        "flowModelVersion": "18.3.5",
-        "id": "cascading-lov",
+
+    "id": "cascading-lov",
         "description": "Flow main",
         "defaultPage": "cascading-lov-start",
         "chains": {},

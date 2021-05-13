@@ -1,0 +1,15 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Contains Dynamic UI layout templates -->
+<template id="phoneTemplate">
+<span class="vb-icon vb-icon-telephone" style="margin-top:25px"></span> 
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]"></oj-input-text>
+  
+</template>
+<template id="emailTemplate">
+ <span class="vb-icon vb-icon-envelope" style="margin-top:25px"></span> 
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width" ></oj-input-text>
+</template>

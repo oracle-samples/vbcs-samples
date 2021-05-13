@@ -24,9 +24,8 @@ define(['ojs/ojoffcanvas', 'ojs/ojconverter-number'], function(OffcanvasUtils,
 
 
   PageModule.prototype.optionRenderer = function(context) {
-    return context.data.firstName + ' ' + context.data.lastName
-  }
-
+    return context.data.firstName + ' ' + context.data.lastName;
+  };
 
   PageModule.prototype.mapToCriteria = function(filters) {
     var criteria = [];

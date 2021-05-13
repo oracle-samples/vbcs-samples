@@ -4,8 +4,8 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([
-  'text!resources/config/navigation-menu.json',
-  'text!resources/config/demos.json',
+  'text!resources/config/vb-navigation-menu.json',
+  'text!resources/config/vb-demos.json',
   
 ], function(
   navigationMenu, demos,

@@ -1,0 +1,309 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "page:getEmployeeResponse"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "layoutFlag": {
+      "type": "boolean",
+      "defaultValue": true
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee"
+      }
+    },
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    },
+    "dynamicContainerMetadata": {
+      "type": "vb/ContainerMetadataProviderDescriptor"
+    }
+
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getEmployeeResponse": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    },
+    "getEmployeeResponse": "object"
+
+  },
+  "chains": {
+
+    "loadEmployeeChain": {
+      "root": "setPendingFormStatus",
+      "description": "Loads Employee record data",
+      "variables": {
+        "fetchedFields": {
+          "type": "any[]",
+          "input": "fromCaller"
+        },
+        "employeeId": {
+          "type": "string",
+          "input": "fromCaller",
+          "defaultValue": "100"
+        }
+      },
+      "actions": {
+        "setPendingFormStatus": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeDetailFormLoadingStatus": {
+              "source": "pending"
+            }
+          },
+          "outcomes": {
+            "success": "resetEmployeeData"
+          },
+          "description": "Updates status of the form to Pending.",
+          "label": "Set Form status to Pending"
+        },
+        "resetEmployeeData": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.employee"
+            ]
+          },
+          "outcomes": {
+            "success": "testValidInput"
+          },
+          "description": "Clears Employee data the variable holds",
+          "label": "Reset Employee variable"
+        },
+        "testValidInput": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $variables.fetchedFields && $variables.fetchedFields.length && $variables.employeeId !== undefined ]]"
+          },
+          "outcomes": {
+            "true": "loadEmployee"
+          },
+          "description": "Tests the REST call can be initiated",
+          "label": "Test valid input"
+        },
+        "loadEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Employee",
+            "responseFields": "[[ $variables.fetchedFields ]]",
+            "uriParams": {
+              "Employee_Id": "[[ $variables.employeeId ]]"
+            }
+          },
+          "outcomes": {
+            "success": "assignEmployeeData",
+            "failure": "fireErrorNotification"
+          },
+          "description": "Initiates REST call loading Employee data",
+          "label": "Load Employee record"
+        },
+        "assignEmployeeData": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employee": {
+              "source": "{{ $chain.results.loadEmployee.body }}",
+              "auto": "always"
+            }
+          },
+          "outcomes": {
+            "success": "setReadyFormStatus"
+          },
+          "description": "Assigns data loaded by the REST call to the Employee variable",
+          "label": "Assign Employee data"
+        },
+        "setReadyFormStatus": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeDetailFormLoadingStatus": {
+              "source": "ready"
+            }
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "Could not load data",
+            "message": "[[ 'Could not load data: status ' + $chain.results.loadEmployee.payload.status ]]",
+            "type": "error",
+            "displayMode": "persist"
+          },
+          "description": "Shows an error message informing about data load failure",
+          "label": "Show error message"
+        }
+      }
+    },
+    "ToggleLayout": {
+      "description": "",
+      "root": "ifLayoutFlag",
+      "actions": {
+        "ifLayoutFlag": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.layoutFlag == true ]]"
+          },
+          "outcomes": {
+            "true": "assignVariablesLayoutFlag",
+            "false": "assignVariablesLayoutFlag2"
+          }
+        },
+        "assignVariablesLayoutFlag": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.layoutFlag": {
+              "source": false
+            }
+          }
+        },
+        "assignVariablesLayoutFlag2": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.layoutFlag": {
+              "source": true
+            }
+          }
+        }
+      },
+      "variables": {}
+    }
+
+  },
+  "eventListeners": {
+    "ojButtonOjAction2": {
+      "chains": [
+        {
+          "chainId": "ToggleLayout"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dynamic-container": {
+        "path": "oj-dynamic/container/loader"
+      },
+      "oj-dynamic-form": {
+        "path": "oj-dynamic/form/loader"
+      }
+
+    }
+  },
+  "layouts": {
+    "containerLayout1": {
+      "layoutType": "container",
+      "label": "Container Ruleset 1",
+      "rules": [
+        "containerLayout1-rule2",
+        "containerLayout1-rule1"
+      ],
+      "layouts": {
+        "case1": {
+          "layoutType": "container",
+          "label": "Case 1",
+          "layout": {
+            "sectionTemplateMap": {
+              "section1": "formExample",
+              "section2": "tableExample"
+            },
+            "displayProperties": [
+              "section1",
+              "section2"
+            ]
+          }
+        },
+        "case2": {
+          "layoutType": "container",
+          "label": "Case 2",
+          "layout": {
+            "displayProperties": [
+              "section1",
+              "section2"
+            ],
+            "sectionTemplateMap": {
+              "section1": "tableExample",
+              "section2": "formExample"
+            }
+          }
+        }
+      }
+    },
+    "containerLayout1-rule1": {
+      "expression": "[[ $variables.layoutFlag == true ? 'case1' : null ]]"
+    },
+    "containerLayout1-rule2": {
+      "expression": "[[ $variables.layoutFlag == false ? 'case2' : null ]]"
+    }
+  },
+  "templates": {
+    "formExample": {
+      "title": "Form Example",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "oj-dynamic/form/loader"
+      ]
+    },
+    "tableExample": {
+      "title": "Table Example",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "oj-dynamic/table/loader"
+      ]
+    }
+  }
+}

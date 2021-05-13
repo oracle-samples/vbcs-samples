@@ -1,0 +1,98 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeData": {
+      "type": "getall_Employee"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Employee": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Employee": {
+      "items": [
+        {
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "fetchEmployeeData": {
+      "root": "callRestGetallEmployee",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "fireNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callRestGetallEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "callRestGetallEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Employee",
+            "responseType": "getall_Employee",
+            "uriParams": {
+              "limit": 1000
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification",
+            "success": "assignEmployees"
+          }
+        },
+        "assignEmployees": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeeData": {
+              "source": "{{ $chain.results.callRestGetallEmployee.body }}",
+              "auto": "always"
+            }
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "fetchEmployeeData",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-data-grid": {
+        "path": "ojs/ojdatagrid"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  }
+}

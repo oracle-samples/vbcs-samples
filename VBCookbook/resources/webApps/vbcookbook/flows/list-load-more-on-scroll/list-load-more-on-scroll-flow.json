@@ -1,5 +1,5 @@
 {
-  "flowModelVersion": "19.4.3",
+
   "id": "list-load-more-on-scroll",
   "description": "Flow main",
   "defaultPage": "list-load-more-on-scroll-start",

@@ -1,5 +1,5 @@
 {
-    "flowModelVersion": "19.1.1",
+
     "id": "rest-ords-integration",
     "description": "Flow main",
     "defaultPage": "rest-ords-integration-start",

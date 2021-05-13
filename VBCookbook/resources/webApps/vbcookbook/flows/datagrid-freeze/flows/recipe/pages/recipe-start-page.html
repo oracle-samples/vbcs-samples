@@ -1,0 +1,189 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Add a Call REST Endpoint action to fetch employees and a Data Grid component
+  that displays the returned employee data.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Data Grid to Display Employees</span>
+      <div>
+        <ol>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-765FB233-EFBC-4841-8F18-27C233125C80"
+              >Create a custom type from the GET /Employee endpoint.</a
+            >
+          </li>
+          <li>
+            Add the appropriate fields (name, job, and so on) to the Employee
+            custom type.
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA"
+              >Create an employeeData variable</a
+            >
+            that binds to the <code>getall_Employee</code> type you just
+            created.
+          </li>
+
+          <li>
+            Add a <code>vbEnter</code> event listener to the page that will
+            display the employees in a Data Grid component.
+          </li>
+          <li>
+            In the action chain started by the <code>vbEnter</code> event
+            listener, add a Call REST Endpoint action to fetch the employees and
+            populate the <code>employeeData</code> variable.
+          </li>
+
+          <li>
+            In the Code view of the Page Designer, add an empty oj-data-grid
+            tag, then add the following properties:
+            <ul>
+              <li><code>id</code> to value <code>datagrid</code></li>
+              <li>
+                <code>style</code> to value
+                <code>width:100%;height:400px;max-width:954px;</code>
+              </li>
+              <li>
+                <code>aria-label</code> to value Data Grid Formatted Row Based
+                Grid Demo
+              </li>
+              <li>
+                <code>data</code> to value
+                <code
+                  >[[ $functions.getDataSource($variables.employeeData) ]]</code
+                >
+              </li>
+              <li><code>banding-interval.row</code> to value 1</li>
+              <li>
+                <code>header.column.renderer</code> to value
+                <code>[[ $functions.getRenderer('header_template') ]]</code>
+              </li>
+              <li>
+                <code>header.column.style</code> to value
+                <code>width:125px</code>
+              </li>
+              <li>
+                <code>header.column.resizable.width</code> to value enable
+              </li>
+              <li>
+                <code>header.column.resizable.height</code> to value enable
+              </li>
+              <li>
+                <code>cell.renderer</code> to value
+                <code>[[ $functions.getRenderer('cell_template') ]]</code>
+              </li>
+              <li>
+                <code>cell.class-name</code> to value
+                <code>[[ $functions.getCellClassName ]]</code>
+              </li>
+            </ul>
+          </li>
+          <li>Add the templates to render headers and cells.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepb">
+      <span slot="header"
+        >Create JavaScript Functions for Data Source and Helper Functions</span
+      >
+      <div>
+        <ol>
+          <li>
+            Import the following modules:
+            <p>
+              <code
+                >'ojs/ojknockouttemplateutils',
+                'ojs/ojcollectiondatagriddatasource', 'ojs/ojmodel',
+                'ojs/ojconverter-datetime', 'ojs/ojconverter-number'</code
+              >
+            </p>
+          </li>
+          <li>
+            Create date and salary converters in the
+            <code>PageModule</code> constructor.
+            <pre>
+							<code>
+var dateOptions = { formatType: 'date', dateFormat: 'medium' };
+this.dateConverter = new DateTimeConverter.IntlDateTimeConverter(dateOptions);
+var salaryOptions = {
+  style: 'currency',
+  currency: 'USD',
+  currencyDisplay: 'symbol'
+};
+this.salaryConverter = new NumberConverter.IntlNumberConverter(
+salaryOptions);
+							</code>
+						</pre>
+          </li>
+          <li>
+            Create a function to convert an array to a data source for the Data
+            Grid component.
+            <pre>
+						<code>
+PageModule.prototype.getDataSource = function (employeeData) {
+  var collection = new Model.Collection(employeeData.items);
+  return new collectionModule.CollectionDataGridDataSource(collection,
+	{ rowHeader: 'id' }
+);
+};
+						</code>
+					</pre>
+          </li>
+          <li>
+            Create a function for the cell and the header renderer.
+            <pre>
+							<code>
+PageModule.prototype.getRenderer = function (tmpl) {
+  return KnockoutTemplateUtils.getRenderer(tmpl);
+};
+							</code>
+						</pre>
+          </li>
+          <li>
+            Create a module function to access the convertors.
+            <pre>
+							<code>
+PageModule.prototype.formatDate = function (data) {
+  return this.dateConverter.format(data);
+};
+PageModule.prototype.formatNumber = function (data) {
+  return this.salaryConverter.format(data);
+};
+							</code>
+						</pre>
+          </li>
+          <li>
+            Create a function to set cell text alignment.
+            <pre>
+							<code>
+PageModule.prototype.getCellClassName = function (cellContext) {
+var key = cellContext.keys.column;
+if (key === 'salary') {
+	return 'oj-helper-justify-content-right';
+} else if (key === 'firstName' ||
+	key === 'lastName' ||
+	key === 'email' ||
+	key === 'hireDate' || key === 'departmentObject') {
+	return 'oj-sm-justify-content-flex-start';
+}
+return '';
+};
+							</code>
+						</pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

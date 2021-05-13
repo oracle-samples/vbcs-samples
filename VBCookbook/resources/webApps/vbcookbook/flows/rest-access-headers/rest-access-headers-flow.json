@@ -1,5 +1,5 @@
 {
-  "flowModelVersion": "19.4.3",
+
   "id": "rest-access-headers",
   "description": "Flow main",
   "defaultPage": "rest-access-headers-start",

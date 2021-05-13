@@ -1,0 +1,149 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>To use this recipe, you need to install components from the Component Exchange.
+  Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-1494599579-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Container</h1>
+      <div>
+        <ol>
+          <li>
+            In the Component Palette, click <strong>Get Components</strong> and
+            enter <code>JET Dynamic Container</code> to find and install the JET
+            Dynamic Container component from the Component Exchange.
+          </li>
+          <li>Drag and drop the Dynamic Container on the Page Designer.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Create a Form Template for the Dynamic Container</h1>
+      <div>
+        <ol>
+          <li>In the Templates tab of the Properties pane for the Dynamic Container, click <strong>+ Template</strong>.
+          <li>In the Create Template dialog, enter a name, such as <code>Form Example</code>, and click
+            <strong>Create</strong>.
+          </li>
+          
+          <li>Install the JET Dynamic Form component from the Component Exchange, then drag and drop it on the
+            template
+            in the Page Designer.</li>
+          <li>In the Quick Start tab of the Properties pane, click <strong>Configure as Detail Form</strong>.</li>
+          <li>In the Configure as Detail Form dialog that appears, choose the business object or REST endpoint that
+            you want to use as the data source for the form, and click <strong>Next</strong>.</li>
+          <li>In the Select Rule Set page of the Configure as Detail Form dialog, click <strong>New Rule
+              Set</strong> to define your own display logic, and enter a rule set label and ID, such as
+            <code>Form Example</code>.
+          </li>
+          <li>In the Fields section, select the following fields, and then click <strong>Next</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+              <li><code>hireDate</code></li>
+            </ul>
+          </li>
+          <li>In the Define Query page of the Configure as Detail Form dialog, select <strong>EmployeeId</strong> in
+            the Target section and assign it a static content value of <code>100</code> so that your form fetches
+            data for this employee, then click <strong>Finish</strong>.</li>
+            
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Create a Table Template for the Dynamic Container</h1>
+      <div>
+        <ol>
+          <li>In the Templates tab of the Properties pane for the Dynamic Container, click <strong>+ Template</strong>.
+          <li>In the Create Template dialog, enter a name, such as <code>Table Example</code>, and click
+            <strong>Create</strong>.
+          </li>
+          <li>Install the JET Dynamic Table component from the Component Exchange, then drag and drop it on the
+            template in the Page Designer.</li>
+          <li>In the Quick Start tab of the Properties pane, click <strong>Configure Dynamic UI Quick
+              Start</strong>.</li>
+          <li>In the Configure Dynamic UI dialog that appears, choose the business object or REST endpoint that
+            you want to use as the data source for the table, and click <strong>Next</strong>.</li>
+          <li>In the Select Rule Set page of the Configure Dynamic UI dialog, click <strong>New Rule
+              Set</strong> to define your own display logic, and enter a rule set label and ID, such as
+            <code>Table Example</code>.
+          </li>
+          <li>In the Fields section, select the following fields, and then click <strong>Next</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+            </ul>
+          </li>
+          <li>Click <strong>Next</strong> and <strong>Finish</strong>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-1494599579-1">
+      <h1 slot="header">Toggle the Templates</h1>
+      <div>
+        <p>Add a Button component and a page variable to your page to toggle the templates in the Dynamic Container.</p>
+        <ol>
+          <li>
+            In the Variables tab, create a page variable named
+            <code>layoutFlag</code> of type Boolean and set its default value to
+            <code>true</code>.
+          </li>
+          <li>
+            In the Component Palette, drag a Button component and drop it on
+            the page, above the Dynamic Container.
+          </li>
+          <li>
+            In the Events tab of the Button component's Properties pane, create an ojAction event.
+          </li>
+          <li>Set the name of the generated action chain to <code>ToggleLayout</code> and add the following actions:
+          </li>
+          <ul>
+            <li>An If action and, in the Properties pane, set condition to
+              <code>[[ $page.variables.layoutFlag == true ]]</code>.
+            </li>
+            <li>In the true branch, add an Assign Variables action and assign the Target Value of
+              <code>layoutFlag</code> to
+              <code>false</code>.
+            </li>
+            <li>In the false branch, add an Assign Variables action and assign the Target Value of
+              <code>layoutFlag</code> to
+              <code>true</code>.
+            </li>
+          </ul>
+          <li>
+            In the Page Designer, select the Dynamic Container component and, in
+            the General tab of the Properties pane, click <strong>+</strong> beside the Display Templates field to add
+            the <code>Dynamic Form Template</code> and then add
+            <code>Dynamic Table Template</code> to the list of templates to display.
+          </li>
+          <li>
+            Click <strong>+ Case</strong> to create Case 2 and click <strong>+</strong> beside the Display Templates
+            field to add the <code>Dynamic Table Template</code> and then add
+            <code>Dynamic Form Template</code> to the list of templates to display in Case 2.
+          </li>
+          <li>
+            In Case 1, set condition to: <code>$variables.layoutFlag == true</code>.
+          </li>
+          <li>
+            In Case 2, set condition to: <code>$variables.layoutFlag == false</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>
+</div>

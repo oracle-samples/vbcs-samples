@@ -1,5 +1,5 @@
 {
-  "pageModelVersion": "2010.0.0",
+
   "title": "",
   "description": "",
   "variables": {
@@ -8,7 +8,8 @@
       "defaultValue": {
         "itemType": "getall_Department",
         "textFilterAttributes": [
-      "departmentName"    ],
+          "departmentName"
+        ],
         "keyAttributes": [
           "id",
           "departmentName"
@@ -26,10 +27,34 @@
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponse",
         "transformsContext": {
-          "vb-textFilterAttributes": ["firstName"]
+          "vb-textFilterAttributes": [
+            "firstName",
+            "lastName"
+          ]
         },
         "uriParameters": {
           "totalResults": true
+        }
+      }
+    },
+    "employeeListSDP2": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse2",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName",
+            "lastName",
+            "phoneNumber"
+          ]
+        },
+        "transforms": {
+          "request": {
+            "filter": "{{ $functions.processFilter }}"
+          }
         }
       }
     },
@@ -55,6 +80,11 @@
       "service": "businessObjects",
       "path": "response"
     },
+    "@decorators.getallEmployeeResponse2": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
     "childobj": {
       "label": "string",
       "value": "number"
@@ -64,15 +94,27 @@
       "id": "number"
     },
     "getallEmployeeResponse": {
-      "items": [{
-        "email": "string",
-        "firstName": "string",
-        "hireDate": "string",
-        "id": "number",
-        "lastName": "string",
-        "phoneNumber": "string",
-        "salary": "number"
-      }]
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "getallEmployeeResponse2": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string"
+        }
+      ]
     },
     "obj": {
       "children": "childobj[]",
@@ -104,11 +146,13 @@
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$page.variables.groupingDept": {
-              "source": [{
-                "children": "{{ $chain.results.callDepartmentRestEndpoint.body.items }}",
-                "label": "All Departments",
-                "value": 1234567
-              }],
+              "source": [
+                {
+                  "children": "{{ $chain.results.callDepartmentRestEndpoint.body.items }}",
+                  "label": "All Departments",
+                  "value": 1234567
+                }
+              ],
               "reset": "none",
               "auto": "always",
               "mapping": {
@@ -148,14 +192,18 @@
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$page.variables.groupingDept": {
-              "source": [{
-                "children": [{
-                  "value": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].id }}",
-                  "label": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].departmentName }}"
-                }],
-                "label": "Commonly Selected",
-                "value": 234567
-              }],
+              "source": [
+                {
+                  "children": [
+                    {
+                      "value": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].id }}",
+                      "label": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].departmentName }}"
+                    }
+                  ],
+                  "label": "Commonly Selected",
+                  "value": 234567
+                }
+              ],
               "reset": "none",
               "auto": "always",
               "mapping": {
@@ -252,7 +300,8 @@
   },
   "eventListeners": {
     "vbEnter": {
-      "chains": [{
+      "chains": [
+        {
           "chainId": "GetDeptData",
           "parameters": {}
         },

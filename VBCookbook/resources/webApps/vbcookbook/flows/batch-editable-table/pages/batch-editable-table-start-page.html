@@ -25,7 +25,6 @@
         </div>
       </div>
     </div>
-    <oj-validation-group id="tracker">
       <div class="oj-flex">
         <oj-table edit-row="{{ $page.variables.editRow }}" scroll-position="{{ $page.variables.scrollPosition }}"
           scroll-policy="loadAll" id="batch-editable-table" class="oj-flex-item oj-sm-12 oj-md-12"
@@ -54,7 +53,7 @@
         <oj-input-text converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}' value='[[typeof $current.data === "number" ? $current.data : null]]' :id="[['oj-input-number-1829646926-1-' + $current.index]]" readonly="true"></oj-input-text>
       </oj-bind-if>
       <oj-bind-if test='[[$current.mode === "edit"]]'>
-        <oj-input-text validators="{{[$functions.salaryInRangeValidator($page.variables.currentRowBuffer, $page.variables.disableRowEditExit)]}}" converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}' value="{{ $variables.currentRowBuffer.salary}}" :id="[['oj-input-number-1829646926-1-' + $current.index]]"></oj-input-text>
+        <oj-input-text class="editable" validators="{{[$functions.salaryInRangeValidator($page.variables.currentRowBuffer, $page.variables.disableRowEditExit)]}}" converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}' value="{{ $variables.currentRowBuffer.salary}}" :id="[['oj-input-number-1829646926-1-' + $current.index]]"></oj-input-text>
       </oj-bind-if>
     </template>
           <template slot="First Name">
@@ -62,7 +61,7 @@
         <oj-bind-text value="[[$current.data]]"></oj-bind-text>
       </oj-bind-if>
       <oj-bind-if test='[[$current.mode === "edit"]]'>
-        <oj-input-text value="{{ $variables.currentRowBuffer.firstName}}" :id="[['oj-input-text-1829646926-2-' + $current.index]]" required="true"></oj-input-text>
+        <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.firstName}}" :id="[['oj-input-text-1829646926-2-' + $current.index]]" required="true"></oj-input-text>
       </oj-bind-if>
     </template>
           <template slot="Last Name">
@@ -70,7 +69,7 @@
         <oj-bind-text value="[[$current.data]]"></oj-bind-text>
       </oj-bind-if>
       <oj-bind-if test='[[$current.mode === "edit"]]'>
-        <oj-input-text value="{{ $variables.currentRowBuffer.lastName}}" :id="[['oj-input-text-1829646926-3-' + $current.index]]" required="true"></oj-input-text>
+        <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.lastName}}" :id="[['oj-input-text-1829646926-3-' + $current.index]]" required="true"></oj-input-text>
       </oj-bind-if>
     </template>
           <template slot="Actions">
@@ -78,7 +77,6 @@
     </template>
         </oj-table>
       </div>
-    </oj-validation-group>
     <div class="oj-flex oj-sm-flex-direction-column">
       <oj-text-area id="row-status" class="oj-flex-item oj-sm-flex-initial"
         rows="5" value="{{ 'Changes: ' + JSON.stringify($variables.rowStatus) }}" style="min-width: 50%;"></oj-text-area>

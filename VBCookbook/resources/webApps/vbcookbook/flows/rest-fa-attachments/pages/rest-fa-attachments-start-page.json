@@ -1,5 +1,5 @@
 {
-  "pageModelVersion": "19.3.1",
+
   "title": "",
   "description": "Manage single activity attachments",
   "variables": {
@@ -20,7 +20,7 @@
     "attachmentsSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
-        "endpoint": "activities/getall_activities-Attachments",
+        "endpoint": "activities_vb/getall_activities-Attachments",
         "idAttribute": "AttachedDocumentId",
         "itemsPath": "items",
         "responseType": "page:getallActivitiesAttachmentsResponse",
@@ -220,7 +220,7 @@
         "callCreateAttachmentRestEndpoint": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "activities/create_activities-Attachments",
+            "endpoint": "activities_vb/create_activities-Attachments",
             "uriParams": {
               "activities_Id": "{{ $page.variables.testingActivityId }}"
             },
@@ -355,7 +355,7 @@
         "callGetAttachmentRestEndpoint": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "activities/get_activities-Attachments-FileContents",
+            "endpoint": "activities_vb/get_activities-Attachments-FileContents",
             "uriParams": {
               "activities_Id": "{{ $page.variables.testingActivityId }}",
               "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}"
@@ -434,7 +434,7 @@
         "callGetAttachmentRestEndpoint": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "activities/get_activities-Attachments-FileContents",
+            "endpoint": "activities_vb/get_activities-Attachments-FileContents",
             "uriParams": {
               "activities_Id": "{{ $page.variables.testingActivityId }}",
               "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}"
@@ -518,7 +518,7 @@
         "callDeleteAttachmentRestEndpoint": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "activities/delete_activities-Attachments",
+            "endpoint": "activities_vb/delete_activities-Attachments",
             "uriParams": {
               "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}",
               "activities_Id": "{{ $page.variables.testingActivityId }}"
@@ -656,7 +656,7 @@
         "callCreateAttachmentRestEndpoint": {
           "module": "vb/action/builtin/restAction",
           "parameters": {
-            "endpoint": "activities/create_activities-Attachments",
+            "endpoint": "activities_vb/create_activities-Attachments",
             "uriParams": {
               "activities_Id": "{{ $page.variables.testingActivityId }}"
             },

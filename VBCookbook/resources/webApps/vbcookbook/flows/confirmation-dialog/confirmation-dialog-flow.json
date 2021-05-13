@@ -1,5 +1,5 @@
 {
-  "flowModelVersion": "18.4.5",
+
   "id": "confirmation-dialog",
   "description": "Flow main",
   "defaultPage": "confirmation-dialog-start",

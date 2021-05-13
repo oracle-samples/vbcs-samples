@@ -1,0 +1,198 @@
+{
+  "layoutTypes": {
+    "businessObjects": {
+      "kind": "operationRef",
+      "serviceId": "businessObjects",
+      "operations": [
+        "get_Employee",
+        "getall_Employee"
+      ]
+    }
+  },
+  "layouts": {
+    "isDefault": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "formExampleLayout": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "Form Example",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              "email",
+              "phoneNumber",
+              "salary",
+              "hireDate"
+            ],
+            "maxColumns": 2
+          },
+          "usedIn": [
+            "isDefault"
+          ]
+        }
+      }
+    },
+    "employeeFormRuleSet": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "Employee Form RuleSet",
+      "rules": [
+        "getCorrectLayout"
+      ],
+      "layouts": {
+        "employeeLayout": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              "phoneNumber",
+              "email",
+              "hireDate"
+            ],
+            "maxColumns": 2
+          },
+          "usedIn": [
+            "getCorrectLayout"
+          ]
+        },
+        "managerLayout": {
+          "layoutType": "form",
+          "type": "businessObjects",
+          "label": "managerLayout",
+          "description": "",
+          "layout": {
+            "displayProperties": [
+              "fullName",
+              "phoneNumber",
+              "email",
+              "hireDate",
+              {
+                  "salary": {
+                    "colspan": 2
+                  }
+                }
+            ],
+            "maxColumns": 2
+          },
+          "usedIn": [
+            "getCorrectLayout"
+          ]
+        },
+        "myselfLayout": {
+          "layoutType": "form",
+          "type": "businessObjects",
+          "label": "selfLayout",
+          "description": "",
+          "layout": {
+            "displayProperties": [
+              "phoneNumber",
+              "email",
+              "hireDate",
+              "salary"
+            ],
+            "maxColumns": 2,
+            "fieldTemplateMap": {
+            }
+          },
+          "usedIn": [
+            "getCorrectLayout"
+          ]
+        }
+      },
+      "fieldTemplateMap": {
+        "salary": "managerSalaryTemplate"
+      }
+    },
+    "simpleEmployeeListRuleSet": {
+      "type": "businessObjects",
+      "layoutType": "table",
+      "label": "Simple Employee List RuleSet",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "table",
+          "layout": {
+            "displayProperties": [
+              "fullName",
+              "email",
+              "phoneNumber",
+              "salary"
+            ]
+          },
+          "usedIn": [
+            "isDefault"
+          ]
+        }
+      },
+      "fieldTemplateMap": {
+        "phoneNumber": "phoneTemplate",
+        "email": "emailTemplate"
+      }
+ 
+    },
+    "tableExampleLayout": {
+      "type": "businessObjects",
+      "layoutType": "table",
+      "label": "Table Example",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "table",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              "email",
+              "phoneNumber",
+              "salary"
+            ]
+          }
+        }
+      }
+    },
+    "getCorrectLayout": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "{{ $value.id === 100 ? \"myselfLayout\" : ($value.manager === 100 ? 'managerLayout' : 'employeeLayout') }}"
+    }
+  },
+  "templates": {
+    "emailTemplate": {
+      "title": "Email Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext"
+      ]
+    },
+    "phoneTemplate": {
+      "title": "Phone Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext"
+      ]
+    }
+  }
+}

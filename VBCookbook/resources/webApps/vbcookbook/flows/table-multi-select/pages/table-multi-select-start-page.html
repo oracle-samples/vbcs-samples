@@ -4,14 +4,28 @@
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-margin-bottom">
-
-  This recipe shows you how to enable multiple row selection in a Table component using checkboxes.
+  This recipe shows you how to enable multiple row selection in a Table component using checkboxes and programatically.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
-    <div class="oj-flex">
+<div class="oj-flex oj-flex-item oj-sm-align-items-flex-start">
+  <div
+    class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box oj-sm-justify-content-center oj-sm-flex-items-initial">
+    <div class="oj-flex oj-flex-item oj-sm-flex-wrap-nowrap oj-sm-flex-initial">
+      <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+        <oj-button chroming="callToAction" on-oj-action="[[$listeners.ojButtonOjAction]]" style="padding-right:10px;"
+          disabled="[[ $variables.disableDeselectAll ]]">Deselect All</oj-button>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+        <oj-button chroming="callToAction" style="padding-right:10px;" on-oj-action="[[$listeners.ojButtonOjAction2]]">Select Depts with IDs 1 and 3</oj-button>
+      </div>
+      <oj-text-area label-edge='provided' label-hint='Current Selection'
+        value="{{ ($variables.currentSelection ? $variables.currentSelection :'')  + ($variables.rowData.length === 0 ? '' : '\n'+ 'Row Data: '+JSON.stringify ($variables.rowData)) }}"
+        resize-behavior="vertical" class="" rows="4"></oj-text-area>
+       
+    
+    </div>
+    <div class="oj-flex oj-sm-flex-initial">
       <oj-table scroll-policy="loadMoreOnScroll" id="table"
-        class="oj-flex-item oj-sm-12 oj-md-11"
+        class="oj-flex-item oj-sm-12 oj-md-12"
         data="[[$variables.departmentListSDP]]"
         columns-default='{"sortable": "disabled"}' columns='[
                   {
@@ -29,19 +43,14 @@
                   {
                     "headerText":"Location Id",
                     "field":"location"
-                  }]' selection-mode.row="multiple" style="height:600px;"
-        scroll-policy-options.fetch-size="10"
-        selected='{{$page.functions.selectedItems}}'
-        on-selected-changed="[[$listeners.ojTableSelected]]">
+                  }]' selection-mode.row="multiple"
+        scroll-policy-options.fetch-size="6"
+        selected='{{$page.functions.getSelectedItems()}}'
+        on-selected-changed="[[$listeners.ojTableSelected]]" style="height:350px;">
 
 
       </oj-table>
 
-    </div>
-    <div class="oj-flex">
-      <oj-text-area label-edge='provided' label-hint='Current Selection'
-        value="{{ $variables.currentSelection }}">
-      </oj-text-area>
     </div>
 
   </div>

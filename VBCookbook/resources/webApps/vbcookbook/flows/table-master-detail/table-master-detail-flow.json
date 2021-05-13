@@ -1,5 +1,5 @@
 {
-    "flowModelVersion": "19.1.1",
+
     "id": "table-master-detail",
     "description": "Flow main",
     "defaultPage": "table-master-detail-start",

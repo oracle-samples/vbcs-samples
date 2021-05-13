@@ -10,6 +10,16 @@
     "categoryBorderClass": "rootForms_border",
     "items": [
       {
+        "id": "dynamicUI",
+        "label": "Dynamic UI",
+        "icon": "form-layout",
+        "items": [
+          "dynamic-form-multiple-layout",
+          "dynamic-table-field-template",
+          "dynamic-container-toggle-layout"
+        ]
+      },
+      {
         "id": "layout",
         "label": "Layout",
         "icon": "form-layout-jet",
@@ -42,6 +52,7 @@
           "select-single"
         ]
       },
+      
       {
         "id": "inputnumber",
         "label": "Input Controls",
@@ -93,12 +104,20 @@
         ]
       },
       {
+        "id": "datagrid",
+        "label": "Data Grid",
+        "icon": "grid-view-small",
+        "items": [
+          "datagrid-freeze"
+        ]
+      },
+      {
         "id": "visualizations-chart",
         "label": "Chart",
         "icon": "chart",
         "items": [
           "visualizations-bar-chart-basic",
-          "visualizations-bar-chart-transform"       
+          "visualizations-bar-chart-transform"
         ]
       }
     ]
@@ -124,7 +143,7 @@
         "label": "Business Objects",
         "icon": "binding-control",
         "items": [
-          "bo-triggers"  
+          "bo-triggers"
         ]
       },
       {
