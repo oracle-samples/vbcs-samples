@@ -50,6 +50,25 @@
         "getCorrectLayout"
       ],
       "layouts": {
+        "default": {
+          "layoutType": "form",
+          "type": "businessObjects",
+          "label": "default",
+          "description": "",
+          "layout": {
+            "displayProperties": [
+              "id",
+              "firstName",
+              "lastName",
+              "phoneNumber",
+              "email",
+              "salary",
+              "hireDate",
+              "manager"
+            ]
+          },
+          "usedIn": []
+        },
         "employeeLayout": {
           "layoutType": "form",
           "layout": {
@@ -109,6 +128,7 @@
             "getCorrectLayout"
           ]
         }
+
       },
       "fieldTemplateMap": {
         "salary": "managerSalaryTemplate"
