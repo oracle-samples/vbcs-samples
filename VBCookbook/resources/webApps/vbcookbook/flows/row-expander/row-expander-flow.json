@@ -1,0 +1,9 @@
+{
+  "id": "row-expander",
+  "description": "Flow main",
+  "defaultPage": "row-expander-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -17,12 +17,31 @@
         }
       }
     },
+    "getEmployeesListSDP2": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "ords/getEmployees",
+        "keyAttributes": "ename",
+        "itemsPath": "items",
+        "responseType": "getEmployeesResponse2",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "ename"
+          ]
+        }
+      }
+    },
     "searchText": {
       "type": "string"
     }
   },
   "metadata": {},
   "types": {
+    "@decorators.getEmployeesResponse2": {
+      "endpoint": "getEmployees",
+      "service": "ords",
+      "path": "response"
+    },
     "getEmployeesResponse": {
       "items": [
         {
@@ -35,12 +54,22 @@
       "endpoint": "getEmployees",
       "service": "ords",
       "path": "response"
+    },
+    "getEmployeesResponse2": {
+      "items": [
+        {
+          "ename": "string"
+        }
+      ]
     }
   },
   "chains": {},
   "eventListeners": {},
   "imports": {
     "components": {
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
       "oj-table": {
         "path": "ojs/ojtable"
       },

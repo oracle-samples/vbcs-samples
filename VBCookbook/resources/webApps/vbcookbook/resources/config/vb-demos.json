@@ -1034,6 +1034,18 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "row-expander":{
+    "id": "row-expander",
+    "runtime": "vb",
+    "label": "Row Expander",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "row-expander-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "dynamic-container-toggle-layout":{
     "id": "dynamic-container-toggle-layout",
     "runtime": "vb",
@@ -1078,6 +1090,30 @@
     "apiRef": [],
     "seealso": [],
     "demoPageName": "datagrid-freeze-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "editable-form-table-sdp": {
+    "id": "editable-form-table-sdp",
+    "runtime": "vb",
+    "label": "Editable Form Table",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "editable-form-table-sdp-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "dynamic-form-context": {
+    "id": "dynamic-form-context",
+    "runtime": "vb",
+    "label": "Component Context",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-form-context-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"

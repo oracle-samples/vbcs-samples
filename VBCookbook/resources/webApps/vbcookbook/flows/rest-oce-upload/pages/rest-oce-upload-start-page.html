@@ -12,8 +12,8 @@
   photos
   to the folder.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <div class="oj-flex">
       <div
         class="oj-flex oj-flex-item oj-sm-12 oj-md-12 oj-sm-align-items-center oj-sm-padding-2x-horizontal">
@@ -37,6 +37,7 @@
     <div class="oj-flex">
       <oj-table scroll-policy="loadMoreOnScroll" id="oj-table-716052071-1"
         class="oj-flex-item oj-sm-12 oj-md-12"
+        style="width: 100%"
         data="[[$page.variables.oceFilesSDP]]"
         columns='[  {    "headerText": "Name",    "field": "name",    "template": "Name",    "sortable": "disabled"  },  {    "headerText": "Size",    "field": "size",    "sortable": "disabled"  },  {    "headerText": "Type",    "field": "mimeType",    "sortable": "disabled",    "template": "Type"  },  {    "headerText": "",    "template": "Download"  },  {    "headerText": "",    "template": "Preview"  },  {    "headerText": "",    "template": "Delete"  }]'>
         <template slot="Download">

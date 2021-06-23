@@ -35,8 +35,8 @@
   edits on the client and save all changes to the backend service using a single
   REST batch call.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <div class="oj-flex oj-sm-flex-direction-column">
       <div class="oj-flex">
         <h2 id="h1-1829646926-1" class="oj-flex-item oj-lg-3 oj-sm-3 oj-md-3">
@@ -75,7 +75,7 @@
         </div>
       </div>
       <oj-table id="multi-edit-batch-save" scroll-policy="loadMoreOnScroll"
-        style="max-height: 400px;" scroll-policy-options='{"fetchSize": 10}'
+        style="max-height: 400px; width: 100%" scroll-policy-options='{"fetchSize": 10}'
         data="[[$page.variables.employeeListADP]]"
         columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"}, {"headerText":"Email","template":"cellTemplate1","resizable":"enabled"},{"headerText":"Salary","template":"cellTemplate2","resizable":"enabled"},{"headerText":"Actions","template":"cellTemplate"}]'>
         <template slot="cellTemplate1">

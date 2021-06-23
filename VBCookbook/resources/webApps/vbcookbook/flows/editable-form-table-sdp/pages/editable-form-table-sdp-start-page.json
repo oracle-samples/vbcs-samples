@@ -1,0 +1,385 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "cancelEditVar": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "currentRow": {
+      "type": "get_Employee"
+    },
+    "editRow": {
+      "type": "any"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    }
+
+  },
+  "metadata": {},
+  "types": {
+   
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string",
+      "phoneNumber": "string"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "CancelActionChain": {
+      "description": "",
+      "root": "assignVariablesEditRow",
+      "actions": {
+        "assignVariablesEditRow": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.editRow": {
+              "source": "{{ {rowKey: null} }}"
+            },
+            "$page.variables.cancelEditVar": {
+              "source": true
+            }
+          }
+        }
+      },
+      "variables": {
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "EditActionChain": {
+      "description": "",
+      "root": "assignVariablesEditRow",
+      "actions": {
+        "assignVariablesEditRow": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.editRow": {
+              "source": "{{ {rowKey:$chain.variables.key} }}"
+            }
+          }
+        }
+      },
+      "variables": {
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "SaveActionChain": {
+      "description": "",
+      "root": "assignVariablesEditRow",
+      "actions": {
+        "assignVariablesEditRow": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.editRow": {
+              "source": "{{ {rowKey: null} }}"
+            }
+          }
+        }
+      },
+      "variables": {
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "TableBeforeRowEditChain": {
+      "description": "",
+      "root": "assignVariablesCurrentRow",
+      "actions": {
+        "assignVariablesCurrentRow": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentRow": {
+              "source": "{{ $variables.rowData }}",
+              "auto": "always"
+            }
+          }
+        }
+      },
+      "variables": {
+
+        "rowKey": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowIndex": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "rowData": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      }
+    },
+    "TableBeforeRowEditEndChain": {
+      "description": "",
+      "root": "ifCancelEdit",
+      "actions": {
+        "fireDataProviderEventEmployeeListSDP": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.employeeListSDP ]]",
+            "update": {
+              "data": {
+                  "items": [
+                    {
+                      "id": "{{ $chain.variables.rowData.id }}",
+                      "firstName": "{{ $chain.variables.rowData.firstName }}",
+                      "lastName": "{{ $chain.variables.rowData.lastName }}",
+                      "email": "{{ $chain.variables.rowData.email }}",
+                      "phoneNumber": "{{ $chain.variables.rowData.phoneNumber }}"
+                    }
+                  ]
+                },
+              "keys": [
+                "{{ $chain.variables.rowData.id }}"
+              ]
+            }
+          },
+          "outcomes": {
+            "success": "callRestUpdateEmployee"
+          }
+        },
+        "fireNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callRestUpdateEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "callRestUpdateEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/update_Employee",
+            "uriParams": {
+              "Employee_Id": "{{ $variables.rowData.id }}"
+            },
+            "body": {
+              "firstName": "{{ $chain.variables.rowData.firstName }}",
+              "lastName": "{{ $chain.variables.rowData.lastName }}",
+              "email": "{{ $chain.variables.rowData.email }}",
+              "phoneNumber": "{{ $chain.variables.rowData.phoneNumber }}"
+            }
+          },
+          "outcomes": {
+            "failure": "fireNotification"
+          }
+        },
+        "ifCancelEdit": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $variables.cancelEdit ]]"
+          },
+          "outcomes": {
+            "false": "hasRecordChanged",
+            "true": "resetVariablesCancelEditVar"
+          }
+        },
+        "resetVariablesCancelEditVar": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.cancelEditVar"
+            ]
+          }
+        },
+        "hasRecordChanged": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "{{ $page.functions.areDifferent($chain.variables.rowData, $chain.variables.originalRowData) }}"
+          },
+          "outcomes": {
+            "true": "fireDataProviderEventEmployeeListSDP"
+          }
+        }
+      },
+      "variables": {
+        "cancelEdit": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "detail": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "originalRowData": {
+          "type": "get_Employee",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "rowKey": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowIndex": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "rowData": {
+
+          "type": "get_Employee",
+          "required": true,
+          "input": "fromCaller"
+        }
+
+      }
+    }
+
+  },
+  "eventListeners": {
+    "cancelOjAction": {
+      "chains": [
+        {
+          "chainId": "CancelActionChain",
+          "parameters": {
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "editOjAction": {
+      "chains": [
+        {
+          "chainId": "EditActionChain",
+          "parameters": {
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "ojTableOjBeforeRowEdit": {
+      "chains": [
+        {
+          "chainId": "TableBeforeRowEditChain",
+          "parameters": {
+            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+            "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "ojTableOjBeforeRowEditEnd": {
+      "chains": [
+        {
+          "chainId": "TableBeforeRowEditEndChain",
+          "parameters": {
+
+            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+            "detail": "{{ $event.detail }}",
+            "cancelEdit": "{{ $variables.cancelEditVar }}",
+            "rowData": "{{ $variables.currentRow }}",
+            "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
+          }
+        }
+      ]
+    },
+    "saveOjAction": {
+      "chains": [
+        {
+          "chainId": "SaveActionChain",
+          "parameters": {
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

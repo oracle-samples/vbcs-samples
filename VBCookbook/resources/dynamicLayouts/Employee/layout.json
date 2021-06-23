@@ -189,6 +189,65 @@
       "description": "Default Rule",
       "type": "businessObjects",
       "expression": "{{ $value.id === 100 ? \"myselfLayout\" : ($value.manager === 100 ? 'managerLayout' : 'employeeLayout') }}"
+    },
+    "contextBasedForm": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "contextBasedForm",
+      "rules": [
+        "ExternalProfile",
+        "InernalProfile"
+      ],
+      "layouts": {
+
+        "externalProfile": {
+          "layoutType": "form",
+          "type": "businessObjects",
+          "label": "externalProfile",
+          "description": "",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              "phoneNumber",
+              "email",
+              "hireDate"
+            ],
+            "maxColumns": 2
+          },
+          "usedIn": [
+            "ExternalProfile"
+          ]
+        },
+        "internalProfile": {
+          "layoutType": "form",
+          "type": "businessObjects",
+          "label": "internalProfile",
+          "description": "",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              "phoneNumber",
+              "email",
+              "hireDate",
+              "salary"
+            ],
+            "maxColumns": 2
+          },
+          "usedIn": [
+            "InernalProfile"
+          ]
+        }
+      }
+    },
+    "InernalProfile": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "{{ $componentContext.profile === 'internal' ? 'internalProfile' : null }}"
+    },
+    "ExternalProfile": {
+      "expression": "{{ $componentContext.profile === 'external' ? 'externalProfile' : null }}"
     }
   },
   "templates": {

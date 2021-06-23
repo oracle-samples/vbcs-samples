@@ -1,0 +1,82 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-margin-bottom">
+This recipe shows you how to use Form Layout in an editable Table component. To edit a row, double-click it, 
+click the edit icon beside the row, or select the row and press Enter on your keyboard. To save changes, click outside the 
+edited row or click <strong>Save</strong>. Click <strong>Cancel</strong> to revert to the original content.
+
+
+</div>
+<div class="oj-flex">
+	<div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+    <div class="oj-flex">
+	<oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item"
+   columns='[
+   {"headerText":"First Name","field":"firstName"},
+   {"headerText":"Last Name","field":"lastName"},
+   {"headerText":"Phone number","field":"phoneNumber"},
+   {"headerText":"Email","field":"email"},{"sortable":"disabled"}]' edit-mode="rowEdit" edit-row="{{ $page.variables.editRow }}"
+   style="max-height:400px; max-width: 800px; width: 100%" data="[[$page.variables.employeeListSDP]]"
+   on-oj-before-row-edit="[[$listeners.ojTableOjBeforeRowEdit]]"
+   on-oj-before-row-edit-end="[[$listeners.ojTableOjBeforeRowEditEnd]]">
+		<template slot='rowTemplate' data-oj-as='row'>
+			<tr>
+				<!-- ko if: row.mode === "navigation" -->
+				<td>
+					<oj-bind-text value="[[row.data.firstName]]"></oj-bind-text>
+				</td>
+				<td>
+					<oj-bind-text value="[[row.data.lastName]]"></oj-bind-text>
+				</td>
+				<td>
+					<oj-bind-text value="[[row.data.email]]"></oj-bind-text>
+				</td>
+				<td>
+					<oj-bind-text value="[[row.data.phoneNumber]]"></oj-bind-text>
+				</td>
+				<td class="oj-sm-padding-0-vertical">
+					<oj-button chroming="borderless" on-oj-action="[[$listeners.editOjAction]]" >
+						<span class="vb-icon vb-icon-pencil"></span>
+					</oj-button>
+				</td>
+				<!-- /ko -->
+                  <!-- ko if: row.mode === "edit" -->
+
+				<td colspan="5" class="oj-form-control-default oj-sm-padding-2x">
+					<oj-form-layout id="ofl1" max-columns="2" direction="row">
+						<oj-input-text label-hint="First Name" value="{{ $variables.currentRow.firstName }}" class="editable">
+						</oj-input-text>
+						<oj-input-text label-hint="Last Name" value="{{ $variables.currentRow.lastName }}" class="editable">
+						</oj-input-text>
+						<oj-input-text label-hint="Email" value="{{ $variables.currentRow.email }}" class="editable">
+						</oj-input-text>
+						<oj-input-text label-hint="Phone" value="{{ $variables.currentRow.phoneNumber }}" class="editable">
+						</oj-input-text>
+						
+					</oj-form-layout>
+					<oj-button id="cancel" chroming="outlined" on-oj-action="[[$listeners.cancelOjAction]]" >Cancel
+					</oj-button>
+					<oj-button id="save" chroming="solid" on-oj-action="[[$listeners.saveOjAction]]" >Save</oj-button>
+				</td>
+				 <!-- /ko -->
+			</tr>
+		</template>
+	</oj-table>
+    </div>
+	</div>
+
+
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+	<div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px">
+		<div class="recipe-box oj-flex-item">
+			<h1>Recipe</h1>
+			<div class="oj-flex">
+				<oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+			</div>
+		</div>
+	</div>
+</oj-bind-if>
+</div>

@@ -8,8 +8,8 @@
   This recipe demonstrates how you can use Table and Dialog components to manage data where a many-to-many relationship exists between Employee and Skills business objects. 
 
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
 
     <!--  START  -->
 
@@ -24,7 +24,7 @@
       </oj-toolbar>
     </div>
     <div class="oj-flex">
-      <oj-table style="max-height: 400px" scroll-policy="loadMoreOnScroll"
+      <oj-table style="max-height: 400px; width: 100%" scroll-policy="loadMoreOnScroll"
         class="oÏj-flex-item oj-sm-12 oj-md-12"
         data="[[$page.variables.employeeListSDP]]"
         columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Email","field":"email"},{"headerText":"Skill(s)","style": "white-space:normal;word-wrap:break-word; text-align: left;vertical-align: top;","field":"skillCollection","sortProperty":"skillCollection.name","template":"nameCellTemplate4"},{"headerText":"Action","field":"action","template":"actionTemplate"}]'

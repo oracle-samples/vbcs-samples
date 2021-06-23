@@ -8,8 +8,8 @@
    Complex server side filtering using Service Data Provider.
  
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box"  style="overflow-x: auto;">
  
 <!--   START -->
 <div class="oj-offcanvas-outer-wrapper" style="min-height:580px;">
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="oj-flex">
-      <oj-table id="employee-table" style="max-height: 500px" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12" data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Salary","field":"salary","template":"Salary"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate6"},{"headerText":"Skill(s)","field":"skillCollection","sortProperty":"skillCollection.name","template":"nameCellTemplate7"},{"headerText":"Job Title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate8"}]' scroll-policy-options.fetch-size="15" scroll-policy-options.max-count="1000">
+      <oj-table id="employee-table" style="max-height: 500px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item" data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Salary","field":"salary","template":"Salary"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate6"},{"headerText":"Skill(s)","field":"skillCollection","sortProperty":"skillCollection.name","template":"nameCellTemplate7"},{"headerText":"Job Title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate8"}]' scroll-policy-options.fetch-size="15" scroll-policy-options.max-count="1000">
         <template slot="Salary">
           <oj-bind-text value="[[ $functions.formatCurrency($current.data) ]]">
           </oj-bind-text>

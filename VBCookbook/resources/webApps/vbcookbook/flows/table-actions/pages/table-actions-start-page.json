@@ -48,6 +48,7 @@
     }
   },
   "chains": {
+
     "UpdateEmployeeChain": {
       "description": "",
       "variables": {
@@ -57,9 +58,41 @@
           "input": "fromCaller"
         }
       },
-      "root": "ErrorNotification",
+      "root": "callRestUpdateEmployee",
       "actions": {
-        "ErrorNotification": {
+
+        "CloseDialog": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+            "method": "close"
+          },
+          "outcomes": {
+            "success": "fireDataProviderEventEmployeeListSDP"
+          }
+        },
+        "callRestUpdateEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/update_Employee",
+            "uriParams": {
+              "Employee_Id": "{{ $page.variables.currentEmployee.id }}"
+            },
+            "body": "{{ $page.variables.currentEmployee }}"
+          },
+          "outcomes": {
+            "failure": "updateFailedNotification",
+            "success": "updateSuccessNotification"
+          }
+        },
+        "fireDataProviderEventEmployeeListSDP": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "refresh": null,
+            "target": "[[ $page.variables.employeeListSDP ]]"
+          }
+        },
+        "updateSuccessNotification": {
           "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
             "target": "leaf",
@@ -72,11 +105,13 @@
             "success": "CloseDialog"
           }
         },
-        "CloseDialog": {
-          "module": "vb/action/builtin/callComponentMethodAction",
+        "updateFailedNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
-            "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
-            "method": "close"
+            "target": "leaf",
+            "summary": "[[ $chain.results.callRestUpdateEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
           }
         }
       }

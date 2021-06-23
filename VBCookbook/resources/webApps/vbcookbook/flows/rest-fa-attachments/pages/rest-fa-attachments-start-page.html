@@ -6,8 +6,8 @@
 <div class="oj-margin-bottom">
   This recipe shows you how to use to manage file attachments associated with an Oracle Cloud Applications activity from a Visual Builder app.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <div class="oj-flex">
       <div class="oj-flex oj-flex-item oj-sm-12 oj-md-12 oj-sm-align-items-center oj-sm-padding-2x-horizontal">
         <h1 id="h1--1326637583-1" class="oj-flex-item">List of Attachments</h1>
@@ -27,7 +27,7 @@
         value="{{ $variables.testingActivityId }}"></oj-input-text>
     </div>
     <div class="oj-flex">
-      <oj-table scroll-policy="loadMoreOnScroll" id="oj-table-716052071-1" class="oj-flex-item oj-sm-12 oj-md-12"
+      <oj-table scroll-policy="loadMoreOnScroll" style="width: 100%" id="oj-table-716052071-1" class="oj-flex-item oj-sm-12 oj-md-12"
         data="[[$page.variables.attachmentsSDP]]" columns='[  {    "headerText": "Title",    "field": "Title",    "sortable": "disabled"  },  {    "headerText": "Description",    "field": "Description",    "sortable": "disabled"  },  {    "headerText": "File Name",    "field": "FileName",    "sortable": "disabled"  },  {    "headerText": "",    "template": "Download"  },  {    "headerText": "",    "template": "Preview"  },  {    "headerText": "",    "template": "Delete"  }]'>
         <template slot="Download">
       <a target="_blank" :id="[['a-716052071-1-' + $current.index]]" on-click="[[$listeners.downloadClick]]">

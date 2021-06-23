@@ -133,5 +133,10 @@
     }
   },
   "eventListeners": {},
-  "routerStrategy": "query"
+  "routerStrategy": "query",
+  "imports": {
+    "css": [
+      "https://static.oracle.com/cdn/fnd/gallery/2107.2.0/images/iconfont/ojuxIconFont.min.css"
+    ]
+  }
 }

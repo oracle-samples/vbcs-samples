@@ -1,0 +1,152 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>A Table component displays hierarchical data using row expanders.</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create the Page Model</span>
+      <div>
+        <ol>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC"
+              >Create a custom type from the GET /Employee endpoint.</a
+            >
+            Add the appropriate fields to the Employee custom type.
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA"
+              >Create a page variable</a
+            >, <code>employee</code>, of Array type and assign the array item
+            type <code>get_Employee</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step2">
+      <span slot="header">Write JavaScript Code</span>
+      <p>
+        Define the dependencies of <code>knockout</code>,
+        <code>ojs/ojflattenedtreedataproviderview</code>,
+        <code>ojs/ojarraytreedataprovider</code> and
+        <code>ojs/ojknockouttemplateutils</code> in your JavaScript code.
+      </p>
+      <div>
+        <ol>
+          <li>
+            Create a function named <code>convertArrayIntoTree</code> to convert
+            the array of employee records into a tree structure.
+          </li>
+          <li>
+            Create another function named <code>updateTreeDataProvider</code> to
+            convert your tree structure into a FlattenedTreeDataProviderView.
+          </li>
+          <li>
+            Create another function, <code>getTreeDataProvider</code>, to return
+            the data in the FlattenedTreeDataProviderView structure.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step3">
+      <span slot="header">Create Event Listener and Action Chain</span>
+      <div>
+        <ol>
+          <li>
+            Create a <code>vbEnter</code> event listener and a new page level
+            action chain named <code>fetchEmployees</code>.
+          </li>
+          <li>
+            Add a Call REST action to the action chain and select the Get
+            Employee endpoint.
+          </li>
+          <li>
+            Add an Assign Variable action and assign the result of the REST call
+            to the <code>employee</code> page variable.
+          </li>
+          <li>
+            Add a Call Function action and select the function
+            <code>updateTreeDataProvider</code>. Map the
+            <code>employee</code> page variable to the
+            <code>employeeArray</code> function parameter.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step4">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>
+            In the Component palette, drag a Table component and drop it on the
+            page.
+          </li>
+          <li>
+            In the Data tab of the Properties pane for the newly-added Table
+            component, bind the Data property to
+            <code>{{ $page.functions.getTreeDataProvider() }}</code>.
+          </li>
+          <li>
+            Configure the Table component's <code>columns</code> property as
+            follows:
+            <pre>
+    columns='[{"headerText":"Name","field":"firstName"},
+	{"headerText":"Phone","field":"phoneNumber"},
+	{"headerText":"Salary","field":"salary"},
+	{"headerText":"Job","field":"jobObject"}]'
+            </pre>
+          </li>
+          <li>
+            Create a template for the Table component and add the
+            <code>oj-row-expander</code> to the column designated with the
+            expand/collapse icon.
+          </li>
+          <li>
+            In the <code>oj-row-expander</code>, set <code>context</code> as
+            <code>context="[[row]]"</code> and then access the data for columns
+            as <code>row.item.data.firstName</code>, and so on.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step5">
+      <span slot="header">Pass Row Data to the Action Chain</span>
+      <div>
+        <ol>
+          <li>
+            Create a component event listener and bind it to a new action chain.
+          </li>
+          <li>
+            Add input parameters to the action chain and map them as follows:
+            <ul>
+              <li><code>key</code> as <code>$current.key</code></li>
+              <li><code>index</code> as <code>$current.index</code></li>
+              <li><code>current</code> as <code>$current</code></li>
+            </ul>
+          </li>
+          <li>
+            Add a <code>fire notification</code> action to the action chain and
+            set the Summary and Message appropriately (for example:
+            <code
+              >[[ 'You are calling '+ $variables.current.data.firstName ]]</code
+            >).
+          </li>
+          <li>
+            Add an anchor tag to the desired column in the template (phoneNumber
+            in our example) and, on the on-click event of the hyperlink, call
+            the component event listener you just created.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

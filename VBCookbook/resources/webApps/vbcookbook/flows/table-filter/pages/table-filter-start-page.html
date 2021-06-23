@@ -7,32 +7,39 @@
   This recipe shows you how to implement filters with a Table component.
 
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <style>
       .matchedText {
         font-weight: bold;
         color: green
       }
     </style>
-    <div class="oj-flex oj-sm-flex-direction-column">
-      <div class="oj-flex oj-sm-align-items-center oj-flex-item ">
-        <oj-label for="oj-input-text--1933717278-1" class="oj-flex-item oj-sm-flex-initial">Filter: </oj-label>
-        <oj-sample-input-text-typeahead id="oj-sample-input-text-typeahead--1933717278-1"
-          class="oj-flex-item oj-sm-flex-initial" clear-icon="conditional" placeholder="Type to filter"
-          raw-value="{{ $variables.filterText }}" value="{{ $variables.filterText }}"></oj-sample-input-text-typeahead>
-      </div>
-      <div class="oj-flex oj-sm-flex-direction-column oj-flex-item">
-        <oj-table scroll-policy="loadMoreOnScroll" data="[[$page.variables.departmentListSDP]]"
-          columns='[{"headerText":"Id","field":"id"},{"headerText":"Department Name","field":"departmentName"},{"headerText":"Location ID","field":"location"},{"headerText":"Manager ID","field":"manager"}]'
-          class="oj-flex-item oj-sm-flex-initial" style="height:400px; max-width: 800px;">
-          <template slot="cellTemplate">
-        <oj-sample-highlight-text value="[[ ''+($current.data ? $current.data : '') ]]" highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
-      </template>
-        </oj-table>
-      </div>
+    <div class="oj-flex oj-sm-align-items-center">
+      <oj-label for="oj-input-text--1933717278-1" class="oj-flex-item oj-sm-flex-initial" style="padding-right:10px;">Filter:</oj-label>
+      <oj-sample-input-text-typeahead id="oj-sample-input-text-typeahead--1933717278-1"
+        class="oj-flex-item oj-sm-flex-initial" clear-icon="conditional" placeholder="Type to filter"
+        raw-value="{{ $variables.filterText }}" value="{{ $variables.filterText }}"></oj-sample-input-text-typeahead>
     </div>
-
+    <div class="oj-flex">
+      <oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12" style="height:400px; width: 100%"
+        data="[[$page.variables.departmentListSDP]]"
+        columns='[{"headerText":"Id","field":"id"},{"headerText":"Department Name","field":"departmentName"},{"headerText":"Manager","field":"departmentManager","sortProperty":"departmentManager.lastName","template":"lastNameCellTemplate4"},{"headerText":"Email","field":"departmentManager","sortProperty":"departmentManager.email","template":"emailCellTemplate5"}]'
+        columns-default.sortable="disabled">
+        <template slot="cellTemplate">
+            <oj-sample-highlight-text value="[[ ''+($current.data ? $current.data : '') ]]"
+              highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+        </template>
+        <template slot="lastNameCellTemplate4">
+            <oj-sample-highlight-text value="[[ ''+($current.data.items[0] ? $current.data.items[0].lastName : '') ]]"
+              highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+        </template>
+        <template slot="emailCellTemplate5">
+            <oj-sample-highlight-text value="[[ ''+($current.data.items[0] ? $current.data.items[0].email : '') ]]"
+              highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+        </template>
+      </oj-table>
+    </div>
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">

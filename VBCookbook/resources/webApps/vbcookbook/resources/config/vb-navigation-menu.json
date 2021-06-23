@@ -16,7 +16,8 @@
         "items": [
           "dynamic-form-multiple-layout",
           "dynamic-table-field-template",
-          "dynamic-container-toggle-layout"
+          "dynamic-container-toggle-layout",
+          "dynamic-form-context"
         ]
       },
       {
@@ -85,10 +86,12 @@
           "table-actions",
           "table-many-to-many",
           "batch-editable-table",
+          "editable-form-table-sdp",
           "table-dnd",
           "custom-no-records-message",
           "conditional-styling",
-          "table-select-cols"
+          "table-select-cols",
+          "row-expander"
         ]
       },
       {

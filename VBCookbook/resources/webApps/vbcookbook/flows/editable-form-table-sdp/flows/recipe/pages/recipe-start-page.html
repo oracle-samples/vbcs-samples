@@ -1,0 +1,158 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Create an editable Table component that uses a Form Layout component when you enter edit mode to modify a row in the Table component.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Table to Display Employees</h1>
+      <div>
+        <p>
+          Add a Table component to your page, bind
+          it to employee data, and use a Form Layout component when in edit mode.
+        </p>
+
+        <ol>
+          <li>
+            In the Component Palette, drag a Table component and drop
+            it on the Page Designer.
+          </li>
+          <li>
+            In the Properties pane, use the
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              Start</a>
+            to add employee data to the table.
+          </li>
+          <li>
+            In the Bind Data page, select the following employee fields:
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>email</code></li>
+              <li><code>phoneNumber</code></li>
+            </ul>
+          </li>
+          <li>In the Data tab of the Properties pane for the Table component, add a blank column and set <code>"sortable":"disable"</code> for this new column.
+          <li>
+            Add a template slot, <code>rowTemplate</code>, to customize the row to use a Form Layout component when in edit mode.
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create the Required Type and Page Variables</h1>
+      <div>
+        <ol>
+          <li>
+            <a target="_blank"
+               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">
+               Create a custom type</a>, <code>get_employee</code>, from the Employee business object endpoint and select the following fields:
+            <ul>
+              <li><code>id</code></li>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>email</code></li>
+              <li><code>phoneNumber</code></li>
+            </ul>
+          </li>
+          <li>Create a page variable, <code>currentRow</code>, of type <code>get_employee</code>.</li>
+          <li>Create a page variable, <code>cancelEditVar</code>, of type Boolean and set the default value to
+            <code>false</code>.
+          </li>
+          <li>Set the <code>edit-mode</code> property of the Table component to <code>"rowEdit"</code>.</li>
+          <li>Create a page variable <code>editRow</code> of type Any and use it to set the
+            <code>edit-row</code> property of the Table component.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">
+        Make the Table Editable
+      </h1>
+      <div>
+        <p>
+          Create event listeners and action chains to make the Table component editable.
+        </p>
+        <ol>
+          
+          <li>Add a Button component to the blank column in the Table component and set an edit icon on the Button component.</li>
+          <li>In the Events tab of the Properties pane for the Button component, add an ojAction event to create an action chain named <code>EditActionChain</code>.</li>
+          <li>Add an Assign Variable action to the action chain and set the value for the <code>editRow</code> variable to <code>{rowKey:$chain.variables.key}</code>.</li>
+          <li>In the Form Layout component, add two Button components (Save and Cancel) and configure each button to invoke an action chain as follows:
+              <ul>
+                <li>For the Save button, in the Events tab of the Properties pane, add an ojAction event to create an action chain named <code>SaveActionChain</code>.</li>
+                <li>Add an Assign Variable action to the action chain and set the value for the <code>editRow</code> variable to <code>{rowKey: null}</code>.</li>
+                <li>For the Cancel button, in the Events tab of the Properties pane, add an ojAction event to create an action chain named <code>CancelActionChain</code>.</li>
+                <li>Add an Assign Variable action to the action chain and set the value for the <code>editRow</code> variable to <code>{rowKey: null}</code> and <code>cancelEditVar</code> to <code>true</code>.</li>
+              </ul>
+          </li>
+          <li>Select the Table component and, in the Events tab of the Properties pane, add an ojTableOjBeforeRowEdit event to create an action chain named <code>TableBeforeRowEditChain</code>.</li>
+          <li>Add an Assign Variable action to the action chain and map <code>rowData</code> from Sources to the <code>currentRow</code> page variable.</li>
+          <li>In the Events tab of the Properties pane for the Table component, add another event, ojTableOjBeforeRowEditEnd, to create an action chain named <code>TableBeforeRowEditEndChain</code>.</li>
+          <li>Configure the input parameters of the TableBeforeRowEditEndChain action chain as follows:
+            <ul>
+              <li>Map the input parameter <code>cancelEdit</code> to the <code>cancelEditVar</code> page variable.</li>
+              <li>Create an input parameter <code>originalRowData</code> of type <code>get_employee</code>.</li>
+              <li>Change the type of input parameter <code>rowData</code> to <code>get_employee</code>. </li>
+              <li> Map the input parameter <code>rowData</code> to <code>currentRow</code> page variable.</li>
+              <li>Map the input parameter <code>originalRowData</code> to
+                <code>$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data</code>.
+              </li>
+            </ul></li>
+          
+          <li> Drag an If action to the action chain and check the value of the <code>cancelEdit</code> chain
+            variable.</li>
+          <li> In the <code>true</code> branch, reset the value of the <code>cancelEditVar</code> page variable.
+            In the <code>false</code> branch, add another If action named <code>hasRecordChanged</code> that uses a JavaScript function to
+            test if the row has changed.
+            In the <code>true</code> branch, add a Fire Data Provider Event action and set the Event Target property to
+            <code>[[ $page.variables.employeeListSDP ]]</code>. Mutate the data provider and assign the input
+            parameter update as follows:
+            <pre>
+{
+"data": {
+"items": [
+{
+"id": "{{ $chain.variables.rowData.id }}",
+"firstName": "{{ $chain.variables.rowData.firstName }}",
+"lastName": "{{ $chain.variables.rowData.lastName }}",
+"email": "{{ $chain.variables.rowData.email }}",
+"phoneNumber": "{{ $chain.variables.rowData.phoneNumber }}"
+}
+]
+},
+"keys": [
+"{{ $chain.variables.rowData.id }}"
+]
+}              </pre>
+          </li>
+
+          <li>Now add a Call REST action for the patch operation.
+            Map <code>Employee_Id</code> to <code>$variables.rowData.id</code>.
+            Set the <code>body</code> as follows:
+            <pre>
+{
+"firstName": "{{ $chain.variables.rowData.firstName }}",
+"lastName": "{{ $chain.variables.rowData.lastName }}",
+"email": "{{ $chain.variables.rowData.email }}",
+"phoneNumber": "{{ $chain.variables.rowData.phoneNumber }}"
+}
+          </pre>
+          </li>
+
+      
+         
+     
+        </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>

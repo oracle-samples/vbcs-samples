@@ -706,6 +706,16 @@
         }
       ]
     },
+    "ojMenuOjAction": {
+      "chains": [
+        {
+          "chainId": "MenuActionChain",
+          "parameters": {
+            "menuId": "{{$event.target.value}}"
+          }
+        }
+      ]
+    },
     "onVersionItemSelect": {
       "chains": [
         {
@@ -758,7 +768,7 @@
       ]
     },
     "openInVBActionClicked": {
-      "preventDefault": true,
+      "preventDefault": "true",
       "chains": [
         {
           "chainId": "OpenHowToOpenVBDialog"

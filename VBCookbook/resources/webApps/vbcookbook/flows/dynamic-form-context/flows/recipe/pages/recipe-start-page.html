@@ -1,0 +1,161 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a
+    target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416"
+    >work with the Component Exchange</a
+  >.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Form</h1>
+      <div>
+        <ol>
+          <li>
+            Install the JET Dynamic Form component from the Component Exchange,
+            then drag and drop it on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object (Employee in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Context Based Form</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and then click
+            <strong>Next</strong>.
+            <ul>
+              <li><code>id</code></li>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+              <li><code>hireDate</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog,
+            provide the value of <code>100</code> for the
+            <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Add a Radioset Component to Switch Between Layouts</h1>
+      <div>
+        <ol>
+          <li>
+            In the Component Palette, drag a Radioset component and drop it on
+            the Page Designer, just above the dynamic form.
+          </li>
+          <li>
+            In the Variables tab, create a variable named
+            <code>profileType</code> of type Object and add a String type field
+            to it named <code>profile</code>. Set the default value to
+            <code>internal</code>.
+          </li>
+          <li>
+            Add two options for the Radioset component:
+            <ul>
+              <li>Internal Profile - value should be <code>internal</code></li>
+              <li>External Profile - value should be <code>external</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Data tab of the Properties pane for the Radioset component,
+            set <code>Value</code> to
+            <code>{{ $variables.profileType.profile }}</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Create the Form Layouts</h1>
+      <div>
+        <p>
+          Create a layout for the Internal Profile and another layout for the
+          External Profile. You'll hide fields from the external layout so that
+          external users cannot view the full profile of an employee.
+        </p>
+        <ol>
+          <li>
+            Add the <code>context</code> parameter to the dynamic form and
+            assign it the value <code>"[[$page.variables.profileType]]"</code>.
+          </li>
+          <li>In the Dynamic UIs tab, select <strong>Employee</strong>.</li>
+          <li>
+            Open the <code>Context Based Form</code> that you created while
+            creating the Dynamic Form.
+          </li>
+
+          <li>
+            In the Layouts section of the Rule Sets tab, click
+            <strong>+</strong> to create the following two layouts:
+            <ul>
+              <li><code>internalProfile</code></li>
+              <li><code>externalProfile</code></li>
+            </ul>
+          </li>
+
+          <li>
+            For each layout, add the fields that you want to display when your
+            app uses the layout:
+            <ul>
+              <li>
+                internalProfile: <code>firstName</code>, <code>lastName</code>,
+                <code>phoneNumber</code>, <code>email</code>,
+                <code>hireDate</code> and <code>salary</code>.
+              </li>
+              <li>
+                externalProfile: <code>firstName</code>, <code>lastName</code>,
+                <code>phoneNumber</code>, <code>email</code> and
+                <code>hireDate</code>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            In the Display Logic of <code>Context Based Form</code>, create two
+            rules by clicking <strong>+ Rule</strong>:
+            <ul>
+              <li>InternalProfile</li>
+              <li>ExternalProfile</li>
+            </ul>
+          </li>
+          <li>
+            For the InternalProfile, check that the
+            <code>$componentContext.profile</code> attribute is strictly equal
+            to the <code>internal</code> value, then return the
+            <code>internalProfile</code> layout.
+          </li>
+          <li>
+            For the ExternalProfile, check that the
+            <code>$componentContext.profile</code> attribute is strictly equal
+            to the <code>external</code> value then return the
+            <code>externalProfile</code> layout.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

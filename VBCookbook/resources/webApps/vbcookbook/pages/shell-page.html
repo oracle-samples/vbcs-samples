@@ -54,11 +54,12 @@
         <div class="oj-flex-bar-end">
           <oj-toolbar id="toolbar1">
             <oj-bind-if test="[[!$page.variables.showSearch]]">
-              <a id="docs-link"
-                class="oj-link-standalone oj-link-subtle-primary"
-                target="vbhelp"
-                href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/tutorials.html">Visual
-                Builder Help</a>
+              <oj-menu-button id="docs-link" chroming="borderless" class="oj-button-sm">Help
+                <oj-menu style="display:none;" slot="menu" on-oj-action="[[$listeners.ojMenuOjAction]]">
+                  <oj-option value="vbhelp" id="vbhelp">Visual Builder Help</oj-option>
+                  <oj-option value="vbshelp" id="vbshelp">Visual Builder Studio Help</oj-option>
+                </oj-menu>
+              </oj-menu-button>
               <a id="open-in-vb-link"
                 class="oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-start"
                 href="#" on-click="[[$listeners.openInVBActionClicked]]">Open in
@@ -136,7 +137,7 @@
       on-oj-close="[[$listeners.onMessageClose]]"></oj-messages>
 
     <div class="oj-web-applayout-content-nopad oj-flex">
-      <div class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap">
+      <div class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap" style="overflow-x: auto;">
         <oj-bind-if test="[[ $variables.showNavBar ]]">
           <div style="min-width: 300px; max-width: 300px"
             class="oj-flex oj-sm-only-hide oj-contrast-marker">
@@ -160,7 +161,7 @@
           </div>
         </oj-bind-if>
         <!-- Where Visual Pages will be rendered -->
-        <div class="oj-flex-item oj-flex oj-sm-flex-direction-column">
+        <div class="oj-flex-item oj-flex oj-sm-flex-direction-column" style="overflow-x: auto;">
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
             <div class="oj-flex categorybanner fltr_banner oj-sm-padding-1x-start">
               <h1 id="h1-89947901-1"
@@ -248,13 +249,9 @@
             </div>
 
           </oj-bind-if>
-          <div class="oj-flex oj-flex-item">
-            <div class="oj-flex-item oj-flex-items-pad oj-flex">
-              <oj-vb-content id="vbRouterContent"
-                class="vbcs-pages-module recipe-area oj-flex oj-flex-item oj-sm-12 oj-md-12"
-                style="width: 100%" config="[[vbRouterFlow]]"></oj-vb-content>
-            </div>
-          </div>
+          <oj-vb-content id="vbRouterContent"
+            class="vbcs-pages-module recipe-area oj-flex-item"
+            style="overflow-x: auto; width: 100%" config="[[vbRouterFlow]]"></oj-vb-content>
         </div>
       </div>
       

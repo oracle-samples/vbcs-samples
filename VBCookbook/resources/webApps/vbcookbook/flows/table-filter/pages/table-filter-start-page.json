@@ -3,24 +3,16 @@
   "title": "",
   "description": "",
   "variables": {
-    "filterText": {
-      "type": "string"
-    },
     "departmentListSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Department",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallDepartmentResponse",
+        "responseType": "getallDepartmentResponse",
         "filterCriterion": {
           "op": "$or",
           "criteria": [
-            {
-              "op": "$co",
-              "attribute": "location",
-              "value": "{{ $variables.filterText }}"
-            },
             {
               "op": "$co",
               "attribute": "id",
@@ -28,35 +20,51 @@
             },
             {
               "op": "$co",
-              "attribute": "manager",
+              "attribute": "departmentName",
               "value": "{{ $variables.filterText }}"
             },
             {
               "op": "$co",
-              "attribute": "departmentName",
+              "attribute": "departmentManager.lastName",
+              "value": "{{ $variables.filterText }}"
+            },
+            {
+              "op": "$co",
+              "attribute": "departmentManager.email",
               "value": "{{ $variables.filterText }}"
             }
           ]
         }
       }
+    },
+    "filterText": {
+      "type": "string"
     }
+
   },
   "metadata": {},
   "types": {
-    "getallDepartmentResponse": {
-      "items": [
-        {
-          "departmentName": "string",
-          "id": "number",
-          "location": "number",
-          "manager": "number"
-        }
-      ]
-    },
     "@decorators.getallDepartmentResponse": {
       "endpoint": "getall_Department",
       "service": "businessObjects",
       "path": "response"
+    },
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentManager": {
+            "items": [
+              {
+                "email": "string",
+                "lastName": "string"
+              }
+            ]
+          },
+          "departmentName": "string",
+          "id": "number",
+          "manager": "number"
+        }
+      ]
     }
   },
   "chains": {},

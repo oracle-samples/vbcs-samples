@@ -1,0 +1,190 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "get_Employee[]"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Employee": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+      
+    "get_Employee": {
+      "firstName": "string",
+      "id": "number",
+      "job": "number",
+      "jobObject": {
+        "items": [
+          {
+            "jobTitle": "string"
+          }
+        ]
+      },
+      "lastName": "string",
+      "manager": "number",
+      "phoneNumber": "string",
+      "salary": "number"
+
+    },
+    "getall_Employee": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "job": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "manager": "number",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "chains": {
+    "callEmployee": {
+      "root": "fireNotificationCurrent",
+      "description": "",
+      "variables": {
+        "current": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "index": {
+          "type": "number",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "key": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "actions": {
+        "fireNotificationCurrent": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ 'You are calling '+ $variables.current.data.firstName ]]",
+            "message": "[[ 'Sorry!! '+$variables.current.data.firstName + ' is not available currently']]",
+            "type": "info"
+          }
+        }
+      }
+    },
+    "fetchEmployees": {
+      "root": "callRestGetallEmployee",
+      "description": "",
+      "variables": {},
+      "actions": {
+        "fireNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callRestGetallEmployee.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "callRestGetallEmployee": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/getall_Employee",
+            "uriParams": {
+              "limit": 999
+            },
+            "responseType": "getall_Employee"
+          },
+          "outcomes": {
+            "failure": "fireNotification",
+            "success": "assignVariablesCurrent"
+          }
+        },
+        "callFunctionUpdateTreeDataProvider": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "updateTreeDataProvider",
+            "params": [
+              "{{ $page.variables.employee }}"
+            ]
+          }
+        },
+        "assignVariablesCurrent": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            
+            "$page.variables.employee": {
+              "source": "{{ $chain.results.callRestGetallEmployee.body.items }}"
+            }
+          },
+          "outcomes": {
+            "success": "callFunctionUpdateTreeDataProvider"
+          }
+        }
+      }
+    }
+
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "fetchEmployees",
+          "parameters": {}
+        }
+      ]
+    },
+    "anchorClick": {
+      "chains": [
+        {
+          "chainId": "callEmployee",
+          "parameters": {
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      },
+      "oj-row-expander": {
+        "path": "ojs/ojrowexpander"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-rowexpander": {
+        "path": "ojs/ojrowexpander"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+
+    }
+  }
+}

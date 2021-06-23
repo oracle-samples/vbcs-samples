@@ -105,7 +105,7 @@
     },
     "menuValue": {
       "type": "string[]",
-      "defaultValue": "[[ $variables.columns.map(op=>op.field) ]]",
+      "defaultValue": "[[$variables.columns.map(op=>op.field)]]",
       "onValueChanged": {
         "chains": [
           {

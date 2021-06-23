@@ -7,15 +7,15 @@
   This recipe shows you how to implement a Dynamic Table with templates for two
   fields, email and phone, that render appropriate icons for each field.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
         <oj-dynamic-table
           class="oj-flex-item"
           data="[[$page.variables.employeeListSDP]]"
           metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
           metadata-path="items"
           layout="simpleEmployeeListRuleSet"
-          style="max-height: 400px; min-width: 60vw;"
+          style="max-height: 400px; min-width: 60vw; width: 100%"
         ></oj-dynamic-table>
   </div>
 

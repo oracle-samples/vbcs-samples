@@ -6,15 +6,16 @@
 <div class="oj-margin-bottom">
   This recipe shows you how to enable multiple row selection in a Table component using checkboxes and programatically.
 </div>
-<div class="oj-flex oj-flex-item oj-sm-align-items-flex-start">
+<div class="oj-flex">
   <div
-    class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box oj-sm-justify-content-center oj-sm-flex-items-initial">
-    <div class="oj-flex oj-flex-item oj-sm-flex-wrap-nowrap oj-sm-flex-initial">
-      <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+    style="overflow-x: auto;"
+    class="oj-flex-item oj-sm-flex-direction-column sample-box oj-sm-justify-content-center oj-sm-flex-items-initial">
+    <div class="oj-flex oj-flex-item oj-sm-flex-wrap-nowrap">
+      <div class="oj-flex-item oj-sm-align-self-center">
         <oj-button chroming="callToAction" on-oj-action="[[$listeners.ojButtonOjAction]]" style="padding-right:10px;"
           disabled="[[ $variables.disableDeselectAll ]]">Deselect All</oj-button>
       </div>
-      <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+      <div class="oj-flex-item oj-sm-align-self-center">
         <oj-button chroming="callToAction" style="padding-right:10px;" on-oj-action="[[$listeners.ojButtonOjAction2]]">Select Depts with IDs 1 and 3</oj-button>
       </div>
       <oj-text-area label-edge='provided' label-hint='Current Selection'
@@ -23,9 +24,10 @@
        
     
     </div>
-    <div class="oj-flex oj-sm-flex-initial">
+    <div class="oj-flex">
       <oj-table scroll-policy="loadMoreOnScroll" id="table"
-        class="oj-flex-item oj-sm-12 oj-md-12"
+        class="oj-flex-item"
+        style="width: 100%; height: 400px"
         data="[[$variables.departmentListSDP]]"
         columns-default='{"sortable": "disabled"}' columns='[
                   {

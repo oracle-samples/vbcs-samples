@@ -1,0 +1,37 @@
+{
+  "description": "",
+  "root": "ifMenuId",
+  "actions": {
+    "ifMenuId": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.menuId === 'vbhelp' ]]"
+      },
+      "outcomes": {
+        "true": "openUrl",
+        "false": "openUrl3"
+      }
+    },
+    "openUrl": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/index.html",
+        "windowName": "_blank"
+      }
+    },
+    "openUrl3": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "https://docs.oracle.com/en/cloud/paas/visual-builder/visualbuilder-building-applications/index.html",
+        "windowName": "_blank"
+      }
+    }
+  },
+  "variables": {
+    "menuId": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

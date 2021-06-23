@@ -5,7 +5,7 @@
  -->
 <p>
   A Table component that displays department data. An Input Text component assigns the value
-  that the user enters to a page variable, and the page variable is used by the <code>{}filterCriterion</code>.
+  that the user enters to a page variable, and the page variable is used by the <code>{filterCriterion}</code>.
 </p>
 
 <div class="oj-flex">
@@ -30,6 +30,7 @@
           <li>In the Data Tab of the Properties pane, bind the Value property to <code>$variables.filterText</code>.
           </li>
           <li>Add the Table component below the Input Text and Label.</li>
+          <li>Optionally use cellTemplate and oj-sample-highlight-text in table to highlight the matching text.
         </ol>
       </div>
     </oj-collapsible>
@@ -46,16 +47,16 @@
             <ul>
               <li>id</li>
               <li>departmentName</li>
-              <li>location</li>
-              <li>manager</li>
+              <li>departmentManager.lastName</li>
+              <li>departmentManager.email</li>
             </ul>
           </li>
-          <li>In the Define Query page, click the <code>{}filterCriterion</code> variable under Target and <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-6C4B5785-906D-4576-9AE0-07114C2D1207">add the following conditions</a>:
+          <li>In the Define Query page, click the <code>{filterCriterion}</code> variable under Target and <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-6C4B5785-906D-4576-9AE0-07114C2D1207">add the following conditions</a>:
             <ul>
-              <li>id = <code>$co $variables.filterText</code></li>
-              <li>departmentName = <code>$co $variables.filterText</code></li>
-              <li>location = <code>$co $variables.filterText</code> </li>
-              <li>manager = <code>$co $variables.filterText</code></li>
+              <li>id <code>$co $variables.filterText</code></li>
+              <li>departmentName <code>$co $variables.filterText</code></li>
+              <li>departmentManager.lastName <code>$co $variables.filterText</code></li>
+              <li>departmentManager.email <code>$co $variables.filterText</code></li>
             </ul>
           </li>
           <li>Select Match Any.</li>

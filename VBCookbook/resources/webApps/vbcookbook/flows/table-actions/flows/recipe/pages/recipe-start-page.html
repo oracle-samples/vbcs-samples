@@ -130,8 +130,8 @@
           <li>Add an event listener to the Button component in the Dialog component.</li>
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
-              a Call REST Endpoint action</a> to the action chain
-            that assigns {}currentEmployee in the Sources page variables to the Employee_Id in Parameters.</li>
+              a Call REST Endpoint action</a> to the action chain called callRestUpdateEmployee
+            that assigns {currentEmployee} to the body of the rest action, passing the Employee_Id={currentEmployee.id} as rest action parameter.</li>
           <li>On the success outcome path, add a Fire Data Provider Event action to refresh the employee Service Data
             Provider page variable and a Call Component Method action to close the Dialog component. </li>
         </ol>

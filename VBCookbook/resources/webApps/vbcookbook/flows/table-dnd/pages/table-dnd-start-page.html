@@ -13,11 +13,11 @@ tbody{
 max-width:80vw !important;
 }
 </style>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <h2 class="oj-flex-item oj-sm-flex-initial">Select and drag the rows</h2>
     <div class="oj-flex-item">
-      <oj-table style="max-height: 40vh;" scroll-policy="loadMoreOnScroll"
+      <oj-table style="max-height: 40vh; width: 100%" scroll-policy="loadMoreOnScroll"
         class="oj-flex oj-sm-12 oj-md-12"
         data="[[$page.variables.employeeListSDP]]"
         columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate3"},{"headerText":"Phone number","field":"phoneNumber"},{"headerText":"Job title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate5"}]'
@@ -37,7 +37,7 @@ max-width:80vw !important;
     </div>
     <h2 class="oj-flex-item oj-sm-flex-initial">Drop the rows below</h2>
     <div class="oj-flex-item">
-      <oj-table style="max-height: 40vh;" scroll-policy="loadMoreOnScroll"
+      <oj-table style="max-height: 40vh; width:100%" scroll-policy="loadMoreOnScroll"
         columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate3"},{"headerText":"Phone number","field":"phoneNumber"},{"headerText":"Job title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate5"}]'
         data="[[ $variables.employeeDropListADP ]]"
         class="oj-flex oj-sm-12 oj-md-12"

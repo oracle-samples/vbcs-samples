@@ -8,13 +8,13 @@
   This recipe shows you how to change background color in a Table component’s column using the LED Gauge component.
   
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <div class="oj-flex">
       <h1 class="oj-flex-item oj-sm-12 oj-md-12">Books</h1>
     </div>
     <div class="oj-flex">
-      <oj-table style="max-height: 500px" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
+      <oj-table style="max-height: 500px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
         data="[[$page.variables.booksListADP]]" columns='[{"headerText":"Title","field":"title"},{"headerText":"Rating","field":"rating","template":"ratingTemplate"},{"headerText":"Price","field":"price"},{"headerText":"Author","field":"author"},{"headerText":"Reviews","field":"reviews"}]'>
         <template slot="ratingTemplate">
       <oj-led-gauge id="gauge13" value="[[$current.data]]"

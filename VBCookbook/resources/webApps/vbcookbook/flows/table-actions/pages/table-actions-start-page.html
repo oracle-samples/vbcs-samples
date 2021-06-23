@@ -7,8 +7,8 @@
   This recipe shows you how to open a Dialog component from a Table component row where
   users can then edit the data for the selected row.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <oj-dialog style="display:none" dialog-title="Update" id="oj-dialog--1155637190-1" cancel-behavior="icon">
       <div slot="body">
         <div class="oj-flex">
@@ -43,7 +43,7 @@
       </div>
     </oj-dialog>
     <div class="oj-flex">
-      <oj-table scroll-policy="loadMoreOnScroll" style="height: 400px;"
+      <oj-table scroll-policy="loadMoreOnScroll" style="height: 400px; width: 100%"
         scroll-policy-options='{"fetchSize": 10}' class="oj-flex-item oj-sm-12 oj-md-12"
         data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","template":"cellTemplate1","resizable":"enabled"},{"headerText":"Salary","template":"cellTemplate2","resizable":"enabled"},{"headerText":"Actions","template":"cellTemplate"}]'>
         <template slot="cellTemplate1">

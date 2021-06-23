@@ -7,11 +7,10 @@
   This demo shows how you can implement sorting in table. Click any column to sort
   the table.
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
-    <div class="oj-flex">
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
       <oj-table as="cell" id="department-table" class="oj-flex-item oj-sm-12 oj-md-12"
-        data="{{ $variables.departmentListSDP}}" selection-mode.row="single" style="max-height: 400px"
+        data="{{ $variables.departmentListSDP}}" selection-mode.row="single" style="max-height: 400px; width: 100%"
         columns='[{"headerText":"ID", "field":"id"},
                     {"headerText":"Department Name", "field":"departmentName"},
                     {"headerText":"Location Id", "field":"location"},
@@ -21,7 +20,6 @@
       <oj-bind-text value="[[cell.data.split('T')[0]]]" ></oj-bind-text>
   </template>
       </oj-table>
-    </div>
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">

@@ -1,0 +1,9 @@
+{
+  "id": "editable-form-table-sdp",
+  "description": "Flow main",
+  "defaultPage": "editable-form-table-sdp-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

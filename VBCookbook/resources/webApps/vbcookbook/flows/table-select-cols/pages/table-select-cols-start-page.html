@@ -6,7 +6,7 @@
 <div class="oj-margin-bottom">Select and update which table columns to display.
   Save preferences in device storage.</div>
 <div class="oj-flex oj-flex-item">
-  <div class="oj-flex-item oj-sm-flex-direction-column sample-box oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box oj-flex" style="overflow-x: auto;">
     <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-flex-initial">
       <oj-menu-button class="oj-button-sm" chroming="solid" id="select-columns-menu-button">Display Columns
         <oj-menu style="display:none;" slot="menu" id="select-columns-menu">
@@ -20,7 +20,7 @@
         on-oj-action="[[$listeners.showColumnsHandler]]" chroming="outlined" id="show-all-button">
         Show All Columns</oj-button>
     </oj-toolbar>
-    <oj-table style="max-height:500px" scroll-policy="loadMoreOnScroll"
+    <oj-table style="max-height:500px; width: 100%" scroll-policy="loadMoreOnScroll"
       class="oj-flex-item oj-sm-flex-initial"
       data="[[$page.variables.employeeListSDP]]"
       columns="[[$variables.columns]]" id="employee-table">
