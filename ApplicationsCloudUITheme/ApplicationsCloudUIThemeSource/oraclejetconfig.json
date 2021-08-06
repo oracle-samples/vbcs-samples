@@ -18,5 +18,6 @@
   "defaultBrowser": "chrome",
   "generatorVersion": "10.1.0",
   "defaultTheme": "ApplicationsCloudUI",
+  "sassVer": "4.13.0",
   "defaultCssvars": "disabled"
 }

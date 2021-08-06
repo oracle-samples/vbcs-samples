@@ -1,13 +1,14 @@
 {
   "baseUrl": "js",
   "use": "local",
+
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/10.0.4/default/js",
-      "css": "https://static.oracle.com/cdn/jet/10.0.4/default/css",
+      "prefix": "https://static.oracle.com/cdn/jet/10.1.3/default/js",
+      "css": "https://static.oracle.com/cdn/jet/10.1.3/default/css",
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/10.0.4/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/10.1.3/3rdparty"
   },
 
   "libs": {
@@ -314,5 +315,6 @@
         "cdnPath": "ojcss"
       }
     }
+
   }
 }
