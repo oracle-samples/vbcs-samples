@@ -45,8 +45,8 @@
   },
   "requirejs": {
     "paths": {
-      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/10.0.0/min/",
-      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/4.0.5/min"
+      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/10.1.1/min/",
+      "oj-sample": "https://static-stage.oracle.com/cdn/jet/packs/oj-sample/5.0.3/min"
     },
     "bundles": {
       "oj-dynamic/all-bundle": [
@@ -136,7 +136,8 @@
   "routerStrategy": "query",
   "imports": {
     "css": [
-      "https://static.oracle.com/cdn/fnd/gallery/2107.2.0/images/iconfont/ojuxIconFont.min.css"
+      "https://static.oracle.com/cdn/fnd/gallery/2107.2.0/images/iconfont/ojuxIconFont.min.css",
+      "https://static.oracle.com/cdn/vb/vb-icon-font/1/vb-icon-font.css"
     ]
   }
 }

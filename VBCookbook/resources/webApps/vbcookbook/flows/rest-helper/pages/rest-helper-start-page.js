@@ -3,10 +3,19 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['vb/helpers/rest'], function(Rest) {
+define(['vb/helpers/rest', "ojs/ojasyncvalidator-regexp"], function(Rest, AsyncRegExpValidator) {
     'use strict';
 
     var PageModule = function PageModule() {};
+
+    PageModule.prototype.regexpEmailValidator = function() {
+      return new AsyncRegExpValidator({
+          pattern: "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})",
+          hint: "Enter an email address.",
+          messageDetail: "Value must be of the form xxx@xxx.xx",
+      });
+    }
+
     PageModule.prototype.uniqueEmailValidator = function() {
         return {
             hint: Promise.resolve('Provide a unique email to the Employee'),
@@ -45,5 +54,27 @@ define(['vb/helpers/rest'], function(Rest) {
             return false;
         }
     };
+
+    PageModule.prototype.waitTillPending = function () {
+      // make the button action wait till the
+      // field validation gets over ie tracker 
+      // status changes to something other than 'pending'
+      return new Promise(function (resolve, reject) {
+        var tracker = document.getElementById("tracker");
+        var waitForValidation = function () {        
+          if (tracker.valid === "pending") {
+            // simulated field validation at server still going on
+            setTimeout(function () {
+              return waitForValidation();
+            }, 200);
+          }
+          else {
+            resolve(true);
+          }
+        };
+        waitForValidation();
+      });
+    }
+
     return PageModule;
 });

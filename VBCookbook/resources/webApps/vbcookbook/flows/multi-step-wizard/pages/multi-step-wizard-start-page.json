@@ -12,7 +12,13 @@
         "endpoint": "businessObjects/getall_Employee",
         "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallEmployeeResponse"
+        "responseType": "page:getallEmployeeResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName",
+            "lastName"
+          ]
+        }
       }
     },
     "jobListSDP": {
@@ -26,6 +32,11 @@
           "op": "$ne",
           "attribute": "jobTitle",
           "value": "{{$page.variables.currentJobTitle}}"
+        },
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "jobTitle"
+          ]
         }
       }
     },
@@ -241,24 +252,6 @@
       },
       "oj-input-text": {
         "path": "ojs/ojinputtext"
-      },
-      "oj-combobox-one": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-dialog": {
-        "path": "ojs/ojdialog"
-      },
-      "oj-select-many": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-table": {
-        "path": "ojs/ojtable"
-      },
-      "oj-radioset": {
-        "path": "ojs/ojradioset"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
       }
     }
   }

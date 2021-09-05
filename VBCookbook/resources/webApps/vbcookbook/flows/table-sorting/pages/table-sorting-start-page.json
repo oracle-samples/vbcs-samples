@@ -10,7 +10,9 @@
           "responseType": "getAllDepartment",
           "itemsPath": "items",
           "capabilities": {
-            "sortCapability": "single"
+            "sort": {
+               "attributes": "single"
+            }
           },
           "sortCriteria": [
             {

@@ -1,0 +1,39 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom">
+  <p>
+    This recipe shows you how to use the Checkbox Set component. It demonstrates how to populate the component with data
+    from a Service Data Provider (SDP), preselect an item, implement custom selection, and reset selections in the
+    component.
+
+
+  </p>
+</div>
+<div class="oj-flex sample-box">
+  <div class="oj-flex-item oj-flex oj-sm-flex-direction-column">
+    <div class="oj-sm-flex-direction-column oj-flex-item oj-sm-flex-initial" style="padding-left:5px;">
+      <oj-button id="resetAllButton" on-oj-action="[[$listeners.ojButtonOjAction]]">Reset All</oj-button>
+      <oj-button id="selectAsiaButton" on-oj-action="[[$listeners.ojButtonOjAction2]]">Select Asia</oj-button>
+    </div>
+    <div class="oj-sm-flex-direction-column oj-flex-item oj-sm-flex-initial sample-box">
+      <oj-checkboxset label-hint="Regions" options="[[$page.variables.regionListSDP]]" options-keys.value="id"
+        options-keys.label="regionName" value="{{ $variables.selectedValues }}" id="region-checkboxset">
+      </oj-checkboxset>
+    </div>
+    <oj-text-area id="selectedRegionsTextArea" label-hint="Selected Regions" class="oj-flex-item oj-sm-flex-initial"
+      value="{{ $variables.selectedValues }}" readonly="true" style="padding:5px;"></oj-text-area>
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

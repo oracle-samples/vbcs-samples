@@ -1,0 +1,9 @@
+{
+  "id": "customize-fetch-chain",
+  "description": "Flow main",
+  "defaultPage": "customize-fetch-chain-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

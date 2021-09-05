@@ -95,7 +95,7 @@
       }]
     },
     "openInVBActionClicked": {
-      "preventDefault": true,
+      "preventDefault": "true",
       "chains": [{
         "chainId": "OpenHowToOpenVBDialog"
       }]

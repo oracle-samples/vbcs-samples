@@ -1,0 +1,9 @@
+{
+  "id": "oj-refresher",
+  "description": "Flow main",
+  "defaultPage": "oj-refresher-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

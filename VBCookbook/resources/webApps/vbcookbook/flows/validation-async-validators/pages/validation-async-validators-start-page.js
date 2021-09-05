@@ -77,5 +77,26 @@ define(['ojs/ojcore', 'ojs/ojvalidation-number'], function (oj) {
     return tracker.valid;
   };
 
+  PageModule.prototype.waitTillPending = function () {
+    // make the button action wait till the
+    // field validation gets over ie tracker 
+    // status changes to something other than 'pending'
+    return new Promise(function (resolve, reject) {
+      var tracker = document.getElementById("tracker");
+      var waitForValidation = function () {        
+        if (tracker.valid === "pending") {
+          // simulated field validation at server still going on
+          setTimeout(function () {
+            return waitForValidation();
+          }, 200);
+        }
+        else {
+          resolve(true);
+        }
+      };
+      waitForValidation();
+    });
+  };
+
   return PageModule;
 });

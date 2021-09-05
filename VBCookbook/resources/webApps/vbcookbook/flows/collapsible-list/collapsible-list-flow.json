@@ -1,0 +1,9 @@
+{
+  "id": "collapsible-list",
+  "description": "Flow main",
+  "defaultPage": "collapsible-list-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -21,7 +21,12 @@
         "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponse",
-        "uriParameters": {}
+        "uriParameters": {},
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "lastName"
+          ]
+        }
       }
     },
     "jobListSDP": {
@@ -31,7 +36,12 @@
         "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallJobResponse",
-        "uriParameters": {}
+        "uriParameters": {},
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "jobTitle"
+          ]
+        }
       }
     },
     "saveEmployeeChainInProgress": {
@@ -358,6 +368,9 @@
   },
   "imports": {
     "components": {
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
       "oj-validation-group": {
         "path": "ojs/ojvalidationgroup"
       },
@@ -366,9 +379,6 @@
       },
       "oj-input-text": {
         "path": "ojs/ojinputtext"
-      },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"
@@ -379,6 +389,7 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       }
+
     }
   }
 }

@@ -6,10 +6,52 @@
 <!-- Contains Dynamic UI layout templates -->
 <template id="phoneTemplate">
 <span class="vb-icon vb-icon-telephone" style="margin-top:25px"></span> 
-  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]"></oj-input-text>
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" data-oj-field="phoneNumber"></oj-input-text>
   
 </template>
 <template id="emailTemplate">
  <span class="vb-icon vb-icon-envelope" style="margin-top:25px"></span> 
-  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width" ></oj-input-text>
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width" data-oj-field="email" ></oj-input-text>
+</template>
+
+<template id="employeeListViewTemplate">
+   <div style="display: grid; grid-auto-rows: max-content; grid-auto-columns: max-content">
+    <div style="padding: 0px 10px 10px 10px; grid-row: 1 / 1; grid-column:1 / 1">
+      <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"
+        src="[[ $componentContext.applicationPath + 'resources/images/employees/' + $fields.id.value() + '.png' ]]"
+        data-oj-field="avatar"></oj-avatar>
+
+    </div>
+    <div style="grid-row: 1 / 1; grid-column:2 / 2">
+      <oj-dynamic-bind-field field="fullName" data-oj-field="fullName"></oj-dynamic-bind-field>
+      <oj-dynamic-bind-field field="email" data-oj-field="email"></oj-dynamic-bind-field>
+      <oj-dynamic-bind-field field="phoneNumber" data-oj-field="phoneNumber"></oj-dynamic-bind-field>
+    </div>
+  </div>
+</template>
+
+<template id="listViewNameTemplate">
+  <div class="oj-text-primary-color" style="font-weight: bold; font-size: x-large">
+    <oj-bind-text value="[[$value]]" data-oj-field="listViewNameTemplate"></oj-bind-text>
+  </div>
+</template>
+
+<template id="listViewMailTemplate">
+  <div style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 200px;">
+    <a :href="[['mailto:' + $value()]]">
+      <oj-bind-text value="[[$value]]" data-oj-field="listViewMailTemplate"></oj-bind-text>
+    </a>
+  </div>
+</template>
+
+<template id="listViewPhoneTemplate">
+  <div style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 300px;">
+    <oj-bind-text value="[[$value]]" data-oj-field="listViewPhoneTemplate"></oj-bind-text>
+  </div>
+</template>
+
+<template id="avatarTemplate">
+  <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="sm"
+    src="[[ $componentContext.applicationPath + 'resources/images/employees/' + $value() + '.png' ]]"
+    data-oj-field="avatar"></oj-avatar>
 </template>

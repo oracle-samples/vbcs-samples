@@ -6,11 +6,12 @@
 <div>
   <h4>Summary:</h4>
   <ol>
-    <li> Create a page variable to hold the converter options.</li>
-    <li> Create an Input Date component with setting the converter to the page variable.</li>
-    <li> Create combobox to choose desired format.</li>
-    <li> Add an on-value-changed event to update the <code>pattern</code> property of
-      the page variable.</li>
+    <li> Create a variable to hold the date converter pattern.</li>
+    <li> Create another variable to hold the date format options array.</li>
+    <li> Create an ADP variable to hold the date format options.</li>
+    <li> Create an Input Date component with its converter set to the page variable converter pattern.</li>
+    <li> Create Select Single to choose desired date format.</li>
+    <li> Use the Select Single value as the format for the Input Date component.</li>
   </ol>
 </div>
 
@@ -37,6 +38,27 @@
   }   
 }</pre>
           </li>
+          <li>Add a <code>dateFormatOptions</code> array page variable with item type object.
+          </li>
+          <li>Give <code>dateFormatOptions</code> the default value of:
+            <pre>
+[
+    {
+        "value": "yy-MM-dd",
+        "label": "yy-MM-dd"
+    },
+    {
+        "value": "MM/dd/yy",
+        "label": "MM/dd/yy"
+    }
+]
+            </pre>
+          </li>
+          <li>Add a <code>dateFormatOptionsADP</code> page variable of type ADP and bind its data to the page variable
+            <code>dateFormatOptions</code>.
+          </li>
+          <li>Also set the keyAttributes of ADP variable to 'value' field in the data.
+          </li>
         </ol>
       </div>
     </oj-collapsible>
@@ -45,25 +67,14 @@
       <span slot="header">Create the UI</span>
       <div>
         <ol>
-          <li>Drop the Form Layout, Date Picker, and Select One components on the page.</li>
-          <li>Give the Select One the following options:
-            <ul>
-              <li><code>yy-MM-dd</code></li>
-              <li><code>MM/dd/yy</code></li>
-            </ul>
+          <li>Drop the Form Layout, Date Picker, and Select Single components on the page.</li>
+          <li>Set the data attribute of Select Single component to <code>[[ $variables.dateFormatOptionsADP ]]</code>.
           </li>
-          <li>Set the <code>converter</code> property of the Date Picker to <code>[[ $variables.dateFormat ]]</code></li>
-        </ol>
-      </div>
-    </oj-collapsible>
-
-    <oj-collapsible id="step3">
-      <span slot="header">Add the Event and Action Chain</span>
-      <div>
-        <ol>
-          <li>Select the Select One component and use the Properties pane to add an
-            event listeren for value.</li>
-          <li>Drag an Assign Variables action to the page. Use it to assign <code>$chain.variables.value</code>            to <code>$page.variables.dateFormat.options.pattern</code></li>
+          <li>Set the value attribute of Select Single component to
+            <code>{{ $variables.dateFormat.options.pattern }}</code>.
+          </li>
+          <li>Set the <code>converter</code> property of the Date Picker to <code>[[ $variables.dateFormat ]]</code>
+          </li>
         </ol>
       </div>
     </oj-collapsible>

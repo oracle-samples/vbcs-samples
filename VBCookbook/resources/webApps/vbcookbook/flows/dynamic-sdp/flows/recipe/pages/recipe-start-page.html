@@ -1,0 +1,113 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Employee data within a department is fetched when a user expands a Collapsible component nested within an Accordion
+  component. A JavaScript function dynamically creates an instance of an SDP for the employee data. </p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Create a Departments Service Data Provider Variable</h1>
+      <div>
+        <p>In the Variables tab, create a new SDP variable named <code>deptSDP</code> using the GET REST
+          endpoint of Departments. You'll use this variable to populate the Collapsible components with the names of the
+          retrieved departments.
+        </p>
+
+
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Create the UI</h1>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag an Accordion component and drop it on the page. </li>
+          <li>Drag a Bind for Each component (<code>oj-bind-for-each</code>) and drop it on the Accordion component so
+            that a Collapsible component will be rendered for each department.</li>
+          <li>Set the <code>data</code> attribute of the Bind for Each component to the <code>deptSDP</code> variable:
+            <pre>
+oj-bind-for-each data="[[ $variables.deptSDP ]]"</pre>
+          </li>
+          <li>
+            Create a template in the Bind for Each component that contains an <code>oj-collapsible</code> for
+            each department. Each department row in the <code>deptSDP</code> variable is referenced in the template
+            using the <code>data-oj-as="item"</code> attribute.
+          </li>
+          <li>In the Properties pane for the Collapsible component, set the Class property to
+            <code>oj-accordion-collapsible</code>.
+          </li>
+          <li>Drag a Table component and drop it on the Collapsible component to display the list of employees for each
+            department. Display columns for <code>id</code>, <code>lastName</code>, and <code>email</code> in the Table
+            component.</li>
+          <li>Set <code>item.data.id</code>, the unique department ID, as the ID value for the Collapsible, header, and
+            Table components.</li>
+          <li>In the <code>data</code> attribute of the Table component, set a JavaScript function named
+            <code>createSDP()</code> to pass the department ID as a function parameter:
+            <pre>data="[[ $functions.createSDP(item.data.id) ]]"</pre>
+          </li>
+          <li>Surround the Table component with a Defer component (<code>oj-defer</code>) to make sure that the SDP for
+            the Table component fetches the data dynamically only when a user expands the Collapsible component.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-3">
+      <h1 slot="header">Create a JavaScript Function</h1>
+      <div>
+        <ol>
+          <li>In the JavaScript tab, import <code>vb/types/factories/serviceDataProviderFactory</code> to make use of
+            ServiceDataProviderFactory.
+          </li>
+          <li>
+            Create an <code>sdpCache</code> variable that holds the dynamically created SDPs for each department.
+          </li>
+          <li>
+            Create a new instance of an SDP for a given deptNo using ServiceDataProviderFactory, if not already created.
+            <pre>
+define(['knockout', 'vb/types/factories/serviceDataProviderFactory'], function (ko, ServiceDataProviderFactory) {
+'use strict';
+
+var sdpCache = {};
+
+var PageModule = function PageModule() {
+};
+
+PageModule.prototype.createSDP = function (deptNo) {
+  if (sdpCache[deptNo] !== undefined) {
+    return sdpCache[deptNo];
+  }
+  sdpCache[deptNo] = ko.observable();
+  ServiceDataProviderFactory.createInstance(
+    {
+      dataProviderOptions:
+      {
+        endpoint: "businessObjects/getall_Employee",
+        keyAttributes: "id",
+        itemsPath: 'items',
+        uriParameters: {
+          "q": "department=" + deptNo,
+          "limit": 25
+        }
+      }
+    }
+  ).then((sdpInstance) => {
+    sdpCache[deptNo](sdpInstance);
+  });
+  return sdpCache[deptNo];
+};
+
+return PageModule;
+});
+</pre>
+          </li>
+          <li>
+            For more information about the ServiceDataProviderFactory, see <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/understand-page-model.html#GUID-B89C0231-AFEB-46D2-AD24-B4370EEC7C52">Using
+              ServiceDataProviderFactory</a>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

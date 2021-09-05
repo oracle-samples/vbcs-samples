@@ -1,0 +1,106 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>You surround the List View component with the Refresher component, create a custom event, and a custom event listener
+  that invokes an action chain where you call a JavaScript function that refreshes the component's content.</p>
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Create the UI</span>
+    <div>
+      <ol>
+        <li>In the Component Palette, drag and drop a List View component onto the page.</li>
+        <li>
+          Use the List View component's
+          <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Data Quick Start</a>
+          to map your List View component to the <code>employees</code> endpoint.
+        </li>
+
+        <li>
+          In the Bind Data page of the Add Data dialog, select items, such as ID and name, from the
+          employees endpoint structure to display in the List View component.
+        </li>
+
+
+
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Create a Custom Event</span>
+    <div>
+      <ol>
+        <li>In the Events tab, create a custom event named <code>customRefreshContentsEvent</code>.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step3">
+    <span slot="header">Create a Refresher Component and a JavaScript Function</span>
+    <div>
+      <ol>
+        <li>In the Code view of the page, surround the List View component (<code>oj-list-view</code>) with an
+          <code>oj-refresher</code> component.
+        </li>
+        <li>Add the following attribute to the <code>oj-refresher</code> component:
+          <pre>refresh-content="{{ $functions.getRefreshFunction() }}"</pre>
+        </li>
+        <li>In the JavaScript tab, write the following function to refresh the component content:
+          <pre>
+// save the event helper to raise the custom event later
+var PageModule = function PageModule(context) {
+  this.eventHelper = context.getEventHelper();
+};
+
+// refresh-content function to use in HTML
+PageModule.prototype.getRefreshFunction = function () {
+  return this.checkForUpdates.bind(this);
+};
+
+var promiseResolver = {};
+
+// the function to raise a custom event and return a promise
+PageModule.prototype.checkForUpdates = function () {
+  let myPromise = new Promise(function (resolve, reject) {
+    promiseResolver.resolveHandler = resolve;
+  });
+
+  // raise a check for refresh event and refresh the data set 
+  // from the action chain associated with the event
+  this.eventHelper.fireCustomEvent("customRefreshContentsEvent");
+
+  return myPromise;
+};
+
+// the function to call to resolve the promise after data refresh
+PageModule.prototype.concludeRefresher = function () {
+  // data refreshed, resolve the promise now
+  // timeout is a dummy delay so the refresh does not 
+  // complete immediately
+  setTimeout(() => { promiseResolver.resolveHandler(); }, 2000);
+};
+          </pre>
+        </li>
+
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step4">
+    <span slot="header">Create an Event Listener and an Action Chain</span>
+    <div>
+      <ol>
+        <li>In the Event Listeners tab, create an event listener for the custom event with an associated action chain
+          named <code>refreshEmployeesData</code>. </li>
+        <li>In the action chain, add a Fire Data Provider Event action and select the <code>EmployeeListSDP</code>
+          variable to
+          refresh.
+        </li>
+        <li>Add a Call Function action and select the <code>concludeRefresher</code> JavaScript function that you
+          created previously.</li>
+
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

@@ -11,9 +11,11 @@
   <oj-validation-group id="validation-group" class="oj-flex-item oj-sm-12 oj-md-12">
     <oj-form-layout class="" label-edge="start">
       <oj-input-text value="{{ $page.variables.employee.lastName }}" readonly="false" label-hint="Last Name" required="true" disabled="true"></oj-input-text>
-      <oj-select-one value="{{ $page.variables.employee.manager }}" readonly="false" label-hint="Manager" options="[[ $page.variables.employeeListSDP ]]" options-keys.value="id" options-keys.label="lastName"></oj-select-one>
+      <oj-select-single value="{{ $page.variables.employee.manager }}" readonly="false" label-hint="Manager"
+        data="[[ $page.variables.employeeListSDP ]]" item-text="lastName"></oj-select-single>
       <oj-input-number value="{{ $page.variables.employee.salary }}" readonly="false" label-hint="Salary" min="0"></oj-input-number>
-      <oj-select-one value="{{ $page.variables.employee.job }}" readonly="false" label-hint="Job" required="true" options="[[ $page.variables.jobListSDP ]]" options-keys.value="id" options-keys.label="jobTitle"></oj-select-one>
+      <oj-select-single value="{{ $page.variables.employee.job }}" readonly="false" label-hint="Job" required="true"
+        data="[[ $page.variables.jobListSDP ]]" item-text="jobTitle"></oj-select-single>
     </oj-form-layout>
   </oj-validation-group>
 </div>

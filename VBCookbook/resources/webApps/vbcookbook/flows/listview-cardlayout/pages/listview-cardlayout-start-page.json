@@ -35,35 +35,14 @@
   "eventListeners": {},
   "imports": {
     "components": {
-      "oj-form-layout": {
-        "path": "ojs/ojformlayout"
-      },
-      "oj-input-date": {
-        "path": "ojs/ojdatetimepicker"
-      },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
-      },
       "oj-list-view": {
         "path": "ojs/ojlistview"
-      },
-      "oj-vb-list-item": {
-        "path": "vb/components/list-item/loader"
-      },
-      "oj-label": {
-        "path": "ojs/ojlabel"
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"
       },
       "oj-avatar": {
         "path": "ojs/ojavatar"
-      },
-      "oj-input-text": {
-        "path": "ojs/ojinputtext"
       }
     }
   }

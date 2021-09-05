@@ -3,18 +3,18 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This demo shows how to use converter to format date string.
 </div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
-    <div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-initial">
+    <div class="oj-flex oj-sm-flex-direction-column">
       <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-12">
-        <oj-input-date label-hint="Format Converter:" converter="[[ $variables.dateFormat ]]" value="2020-05-13" id="input-date"></oj-input-date>
-        <oj-select-one label-hint="Select Format:" on-value-changed="[[$listeners.ojSelectOneValue]]" id="select-format">
-          <oj-option value="yy-MM-dd">yy-MM-dd</oj-option>
-          <oj-option value="MM/dd/yy">MM/dd/yy</oj-option>
-        </oj-select-one>
+        <oj-input-date label-hint="Format Converter:" converter="[[ $variables.dateFormat ]]" value="2020-05-13"
+          id="input-date" class="oj-form-control-max-width-sm"></oj-input-date>
+        <oj-select-single label-hint="Select Format:" id="select-format" data="[[ $variables.dateFormatOptionsADP ]]"
+          value="{{ $variables.dateFormat.options.pattern }}" class="oj-form-control-max-width-sm">
+        </oj-select-single>
       </oj-form-layout>
     </div>
   </div>

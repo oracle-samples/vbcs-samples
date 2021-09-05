@@ -1,0 +1,272 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Create a Table component that displays editable rows of employees. For changes to salary, you’ll use a Validation
+  Group component and write a custom validator to ensure that the salary remains within a valid range. All changes are
+  stored in a buffer until the user clicks <strong>Save</strong>, at which time a REST call posts the changes
+  to the backend
+  service. </p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Table to Display Employees</span>
+      <div>
+        <ol>
+          <li> In the Component Palette, drag a Table component and drop
+            it on the Page Designer.</li>
+          <li> In the Properties pane, use the
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              Start</a>
+            to add employee data to the table. Add the appropriate fields (name, job, and so on)
+          </li>
+          <li>Create a JavaScript function named <code>createBufferingDP</code> which takes <code>employeesSDP</code> as
+            a parameter and wrap it with a <code>BufferingDataProvider</code>.</li>
+          <li>Add a <code>vbEnter</code> event listener to the page that will call the <code>createBufferingDP</code>
+            JavaScript
+            function
+            and pass the <code>employeesSDP</code> variable as a parameter.
+            Assign the result of the function to a new page variable named <code>employeesBDP</code>.
+          </li>
+          <li>In the Data tab of the Properties pane for the Table component, bind the Data property to
+            the <code>employeesBDP</code> variable.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step2">
+      <span slot="header">JavaScript Functions for BufferingDataProvider</span>
+      <div>
+        <p>BufferingDataProvider provides the following predefined functions to perform CRUD operations.</p>
+        <ol>
+          <li><code>addItem</code> - inserts new data in the table.
+            <pre>
+  PageModule.prototype.addItem = function (key, data) {
+    bufferingDP.addItem({ metadata: { key: key }, data: data });
+  };
+          </pre>
+          </li>
+          <li><code>removeItem</code> - deletes rows from the table.
+            <pre>
+  PageModule.prototype.removeItem = function (key, data) {
+    bufferingDP.removeItem({ metadata: { key: key }, data: data });
+  };
+          </pre>
+          </li>
+          <li><code>updateItem</code> - updates existing data in the table.
+            <pre>
+  PageModule.prototype.updateItem = function (key, data) {
+    bufferingDP.updateItem({ metadata: { key: key }, data: data });
+  };
+          </pre>
+          </li>
+          <li><code>getSubmittableItems</code> - contains all buffered changes.
+            <pre>
+  PageModule.prototype.getSubmittableItems = function () {
+    return bufferingDP.getSubmittableItems();
+  };
+          </pre>
+          </li>
+          <li><code>setItemStatus</code> - sets the status of the rows to <code>submitted</code>,
+            <code>submitting</code>, or <code>unsubmitted</code>.
+            <pre>
+  PageModule.prototype.setItemStatus = function (editItem, status, error) {
+    bufferingDP.setItemStatus(editItem, status, error);
+  };
+          </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step3">
+      <span slot="header">Make the Table Editable</span>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-765FB233-EFBC-4841-8F18-27C233125C80">Create
+              a custom type from the GET /Employee endpoint.</a> Add the appropriate fields (name, job, and so on) to
+            the
+            Employee custom type.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a page variable</a> named <code>currentRowBuffer</code> of type EmployeeType.</li>
+          <li>Add <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">an
+              ojBeforeRowEdit event listener</a> to the Table component. </li>
+          <li>In the <code>TableBeforeRowEditChain</code> action chain, add an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              Variables action</a> named <code>updateCurrentRowBuffer</code> where you assign the current row
+            data to the <code>currentRowBuffer</code> page variable.</li>
+          <li>Add an <code>ojBeforeRowEditEnd</code> event listener to the Table component.</li>
+
+          <li>In the Events editor for the newly-created <code>ojBeforeRowEditEnd</code> event listener, set the
+            following value for the Prevent Default property so that the application prevents users from ending the row
+            edit if necessary, after evaluating the following expressions:
+            <p>
+              <code>{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}</code>
+            </p>
+          </li>
+
+
+          <li>In the <code>TableBeforeRowEditEndChain</code> action chain, add the following two variables to reference
+            the original value and the current value of the row:
+            <ul>
+              <li><code>originalRowData</code> – EmployeeType</li>
+              <li><code>rowData</code> - EmployeeType</li>
+            </ul>
+          </li>
+          <li>
+            In the Properties pane for the Table component's <code>ojBeforeRowEditEnd</code> event listener, map the
+            following two parameters:
+            <ul>
+              <li><code>originalRowData</code> to
+                <code>$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data</code>
+              </li>
+              <li><code>rowData</code> to <code>$page.variables.currentRowBuffer</code></li>
+            </ul>
+
+          </li>
+          <li>Add an If action named <code>hasRecordChanged</code> that uses a function to test if the row has changed.
+          </li>
+          <li>If the row has changed, call the <code>updateItem</code> JavaScript function and pass it the following
+            parameters:
+            <ul>
+              <li><code>key</code> as <code>rowKey</code></li>
+              <li><code>data</code> as <code>rowData</code></li>
+            </ul>
+          </li>
+
+          <li>In the Table component’s Properties pane, set the edit-mode property to <code>rowEdit</code>.</li>
+
+          <li>
+            From the Component Palette, drag If components (<code>oj-bind-if</code>) and drop one on each column
+            in the Table component
+            to generate a Cell Template for the column.
+
+            <ol>
+              <li>Configure the If component to determine the behavior when the column row is in navigation mode.</li>
+              <li>Drop a second If component to test if the row is in edit mode, and bind to the currentRowBuffer page
+                variable for this scenario.
+
+              </li>
+            </ol>
+          </li>
+
+          <li> Add an extra column, Actions, to the Table component to perform the delete operation.
+            <ul>
+              <li>Drag a Button component and drop it on the Actions column, then bind it to a Delete icon.
+              </li>
+              <li>In the Events tab of the Properties pane for the Delete button, add a Quick Start: 'ojAction' event
+                and a corresponding action chain named <code>DeleteRow</code>.</li>
+              <li>In the <code>DeleteRow</code> action chain, add a Call Function action to call the
+                <code>removeItem</code> JavaScript function
+                and
+                pass the
+                appropriate parameters.
+              </li>
+            </ul>
+          </li>
+          <li>Insert new rows in the Table component.
+            <ul>
+              <li>Drag a Button component and drop it above the Table component. Name it <code>Insert Row</code>. </li>
+              <li>In the Events tab of the Properties pane for the Button component, add a Quick Start: 'ojAction' event
+                and
+                a corresponding action chain named <code>InsertRow</code>.</li>
+              <li>In the <code>InsertRow</code> action chain, add a Call Function action to call a JavaScript function
+                that generates a unique id for the
+                newly-inserted row.</li>
+              <li>Create a page variable <code>blankRecord</code> of type EmployeeType and assign the result of the
+                newly-generated id JavaScript function to the id in the <code>blankRecord</code> page variable. </li>
+              <li>Add a Call Function action to the <code>addItem</code> JavaScript function and pass the appropriate
+                parameters.
+                <ol>
+                  <li><code>key</code> as <code>id</code> inside <code>blankRecord</code>.</li>
+                  <li><code>data</code> as <code>blankRecord</code>.</li>
+                </ol>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step4">
+      <span slot="header">Validate User Input</span>
+      <div>
+        <p>Validation ensures that each employee entry has a first and last name, and that any change to an employee's
+          salary remains within the range for the paygrade of the employee.
+          Inspect the following entries in the recipe to learn how to validate user input in an edited row.</p>
+        <ol>
+          <li>A Validation Group component wraps the Table component. </li>
+          <li>
+            In the <code>TableBeforeRowEditEndChain</code> action chain, add an If action to the start of the action
+            chain
+            to test a number of conditions that include the following custom functions:
+            <ul>
+              <li><code>isFormValid</code> - Trigger validation for the currently edited row and return true if it is
+                valid.</li>
+              <li><code>salaryInRangeValidator</code> – validates that the salary entered is within the range for the
+                employee.</li>
+              <li><code>shouldPreventDefault</code> – executes the validator in the Table component and prevents the
+                user from
+                exiting edit mode if the validation fails.</li>
+            </ul>
+            <p>This If action performs the same task as the expression that you set for the
+              <code>ojBeforeRowEditEnd</code> event listener's Prevent Default property when you made the Table
+              component editable (Prevents users from exiting a row edit if they entered invalid values).
+            </p>
+          </li>
+        </ol>
+        <p>Apart from the functions just described, note also how an Assign Variables action in the
+          <code>JobChanged</code> action chain prevents a user from
+          exiting a row edit until the Call REST Endpoint action gets job salary details necessary to perform
+          validation.
+        </p>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step5">
+      <span slot="header">Track and Save Changes</span>
+      <div>
+        <ol>
+          <li>Drag a Button component and drop it above the Table component. Name it <code>Save</code>.
+          </li>
+          <li>In the Events tab of the Properties pane for the Save button, add a Quick Start: 'ojAction' event and a
+            corresponding action chain named <code>SubmitActionChain</code>.</li>
+          <li>In the SubmitActionChain action chain, add a Call Function action named
+            <code>createBatchPayload</code>. This function creates a payload of the changes to upload and uses the
+            <code>getSubmittableItems()</code> function of the Buffering Data Provider which contains the changes
+            (add, update, and delete).
+          </li>
+          <li>Add a Call Function to <code>setItemStatus</code> to set the status of the records to
+            <code>submitting</code>. This empties the current
+            buffer of changes.
+          </li>
+
+          <li>Add a Call REST action to upload this payload through the business objects Batch REST
+            endpoint. The <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/consume-rest/advanced-tasks.html#GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">Batch
+              REST endpoint</a> sends multiple changes in one transaction.</li>
+          <li>On the success outcome of the REST Call action, set the status of the records to <code>submitted</code>
+            and fire a
+            notification with the message that <code>Changes are Saved!</code> On the failure path of the REST Call
+            action, set
+            the status of
+            the records to <code>unsubmitted</code>.
+
+            <p>This saves the changes which are currently stored in the buffer, and skips the changes for
+              a row which is still in edit mode while saving the records. Instead it lists those changes in the buffer.
+              To
+              resolve this, add a Promise on which the <strong>Save</strong> button waits on execution. On
+              leaving row edit mode, the Promise resolves. The Save button now saves the records after editing
+              finishes.</p>
+          </li>
+
+
+
+
+        </ol>
+
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

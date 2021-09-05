@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This demo displays list of employees in card layout.
 </div>
 <div class="oj-flex oj-flex-item">
@@ -11,19 +11,19 @@
     <oj-list-view id="cardlayout" class="oj-listview-card-layout oj-panel oj-flex-item oj-sm-12 oj-md-12 cardLayoutCustom" data="[[ $variables.employeeListSDP ]]" style="background-color: #eee;max-height: 82vh;overflow-y: scroll;min-height: 176px;">
   <template slot="itemTemplate">
                 <div class="oj-flex">
-                <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-12">
+                <div class="oj-panel oj-sm-padding-2x oj-flex-item oj-sm-12 oj-md-12">
                      
                       <div class="oj-flex">
-                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-4" style="border: 0">
+                        <div class="oj-panel oj-sm-padding-2x oj-flex-item oj-sm-12 oj-md-4" style="border: 0">
                           <div class="oj-flex">
                             <div class="oj-flex-item oj-sm-12 oj-md-4">
                               <oj-avatar src="[[ $application.path + 'resources/images/employees/' + $current.data.id + '.png' ]]"></oj-avatar>
                             </div>
                           </div>
                         </div>
-                        <div class="oj-panel oj-flex-items-pad oj-flex-item oj-sm-12 oj-md-8" style="border: 0">
+                        <div class="oj-panel oj-sm-padding-2x oj-flex-item oj-sm-12 oj-md-8" style="border: 0">
                           <div class="oj-flex">
-                            <span class="oj-flex-item oj-sm-12 oj-md-7 oj-text-primary-color oj-typography-bold">Salary</span>
+                            <span class="oj-flex-item oj-sm-12 oj-md-7 oj-text-color-primary oj-typography-bold">Salary</span>
                           </div>
                           <div class="oj-flex">
                             <div class="oj-flex-item oj-sm-12 oj-md-12">
@@ -31,7 +31,7 @@
                             </div>
                           </div>
                           <div class="oj-flex">
-                            <span class="oj-flex-item oj-sm-12 oj-md-7 oj-text-primary-color oj-typography-bold">Email</span>
+                            <span class="oj-flex-item oj-sm-12 oj-md-7 oj-text-color-primary oj-typography-bold">Email</span>
                           </div>
                           <div class="oj-flex">
                             <div class="oj-flex-item oj-sm-12 oj-md-12">

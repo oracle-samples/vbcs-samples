@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
  
    Complex server side filtering using Service Data Provider.
  
@@ -14,7 +14,7 @@
 <!--   START -->
 <div class="oj-offcanvas-outer-wrapper" style="min-height:580px;">
 
-  <div id="filterDrawer" class="oj-offcanvas-start oj-offcanvas-overlay-shadow oj-panel oj-sm-padding-1x oj-panel-alt1" style="width: 250px">
+  <div id="filterDrawer" class="oj-offcanvas-start oj-offcanvas-overlay-shadow oj-panel oj-sm-padding-1x oj-bg-neutral-20" style="width: 250px">
     <oj-form-layout label-edge="top">
       <oj-input-text label-hint="Name" value="{{ $variables.filters[0].value }}" clear-icon="conditional" id="input-first-name">
       </oj-input-text>
@@ -23,12 +23,12 @@
 
       <oj-select-many label-hint="Skills" options="[[$page.variables.skillListSDP]]" options-keys.value="id" options-keys.label="name" placeholder="Skill(s)" value="{{ $variables.filters[4].value }}"></oj-select-many>
       <oj-label for="sal">Salary</oj-label>
-      <div id="sal" role="group" aria-labelledby="grouplabelid" class="oj-form-control-group">
+      <div id="sal" role="group">
         <oj-label for="fromSalary">
-          <span class="oj-text-sm">From</span>
+          <span class="oj-typography-body-sm">From</span>
         </oj-label>
         <oj-input-number id="fromSalary" value="{{ $variables.filters[2].value }}" min="0"></oj-input-number>
-        <oj-label for="toSalary"> <span class="oj-text-sm">To</span></oj-label>
+        <oj-label for="toSalary"> <span class="oj-typography-body-sm">To</span></oj-label>
         <oj-input-number id="toSalary" value="{{ $variables.filters[3].value }}" min="[[ $variables.filters[2].value ]]"></oj-input-number>
       </div>
     </oj-form-layout>

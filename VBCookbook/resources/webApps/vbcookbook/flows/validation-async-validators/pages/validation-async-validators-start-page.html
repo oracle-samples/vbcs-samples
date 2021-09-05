@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This recipe shows you how to create a form control within a Validation Group
   component (<code>oj-validation-group</code>) where the action chain triggered
   by the component event calls a JavaScript function that uses Oracle JET's
@@ -33,7 +33,7 @@
           autocomplete="off"
           validators="[[ $functions.getAsyncValidator() ]]"
           value="{{$variables.quantityLimit}}"
-          label-hint="Quantity Limit Input Number"
+          label-hint="Quantity Limit Input Number" required="true"
         >
         </oj-input-number>
         <oj-input-number
@@ -41,12 +41,11 @@
           autocomplete="off"
           label-hint="Second Quantity Limit"
           validators="[[ $functions.getAsyncValidator() ]]"
-          value="{{$variables.quantityLimit2}}"
+          value="{{$variables.quantityLimit2}}" required="true"
         >
         </oj-input-number>
         <oj-button
           id="submit"
-          disabled="[[$variables.inputValid === 'pending']]"
           on-oj-action="[[$listeners.submitOjAction]]"
           >Submit</oj-button
         >

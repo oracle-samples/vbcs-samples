@@ -1,0 +1,92 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "page:getEmployeeResponse"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "path": {
+      "type": {
+        "applicationPath": "string"
+      },
+      "defaultValue": {
+        "applicationPath": "[[$application.path]]"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getEmployeeResponse": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "getEmployeeResponse": "object"
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-dynamic-form": {
+        "path": "oj-dynamic/form/loader"
+      },
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      }
+    }
+  }
+}

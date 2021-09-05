@@ -82,7 +82,10 @@
       "type": "vb/ArrayDataProvider2",
       "defaultValue": {
         "itemType": "get_Country",
-        "keyAttributes": "id"
+        "keyAttributes": "id",
+        "textFilterAttributes": [
+          "countryName"
+        ]
       }
     },
     "countryADPInitialized": {

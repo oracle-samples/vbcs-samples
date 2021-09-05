@@ -1,0 +1,76 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Populate the Checkbox Set component with data from an SDP and use an array variable to track user selection.</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag and drop a Checkbox Set component onto the page.</li>
+          <li>Use the Checkbox Set component's <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-CC4E6D70-8EE4-4660-B3F9-4FF5714B42EF">Add
+              Options Quick Start</a> to select the endpoint structure for the Region
+            business object where you select the id and regionName items as the values for the component's Value and
+            Label properties. </li>
+          <li>In the Variables tab, create a variable named <code>selectedValues</code> of type Number and set the
+            <code>value</code>
+            attribute of the component to <code>selectedValues</code>. The type of <code>selectedValues</code> is set to
+            Number to match the type of the id attribute(s) for the SDP data rows.
+          </li>
+          <li>In the Component Palette, drag and drop two Button components above the Checkbox Set component on the
+            page. Set the first Button component's Text property to <code>Reset All</code> and the second component's to
+            <code>Select Asia</code>.
+          </li>
+          <li>Drag and drop a Text Area component under the Checkbox Set component and set its <code>value</code>
+            attribute to reference the
+            <code>selectedValues</code> variable.
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step2">
+      <span slot="header">Preselect a Checkbox Set Component Option During Page Load</span>
+      <div>
+        <ol>
+          <li>In the Variables tab, select the <code>selectedValues</code> variable and, in the Properties pane, set
+            Default Value to <code>[1]</code> to select the first option in the Checkbox Set component when the page
+            loads.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step3">
+      <span slot="header">Reset Checkbox Set Component Selection</span>
+      <div>
+        <ol>
+          <li>Select the Reset All Button component and, in the Events tab of the Properties pane, add an ojAction event
+            to invoke an action chain. </li>
+          <li>Set the ID of the newly-created action to <code>resetAllActionChain</code> and add an Assign Variables
+            action to select the <code>selectedValues</code>variable and set its value to <code>[]</code>. In the Reset
+            Target dropdown list for the variable, select <code>empty</code>. </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step4">
+      <span slot="header">Select an Option in the Checkbox Set Component</span>
+      <div>
+        <ol>
+          <li>Select the Select Asia Button component and, in the Events tab of the Properties pane, add an ojAction
+            event
+            to invoke an action chain. </li>
+          <li>Set the ID of the newly-created action to <code>selectAsiaActionChain</code> and add an Assign Variables
+            action to select the <code>selectedValues</code>variable and set its value to <code>[3]</code>. In the Reset
+            Target dropdown list for the variable, select <code>empty</code>. The value <code>3</code> is the id value
+            of Asia.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

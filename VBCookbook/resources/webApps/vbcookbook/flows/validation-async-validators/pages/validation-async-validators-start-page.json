@@ -17,7 +17,7 @@
   "chains": {
     "ButtonActionChain": {
       "description": "",
-      "root": "callFunctionValidateGroup",
+      "root": "callFunctionWaitTillPending",
       "actions": {
         "callFunctionValidateGroup": {
           "module": "vb/action/builtin/callModuleFunctionAction",
@@ -45,7 +45,17 @@
             "displayMode": "transient",
             "type": "confirmation",
             "summary": "Data Is Valid",
-            "message": "Everything is valid. Submit the form."
+            "message": "Everything is valid. Form has been submitted."
+          }
+        },
+        "callFunctionWaitTillPending": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "waitTillPending"
+          },
+          "outcomes": {
+            "success": "callFunctionValidateGroup"
           }
         }
       },
@@ -68,16 +78,6 @@
             "$page.variables.inputValid": {
               "source": "{{ $chain.variables.valid }}"
             }
-          },
-          "outcomes": {
-            "success": "callFunctionValidateGroup"
-          }
-        },
-        "callFunctionValidateGroup": {
-          "module": "vb/action/builtin/callModuleFunctionAction",
-          "parameters": {
-            "module": "[[ $functions ]]",
-            "functionName": "validateGroup"
           }
         }
       }
@@ -100,7 +100,9 @@
             "valid": "{{ $event.detail.value }}"
           }
         }
-      ]
+      ],
+      "stopPropagation": "",
+      "preventDefault": ""
     }
   },
   "imports": {
@@ -119,6 +121,11 @@
       },
       "oj-validation-group": {
         "path": "ojs/ojvalidationgroup"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
       }
     }
   }

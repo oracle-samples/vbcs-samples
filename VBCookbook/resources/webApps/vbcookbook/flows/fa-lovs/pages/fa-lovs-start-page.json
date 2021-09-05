@@ -66,7 +66,12 @@
         "endpoint": "businessObjects/getall_Department",
         "idAttribute": "id",
         "itemsPath": "items",
-        "responseType": "page:getallDepartmentResponse"
+        "responseType": "page:getallDepartmentResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "departmentName"
+          ]
+        }
       }
     },
     "skillListSDP": {
@@ -475,6 +480,9 @@
       },
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectmany"
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"

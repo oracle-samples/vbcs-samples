@@ -124,50 +124,11 @@
   },
   "imports": {
     "components": {
-      "oj-label": {
-        "path": "ojs/ojlabel"
-      },
-      "oj-button": {
-        "path": "ojs/ojbutton"
-      },
-      "oj-combobox-one": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-dialog": {
-        "path": "ojs/ojdialog"
-      },
-      "oj-toolbar": {
-        "path": "ojs/ojtoolbar"
-      },
-      "oj-form-layout": {
-        "path": "ojs/ojformlayout"
-      },
-      "oj-select-single": {
-        "path": "ojs/ojselectsingle"
-      },
-      "oj-input-number": {
-        "path": "ojs/ojinputnumber"
-      },
-      "oj-select-many": {
-        "path": "ojs/ojselectcombobox"
-      },
       "oj-table": {
         "path": "ojs/ojtable"
       },
-      "oj-radioset": {
-        "path": "ojs/ojradioset"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
-      },
       "oj-film-strip": {
         "path": "ojs/ojfilmstrip"
-      },
-      "oj-defer": {
-        "path": "ojs/ojdefer"
-      },
-      "oj-input-text": {
-        "path": "ojs/ojinputtext"
       }
     }
   }

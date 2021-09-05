@@ -1,0 +1,60 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {
+    "page:customRefreshContentsEvent": {
+      "chains": [
+        {
+          "chainId": "refreshEmployeesData"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-refresher": {
+        "path": "ojs/ojrefresher"
+      }
+    }
+  },
+  "events": {
+    "customRefreshContentsEvent": {}
+  }
+}

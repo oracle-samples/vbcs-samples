@@ -1,0 +1,60 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  A Select (Single) component displays a list of employees. You configure the application so that list of employees
+  displayed by the component is filtered by a specific department. The user can
+  further filter the list of employees that the application retrieves by typing letters of an employee's name in the
+  Select (Single) component.
+</p>
+
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Create a Select (Single) Component</span>
+    <div>
+      <ol>
+        <li>In the Component Palette, drag a Select (Single) component and drop it on the page. </li>
+        <li>Use the Select (Single) component's <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-CC4E6D70-8EE4-4660-B3F9-4FF5714B42EF">Add
+            Options Quick Start</a> to select the employee ID field as the Value and
+          the employee's email as the Label field. </li>
+
+        <p>The Select (Single) component will display the list of all employees from all departments.</p>
+      </ol>
+
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Customize Fetch Action Chain to Apply Department Filter</span>
+    <div>
+      <ol>
+        <li>In the Variables tab, select the <code>employeeListSDP</code> variable and, in the Properties pane, click
+          <strong>Customize Fetch Action Chain</strong>.
+        </li>
+        <li>In the newly-created <code>getall_EmployeeFetchAction</code> action chain, select the Call REST action that
+          is the first action in the action chain.</li>
+        <li>In the Properties pane, select <strong>requestTransformOptions</strong>.</li>
+        <li>Expand the filter parameter and set the attribute, operator, and value properties to filter results for the
+          Sales department (id=8).
+          <pre>
+  "requestTransformOptions": {
+  "filter": {
+    "criteria": [
+      {
+        "attribute": "department",
+        "op": "$eq",
+        "value": "8"
+      }
+    ]
+  }
+  }
+          </pre>
+
+        </li>
+        <p>The Select (Single) component now displays the list of employees from the Sales department.</p>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

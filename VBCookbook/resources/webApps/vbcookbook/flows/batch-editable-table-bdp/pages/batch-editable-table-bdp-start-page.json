@@ -1,0 +1,829 @@
+{
+
+  "title": "  ",
+  "description": "",
+  "variables": {
+
+    "employeesBDP": {
+      "type": "any"
+    },
+    "employeesSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "responseType": "getall_Employee_SDP",
+        "itemsPath": "items",
+        "keyAttributes": "id",
+        "uriParameters": {
+          "orderBy": "lastName"
+        }
+      },
+      "required": false,
+      "input": "none"
+    },
+    "isCurrentRowBeingDeleted": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "jobListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Job",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallJobResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "jobTitle"
+          ]
+        }
+      }
+    },
+    "currentRowBuffer": {
+      "type": "EmployeeType",
+      "defaultValue": {
+        "jobObject": {
+          "items": [
+            {
+              "jobTitle": ""
+            }
+          ]
+        },
+        "job": 0
+      }
+    },
+    "disableRowEditExit": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "noChangesToSave": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "scrollPosition": {
+      "type": "any"
+    },
+    "editRow": {
+      "type": "any",
+      "defaultValue": {}
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    
+    "EmployeeType": {
+      "commissionPct": "number",
+      "department": "number",
+      "departmentObject": {
+        "items": [{
+          "departmentName": "string"
+        }]
+      },
+      "email": "string",
+      "firstName": "string",
+      "hireDate": "string",
+      "id": "number",
+      "job": "number",
+      "jobObject": {
+        "items": [{
+          "jobTitle": "string",
+          "maxSalary": "number",
+          "minSalary": "number"
+        }]
+      },
+      "lastName": "string",
+      "manager": "number",
+      "phoneNumber": "string",
+      "salary": "number"
+    },
+    "@decorators.EmployeeType": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getall_Employee": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Employee": {
+      "items": "EmployeeType[]"
+    },
+    "getall_Employee_SDP": {
+      "items": [
+        {
+          "commissionPct": "number",
+          "department": "number",
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string",
+                "id": "number",
+                "manager": "number",
+                "totalSalary": "number"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "job": "number",
+          "jobObject": {
+            "items": [
+              {
+                "id": "number",
+                "jobTitle": "string",
+                "maxSalary": "number",
+                "minSalary": "number"
+              }
+            ]
+          },
+          "lastName": "string",
+          "manager": "number",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "getallJobResponse": {
+      "items": [{
+        "id": "number",
+        "jobTitle": "string"
+      }]
+    },
+    "@decorators.getallJobResponse": {
+      "endpoint": "getall_Job",
+      "service": "businessObjects",
+      "path": "response"
+    }
+
+  },
+  "chains": {
+
+    "SubmitActionChain": {
+      "description": "",
+      "root": "callFunctionIsEditingFinished",
+      "actions": {
+
+        "fireNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "Changes are saved!",
+            "type": "confirmation"
+          },
+          "outcomes": {
+            "success": "resetVariablesEditRow"
+          }
+        },
+        "callRest": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+             "endpoint": "businessObjects/batch",
+            "body": "{{ $chain.results.callFunctionCreateBatchPayload }}"
+          },
+          "outcomes": {
+            "failure": "callFunctionSetStatusToUnsubmitted",
+            "success": "callFunctionSetStatusToSubmitted"
+          }
+        },
+        "fireNotification2": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "[[ $chain.results.callRest.message.summary ]]",
+            "type": "error",
+            "displayMode": "persist"
+          }
+        },
+        "callFunctionCreateBatchPayload": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "createBatchPayload",
+            "params": [
+              
+            ]
+          },
+          "outcomes": {
+            "success": "callFunctionSetStatusToSubmitting"
+          }
+        },
+        "callFunctionSetStatusToSubmitted": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "setStatusToSubmitted",
+            "params": [
+              "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+            ]
+          },
+          "outcomes": {
+            "success": "fireNotification"
+          }
+        },
+        "callFunctionSetStatusToSubmitting": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "setStatusToSubmitting"
+          },
+          "outcomes": {
+            "success": "callRest"
+          }
+        },
+        "callFunctionSetStatusToUnsubmitted": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "setStatusToUnsubmitted",
+            "params": [
+              "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+            ]
+          },
+          "outcomes": {
+            "success": "fireNotification2"
+          }
+        },
+        "callFunctionIsEditingFinished": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "isEditingFinished"
+          },
+          "outcomes": {
+            "success": "ifNoChangesToSave"
+          }
+        },
+        "resetVariablesEditRow": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.editRow",
+              "$page.variables.noChangesToSave"
+            ]
+          }
+        },
+        "ifNoChangesToSave": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.noChangesToSave ]]"
+          },
+          "outcomes": {
+            "false": "callFunctionCreateBatchPayload",
+            "true": "fireNotification3"
+          }
+        },
+        "fireNotification3": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "There are no changes to save!",
+            "type": "info"
+          }
+        }
+      },
+      "variables": {
+        "detail": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        }
+      }
+    },
+    "TableBeforeRowEditChain": {
+      "description": "",
+      "variables": {
+        "event": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "rowKey": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowIndex": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "rowData": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+
+      },
+      "root": "updateCurrentRowBuffer",
+      "actions": {
+        "updateCurrentRowBuffer": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentRowBuffer": {
+              "source": "{{ $chain.variables.rowData }}",
+              "auto": "always",
+              "reset": "empty"
+            }
+          },
+          "outcomes": {
+            "success": "resetVariablesIsCurrentRowBeingDeleted"
+          }
+        },
+        "resetVariablesIsCurrentRowBeingDeleted": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.isCurrentRowBeingDeleted"
+            ]
+          },
+          "outcomes": {
+            "success": "callFunctionStartEditing"
+          }
+        },
+        "callFunctionStartEditing": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "startEditing",
+            "params": [
+              "{{ $variables.rowKey }}"
+            ]
+          },
+          "outcomes": {}
+        }
+      }
+    },
+    "TableBeforeRowEditEndChain": {
+      "description": "",
+      "variables": {
+        "cancelEdit": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowKey": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "rowIndex": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "rowData": {
+          "type": "EmployeeType",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "event": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        },
+        "originalRowData": {
+          "type": "EmployeeType",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "root": "checkWhetherEventIsBeingIgnored",
+      "actions": {
+
+        "checkWhetherEventIsBeingIgnored": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit || $page.variables.isCurrentRowBeingDeleted ]]"
+          },
+          "outcomes": {
+            "false": "hasRecordChanged",
+            "true": "callFunctionEndEditing"
+          }
+        },
+        "hasRecordChanged": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "{{ $page.functions.areDifferent($chain.variables.rowData, $chain.variables.originalRowData) }}"
+          },
+          "outcomes": {
+            "true": "callFunctionUpdateItem",
+            "false": "callFunctionEndEditing"
+          }
+        },
+        "callFunctionUpdateItem": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "updateItem",
+            "params": [
+              "{{ $variables.rowKey }}",
+              "{{ $variables.rowData }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignVariablesNoChangesToSave"
+          }
+        },
+        "assignVariablesNoChangesToSave": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.noChangesToSave": {
+              "source": false
+            }
+          },
+          "outcomes": {
+            "success": "callFunctionEndEditing"
+          }
+        },
+        "callFunctionEndEditing": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "endEditing",
+            "params": [
+              "{{ $variables.rowKey }}"
+            ]
+          }
+        }
+      }
+    },
+    "JobChanged": {
+      "description": "",
+      "variables": {
+        "value": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "detail": {
+          "type": "any",
+          "required": true,
+          "input": "fromCaller"
+        }
+      },
+      "root": "disableRowEditExit",
+      "actions": {
+        "assignJobSalaryRange": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.currentRowBuffer": {
+              "source": {
+                "jobObject": {
+                  "items": [
+                    "{{ $chain.results.getJobDetail.body }}"
+                  ]
+                }
+              },
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.jobObject": {
+                  "source": "$source.jobObject",
+                  "reset": "none",
+                  "auto": "always",
+                  "mapping": {
+                    "$target.items": {
+                      "source": "$source.items",
+                      "reset": "empty",
+                      "auto": "always"
+                    }
+                  }
+                }
+              }
+            },
+            "$page.variables.disableRowEditExit": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "getJobDetail": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "businessObjects/get_Job",
+            "uriParams": {
+              "Job_Id": "{{ $chain.variables.value }}"
+            }
+          },
+          "outcomes": {
+            "success": "assignJobSalaryRange"
+          }
+        },
+        "disableRowEditExit": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.disableRowEditExit": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "getJobDetail"
+          }
+        }
+      }
+    },
+    "DeleteRow": {
+      "description": "",
+      "root": "assignVariablesIsCurrentRowBeingDeleted",
+      "actions": {
+        "callFunctionRemoveItem": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "removeItem",
+            "params": [
+              "{{ $variables.key }}",
+              "{{ $variables.row }}"
+            ]
+          }
+        },
+        "assignVariablesIsCurrentRowBeingDeleted": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.isCurrentRowBeingDeleted": {
+              "source": true
+            },
+            "$page.variables.noChangesToSave": {
+              "source": false
+            }
+          },
+          "outcomes": {
+            "success": "callFunctionRemoveItem"
+          }
+        }
+      },
+      "variables": {
+        "data": {
+          "type": "any",
+          "required": false,
+          "input": "fromCaller"
+        },
+
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "index": {
+          "required": true,
+          "type": "number",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "row": {
+          "type": "any",
+          "required": false,
+          "input": "fromCaller"
+        }
+
+      }
+    },
+    "InsertRow": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "blankRecord": {
+          "type": "EmployeeType",
+          "defaultValue": {
+            "jobObject": {
+              "items": [
+                {
+                  "jobTitle": ""
+                }
+              ]
+            },
+            "job": 0
+          }
+        }
+      },
+      "root": "callFunctionGetNextId",
+      "actions": {
+
+        "assignVariablesBlankRecord": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.noChangesToSave": {
+              "source": false
+            },
+            "$variables.blankRecord": {
+              "source": "10000",
+              "auto": "always",
+              "mapping": {
+                "$target.id": {
+                  "source": "$chain.results.callFunctionGetNextId",
+                  "reset": "none"
+                }
+              }
+            }
+
+          },
+          "outcomes": {
+            "success": "callFunctionAddItem"
+          }
+        },
+        "callFunctionAddItem": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "addItem",
+            "params": [
+              "{{ $variables.blankRecord.id }}",
+              "{{ $variables.blankRecord }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignVariablesEditRow"
+          }
+        },
+        "callFunctionGetNextId": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "getNextId"
+          },
+          "outcomes": {
+            "success": "assignVariablesBlankRecord"
+          }
+        },
+        "assignVariablesEditRow": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.editRow": {
+              "source": "{{ {rowKey: $chain.variables.blankRecord.id} }}"
+            },
+            "$page.variables.scrollPosition": {
+              "source": "{{ {rowKey: $chain.variables.blankRecord.id} }}"
+            }
+          },
+          "outcomes": {}
+        }
+    }
+    },
+    "FetchEmployees": {
+      "root": "callFunctionCreateBufferingDP",
+      "description": "",
+      "actions": {
+
+        "callFunctionCreateBufferingDP": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "createBufferingDP",
+            "params": [
+              "{{ $page.variables.employeesSDP }}"
+            ]
+          },
+          "outcomes": {
+            "success": "assignVariablesEmployeesBDP"
+          }
+        },
+        "assignVariablesEmployeesBDP": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.employeesBDP": {
+              "source": "{{ $chain.results.callFunctionCreateBufferingDP }}"
+            }
+          }
+        }
+      }
+    }
+
+  },
+  "eventListeners": {
+    "deleteRowButtonCurrentRowIdOjAction": {
+      "chains": [
+        {
+          "chainId": "DeleteRow",
+          "parameters": {
+
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}",
+            "key": "{{ $current.key }}",
+            "data": "{{ $current.data }}",
+            "row": "{{ $current.row }}"
+
+          }
+        }
+      ]
+    },
+    "ojSelectSingleValue": {
+      "chains": [
+        {
+          "chainId": "JobChanged",
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}",
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [{
+        "chainId": "FetchEmployees",
+        "parameters": {}
+      }]
+    },
+    "ojTable18296469261OjBeforeRowEdit": {
+      "chains": [{
+        "chainId": "TableBeforeRowEditChain",
+        "parameters": {
+          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+          "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
+            "event": "{{ $event }}"
+        }
+      }]
+    },
+    "ojTable18296469261OjBeforeRowEditEnd": {
+			"preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail, $event) }}",
+      "chains": [{
+        "chainId": "TableBeforeRowEditEndChain",
+        "parameters": {
+          "cancelEdit": "{{$event.detail.cancelEdit}}",
+          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+          "rowData": "{{$page.variables.currentRowBuffer}}",
+            "event": "{{ $event }}",
+            "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
+        }
+      }]
+    },
+    "ojButtonOjAction2": {
+      "chains": [
+        {
+          "chainId": "InsertRow",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "ojButtonOjAction3": {
+      "chains": [
+        {
+          "chainId": "SubmitActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      }
+    }
+  }
+}

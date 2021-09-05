@@ -54,8 +54,18 @@
           "input": "fromCaller"
         }
       },
-      "root": "validateForm",
+      "root": "callFunctionWaitTillPending",
       "actions": {
+        "callFunctionWaitTillPending": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "waitTillPending"
+          },
+          "outcomes": {
+            "success": "validateForm"
+          }
+        },
         "validateForm": {
           "module": "vb/action/builtin/callModuleFunctionAction",
           "parameters": {
@@ -132,6 +142,11 @@
       },
       "oj-table": {
         "path": "ojs/ojtable"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
       }
     }
   }

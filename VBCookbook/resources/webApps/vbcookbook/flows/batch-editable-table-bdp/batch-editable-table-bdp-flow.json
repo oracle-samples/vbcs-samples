@@ -1,0 +1,9 @@
+{
+  "id": "batch-editable-table-bdp",
+  "description": "Flow main",
+  "defaultPage": "batch-editable-table-bdp-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

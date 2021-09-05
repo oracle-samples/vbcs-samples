@@ -1,0 +1,98 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div>
+  <p>
+    Create a List View component and assign it data from an ArrayTreeDataProvider to display hierarchical information
+    about departments and employees.
+  </p>
+</div>
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step-1" expanded="true">
+    <span slot="header">Create Required Type and Variables </span>
+    <div>
+      <ol>
+        <li>In the Department business object, select <strong>Enable Accessor</strong> for the
+          <code>employeeCollection</code> relationship in the Department - Employee relationship.
+        </li>
+
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-765FB233-EFBC-4841-8F18-27C233125C80">Create
+            a custom type</a> from the GET /Department endpoint named <code>get_Department</code>, and add the
+          appropriate fields:
+          <ul>
+            <li>id and departmentName</li>
+            <li>id, firstName, and lastName from <code>employeeCollection</code></li>
+          </ul>
+        </li>
+        <li>Create a variable named <code>departmentArray</code> of Array Type with Array Item
+          Type <code>get_Department.</code>
+        </li>
+        <li>Create a variable named <code>departmentTree</code> of Any Type.
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step-2">
+    <span slot="header">Create Event Listener and Action Chain</span>
+    <div>
+      <ol>
+        <li>In the Event Listeners tab of the page, add a <code>vbEnter</code> event listener named
+          <code>fetchEmployees</code>.
+        </li>
+
+
+        <li>In the <code>fetchEmployees</code> action chain started by the <code>vbEnter</code> event listener, add a
+          Call REST action that fetches the departments and assign the <code>expand</code> input parameter to
+          <code>employeeCollection</code>.
+        </li>
+        <li>Assign the result of the Call REST action to the <code>departmentArray</code> variable.</li>
+        <li>Add a Call Function action and create a JavaScript function named <code>buildDept</code> with the following
+          code:
+          <pre>
+PageModule.prototype.buildDept = function(myarray) {
+      return new ArrayTreeDataProvider(myarray, {
+      keyAttributes: 'id',
+      keyAttributesScope: 'siblings',
+      childrenAttribute: 'employeeCollection.items'
+    });
+  }
+</pre>
+          Also add a dependency on ArrayTreeDataProvider to your code.
+        </li>
+        <li>Add an Assign Variables action to assign the result of <code>buildDept</code> to the
+          <code>departmentTree</code> page variable.
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step-3">
+    <span slot="header"> Create a List View with Hierarchical Data</span>
+    <div>
+      <ol>
+        <li>In the Component Palette, drag and drop a List View component on the page.</li>
+        <li>Use the List View component's <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Data Quick Start</a> to bind employee data (firstName, lastName, and so
+          on) to the List View component.</li>
+        <li>In the Data tab of the Properties pane for the List View component, bind the Data property to the
+          <code>departmentTree</code> page variable.
+        </li>
+        <li>Inside the Row Template slot of the List View component, surround <code>oj-list-item-layout</code> with a
+          Bind If (<code>oj-bind-if</code>) that uses the condition:
+          <code>test="[[$current.data.firstName]]"</code>.
+        </li>
+
+        <li>Add another <code>oj-bind-if</code> with a condition of
+          <code>test="[[$current.data.departmentName]]"</code> to the Row Template slot to display the name of the
+          department.
+          Also add a Text component (<code>oj-bind-text</code>) to the Row Template slot with a value of
+          <code>$current.data.departmentName</code>.
+
+
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

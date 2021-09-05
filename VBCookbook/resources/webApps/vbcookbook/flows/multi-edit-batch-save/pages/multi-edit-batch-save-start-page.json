@@ -26,7 +26,12 @@
         "endpoint": "businessObjects/getall_Department",
         "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallDepartmentResponse"
+        "responseType": "page:getallDepartmentResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "departmentName"
+          ]
+        }
       }
     },
     "departmentName": {
@@ -673,11 +678,11 @@
   },
   "imports": {
     "components": {
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
       "oj-table": {
         "path": "ojs/ojtable"
-      },
-      "oj-label": {
-        "path": "ojs/ojlabel"
       },
       "oj-input-text": {
         "path": "ojs/ojinputtext"
@@ -693,9 +698,14 @@
       },
       "oj-form-layout": {
         "path": "ojs/ojformlayout"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
       },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
       }
     }
   }

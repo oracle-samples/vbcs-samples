@@ -61,7 +61,7 @@
       "root": "navigateToPage1",
       "actions": {
         "navigateToPage1": {
-          "module": "vb/action/builtin/navigateToPageAction",
+          "module": "vb/action/builtin/navigateAction",
           "parameters": {
             "page": "navigation-context-edit",
             "params": {
@@ -83,7 +83,7 @@
       "root": "navigateToPage1",
       "actions": {
         "navigateToPage1": {
-          "module": "vb/action/builtin/navigateToPageAction",
+          "module": "vb/action/builtin/navigateAction",
           "parameters": {
             "page": "navigation-context-detail",
             "params": {

@@ -1,0 +1,156 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom">
+  This recipe shows you how to manage files in an Oracle Content Management
+  folder
+  from a Visual Builder app. You’ll use the Content Management REST API for
+  documents
+  to get the contents of a folder, download files, plus upload new files and
+  photos
+  to the folder.
+</div>
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+    <div class="oj-flex">
+      <div
+        class="oj-flex oj-flex-item oj-sm-12 oj-md-12 oj-sm-align-items-center oj-sm-padding-2x-horizontal">
+        <h1 id="h1--1326637583-1" class="oj-flex-item">Folders and Files</h1>
+        <div
+          class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-horizontal">
+          <oj-button id="oj-button--1118045193-24"
+            disabled="[[ $variables.ocmServerBusy ]]"
+            class="oj-button-lg"
+            on-oj-action="[[$listeners.takePhotoAction]]">Take Photo</oj-button>
+        </div>
+        <div
+          class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-horizontal">
+          <oj-button id="oj-button--1118045193-23"
+            on-oj-action="[[$listeners.showUploadDialogAction]]"
+            disabled="[[ $variables.ocmServerBusy ]]"
+            class="oj-button-lg">Upload</oj-button>
+        </div>
+      </div>
+    </div>
+    <div class="oj-flex">
+      <oj-table scroll-policy="loadMoreOnScroll" id="oj-table-716052071-1"
+        class="oj-flex-item oj-sm-12 oj-md-12"
+        style="width: 100%"
+        data="[[$page.variables.ocmFilesSDP]]"
+        columns='[  {    "headerText": "Name",    "field": "name",    "template": "Name",    "sortable": "disabled"  },  {    "headerText": "Size",    "field": "size",    "sortable": "disabled"  },  {    "headerText": "Type",    "field": "mimeType",    "sortable": "disabled",    "template": "Type"  },  {    "headerText": "",    "template": "Download"  },  {    "headerText": "",    "template": "Preview"  },  {    "headerText": "",    "template": "Delete"  }]'>
+        <template slot="Download">
+          <oj-bind-if test="[[ $current.row.type === 'file']]">
+            <a target="_blank" :id="[['a-716052071-1-' + $current.index]]"
+              on-click="[[$listeners.downloadClick]]">
+              <oj-bind-text value="[[ 'Download']]"></oj-bind-text>
+            </a>
+          </oj-bind-if>
+        </template>
+        <template slot="Preview">
+          <oj-bind-if test="[[ $current.row.type === 'file']]">
+            <a target="_blank" :id="[['a--1326637583-2-' + $current.index]]"
+              on-click="[[$listeners.previewClick]]">Preview</a>
+          </oj-bind-if>
+        </template>
+        <template slot="Delete">
+          <oj-bind-if test="[[ $current.row.type === 'file']]">
+            <oj-button :id="[['oj-button-716052071-1-' + $current.index]]"
+              chroming="borderless"
+              on-oj-action="[[$listeners.deleteFileAction]]">
+              <span class="vb-icon vb-icon-delete-trash-can"
+                aria-hidden="true"></span>
+            </oj-button>
+          </oj-bind-if>
+        </template>
+        <template slot="Name">
+          <oj-bind-if test="[[ $current.row.type === 'folder']]">
+            <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[ $current.row.type === 'file']]">
+            <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+          </oj-bind-if>
+        </template>
+        <template slot="Type">
+          <oj-bind-if test="[[ $current.row.type === 'folder']]">
+            <oj-bind-text value="[[$current.row.type]]"></oj-bind-text>
+          </oj-bind-if>
+          <oj-bind-if test="[[ $current.row.type === 'file']]">
+            <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+          </oj-bind-if>
+        </template>
+      </oj-table>
+    </div>
+    <div class="oj-flex">
+      <h2 id="h1--1326637583-2" class="oj-flex-item oj-sm-12 oj-md-12">File
+        Preview</h2>
+    </div>
+    <div id="dialogWrapper">
+      <oj-dialog style="display:none" id="modalDialog1"
+        dialog-title="Upload New File">
+        <div slot="body">
+          <div class="oj-flex">
+            <oj-file-picker class="oj-flex-item"
+              id="OJ-FILE-PICKER--147780837-1" selection-mode="single"
+              on-oj-select="[[$listeners.fileSelectionChanged]]">
+              <div tabindex="0" slot="trigger" class="oj-filepicker-dropzone">
+                <p class="oj-filepicker-text">
+                  <oj-bind-text
+                    value='{{ $variables.fileUpload.FileName && $variables.fileUpload.FileName.length > 0 ? $variables.fileUpload.FileName : "Select a file to upload" }}'>
+                  </oj-bind-text>
+                </p>
+              </div>
+            </oj-file-picker>
+            <div class="oj-sm-padding-2x-top oj-flex-item oj-sm-12 oj-md-12">
+            </div>
+            <oj-form-layout id="oj-form-layout-716052071-1"
+              class="oj-flex-item oj-sm-12 oj-md-12">
+              <oj-input-text id="oj-input-text-716052071-2"
+                label-hint="File Name"
+                value="{{ $variables.fileUpload.FileName }}"></oj-input-text>
+            </oj-form-layout>
+            <div class="oj-flex-item">
+              <oj-bind-if test="[[ $variables.fileUpload.Size > 1100000]]">
+                <span style="color: red">
+                  <oj-bind-text value="File too big"></oj-bind-text>
+                </span>
+              </oj-bind-if>
+            </div>
+          </div>
+        </div>
+        <div slot="footer">
+          <oj-button id="uploadButton"
+            on-oj-action="[[$listeners.uploadButtonAction]]"
+            disabled="[[ $variables.fileUpload.Size > 1100000 ]]">Upload
+          </oj-button>
+          <oj-button id="cancelButton"
+            on-oj-action="[[$listeners.cancelButtonAction]]">Cancel</oj-button>
+        </div>
+      </oj-dialog>
+    </div>
+
+
+    <div class="oj-flex" data-vb-layout-type="grid">
+    </div>
+    <oj-bind-if test="[[ $variables.filePreview ]]">
+      <div class="oj-flex">
+        <object :data="{{ $page.variables.fileBodyForPreview }}"
+          style="width: 100%;height: 800px;border: none;"></object>
+      </div>
+    </oj-bind-if>
+
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]"
+            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-sdp",
+  "description": "Flow main",
+  "defaultPage": "dynamic-sdp-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

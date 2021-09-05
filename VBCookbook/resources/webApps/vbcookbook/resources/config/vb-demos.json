@@ -15,7 +15,7 @@
   "batch-editable-table": {
     "id": "batch-editable-table",
     "runtime": "vb",
-    "label": "Batch Editable Table",
+    "label": "Batch Editable Table (ADP)",
     "defaultOrientation": false,
     "seealso": [
       {
@@ -252,49 +252,6 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "editable-table": {
-    "id": "editable-table",
-    "runtime": "vb",
-    "label": "Editable Table",
-    "seealso": [
-      {
-        "label": "JET Table",
-        "type": "jetdemo",
-        "url": "?component=table&demo=editableArrayTable"
-      }
-    ],
-    "apiRef": [
-      {
-        "label": "ojTable",
-        "type": "jetdoc",
-        "url": "oj.ojTable.html"
-      },
-      {
-        "label": "ojInputDate",
-        "type": "jetdoc",
-        "url": "oj.ojInputDate.html"
-      },
-      {
-        "label": "ojCheckboxset",
-        "type": "jetdoc",
-        "url": "oj.ojCheckboxset.html"
-      },
-      {
-        "label": "ojSelectOne",
-        "type": "jetdoc",
-        "url": "oj.ojSelectOne.html"
-      },
-      {
-        "label": "ojInputText",
-        "type": "jetdoc",
-        "url": "oj.ojInputText.html"
-      }
-    ],
-    "demoPageName": "editable-table-start",
-    "recipeFlowName": "recipe",
-    "version": "19.4.3.11",
-    "vbversion": "19.4.3"
-  },
   "fa-lovs": {
     "id": "fa-lovs",
     "label": "Dynamic Choice List",
@@ -394,60 +351,6 @@
       }
     ],
     "demoPageName": "inputnumber-eating-chars-start",
-    "recipeFlowName": "recipe",
-    "version": "19.4.3.11",
-    "vbversion": "19.4.3"
-  },
-  "listview-filter": {
-    "id": "listview-filter",
-    "runtime": "vb",
-    "label": "Filtering",
-    "defaultOrientation": false,
-    "seealso": [
-      {
-        "label": "JET ListView Filter",
-        "type": "jetdemo",
-        "url": "?component=listView&demo=filterSortListView"
-      }
-    ],
-    "apiRef": [
-      {
-        "label": "ojTable",
-        "type": "jetdoc",
-        "url": "oj.ojTable.html"
-      },
-      {
-        "label": "ojLabel",
-        "type": "jetdoc",
-        "url": "oj.ojLabel.html"
-      },
-      {
-        "label": "ojCheckboxset",
-        "type": "jetdoc",
-        "url": "oj.ojCheckboxset.html"
-      },
-      {
-        "label": "ojListView",
-        "type": "jetdoc",
-        "url": "oj.ojListView.html"
-      },
-      {
-        "label": "ojRatingGauge",
-        "type": "jetdoc",
-        "url": "oj.ojRatingGauge.html"
-      },
-      {
-        "label": "ojPagingControl",
-        "type": "jetdoc",
-        "url": "oj.ojPagingControl.html"
-      },
-      {
-        "label": "ojButton",
-        "type": "jetdoc",
-        "url": "oj.ojButton.html"
-      }
-    ],
-    "demoPageName": "listview-filter-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
@@ -587,15 +490,28 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "rest-oce-upload": {
-    "id": "rest-oce-upload",
+  "dynamic-sdp": {
+    "id": "dynamic-sdp",
+    "label": "SDP Factory",
+    "defaultOrientation": true,
+    "runtime": "vb",
+    "apiRef": [],
+    "seealso": [],
+    "minHeightLandscape": 300,
+    "demoPageName": "dynamic-sdp-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "rest-ocm-upload": {
+    "id": "rest-ocm-upload",
     "defaultOrientation": false,
     "runtime": "vb",
-    "label": "Content and Experience",
+    "label": "Oracle Content Management",
     "apiRef": [],
     "seealso": [],
     "minHeightLandscape": 600,
-    "demoPageName": "rest-oce-upload-start",
+    "demoPageName": "rest-ocm-upload-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
@@ -986,6 +902,18 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "customize-fetch-chain": {
+    "id": "customize-fetch-chain",
+    "runtime": "vb",
+    "label": "Customize Fetch Action Chain",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "customize-fetch-chain-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "fileloader-csv": {
     "id": "fileloader-csv",
     "runtime": "vb",
@@ -1094,6 +1022,18 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "batch-editable-table-bdp": {
+    "id": "batch-editable-table-bdp",
+    "runtime": "vb",
+    "label": "Batch Editable Table (BDP)",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "batch-editable-table-bdp-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "editable-form-table-sdp": {
     "id": "editable-form-table-sdp",
     "runtime": "vb",
@@ -1114,6 +1054,66 @@
     "apiRef": [],
     "seealso": [],
     "demoPageName": "dynamic-form-context-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "dynamic-form-list-view": {
+    "id": "dynamic-form-list-view",
+    "runtime": "vb",
+    "label": "Dynamic Form List View",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-form-list-view-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "oj-refresher": {
+    "id": "oj-refresher",
+    "runtime": "vb",
+    "label": "Refresher",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "oj-refresher-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "checkbox-set": {
+    "id": "checkbox-set",
+    "runtime": "vb",
+    "label": "Checkbox Set",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "checkbox-set-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "dynamic-container-responsive": {
+    "id": "dynamic-container-responsive",
+    "runtime": "vb",
+    "label": "Dynamic Container Responsive",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-container-responsive-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "collapsible-list": {
+    "id": "collapsible-list",
+    "runtime": "vb",
+    "label": "Collapsible List",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "collapsible-list-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"

@@ -1,0 +1,49 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Dynamic Container Templates -->
+<template id="dynamicTable">
+  <h3>Employee Details</h3>
+  <oj-dynamic-table data="[[$page.variables.employeeListSDP]]"
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" metadata-path="items"
+    layout="tableExampleLayout" style="max-height:400px; height:400px; width: 100%"  :id="[['table-template-tablet']]"></oj-dynamic-table>
+</template>
+
+<template id="listView">
+  <h3>Employee Detail List</h3>
+  <oj-list-view data="[[$page.variables.employeeListSDP2]]" style="max-height:400px"
+    scroll-policy-options.max-count="1200"  :id="[['list-template-mobile']]">
+    <template slot="itemTemplate">
+      <oj-list-item-layout>
+        <div slot="leading">
+          <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"
+            src="[[ $application.path + 'resources/images/employees/' + $current.data.id + '.png' ]]"></oj-avatar>
+
+        </div>
+        <div>
+          <oj-bind-text value="[[ $current.data.firstName ]]"></oj-bind-text>
+          <oj-bind-text value="[[ $current.data.lastName ]]"></oj-bind-text>
+        </div>
+        <div>
+          <oj-bind-text value="[[ $current.data.email ]]"></oj-bind-text>
+        </div>
+        <div>
+          <oj-bind-text value="[[ $current.data.phoneNumber ]]"></oj-bind-text>
+        </div>
+        <div>
+          <oj-bind-text value="[[ $current.data.salary ]]"></oj-bind-text>
+        </div>
+      </oj-list-item-layout>
+    </template>
+  </oj-list-view>
+</template>
+
+<template id="dynamicTableDesktop">
+  <h3>Employees</h3>
+  <oj-dynamic-table data="[[$page.variables.employeeListSDP3]]"
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" metadata-path="items"
+    layout="employeeTableDesktopMode" context="[[ $variables.path ]]" style="max-height:400px; height:400px; width: 100%" :id="[['table-template-desktop']]"></oj-dynamic-table>
+  
+</template>

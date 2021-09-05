@@ -82,7 +82,7 @@
           }
         },
         "navigateToEditPage": {
-          "module": "vb/action/builtin/navigateToPageAction",
+          "module": "vb/action/builtin/navigateAction",
           "parameters": {
             "page": "main-editpage",
             "history": "push",

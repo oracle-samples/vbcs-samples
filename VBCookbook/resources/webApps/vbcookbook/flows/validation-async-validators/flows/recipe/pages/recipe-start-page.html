@@ -95,6 +95,32 @@ PageModule.prototype.validateGroup = function (arg1) {
         </pre
           >
         </li>
+        <li>
+          Write a function, <code>waitTillPending</code>, to make the button action chain wait till the field validation completes.<br />
+          <pre>
+PageModule.prototype.waitTillPending = function () {
+    // make the button action wait till the
+    // field validation gets over ie tracker 
+    // status changes to something other than 'pending'
+    return new Promise(function (resolve, reject) {
+      var waitForValidation = function () {
+        var tracker = document.getElementById("tracker");
+        if (tracker.valid === "pending") {
+          // simulated field validation at server still going on
+          setTimeout(function () {
+            return waitForValidation();
+          }, 200);
+        }
+        else {
+          resolve(true);
+        }
+      };
+      waitForValidation();
+    });
+  };
+        </pre
+          >
+        </li>
       </ol>
     </div>
   </oj-collapsible>
@@ -149,9 +175,7 @@ PageModule.prototype.validateGroup = function (arg1) {
           Form Layout component.
         </li>
         <li>
-          In the Properties pane, set the value of the Button component's
-          Disabled property to
-          <code>[[$variables.inputValid === 'pending']] </code>.
+          In the button action, invoke the function waitTillPending(), and then validateGroup() and display a form submitted confirmation message or error based on validaity of field values.
         </li>
       </ol>
     </div>

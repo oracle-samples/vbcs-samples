@@ -254,14 +254,6 @@
             "success": "callComponentMethod1"
           }
         },
-        "assignVariables1": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.error": {
-              "source": "{{ $chain.results.callRestEndpoint1.body[\"o:errorDetails\"] }}"
-            }
-          }
-        },
         "callComponentMethod1": {
           "module": "vb/action/builtin/callComponentMethodAction",
           "parameters": {

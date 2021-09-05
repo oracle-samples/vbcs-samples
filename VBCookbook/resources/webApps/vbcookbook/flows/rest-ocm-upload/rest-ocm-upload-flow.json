@@ -1,0 +1,10 @@
+{
+
+    "id": "rest-ocm-upload",
+    "description": "Flow main",
+    "defaultPage": "rest-ocm-upload-start",
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {}
+}

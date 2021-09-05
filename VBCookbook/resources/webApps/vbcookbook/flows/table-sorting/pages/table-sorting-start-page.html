@@ -3,20 +3,20 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This demo shows how you can implement sorting in table. Click any column to sort
   the table.
 </div>
 <div class="oj-flex">
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
-      <oj-table as="cell" id="department-table" class="oj-flex-item oj-sm-12 oj-md-12"
+      <oj-table id="department-table" class="oj-flex-item oj-sm-12 oj-md-12"
         data="{{ $variables.departmentListSDP}}" selection-mode.row="single" style="max-height: 400px; width: 100%"
         columns='[{"headerText":"ID", "field":"id"},
                     {"headerText":"Department Name", "field":"departmentName"},
                     {"headerText":"Location Id", "field":"location"},
                     {"headerText":"Manager Id", "field":"manager"},
                     {"headerText": "Last Activity Date", "field": "lastUpdateDate", "template": "lastUpdateDateTemplate"}]'>
-        <template slot="lastUpdateDateTemplate">
+        <template data-oj-as="cell" slot="lastUpdateDateTemplate">
       <oj-bind-text value="[[cell.data.split('T')[0]]]" ></oj-bind-text>
   </template>
       </oj-table>

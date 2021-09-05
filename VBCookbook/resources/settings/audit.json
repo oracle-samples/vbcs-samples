@@ -1,21 +1,30 @@
 {
   "paths": {
     "exclude": [
-      "webApps\\/(\\w+)\\/resources\\/components\\/(.*)",
-      "webApps\\/(\\w+)\\/resources\\/cb\\/(.*)",
-      "webApps\\/(\\w+)\\/resources\\/oj-sample-cookbook\\/(.*)"
     ]
   },
   "rules": {
-    "jshint#W032": {
-      "description": "Disable unnecessary semicolon warning",
-      "disabled": true
+    "oj-html-cspexpr": {
+       "description": "Attribute 'value' contains an expression that may not be compatible with all Content Security policies: Expected expression after = at attribute value -> the csp expression evaluator does not support arrow function syntax",
+      "enabled": false
     },
     "translations.audit.propertyNotTranslated": {
-      "disabled": true
+      "enabled": false
     },
-    "jshint#W119": {
-      "disabled": true
+    "translations.audit.page.json.valueNotTranslated" : {
+      "enabled": false
+    },
+    "oj-html-ko-comment": {
+      "description": "Knockout comment binding \"if:\" found. Use of JET <oj-bind-if> recommended.",
+      "enabled": false
+    },
+    "jshint.W033": {
+      "description": "Missing semicolon.",
+      "enabled": false
+    },
+    "json#unused_import" : {
+      "description": "Unused components dependency",
+      "enabled": false
     }
   },
   "auditors": {}

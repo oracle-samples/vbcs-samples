@@ -1,0 +1,112 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Form in a List View Component</h1>
+      <div>
+        <ol>
+
+          <li>
+            In the Component Palette, drag a List View component and drop it on the page. Use the List View component's
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to add
+            data. Select the following fields to render in the List View component:
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+            </ul>
+          </li>
+
+          <li>
+            Install the JET Dynamic Form component from the Component Exchange,
+            then drag and drop it inside the <code>itemTemplate</code> of the List View component. Remove all other
+            fields inside <code>itemTemplate</code>.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object (Employee in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Employee List View Layout</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields:
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog,
+            provide the value of <code>100</code> for the
+            <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+          <li>In the All tab of the Properties pane for the Dynamic Form, set the value as
+            <code>value="{{ $current.data }}"</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create the Form Template</h1>
+      <div>
+        <p>
+          Create a form template to improve the UI of the List View component.
+        </p>
+        <ol>
+
+          <li>In the Layouts tab, open the <strong>Employee</strong> layout.</li>
+          <li>
+            Open the default layout inside <code>Employee List View Layout</code> that you created while
+            creating the Dynamic Form. Here you can choose to render fullName instead of firstName and lastName by
+            creating a
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/design-pages.html#GUID-9D07DA65-EC29-4B6C-822F-FF0E9283723D">custom
+              calculated field</a>.
+          </li>
+
+          <li>
+            In the Form Template property of the Properties pane, click <strong>Create</strong> to create a new form
+            template, and name it <code>Employee List View Template</code>.
+          </li>
+          <li>To style the Dynamic Form in the List View, open the Code view for
+            <code>Employee List View Template</code>.
+          </li>
+          <li>In the Components Palette drag a Dynamic Field component, drop it inside the template, and bind it
+            with the <code>email</code> field. You can do this for all other fields. You can also add an Avatar
+            component and bind it with the appropriate image path.</li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

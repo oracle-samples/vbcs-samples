@@ -1,0 +1,77 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "regionListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Region",
+        "responseType": "getall_Region",
+        "itemsPath": "items",
+        "keyAttributes": "id",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "regionName"
+          ]
+        }
+      }
+    },
+    "selectedValues": {
+      "type": "number[]",
+      "defaultValue": [
+        1
+      ]
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Region": {
+      "endpoint": "getall_Region",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Region": {
+      "items": [
+        {
+          "id": "number",
+          "regionName": "string"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "resetAllActionChain"
+        }
+      ]
+    },
+    "ojButtonOjAction2": {
+      "chains": [
+        {
+          "chainId": "selectAsiaActionChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      }
+    }
+  }
+}

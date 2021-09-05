@@ -1,5 +1,7 @@
 {
     "resources": {
+        "employeeCollection": {
+        },
         "departmentManager": {
             "resources": {
                 "managerObject": {

@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
 This recipe shows you how to use Form Layout in an editable Table component. To edit a row, double-click it, 
 click the edit icon beside the row, or select the row and press Enter on your keyboard. To save changes, click outside the 
 edited row or click <strong>Save</strong>. Click <strong>Cancel</strong> to revert to the original content.
@@ -38,7 +38,7 @@ edited row or click <strong>Save</strong>. Click <strong>Cancel</strong> to reve
 					<oj-bind-text value="[[row.data.phoneNumber]]"></oj-bind-text>
 				</td>
 				<td class="oj-sm-padding-0-vertical">
-					<oj-button chroming="borderless" on-oj-action="[[$listeners.editOjAction]]" >
+					<oj-button chroming="borderless" on-oj-action="[[$listeners.editOjAction]]" :id="[['edit-'+$current.index]]">
 						<span class="vb-icon vb-icon-pencil"></span>
 					</oj-button>
 				</td>
@@ -57,9 +57,9 @@ edited row or click <strong>Save</strong>. Click <strong>Cancel</strong> to reve
 						</oj-input-text>
 						
 					</oj-form-layout>
-					<oj-button id="cancel" chroming="outlined" on-oj-action="[[$listeners.cancelOjAction]]" >Cancel
+					<oj-button chroming="outlined" on-oj-action="[[$listeners.cancelOjAction]]" :id="[['cancel-'+$current.index]]">Cancel
 					</oj-button>
-					<oj-button id="save" chroming="solid" on-oj-action="[[$listeners.saveOjAction]]" >Save</oj-button>
+					<oj-button chroming="solid" on-oj-action="[[$listeners.saveOjAction]]" :id="[['save-'+$current.index]]">Save</oj-button>
 				</td>
 				 <!-- /ko -->
 			</tr>

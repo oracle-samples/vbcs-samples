@@ -37,6 +37,11 @@
           "op": "$eq",
           "attribute": "locationCountry.id",
           "value": "{{ $variables.selectedCountry.key!=null ? $variables.selectedCountry.key : undefined }}"
+        },
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "city"
+          ]
         }
       }
     },
@@ -367,9 +372,6 @@
     "components": {
       "oj-form-layout": {
         "path": "ojs/ojformlayout"
-      },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
       },
       "oj-input-text": {
         "path": "ojs/ojinputtext"

@@ -1,0 +1,81 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "departmentArray": {
+      "type": "get_Department[]"
+    },
+    "departmentTree": {
+      "type": "any"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.get_Department": {
+      "endpoint": "get_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Department": {
+      "departmentName": "string",
+      "employeeCollection": {
+        "items": [
+          {
+            "firstName": "string",
+            "id": "number",
+            "lastName": "string"
+          }
+        ]
+      },
+      "id": "number"
+    }
+  },
+  "chains": {},
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "fetchEmployees",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      }
+    }
+  }
+}

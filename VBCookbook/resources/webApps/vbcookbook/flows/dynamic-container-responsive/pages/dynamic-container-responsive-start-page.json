@@ -1,0 +1,197 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "employeeListSDP2": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse2"
+      }
+    },
+    "employeeListSDP3": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse3"
+      }
+    },
+    "path": {
+      "type": {
+        "applicationPath": "string"
+      },
+      "defaultValue": {
+        "applicationPath": "[[$application.path]]"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    },
+    "dynamicContainerMetadata": {
+      "type": "vb/ContainerMetadataProviderDescriptor"
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse2": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse3": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    },
+    "getallEmployeeResponse2": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "getallEmployeeResponse3": {
+      "items": "object[]"
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dynamic-container": {
+        "path": "oj-dynamic/container/loader"
+      }
+    }
+  },
+  "layouts": {
+    "containerLayout1": {
+      "label": "Container Rule Set 1",
+      "layoutType": "container",
+      "layouts": {
+        "case1": {
+          "label": "Case 1",
+          "layoutType": "container",
+          "layout": {
+            "sectionTemplateMap": {
+              "section1": "dynamicTable"
+            },
+            "displayProperties": [
+              "section1"
+            ]
+          }
+        },
+        "case2": {
+          "layoutType": "container",
+          "layout": {
+            "displayProperties": [
+              "section1"
+            ],
+            "sectionTemplateMap": {
+              "section1": "listView"
+            }
+          }
+        },
+        "case3": {
+          "layoutType": "container",
+          "layout": {
+            "displayProperties": [
+              "dynamicTableDesktop"
+            ],
+            "sectionTemplateMap": {
+              "dynamicTableDesktop": "dynamicTableDesktop"
+            }
+          }
+        }
+      },
+      "rules": [
+        "containerLayout1-rule3",
+        "containerLayout1-rule2",
+        "containerLayout1-rule1"
+      ]
+    },
+    "containerLayout1-rule1": {
+      "expression": "[[ $application.responsive.mdOnly ? 'case1' : null ]]"
+    },
+    "containerLayout1-rule2": {
+      "expression": "[[ $application.responsive.smOnly ? 'case2' : null ]]"
+    },
+    "containerLayout1-rule3": {
+      "expression": "[[ $application.responsive.lgUp ? 'case3' : null ]]"
+    }
+  },
+  "templates": {
+    "dynamicTable": {
+      "title": "Dynamic Table Tablet",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "oj-dynamic/table/loader"
+      ]
+    },
+    "dynamicTableDesktop": {
+      "title": "Dynamic Table Desktop",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "oj-dynamic/table/loader"
+      ]
+    },
+    "listView": {
+      "title": "List View Mobile",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "ojs/ojavatar",
+        "ojs/ojlistitemlayout",
+        "ojs/ojlistview"
+      ]
+    }
+
+  }
+}

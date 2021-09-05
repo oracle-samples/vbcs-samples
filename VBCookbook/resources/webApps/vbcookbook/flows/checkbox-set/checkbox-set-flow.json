@@ -1,0 +1,9 @@
+{
+  "id": "checkbox-set",
+  "description": "Flow main",
+  "defaultPage": "checkbox-set-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

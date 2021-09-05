@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
 
   
 
@@ -14,7 +14,7 @@ This recipe shows you how to download and upload CSV files that contain data ref
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box oj-flex" style="overflow-x: auto;">
     <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-flex-initial">
       <oj-file-picker on-oj-select="[[$listeners.ojFilePickerOjSelect]]"
-        selection-mode="single" accept='["text/csv"]' id="filepicker">
+        selection-mode="single" accept="[[ ['text/csv'] ]]" id="filepicker">
         <oj-button slot="trigger" class="oj-button-sm" chroming="callToAction"
           id="filepicker-btn">
           Load CSV Data<span class="oj-ux-ico-upload" slot="startIcon"></span>

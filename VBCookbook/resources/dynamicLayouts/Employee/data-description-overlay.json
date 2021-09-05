@@ -10,5 +10,11 @@
             ],
             "value": "[[$fields.firstName.value() + ' ' + $fields.lastName.value()]]"
         }
+    },
+    "addMetadata": {},
+    "replaceMetadata": {
+        "id": {
+            "labelHint": "Avatar"
+        }
     }
 }

@@ -173,7 +173,7 @@
           </oj-bind-if>
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
             <div
-              class="oj-flex-bar oj-flex-items-pad oj-sm-margin-2x-vertical oj-sm-padding-1x-start oj-sm-padding-4x-end">
+              class="oj-flex-bar oj-sm-margin-2x-vertical oj-sm-padding-1x-start oj-sm-padding-4x-end">
               <span class="oj-flex-bar-start oj-sm-align-items-center">
                 <oj-bind-for-each data="[[ $page.variables.breadCrumb ]]">
                   <template>
@@ -273,7 +273,7 @@
               </template>
             </oj-bind-for-each>
           </ul>
-          <div class="oj-text-sm oj-sm-margin-2x-top">
+          <div class="oj-typography-body-sm oj-sm-margin-2x-top">
             <oj-bind-text value="{{ $page.variables.copyright }}">
             </oj-bind-text>
           </div>

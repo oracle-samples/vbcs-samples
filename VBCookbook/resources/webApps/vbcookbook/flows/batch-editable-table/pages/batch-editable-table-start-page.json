@@ -19,7 +19,12 @@
         "endpoint": "businessObjects/getall_Job",
         "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "page:getallJobResponse"
+        "responseType": "page:getallJobResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "jobTitle"
+          ]
+        }
       }
     },
     "currentRowBuffer": {
@@ -250,7 +255,7 @@
           "input": "fromCaller"
         }
       },
-      "root": "ignoreIrrelevantEvents",
+      "root": "disableRowEditExit",
       "actions": {
         "assignJobSalaryRange": {
           "module": "vb/action/builtin/assignVariablesAction",
@@ -295,15 +300,6 @@
           },
           "outcomes": {
             "success": "assignJobSalaryRange"
-          }
-        },
-        "ignoreIrrelevantEvents": {
-          "module": "vb/action/builtin/ifAction",
-          "outcomes": {
-            "true": "disableRowEditExit"
-          },
-          "parameters": {
-            "condition": "{{ $chain.variables.detail.trigger === 'option_selected' }}"
           }
         },
         "disableRowEditExit": {
@@ -580,7 +576,7 @@
       }
     }
   },
-  "eventListeners": {
+  "eventListeners":{
     "vbEnter": {
       "chains": [{
         "chainId": "FetchEmployees",
@@ -611,7 +607,7 @@
         }
       }]
     },
-    "ojSelectOneValue": {
+    "ojSelectSingleValue": {
       "chains": [{
         "chainId": "JobChanged",
         "parameters": {
@@ -656,26 +652,29 @@
         }
       ]
     }
+
   },
   "imports": {
     "components": {
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
       "oj-table": {
         "path": "ojs/ojtable"
       },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
-      },
       "oj-input-text": {
         "path": "ojs/ojinputtext"
-      },
-      "oj-validation-group": {
-        "path": "ojs/ojvalidationgroup"
       },
       "oj-button": {
         "path": "ojs/ojbutton"
       },
       "oj-text-area": {
         "path": "ojs/ojinputtext"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
       }
     }
   }

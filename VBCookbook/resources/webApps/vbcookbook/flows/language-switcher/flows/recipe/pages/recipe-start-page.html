@@ -5,10 +5,8 @@
  -->
 <div class="oj-flex">
   <p>
-  
-
-    A Table component displays employee data. A Combobox (One) component display a list of languages to 
-    switch between. Users select a new language from the dropdown and the locale is updated 
+    A Table component displays employee data. A Select Single component display a list of languages to
+    switch between. Users select a new language from the dropdown and the locale is updated
     using an action chain and module function.
   </p>
 </div>
@@ -19,28 +17,38 @@
     <oj-collapsible id="oj-collapsible-1494599579-1" expanded="true">
       <h1 slot="header">Create a User Interface</h1>
       <div>
-        <p>Add a Combobox (One) component and bind it with languages as static options. Add a Table component 
+        <p>Add a Select Single component and bind it with languages as static options. Add a Table component
           to your page, bind it to employee data. Create a unique key against each of the columns' header
-           text properties so that the text for each of the keys gets updated in the selected language using an action chain that contains a module function.</p>
-        
-        
+          text properties so that the text for each of the keys gets updated in the selected language using an action
+          chain that contains a module function.</p>
         <ol>
-          
-          <li>In the Component Palette, drag a Combobox (One) component and drop it on the page.</li>
-          <li>In the General tab of the Properties pane for the component, set id to <strong>select language</strong> and placeholder to <strong>Select Language</strong>.</li>
-
-          <li>
-
-            Use the component’s Create Static List of Options Quickstart to add the following options:
-
-            <ul>
-              <li>English as label and en as value.</li>
-              <li>French as label and fr as value.</li>
-</ul>
+          <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
+          <li>In the General tab of the Properties pane for the component, set id to <strong>select language</strong>
+            and placeholder to <strong>Select Language</strong>.</li>
+          <li>Add an array page variable <code>languageOptions</code> of item type object.
+          </li>
+          <li>Give <code>languageOptions</code> the default value of:
+            <pre>
+[
+    {
+        "value": "en",
+        "label": "English"
+    },
+    {
+        "value": "fr",
+        "label": "French"
+    }
+]
+          </pre>
+          </li>
+          <li>Add an ADP page variable <code>languageOptionsADP</code> and bind its data to <code>languageOptions</code>
+            variable.
+          </li>
+          <li>Also set the keyAttributes property of the ADP to 'value' field of the data.
           </li>
           <li>In the Data tab of the Properties pane, set Value to <code>{{ $variables.selectedLocale }}</code>.</li>
           <li>In the Component Palette, drag a Table component and drop it on the page.</li>
-          
+
           <li>Use the Table component’s <a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your table to employee data.</li>
@@ -52,20 +60,20 @@
               <li>Phone Number</li>
             </ul>
           </li>
-          <li>In the Table Columns section of the Properties pane’s Data tab, for each column click <strong>Column Detail</strong> (a right arrow icon) to open the Properties pane for Table Columns.</li>
-          <li>Click <strong>Make String Translatable</strong> (<a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-37B34FC0-66FB-47E2-88BA-144D512D5D43">a globe icon that appears</a> when you hover over the Columns, Header Text field) and set the value of Key as follows: 
+          <li>In the Table Columns section of the Properties pane’s Data tab, for each column click
+            <strong>Column Detail</strong> (a right arrow icon) to open the Properties pane for Table Columns.
+          </li>
+          <li>Click <strong>Make String Translatable</strong> (<a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-37B34FC0-66FB-47E2-88BA-144D512D5D43">a
+              globe icon that appears</a> when you hover over the Columns, Header Text field) and set the value of Key
+            as follows:
             <ul>
-
               <li>First Name to <code>key_firstname</code></li>
               <li>Last Name to <code>key_lastname</code></li>
               <li>Email to <code>key_email</code></li>
               <li>Phone Number to <code>key_phonenumber</code></li>
-
             </ul>
-          
           </li>
-
-          
         </ol>
       </div>
     </oj-collapsible>
@@ -76,22 +84,29 @@
       <h1 slot="header">Create Language Translations</h1>
       <div>
         <p>
-          You'll need to add translations for each of the languages displayed in the dropdown list rendered by the Combobox (One) component.
+          You'll need to add translations for each of the languages displayed in the dropdown list rendered by the
+          Select Single component.
         </p>
         <ol>
-          <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-A1A8C52F-F8E3-43AE-A336-85F90551AD58">Download the ARB file</a> that contains all strings that your application currently uses.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-A1A8C52F-F8E3-43AE-A336-85F90551AD58">Download
+              the ARB file</a> that contains all strings that your application currently uses.</li>
           <li>Extract the download file and navigate to the <code>.arb</code> file within the extracted directory.</li>
-        <li>Duplicate the <code>app-strings.arb</code> file and save it as <code>app-strings-fr.arb</code> to create a translation bundle for French.</li>
-        <li>Open the new file and update the text for each of the keys to use French.</li>
-        <li>Create a new Zip archive that includes the new language (French, and so on) and <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-E0809FB5-1191-47DA-B977-69C2E7A05E53">upload it to your application</a>.
-        <br>
+          <li>Duplicate the <code>app-strings.arb</code> file and save it as <code>app-strings-fr.arb</code> to create a
+            translation bundle for French.</li>
+          <li>Open the new file and update the text for each of the keys to use French.</li>
+          <li>Create a new Zip archive that includes the new language (French, and so on) and <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-E0809FB5-1191-47DA-B977-69C2E7A05E53">upload
+              it to your application</a>.
+            <br>
         On successful upload, you will see a new file created under the following node in your application:
-        <br>
-        <pre>resources -> strings -> app -> nls -> fr -> app-strings.json</pre>
-        </li>
+            <br>
+            <pre>resources -> strings -> app -> nls -> fr -> app-strings.json</pre>
+          </li>
 
-        
-          <li> Click <strong>Source View</strong> in the Navigator and open the <code>app-flow.json</code> file where you add the following code:
+
+          <li> Click <strong>Source View</strong> in the Navigator and open the <code>app-flow.json</code> file where
+            you add the following code:
             <pre>
 "localization": {
     "locale": "{{ window.localStorage.getItem('vbcs.languageSwitcherApplication.locale') || 'en' }}"
@@ -122,31 +137,22 @@ PageModule.prototype.setAppLanguage = function(selectedLocale){
               a page variable</a> named <code>selectedLocale</code> of type Any.</li>
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-              an event listener</a> to the Combobox (One) component's <strong>value</strong> event</li>
+              an event listener</a> to the Select Single component's <strong>value</strong> event</li>
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/call-module-function.html">Add
               a call module function action</a> to the action chain named
-            <code>ComboboxOneValueChangeChain</code> and, in the Properties pane, select
-            <strong>setAppLanguage</strong> from the Function Name dropdown list. </li>
-            <li>Under Input Parameters, map <code>selectedLocale</code> from Source to Target.</li>
+            <code>SelectSingleValueChangeChain</code> and, in the Properties pane, select
+            <strong>setAppLanguage</strong> from the Function Name dropdown list.
+          </li>
+          <li>Under Input Parameters, map <code>selectedLocale</code> from Source to Target.</li>
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
               an Open URL
-              action</a> and, in the Properties pane, set URL to 
+              action</a> and, in the Properties pane, set URL to
             <code>index.html?page=shell&shell=language-switcher&language-switcher=language-switcher-start&language-switcher-start=recipe</code>
           </li>
-
         </ol>
       </div>
     </oj-collapsible>
-
-
-
   </oj-accordion>
-</div>
-
-
-
-
-
 </div>

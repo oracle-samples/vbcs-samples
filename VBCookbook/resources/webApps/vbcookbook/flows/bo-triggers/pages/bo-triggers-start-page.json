@@ -97,7 +97,7 @@
       },
       "actions": {
         "navigateToEdit": {
-          "module": "vb/action/builtin/navigateToPageAction",
+          "module": "vb/action/builtin/navigateAction",
           "parameters": {
             "history": "push",
             "page": "bo-triggers-edit-employee",

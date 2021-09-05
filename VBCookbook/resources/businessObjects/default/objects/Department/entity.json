@@ -93,7 +93,7 @@
             "reverseRelationship": "departmentObject",
             "targetEntity": "Employee",
             "type": "incoming",
-            "exposeAccessor": false,
+            "exposeAccessor": true,
             "displayField": "departmentName"
         },
         {

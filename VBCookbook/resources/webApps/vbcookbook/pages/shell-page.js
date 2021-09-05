@@ -26,7 +26,7 @@ define(['knockout',
   });
 
   var PageModule = function PageModule() {
-    this.navlistExpanded = new keySet.ObservableExpandedKeySet();
+    this.navlistExpanded = new keySet.ObservableKeySet();
   };
 
   /**

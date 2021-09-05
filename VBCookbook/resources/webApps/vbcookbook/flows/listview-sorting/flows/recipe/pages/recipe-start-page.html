@@ -3,21 +3,39 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<p>Add a List View component to display country information, a Select One component to maintain sort criteria, and a
+<p>Add a List View component to display country information, a Select Single component to maintain sort criteria, and a
   Switch component to control the sort order.</p>
 
 
   <div class="oj-flex">
   <oj-accordion id="accordionPage1" class="oj-flex-item oj-sm-12 oj-md-12">
     <oj-collapsible id="step1" expanded="true">
-      <h1 slot="header">Create the UI</h1>
+      <h1 slot="header">Create the Data Model and the UI</h1>
       <div>
         <ol>
-          <li>In the Component Palette, drag a Select One component and drop it on to the page. Add two static options:
-            <ul>
-              <li><code>Name : countryName</code></li>
-              <li><code>Code : countrycode</code></li>
-            </ul>
+          <li>In the Component Palette, drag a Select Single component and drop it on to the page.
+          </li>
+          <li>Add a array page variable <code>sortByOptions</code> of item type object. 
+          </li>
+          <li>Give <code>sortByOptions</code> the default value of:
+          <pre>
+[
+  {
+      "value": "countryName",
+      "label": "Name"
+  },
+  {
+      "value": "countryCode",
+      "label": "Code"
+  }
+]
+          </pre>
+          </li>
+          <li>Add an ADP page variable <code>sortByOptionsADP</code> and bind its data to <code>sortByOptions</code> variable. 
+          </li>          
+          <li>Also set the keyAttributes property of <code>sortByOptionsADP</code> to 'value' field of the data. 
+          </li>          
+          <li>Set the data property of Select Single component to variable <code>sortByOptionsADP</code>. 
           </li>
           <li>Add a Switch component and bind it to a Boolean page variable named <code>ascending</code>. Make
             <code>ascending's</code> default value <code>true</code>.</li>
@@ -43,7 +61,7 @@
         <ol>
           <li>In the Variables tab, select <code>countryListSDP</code> and use the Properties pane to map its
             <code>sortcriteria[0].attribute</code> to <code>countryName</code>.</li>
-          <li>Set the value of the Select One component
+          <li>Set the value of the Select Single component
             to<code>{{ $variables.countryListSDP.sortCriteria[0].attribute }}</code>.</li>
           <li>In the Variables tab, select the <code>ascending</code> variable and set an event listener on value
             change.</li>

@@ -1,0 +1,46 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "email"
+          ]
+        },
+        "fetchChainId": "getall_EmployeeFetchAction"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "id": "number"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+
+    }
+  }
+}

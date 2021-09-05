@@ -1,0 +1,607 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OCM Documents API 1.2",
+        "version": "1.0.0",
+        "description": "Oracle Content Management REST API"
+    },
+    "servers": [
+        {
+            "url": "https://your-ocm-instance.ocm.ocp.oraclecloud.com/documents/api/1.2",
+            "x-vb": {
+                "authentication": {
+                    "anonymous": {
+                        "type": "as_authenticated_user"
+                    }
+                },
+                "anonymousAccess": true
+            }
+        }
+    ],
+    "paths": {
+        "/folders/{folderId}/items": {
+            "get": {
+                "operationId": "getFolderFiles",
+                "parameters": [
+                    {
+                        "name": "folderId",
+                        "in": "path",
+                        "required": true,
+                        "x-vb": {
+                            "defaultValue": "self"
+                        },
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetfoldersfolderiditemResponse"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "externalValue": "./examples/getFolderFiles/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        },
+        "/files/data": {
+            "post": {
+                "operationId": "uploadFile",
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Postfilesdata"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "externalValue": "./examples/uploadFile/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {}
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "create"
+                }
+            }
+        },
+        "/files/{fileID}/data": {
+            "get": {
+                "operationId": "downloadFile",
+                "parameters": [
+                    {
+                        "name": "fileID",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "content": {
+                            "application/octet-stream": {}
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getOne"
+                }
+            }
+        },
+        "/files/{fileID}": {
+            "get": {
+                "operationId": "getFile",
+                "parameters": [
+                    {
+                        "name": "fileID",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Getfilesfileid"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "externalValue": "./examples/getFile/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getOne"
+                }
+            },
+            "delete": {
+                "operationId": "deleteFile",
+                "parameters": [
+                    {
+                        "name": "fileID",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server."
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "delete"
+                }
+            }
+        },
+        "/files/{fileId}/previewPath": {
+            "get": {
+                "operationId": "getFilePreview",
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Getfilesfileidpreviewpath"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "externalValue": "./examples/getFilePreview/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getOne"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Getfoldersfolderiditem": {
+                "type": "object",
+                "properties": {
+                    "childItemsCount": {
+                        "type": "string"
+                    },
+                    "count": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "hasMore": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "limit": {
+                        "type": "string"
+                    },
+                    "modifiedBy": {
+                        "$ref": "#/components/schemas/Modifiedby"
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "offset": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "$ref": "#/components/schemas/Ownedby"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "totalResults": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Item"
+                        }
+                    }
+                }
+            },
+            "Createdby": {
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Modifiedby": {
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Ownedby": {
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Item": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "$ref": "#/components/schemas/Ownedby1"
+                    },
+                    "createdBy": {
+                        "$ref": "#/components/schemas/Createdby1"
+                    },
+                    "modifiedBy": {
+                        "$ref": "#/components/schemas/Modifiedby1"
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "childItemsCount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Ownedby1": {
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Createdby1": {
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Modifiedby1": {
+                "type": "object",
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "GetfoldersfolderiditemResponse": {
+                "type": "object",
+                "properties": {
+                    "childItemsCount": {
+                        "type": "string"
+                    },
+                    "count": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "hasMore": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "limit": {
+                        "type": "string"
+                    },
+                    "modifiedBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "offset": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "totalResults": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Item1"
+                        }
+                    }
+                }
+            },
+            "Item1": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "createdBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "modifiedBy": {
+                        "$ref": "#/components/schemas/Createdby"
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    },
+                    "mimeType": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Postfilesdata": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "errorMessage": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Getfilesfileid": {
+                "type": "object",
+                "properties": {
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "mimeType": {
+                        "type": "string"
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Getfilesfileidpreviewpath": {
+                "type": "object",
+                "properties": {
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "previewUrl": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

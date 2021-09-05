@@ -3,12 +3,11 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
 
   This demo shows how to cache LOV data in a flow-level ArrayDataProvider and bind
   an oj-select-single to that ArrayDataProvider. In this way the REST API does not
   need to be called every time you open the oj-select-single.
-
 
 </div>
 <div class="oj-flex oj-flex-item">
@@ -17,12 +16,14 @@
       <h1 class="oj-flex-item oj-sm-flex-initial">Cached LOV Data</h1>
     </div>
     <div class="oj-flex">
-      <div class="oj-flex-item" style="word-wrap: break-word;">This oj-select-one pulls data from an ArrayDataProvider which is populated the first time you enter the flow.</div>
+      <div class="oj-flex-item" style="word-wrap: break-word;">This oj-select-single pulls data from an ArrayDataProvider
+        which is populated the first time you enter the flow.</div>
     </div>
     <div class="oj-flex">
       <oj-form-layout label-edge="top" class="oj-flex-item oj-sm-flex-initial">
-        <oj-select-one label-hint="Country" value="{{ $variables.value }}" options="{{ $flow.variables.countryADP }}"
-          options-keys.value="id" options-keys.label="countryName"></oj-select-one>
+        <oj-select-single label-hint="Country" value="{{ $variables.value }}" data="{{ $flow.variables.countryADP }}"
+          item-text="countryName">
+        </oj-select-single>
       </oj-form-layout>
     </div>
   </div>

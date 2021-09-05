@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This recipe shows you how to implement a Dynamic Table with templates for two
   fields, email and phone, that render appropriate icons for each field.
 </div>
@@ -16,6 +16,7 @@
           metadata-path="items"
           layout="simpleEmployeeListRuleSet"
           style="max-height: 400px; min-width: 60vw; width: 100%"
+          :id="[['dynamic-table-field-template']]"
         ></oj-dynamic-table>
   </div>
 

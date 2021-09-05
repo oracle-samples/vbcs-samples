@@ -3,14 +3,14 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
     This demo shows how to use <b>vb/helpers/rest</b> to make rest calls using custom
     JavaScript. It uses async validators to make rest call to the backend to validate
     email. If you enter one of the employee email from the table below you will get
     an error.
   </div>
   <div class="oj-flex oj-flex-item">
-    <div class="oj-flex oj-flex-item sample-box oj-flex-items-pad">
+    <div class="oj-flex oj-flex-item sample-box oj-sm-padding-2x">
       <div class="oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-align-items-flex-start" style="min-width: 450px;">
         <div class="oj-flex oj-flex-item oj-sm-flex-initial">
           <h1 class="oj-flex-item oj-sm-12 oj-md-12">Create New Employee</h1>
@@ -22,15 +22,15 @@
               required="true" id="input-first-name"></oj-input-text>
               <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
               required="true" id="input-last-name"></oj-input-text>
-              <oj-input-text virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
-              async-validators="{{[$functions.uniqueEmailValidator()]}}" value="{{ $variables.employee.email }}"
+              <oj-input-text virtual-keyboard="email"
+              validators="[[ [$functions.uniqueEmailValidator(), $functions.regexpEmailValidator()] ]]" value="{{ $variables.employee.email }}"
               label-hint="Email ID" required="true" id="input-email"></oj-input-text>
             </oj-form-layout>
           </oj-validation-group>
         </div>
         <div class="oj-flex oj-flex-item oj-sm-flex-initial">
-          <oj-toolbar chroming="full" class="oj-flex-item oj-sm-12 oj-md-12">
-            <oj-button chroming="full" id="validate-btn" on-oj-action="[[$listeners.validateHandler]]" class="oj-button-primary">Validate</oj-button>
+          <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
+            <oj-button chroming="solid" id="validate-btn" on-oj-action="[[$listeners.validateHandler]]">Validate</oj-button>
           </oj-toolbar>
         </div>
       </div>

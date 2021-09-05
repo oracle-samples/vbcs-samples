@@ -12,7 +12,7 @@
     tothe ADP.</li>
   <li>At the page level where LOV will be used, add a vbEnter event that fires the flow
     action chain you created in the last step.</li>
-  <li>In the form, bind your oj-select-one to the ADP.</li>
+  <li>In the form, bind your oj-select-single to the ADP.</li>
 </ul>
 <oj-accordion id="accordionPage">
   <oj-collapsible id="step1" expanded="true">
@@ -43,16 +43,14 @@
     </div>
   </oj-collapsible>
   <oj-collapsible id="step3">
-    <span slot="header">Step 3: Binding the oj-select-one</span>
+    <span slot="header">Step 3: Binding the oj-select-single</span>
     <div>
       <ol>
-        <li>Open the cache-lov-demo page and drop an oj-select-one component on the page.</li>
-        <li>In the General tab of the Properties pane, set the Label Hint to Country</li>
+        <li>Open the cache-lov-demo page and drop an oj-select-single component on the page.</li>
+        <li>In the Data tab of the Properties pane, set the Item Text to countryName.</li>
         <li>In the Data tab of the Properties pane, set the Data property to [[ $flow.variables.countryADP
           ]].</li>
-        <li>In the All tab of the Properties pane, set options-keys.value to id and
-          options-keys.label to countryName.</li>
-        <li>Optionally, create a String page variable called value and set the oj-select-one's
+        <li>Optionally, create a String page variable <code>value</code> and set the oj-select-single's
           Value property to variables.value. </li>
         <li>In the cache-lov-demo page, <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/start-action-chains-events.html">add a vbEnter event</a>          and set it to fire a new flow-level action chain called populateCountries.</li>
       </ol>

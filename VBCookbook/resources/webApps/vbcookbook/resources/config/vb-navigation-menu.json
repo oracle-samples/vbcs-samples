@@ -17,7 +17,9 @@
           "dynamic-form-multiple-layout",
           "dynamic-table-field-template",
           "dynamic-container-toggle-layout",
-          "dynamic-form-context"
+          "dynamic-form-context",
+          "dynamic-form-list-view",
+          "dynamic-container-responsive"
         ]
       },
       {
@@ -39,7 +41,9 @@
           "confirmation-dialog",
           "prevent-double-submission",
           "navigation-context",
-          "language-switcher"
+          "language-switcher",
+          "customize-fetch-chain",
+          "oj-refresher"
         ]
       },
       {
@@ -62,7 +66,8 @@
           "date-converter",
           "custom-js-validator",
           "validation-async-validators",
-          "inputnumber-eating-chars"
+          "inputnumber-eating-chars",
+          "checkbox-set"
         ]
       }
     ]
@@ -85,13 +90,14 @@
           "table-complex-filters",
           "table-actions",
           "table-many-to-many",
-          "batch-editable-table",
+          "batch-editable-table",         
           "editable-form-table-sdp",
           "table-dnd",
           "custom-no-records-message",
           "conditional-styling",
           "table-select-cols",
-          "row-expander"
+          "row-expander",
+          "dynamic-sdp"
         ]
       },
       {
@@ -103,7 +109,8 @@
           "listview-multi-select",
           "listview-sorting",
           "list-load-more-on-scroll",
-          "listview-cardlayout"
+          "listview-cardlayout",
+          "collapsible-list"
         ]
       },
       {
@@ -164,7 +171,7 @@
         "icon": "upload",
         "items": [
           "rest-fa-attachments",
-          "rest-oce-upload"
+          "rest-ocm-upload"
         ]
       },
       {

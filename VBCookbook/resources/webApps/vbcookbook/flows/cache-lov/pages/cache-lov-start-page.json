@@ -25,8 +25,8 @@
       "oj-form-layout": {
         "path": "ojs/ojformlayout"
       },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
       }
     }
   }

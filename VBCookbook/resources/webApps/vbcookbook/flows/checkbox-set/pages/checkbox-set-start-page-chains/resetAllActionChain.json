@@ -1,0 +1,16 @@
+{
+  "description": "",
+  "root": "assignVariablesSelectedValues",
+  "actions": {
+    "assignVariablesSelectedValues": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.selectedValues": {
+          "source": [],
+          "reset": "empty"
+        }
+      }
+    }
+  },
+  "variables": {}
+}

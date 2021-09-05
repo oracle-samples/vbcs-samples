@@ -1,0 +1,45 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom">
+  This recipe shows you how to implement a dynamic SDP to fetch data on demand using the ServiceDataProviderFactory.
+</div>
+<div class="oj-flex" style="padding:10px;">
+  <div class="oj-flex-item oj-flex oj-sm-flex-direction-column">
+    <div class="oj-flex-item oj-sm-flex-direction-column sample-box">
+      <oj-accordion id="oj-accordion-dt" class="oj-flex-item" multiple="true">
+        <oj-bind-for-each data="[[ $variables.deptSDP ]]">
+          <template data-oj-as="item">
+            <oj-collapsible :id="[[ 'oj-collapsible-' + item.data.id ]]" class="oj-accordion-collapsible">
+              <h1 :id="[[ 'h1-' + item.data.id ]]" slot="header">
+                <oj-bind-text value="[[ item.data.departmentName ]]"></oj-bind-text>
+              </h1>
+              <oj-defer>
+                <div class="oj-flex" data-vb-layout-type="flex">
+                  <oj-table :id="[[ 'oj-table-' + item.data.id ]]" data="[[ $functions.createSDP(item.data.id) ]]"
+                    columns='[{"headerText":"Id","field":"id"},
+                  {"headerText":"Last Name","field":"lastName"},
+                  {"headerText":"Email","field":"email"}]' class="oj-sm-flex-1" style="max-height:400px;">
+                  </oj-table>
+                </div>
+              </oj-defer>
+            </oj-collapsible>
+          </template>
+        </oj-bind-for-each>
+      </oj-accordion>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This recipe shows you how to configure the display logic of a Dynamic
   Container to toggle the display of the templates within the container.
 </div>
@@ -12,7 +12,7 @@
       <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-md-2">
           <oj-button on-oj-action="[[$listeners.ojButtonOjAction2]]"
-            >Toggle Layout</oj-button
+            :id="[['toggle']]">Toggle Layout</oj-button
           >
         </div>
       </div>
@@ -23,6 +23,7 @@
           layout-provider="[[ $page.metadata.dynamicContainerMetadata.provider ]]"
           style="width: 100%"
           class="oj-flex-item"
+          id="dynamic-container-toggle"
         ></oj-dynamic-container>
       </div>
   </div>

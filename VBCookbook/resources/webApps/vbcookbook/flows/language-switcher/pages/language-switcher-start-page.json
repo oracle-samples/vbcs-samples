@@ -12,9 +12,33 @@
         "responseType": "page:getallEmployeeResponse"
       }
     },
+    "languageOptions": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "value": "en",
+          "label": "English"
+        },
+        {
+          "value": "fr",
+          "label": "French"
+        }
+      ]
+    },
+    "languageOptionsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.languageOptions }}",
+        "keyAttributes": "value",
+        "textFilterAttributes": [
+          "label"
+        ]
+      }
+    },
     "selectedLocale": {
       "type": "any"
     }
+
   },
   "metadata": {},
   "types": {
@@ -38,7 +62,7 @@
     }
   },
   "chains": {
-    "ComboboxOneValueChangeChain": {
+    "SelectSingleValueChangeChain": {
       "description": "",
       "root": "callModuleFunction1",
       "actions": {
@@ -72,10 +96,10 @@
     }
   },
   "eventListeners": {
-    "ojComboboxOneValue": {
+    "ojSelectSingleValue": {
       "chains": [
         {
-          "chainId": "ComboboxOneValueChangeChain",
+          "chainId": "SelectSingleValueChangeChain",
           "parameters": {
             "value": "{{ $event.detail.value }}"
           }
@@ -85,23 +109,11 @@
   },
   "imports": {
     "components": {
-      "oj-form-layout": {
-        "path": "ojs/ojformlayout"
-      },
-      "oj-text-area": {
-        "path": "ojs/ojinputtext"
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
       },
       "oj-table": {
         "path": "ojs/ojtable"
-      },
-      "oj-label": {
-        "path": "ojs/ojlabel"
-      },
-      "oj-combobox-one": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
       }
     }
   }

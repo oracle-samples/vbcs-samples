@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-form-list-view",
+  "description": "Flow main",
+  "defaultPage": "dynamic-form-list-view-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

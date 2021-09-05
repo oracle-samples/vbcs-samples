@@ -1,0 +1,26 @@
+{
+  "root": "fireDataProviderEventEmployeeListSDP",
+  "description": "",
+  "variables": {
+  },
+  "actions": {
+
+    "callFunctionConcludeRefresher": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "concludeRefresher"
+      }
+    },
+    "fireDataProviderEventEmployeeListSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "refresh": null,
+        "target": "[[ $page.variables.employeeListSDP ]]"
+      },
+      "outcomes": {
+        "success": "callFunctionConcludeRefresher"
+      }
+    }
+  }
+}

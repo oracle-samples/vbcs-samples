@@ -30,7 +30,7 @@
     <oj-button on-oj-action="[[$listeners.ojButtonOjAction]]">Save</oj-button>
   </div>
 </oj-dialog>
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   This recipe shows how you configure your app so that users can make multiple
   edits on the client and save all changes to the backend service using a single
   REST batch call.
@@ -42,7 +42,7 @@
         <h2 id="h1-1829646926-1" class="oj-flex-item oj-lg-3 oj-sm-3 oj-md-3">
           Department</h2>
         <div
-          class="oj-flex-item oj-lg-9 oj-sm-9 oj-flex oj-sm-align-items-center oj-md-9 oj-flex-items-pad oj-sm-justify-content-flex-end">
+          class="oj-flex-item oj-lg-9 oj-sm-9 oj-flex oj-sm-align-items-center oj-md-9 oj-sm-padding-2x oj-sm-justify-content-flex-end">
           <div class="oj-flex-item oj-sm-flex-initial">
             <oj-button class="" on-oj-action="[[$listeners.ojButtonOjAction2]]">
               Refresh (Cancel All Edits)</oj-button>
@@ -60,11 +60,10 @@
       <div class="oj-flex oj-sm-flex-items-initial">
         <oj-form-layout label-edge="start"
           class="oj-flex-item oj-sm-flex-initial">
-          <oj-select-one class="oj-form-control-full-width"
+          <oj-select-single class="oj-form-control-full-width"
             label-hint="Department"
-            options="[[$page.variables.departmentListSDP]]"
-            options-keys.value="id" options-keys.label="departmentName"
-            value="{{ $variables.departmentId }}"></oj-select-one>
+            data="[[$page.variables.departmentListSDP]]"
+            value="{{ $variables.departmentId }}" item-text="departmentName"></oj-select-single>
         </oj-form-layout>
       </div>
       <div

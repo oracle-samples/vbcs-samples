@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-container-responsive",
+  "description": "Flow main",
+  "defaultPage": "dynamic-container-responsive-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -1,18 +1,19 @@
 {
   "component-dependencies": {
     "oj-sample": {
-      "version": "4.0.5",
+      "version": "5.0.3",
       "components": {
-        "input-text-typeahead": "2.0.0",
-        "highlight-text": "2.0.0"
+        "input-text-typeahead": "3.0.0",
+        "highlight-text": "3.0.0"
       }
     },
     "oj-dynamic": {
-      "version": "10.0.0",
+      "version": "10.1.1",
       "components": {
-        "form": "10.0.0",
-        "container": "10.0.0",
-        "table": "10.0.0"
+        "form": "10.1.1",
+        "container": "10.1.1",
+        "table": "10.1.1",
+        "bind-field": "10.1.1"
       }
     }
   }

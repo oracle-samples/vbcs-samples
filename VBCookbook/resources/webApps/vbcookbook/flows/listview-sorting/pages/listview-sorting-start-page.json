@@ -14,7 +14,12 @@
           {
             "attribute": "countryName"
           }
-        ]
+        ],
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "countryName"
+          ]
+        }
       }
     },
     "ascending": {
@@ -28,6 +33,29 @@
               "event": "{{ $event }}"
             }
           }
+        ]
+      }
+    },
+    "sortByOptions": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "value": "countryName",
+          "label": "Name"
+        },
+        {
+          "value": "countryCode",
+          "label": "Code"
+        }
+      ]
+    },
+    "sortByOptionsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.sortByOptions }}",
+        "keyAttributes": "value",
+        "textFilterAttributes": [
+          "value"
         ]
       }
     }
@@ -88,8 +116,8 @@
   },
   "imports": {
     "components": {
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
       },
       "oj-switch": {
         "path": "ojs/ojswitch"
@@ -97,15 +125,13 @@
       "oj-label": {
         "path": "ojs/ojlabel"
       },
-      "oj-option": {
-        "path": "ojs/ojoption"
-      },
       "oj-list-view": {
         "path": "ojs/ojlistview"
       },
       "oj-vb-list-item": {
         "path": "vb/components/list-item/loader"
       }
+
     }
   }
 }

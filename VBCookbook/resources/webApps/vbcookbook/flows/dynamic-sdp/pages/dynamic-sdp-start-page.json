@@ -1,0 +1,56 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "deptSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "responseType": "getall_Department",
+        "itemsPath": "items",
+        "keyAttributes": "id",
+        "requestType": "json",
+        "endpoint": "businessObjects/getall_Department",
+        "uriParameters": {
+          "limit": 5
+        }
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Department": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Department": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {
+
+  },
+  "imports": {
+    "components": {
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      },
+      "oj-defer": {
+        "path": "ojs/ojdefer"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+
+    }
+  }
+}

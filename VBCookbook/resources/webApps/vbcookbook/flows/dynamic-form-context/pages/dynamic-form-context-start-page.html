@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   <p>
     This recipe shows you how to render different layouts in a dynamic form
     using component context.
@@ -22,8 +22,8 @@
         label-hint="Profile"
         value="{{ $variables.profileType.profile }}"
       >
-        <oj-option value="internal">Internal Profile</oj-option>
-        <oj-option value="external">External Profile</oj-option>
+        <oj-option value="internal" :id="[['internal']]">Internal Profile</oj-option>
+        <oj-option value="external" :id="[['external']]">External Profile</oj-option>
       </oj-radioset>
       <div></div>
 
@@ -36,6 +36,7 @@
         rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}"
         context="[[$page.variables.profileType]]"
         style="width: 600px;"
+        id="oj-dynamic-form-context"
       ></oj-dynamic-form>
     </div>
   </div>

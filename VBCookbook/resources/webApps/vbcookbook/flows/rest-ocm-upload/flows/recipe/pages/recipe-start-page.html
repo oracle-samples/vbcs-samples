@@ -1,0 +1,200 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Create a service connection to the server that hosts your instance of Content Management. You’ll add endpoints exposed by the Content Management <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/content-cloud/rest-api-documents/index.html">REST API for documents</a>  to retrieve the content of a folder and manage its files. In your app, you’ll add
+  a Table component that displays the retrieved files. You’ll add other UI components
+  to trigger the action chains that call the endpoints exposed by Content Management
+  to retrieve, download, and upload files.
+</p>
+
+<p><strong>Note:</strong> This recipe uses a mock server that imitates the behavior
+  of a Content Management instance to demonstrate the code flow pattern. For
+  this reason, it is read-only and you cannot upload or delete files unless you replace
+  the mock server with a Content Management instance. If you have access to an
+  instance of Content Management, you can use it instead of the mock server by
+  editing the VB Cookbook’s <code>ocm</code> service connection in the Visual Builder
+  instance where you import the VB Cookbook app. See <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/edit-service-connection.html#GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
+    a Service Connection</a>.
+</p>
+
+<p>
+  The steps that follow describe how to create a service connection, add a Table component
+  and configure the <strong>Preview</strong> button that invokes an action chain.
+  The action chain includes a Call REST endpoint that downloads the requested file
+  and a Call Module Function action that converts the file of type BLOB to a data
+  URI that the
+  <code>fileBodyForPreview</code> page variable can reference. For the <strong>Take Photo</strong>  and <strong>Upload</strong> buttons that upload photos and files, you follow a
+  similar pattern. Refer to the HTML, JS, and JSON tabs in this recipe to view these
+  implementation details or import the VB Cookbook into your Visual Builder instance
+  to review the code.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Service Connection</span>
+      <p>You create a service connection to Content Management where you add the
+        endpoints to get folder and file content. </p>
+      <div>
+        <ol>
+          <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">Create
+              a service connection</a> from an endpoint exposed by your instance
+            of Content Management.
+            <p>
+              You’ll need to know the base URI of the service and an endpoint. If
+              <code>https://ocm-instance-url.com</code> is the base URI of the instance
+              of Content Management that you connect to, then enter the following
+              URI with an appropriate HTTP method (GET) and action hint (Get Many)
+              when creating the endpoint. For example: <br>
+              <code>https://ocm-instance-url.com/documents/api/1.2/folders/{folderId}/items</code>
+            </p>
+          </li>
+          <li>
+            Add the following endpoints to the service connection:
+            <ul>
+              <li><code>GET /folders/{folderId}/items</code></li>
+              <li><code>POST /files/data</code></li>
+              <li><code>GET /files/{fileID}/data</code></li>
+              <li><code>GET/DELETE /files/{fileID}</code> </li>
+              <li><code>GET /files/{fileId}/previewPath</code></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepb">
+      <span slot="header">Create Page Variables</span>
+      <div>
+        <p><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+            the following page variables:</a></p>
+        <ul>
+          <li><code>fileBodyForPreview</code> – Any</li>
+          <li><code>filePreview</code> - Boolean</li>
+        </ul>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepc">
+      <span slot="header">Create the UI</span>
+      <div>
+        <p>Add a Table component to a page in your app and bind it to the data returned
+          by the
+          <code>/folders/{folderId}/items</code> endpoint.</p>
+
+        <ol>
+          <li> In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Data Quick Start</a> to map your table to the <code>/folders/{folderId}/items</code>            endpoint.</li>
+          <li>In the Bind Data page of the Add Data dialog, select the following items
+            from the endpoint structure:
+            <ul>
+              <li><code>id</code></li>
+              <li><code>name</code></li>
+              <li><code>size</code></li>
+              <li><code>type</code> (Include this item so that you can distinguish between
+                folders and files)</li>
+              <li><code>mimeType</code></li>
+            </ul>
+          </li>
+          <li>In the Data tab of the Table component’s Properties pane, add the following
+            entries to the Table Columns property to create new columns:
+            <code>
+            <pre>
+,{
+  "headerText": "Download",
+  "template": "Download"
+  },
+  {
+  "headerText": "Preview",
+  "template": "Preview"
+  },
+  {
+  "headerText": "Delete",
+  "template": "Delete"
+  }
+            </pre>
+          </code>
+          </li>
+          <li>In the Component Palette, drag a Hyperlink component and drop it on the
+            Preview column in the Table component.
+          </li>
+          <li>In the Page Structure, select the Hyperlink component and <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">add
+            a new event</a>. </li>
+          <li>In the <code>PreviewAttachment</code> action chain that you have just created,
+            add a Call REST endpoint action and select the <code>GET /files/{fileID}/data</code>            endpoint. </li>
+          <li>Drag and drop a Call Module Function onto the success path and click <strong>Select Module Function</strong>            to create a new page module function named <code>generatePreview</code>.
+            </li>
+          <li>Write a function that converts the BLOB returned by the <code>GET /files/{fileID}/data</code>            endpoint into a data URI using
+            <code>URL.createObjectURL()</code>:
+
+            <code>
+            <pre>
+PageModule.prototype.preview = function(blobData, contentType) {
+  if (contentType === undefined || contentType.length === 0) {
+     contentType = "application/octet-stream";
+  }
+  var newBlob = new Blob([blobData], {
+     type: contentType
+  });
+     return URL.createObjectURL(newBlob);
+  };
+            </pre>
+          </code>
+          </li>
+          <li>In the <code>PreviewAttachment</code> action chain, drop an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+            Variables action</a> after the Call Module Function and assign the result
+            of <code>generatePreview</code> to the <code>fileBodyForPreview</code>            page variable. </li>
+          <li>In the Code view of your page, add the following HTML element that binds
+            to the
+            <code>fileBodyForPreview</code> page variable:
+            <br>
+            <code><pre>
+&lt;div class="oj-flex"&gt;
+  &lt;object :data="{{ $page.variables.fileBodyForPreview }}" style="width: 100%;height: 800px;border: none;"&gt;&lt;/object&gt;
+&lt;/div&gt;</pre>
+                    </code>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="nextsteps">
+      <span slot="header">Next Steps</span>
+      <div>
+
+        <p>By now, you should have a page where you can get a file from your Content
+          Management folder, and preview it in your page. The high-level steps
+          to implement the functionality for the other UI components shown in this
+          recipe are the same: </p>
+        <ul>
+          <li>Add a UI component (Button or Hyperlink)</li>
+          <li>Create an event for the UI component</li>
+          <li>Add actions, such as Call REST endpoint and Call Module Function, to the
+            action chain invoked by the UI component event
+          </li>
+        </ul>
+
+        <p>Inspect the code in the demo app that accompanies this recipe to view the
+          implementation for the remaining UI components. </p>
+
+        <p>For the <strong>Take Photo</strong> button, the event listener for this button
+          invokes the
+          <code>TakePhotoChain</code> action chain that includes the <a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-E927312F-B371-4E9E-803A-AA034EBF92C8">Take
+        Photo action</a>, a specialized Visual Builder action that can take photos
+          with the app’s device camera or allow the user to select from the device
+          image library. As the Take Photo action returns a BLOB, the action chain
+          also includes a Call Module Function (<code>generateFileName</code>) to
+          generate a random file name to assign to the file before the Call REST
+          Endpoint action uploads it to the Content Management folder.
+        </p>
+
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

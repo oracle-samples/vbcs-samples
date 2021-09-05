@@ -248,9 +248,91 @@
     },
     "ExternalProfile": {
       "expression": "{{ $componentContext.profile === 'external' ? 'externalProfile' : null }}"
+    },
+    "isDefault2": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "employeeListViewLayout": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "Employee List View Layout",
+      "rules": [
+        "isDefault2"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+
+            "displayProperties": [
+              "fullName",
+              "email",
+              "phoneNumber"
+            ],
+            "templateId": "employeeListViewTemplate"
+          },
+          "usedIn": [
+            "isDefault2"
+          ]
+        }
+      },
+      "fieldTemplateMap": {
+        "email": "listViewMailTemplate",
+        "fullName": "listViewNameTemplate",
+        "phoneNumber": "listViewPhoneTemplate"
+      }
+    },
+    "isDefault3": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "employeeTableDesktopMode": {
+      "type": "businessObjects",
+      "layoutType": "table",
+      "label": "Employee Table Desktop Mode",
+      "rules": [
+        "isDefault3"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "table",
+          "layout": {
+            "displayProperties": [
+              "id",
+              "firstName",
+              "lastName",
+              "phoneNumber",
+              "email",
+              "salary",
+              "hireDate"
+            ]
+          },
+          "usedIn": [
+            "isDefault3"
+          ]
+        }
+      },
+      "fieldTemplateMap": {
+        "id": "avatarTemplate"
+      }
     }
   },
   "templates": {
+    "avatarTemplate": {
+      "title": "Avatar Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojavatar",
+        "ojs/ojinputtext"
+      ]
+    },
     "emailTemplate": {
       "title": "Email Template",
       "description": "",
@@ -261,6 +343,61 @@
       "dependencies": [
         "ojs/ojinputtext"
       ]
+    },
+    "listViewMailTemplate": {
+      "title": "List View Mail Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext"
+      ]
+    },
+    "listViewNameTemplate": {
+      "title": "List View Name Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext"
+      ]
+    },
+    "listViewPhoneTemplate": {
+      "title": "List View Phone Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext"
+      ]
+    },
+    "employeeListViewTemplate": {
+      "title": "Employee List View Template",
+      
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "form"
+      },
+      "dependencies": [
+        "oj-dynamic/bind-field/loader",
+        "ojs/ojavatar",
+        "ojs/ojformlayout"
+      ],
+      "referencedFields": {
+        "generated": [
+          "email",
+          "fullName",
+          "id",
+          "phoneNumber"
+        ]
+      }
     },
     "phoneTemplate": {
       "title": "Phone Template",
@@ -273,5 +410,11 @@
         "ojs/ojinputtext"
       ]
     }
+
+  },
+  "imports": {
+    "css": [
+      "https://static.oracle.com/cdn/vb/vb-icon-font/1/vb-icon-font.css"
+    ]
   }
 }

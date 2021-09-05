@@ -1,0 +1,764 @@
+{
+
+  "title": "",
+  "description": "Manage OCM files",
+  "variables": {
+    "fileUpload": {
+      "type": "UploadType"
+    },
+    "ocmFilesSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "ocm/getFolderFiles",
+        "responseType": "FilesType",
+        "itemsPath": "items",
+        "idAttribute": "id",
+        "uriParameters": {
+          "folderId": "self"
+        }
+      }
+    },
+    "filePreview": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "fileBodyForPreview": {
+      "type": "any"
+    },
+    "ocmServerBusy": {
+      "type": "boolean",
+      "defaultValue": false
+    }
+  },
+  "types": {
+    "UploadType": {
+      "FileName": "string",
+      "File": "any",
+      "Size": "number"
+    },
+    "@decorators.FilesType": {
+      "endpoint": "getFolderFiles",
+      "service": "ocm",
+      "path": "response"
+    },
+    "FilesType": {
+      "items": [{
+        "id": "string",
+        "mimeType": "string",
+        "name": "string",
+        "size": "string",
+        "type": "string"
+      }]
+    }
+  },
+  "chains": {
+    "ShowUploadDialog": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "resetFileUploadVariable",
+      "actions": {
+        "resetFileUploadVariable": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.fileUpload"
+            ]
+          },
+          "outcomes": {
+            "success": "callDialogOpen"
+          }
+        },
+        "callDialogOpen": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('modalDialog1') }}",
+            "method": "open"
+          }
+        }
+      }
+    },
+    "CancelUploadDialog": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callDialogClose",
+      "actions": {
+        "callDialogClose": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('modalDialog1') }}",
+            "method": "close"
+          }
+        }
+      }
+    },
+    "FilePickerSelectionChanged": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "resetFileUploadVariable",
+      "actions": {
+        "resetFileUploadVariable": {
+          "module": "vb/action/builtin/resetVariablesAction",
+          "parameters": {
+            "variables": [
+              "$page.variables.fileUpload"
+            ]
+          },
+          "outcomes": {
+            "success": "updateFileUploadVar"
+          }
+        },
+        "updateFileUploadVar": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.fileUpload": {
+              "source": {
+                "FileName": "{{ $chain.variables.detail.files[0].name }}",
+                "Size": "{{ $chain.variables.detail.files[0].size }}",
+                "File": "{{ $chain.variables.detail.files[0] }}"
+              },
+              "reset": "none",
+              "auto": "always"
+            }
+          }
+        }
+      }
+    },
+    "UploadFile": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callDialogCloseComponentMethod",
+      "actions": {
+        "callDialogCloseComponentMethod": {
+          "module": "vb/action/builtin/callComponentMethodAction",
+          "parameters": {
+            "component": "{{ document.getElementById('modalDialog1') }}",
+            "method": "close"
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusBusy"
+          }
+        },
+        "updateOCMServerStatusBusy": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "callUploadRestEndpoint"
+          }
+        },
+        "callUploadRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ocm/uploadFile",
+            "body": {
+              "jsonInputParameters": "{{ '{ \"parentID\":\"self\"}' }}",
+              "primaryFile": "{{ $page.variables.fileUpload.File }}"
+            },
+            "contentType": "multipart/form-data",
+            "uriParams": {
+              "filename": "{{ $page.variables.fileUpload.FileName }}"
+            }
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "updateOCMServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "transient",
+            "type": "info",
+            "summary": "{{ 'File ' + $page.variables.fileUpload.FileName + ' was successfully uploaded' }}"
+          },
+          "outcomes": {
+            "success": "refreshDataProvider"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Upload failed"
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        },
+        "refreshDataProvider": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.ocmFilesSDP ]]",
+            "refresh": null
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        }
+      }
+    },
+    "DownloadAttachment": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "updateOCMServerStatusBusy",
+      "actions": {
+        "callDownloadRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ocm/downloadFile",
+            "uriParams": {
+              "fileID": "{{ $chain.variables.key }}"
+            },
+            "responseBodyFormat": "blob"
+          },
+          "outcomes": {
+            "success": "callDownloadFunction",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "callDownloadFunction": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "download",
+            "params": [
+              "{{ $chain.results.callDownloadRestEndpoint.body }}",
+              "{{ $chain.variables.current.row.mimeType }}",
+              "{{ $chain.variables.current.row.name }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        },
+        "updateOCMServerStatusBusy": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "callDownloadRestEndpoint"
+          }
+        },
+        "updateOCMServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Download failed"
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        }
+      }
+    },
+    "PreviewAttachment": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "initializeState",
+      "actions": {
+        "generatePreview": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "{{$page.functions}}",
+            "functionName": "preview",
+            "params": [
+              "{{ $chain.results.callDownloadRestEndpoint.body }}",
+              "{{ $chain.variables.current.row.mimeType }}"
+            ]
+          },
+          "outcomes": {
+            "success": "updatePreviewVariables"
+          }
+        },
+        "initializeState": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.filePreview": {
+              "source": false
+            },
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "callDownloadRestEndpoint"
+          }
+        },
+        "callDownloadRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ocm/downloadFile",
+            "uriParams": {
+              "fileID": "{{ $chain.variables.key }}"
+            },
+            "responseBodyFormat": "blob"
+          },
+          "outcomes": {
+            "success": "generatePreview",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "updatePreviewVariables": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.fileBodyForPreview": {
+              "source": "{{ $chain.results.generatePreview }}"
+            },
+            "$page.variables.filePreview": {
+              "source": true
+            }
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        },
+        "updateOCMServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Download failed"
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        }
+      }
+    },
+    "DeleteFile": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callDeleteRestEndpoint",
+      "actions": {
+        "callDeleteRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ocm/deleteFile",
+            "uriParams": {
+              "fileID": "{{ $chain.variables.key }}"
+            }
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification"
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "[[ 'File ' + $chain.variables.current.row.name + ' was deleted' ]]",
+            "displayMode": "transient",
+            "type": "confirmation"
+          },
+          "outcomes": {
+            "success": "refreshDataProvider"
+          }
+        },
+        "refreshDataProvider": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "refresh": null,
+            "target": "[[ $page.variables.ocmFilesSDP ]]"
+          }
+        },
+        "fireErrorNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Delete operation failed"
+          }
+        }
+      }
+    },
+    "OpenOCMPreview": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "key": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        },
+        "current": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "callGetPreviewRestEndpoint",
+      "actions": {
+        "callGetPreviewRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ocm/getFilePreview",
+            "uriParams": {
+              "fileId": "{{ $chain.variables.key }}"
+            }
+          },
+          "outcomes": {
+            "success": "openPreviewUrl"
+          }
+        },
+        "openPreviewUrl": {
+          "module": "vb/action/builtin/openUrlAction",
+          "parameters": {
+            "url": "[[ $chain.results.callGetPreviewRestEndpoint.body.previewUrl ]]",
+            "windowName": "preview"
+          }
+        }
+      }
+    },
+    "TakePhotoChain": {
+      "description": "",
+      "variables": {
+        "detail": {
+          "required": true,
+          "type": "any",
+          "input": "fromCaller"
+        }
+      },
+      "root": "takePhoto1",
+      "actions": {
+        "takePhoto1": {
+          "module": "vb/action/builtin/takePhotoAction",
+          "parameters": {
+            "mediaType": "image"
+          },
+          "outcomes": {
+            "success": "generateFileName"
+          }
+        },
+        "generateFileName": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $page.functions ]]",
+            "functionName": "generateFileName",
+            "params": [
+              "{{ $chain.results.takePhoto1.file }}"
+            ]
+          },
+          "outcomes": {
+            "success": "ifValidFileName"
+          }
+        },
+        "ifValidFileName": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.generateFileName !== undefined ]]"
+          },
+          "outcomes": {
+            "true": "ifValidFileSize",
+            "false": "fireErrorNotification4"
+          }
+        },
+        "ifValidFileSize": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.takePhoto1.file.size < 1100000 ]]"
+          },
+          "outcomes": {
+            "true": "updateOCMServerStatusBusy",
+            "false": "fireErrorNotification3"
+          }
+        },
+        "updateOCMServerStatusBusy": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ true }}"
+            }
+          },
+          "outcomes": {
+            "success": "callUploadFileRestEndpoint"
+          }
+        },
+        "callUploadFileRestEndpoint": {
+          "module": "vb/action/builtin/restAction",
+          "parameters": {
+            "endpoint": "ocm/uploadFile",
+            "body": {
+              "jsonInputParameters": "{{ '{ \"parentID\":\"self\"}' }}",
+              "primaryFile": "{{ $chain.results.takePhoto1.file }}"
+            },
+            "contentType": "multipart/form-data",
+            "uriParams": {
+              "filename": "{{ $chain.results.generateFileName }}"
+            }
+          },
+          "outcomes": {
+            "success": "fireSuccessNotification",
+            "failure": "fireErrorNotification2"
+          }
+        },
+        "updateOCMServerStatusReady": {
+          "module": "vb/action/builtin/assignVariablesAction",
+          "parameters": {
+            "$page.variables.ocmServerBusy": {
+              "source": "{{ false }}"
+            }
+          }
+        },
+        "fireErrorNotification2": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "persist",
+            "type": "error",
+            "summary": "Upload failed"
+          }
+        },
+        "fireErrorNotification3": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "File is too big. (1MB is limit)"
+          }
+        },
+        "fireErrorNotification4": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "summary": "Only jpeg, gif and png formats are supported."
+          }
+        },
+        "fireSuccessNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "displayMode": "transient",
+            "type": "info",
+            "summary": "{{ 'File ' + $chain.results.generateFileName + ' was successfully uploaded' }}"
+          },
+          "outcomes": {
+            "success": "refreshDataProvider"
+          }
+        },
+        "refreshDataProvider": {
+          "module": "vb/action/builtin/fireDataProviderEventAction",
+          "parameters": {
+            "target": "[[ $page.variables.ocmFilesSDP ]]",
+            "refresh": null
+          },
+          "outcomes": {
+            "success": "updateOCMServerStatusReady"
+          }
+        }
+      }
+    }
+  },
+  "eventListeners": {
+    "uploadButtonAction": {
+      "chains": [
+        {
+          "chainId": "UploadFile",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "takePhotoAction": {
+      "chains": [
+        {
+          "chainId": "TakePhotoChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "downloadClick": {
+      "chains": [
+        {
+          "chainId": "DownloadAttachment",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "previewClick": {
+      "chains": [
+        {
+          "chainId": "PreviewAttachment",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "deleteFileAction": {
+      "chains": [
+        {
+          "chainId": "DeleteFile",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "key": "{{ $current.key }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "cancelButtonAction": {
+      "chains": [
+        {
+          "chainId": "CancelUploadDialog",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "showUploadDialogAction": {
+      "chains": [
+        {
+          "chainId": "ShowUploadDialog",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "fileSelectionChanged": {
+      "chains": [
+        {
+          "chainId": "FilePickerSelectionChanged",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-file-picker": {
+        "path": "ojs/ojfilepicker"
+      }
+    }
+  }
+}

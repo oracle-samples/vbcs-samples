@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">This recipe shows you how to implement sorting in a List View component.</div>
+<div class="oj-sm-margin-2x-bottom">This recipe shows you how to implement sorting in a List View component.</div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
     <div class="oj-flex">
@@ -12,10 +12,9 @@
     <div class="oj-flex oj-sm-justify-content-space-between">
       <div class="oj-flex-item oj-sm-flex-initial oj-flex oj-sm-align-items-center">
         <oj-label id="comboBoxLabel" for="sortCombo" class="oj-flex-item oj-sm-flex-initial" style="margin-right:5px">Sort By:</oj-label>
-        <oj-select-one id="sortCombo" class="oj-flex-bar-start oj-sm-flex-initial" value="{{ $variables.countryListSDP.sortCriteria[0].attribute }}">
-          <oj-option value="countryName">Name</oj-option>
-          <oj-option value="countryCode">Code</oj-option>
-        </oj-select-one>
+        <oj-select-single id="sortCombo" class="oj-flex-bar-start oj-sm-flex-initial"
+          value="{{ $variables.countryListSDP.sortCriteria[0].attribute }}" data="[[ $variables.sortByOptionsADP ]]">
+        </oj-select-single>
       </div>
       <div class="oj-flex-item oj-sm-flex-initial oj-flex oj-sm-justify-content-flex-end oj-sm-align-items-center">
         <oj-label class="oj-flex-bar-end" style="margin-right:5px">Ascending</oj-label>

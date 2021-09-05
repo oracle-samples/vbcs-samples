@@ -1,5 +1,4 @@
 {
-
   "title": "",
   "description": "",
   "variables": {
@@ -16,58 +15,35 @@
           "pattern": "MM/dd/yy"
         }
       }
+    },
+    "dateFormatOptions": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "value": "yy-MM-dd",
+          "label": "yy-MM-dd"
+        },
+        {
+          "value": "MM/dd/yy",
+          "label": "MM/dd/yy"
+        }
+      ]
+    },
+    "dateFormatOptionsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.dateFormatOptions }}",
+        "keyAttributes": "value",
+        "textFilterAttributes": [
+          "value"
+        ]
+      }
     }
   },
   "metadata": {},
   "types": {},
-  "chains": {
-    "DateFormatValueChange": {
-      "description": "",
-      "variables": {
-        "value": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "assignDateFormat",
-      "actions": {
-        "assignDateFormat": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.dateFormat": {
-              "source": {
-                "options": {
-                  "pattern": "{{ $chain.variables.value }}"
-                }
-              },
-              "reset": "none",
-              "auto": "always",
-              "mapping": {
-                "$target.options": {
-                  "source": "$source.options",
-                  "reset": "none",
-                  "auto": "always"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "eventListeners": {
-    "ojSelectOneValue": {
-      "chains": [
-        {
-          "chainId": "DateFormatValueChange",
-          "parameters": {
-            "value": "{{ $event.detail.value }}"
-          }
-        }
-      ]
-    }
-  },
+  "chains": {},
+  "eventListeners": {},
   "imports": {
     "components": {
       "oj-form-layout": {
@@ -76,14 +52,13 @@
       "oj-input-date": {
         "path": "ojs/ojdatetimepicker"
       },
-      "oj-label": {
-        "path": "ojs/ojlabel"
-      },
-      "oj-select-one": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+    },
+    "modules": {
+      "ojValidationDateTime": {
+        "path": "ojs/ojvalidation-datetime"
       }
     }
   }

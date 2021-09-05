@@ -1,0 +1,34 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom">
+  This recipe shows you how to customize the behavior of a Service Data Provider fetch action using an action chain that
+  customizes the fetch action.
+</div>
+
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+    <div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-items-initial">
+
+      <h6>Employees from Department SALES (Id=8)</h6>
+
+      <oj-select-single label-hint="Select (Single)"
+        class="oj-flex-item oj-sm-flex-initial oj-form-control-max-width-md"
+        data="[[$page.variables.employeeListSDP]]" item-text="email"></oj-select-single>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px">
+      <div class="recipe-box oj-flex-item">
+        <h1>Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+
+</div>

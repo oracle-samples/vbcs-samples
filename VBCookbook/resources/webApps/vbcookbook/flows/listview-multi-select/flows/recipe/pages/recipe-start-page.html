@@ -65,9 +65,17 @@
           <li>
               In the JavaScript tab, enter the following code to monitor the current selection:
             <br>             
-            <code>
-              PageModule.prototype.selectedItems = new keySet.ObservableKeySet();
-            </code>
+<pre>
+define(['ojs/ojkeyset', 'knockout'], function (keyset, ko) {
+  'use strict';
+
+  var PageModule = function PageModule() { };
+
+  PageModule.prototype.selectedItems = ko.observable(new keyset.KeySetImpl());
+
+  return PageModule;
+});              
+ </pre>
           </li>
           <li>Drop a Flex Container component below the List View component.</li>
         

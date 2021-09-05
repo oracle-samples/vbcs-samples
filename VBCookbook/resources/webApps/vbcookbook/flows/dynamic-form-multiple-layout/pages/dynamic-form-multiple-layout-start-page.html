@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-margin-bottom">
+<div class="oj-sm-margin-2x-bottom">
   <p>This recipe shows you how to render employee details in a Dynamic Form.</p>
   <p>
     The layout of the form for an employee depends on the employee's
@@ -29,6 +29,7 @@
           item-text="[[$page.functions.getName ]]"
           value="{{ $page.variables.emp1 }}"
           on-value-changed="[[$listeners.ojSelectSingleValue]]"
+          :id="[['select-single-employee']]"
         >
         </oj-select-single>
       </div>
@@ -43,6 +44,7 @@
               value="{{ $variables.employee }}"
               value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
               rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}"
+              :id="[['dynamic-form-multiple-layout']]"
             ></oj-dynamic-form>
           </oj-bind-if>
         </div>

@@ -1,0 +1,63 @@
+{
+  "root": "callRestGetallDepartment",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallDepartment.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallDepartment": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Department",
+        "uriParams": {
+          "expand": "employeeCollection",
+          "limit": 10
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "assignVariablesDepartmentArray"
+      }
+    },
+    "assignVariablesDepartmentArray": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.departmentArray": {
+          "source": "{{ $chain.results.callRestGetallDepartment.body.items }}"
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionBuildDept"
+      }
+    },
+    "assignVariablesDepartmentTree": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.departmentTree": {
+          "source": "{{ $chain.results.callFunctionBuildDept }}"
+        }
+      }
+    },
+    "callFunctionBuildDept": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "buildDept",
+        "params": [
+          "{{ $page.variables.departmentArray }}"
+        ],
+        "returnType": "any"
+      },
+      "outcomes": {
+        "success": "assignVariablesDepartmentTree"
+      }
+    }
+  }
+}
