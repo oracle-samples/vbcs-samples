@@ -3,23 +3,25 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom">This recipe shows you how to implement cascading lists of values using the Select Single (oj-select-single) component.</div>
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">This recipe shows you how to implement cascading lists of values using the Select
+  Single (oj-select-single) component.</div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
     <div class="oj-flex">
       <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-6">
 
 
-        <oj-select-single label-hint="Region"
-          data="[[$page.variables.regionListSDP]]" item-text="regionName"
-          value-item="{{ $variables.selectedRegion }}" id="region-select" on-value-item-changed="[[$listeners.regionSelectValueItem]]"></oj-select-single>
-        <oj-select-single label-hint="Country"
-          class="oj-flex-item oj-sm-flex-initial"
+        <oj-select-single label-hint="Region" data="[[$page.variables.regionListSDP]]" item-text="regionName"
+          value-item="{{ $variables.selectedRegion }}" id="region-select"
+          on-value-item-changed="[[$listeners.regionSelectValueItem]]"></oj-select-single>
+        <oj-select-single label-hint="Country" class="oj-flex-item oj-sm-flex-initial"
           data="[[$page.variables.countryListSDP]]" item-text="countryName"
-          value-item="{{ $variables.selectedCountry }}" id="country-select" disabled="[[ !$variables.selectedRegion.key  ]]" on-value-item-changed="[[$listeners.countrySelectValueItem]]"></oj-select-single>
-        <oj-select-single label-hint="Location "
-          class="oj-flex-item oj-sm-flex-initial" item-text="city"
-          value-item="{{ $variables.selectedLocation }}" data="[[$page.variables.locationListSDP]]" id="location-select" disabled="[[ !($variables.selectedRegion.key  && $variables.selectedCountry.key) ]]"></oj-select-single>
+          value-item="{{ $variables.selectedCountry }}" id="country-select"
+          disabled="[[ !$variables.selectedRegion.key  ]]"
+          on-value-item-changed="[[$listeners.countrySelectValueItem]]"></oj-select-single>
+        <oj-select-single label-hint="Location " class="oj-flex-item oj-sm-flex-initial" item-text="city"
+          value-item="{{ $variables.selectedLocation }}" data="[[$page.variables.locationListSDP]]" id="location-select"
+          disabled="[[ !($variables.selectedRegion.key  && $variables.selectedCountry.key) ]]"></oj-select-single>
         <oj-input-text label-hint="Postal Code" readonly="true"
           value="{{ $variables.selectedLocation.data ? $variables.selectedLocation.data.postalCode : '' }}"
           id="postalcode"></oj-input-text>
@@ -40,12 +42,12 @@
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
-    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
-        <h1>Recipe</h1>
-        <div class="oj-flex">
-          <oj-vb-content config="[[ vbRouterFlow ]]"
-            class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>
     </div>

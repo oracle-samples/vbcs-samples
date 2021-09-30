@@ -1,0 +1,111 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Step 1. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <span slot="header">Create the UI and Page Variables</span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a <a target="_blank"
+              href="https://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html?component=filePicker&demo=basic">File
+              Picker</a> component and drop it on the page.</li>
+          <li>In the Properties pane, set the Accept property to <code>[[['image/*']]]</code> to restrict file selection
+            to images.</li>
+          <li>Set the <code>primary-text="Scan Barcode"</code> and
+            <code>secondary-text="Take Picture Or Select An Image"</code> attributes of the File Picker component to
+            have
+            custom text on the component.
+          </li>
+          <li>Set Selection Mode to <code>Single</code> to allow only one image selection at a time.</li>
+          <li>In the Variables tab of the page, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create
+              a variable</a> named <code>scannedData</code> of type String. Set its default value to
+            <code>No Data</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <span slot="header">Create an Action Chain</span>
+      <div>
+        <ol>
+          <li>Select the File Picker component and in the Properties pane add an ojSelect event that creates an action
+            chain named <strong>FilePickerSelectChain</strong> with files array as parameter.
+          </li>
+          <li>Add a <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E7BE6B00-7221-40E4-821D-59BEBBA0D896">
+              Call Function action</a> in the action chain and assign it an ID of
+            <code>CreateImageBitmap</code>.
+          </li>
+          <li>In the Properties pane, click <strong>Create</strong> beside the Function Name field to create a new
+            function with a page scope named <code>createImageBitmap</code>.</li>
+
+          <li>Click <strong>Go to Module Function</strong> and in the JavaScript tab add the following code:
+            <code>
+                  <pre>
+define([], function () {
+  'use strict';
+
+  var PageModule = function PageModule() { };
+
+  /**
+   *
+   * @param {String} arg1
+   * @return {String}
+   */
+  PageModule.prototype.createImageBitmap = function (fileBlob) {
+    return window.createImageBitmap(fileBlob);
+  };
+
+  return PageModule;
+});
+</pre>
+</code>
+          </li>
+          <li>In the action chain Properties pane of the Call Function action, click <strong>Assign</strong> beside
+            Input Parameters.</li>
+          <li>In the Assign Input Parameters dialog, expand Results under Source to locate the Variables->Files->item[0]
+          </li>
+          <li>Map <code>item[0]</code> to <code>file</code> under Parameters in Target so that the final expression for
+            the file parameter
+            reads as <code>$variables.files[0]</code>.
+          </li>
+          <li>Click <strong>Save</strong>.</li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> after the Call Function action and assign it an ID of
+            <code>resetScannedDataVariable</code>.
+          </li>
+          <li>In the Properties pane of the Assign Variables action, click <strong>Assign</strong> and assign the string
+            value <code>No Data</code> to the page variable <code>scannedData</code>.
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E3016940-FEF5-40CF-9420-92392A760907">Add
+              a Scan Barcode action</a> after the resetScannedDataVariable action and assign an ID of
+            <code>scanBarcode</code> to this action.
+          </li>
+          <li>In the Properties pane of the scanBarcode action, assign the value of
+            <code>[[ $chain.results.CreateImageBitmap ]]</code> to the Image field.
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              an Assign Variables action</a> after the scanBarcode action and assign it an ID of
+            <code>assignScannedData</code>.
+          </li>
+          <li>In the Properties pane of the assignScannedData action, click <strong>Assign</strong> and map the ouput of
+            the scanBarcode action to the page variable <code>scannedData</code> so that its expression reads as
+            <code>$chain.results.scanBarcode.rawValue</code>.
+          </li>
+          <li>Click <strong>Save</strong>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>

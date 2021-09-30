@@ -1,0 +1,10 @@
+{
+
+  "id": "take-photo",
+  "description": "Flow main",
+  "defaultPage": "take-photo-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

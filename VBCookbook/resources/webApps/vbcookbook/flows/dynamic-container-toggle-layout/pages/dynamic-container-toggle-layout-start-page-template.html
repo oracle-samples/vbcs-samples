@@ -7,7 +7,7 @@
 <template id="formExample">
   <h3>Form Example</h3>
   <oj-bind-if test="[[ true ]]">
-    <oj-dynamic-form direction="row" metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+    <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
       layout="formExampleLayout" readonly="true" value="{{ $variables.employee }}"
       value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
       rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" :id="[['form-template']]"></oj-dynamic-form>

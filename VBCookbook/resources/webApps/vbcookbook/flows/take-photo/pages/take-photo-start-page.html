@@ -1,0 +1,29 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  This recipe shows you how to use the File Picker action to access the camera and photo gallery on the device where
+  your application is installed.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box oj-sm-align-items-center">
+    <oj-avatar class="oj-flex-item oj-sm-align-self-center oj-sm-margin-2x oj-avatar-group-image oj-sm-flex-initial"
+      size="xxl" id="mypic" src="[[ $variables.holdImage ]]"></oj-avatar>
+    <oj-file-picker class="oj-flex-item oj-sm-flex-initial" selection-mode="single"
+      on-oj-select="[[$listeners.ojFilePickerOjSelect]]" accept="[[['image/*']]]"></oj-file-picker>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,29 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom">
+  This recipe shows you how to start to edit a List View component by swiping to the right.
+</div>
+<div class="oj-flex-item oj-flex" style="padding-left:5px;">
+  <div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-1">
+    <div class="oj-flex-item oj-sm-flex-initial">
+      <oj-validation-group id="form_edit">
+        <oj-form-layout>
+          <oj-input-text label-hint="First Name" value="{{ $variables.editEmployeeDetails.firstName }}"></oj-input-text>
+          <oj-input-text label-hint="Last Name" value="{{ $variables.editEmployeeDetails.lastName }}"></oj-input-text>
+          <oj-input-number label-hint="Salary" value="{{ $variables.editEmployeeDetails.salary }}"></oj-input-number>
+        </oj-form-layout>
+      </oj-validation-group>
+    </div>
+    <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+      <div class="oj-flex-item oj-sm-flex-initial">
+        <oj-button on-oj-action="[[$listeners.ojButtonOjAction]]">Save</oj-button>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial" style="padding-left:20px;">
+        <oj-button on-oj-action="[[$listeners.ojButtonOjAction2]]">Back</oj-button>
+      </div>
+    </div>
+  </div>
+</div>

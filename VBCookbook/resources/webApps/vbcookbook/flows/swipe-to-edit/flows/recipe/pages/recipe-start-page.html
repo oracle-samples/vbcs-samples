@@ -1,0 +1,223 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>In addition to adding the swipe action behavior, you'll also add a Validation Group component and write a custom
+  validator to ensure that user-entered values remain within a valid range.
+
+
+  All changes are stored locally in the browser until the user clicks <strong>Save</strong>, at which time a REST call
+  posts the changes to the backend service.
+
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <span slot="header">Create the UI</span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a List View component and drop it on the page.</li>
+          <li>Use the List View component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to bind the list to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Id</li>
+              <li>Salary</li>
+            </ul>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <span slot="header">Add Swipe Action</span>
+      <div>
+        <ol>
+          <li>In the Page Designer, select the List View component.</li>
+          <li>In the General tab of the Properties pane, under Swipe Actions, click on <strong>Right Side</strong>, and
+            select <strong>Custom Swipe Tile</strong>.</li>
+          <li>In the Create Swipe Action Tile dialog, enter <code>RightEdit</code> for Label, and click
+            <strong>Create</strong>.
+          </li>
+          <li>In the Properties pane, click <strong>RightEdit</strong> and set the value of the Class property for the
+            Swipe Tile to
+            <code>oj-swipeactions-default</code>.
+            <p>This calls the edit action by default if the swipe action is performed across until the extreme left.</p>
+          </li>
+          <li>Click <strong>Open Action Chain</strong>.
+          </li>
+          <li>In the action chain editor, drag and drop a Navigate action under Add Case.</li>
+          <li>In the Add Case dialog, enter <code>rightedit.</code></li>
+          <li>In the Properties pane of the Navigate action, click <strong>Create</strong> to open the Create Page
+            dialog where you specify the ID of
+            the page that you create and navigate to (<code>swipe-to-edit-editpage</code>).</li>
+          <li>Click <strong>Go to Page</strong> to navigate to the newly-created
+            <code>swipe-to-edit-editpage</code> page.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-3">
+      <span slot="header">Create the swipe-to-edit-editpage Model</span>
+      <div>
+        <ol>
+          <li>In the Variables tab of the Page Designer for the <code>swipe-to-edit-editpage</code>
+            page, create a variable named <code>employee_ID</code>
+            of type Number.</li>
+          <li>In the Properties pane, select <strong>Required</strong> under Input Parameter, and select the
+            <strong>Pass On URL</strong> checkbox.
+          </li>
+
+          <li>In the action chain for the main page, assign Input Parameters to
+            <strong>swipe-to-edit-editpage</strong> and map <code>employeeid</code> to
+            <code>employee_ID</code>.
+          </li>
+          <li>Navigate to <strong>swipe-to-edit-editpage</strong> and <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">
+              create a type from Patch endpoint</a> where you select the following employee fields:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Id</li>
+              <li>Salary</li>
+            </ul>
+          </li>
+          <li> <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+              Create a variable</a>, <code>editEmployeeDetails</code>, and assign it the type that you just created.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <span slot="header">Fetch Employee Details</span>
+      <div>
+        <ol>
+          <li>Add a <code>vbEnter</code> <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-85B98D5E-B1A1-4AD6-9D67-CC9AE28DA668">
+              event listener</a> to <strong>swipe-to-edit-editpage</strong>, and
+            create a page action chain with an ID of <code>getDatafromMainPage</code>.</li>
+
+          <li>In the <code>getDatafromMainPage</code> action chain, drop a Call REST action after start and
+            select GET Employee/{Employee_Id} as the endpoint.</li>
+          <li>Map <code>employee_ID</code> to <code>Employee_Id</code> under Parameters and click <strong>Save</strong>.
+          </li>
+          <li>Drop an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              Variables action</a> under the success outcome of the Call REST action and map the body of the
+            REST endpoint to <code>editEmployeeDetails</code>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-5">
+      <span slot="header">Create UI of the swipe-to-edit-editpage</span>
+      <div>
+        <ol>
+          <li>In the Component Palette, drag a Form Layout component and drop it on the page.</li>
+
+          <li>Add the following components to the Form Layout component:
+            <ul>
+              <li>Input Text component for First Name </li>
+              <li>Input Text component for Last Name </li>
+              <li>Input Number component for Salary </li>
+            </ul>
+          </li>
+          <li>Surround the Form Layout component with a Validation Group component (<code>oj-validation-group</code>),
+            and assign it an ID of <strong>form_edit</strong>.</li>
+
+          <li>Set the following values:
+            <ul>
+              <li>First Name Value property to <code>{{ $variables.editEmployeeDetails.firstName }}</code></li>
+              <li>Last Name Value property to <code>{{ $variables.editEmployeeDetails.lastName }} </code></li>
+              <li>Salary Value property to <code>{{ $variables.editEmployeeDetails.salary }} </code></li>
+            </ul>
+          </li>
+          <li>In the Component Palette, drag a Button component and drop it on the page, and rename it
+            <strong>Save</strong>.
+          </li>
+          <li>Drag and drop another Button component on the page, and rename it <strong>Back</strong>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-6">
+      <span slot="header">Save Action Chain and Form Validation</span>
+      <div>
+        <ol>
+          <li>In the Events tab of the Properties pane for the Save button, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">create
+              a new event</a> for ojAction and assign it an ID of <code>SaveEmployeeDataActionChain</code>.</li>
+          <li>In the action chain, add a Call Function action with an ID of <code>Validity_tracker</code>, create
+            a function name of <code>validate_form</code>.</li>
+          <li>Assign a value for the <code>arg1</code> parameter. In the Expression editor, enter
+            <strong>form_edit</strong>, and click <strong>Save</strong>.
+          </li>
+          <li>In the Return Type dropdown list, select <strong>Boolean</strong>.</li>
+          <li>Click <strong>Go to Module Function</strong> under <code>validate_form</code>, and add the following lines
+            of code:
+            <code>
+                <pre>
+ validate_form(arg1) {
+   const el = document.getElementById(arg1);
+   if(el.valid === "valid"){
+     return true;
+   }else{
+     el.showMessages();
+     el.focusOn('@firstErrorShown');
+     return false;
+   }
+ }
+                </pre>
+              </code>
+          </li>
+          <li>In the action chain, drag an If action onto the chain and set Condition to
+            <code>[[ $chain.results.Validity_tracker ]]</code>.
+          </li>
+          <li>Drag a Call REST action, drop it on the true path of the action chain, and select the Patch
+            endpoint. </li>
+          <li>Map the following two parameters:
+            <ul>
+              <li><code>employee_ID</code> to <code>Employee_Id</code>.</li>
+              <li><code>$page.variables.editEmployeeDetails</code> to <code>body</code>.</li>
+            </ul>
+          </li>
+          <li>Drop a <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-9388B17C-3306-4966-BE66-2A0889879A17">Navigate
+              Back action</a> on the
+            success path of the action chain.</li>
+        </ol>
+        <p> The event listener for the <strong>Save Changes</strong> button triggers the
+          SaveEmployeeDataActionChain that includes a Call Function where
+          the associated function validates the changes to upload. The subsequent Call REST action uploads this
+          payload through the business objects REST Endpoint.
+        </p>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-7">
+      <span slot="header">Create Back Action Chain</span>
+      <div>
+        <ol>
+          <li>In the Events tab of the Properties pane for the Back button, <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">create
+              a new event</a> for ojAction and assign it an ID of <code>navigateBackActionChain</code>.
+          </li>
+          <li>Drop a <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-9388B17C-3306-4966-BE66-2A0889879A17">Navigate
+              Back action</a> in the action chain.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>

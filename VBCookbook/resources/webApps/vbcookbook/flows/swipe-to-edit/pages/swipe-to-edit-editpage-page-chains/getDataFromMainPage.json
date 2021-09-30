@@ -1,0 +1,38 @@
+{
+  "root": "callRestGetEmployee",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Employee",
+        "uriParams": {
+          "Employee_Id": "{{ $page.variables.employee_ID }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "assignVariablesEditEmployeeDetails"
+      }
+    },
+    "assignVariablesEditEmployeeDetails": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.editEmployeeDetails": {
+          "source": "{{ $chain.results.callRestGetEmployee.body }}",
+          "auto": "always"
+        }
+      }
+    }
+  }
+}

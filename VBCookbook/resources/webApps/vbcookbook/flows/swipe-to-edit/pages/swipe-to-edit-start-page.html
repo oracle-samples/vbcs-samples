@@ -1,0 +1,50 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  This recipe shows you how to start to edit a List View component by swiping the list item from right to left.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <div class="oj-flex-item">
+      <oj-list-view data="[[$page.variables.employeeListSDP]]" style="height:500px;">
+        <template slot="itemTemplate">
+          <li class="oj-swipeactions-container">
+            <oj-swipe-actions class="oj-listview-item-layout"
+              on-oj-action="[[$page.listeners.ojSwipeActionsPerformed]]">
+              <oj-list-item-layout>
+                <div slot="leading">
+                  <oj-bind-text value="[[ $current.data.id ]]"></oj-bind-text>
+                </div>
+                <div>
+                  <oj-bind-text value="[[ $current.data.firstName + ' ' + $current.data.lastName ]]"></oj-bind-text>
+                </div>
+                <div slot="trailing">
+                  <oj-bind-text value="[[ $current.data.salary ]]"></oj-bind-text>
+                </div>
+              </oj-list-item-layout>
+              <template slot="end">
+                <oj-option value="rightedit" class="oj-swipeactions-default">Edit
+                  <span slot="startIcon" style="width: auto;" class="oj-ux-ico-hand-up"></span>
+                </oj-option>
+              </template>
+            </oj-swipe-actions>
+          </li>
+        </template>
+      </oj-list-view>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1" :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-flex">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

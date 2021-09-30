@@ -3,10 +3,10 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom">
-  
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+
   This recipe shows you how to change background color in a Table component’s column using the LED Gauge component.
-  
+
 </div>
 <div class="oj-flex">
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
@@ -14,21 +14,23 @@
       <h1 class="oj-flex-item oj-sm-12 oj-md-12">Books</h1>
     </div>
     <div class="oj-flex">
-      <oj-table style="max-height: 500px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
-        data="[[$page.variables.booksListADP]]" columns='[{"headerText":"Title","field":"title"},{"headerText":"Rating","field":"rating","template":"ratingTemplate"},{"headerText":"Price","field":"price"},{"headerText":"Author","field":"author"},{"headerText":"Reviews","field":"reviews"}]'>
+      <oj-table style="max-height: 500px; width: 100%" scroll-policy="loadMoreOnScroll"
+        class="oj-flex-item oj-sm-12 oj-md-12" data="[[$page.variables.booksListADP]]"
+        columns='[{"headerText":"Title","field":"title"},{"headerText":"Rating","field":"rating","template":"ratingTemplate"},{"headerText":"Price","field":"price"},{"headerText":"Author","field":"author"},{"headerText":"Reviews","field":"reviews"}]'>
         <template slot="ratingTemplate">
-      <oj-led-gauge id="gauge13" value="[[$current.data]]"
-        thresholds='[{"max": 2}, {"max": 4}, {}]' metric-label.rendered="on"></oj-led-gauge>
-    </template>
+          <oj-led-gauge id="gauge13" value="[[$current.data]]" thresholds='[{"max": 2}, {"max": 4}, {}]'
+            metric-label.rendered="on"></oj-led-gauge>
+        </template>
       </oj-table>
     </div>
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
-    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
-        <h1>Recipe</h1>
-        <div class="oj-flex">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

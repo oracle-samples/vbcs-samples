@@ -1,0 +1,65 @@
+{
+
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {
+    "ojSwipeActionsPerformed": {
+      "chains": [
+        {
+          "chainId": "performSwipeOperationChain",
+          "parameters": {
+            "navigationItem": "[[$event.target.value]]",
+            "employeeId": "[[$current.key]]",
+            "rowData": "[[$current.data]]"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-swipe-actions": {
+        "path": "ojs/ojswipeactions"
+      }
+    }
+  }
+}

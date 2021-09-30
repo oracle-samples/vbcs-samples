@@ -1,0 +1,56 @@
+{
+  "description": "",
+  "root": "Validity_tracker",
+  "actions": {
+    "Validity_tracker": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "validate_form",
+        "params": [
+          "form_edit"
+        ],
+        "returnType": "boolean"
+      },
+      "outcomes": {
+        "success": "if"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.Validity_tracker ]]"
+      },
+      "outcomes": {
+        "true": "callRestUpdateEmployee"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestUpdateEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestUpdateEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/update_Employee",
+        "uriParams": {
+          "Employee_Id": "{{ $page.variables.employee_ID }}"
+        },
+        "body": "{{ $page.variables.editEmployeeDetails }}"
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "navigateBack"
+      }
+    },
+    "navigateBack": {
+      "module": "vb/action/builtin/navigateBackAction"
+    }
+  },
+  "variables": {}
+}

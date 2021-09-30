@@ -3,41 +3,46 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom">
-  This recipe shows you how to configure business rules that trigger actions based on the updates that a user makes to business object data.
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  This recipe shows you how to configure business rules that trigger actions based on the updates that a user makes to
+  business object data.
 </div>
 
 <div class="oj-flex">
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <div class="oj-flex">
-        <oj-toolbar id="oj-toolbar-for-oj-table-11161435-1" chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
-          <oj-button disabled="[[ $page.variables.oj_table_11161435_1SelectedId === '' ]]" on-oj-action="[[$page.listeners.editEmployeeButtonClicked]]">Edit Employee</oj-button>
-        </oj-toolbar>
+      <oj-toolbar id="oj-toolbar-for-oj-table-11161435-1" chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
+        <oj-button disabled="[[ $page.variables.oj_table_11161435_1SelectedId === '' ]]"
+          on-oj-action="[[$page.listeners.editEmployeeButtonClicked]]">Edit Employee</oj-button>
+      </oj-toolbar>
     </div>
     <div class="oj-flex">
-      <oj-table style="max-height: 400px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-11" data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"Id","field":"id"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Salary","field":"salary"},{"headerText":"Job","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate2"},{"headerText":"Manager","field":"managerObject","sortProperty":"managerObject.lastName","template":"lastNameCellTemplate3"}]' id="oj-table-11161435-1" selection-mode.row="single" selection-mode.column="single" on-first-selected-row-changed="[[ $page.listeners.oj_table_11161435_1SelectionChanged ]]">
+      <oj-table style="max-height: 400px; width: 100%" scroll-policy="loadMoreOnScroll"
+        class="oj-flex-item oj-sm-12 oj-md-11" data="[[$page.variables.employeeListSDP]]"
+        columns='[{"headerText":"Id","field":"id"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Salary","field":"salary"},{"headerText":"Job","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate2"},{"headerText":"Manager","field":"managerObject","sortProperty":"managerObject.lastName","template":"lastNameCellTemplate3"}]'
+        id="oj-table-11161435-1" selection-mode.row="single" selection-mode.column="single"
+        on-first-selected-row-changed="[[ $page.listeners.oj_table_11161435_1SelectionChanged ]]">
         <template slot="jobTitleCellTemplate2">
-            <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].jobTitle : undefined ]]"></oj-bind-text>
-          </template>
-          <template slot="lastNameCellTemplate3">
-            <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].lastName : undefined ]]"></oj-bind-text>
+          <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].jobTitle : undefined ]]">
+          </oj-bind-text>
+        </template>
+        <template slot="lastNameCellTemplate3">
+          <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].lastName : undefined ]]">
+          </oj-bind-text>
         </template>
       </oj-table>
     </div>
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
-    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
-        <h1>Recipe</h1>
-        <div class="oj-flex">
-          <oj-vb-content
-            config="[[ vbRouterFlow ]]"
-            class="oj-flex-item oj-sm-12 oj-md-12"
-          ></oj-vb-content>
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>
     </div>
   </oj-bind-if>
-
 </div>

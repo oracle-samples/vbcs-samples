@@ -1,0 +1,10 @@
+{
+
+  "id": "geolocation",
+  "description": "Flow main",
+  "defaultPage": "geolocation-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

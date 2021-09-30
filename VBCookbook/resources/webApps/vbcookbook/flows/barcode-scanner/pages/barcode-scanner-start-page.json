@@ -1,0 +1,34 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "scannedData": {
+      "type": "string",
+      "defaultValue": "No Data"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "ojFilePickerOjSelect": {
+      "chains": [
+        {
+          "chainId": "FilePickerSelectChain",
+          "parameters": {
+            "files": "[[ Array.prototype.slice.call($event.detail.files) ]]"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-file-picker": {
+        "path": "ojs/ojfilepicker"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

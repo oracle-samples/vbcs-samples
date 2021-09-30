@@ -1,0 +1,14 @@
+{
+  "root": "callFunctionInitNavigationMenu",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "callFunctionInitNavigationMenu": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "initNavigationMenu"
+      }
+    }
+  }
+}

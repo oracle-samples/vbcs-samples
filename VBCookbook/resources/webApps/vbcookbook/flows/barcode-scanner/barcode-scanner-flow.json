@@ -1,0 +1,8 @@
+{
+  "id": "barcode-scanner",
+  "description": "Flow main",
+  "defaultPage": "barcode-scanner-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

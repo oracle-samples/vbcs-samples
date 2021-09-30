@@ -1,0 +1,37 @@
+{
+  "description": "",
+  "root": "callAddImageFunction",
+  "actions": {
+    "assignVariablesImageUrl": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.holdImage": {
+          "source": "{{ $chain.results.callAddImageFunction.data }}"
+        },
+        "$page.variables.imageUrl": {
+          "source": "{{ $chain.results.callAddImageFunction.url }}"
+        }
+      }
+    },
+    "callAddImageFunction": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "addImageFunction",
+        "params": [
+          "{{ $variables.files[0] }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesImageUrl"
+      }
+    }
+  },
+  "variables": {
+    "files": {
+      "required": true,
+      "type": "object[]",
+      "input": "fromCaller"
+    }
+  }
+}

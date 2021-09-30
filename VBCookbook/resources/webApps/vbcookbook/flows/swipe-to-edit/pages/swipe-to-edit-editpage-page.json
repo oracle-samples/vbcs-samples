@@ -1,0 +1,72 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "editEmployeeDetails": {
+      "type": "update_Employee"
+    },
+    "employee_ID": {
+      "type": "number",
+      "required": true,
+      "input": "fromUrl"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.update_Employee": {
+      "endpoint": "update_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "update_Employee": {
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string",
+      "salary": "number"
+    }
+  },
+  "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "SaveEmployeeDataActionChain"
+        }
+      ]
+    },
+    "ojButtonOjAction2": {
+      "chains": [
+        {
+          "chainId": "navigateBackActionChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "getDataFromMainPage",
+          "parameters": {}
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

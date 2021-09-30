@@ -195,9 +195,10 @@
         "label": "Progressive Web Apps",
         "icon": "cell-phone",
         "items": [
-          "mobile-pwa-geolocation",
-          "mobile-pwa-takephotoaction",
-          "mobile-pwa-swipetoeditlistview"
+          "geolocation",
+          "take-photo",
+          "swipe-to-edit",
+          "barcode-scanner"
         ]
       }
     ]

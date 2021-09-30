@@ -782,50 +782,50 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "mobile-barcode-scanner": {
-    "id": "mobile-barcode-scanner",
+  "barcode-scanner": {
+    "id": "barcode-scanner",
     "runtime": "vb",
-    "label": "Bar Code Scanner",
+    "label": "Barcode Scanner",
     "defaultOrientation": false,
     "apiRef": [],
     "seealso": [],
-    "demoPageName": "mobile-barcode-scanner-start",
+    "demoPageName": "barcode-scanner-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "mobile-pwa-geolocation": {
-    "id": "mobile-pwa-geolocation",
+  "geolocation": {
+    "id": "geolocation",
     "runtime": "vb",
     "label": "Geolocation",
     "defaultOrientation": false,
     "apiRef": [],
     "seealso": [],
-    "demoPageName": "mobile-pwa-geolocation-start",
+    "demoPageName": "geolocation-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "mobile-pwa-takephotoaction": {
-    "id": "mobile-pwa-takephotoaction",
+  "take-photo": {
+    "id": "take-photo",
     "runtime": "vb",
     "label": "Take Photo",
     "defaultOrientation": false,
     "apiRef": [],
     "seealso": [],
-    "demoPageName": "mobile-pwa-takephotoaction-start",
+    "demoPageName": "take-photo-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "mobile-pwa-swipetoeditlistview": {
-    "id": "mobile-pwa-swipetoeditlistview",
+  "swipe-to-edit": {
+    "id": "swipe-to-edit",
     "runtime": "vb",
     "label": "Swipe to Edit List ",
     "defaultOrientation": false,
     "apiRef": [],
     "seealso": [],
-    "demoPageName": "mobile-pwa-swipetoeditlistview-start",
+    "demoPageName": "swipe-to-edit-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"

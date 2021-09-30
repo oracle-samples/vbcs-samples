@@ -3,32 +3,33 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
 
-<div class="oj-sm-margin-2x-bottom">
- 
-	This recipe shows you how to use the Data Grid (<code>oj-data-grid</code>) component in a Visual Builder app. Unlike other collection components, such as the 
-	Table and List View components, the Data Grid component does not have first-class support in Visual Builder. For this reason, you write code in 
-	your app's HTML and JavaScript files to make use of the Data Grid component.
+  This recipe shows you how to use the Data Grid (<code>oj-data-grid</code>) component in a Visual Builder app. Unlike
+  other collection components, such as the
+  Table and List View components, the Data Grid component does not have first-class support in Visual Builder. For this
+  reason, you write code in
+  your app's HTML and JavaScript files to make use of the Data Grid component.
 
- 
+
 </div>
 <div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
- 
-  <oj-data-grid id="datagrid" style="width:100%;height:400px;max-width:954px;"
-		aria-label="Data Grid Formatted Row Based Grid Demo"
-		data="[[$functions.getDataSource($variables.employeeData)]]" 
-		banding-interval.row="1" header.column.renderer="[[$functions.getRenderer('header_template')]]"
-		header.column.style="width:125px" header.column.resizable.width="enable" header.column.resizable.height="enable"
-		cell.renderer="[[$functions.getRenderer('cell_template')]]" cell.class-name="[[$functions.getCellClassName]]">
-	</oj-data-grid>
- 
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
+
+    <oj-data-grid id="datagrid" style="width:100%;min-width: 300px; height:400px;max-width:954px;"
+      aria-label="Data Grid Formatted Row Based Grid Demo" data="[[$functions.getDataSource($variables.employeeData)]]"
+      banding-interval.row="1" header.column.renderer="[[$functions.getRenderer('header_template')]]"
+      header.column.style="width:125px" header.column.resizable.width="enable" header.column.resizable.height="enable"
+      cell.renderer="[[$functions.getRenderer('cell_template')]]" cell.class-name="[[$functions.getCellClassName]]">
+    </oj-data-grid>
+
   </div>
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
-    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
-        <h1>Recipe</h1>
-        <div class="oj-flex">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>
@@ -40,46 +41,46 @@
 
 
 <script type="text/html" id="header_template">
-	<oj-bind-if test="[[$context.key=='firstName']]">
-		<span><oj-bind-text value="First Name"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.key=='lastName']]">
-		<span><oj-bind-text value="Last Name"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.key=='email']]">
-		<span><oj-bind-text value="Email Address"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.key=='phoneNumber']]">
-		<span><oj-bind-text value="Phone #"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.key=='hireDate']]">
-		<span><oj-bind-text value="Date Hired"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.key=='salary']]">
-		<span><oj-bind-text value="Salary"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.key=='departmentObject']]">
-		<span><oj-bind-text value="Department Name"></oj-bind-text></span>
-	</oj-bind-if>
+  <oj-bind-if test="[[$context.key=='firstName']]">
+    <span><oj-bind-text value="First Name"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.key=='lastName']]">
+    <span><oj-bind-text value="Last Name"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.key=='email']]">
+    <span><oj-bind-text value="Email Address"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.key=='phoneNumber']]">
+    <span><oj-bind-text value="Phone #"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.key=='hireDate']]">
+    <span><oj-bind-text value="Date Hired"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.key=='salary']]">
+    <span><oj-bind-text value="Salary"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.key=='departmentObject']]">
+    <span><oj-bind-text value="Department Name"></oj-bind-text></span>
+  </oj-bind-if>
 </script>
 <script type="text/html" id="cell_template">
-	<oj-bind-if test="[[$context.keys.column=='departmentObject']]">
-		<span><oj-bind-text value="[[$context.data.items.length > 0?$context.data.items[0].departmentName:'']]"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if
-		test="[[$context.keys.column=='firstName' || $context.keys.column=='lastName' || $context.keys.column=='phoneNumber']]">
-		<span> <oj-bind-text value="[[$context.data]]"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.keys.column=='email']]">
-		<span>
+  <oj-bind-if test="[[$context.keys.column=='departmentObject']]">
+    <span><oj-bind-text value="[[$context.data.items.length > 0?$context.data.items[0].departmentName:'']]"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if
+    test="[[$context.keys.column=='firstName' || $context.keys.column=='lastName' || $context.keys.column=='phoneNumber']]">
+    <span> <oj-bind-text value="[[$context.data]]"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.keys.column=='email']]">
+    <span>
                       <a :href="[['mailto:'+ $context.data + '?Subject=Hello']]">
                           <oj-bind-text value ="[[$context.data]]"></oj-bind-text></a>
                   </span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.keys.column=='hireDate']]">
-		<span> <oj-bind-text value="[[$parent.$functions.formatDate($context.data)]]"></oj-bind-text></span>
-	</oj-bind-if>
-	<oj-bind-if test="[[$context.keys.column=='salary']]">
-		<span> <oj-bind-text value="[[$parent.$functions.formatNumber($context.data)]]"></oj-bind-text></span>
-	</oj-bind-if>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.keys.column=='hireDate']]">
+    <span> <oj-bind-text value="[[$parent.$functions.formatDate($context.data)]]"></oj-bind-text></span>
+  </oj-bind-if>
+  <oj-bind-if test="[[$context.keys.column=='salary']]">
+    <span> <oj-bind-text value="[[$parent.$functions.formatNumber($context.data)]]"></oj-bind-text></span>
+  </oj-bind-if>
 </script>

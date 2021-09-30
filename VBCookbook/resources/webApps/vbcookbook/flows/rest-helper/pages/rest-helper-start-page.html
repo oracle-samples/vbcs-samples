@@ -3,21 +3,21 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom">
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
     This demo shows how to use <b>vb/helpers/rest</b> to make rest calls using custom
     JavaScript. It uses async validators to make rest call to the backend to validate
     email. If you enter one of the employee email from the table below you will get
     an error.
   </div>
-  <div class="oj-flex oj-flex-item">
-    <div class="oj-flex oj-flex-item sample-box oj-sm-padding-2x">
-      <div class="oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-align-items-flex-start" style="min-width: 450px;">
-        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
-          <h1 class="oj-flex-item oj-sm-12 oj-md-12">Create New Employee</h1>
+  <div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
+      <div class="oj-flex oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-align-items-flex-start" style="overflow-x: auto">
+        <div class="oj-flex-item oj-sm-flex-initial">
+          <h2 class="oj-flex-item oj-sm-12 oj-md-12">Create New Employee</h2>
         </div>
-        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+        <div class="oj-flex-item oj-sm-flex-initial">
           <oj-validation-group id="tracker" class="oj-flex-item oj-sm-12 oj-md-12">
-            <oj-form-layout label-edge="start">
+            <oj-form-layout">
               <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}"
               required="true" id="input-first-name"></oj-input-text>
               <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
@@ -28,29 +28,28 @@
             </oj-form-layout>
           </oj-validation-group>
         </div>
-        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
+        <div class="oj-flex-item oj-sm-flex-initial">
           <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
             <oj-button chroming="solid" id="validate-btn" on-oj-action="[[$listeners.validateHandler]]">Validate</oj-button>
           </oj-toolbar>
         </div>
       </div>
-      <div class="oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column">
-        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
-          <h1 class="oj-flex-item oj-sm-12 oj-md-12">Existing Employees</h1>
+        <div class="oj-flex">
+          <h2 class="">Existing Employees</h2>
         </div>
-        <div class="oj-flex oj-flex-item oj-sm-flex-initial">
-          <oj-table style="max-height: 200px" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
+        <div class="oj-flex">
+          <oj-table style="max-height: 200px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
           data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","field":"email"}]'
           scroll-policy-options.fetch-size="10" id="employee-table"></oj-table>
         </div>
-      </div>
     </div>
 
-  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
-    <div class="oj-flex oj-sm-flex-0 oj-md-flex-1" style="min-width: 500px;">
+ <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
-        <h1>Recipe</h1>
-        <div class="oj-flex">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

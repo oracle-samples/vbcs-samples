@@ -3,6 +3,26 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
+pre {
+  overflow-x: auto;
+}
+.cookbook-navigation-menu-panel {
+  left: -300px;
+  position: absolute;
+  transition: left 750ms ease-in-out;
+}
+
+.cookbook-content-panel {
+  transition: margin-left 750ms ease-in-out;
+}
+
+.navigation-menu-out .cookbook-navigation-menu-panel {
+  left: 0px;
+} 
+.navigation-menu-out .cookbook-content-panel {
+  margin-left: 300px;
+}
+
 .cookbook-page-footer.oj-web-applayout-footer {
     background-color: #3A3C3E;
     padding-bottom: 0;
@@ -673,12 +693,6 @@ html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.
   flex-direction: column;
 }
 
-
-.cardLayoutCustom li.oj-listview-item-element {
-    background: transparent;
-    border: none !important;
-    width:21vw;
-}
 
 .fab-button{
     position: fixed;

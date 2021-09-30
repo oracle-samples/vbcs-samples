@@ -13,20 +13,38 @@ define(['knockout',
   'use strict';
 
   var drawerParams = {
-    displayMode: 'push',
+    displayMode: "overlay",
     selector: '#navDrawer',
     content: '#pageContent'
   };
 
-  // If the drawer is open and the page gets resized close it on medium and larger screens
-  var mdQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_UP);
-  var mdScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdQuery);
-  mdScreen.subscribe(function() {
-    OffCanvasUtils.close(drawerParams);
-  });
-
   var PageModule = function PageModule() {
     this.navlistExpanded = new keySet.ObservableKeySet();
+
+    var self = this;
+
+    // If the drawer is open and the page gets resized close it on medium and larger screens
+    var lgUpQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+    var lgUpScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(lgUpQuery);
+    lgUpScreen.subscribe(function(on) {
+      if (on) {
+        OffCanvasUtils.close(drawerParams);
+        self.hideNavMenu(false);
+      }
+    });
+
+    var mdDownQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_DOWN);
+    this.mdDownScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdDownQuery);
+    this.mdDownScreen.subscribe(function(on) {
+      if (on) {
+        self.hideNavMenu(true);
+      }
+    });
+
+    PageModule.prototype.initNavigationMenu = function (arg1) {
+      this.hideNavMenu(this.mdDownScreen());
+    };
+
   };
 
   /**
@@ -41,6 +59,23 @@ define(['knockout',
    */
   PageModule.prototype.toggleDrawer = function() {
     return OffCanvasUtils.toggle(drawerParams);
+  };
+
+  PageModule.prototype.animateNavMenu = function() {
+    let container = document.getElementById("animationParent");
+    if (container.classList.contains("navigation-menu-out")) {
+        this.hideNavMenu(true);
+    } else {
+        this.hideNavMenu(false);
+    }
+  };
+  PageModule.prototype.hideNavMenu = function(hide) {
+    let container = document.getElementById("animationParent");
+    if (hide) {
+      container.classList.remove("navigation-menu-out");
+    } else {
+      container.classList.add("navigation-menu-out");
+    }
   };
 
   /**
@@ -227,7 +262,6 @@ define(['knockout',
       }, ms);
     });
   };
-
 
   return PageModule;
 });

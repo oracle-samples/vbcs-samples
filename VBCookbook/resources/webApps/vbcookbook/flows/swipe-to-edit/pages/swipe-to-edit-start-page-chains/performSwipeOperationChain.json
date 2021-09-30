@@ -1,0 +1,43 @@
+{
+  "root": "switch",
+  "variables": {
+    "navigationItem": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "employeeId": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "rowData": {
+      "type": "any",
+      "required": false,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "switch": {
+      "module": "vb/action/builtin/switchAction",
+      "parameters": {
+        "caseValue": "[[$chain.variables.navigationItem]]",
+        "possibleValues": [
+          "rightedit"
+     ]
+      },
+      "outcomes": {
+        "rightedit": "navigateToMobilePwaSwipetoeditlistviewEditpage"
+    }
+    },
+    "navigateToMobilePwaSwipetoeditlistviewEditpage": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "swipe-to-edit-editpage",
+        "params": {
+          "employee_ID": "{{ $variables.employeeId }}"
+        }
+      }
+    }
+  }
+}

@@ -193,7 +193,7 @@
             ]
           },
           "outcomes": {
-            "success": "updateCurrentPageAndLabel"
+            "success": "if"
           }
         },
         "updateCurrentPageAndLabel": {
@@ -238,6 +238,15 @@
           "outcomes": {
             "success": "navigateToRecipe"
           }
+        },
+        "if": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.getRecipeDescriptor !== undefined ]]"
+          },
+          "outcomes": {
+            "true": "updateCurrentPageAndLabel"
+          }
         }
       }
     },
@@ -262,7 +271,7 @@
             "condition": "{{ $variables.updatedFrom !== 'external' }}"
           },
           "outcomes": {
-            "true": "closeOffCanvasDrawer"
+            "true": "callFunctionGetRecipe"
           }
         },
         "callNavigateChain": {
@@ -282,6 +291,28 @@
           },
           "outcomes": {
             "success": "callNavigateChain"
+          }
+        },
+        "callFunctionGetRecipe": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $application.functions ]]",
+            "functionName": "getRecipe",
+            "params": [
+              "{{ $variables.item }}"
+            ]
+          },
+          "outcomes": {
+            "success": "if"
+          }
+        },
+        "if": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $chain.results.callFunctionGetRecipe !== undefined ]]"
+          },
+          "outcomes": {
+            "true": "closeOffCanvasDrawer"
           }
         }
       }
@@ -304,7 +335,8 @@
             "params": [
               "{{ $chain.variables.selectedVersion }}",
               "{{ $page.variables.VBVersionItems}}"
-            ]
+            ],
+            "returnType": "any"
           },
           "outcomes": {
             "success": "openNewUrl"
@@ -313,7 +345,7 @@
         "openNewUrl": {
           "module": "vb/action/builtin/openUrlAction",
           "parameters": {
-            "url": "{{ $chain.results.goToVBCookbook.url }}",
+            "url": "[[ $chain.results.goToVBCookbook.url]]",
             "windowName": "_self"
           }
         }
@@ -600,6 +632,16 @@
             "$page.variables.showNavBar": {
               "source": "{{ !$page.variables.showNavBar }}"
             }
+          },
+          "outcomes": {
+            "success": "callFunctionAnimateNavMenu"
+          }
+        },
+        "callFunctionAnimateNavMenu": {
+          "module": "vb/action/builtin/callModuleFunctionAction",
+          "parameters": {
+            "module": "[[ $functions ]]",
+            "functionName": "animateNavMenu"
           }
         }
       }
@@ -723,6 +765,14 @@
           "parameters": {
             "selectedVersion": "{{ $event.target.value }}"
           }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "initNavigationMenu",
+          "parameters": {}
         }
       ]
     },

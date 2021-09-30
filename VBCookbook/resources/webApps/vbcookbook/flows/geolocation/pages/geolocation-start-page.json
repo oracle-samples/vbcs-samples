@@ -1,0 +1,37 @@
+{
+
+  "title": "",
+  "description": "",
+  "variables": {
+    "latitude": {
+      "type": "string",
+      "defaultValue": "Unknown"
+    },
+    "longitude": {
+      "type": "string",
+      "defaultValue": "Unknown"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {},
+  "eventListeners": {
+    "ojButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "GetLocationActionChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

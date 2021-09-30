@@ -1,0 +1,37 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "holdImage": {
+      "type": "any"
+    },
+    "imageUrl": {
+      "type": "string"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {},
+  "eventListeners": {
+    "ojFilePickerOjSelect": {
+      "chains": [
+        {
+          "chainId": "FilePickerSelectChain",
+          "parameters": {
+            "files": "[[ Array.prototype.slice.call($event.detail.files) ]]"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-file-picker": {
+        "path": "ojs/ojfilepicker"
+      }
+    }
+  }
+}

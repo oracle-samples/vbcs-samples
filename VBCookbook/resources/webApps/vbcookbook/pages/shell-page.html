@@ -28,7 +28,7 @@
   <div id="pageContent"  class="oj-web-applayout-page">
     <header role="banner" class="oj-web-applayout-header">
       <div class="oj-flex-bar oj-sm-align-items-center">
-        <div class="oj-flex-bar-start oj-sm-align-items-center oj-md-hide">
+        <div class="oj-flex-bar-start oj-sm-align-items-center oj-lg-hide">
           <oj-button id="toggleNavListButtonSmall"
             class="oj-button-lg" display="icons"
             chroming="borderless"
@@ -36,8 +36,12 @@
             <span slot="startIcon" class="oj-ux-ico-menu"></span>
             <span>Cookbook Navigation</span>
           </oj-button>
+          <a class="oj-ux-ico-oracle-o oj-ux-icon-size-6x oj-flex-item oj-link-standalone oj-sm-only-hide
+    oj-link-subtle-primary" on-click="[[$listeners.aClick2]]"></a>
+          <span
+            class="oj-flex-item oj-typography-body-md oj-typography-bold oj-sm-padding-2x-start oj-sm-only-hide">Cookbook</span>
         </div>
-        <div class="oj-flex-bar-start oj-sm-align-items-center oj-sm-only-hide">
+        <div class="oj-flex-bar-start oj-sm-align-items-center oj-md-down-hide">
           <oj-button id="toggleNavListButton"
             class="toggleNavListButton oj-button-lg" display="icons"
             chroming="borderless"
@@ -51,6 +55,7 @@
           <span
             class="oj-flex-item oj-typography-body-md oj-typography-bold oj-sm-padding-2x-start">Visual Builder Cookbook</span>
         </div>
+
         <div class="oj-flex-bar-end">
           <oj-toolbar id="toolbar1">
             <oj-bind-if test="[[!$page.variables.showSearch]]">
@@ -62,9 +67,8 @@
               </oj-menu-button>
               <a id="open-in-vb-link"
                 class="oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-start"
-                href="#" on-click="[[$listeners.openInVBActionClicked]]">Open in
-                Visual
-                Builder</a>
+                href="#" on-click="[[$listeners.openInVBActionClicked]]">
+                <oj-bind-text value="[[ $application.functions.smScreen() ? 'Open Recipe' : 'Open in Visual Builder' ]]"></oj-bind-text></a>
               <oj-bind-if test="[[$page.variables.showVersions]]">
                 <oj-menu-button id="versionButton" class="oj-sm-only-hide"
                   chroming="borderless">
@@ -91,8 +95,8 @@
                 options-keys.child-keys.label="recipeName"
                 options-keys.child-keys.value="recipeId"
                 option-renderer="[[$page.functions.createSearchResultsRenderer()]]"
-                placeholder="Search in VB Cookbook recipes"
-                style="min-width: 300px" id="recipeSearchCombo"
+                :placeholder="[[ $application.functions.smScreen() ? 'Search in recipes' : 'Search in VB Cookbook recipes' ]]"
+                :style.min-width="[[ $application.functions.smScreen() ? '250px' : '300px' ]]" id="recipeSearchCombo"
                 aria-label="Search for a Recipe"
                 on-value-changed="[[$listeners.recipeSearchComboValue]]"
                 on-keyup="[[$listeners.recipeSearchComboKeyup]]"
@@ -137,10 +141,9 @@
       on-oj-close="[[$listeners.onMessageClose]]"></oj-messages>
 
     <div class="oj-web-applayout-content-nopad oj-flex">
-      <div class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap" style="overflow-x: auto;">
-        <oj-bind-if test="[[ $variables.showNavBar ]]">
-          <div style="min-width: 300px; max-width: 300px"
-            class="oj-flex oj-sm-only-hide oj-contrast-marker">
+      <div id="animationParent" class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap" style="overflow-x: auto; position: relative">
+          <div style="min-width: 300px; max-width: 300px; height: 100%"
+            class="oj-flex oj-contrast-marker cookbook-navigation-menu-panel">
             <oj-navigation-list id="navItem" drill-mode="sliding"
               class="oj-contrast-background oj-flex-item main-navigation oj-navigationlist-nofollow-link"
               data="{{ $page.functions.getNavigationContent($application.functions.getMetadata()) }}"
@@ -159,13 +162,12 @@
               </template>
             </oj-navigation-list>
           </div>
-        </oj-bind-if>
         <!-- Where Visual Pages will be rendered -->
-        <div class="oj-flex-item oj-flex oj-sm-flex-direction-column" style="overflow-x: auto;">
+        <div class="oj-flex-item oj-flex oj-sm-flex-direction-column cookbook-content-panel" style="overflow-x: auto;">
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
             <div class="oj-flex categorybanner fltr_banner oj-sm-padding-1x-start">
               <h1 id="h1-89947901-1"
-                class="oj-flex-item oj-sm-12 oj-md-12 oj-typography-title-3">
+                class="oj-flex-item oj-sm-12 oj-md-12 oj-typography-heading-lg">
                 <oj-bind-text value="[[$page.variables.demoLabel]]">
                 </oj-bind-text>
               </h1>
@@ -173,50 +175,56 @@
           </oj-bind-if>
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
             <div
-              class="oj-flex-bar oj-sm-margin-2x-vertical oj-sm-padding-1x-start oj-sm-padding-4x-end">
-              <span class="oj-flex-bar-start oj-sm-align-items-center">
+              class="oj-flex-bar oj-sm-align-items-center oj-sm-margin-3x-vertical oj-sm-padding-1x-start oj-sm-padding-1x-end">
+              <div class="oj-flex-bar-start oj-flex">
                 <oj-bind-for-each data="[[ $page.variables.breadCrumb ]]">
                   <template>
                     <oj-bind-if test="[[$current.index > 0]]">
-                      <span>
-                        <oj-bind-text value="[[ ' > ' ]]"></oj-bind-text>
+                        <div class="oj-flex-item oj-sm-flex-initial oj-sm-flex-wrap-nowrap">
+                      <span style="color: darkgrey">
+                        <oj-bind-text value="[[ '>' ]]"></oj-bind-text>
                       </span>
+                        </div>
                     </oj-bind-if>
 
                     <oj-bind-if
                       test="[[$current.index < $page.variables.breadCrumb.length-1]]">
                       <oj-bind-if
                         test="[[ $page.variables.showNavBar || $current.index === 0]]">
-                        <a :class="[[ $current.index > 0 ? 'oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-horizontal':'oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-end' ]]" on-click="[[$listeners.aClick]]">
+                        <div class="oj-flex-item oj-sm-flex-initial oj-sm-flex-wrap-nowrap">
+                        <a :class="[[ $current.index > 0 ? 'oj-link-standalone oj-link-subtle-primary oj-sm-margin-2x-horizontal':'oj-link-standalone oj-link-subtle-primary oj-sm-margin-2x-end' ]]" on-click="[[$listeners.aClick]]">
                           <span>
                             <oj-bind-text value="[[ $current.data.label]]">
                             </oj-bind-text>
                           </span>
                         </a>
+                        </div>
                       </oj-bind-if>
                       <oj-bind-if
                         test="[[ !($page.variables.showNavBar || $current.index === 0)]]">
-                        <span class="oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-horizontal">
+                        <div class="oj-flex-item oj-sm-flex-wrap-nowrap">
+                        <span class="oj-link-standalone oj-link-subtle-primary ">
                           <oj-bind-text value="[[ $current.data.label]]">
                           </oj-bind-text>
                         </span>
+                        </div>
                       </oj-bind-if>
                     </oj-bind-if>
 
                     <oj-bind-if
                       test="[[$current.index === $page.variables.breadCrumb.length-1]]">
-                      <span class="oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-horizontal">
+                      <span class="oj-link-standalone oj-link-subtle-primaryn oj-sm-margin-2x-start">
                         <oj-bind-text value="[[ $current.data.label]]">
                         </oj-bind-text>
                       </span>
                     </oj-bind-if>
                   </template>
                 </oj-bind-for-each>
-              </span>
+              </div>
               <div class="oj-flex-bar-end">
                 <oj-bind-if
                   test="[[ $application.currentPage.id != 'home-start' ]]">
-                  <div class="oj-margin-start oj-sm-margin-3x-end">
+                  <div class="oj-margin-start oj-sm-margin-4x-start">
                     <oj-bind-if
                       test="[[ $page.variables.apiDocs.length === 1 ]]">
                       <oj-button
@@ -265,7 +273,7 @@
             <oj-bind-for-each data="[[ $page.variables.globalLinks ]]">
               <template data-oj-as="item">
                 <li>
-                  <a class="oj-sm-margin-2x oj-link-standalone oj-link-subtle-primary oj-typography-body-md oj-typography-bold"
+                  <a :class="[[ 'oj-sm-margin-2x oj-link-standalone oj-link-subtle-primary ' + ($page.functions.mdDownScreen() ? 'oj-typography-body-sm oj-typography-bold' : 'oj-typography-body-md oj-typography-bold')]]"
                     :id="[[item.data.id]]" :href="[[item.data.url]]">
                     <oj-bind-text value="[[item.data.label]]"> </oj-bind-text>
                   </a>

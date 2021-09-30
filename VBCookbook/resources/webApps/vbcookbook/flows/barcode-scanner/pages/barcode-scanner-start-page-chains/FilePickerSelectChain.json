@@ -1,0 +1,54 @@
+{
+  "description": "",
+  "root": "CreateImageBitmap",
+  "actions": {
+    "scanBarcode": {
+      "module": "vb/action/builtin/barcodeAction",
+      "parameters": {
+        "image": "[[ $chain.results.CreateImageBitmap ]]"
+      },
+      "outcomes": {
+        "success": "assignScannedData"
+      }
+    },
+    "resetScannedDataVariable": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.scannedData": {
+          "source": "No Data"
+        }
+      },
+      "outcomes": {
+        "success": "scanBarcode"
+      }
+    },
+    "assignScannedData": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.scannedData": {
+          "source": "{{ $chain.results.scanBarcode.rawValue }}"
+        }
+      }
+    },
+    "CreateImageBitmap": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "createImageBitmap",
+        "params": [
+          "{{ $variables.files[0] }}"
+        ]
+      },
+      "outcomes": {
+        "success": "resetScannedDataVariable"
+      }
+    }
+  },
+  "variables": {
+    "files": {
+      "required": true,
+      "type": "object[]",
+      "input": "fromCaller"
+    }
+  }
+}

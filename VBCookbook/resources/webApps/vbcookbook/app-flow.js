@@ -6,9 +6,12 @@
 define([
   'text!resources/config/vb-navigation-menu.json',
   'text!resources/config/vb-demos.json',
+  'ojs/ojresponsiveknockoututils',
+  'ojs/ojresponsiveutils',
   
 ], function(
   navigationMenu, demos,
+  ResponsiveKnockoutUtils, ResponsiveUtils,
   
 ) {
   'use strict';
@@ -22,7 +25,11 @@ define([
       navigationMenu: JSON.parse(navigationMenu),
       demos: JSON.parse(demos)
     };
+
+    var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
+    this.smScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
   };
+
   
 
   /**
@@ -60,6 +67,10 @@ define([
       };
     } else {
       recipe = this.metadata.demos[key];
+      if (recipe === undefined) {
+        // category was selected and not a menu item
+        return;
+      }
     }
     var parents = this._getRecipeParent(recipe.id);
     return {

@@ -1,0 +1,10 @@
+{
+
+  "id": "swipe-to-edit",
+  "description": "Flow main",
+  "defaultPage": "swipe-to-edit-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

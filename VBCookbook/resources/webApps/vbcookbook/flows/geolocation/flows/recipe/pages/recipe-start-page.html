@@ -1,0 +1,78 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  You’ll add a Button component to a page that uses an ojAction event listener to start an action chain to get the
+  user's location.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <span slot="header"> Add UI Components to Page</span>
+      <div>
+        <ol>
+          <li>From the Component Palette, drag a Button component and drop it on the page.</li>
+          <li>From the Component Palette, drag a Text Area component and drop it on the page.
+            <p>This component displays the user's location when it is retrieved.</p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <span slot="header">Create Action Chain on Button</span>
+      <div>
+        <ol>
+          <li>Add <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">an
+              ojAction event listener</a> to the Button component. </li>
+
+          <li>In the action chain, add a <strong>Get Location</strong> action right after the Start node.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-3">
+      <span slot="header">Assign Results to Variables</span>
+      <div>
+        <ol>
+          <li>In the Variables tab of the Page Designer, create two variables of type <code>string</code>:
+            <ul>
+              <li><code>latitude</code></li>
+              <li><code>longitude</code></li>
+            </ul>
+          </li>
+          <li>In the action chain, drop an <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">
+              Assign Variables action</a> under success.</li>
+          <li>Click <strong>Assign</strong> and on the left side expand <strong>Results</strong> to find:</li>
+          <ul>
+            <li>Accuracy</li>
+            <li>Altitude</li>
+            <li>Altitude Accuracy</li>
+            <li>Heading</li>
+            <li>Latitude</li>
+            <li>Longitude</li>
+            <li>Speed</li>
+          </ul>
+          <li>Map appropriate results to the variables you created, and click <strong>Save</strong>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <span slot="header">Display Results</span>
+      <div>
+        <ol>
+          <li>In the Page Designer, select the Text Area component.</li>
+          <li>In the Data tab of the Properties pane, use the <i>fx</i> to add the following values to Text Area
+            <code>{{"User Current Location is  "+$variables.latitude + ", "+ $variables.longitude }}.</code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>
