@@ -1,7 +1,7 @@
 # Source for the Sample Applications Cloud UI Theme
-Version 5.1.0 - Visual Builder 21.10.0 compatible
+Version 6.0.0 - Visual Builder 22.01.0 compatible
 
-August 2021
+November 2021
 
 ## About
 This distribution is a sample UI theme for Oracle JET and Oracle Visual Builder. This provides a look and feel similar to the Oracle SaaS lightBlue theme and can be used as the basis for creating customized themes of your own.
@@ -9,7 +9,7 @@ This distribution is a sample UI theme for Oracle JET and Oracle Visual Builder.
 This theme sample currently only contains a web theme.
 
 ## Prerequisites
-In order to customize or develop new themes you will need to have installed the Oracle JET command line tooling. This involves installing nodejs and the node package manager followed by installation of the JET command line tooling package. The details of the JET installation process can be found in the [JET Developers Guide](https://docs.oracle.com/en/middleware/developer-tools/jet/10/develop/choose-development-environment-oracle-jet.html#GUID-ABE2373F-287F-4C3A-BEBD-02F179F399FD)
+In order to customize or develop new themes you will need to have installed the Oracle JET command line tooling. This involves installing nodejs and the node package manager followed by installation of the JET command line tooling package. The details of the JET installation process can be found in the [JET Developers Guide](https://docs.oracle.com/en/middleware/developer-tools/jet/11.1/develop/choose-development-environment-oracle-jet.html#GUID-6AEB5A00-22D8-4BC1-AAB3-4134F906C1C0)
 
 ## Getting Started
 Having installed the JET CLI and unpacked this distribution, carry out the following steps:
@@ -29,9 +29,9 @@ Once you have generated the theme export as above carry out the following steps 
 2. Expand the */resources* folder
 3. Right mouse click on the */css* folder and choose **`import`**
 4. Leave the import location as defined and select the *ApplicationsCloudUI-export.zip* from your local disk to upload
-5. After import you will see two new folders created *ApplicationsCloudUI* and *alta*
+5. After import you will see a new folder called *ApplicationsCloudUI*
 6. Now select the root WebApp node in the navigator and in the main editor panel select the settings editor panel to being up the settings for the webapp.
-7. The Application Settings page will appear. In the selection list labeled as *Theme* choose the option **ApplicationsCloudUI/5.0.0/web/ApplicationsCloudUI.css"
+7. The Application Settings page will appear. In the selection list labeled as *Theme* choose the option **ApplicationsCloudUI/6.0.0/web/ApplicationsCloudUI.css"
 
 ## Using the Theme in Visual Builder
 The theme you have just imported will set the broad color palette and other aspects of the look and feel, however, there are two additional tasks you can carry out to retrofit the look of a SaaS application onto your own.

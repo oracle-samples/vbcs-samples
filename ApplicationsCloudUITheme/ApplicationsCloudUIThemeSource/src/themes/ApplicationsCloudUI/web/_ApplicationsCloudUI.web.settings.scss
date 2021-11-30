@@ -81,20 +81,20 @@ $themeTargetPlatform: web;
 // these paths should be relative to the generated css file
 
 // path to images
-$imageDir: "../../../alta/10.1.3/web/images/" !default;
+$imageDir: "images/" !default;
 
 // path to (icon) fonts
-$fontDir:  "../../../alta/10.1.3/web/fonts/" !default;
+$fontDir:  "fonts/" !default;
 
 // path to common images (images shared across themes)
-$commonImageDir:  "../../../alta/10.1.3/common/images/" !default;
+$commonImageDir:  "images/" !default;
 
 
 // DIRECTION
 //----------------------------------
 
 // Accepted values of $textDirection are null, ltr, rtl
-//    - null means ouput for both directions (default)
+//    - null means output for both directions (default)
 //    - ltr means output left to right only
 //    - rtl means output right to left only
 //
