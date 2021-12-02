@@ -1,0 +1,32 @@
+{
+  "description": "",
+  "root": "callFunctionCloseDrawer",
+  "actions": {
+    "callFunctionCloseDrawer": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "closeDrawer"
+      },
+      "outcomes": {
+        "success": "navigateToVariablesSelection"
+      }
+    },
+    "navigateToVariablesSelection": {
+      "module": "vb/action/builtin/navigateAction",
+      "@dt": {
+        "targetType": "flow"
+      },
+      "parameters": {
+        "flow": "[[ $variables.selection.endsWith('_placeholder') ? 'placeholder' : 'home' ]]"
+      }
+    }
+  },
+  "variables": {
+    "selection": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}
