@@ -68,7 +68,7 @@
               <a id="open-in-vb-link"
                 class="oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-start"
                 href="#" on-click="[[$listeners.openInVBActionClicked]]">
-                <oj-bind-text value="[[ $application.functions.smScreen() ? 'Open Recipe' : 'Open in Visual Builder' ]]"></oj-bind-text></a>
+                <oj-bind-text value="[[ $application.responsive.smOnly ? 'Open Recipe' : 'Open in Visual Builder' ]]"></oj-bind-text></a>
               <oj-bind-if test="[[$page.variables.showVersions]]">
                 <oj-menu-button id="versionButton" class="oj-sm-only-hide"
                   chroming="borderless">
@@ -95,8 +95,8 @@
                 options-keys.child-keys.label="recipeName"
                 options-keys.child-keys.value="recipeId"
                 option-renderer="[[$page.functions.createSearchResultsRenderer()]]"
-                :placeholder="[[ $application.functions.smScreen() ? 'Search in recipes' : 'Search in VB Cookbook recipes' ]]"
-                :style.min-width="[[ $application.functions.smScreen() ? '250px' : '300px' ]]" id="recipeSearchCombo"
+                :placeholder="[[ $application.responsive.smOnly ? 'Search in recipes' : 'Search in VB Cookbook recipes' ]]"
+                :style.min-width="[[ $application.responsive.smOnly ? '250px' : '300px' ]]" id="recipeSearchCombo"
                 aria-label="Search for a Recipe"
                 on-value-changed="[[$listeners.recipeSearchComboValue]]"
                 on-keyup="[[$listeners.recipeSearchComboKeyup]]"

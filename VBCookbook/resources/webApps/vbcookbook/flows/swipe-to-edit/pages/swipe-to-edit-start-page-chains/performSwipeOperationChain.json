@@ -10,11 +10,6 @@
       "type": "string",
       "required": true,
       "input": "fromCaller"
-    },
-    "rowData": {
-      "type": "any",
-      "required": false,
-      "input": "fromCaller"
     }
   },
   "actions": {

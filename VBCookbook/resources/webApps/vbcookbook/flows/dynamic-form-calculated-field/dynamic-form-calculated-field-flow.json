@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-form-calculated-field",
+  "description": "Flow main",
+  "defaultPage": "dynamic-form-calculated-field-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

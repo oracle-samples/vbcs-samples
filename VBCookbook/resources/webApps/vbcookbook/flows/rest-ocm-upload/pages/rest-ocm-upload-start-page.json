@@ -475,48 +475,6 @@
         }
       }
     },
-    "OpenOCMPreview": {
-      "description": "",
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "key": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "current": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "callGetPreviewRestEndpoint",
-      "actions": {
-        "callGetPreviewRestEndpoint": {
-          "module": "vb/action/builtin/restAction",
-          "parameters": {
-            "endpoint": "ocm/getFilePreview",
-            "uriParams": {
-              "fileId": "{{ $chain.variables.key }}"
-            }
-          },
-          "outcomes": {
-            "success": "openPreviewUrl"
-          }
-        },
-        "openPreviewUrl": {
-          "module": "vb/action/builtin/openUrlAction",
-          "parameters": {
-            "url": "[[ $chain.results.callGetPreviewRestEndpoint.body.previewUrl ]]",
-            "windowName": "preview"
-          }
-        }
-      }
-    },
     "TakePhotoChain": {
       "description": "",
       "variables": {

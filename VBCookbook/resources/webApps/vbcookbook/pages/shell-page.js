@@ -18,7 +18,8 @@ define(['knockout',
     content: '#pageContent'
   };
 
-  var PageModule = function PageModule() {
+  var PageModule = function PageModule(context) {
+    this.eventHelper = context.getEventHelper();
     this.navlistExpanded = new keySet.ObservableKeySet();
 
     var self = this;
@@ -72,8 +73,10 @@ define(['knockout',
   PageModule.prototype.hideNavMenu = function(hide) {
     let container = document.getElementById("animationParent");
     if (hide) {
+      this.eventHelper.fireCustomEvent("application:navMenuVisible", {visible: false});
       container.classList.remove("navigation-menu-out");
     } else {
+      this.eventHelper.fireCustomEvent("application:navMenuVisible", {visible: true});
       container.classList.add("navigation-menu-out");
     }
   };

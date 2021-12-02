@@ -49,11 +49,6 @@
         "CreationDate": "string"
       }]
     },
-    "@decorators.getallActivitiesAttachmentsResponse": {
-      "endpoint": "getall_activities-Attachments",
-      "service": "activities",
-      "path": "response"
-    },
     "UploadType": {
       "Title": "string",
       "FileName": "string",

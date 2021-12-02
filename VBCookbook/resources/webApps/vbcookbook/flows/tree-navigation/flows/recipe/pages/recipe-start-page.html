@@ -1,0 +1,442 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>To implement responsive behavior, we add two Navigation List components to the shell page of your app. The first
+  navigation list is for mobile and table devices. Due to space limitations, this navigation list is hidden by default.
+  The second navigation list is for desktop and larger screen devices. This navigation menu is open by default. In both
+  cases, a menu icon toggles the navigation list to opened or closed. </p>
+
+<p>For the navigation menu to work, flows in the app need to correspond to IDs specified in the JSON data that populate
+  the menu. For example, <code>home</code>, <code>download</code>, and <code>quickstart</code>. Populate the JSON data
+  with the flow IDs. </p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Add a Menu Icon</h1>
+      <div>
+        <ol>
+          <li>Open the shell page of your application and in the content of the <code>header</code> element locate the
+            <code>div</code> with the <code>oj-flex-bar-middle</code> class. Replace this <code>div</code> with the
+            following content that adds a Button component, the <code>oj-ux-ico-menu</code> menu icon, the responsive
+            application name, and aligns the header to the left.
+            <oj-collapsible id="expand-1">
+              <a href="" slot="header">Expand to view code</a>
+              <pre>
+&lt;div class="oj-flex-bar-start oj-sm-align-items-center">
+    &lt;oj-button id="toggleNavListButtonSmall" class="toggleNavListButton oj-button-lg" chroming="borderless"
+      display="icons">
+      &lt;span slot="startIcon" class="oj-ux-ico-menu">&lt;/span>
+        &lt;span>Application Navigation&lt;/span>
+    &lt;/oj-button>
+      &lt;span
+        class="oj-flex-item oj-typography-body-md oj-typography-bold oj-sm-padding-2x-start oj-sm-only-hide">Long Application Name&lt;/span>
+      &lt;span
+        class="oj-flex-item oj-typography-body-md oj-typography-bold oj-sm-padding-2x-start oj-md-hide">Short Name&lt;/span>
+&lt;/div>
+</pre>
+            </oj-collapsible>
+          </li>
+          <li>
+            In the Events tab of the Button component's Properties pane, create an ojAction event.
+          </li>
+
+          <li>Set the name of the generated action chain to <code>toggleNavigation</code>.</li>
+          <li>Add an If action to the action chain and, in the Properties pane, set the Condition property to
+            <code>[[ $application.responsive.lgUp ]]</code>.
+          </li>
+          <li>In the True branch, add a Call Function action to the action chain and click <strong>Create</strong> to
+            create a new JavaScript function named <code>animateNavMenu</code> with the following code:
+            <oj-collapsible id="expand-2">
+              <a href="" slot="header">Expand to view code</a>
+              <pre>
+PageModule.prototype.animateNavMenu = function() {
+  let container = document.getElementById("animationMenu");
+  if (container.classList.contains("tree-navigation-menu-out")) {
+      this.hideNavMenu(true);
+  } else {
+      this.hideNavMenu(false);
+  }
+};
+
+PageModule.prototype.hideNavMenu = function (hide) {
+  let container = document.getElementById("animationMenu");
+  if (hide) {
+    container.classList.remove("tree-navigation-menu-out");
+  } else {
+    container.classList.add("tree-navigation-menu-out");
+  }
+};
+</pre>
+            </oj-collapsible>
+            This function will be called when the device width is desktop or larger.
+          </li>
+          <li>
+            In the False branch, add a Call Function action to the action chain and click <strong>Create</strong> to
+            create a new JavaScript function named <code>toggleDrawer</code> with the following code:
+            <oj-collapsible id="expand-3">
+              <a href="" slot="header">Expand to view code</a>
+              <pre>
+var drawerParams = {
+displayMode: 'overlay',
+selector: '#startDrawer',
+content: '#page'
+};
+PageModule.prototype.toggleDrawer = function () {
+return OffCanvasUtils.toggle(drawerParams);
+};
+</pre>
+            </oj-collapsible>
+            This function will be called when the device width is tablet or mobile.
+          </li>
+          <li>In the JavaScript tab of the shell page, add the following set of dependencies:
+            <oj-collapsible id="expand-4">
+              <a href="" slot="header">Expand to view code</a>
+              <pre>
+define(['knockout',
+'ojs/ojknockout-keyset',
+'ojs/ojarraytreedataprovider',
+'ojs/ojoffcanvas',
+'ojs/ojresponsiveknockoututils',
+'ojs/ojresponsiveutils'
+], function (ko, keySet, ArrayTreeDataProvider, OffCanvasUtils, ResponsiveKnockoutUtils, ResponsiveUtils) {
+'use strict';
+              </pre>
+            </oj-collapsible>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Add a Navigation List for Tablet and Mobile Devices</h1>
+      <div>
+        <ol>
+          <li>In the shell page, locate the first <code>div</code> element with <code>id="page"</code> and add
+            <code>style="height: 100%;"</code> to it.
+          </li>
+          <li>Wrap the shell page content with the following new div element:
+            <pre>
+&lt;div id="pageWrapper" class="oj-offcanvas-outer-wrapper oj-offcanvas-page" style="height: 100%;">
+  . . .
+&lt;/div></pre>
+          </li>
+          <li>Inside the <code>pageWrapper</code> div, add the following new div to contain the Navigation List
+            component:
+            <pre>
+&lt;div id="pageWrapper" class="oj-offcanvas-outer-wrapper oj-offcanvas-page" style="height: 100%">
+   &lt;div id="startDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+    . . .
+  &lt;/div>
+&lt;/div></pre>
+          </li>
+          <li>In the Components palette, drag a Navigation List component and drop it inside the
+            <code>startDrawer</code> div element.
+          </li>
+          <li>Remove the auto-generated content (ul and li elements) from the navigation list.</li>
+          <li>In the General tab of the Properties pane for the Navigation List component, set the Drill Mode property
+            to <code>sliding</code>.</li>
+          <li>In the Code view for the navigation list, add the following class:
+            <pre>
+&lt;oj-navigation-list id="nav" drill-mode="sliding"
+  class="oj-flex-item main-navigation oj-navigationlist-nofollow-link oj-sm-align-self-flex-start"
+  ....
+</pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Add Data for the Navigation List</h1>
+      <div>
+        <ol>
+          <li>In the shell page, create data in JSON format for the left navigation menu.
+            <p>
+              The JSON data consists of <code>label</code> and <code>icon</code> entries that describe the menu item
+              with optional <code>badge</code> text and flow <code>id</code> to navigate to.
+            </p>
+            <p>The following code adds an example menu structure to your shell page. </p>
+            <oj-collapsible id="expand-5">
+              <a slot="header" href="">Expand to view code</a>
+              <pre>
+  PageModule.prototype.getNavigationContent = function () {
+    if (this.navigationContent === undefined) {
+      this.navigationContent = ko.observable(new ArrayTreeDataProvider(
+        this._getNavigationData(
+          navigationMenu), {
+        keyAttributes: 'attr.id'
+      }));
+    }
+    return this.navigationContent;
+  };
+
+  PageModule.prototype._getNavigationData = function (menu) {
+    var navData = [],
+    self = this;
+    for (var i = 0; i < menu.length; i++) {
+      var menuItem = {};
+      var origMenuItem = menu[i];
+      if (typeof origMenuItem === "object") {
+        menuItem["attr"] = {
+          "id": origMenuItem.id,
+          "name": origMenuItem.label,
+          "icon": origMenuItem.icon,
+          "badge": origMenuItem.badge
+        };
+      }
+      if (origMenuItem.items && origMenuItem.items.length > 0)
+        menuItem["children"] = this._getNavigationData(origMenuItem.items);
+      navData.push(menuItem);
+    }
+    return navData;
+  };
+
+var navigationMenu = [
+  {
+    "id": "home",
+    "label": "Home",
+    "icon": "home"
+  },
+  {
+    "id": "gettingstarted",
+    "label": "Getting Started",
+    "icon": "education",
+    "items": [
+      {
+        "id": "download",
+        "label": "Download",
+        "icon": "download",
+        "badge": 13
+      },
+      {
+        "id": "quickstart",
+        "label": "Quick Start",
+        "icon": "clock"
+      }
+    ]
+  },
+  {
+    "id": "cookbook",
+    "label": "Cookbook",
+    "icon": "book",
+    "items": [
+      {
+        "id": "sample1",
+        "label": "Sample 1",
+        "icon": "list"
+      },
+      {
+        "id": "sample2",
+        "label": "Sample 2",
+        "icon": "form-layout",
+        "badge": "New"
+      }
+    ]
+  },
+  {
+    "id": "library",
+    "label": "Library",
+    "icon": "library",
+    "items": [
+      {
+        "id": "articles",
+        "label": "Articles",
+        "icon": "custom-article-header"
+      },
+      {
+        "id": "audios",
+        "label": "Audios",
+        "icon": "music"
+      },
+      {
+        "id": "videos",
+        "label": "Videos",
+        "icon": "video-block"
+      },
+      {
+        "id": "magazines",
+        "label": "Magazines",
+        "icon": "library-books"
+      }
+    ]
+  }
+];
+              </pre>
+            </oj-collapsible>
+
+          </li>
+
+          <li>In the Navigation List component, reference the data as follows:
+            <p><code>data="[[ $functions.getNavigationContent()]]"</code></p>
+          </li>
+
+
+          <li>In the Navigation List component, add a template with <code>slot="itemTemplate"</code> and
+            <code>data-oj-as="item"</code> in the navigation
+            list as follows:
+            <oj-collapsible id="expand-6">
+              <a href="" slot="header">Expand to view code</a>
+              <pre>
+&lt;template slot="itemTemplate" data-oj-as="item">
+  &lt;li>
+    &lt;a style="cursor: pointer">
+      &lt;oj-bind-if test="[[item.data.attr.node]]">
+        &lt;i :class="[[ 'oj-navigationlist-item-icon oj-ux-ico-' + (item.data.attr.icon ? item.data.attr.icon : 'box')]]">&lt;/i>
+        &lt;oj-bind-text value="[[item.data.attr.name]]">&lt;/oj-bind-text>
+      &lt;/oj-bind-if>
+      &lt;oj-bind-if test="[[!item.data.attr.node]]">
+        &lt;i :class="[[ 'oj-typography-body-md oj-navigationlist-item-icon oj-ux-ico-' + (item.data.attr.icon ? item.data.attr.icon : 'box') +  ' oj-sm-padding-4x-start']]">&lt;/i>
+        &lt;span class="oj-typography-body-md">
+        &lt;oj-bind-text value="[[item.data.attr.name]]">&lt;/oj-bind-text>
+        &lt;/span>
+      &lt;/oj-bind-if>
+      &lt;oj-bind-if test="[[item.data.attr.badge]]">
+        &lt;span class="oj-badge oj-navigationlist-item-end" style="color:aqua">&lt;oj-bind-text value="[[item.data.attr.badge]]">&lt;/oj-bind-text>&lt;/span>
+      &lt;/oj-bind-if>
+    &lt;/a>
+  &lt;/li>
+&lt;/template>
+</pre>
+            </oj-collapsible>
+          </li>
+          <li>In the JavaScript tab of the shell page, add the following JavaScript function so that only leaf items in
+            the navigation list are selectable.
+            <pre>
+  PageModule.prototype.itemSelectable = function (context) {
+    return context['leaf'];
+  }; </pre>
+          </li>
+          <li>In the Code view of the Page Designer, add the following property to the navigation list:
+            <p><code>item.selectable="[[ $page.functions.itemSelectable ]]"</code> </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <h1 slot="header">Add an Event and an Action Chain</h1>
+      <div>
+        <ol>
+          <li>In the Events tab of the Properties pane for the navigation list, add an On Selection event.</li>
+          <li>In the action chain, add a Call Function action and, in the Properties pane, click <strong>Create</strong> beside the
+            Function Name field to create a new function named <code>closeDrawer</code>. This function closes the
+            navigation drawer when you click any navigation menu item.
+            <pre>
+PageModule.prototype.closeDrawer = function () {
+  OffCanvasUtils.close(drawerParams);
+};
+  </pre>
+          </li>
+          <li>
+            Add a Navigate action and, in the Properties pane, select <strong>Flow in Current Page</strong>, and set the
+            target as <code>[[ $variables.selection ]]</code>.
+
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-5">
+      <h1 slot="header">Add a Navigation List for Desktop and Large Devices</h1>
+      <div>
+        <ol>
+          <li>In the shell page, locate the <code>oj-vb-content</code> component.
+            <p>It should be wrapped in two <code>div</code> elements
+            <pre>
+&lt;div class=&quot;oj-web-applayout-content-nopad oj-web-spacing oj-web-applayout-max-width&quot;&gt;
+  &lt;div class=&quot;oj-web-applayout-content oj-flex&quot;&gt;
+    &lt;!-- Where Visual Pages will be rendered --&gt;
+    &lt;oj-vb-content id=&quot;vbRouterContent&quot; class=&quot;vbcs-pages-module oj-flex-item&quot; config=&quot;[[vbRouterFlow]]&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/oj-vb-content&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </p>
+          </li>
+          <li>Replace both divs with this new hierarchy:
+            <pre>
+&lt;div class=&quot;oj-web-applayout-content-nopad oj-web-spacing oj-flex&quot;&gt;
+  &lt;div id=&quot;animationMenu&quot; class=&quot;oj-flex-item oj-flex oj-sm-flex-wrap-nowrap&quot; style=&quot;overflow-x: auto; position: relative&quot;&gt;
+    &lt;div id=&quot;navigation-div&quot; style=&quot;min-width: 300px; max-width: 300px; height: 100%&quot; class=&quot;oj-flex oj-contrast-marker tree-navigation-menu-panel&quot;&gt;
+      &lt;!-- Where navigation menu will be placed --&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;oj-flex-item oj-flex oj-sm-flex-direction-column tree-navigation-content-panel&quot; style=&quot;overflow-x: auto;&quot;&gt;
+      &lt;!-- Where Visual Pages will be rendered --&gt;
+      &lt;oj-vb-content id=&quot;vbRouterContent&quot; class=&quot;vbcs-pages-module oj-flex-item&quot; config=&quot;[[vbRouterFlow]]&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/oj-vb-content&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+          </li>
+          <li>Copy the Navigation List component that you created in the steps for the tablet and mobile devices and paste it inside the <code>navigation-div</code> div element.</li>
+          <li>In the Navigation List component, change the value of the <code>class</code> property to <code>oj-contrast-background oj-flex-item oj-navigationlist-nofollow-link</code> so that the navigation background has contrast and spans page height.</li>
+<li>Remove all occurrences of <code>oj-web-applayout-max-width</code>  so that your application uses full browser width.</li>
+</ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-6">
+      <h1 slot="header">Add the Required CSS</h1>
+      <div>
+        <ol>
+          <li>In the <code>app.css</code> file of your app, add the follow style classes:
+            <pre>
+.tree-navigation-menu-panel {
+  left: -300px;
+  position: absolute;
+  transition: left 750ms ease-in-out;
+}
+.tree-navigation-content-panel {
+  transition: margin-left 750ms ease-in-out;
+}
+.tree-navigation-menu-out .tree-navigation-menu-panel {
+  left: 0px;
+} 
+.tree-navigation-menu-out .tree-navigation-content-panel {
+  margin-left: 300px;
+}</pre>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-7">
+      <h1 slot="header">Add Responsiveness to the Navigation List</h1>
+      <div>
+        <ol>
+          <li>In the JavaScript tab of your shell page, modify the constructor code as follows:
+            <oj-collapsible id="expand-7">
+              <a href="" slot="header">Expand to view code</a>
+<pre>
+var PageModule = function PageModule() {
+  var self = this; 
+  var lgUpQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+  var lgUpScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(lgUpQuery);
+  lgUpScreen.subscribe(function (on) {
+    if (on) {
+      OffCanvasUtils.close(drawerParams);
+      self.hideNavMenu(false);
+    }
+  });
+
+  var mdDownQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_DOWN);
+  var mdDownScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdDownQuery);
+  mdDownScreen.subscribe(function (on) {
+    if (on) {
+      self.hideNavMenu(true);
+    }
+  });
+
+  PageModule.prototype.initNavigationMenu = function (arg1) {
+    this.hideNavMenu(mdDownScreen());
+  };
+};
+</pre>
+            </oj-collapsible>
+          </li>
+          <li>In the Event Listeners tab of the shell page, add a vbEnter event listener and an associated action chain.</li>
+          <li>In the associated action chain, add a Call Function action and specify <code>initNavigationMenu</code> in the Function Name input field of the Properties pane.
+             </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

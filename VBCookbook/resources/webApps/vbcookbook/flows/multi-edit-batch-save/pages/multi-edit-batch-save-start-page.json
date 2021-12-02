@@ -608,14 +608,7 @@
     }
   },
   "eventListeners": {
-    "aClick": {
-      "chains": [{
-        "chainId": "OpenDialogChain",
-        "parameters": {
-          "current": "{{ $current }}"
-        }
-      }]
-    },
+
     "ojButtonOjAction": {
       "chains": [{
         "chainId": "UpdateEmployeeChain",

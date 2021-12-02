@@ -1,0 +1,49 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+  },
+  "metadata": {},
+  "types": {},
+  "chains": {},
+  "eventListeners": {
+    "navSelection": {
+      "chains": [
+        {
+          "chainId": "NavigationListSelectionChangeChain",
+          "parameters": {
+          }
+        }
+      ]
+    },
+    "toggleNavListButtonOjAction": {
+      "chains": [
+        {
+          "chainId": "toggleMenu"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "initNavigationMenu",
+          "parameters": {}
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-navigation-list": {
+        "path": "ojs/ojnavigationlist"
+      }
+    },
+    "css": [
+      "/resources/css/tree-navigation.css"
+    ]
+  }
+}

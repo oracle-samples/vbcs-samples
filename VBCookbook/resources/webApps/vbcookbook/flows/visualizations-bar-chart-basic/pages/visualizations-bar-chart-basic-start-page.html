@@ -17,7 +17,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

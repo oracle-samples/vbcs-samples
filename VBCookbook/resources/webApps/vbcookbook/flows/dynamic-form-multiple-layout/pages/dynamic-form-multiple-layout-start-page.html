@@ -32,7 +32,7 @@
         <div class="oj-flex-item oj-sm-12 oj-md-12">
           <oj-bind-if test="[[ ($variables.emp1) !== undefined ]]">
             <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
-              layout="employeeFormRuleSet" readonly="true" value="{{ $variables.employee }}"
+              layout="employeeFormRuleSet" value="{{ $variables.employee }}"
               value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
               rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}"
               :id="[['dynamic-form-multiple-layout']]"></oj-dynamic-form>
@@ -44,7 +44,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

@@ -39,8 +39,7 @@
           "chainId": "performSwipeOperationChain",
           "parameters": {
             "navigationItem": "[[$event.target.value]]",
-            "employeeId": "[[$current.key]]",
-            "rowData": "[[$current.data]]"
+            "employeeId": "[[$current.key]]"
           }
         }
       ]

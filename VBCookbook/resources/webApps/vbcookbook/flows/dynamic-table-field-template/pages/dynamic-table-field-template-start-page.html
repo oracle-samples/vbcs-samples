@@ -10,14 +10,14 @@
 <div class="oj-flex">
   <div class="oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
     <oj-dynamic-table class="oj-flex-item" data="[[$page.variables.employeeListSDP]]"
-      metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" metadata-path="items"
+      metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
       layout="simpleEmployeeListRuleSet" style="max-height: 400px; min-width: 60vw; width: 100%"
       :id="[['dynamic-table-field-template']]"></oj-dynamic-table>
   </div>
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

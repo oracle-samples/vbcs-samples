@@ -1,0 +1,16 @@
+{
+  "root": "resetEmployee",
+  "description": "Clears Employee form state",
+  "actions": {
+    "resetEmployee": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "description": "Resets employee variable to the default state",
+      "label": "Reset Employee variable",
+      "parameters": {
+        "variables": [
+          "$page.variables.employee"
+        ]
+      }
+    }
+  }
+}

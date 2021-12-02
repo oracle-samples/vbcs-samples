@@ -7,7 +7,7 @@
 <template id="dynamicTable">
   <h3 class="oj-typography-heading-md">Employee Details</h3>
   <oj-dynamic-table data="[[$page.variables.employeeListSDP]]"
-    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" metadata-path="items"
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
     layout="tableExampleLayout" style="max-height:400px; height:400px; width: 100%"  :id="[['table-template-tablet']]"></oj-dynamic-table>
 </template>
 
@@ -43,7 +43,7 @@
 <template id="dynamicTableDesktop">
   <h3 class="oj-typography-heading-md">Employees</h3>
   <oj-dynamic-table data="[[$page.variables.employeeListSDP3]]"
-    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" metadata-path="items"
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
     layout="employeeTableDesktopMode" context="[[ $variables.path ]]" style="max-height:400px; height:400px; width: 100%" :id="[['table-template-desktop']]"></oj-dynamic-table>
   
 </template>

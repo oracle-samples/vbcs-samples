@@ -4,89 +4,66 @@
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
-  This recipe demonstrates how you implement a multi-step wizard using a Train component so that end users step through the process to change an employee’s job role.
+  This recipe demonstrates how you implement a multi-step wizard using a Train component so that end users step through
+  the process to change an employee’s job role.
 </div>
 <div class="oj-flex">
   <div class="oj-panel oj-sm-padding-2x oj-flex-item oj-sm-12 oj-md-12">
     <div class="oj-flex">
       <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
-      <oj-train id="train" steps='[[$page.variables.steps]]'
-        selected-step="{{ $variables.selectedStep }}"
+      <oj-train id="train" steps='[[$page.variables.steps]]' selected-step="{{ $variables.selectedStep }}"
         class="oj-train-stretch oj-flex-item oj-sm-12 oj-md-8"></oj-train>
-
       <div class="oj-flex-item oj-sm-12 oj-md-1">
         <oj-button on-oj-action="[[$listeners.nextButtonOjAction]]"
           disabled="[[ !$variables.selectedEmployeeItem.data ]]">Next
         </oj-button>
       </div>
     </div>
-
-
     <oj-bind-if test='[[ $variables.selectedStep === "1" ]]'>
       <div class="oj-flex" style="margin-top:30px;">
-        <oj-label for="select-employee"
-          class="oj-flex-item oj-sm-12 oj-md-3">Select employee
+        <oj-label for="select-employee" class="oj-flex-item oj-sm-12 oj-md-3">Select employee
           for job change:</oj-label>
-        <oj-select-single id="select-employee"
-          data="[[$page.variables.employeeListSDP]]" item-text="[[$functions.returnFullName]]"
-          value-item="{{ $variables.selectedEmployeeItem }}"
+        <oj-select-single id="select-employee" data="[[$page.variables.employeeListSDP]]"
+          item-text="[[$functions.returnFullName]]" value-item="{{ $variables.selectedEmployeeItem }}"
           class="oj-flex-item oj-sm-12 oj-md-5"></oj-select-single>
       </div>
       <div class="oj-flex">
-       
-
         <oj-bind-if test="[[$variables.selectedEmployeeItem.data!=null]]">
           <h1 class="oj-flex-item oj-sm-12 oj-md-12">Employee Details</h1>
-          <oj-form-layout label-edge="start"
-            class="oj-flex-item oj-sm-12 oj-md-11">
+          <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-11">
 
-            <oj-input-text label-hint="First Name"
-              value="{{ $variables.selectedEmployeeItem.data.firstName}}"
+            <oj-input-text label-hint="First Name" value="{{ $variables.selectedEmployeeItem.data.firstName}}"
               readonly="true"></oj-input-text>
-            <oj-input-text label-hint="Last Name"
-              value="{{ $variables.selectedEmployeeItem.data.lastName}}"
+            <oj-input-text label-hint="Last Name" value="{{ $variables.selectedEmployeeItem.data.lastName}}"
               readonly="true"></oj-input-text>
-            <oj-input-text label-hint="Hire date"
-              value="{{ $variables.selectedEmployeeItem.data.hireDate}}"
+            <oj-input-text label-hint="Hire date" value="{{ $variables.selectedEmployeeItem.data.hireDate}}"
               readonly="true"></oj-input-text>
-            <oj-input-text label-hint="Email"
-              value="{{ $variables.selectedEmployeeItem.data.email}}"
-              readonly="true"></oj-input-text>
-            <oj-input-text label-hint="Salary"
-              value="{{ $variables.selectedEmployeeItem.data.salary}}"
-              readonly="true"></oj-input-text>
-            <oj-input-text label-hint="Phone Number"
-              value="{{ $variables.selectedEmployeeItem.data.phoneNumber}}"
+            <oj-input-text label-hint="Email" value="{{ $variables.selectedEmployeeItem.data.email}}" readonly="true">
+            </oj-input-text>
+            <oj-input-text label-hint="Salary" value="{{ $variables.selectedEmployeeItem.data.salary}}" readonly="true">
+            </oj-input-text>
+            <oj-input-text label-hint="Phone Number" value="{{ $variables.selectedEmployeeItem.data.phoneNumber}}"
               readonly="true"></oj-input-text>
             <oj-input-text label-hint="Job Title"
-              value="{{ $variables.selectedEmployeeItem.data.jobObject.items[0].jobTitle}}"
-              readonly="true"></oj-input-text>
+              value="{{ $variables.selectedEmployeeItem.data.jobObject.items[0].jobTitle}}" readonly="true">
+            </oj-input-text>
           </oj-form-layout>
-
         </oj-bind-if>
-
-
-
       </div>
     </oj-bind-if>
     <oj-bind-if test='[[ $variables.selectedStep === "2" ]]'>
-
-
       <div class="oj-flex" style="margin-top:30px;">
-        <oj-label for="select-job" class="oj-flex-item oj-sm-12 oj-md-3"><oj-bind-text value='[[ "Select Job for "+$variables.selectedEmployeeItem.data.firstName + " "+$variables.selectedEmployeeItem.data.lastName+":" ]]'></oj-bind-text>
-          
-         </oj-label>
-        <oj-select-single id="select-job" class="oj-flex-item oj-sm-12 oj-md-4"
-          item-text="jobTitle" data="[[$page.variables.jobListSDP]]"
-          value-item="{{ $variables.newJobTitle }}" required="true">
+        <oj-label for="select-job" class="oj-flex-item oj-sm-12 oj-md-3">
+          <oj-bind-text
+            value='[[ "Select Job for "+$variables.selectedEmployeeItem.data.firstName + " "+$variables.selectedEmployeeItem.data.lastName+":" ]]'>
+          </oj-bind-text>
+        </oj-label>
+        <oj-select-single id="select-job" class="oj-flex-item oj-sm-12 oj-md-4" item-text="jobTitle"
+          data="[[$page.variables.jobListSDP]]" value-item="{{ $variables.newJobTitle }}" required="true">
         </oj-select-single>
       </div>
-
-
     </oj-bind-if>
     <oj-bind-if test='[[ $variables.selectedStep === "3" ]]'>
-
-
       <div class="oj-flex" style="margin-top:30px;">
         <h1 class="oj-flex-item oj-sm-12 oj-md-12">
           <oj-bind-text
@@ -95,30 +72,25 @@
         </h1>
       </div>
       <div class="oj-flex">
-        <oj-form-layout label-edge="start"
-          class="oj-flex-item oj-sm-12 oj-md-12">
-          <oj-input-text label-hint="Old Job" readonly="true"
-            value="{{ $variables.currentJobTitle }}"></oj-input-text>
-          <oj-input-text label-hint="New Job" readonly="true"
-            value="{{ $variables.newJobTitle.data.jobTitle }}"></oj-input-text>
-
+        <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-12">
+          <oj-input-text label-hint="Old Job" readonly="true" value="{{ $variables.currentJobTitle }}"></oj-input-text>
+          <oj-input-text label-hint="New Job" readonly="true" value="{{ $variables.newJobTitle.data.jobTitle }}">
+          </oj-input-text>
           <oj-button on-oj-action="[[$listeners.submitButtonOjAction]]">Submit
           </oj-button>
         </oj-form-layout>
       </div>
-
     </oj-bind-if>
   </div>
-</div>
-<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]"
-  class="oj-flex-item oj-sm-12 oj-md-6">
-  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1" :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
-    <div class="recipe-box oj-flex-item">
-      <h1 class="oj-typography-heading-lg">Recipe</h1>
-      <div class="oj-flex">
-        <oj-vb-content config="[[ vbRouterFlow ]]"
-          class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
       </div>
     </div>
-  </div>
-</oj-bind-if>
+  </oj-bind-if>
+</div>

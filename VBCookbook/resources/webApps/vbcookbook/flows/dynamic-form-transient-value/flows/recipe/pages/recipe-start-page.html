@@ -1,0 +1,93 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Form</h1>
+      <div>
+        <ol>
+          <li>
+            Install the JET Dynamic Form component from the Component Exchange,
+            then drag and drop it on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Create Form</strong>.
+          </li>
+          <li>
+            In the Configure as Create Form dialog that appears, choose the
+            business object (Employee in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>formTransientValueChange</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields then click
+            <strong>Finish</strong>:
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>email</code></li>
+            </ul>
+            This generates a dynamic form and a Save button.
+          </li>
+          <li>In the Layouts tab, open the <strong>Employee</strong> layout.</li>
+          <li>In the Dynamic Form section of the Rule Sets tab, open <code>formTransientValueChange</code> rule set that
+            you created while
+            creating the dynamic form.
+          </li>
+
+          <li>Open the default layout, select the email field and, in the Properties pane, select <strong>Read
+              Only</strong>.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Add the Transient Value Change Listener</h1>
+      <div>
+        <ol>
+          <li>In the Page Designer, select the Dynamic Form component.</li>
+          <li>In the Events tab of the Properties pane for the component, create a new <code>transient-value</code>
+            event named <code>DynamicFormTransientValueChangeChain</code>.</li>
+          <li>In the generated <code>DynamicFormTransientValueChangeChain</code> action chain, add an If action and set
+            the value of the Condition property to:
+            <br>
+            <code>[[ $variables.transientValue.firstName && $variables.transientValue.lastName!= null]]</code>
+          </li>
+          <li>In the true branch, add the following actions:
+            <ul>
+              <li>Call Function action that includes a JavaScript function named <code>generateEmail</code>:
+                <pre>
+PageModule.prototype.generateEmail = function (transientValue) {
+  transientValue.email = (transientValue.firstName).charAt(0) + transientValue.lastName + "@oracle.com";
+  return transientValue;
+};</pre>
+              </li>
+              <li>Assign Variable action and assign the result of the <code>generateEmail</code> function to the
+                <code>employee</code> page variable. This variable was automatically created when you created the
+                dynamic form.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

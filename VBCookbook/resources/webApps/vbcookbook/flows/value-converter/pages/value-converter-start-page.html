@@ -1,0 +1,70 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">This recipe shows you how to use the Oracle JET Converter API to format date, time, currency, and decimal strings.
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <h3>Date</h3>
+    <p>Default date converter on input date component:</p>
+    <oj-input-date class="oj-form-control-max-width-md" value="{{ $variables.date }}" label-hint=" "></oj-input-date>
+    <p class="oj-sm-padding-4x-top">Readonly text with this converter:</p>
+    <oj-bind-text value="[[ $functions.formatDateWithDefaultConverter( $variables.date ) ]]"></oj-bind-text>
+
+    <h3 class="oj-sm-padding-6x-top">Custom Date</h3>
+    <p>Custom date converter on input date component (dateFormat=full):</p>
+    <oj-input-date class="oj-form-control-max-width-md" value="{{ $variables.date }}"
+      converter='{"type": "datetime", "options": {"formatType":"date","dateFormat":"full"}}' label-hint=" ">
+    </oj-input-date>
+    <p class="oj-sm-padding-4x-top">Readonly text with this converter:</p>
+    <oj-bind-text value="[[ $functions.formatDateWithFullConverter( $variables.date ) ]]"></oj-bind-text>
+
+    <h3 class="oj-sm-padding-6x-top">Date and Time</h3>
+    <p>Custom datetime converter on input datetime component (formatType=datetime, dateFormat=full, timeFormat=full):
+    </p>
+    <oj-input-date-time value="{{ $variables.date }}" id="input-date1"
+      converter='{"type": "datetime", "options": {"formatType":"datetime", "dateFormat": "full", "timeFormat":"full"}}'
+      class="oj-form-control-max-width-md" label-hint=" "></oj-input-date-time>
+    <p class="oj-sm-padding-4x-top">Readonly text with this converter:</p>
+    <oj-bind-text value="[[ $functions.formatDatetimeWithFullConverter( $variables.date ) ]]"></oj-bind-text>
+
+    <h3 class="oj-sm-padding-6x-top">Time</h3>
+    <p>Custom time converter on input time component (formatType=time, timeFormat=full):</p>
+    <oj-input-time label-hint=" " value="{{ $variables.date }}" class="oj-form-control-max-width-md"
+      converter='{"type": "datetime", "options": {"formatType":"time","timeFormat":"full"}}'></oj-input-time>
+    <p class="oj-sm-padding-4x-top">Readonly text with this converter:</p>
+    <oj-bind-text value="[[ $functions.formatTimeWithFullConverter( $variables.date ) ]]"></oj-bind-text>
+
+    <h3 class="oj-sm-padding-6x-top">Currency</h3>
+    <p>Custom currency converter on input number component (style=currency, currency=USD, currencyDisplay=code):</p>
+    <oj-input-number label-hint=" " value="{{ $variables.number }}" class="oj-form-control-max-width-md"
+      virtual-keyboard="number"
+      converter='{"options":{"style":"currency","currency":"USD","currencyDisplay":"code"},"type":"number"}'>
+    </oj-input-number>
+    <p class="oj-sm-padding-4x-top">Readonly text with this converter:</p>
+    <oj-bind-text value="[[ $functions.formatCurrencyWithUSDConverter( $variables.number ) ]]"></oj-bind-text>
+
+    <h3 class="oj-sm-padding-6x-top">Decimal</h3>
+    <p>Custom decimal converter on input number component (style=decimal,minimumFractionDigits=3,maximumFractionDigits=3):</p>
+    <oj-input-number label-hint=" " value="{{ $variables.number }}" class="oj-form-control-max-width-md"
+      virtual-keyboard="number"
+      converter='{"options":{"style":"decimal","minimumFractionDigits":3,"maximumFractionDigits":3},"type":"number"}'>
+    </oj-input-number>
+    <p class="oj-sm-padding-4x-top">Readonly text with this converter:</p>
+    <oj-bind-text value="[[ $functions.formatNumeralWithDecimalConverter( $variables.number ) ]]"></oj-bind-text>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

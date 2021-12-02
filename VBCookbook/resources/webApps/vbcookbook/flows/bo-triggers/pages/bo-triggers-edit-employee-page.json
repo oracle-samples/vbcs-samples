@@ -143,7 +143,7 @@
           "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
             "summary": "Could not load data",
-            "message": "{{ 'Could not load data: status ' + $chain.results.loadEmployee.payload.status }}",
+            "message": "{{ 'Could not load data: status ' + $chain.results.loadEmployee.status }}",
             "type": "error",
             "displayMode": "persist"
           }
@@ -279,7 +279,7 @@
           "module": "vb/action/builtin/assignVariablesAction",
           "parameters": {
             "$chain.variables.saveFailureResult": {
-              "source": "[[ $chain.results.saveEmployee.payload ]]"
+              "source": "[[ $chain.results.saveEmployee ]]"
             }
           },
           "outcomes": {
@@ -314,7 +314,7 @@
           },
           "parameters": {
             "$chain.variables.errorMessage": {
-              "source": "[[ 'Could not update Employee: status ' + $chain.results.saveEmployee.payload.status ]]"
+              "source": "[[ 'Could not update Employee: status ' + $chain.results.saveEmployee.status ]]"
             }
           }
         },

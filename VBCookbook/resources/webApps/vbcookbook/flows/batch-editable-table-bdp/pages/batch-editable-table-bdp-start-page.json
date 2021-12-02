@@ -102,14 +102,6 @@
       "service": "businessObjects",
       "path": "response"
     },
-    "@decorators.getall_Employee": {
-      "endpoint": "getall_Employee",
-      "service": "businessObjects",
-      "path": "response"
-    },
-    "getall_Employee": {
-      "items": "EmployeeType[]"
-    },
     "getall_Employee_SDP": {
       "items": [
         {
@@ -306,11 +298,6 @@
           "type": "any",
           "input": "fromCaller"
         },
-        "rowIndex": {
-          "required": true,
-          "type": "number",
-          "input": "fromCaller"
-        },
         "rowData": {
           "required": true,
           "type": "any",
@@ -360,19 +347,10 @@
     "TableBeforeRowEditEndChain": {
       "description": "",
       "variables": {
-        "cancelEdit": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
+
         "rowKey": {
           "required": true,
           "type": "any",
-          "input": "fromCaller"
-        },
-        "rowIndex": {
-          "required": true,
-          "type": "number",
           "input": "fromCaller"
         },
         "rowData": {
@@ -397,7 +375,7 @@
         "checkWhetherEventIsBeingIgnored": {
           "module": "vb/action/builtin/ifAction",
           "parameters": {
-            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit || $page.variables.isCurrentRowBeingDeleted ]]"
+            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit || $page.variables.isCurrentRowBeingDeleted ]]"
           },
           "outcomes": {
             "false": "hasRecordChanged",
@@ -571,11 +549,6 @@
         }
       },
       "variables": {
-        "data": {
-          "type": "any",
-          "required": false,
-          "input": "fromCaller"
-        },
 
         "key": {
           "required": true,
@@ -721,13 +694,10 @@
         {
           "chainId": "DeleteRow",
           "parameters": {
-
             "index": "{{ $current.index }}",
             "current": "{{ $current }}",
             "key": "{{ $current.key }}",
-            "data": "{{ $current.data }}",
             "row": "{{ $current.row }}"
-
           }
         }
       ]
@@ -757,7 +727,6 @@
         "chainId": "TableBeforeRowEditChain",
         "parameters": {
           "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
           "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
             "event": "{{ $event }}"
         }
@@ -768,12 +737,10 @@
       "chains": [{
         "chainId": "TableBeforeRowEditEndChain",
         "parameters": {
-          "cancelEdit": "{{$event.detail.cancelEdit}}",
           "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
           "rowData": "{{$page.variables.currentRowBuffer}}",
-            "event": "{{ $event }}",
-            "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
+          "event": "{{ $event }}",
+          "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
         }
       }]
     },

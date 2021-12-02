@@ -67,6 +67,9 @@
   "eventListeners": {},
   "imports": {
     "components": {
+      "oj-highlight-text": {
+        "path": "ojs/ojhighlighttext"
+      },
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
       },
@@ -78,10 +81,8 @@
       },
       "oj-sample-input-text-typeahead": {
         "path": "oj-sample/input-text-typeahead/loader"
-      },
-      "oj-sample-highlight-text": {
-        "path": "oj-sample/highlight-text/loader"
       }
+
     }
   }
 }

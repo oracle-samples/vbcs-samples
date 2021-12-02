@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-form-virtual-field",
+  "description": "Flow main",
+  "defaultPage": "dynamic-form-virtual-field-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

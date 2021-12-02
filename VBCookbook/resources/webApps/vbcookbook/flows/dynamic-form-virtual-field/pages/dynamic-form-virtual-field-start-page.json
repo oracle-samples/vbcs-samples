@@ -1,0 +1,61 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "getEmployeeResponse"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "path": {
+      "type": {
+        "applicationPath": "string"
+      },
+      "defaultValue": {
+        "applicationPath": "[[$application.path]]"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getEmployeeResponse": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getEmployeeResponse": "object"
+  },
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-dynamic-container": {
+        "path": "oj-dynamic/container/loader"
+      },
+      "oj-dynamic-form": {
+        "path": "oj-dynamic/form/loader"
+      }
+    }
+  }
+}

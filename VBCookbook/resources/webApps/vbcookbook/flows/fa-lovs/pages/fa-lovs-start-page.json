@@ -22,7 +22,9 @@
     },
     "selectedRow": {
       "type": {
+        "data": "object",
         "key": "string"
+
       }
     },
     "filters": {

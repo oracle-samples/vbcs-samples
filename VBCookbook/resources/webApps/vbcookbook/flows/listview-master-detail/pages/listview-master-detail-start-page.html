@@ -4,80 +4,90 @@
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
-  
-  This recipe shows how you can implement a three-level master detail pattern with  List View components. 
+  This recipe shows how you can implement a three-level master detail pattern with List View components.
   We include logic to clear the selected employee's details when a different department is selected.
-  
+</div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
- 
-      <div class="oj-flex oj-flex-item oj-sm-12 oj-md-12">
-        <div class="oj-md-8 oj-sm-12 oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap">
-          <h2 class="oj-flex-item oj-sm-flex-initial">Departments</h2>
-          <oj-list-view class="oj-flex-item oj-sm-flex-initial" id="departmentList" data="[[$page.variables.departmentListSDP]]"
-            style="height:200px" selection-mode="single" on-selected-changed="[[$listeners.departmentListSelected]]">
-            <template slot="itemTemplate">
-          <oj-vb-list-item>
-            <div slot="title1">
-              <oj-bind-text value="[[ $current.data.departmentName ]]"></oj-bind-text>
-            </div>
-          </oj-vb-list-item>
-        </template>
-          </oj-list-view>
-          <h2 class="oj-flex-item oj-sm-flex-initial">Employees</h2>
-          <oj-list-view class="oj-flex-item oj-sm-flex-initial" id="employeeList" data="[[$page.variables.employeeListSDP]]"
-            style="height:200px" selection-mode="single" on-selected-changed="[[$listeners.employeeListSelected]]">
-            <template slot="itemTemplate">
-          <oj-vb-list-item>
-            <div slot="title1">
-              <oj-bind-text value='[[ ($current.data.firstName + " " + $current.data.lastName) ]]'></oj-bind-text>
-            </div>
-            <oj-input-number aria-label= "Salary" id="salary" value="[[ $current.data.salary ]]" slot="value1" readonly="true" converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'></oj-input-number>
-            <oj-input-date aria-label= "Hire Date" id="hireDate" value="[[ $current.data.hireDate ]]" slot="value2" readonly="true"></oj-input-date>
-            <oj-avatar class="oj-flex-item oj-sm-flex-initial" slot="image" size="sm" src="[[ $application.path + 'resources/images/employees/' + $current.data.id + '.png' ]]"></oj-avatar>
-          </oj-vb-list-item>
-        </template>
-          </oj-list-view>
-        </div>
-        <div class="oj-flex-item oj-sm-flex-initial oj-flex oj-sm-flex-direction-column">
-          <h2 class="oj-flex-item oj-sm-flex-initial">Employee Data</h2>
-          <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
-            <oj-bind-if test="[[ $variables.selectedEmployee == undefined ]]">
-              <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"></oj-avatar>
-            </oj-bind-if>
-          </div>
-          <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
-            <oj-bind-if test="[[ $variables.employee.id ]]">
-              <oj-avatar class="oj-flex-item oj-sm-flex-initial" src="[[ $application.path + 'resources/images/employees/' + $variables.employee.id + '.png' ]]"
-                size="lg"></oj-avatar>
-            </oj-bind-if>
-          </div>
-          <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-flex-initial" id="empDetails">
-            <oj-input-text label-hint="Employee ID" value="{{ $variables.employee.id }}" placeholder="No value to display"></oj-input-text>
-            <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}"
-              placeholder="No value to display"></oj-input-text>
-            <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
-              placeholder="No value to display"></oj-input-text>
-            <oj-input-text virtual-keyboard="email" validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
-              label-hint="Email" value="{{ $variables.employee.email }}" placeholder="No value to display"></oj-input-text>
-            <oj-input-text virtual-keyboard="tel" validators='[{"type":"regexp", "options":{"pattern":"\\+? *([\\d]+ *\\( *[0-9]+ *\\))?[\\d -.]+", "hint":"Enter a valid phone number.", "messageDetail": "Value must be a valid phone number"}}]'
-              label-hint="Phone Number" value="{{ $variables.employee.phoneNumber }}"
-              placeholder="No value to display"></oj-input-text>
-            <oj-input-date label-hint="Hire Date" value="{{ $variables.employee.hireDate }}"
-              placeholder="No value to display"></oj-input-date>
-            <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'
-              label-hint="Salary" value="{{ $variables.employee.salary }}" placeholder="No value to display"></oj-input-number>
-            <oj-input-text label-hint="Manager ID" value="{{ $variables.employee.manager }}"
-              placeholder="No value to display"></oj-input-text>
-          </oj-form-layout>
-        </div>
-      </div>
-   
-  </div>
 
+    <div class="oj-flex oj-flex-item oj-sm-12 oj-md-12">
+      <div
+        class="oj-md-8 oj-sm-12 oj-flex oj-flex-item oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap">
+        <h2 class="oj-flex-item oj-sm-flex-initial">Departments</h2>
+        <oj-list-view class="oj-flex-item oj-sm-flex-initial" id="departmentList"
+          data="[[$page.variables.departmentListSDP]]" style="height:200px" selection-mode="single"
+          on-selected-changed="[[$listeners.departmentListSelected]]">
+          <template slot="itemTemplate">
+            <oj-vb-list-item>
+              <div slot="title1">
+                <oj-bind-text value="[[ $current.data.departmentName ]]"></oj-bind-text>
+              </div>
+            </oj-vb-list-item>
+          </template>
+        </oj-list-view>
+        <h2 class="oj-flex-item oj-sm-flex-initial">Employees</h2>
+        <oj-list-view class="oj-flex-item oj-sm-flex-initial" id="employeeList"
+          data="[[$page.variables.employeeListSDP]]" style="height:200px" selection-mode="single"
+          on-selected-changed="[[$listeners.employeeListSelected]]">
+          <template slot="itemTemplate">
+            <oj-vb-list-item>
+              <div slot="title1">
+                <oj-bind-text value='[[ ($current.data.firstName + " " + $current.data.lastName) ]]'></oj-bind-text>
+              </div>
+              <oj-input-number aria-label="Salary" :id="[['salary-' + $current.index]]"
+                value="[[ $current.data.salary ]]" slot="value1" readonly="true"
+                converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'></oj-input-number>
+              <oj-input-date aria-label="Hire Date" :id="[['hireDate-' + $current.index]]"
+                value="[[ $current.data.hireDate ]]" slot="value2" readonly="true"></oj-input-date>
+              <oj-avatar class="oj-flex-item oj-sm-flex-initial" slot="image" size="sm"
+                src="[[ $application.path + 'resources/images/employees/' + $current.data.id + '.png' ]]"></oj-avatar>
+            </oj-vb-list-item>
+          </template>
+        </oj-list-view>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial oj-flex oj-sm-flex-direction-column">
+        <h2 class="oj-flex-item oj-sm-flex-initial">Employee Data</h2>
+        <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+          <oj-bind-if test="[[ $variables.selectedEmployee == undefined ]]">
+            <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"></oj-avatar>
+          </oj-bind-if>
+        </div>
+        <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
+          <oj-bind-if test="[[ $variables.employee.id ]]">
+            <oj-avatar class="oj-flex-item oj-sm-flex-initial"
+              src="[[ $application.path + 'resources/images/employees/' + $variables.employee.id + '.png' ]]" size="lg">
+            </oj-avatar>
+          </oj-bind-if>
+        </div>
+        <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-flex-initial" id="empDetails">
+          <oj-input-text label-hint="Employee ID" value="{{ $variables.employee.id }}"
+            placeholder="No value to display"></oj-input-text>
+          <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}"
+            placeholder="No value to display"></oj-input-text>
+          <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
+            placeholder="No value to display"></oj-input-text>
+          <oj-input-text virtual-keyboard="email"
+            validators='[{"type":"regexp", "options":{"pattern":"([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})", "hint":"Enter an email address.", "messageDetail": "Value must be of the form xxx@xxx.xx"}}]'
+            label-hint="Email" value="{{ $variables.employee.email }}" placeholder="No value to display">
+          </oj-input-text>
+          <oj-input-text virtual-keyboard="tel"
+            validators='[{"type":"regexp", "options":{"pattern":"\\+? *([\\d]+ *\\( *[0-9]+ *\\))?[\\d -.]+", "hint":"Enter a valid phone number.", "messageDetail": "Value must be a valid phone number"}}]'
+            label-hint="Phone Number" value="{{ $variables.employee.phoneNumber }}" placeholder="No value to display">
+          </oj-input-text>
+          <oj-input-date label-hint="Hire Date" value="{{ $variables.employee.hireDate }}"
+            placeholder="No value to display"></oj-input-date>
+          <oj-input-number converter='{"options":{"style":"currency","currency":"USD"},"type":"number"}'
+            label-hint="Salary" value="{{ $variables.employee.salary }}" placeholder="No value to display">
+          </oj-input-number>
+          <oj-input-text label-hint="Manager ID" value="{{ $variables.employee.manager }}"
+            placeholder="No value to display"></oj-input-text>
+        </oj-form-layout>
+      </div>
+    </div>
+  </div>
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">
@@ -85,6 +95,5 @@
         </div>
       </div>
     </div>
-  </oj-bind-if>
   </oj-bind-if>
 </div>

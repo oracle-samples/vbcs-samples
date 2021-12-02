@@ -1,0 +1,24 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "employee-card": {
+        "path": "employee-card/loader"
+      },
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      }
+    }
+  }
+}

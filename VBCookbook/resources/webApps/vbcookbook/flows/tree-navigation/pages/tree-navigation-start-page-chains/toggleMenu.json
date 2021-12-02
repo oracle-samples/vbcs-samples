@@ -1,0 +1,31 @@
+{
+  "description": "",
+  "root": "if",
+  "actions": {
+    "callFunctionToggleDrawer": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "toggleDrawer"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $application.responsive.lgUp ]]"
+      },
+      "outcomes": {
+        "true": "callFunctionAnimateNavMenu",
+        "false": "callFunctionToggleDrawer"
+      }
+    },
+    "callFunctionAnimateNavMenu": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "animateNavMenu"
+      }
+    }
+  },
+  "variables": {}
+}

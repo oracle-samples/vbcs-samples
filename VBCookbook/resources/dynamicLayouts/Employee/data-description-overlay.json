@@ -1,5 +1,46 @@
 {
     "addField": {
+        "employeeCard": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "value": "{{ $fields.avatar.value }}",
+                    "metadata": "[[ $fields.avatar.metadata ]]"
+                },
+                "email": {
+                    "value": "{{ $fields.email.value }}",
+                    "metadata": "[[ $fields.email.metadata ]]"
+                },
+                "fullName": {
+                    "value": "{{ $fields.fullName.value }}",
+                    "metadata": "[[ $fields.fullName.metadata ]]"
+                },
+                "hireDate": {
+                    "value": "{{ $fields.hireDate.value }}",
+                    "metadata": "[[ $fields.hireDate.metadata ]]"
+                },
+                "phoneNumber": {
+                    "value": "{{ $fields.phoneNumber.value }}",
+                    "metadata": "[[ $fields.phoneNumber.metadata ]]"
+                }
+
+            },
+            "referencedFields": [
+                "avatar",
+                "email",
+                "fullName",
+                "hireDate",
+                "phoneNumber"
+            ]
+        },
+        "employeeExperience": {
+            "type": "string",
+            "labelHint": "Employee Experience",
+            "readonly": true,
+            "value": "[[$functions.calculateEmployeeExperience($fields.hireDate.value())]]",
+            "referencedFields": [
+            ]
+        },
         "fullName": {
             "type": "string",
             "labelHint": "Full Name",
@@ -9,7 +50,17 @@
                 "lastName"
             ],
             "value": "[[$fields.firstName.value() + ' ' + $fields.lastName.value()]]"
+        },
+        "avatar": {
+            "type": "string",
+            "labelHint": "Avatar",
+            "readonly": true,
+            "value": "[[ $componentContext.applicationPath + 'resources/images/employees/' + $fields.id.value() + '.png' ]]",
+            "referencedFields": [
+                "id"
+            ]
         }
+
     },
     "addMetadata": {},
     "replaceMetadata": {

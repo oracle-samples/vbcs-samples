@@ -1,6 +1,5 @@
     {
-
-    "id": "inputnumber",
+        "id": "inputnumber-eating-chars",
         "description": "Flow main",
         "defaultPage": "inputnumber-eating-chars-start",
         "chains": {},

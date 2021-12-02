@@ -1,0 +1,10 @@
+    {
+
+    "id": "value-converter",
+        "description": "Flow main",
+        "defaultPage": "value-converter-start",
+        "chains": {},
+        "services": {},
+        "types": {},
+        "variables": {}
+    }

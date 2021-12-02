@@ -10,9 +10,6 @@
         "keyAttributes": "id"
       }
     },
-    "employees": {
-      "type": "EmployeeType[]"
-    },
     "jobListSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
@@ -110,16 +107,7 @@
     "TableBeforeRowEditChain": {
       "description": "",
       "variables": {
-        "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "rowIndex": {
-          "required": true,
-          "type": "number",
-          "input": "fromCaller"
-        },
+
         "rowData": {
           "required": true,
           "type": "any",
@@ -143,19 +131,10 @@
     "TableBeforeRowEditEndChain": {
       "description": "",
       "variables": {
-        "cancelEdit": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
+
         "rowKey": {
           "required": true,
           "type": "any",
-          "input": "fromCaller"
-        },
-        "rowIndex": {
-          "required": true,
-          "type": "number",
           "input": "fromCaller"
         },
         "rowData": {
@@ -187,7 +166,7 @@
         "checkWhetherEventIsBeingIgnored": {
           "module": "vb/action/builtin/ifAction",
           "parameters": {
-            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit ]]"
+            "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit ]]"
           },
           "outcomes": {
             "false": "hasRecordChanged"
@@ -587,8 +566,6 @@
       "chains": [{
         "chainId": "TableBeforeRowEditChain",
         "parameters": {
-          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
           "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
         }
       }]
@@ -598,9 +575,7 @@
       "chains": [{
         "chainId": "TableBeforeRowEditEndChain",
         "parameters": {
-          "cancelEdit": "{{$event.detail.cancelEdit}}",
           "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-          "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
           "rowData": "{{$page.variables.currentRowBuffer}}",
           "originalRowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
           "event": "{{ $event }}"

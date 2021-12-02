@@ -44,6 +44,11 @@
       "oj-avatar": {
         "path": "ojs/ojavatar"
       }
+    },
+    "modules": {
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
+      }
     }
   }
 }

@@ -16,8 +16,8 @@
           data-oj-context aria-label="filmstrip" id="filmstrip" style="width: 100%; max-width: 600px">
           <oj-bind-for-each data="[[ $variables.jobs ]]">
             <template data-oj-as="data">
-              <div class="oj-panel oj-sm-padding-4x" :style.width="[[ $application.functions.smScreen() ? '200px' : '400px' ]]">
-                  <span :class="[[ $application.functions.smScreen() ? 'oj-typography-body-md' : 'oj-typography-body-xl' ]]">
+              <div class="oj-panel oj-sm-padding-4x" :style.width="[[ $application.responsive.smOnly ? '200px' : '400px' ]]">
+                  <span :class="[[ $application.responsive.smOnly ? 'oj-typography-body-md' : 'oj-typography-body-xl' ]]">
                     <oj-bind-text value="[[ $current.data.title + 's' ]]"></oj-bind-text>
                   </span>
               </div>
@@ -36,7 +36,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

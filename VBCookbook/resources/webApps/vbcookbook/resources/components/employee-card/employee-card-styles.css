@@ -1,0 +1,85 @@
+employee-card:not(.oj-complete){
+  visibility: hidden;
+}
+
+employee-card {
+	width: 16rem;
+  height: 16rem;
+  display: block;
+  perspective: 800px;
+  margin: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.15s; 
+}
+
+employee-card:hover {
+  transform: scale(1.02);
+}
+
+employee-card .employee-card-flip-container:hover {
+  box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, .4);
+}
+
+employee-card .employee-card-text,
+employee-card .employee-card-avatar {
+   color: #fff;
+}
+
+/* To ensure your classes are scoped correctly, we recommend scoping classes and prefixing class names with the composite name. */
+employee-card .employee-card-front-side, 
+employee-card .employee-card-back-side {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  border-radius: 5px;
+  background-color: #3A3632;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+}
+
+employee-card .employee-card-front-side {
+  /* Specify a background-image url to provide an image for the front of the card. */
+  text-align: center;
+  transform: rotateY(0deg);
+  z-index: 0;
+}
+
+employee-card .employee-card-back-side {  
+  padding-left: 15px;
+  padding-right: 15px;
+  transform: rotateY(180deg);
+  z-index: -1;
+  text-align: center;
+}
+
+employee-card .employee-card-inner-back-side {
+  /* IE11 workaround to show back side */
+  -ms-transform: rotateY(180deg);
+}
+
+employee-card .employee-card-flip-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, .25);
+  border-radius: 5px;
+}
+
+employee-card .employee-card-flip-container.employee-card-flipped {
+  transform: rotateY(180deg);
+}
+
+employee-card .employee-card-flip-container.employee-card-flipped .employee-card-back-side {
+  /* IE11 workaround to show back side */
+  -ms-transform: rotateY(360deg);
+  z-index: 0;
+}
+
+employee-card .employee-card-avatar {
+  margin: auto;
+}

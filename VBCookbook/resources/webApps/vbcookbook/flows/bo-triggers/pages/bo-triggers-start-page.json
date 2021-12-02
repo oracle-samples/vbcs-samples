@@ -12,15 +12,6 @@
         "responseType": "page:getallEmployeeResponse"
       }
     },
-    "employeeListSDP2": {
-      "type": "vb/ServiceDataProvider",
-      "defaultValue": {
-        "endpoint": "businessObjects/getall_Employee",
-        "keyAttributes": "id",
-        "itemsPath": "items",
-        "responseType": "page:getallEmployeeResponse2"
-      }
-    },
     "oj_table_11161435_1SelectedId": {
       "type": "string",
       "defaultValue": ""
@@ -29,11 +20,6 @@
   "metadata": {},
   "types": {
     "@decorators.getallEmployeeResponse": {
-      "endpoint": "getall_Employee",
-      "service": "businessObjects",
-      "path": "response"
-    },
-    "@decorators.getallEmployeeResponse2": {
       "endpoint": "getall_Employee",
       "service": "businessObjects",
       "path": "response"
@@ -60,27 +46,6 @@
             ]
           },
           "salary": "number"
-        }
-      ]
-    },
-    "getallEmployeeResponse2": {
-      "items": [
-        {
-          "id": "number",
-          "jobObject": {
-            "items": [
-              {
-                "jobTitle": "string"
-              }
-            ]
-          },
-          "managerObject": {
-            "items": [
-              {
-                "lastName": "string"
-              }
-            ]
-          }
         }
       ]
     }

@@ -1,0 +1,8 @@
+{
+  "id": "dashboard-template",
+  "description": "Flow main",
+  "defaultPage": "dashboard-template-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

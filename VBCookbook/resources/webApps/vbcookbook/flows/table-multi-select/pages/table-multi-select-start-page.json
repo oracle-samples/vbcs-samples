@@ -183,8 +183,7 @@
         {
           "chainId": "TableSelectedChangeChain",
           "parameters": {
-            "selected": "{{ $event.detail.value }}",
-            "detail": "{{ $event.detail }}"
+            "selected": "{{ $event.detail.value }}"
           }
         }
       ]

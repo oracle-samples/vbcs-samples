@@ -1,6 +1,5 @@
     {
-
-    "id": "combobox-one-dp",
+        "id": "validation-async-validators",
         "description": "Combobox one description",
         "defaultPage": "validation-async-validators-start",
         "chains": {},

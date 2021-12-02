@@ -3,8 +3,7 @@
         "oj-sample": {
             "version": "4.0.5",
             "components": {
-                "input-text-typeahead": "2.0.0",
-                "highlight-text": "2.0.0"
+                "input-text-typeahead": "2.0.0"
             }
         },
         "oj-dynamic": {

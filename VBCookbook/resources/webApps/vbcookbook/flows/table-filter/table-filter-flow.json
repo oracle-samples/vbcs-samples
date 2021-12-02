@@ -1,6 +1,5 @@
     {
-
-    "id": "editable-table",
+        "id": "table-filter",
         "description": "Flow main",
         "defaultPage": "table-filter-start",
         "chains": {},

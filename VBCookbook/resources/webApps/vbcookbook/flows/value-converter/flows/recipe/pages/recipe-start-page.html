@@ -1,0 +1,78 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Formatting of date, time, currency, and number values can be configured in the Properties pane of the relevant component 
+  (<code>oj-input-date, oj-input-date-time, oj-input-time</code>, or <code>oj-input-number</code>). To format these types of value without depending on a
+  component, use the Oracle JET Converter API.</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Date, Time or DateTime Formatter</span>
+      <div>
+        <ol>
+          <li>In the JavaScript tab of the Designer, include the following import to load the Oracle JET Converter API:
+            <pre>define(["ojs/ojconverter-datetime"], function (datetimeConverter)</pre>
+          </li>
+          <li>Create a JavaScript method, <code>formatDatetimeWithFullConverter</code>, that takes a date string as a parameter and formats it
+            with a custom converter:
+            <pre>
+PageModule.prototype.formatDateWithFullConverter = function (date) {
+  let dateConverter = new datetimeConverter.IntlDateTimeConverter({
+    formatType: "date", dateFormat: 'full'
+  });
+  return dateConverter.format(date);
+}
+            </pre>
+          </li>
+          <li>To use the method, add a Text component (<code>oj-bind-text</code>) in the Page Designer and set its <code>value</code> property to:
+            <pre>$functions.formatDateWithFullConverter( $variables.yourDateVariable )</pre>
+          </li>
+          <li>By changing input parameters, this converter method can be used to format date, time, and datetime. For more
+            information on converter options, see <a target="_blank"
+              href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.IntlDateTimeConverter.html#ConverterOptions">IntlDateTimeConverter.ConverterOptions</a>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step2">
+      <span slot="header">Create a Currency or Number Formatter</span>
+      <div>
+        <ol>
+          <li>In the JavaScript tab of the Designer, include the following import to load the Oracle JET Converter API:
+            <pre>define(["ojs/ojconverter-number"], function (numberConverter)</pre>
+          </li>
+          <li>Create a JavaScript method, <code>formatCurrencyWithUSDConverter</code>, that takes a number as a parameter and formats it with a
+            custom converter:
+            <pre>
+PageModule.prototype.formatCurrencyWithUSDConverter = function (number) {
+  let currencyConverter = new numberConverter.IntlNumberConverter({
+    style:"currency", currency:"USD", currencyDisplay:"code", minimumFractionDigits: 2, maximumFractionDigits: 2
+  });
+  return currencyConverter.format(number);
+}
+            </pre>
+          </li>
+          <li>To use the method, add a Text component (<code>oj-bind-text</code>) in the Page Designer and set its <code>value</code> property to:
+            <pre>$functions.formatCurrencyWithUSDConverter( $variables.yourCurrencyVariable )</pre>
+            <p>By changing input parameters, this converter method can be used to format currency or numbers. For more
+              information on converter format options for currency and numbers, see <a target="_blank"
+                href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.IntlNumberConverter.html#ConverterOptions">IntlNumberConverter.ConverterOptions</a>.</p>
+                <p>The following example formats a number value with 3 fraction digits:</p>
+                <pre>
+PageModule.prototype.formatNumeralWithDecimalConverter = function (number) {
+  let decimalConverter = new numberConverter.IntlNumberConverter({
+    style: "decimal", minimumFractionDigits: 3, maximumFractionDigits: 3
+  });
+  return decimalConverter.format(number);
+}
+</pre>
+          </li>
+                  </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>

@@ -19,7 +19,10 @@
           "dynamic-container-toggle-layout",
           "dynamic-form-context",
           "dynamic-form-list-view",
-          "dynamic-container-responsive"
+          "dynamic-container-responsive",
+          "dynamic-form-virtual-field",
+          "dynamic-form-transient-value",
+          "dynamic-form-calculated-field"
         ]
       },
       {
@@ -29,7 +32,8 @@
         "items": [
           "multi-step-wizard",
           "form-layout-inline",
-          "filmstrip"
+          "filmstrip",
+          "dashboard-template"
         ]
       },
       {
@@ -43,7 +47,8 @@
           "navigation-context",
           "language-switcher",
           "customize-fetch-chain",
-          "oj-refresher"
+          "oj-refresher",
+          "tree-navigation"
         ]
       },
       {
@@ -63,7 +68,7 @@
         "label": "Input Controls",
         "icon": "text-input",
         "items": [
-          "date-converter",
+          "value-converter",
           "custom-js-validator",
           "validation-async-validators",
           "inputnumber-eating-chars",

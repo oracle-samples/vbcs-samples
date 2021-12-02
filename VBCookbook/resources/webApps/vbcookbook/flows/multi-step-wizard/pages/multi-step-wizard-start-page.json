@@ -43,15 +43,8 @@
     "newJobTitle": {
       "type": "object"
     },
-    "selectedEmployee": {
-      "type": "any"
-    },
     "selectedEmployeeItem": {
       "type": "object"
-    },
-    "selectedLabel": {
-      "type": "string",
-      "defaultValue": "step1"
     },
     "selectedStep": {
       "type": "string",

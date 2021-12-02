@@ -49,15 +49,6 @@
             data to the <code>currentRowBuffer</code> page variable.</li>
           <li>Add an <code>ojBeforeRowEditEnd</code> event listener to the Table component.</li>
 
-          <li>In the Events editor for the newly-created <code>ojBeforeRowEditEnd</code> event listener, set the
-            following value for the Prevent Default property so that the application prevents users from ending the row
-            edit if necessary, after evaluating the following expressions:
-            <p>
-              <code>{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}</code>
-            </p>
-          </li>
-
-
           <li>In the <code>TableBeforeRowEditEndChain</code> action chain, add the following two variables to reference
             the original value and the current value of the row:
             <ul>
@@ -83,6 +74,19 @@
           <li>Add another If action to test if this is the first update of this row.</li>
           <li>If true, add an Assign Variables action that marks the row as updated. </li>
           <li>In the Table component’s Properties pane, set the edit-mode property to <code>rowEdit</code>.</li>
+          
+          <li>In the Event Listeners tab, select the Table component's <code>ojBeforeRowEditEnd</code> event listener under Component Event Listeners and, in the Properties pane, set the following value for the Prevent Default property:
+              <p>
+                <code>
+                  {{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail, $event) }}
+                </code>
+              </p>
+              <p>This expression prevents users from ending the row edit if they enter an invalid value. </p>
+
+
+          </li>
+        
+
           <li>From the Component Palette, drag If components (<code>oj-bind-if</code>) and drop one on each column
             in the Table component
             to generate a Cell Template for the column. Configure the If component to determine the behavior when the

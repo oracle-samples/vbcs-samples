@@ -1,0 +1,111 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  This recipe shows you how to create single level tree structure navigation list. It also describes the steps to include this
+  navigation list in the shell page of your application.
+</div>
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+    <div id="pageWrapper" class="oj-offcanvas-outer-wrapper oj-offcanvas-page" style="height: 100%">
+      <div id="startDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+        <oj-navigation-list id="tree-navigation-mobile"
+          class="oj-flex-item main-navigation oj-sm-align-self-flex-start oj-navigationlist-nofollow-link"
+          data="[[ $functions.getNavigationContent($functions.getMetadata()) ]]"
+          root-label="[[ $application.user.email ]]" drill-mode="collapsible"
+          item.selectable="[[ $page.functions.itemSelectable ]]" on-selection-changed="[[$listeners.navSelection]]">
+          <template slot="itemTemplate" data-oj-as="item">
+            <li>
+              <a style="cursor: pointer">
+                <oj-bind-if test="[[item.data.attr.node]]">
+                  <i :class="[[ 'oj-navigationlist-item-icon oj-ux-ico-' + (item.data.attr.icon ? item.data.attr.icon : 'box')]]"></i>
+                  <oj-bind-text value="[[item.data.attr.name]]"></oj-bind-text>
+                </oj-bind-if>
+                <oj-bind-if test="[[!item.data.attr.node]]">
+                  <i :class="[[ 'oj-typography-body-md oj-navigationlist-item-icon oj-ux-ico-' + (item.data.attr.icon ? item.data.attr.icon : 'box') +  ' oj-sm-padding-4x-start']]"></i>
+                  <span class="oj-typography-body-md">
+                    <oj-bind-text value="[[item.data.attr.name]]"></oj-bind-text>
+                  </span>
+                </oj-bind-if>
+                <oj-bind-if test="[[item.data.attr.badge]]">
+                  <span class="oj-badge oj-navigationlist-item-end" style="color:aqua" ><oj-bind-text value="[[item.data.attr.badge]]"></oj-bind-text></span>
+                </oj-bind-if>
+              </a>
+            </li>
+          </template>
+        </oj-navigation-list>
+      </div>
+
+      <div id="page" class="oj-web-applayout-page" style="height: 100%">
+        <header role="banner" class="oj-web-applayout-header">
+          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+            <div class="oj-flex-bar-start oj-sm-align-items-center">
+              <oj-button id="toggleNavListBtn" class="toggleNavListButton oj-button-lg" chroming="borderless"
+                display="icons" on-oj-action="[[$page.listeners.toggleNavListButtonOjAction]]">
+                <span slot="startIcon" class="oj-ux-ico-menu"></span>
+                <span>Application Navigation</span>
+              </oj-button>
+              <span
+            class="oj-flex-item oj-typography-body-md oj-typography-bold oj-sm-padding-2x-start oj-sm-only-hide">Long Application Name</span>
+              <span
+            class="oj-flex-item oj-typography-body-md oj-typography-bold oj-sm-padding-2x-start oj-md-hide">Short Name</span>
+            </div>
+          </div>
+        </header>
+        <div class="oj-web-applayout-content-nopad oj-flex">
+          <div id="animationMenu" class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap"
+            style="overflow-x: auto; position: relative">
+            <div style="min-width: 300px; max-width: 300px; height: 100%"
+              class="oj-flex oj-contrast-marker tree-navigation-menu-panel" id="navigation-div">
+              <oj-navigation-list
+                class="oj-contrast-background oj-flex-item main-navigation oj-navigationlist-nofollow-link"
+                data="[[ $functions.getNavigationContent($functions.getMetadata()) ]]"
+                root-label="[[ $application.user.email ]]" drill-mode="collapsible"
+                item.selectable="[[ $page.functions.itemSelectable ]]" id="tree-navigation-desktop">
+                <template slot="itemTemplate" data-oj-as="item">
+                  <li>
+                    <a style="cursor: pointer">
+                      <oj-bind-if test="[[item.data.attr.node]]">
+                        <i :class="[[ 'oj-navigationlist-item-icon oj-ux-ico-' + (item.data.attr.icon ? item.data.attr.icon : 'box')]]"></i>
+                        <oj-bind-text value="[[item.data.attr.name]]"></oj-bind-text>
+                      </oj-bind-if>
+                      <oj-bind-if test="[[!item.data.attr.node]]">
+                        <i :class="[[ 'oj-typography-body-md oj-navigationlist-item-icon oj-ux-ico-' + (item.data.attr.icon ? item.data.attr.icon : 'box') +  ' oj-sm-padding-4x-start']]"></i>
+                        <span class="oj-typography-body-md">
+              <oj-bind-text value="[[item.data.attr.name]]"></oj-bind-text>
+              </span>
+                      </oj-bind-if>
+                      <oj-bind-if test="[[item.data.attr.badge]]">
+                        <span class="oj-badge oj-navigationlist-item-end" style="color:aqua" ><oj-bind-text value="[[item.data.attr.badge]]"></oj-bind-text></span>
+                      </oj-bind-if>
+                    </a>
+                  </li>
+                </template>
+              </oj-navigation-list>
+            </div>
+
+            <div class="oj-flex-item oj-flex oj-sm-flex-direction-column tree-navigation-content-panel"
+              style="overflow-x: auto;" id="vb-content">
+              <h1 class="oj-flex-item oj-sm-12 oj-typography-heading-lg">Page Content</h1>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

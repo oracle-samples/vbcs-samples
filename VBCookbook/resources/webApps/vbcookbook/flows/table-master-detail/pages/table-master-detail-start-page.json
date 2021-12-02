@@ -73,11 +73,7 @@
     "EmployeeSelectedChain": {
       "description": "",
       "variables": {
-        "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
+
         "rowData": {
           "required": true,
           "type": "any",
@@ -101,11 +97,6 @@
       "description": "",
       "variables": {
         "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "rowData": {
           "required": true,
           "type": "any",
           "input": "fromCaller"
@@ -141,8 +132,7 @@
         {
           "chainId": "DepartmentSelectedChain",
           "parameters": {
-            "rowKey": "{{$event.detail.value.key}}",
-            "rowData": "{{$event.detail.value.data}}"
+            "rowKey": "{{$event.detail.value.key}}"
           }
         }
       ]
@@ -152,7 +142,6 @@
         {
           "chainId": "EmployeeSelectedChain",
           "parameters": {
-            "rowKey": "{{$event.detail.value.key}}",
             "rowData": "{{$event.detail.value.data}}"
           }
         }
@@ -178,6 +167,14 @@
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      },
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
       }
     }
   }

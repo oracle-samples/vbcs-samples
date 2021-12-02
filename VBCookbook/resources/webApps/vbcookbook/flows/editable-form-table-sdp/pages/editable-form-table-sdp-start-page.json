@@ -158,16 +158,6 @@
       },
       "variables": {
 
-        "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "rowIndex": {
-          "required": true,
-          "type": "number",
-          "input": "fromCaller"
-        },
         "rowData": {
           "required": true,
           "type": "any",
@@ -275,16 +265,6 @@
           "required": true,
           "input": "fromCaller"
         },
-        "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "rowIndex": {
-          "required": true,
-          "type": "number",
-          "input": "fromCaller"
-        },
         "rowData": {
 
           "type": "get_Employee",
@@ -326,10 +306,7 @@
         {
           "chainId": "TableBeforeRowEditChain",
           "parameters": {
-            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
-            "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
-            "detail": "{{ $event.detail }}"
+            "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
           }
         }
       ]
@@ -339,9 +316,6 @@
         {
           "chainId": "TableBeforeRowEditEndChain",
           "parameters": {
-
-            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
             "detail": "{{ $event.detail }}",
             "cancelEdit": "{{ $variables.cancelEditVar }}",
             "rowData": "{{ $variables.currentRow }}",

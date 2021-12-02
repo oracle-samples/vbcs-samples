@@ -496,6 +496,11 @@
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
       }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      }
     }
   }
 }

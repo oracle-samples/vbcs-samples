@@ -27,16 +27,16 @@
         columns='[{"headerText":"Id","field":"id"},{"headerText":"Department Name","field":"departmentName"},{"headerText":"Manager","field":"departmentManager","sortProperty":"departmentManager.lastName","template":"lastNameCellTemplate4"},{"headerText":"Email","field":"departmentManager","sortProperty":"departmentManager.email","template":"emailCellTemplate5"}]'
         columns-default.sortable="disabled">
         <template slot="cellTemplate">
-            <oj-sample-highlight-text value="[[ ''+($current.data ? $current.data : '') ]]"
-              highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+            <oj-highlight-text text="[[ ''+($current.data ? $current.data : '') ]]"
+              match-text="[[ $variables.filterText ]]"></oj-highlight-text>
         </template>
         <template slot="lastNameCellTemplate4">
-            <oj-sample-highlight-text value="[[ ''+($current.data.items[0] ? $current.data.items[0].lastName : '') ]]"
-              highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+            <oj-highlight-text text="[[ ''+($current.data.items[0] ? $current.data.items[0].lastName : '') ]]"
+              match-text="[[ $variables.filterText ]]"></oj-highlight-text>
         </template>
         <template slot="emailCellTemplate5">
-            <oj-sample-highlight-text value="[[ ''+($current.data.items[0] ? $current.data.items[0].email : '') ]]"
-              highlight-value="[[ $variables.filterText ]]" highlight-class="matchedText"></oj-sample-highlight-text>
+            <oj-highlight-text text="[[ ''+($current.data.items[0] ? $current.data.items[0].email : '') ]]"
+              match-text="[[ $variables.filterText ]]"></oj-highlight-text>
         </template>
       </oj-table>
     </div>
@@ -44,7 +44,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

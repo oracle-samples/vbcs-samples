@@ -72,7 +72,6 @@
       "paths": {
         "/describe": {
           "get": {
-            "responses": {},
             "x-vb": {
               "headers": {
                 "Accept": "application/vnd.oracle.openapi3+json",

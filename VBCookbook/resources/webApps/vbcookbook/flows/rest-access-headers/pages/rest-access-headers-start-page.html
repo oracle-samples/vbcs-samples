@@ -7,16 +7,18 @@
   This recipe shows you how to access the response headers of a REST call.
 </div>
 <div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item sample-box oj-sm-flex-direction-column oj-sm-flex-items-initial">
-    <div class="oj-flex-item oj-sm-flex-initial" style="padding-left:10px;">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+    <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-start">
       <oj-button on-oj-action="[[$listeners.onButtonClick]]">Call REST Endpoint</oj-button>
     </div>
-    <h4 class="oj-flex-item oj-sm-flex-initial" style="padding-left:10px;">Response Headers</h4>
-    <oj-table scroll-policy="loadMoreOnScroll" style="width:100%;" class="oj-flex-item" data="[[ $variables.responseHeaders ]]" columns='[{"headerText":"key","field":"key"},{"headerText":"value","field":"value"}]'></oj-table>
-</div>
+    <h4 class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-start">Response Headers</h4>
+    <oj-table scroll-policy="loadMoreOnScroll" style="width:100%;" class="oj-flex-item"
+      data="[[ $variables.responseHeaders ]]"
+      columns='[{"headerText":"key","field":"key"},{"headerText":"value","field":"value"}]'></oj-table>
+  </div>
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

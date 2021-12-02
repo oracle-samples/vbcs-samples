@@ -15,7 +15,7 @@
       style="max-height: 82vh;">
       <template slot="itemTemplate">
 
-            <div class="oj-flex oj-panel" style="border: 1" :style.width="[[ $application.functions.smScreen() ? '320px' : '275px' ]]">
+            <div class="oj-flex oj-panel" style="border: 1" :style.width="[[ $application.responsive.smOnly ? '320px' : '275px' ]]">
               <div class="oj-sm-padding-2x oj-flex-item oj-sm-4">
                 <div class="oj-flex">
                   <div class="oj-flex-item oj-sm-12">
@@ -52,7 +52,7 @@
   </div>
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

@@ -48,13 +48,7 @@
           "phoneNumber": "string"
         }
       ]
-    },
-    "jobResponseType": [
-      {
-        "id": "number",
-        "title": "string"
-      }
-    ]
+    }
   },
   "chains": {
     "loadJobsChain": {

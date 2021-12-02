@@ -1,0 +1,32 @@
+{
+  "name": "employee-card",
+  "displayName": "employee-card",
+  "description": "A description of employee-card.",
+  "version": "1.0.0",
+  "jetVersion": ">= 9.0.0",
+  "properties": {
+    "name": {
+      "description": "The employee's full name.",
+      "displayName": "Name",
+      "type": "string"
+    },
+    "avatar": {
+      "description": "The url of the employee's image.",
+      "displayName": "Avatar",
+      "type": "string"
+    },
+    "phoneNumber": {
+      "description": "The employee's phone number.",
+      "displayName": "Phone Number",
+      "type": "string"
+    },
+    "email": {
+      "description": "The employee's email.",
+      "displayName": "Email",
+      "type": "string"
+    }
+  },
+  "methods": {},
+  "events": {},
+  "slots": {}
+}

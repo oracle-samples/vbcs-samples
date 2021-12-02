@@ -1,10 +1,9 @@
-    {
-
-    "id": "multi-select-table",
-        "description": "Flow main",
-        "defaultPage": "table-multi-select-start",
-        "chains": {},
-        "services": {},
-        "types": {},
-        "variables": {}
-    }
+{
+    "id": "table-multi-select",
+    "description": "Flow main",
+    "defaultPage": "table-multi-select-start",
+    "chains": {},
+    "services": {},
+    "types": {},
+    "variables": {}
+}

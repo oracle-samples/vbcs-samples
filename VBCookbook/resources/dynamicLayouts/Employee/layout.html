@@ -5,17 +5,19 @@
  -->
 <!-- Contains Dynamic UI layout templates -->
 <template id="phoneTemplate">
-<span class="vb-icon vb-icon-telephone" style="margin-top:25px"></span> 
-  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" data-oj-field="phoneNumber"></oj-input-text>
-  
+  <span class="vb-icon vb-icon-telephone" style="margin-top:25px"></span>
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" data-oj-field="phoneNumber">
+  </oj-input-text>
+
 </template>
 <template id="emailTemplate">
- <span class="vb-icon vb-icon-envelope" style="margin-top:25px"></span> 
-  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width" data-oj-field="email" ></oj-input-text>
+  <span class="vb-icon vb-icon-envelope" style="margin-top:25px"></span>
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width"
+    data-oj-field="email"></oj-input-text>
 </template>
 
 <template id="employeeListViewTemplate">
-   <div style="display: grid; grid-auto-rows: max-content; grid-auto-columns: max-content">
+  <div style="display: grid; grid-auto-rows: max-content; grid-auto-columns: max-content">
     <div style="padding: 0px 10px 10px 10px; grid-row: 1 / 1; grid-column:1 / 1">
       <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"
         src="[[ $componentContext.applicationPath + 'resources/images/employees/' + $fields.id.value() + '.png' ]]"
@@ -54,4 +56,10 @@
   <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="sm"
     src="[[ $componentContext.applicationPath + 'resources/images/employees/' + $value() + '.png' ]]"
     data-oj-field="avatar"></oj-avatar>
+</template>
+
+<template id="employeeCardTemplate">
+  <employee-card class="oj-flex-item" name="[[$value.fullName]]" email="[[$value.email]]" avatar="[[$value.avatar]]"
+    phone-number="[[$value.phoneNumber]]">
+  </employee-card>
 </template>

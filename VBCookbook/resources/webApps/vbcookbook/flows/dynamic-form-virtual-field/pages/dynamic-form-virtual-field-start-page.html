@@ -1,0 +1,38 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  <p>This recipe shows you how to create and render a virtual field in a dynamic form using an Oracle JET web component. </p>
+  
+  <p>An Oracle JET web component is also known as a CCA, in reference to Oracle’s Composite Component Architecture (CCA) that follows much of the W3C specification for creating web components. </p>
+  
+</div>
+<div class="oj-flex">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
+    <div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-initial">
+      <div class="oj-flex-item oj-sm-12 oj-md-12">
+        <oj-bind-if test="[[ true ]]">
+          <oj-dynamic-form metadata="[[ $metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+            layout="employeeVirtualFieldCCA" value="{{ $variables.employee }}"
+            value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
+            rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" context="[[ $page.variables.path ]]">
+          </oj-dynamic-form>
+        </oj-bind-if>
+      </div>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '600px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

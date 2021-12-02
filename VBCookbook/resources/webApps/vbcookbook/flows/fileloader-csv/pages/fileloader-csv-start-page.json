@@ -431,37 +431,6 @@
           "input": "fromCaller"
         }
       }
-    },
-    "CloseNotifActionChain": {
-      "description": "",
-      "root": "callComponentMethod1",
-      "actions": {
-        "callComponentMethod1": {
-          "module": "vb/action/builtin/callComponentMethodAction",
-          "parameters": {
-            "component": "{{ document.getElementById('oj-dialog--1728153767-2') }}",
-            "method": "close"
-          },
-          "outcomes": {
-            "success": "resetVariables1"
-          }
-        },
-        "resetVariables1": {
-          "module": "vb/action/builtin/resetVariablesAction",
-          "parameters": {
-            "variables": [
-              "$page.variables.error"
-            ]
-          }
-        }
-      },
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      }
     }
   },
   "eventListeners": {
@@ -490,14 +459,6 @@
     "ojButtonOjAction4": {
       "chains": [{
         "chainId": "ValidateAndUploadActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
-        }
-      }]
-    },
-    "ojButtonOjAction5": {
-      "chains": [{
-        "chainId": "CloseNotifActionChain",
         "parameters": {
           "detail": "{{ $event.detail }}"
         }

@@ -1,0 +1,118 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Form</h1>
+      <div>
+        <ol>
+          <li>
+            Install the JET Dynamic Form component from the Component Exchange,
+            then drag and drop it on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object (Employee in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>employeeCalculatedField</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and then click
+            <strong>Next</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>hireDate</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog,
+            provide the value of <code>100</code> for the
+            <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create a Custom Field</h1>
+      <div>
+        <p>Create a custom field, <code>Employee Experience</code>, to show the calculated value returned by a layout module function.</p>
+        <ol>
+          <li>
+            In the Page Designer, select the Dynamic Form and, in the General tab of the Properties
+            pane, click <strong>Go to Rule Set</strong> to go to the Employee
+            Form RuleSet that you configured when you created the Dynamic Form.
+          </li>
+          <li>In the Dynamic UIs tab, select <strong>Employee</strong>.</li>
+          <li>
+            Open the <code>employeeCalculatedField</code> that you created when
+            creating the Dynamic Form.
+          </li>
+          <li>
+            In the Fields tab, click <strong>+ Custom Field</strong> to create a
+            new custom field named <code>Employee Experience</code> of type
+            String.
+          </li>
+          <li>In the Properties pane for the <code>Employee Experience</code> field, add a Value property that references
+            <code>[[$functions.calculateEmployeeExperience($fields.hireDate.value())]]</code>.
+          </li>
+          
+          <li>In the JavaScript tab, create a JavaScript function to calculate the value for the Employee Experience field using the <code>hireDate</code> field as input. 
+          <oj-collapsible id="expand-1">
+            <a href="" slot="header">Expand to view code</a>
+            <pre>
+DataDescriptionModule.prototype.calculateEmployeeExperience = function (value) {
+    if (value != null) {
+      let hireDate = new Date(value);
+      let currentDate = new Date();
+      var expInYears = currentDate.getUTCFullYear() - hireDate.getUTCFullYear();
+      var hireMonth = hireDate.getMonth();
+      var currentMonth = currentDate.getMonth();
+      var expInMonths = 0;
+      if (hireMonth > currentMonth) {
+        var diffInMonths = hireMonth - currentMonth;
+        expInMonths = 12 - diffInMonths;
+        expInYears = expInYears - 1;
+      }
+      else {
+        expInMonths = currentMonth - hireMonth;
+      }
+      var totalExperience = expInYears + ' years ' + expInMonths + ' months ';
+      return totalExperience;
+    }
+    return null;
+  };
+              </pre>
+          </oj-collapsible>
+</li>
+<li>Add the <code>Employee Experience</code> field to the layout.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

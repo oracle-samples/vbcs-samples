@@ -16,7 +16,8 @@
     "businessObjectsGetallEmployeeMetadata": {
       "type": "vb/DynamicLayoutMetadataProviderDescriptor",
       "defaultValue": {
-        "endpoint": "businessObjects/getall_Employee"
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
       }
     }
   },

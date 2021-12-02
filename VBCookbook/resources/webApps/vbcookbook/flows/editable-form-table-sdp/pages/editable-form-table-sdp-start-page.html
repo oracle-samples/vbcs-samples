@@ -47,7 +47,7 @@
             <!-- ko if: row.mode === "edit" -->
 
             <td colspan="5" class="oj-form-control-default oj-sm-padding-2x">
-              <oj-form-layout id="ofl1" max-columns="2" direction="row">
+              <oj-form-layout :id="[['form-'+$current.index]]" max-columns="2" direction="row">
                 <oj-input-text label-hint="First Name" value="{{ $variables.currentRow.firstName }}" class="editable">
                 </oj-input-text>
                 <oj-input-text label-hint="Last Name" value="{{ $variables.currentRow.lastName }}" class="editable">
@@ -56,7 +56,6 @@
                 </oj-input-text>
                 <oj-input-text label-hint="Phone" value="{{ $variables.currentRow.phoneNumber }}" class="editable">
                 </oj-input-text>
-
               </oj-form-layout>
               <oj-button chroming="outlined" on-oj-action="[[$listeners.cancelOjAction]]"
                 :id="[['cancel-'+$current.index]]">Cancel
@@ -74,7 +73,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

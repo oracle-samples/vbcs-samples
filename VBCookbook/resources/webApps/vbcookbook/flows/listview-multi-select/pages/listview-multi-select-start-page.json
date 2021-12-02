@@ -14,13 +14,6 @@
     },
     "selectedEmployeeIds": {
       "type": "number[]"
-    },
-    "firstSelectedItem": {
-      "type": "object",
-      "defaultValue": {}
-    },
-    "currentItemId": {
-      "type": "string"
     }
   },
   "metadata": {},

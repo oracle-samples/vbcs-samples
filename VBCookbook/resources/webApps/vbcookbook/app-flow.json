@@ -14,6 +14,11 @@
       "payloadType": {
         "item": "string"
       }
+    },
+    "navMenuVisible": {
+      "payloadType": {
+        "visible": "boolean"
+      }
     }
   },
   "types": {},
@@ -28,6 +33,10 @@
       "defaultValue": false,
       "input": "fromUrl",
       "description": "This can be set to true on URL to force VB Cookbook to behave as if it was opened in VB Designer, that is rendering without recipes subflow. It is used from functional tests execution as vb-webdriver Expectation has issues with testing pages with subflow"
+    },
+    "navMenuVisible": {
+      "type": "boolean",
+      "defaultValue": true
     }
   },
   "userConfig": {
@@ -46,7 +55,8 @@
   "requirejs": {
     "paths": {
       "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/10.1.1/min/",
-      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/4.0.5/min"
+      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/4.0.5/min",
+      "employee-card": "resources/components/employee-card"
     },
     "bundles": {
       "oj-dynamic/all-bundle": [
@@ -132,7 +142,18 @@
       ]
     }
   },
-  "eventListeners": {},
+  "eventListeners": {
+    "navMenuVisible": {
+      "chains": [
+        {
+          "chainId": "updateNavMenuVisibility",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    }
+  },
   "routerStrategy": "query",
   "imports": {
     "css": [

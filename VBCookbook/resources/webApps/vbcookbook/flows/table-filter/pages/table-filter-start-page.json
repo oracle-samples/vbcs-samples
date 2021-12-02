@@ -71,18 +71,19 @@
   "eventListeners": {},
   "imports": {
     "components": {
+      "oj-highlight-text": {
+        "path": "ojs/ojhighlighttext"
+      },
       "oj-label": {
         "path": "ojs/ojlabel"
       },
       "oj-table": {
         "path": "ojs/ojtable"
       },
-      "oj-sample-highlight-text": {
-        "path": "oj-sample/highlight-text/loader"
-      },
       "oj-sample-input-text-typeahead": {
         "path": "oj-sample/input-text-typeahead/loader"
       }
+
     }
   }
 }

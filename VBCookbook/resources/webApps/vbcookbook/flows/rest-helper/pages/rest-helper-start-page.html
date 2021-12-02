@@ -17,7 +17,7 @@
         </div>
         <div class="oj-flex-item oj-sm-flex-initial">
           <oj-validation-group id="tracker" class="oj-flex-item oj-sm-12 oj-md-12">
-            <oj-form-layout">
+            <oj-form-layout>
               <oj-input-text label-hint="First Name" value="{{ $variables.employee.firstName }}"
               required="true" id="input-first-name"></oj-input-text>
               <oj-input-text label-hint="Last Name" value="{{ $variables.employee.lastName }}"
@@ -46,7 +46,7 @@
 
  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

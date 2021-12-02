@@ -1,0 +1,383 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+
+<p>
+  You'll also need to create an Oracle JET web component. For high-level details about web components in Visual Builder, see <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-91E6B1F3-E526-4BB2-A380-7F4282ADF195">Work with Oracle JET Web Components</a>. 
+  More detailed information about Oracle JET web components can be found in this <a target="_blank" href="https://blogs.oracle.com/groundside/post/custom-jet-component-learning-path">learning path</a> and the <a target="_blank" href="https://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html?component=composite&demo=basic">Oracle JET Cookbook</a>.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Form</h1>
+      <div>
+        <ol>
+          <li>
+            Install the JET Dynamic Form component from the Component Exchange,
+            then drag and drop it on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object (Employee in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>employeeVirtualFieldCCA</code>, then click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog,
+            provide the value of <code>100</code> for the
+            <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create a Virtual Field</h1>
+      <div>
+        <ol>
+          <li>
+            Select the Dynamic Form and, in the General tab of the Properties
+            pane, click <strong>Go to Rule Set</strong> to go to the <code>employeeVirtualFieldCCA</code> rule set that
+            you configured when you created the dynamic form.
+          </li>
+          <li>
+            In the Fields tab, click <strong>+ Custom Field</strong> to create a
+            new custom field with an ID value of <code>employeeCard</code>, and a type of <code>Object (Virtual Field)</code>.
+          </li>
+          <li>In the Properties pane for the <code>employeeCard</code> custom field, click <strong>Add</strong> to add the reference
+            fields that you want to display in your web component:
+            <ul>
+              <li><code>fullName</code></li>
+              <li><code>email</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>avatar</code></li>
+            </ul>
+            <strong>Note</strong>: In the Visual Builder Cookbook, <code>fullName</code> and <code>avatar</code> are custom fields themselves.
+          </li>
+          <li>In the Rule Sets tab, select the default layout, and then select the <code>employeeCard</code> field to display in the dynamic form.
+          </li>
+          <li>In the Properties pane for the <code>employeeCard</code> field, click <strong>Create</strong> to create a new template and name it
+            <code>Employee Card Template</code>.
+            <br>
+            Virtual fields can be rendered only with a field template.
+          </li>
+          
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Create the Web Component</h1>
+      <div>
+      
+
+        <ol>
+          <li>Optionally, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-A5930AD9-2C76-47B2-BAE1-6DC3CE4CF9C3">create a web component</a> named <code>employee-card</code>.
+          <p>Each web component is made up of a number of files (HTML, JavaScript, JSON, and CSS). The web component that this demo uses creates a flip card to view employee details.</p>
+          </li>
+          <li>Expand each of the following file names to view the code for the <code>employee card</code> web component. 
+            <div>
+              <ul>
+                <li>
+                  <oj-collapsible id="component">
+                    <a href="" slot="header"><code>component.json</code></a>
+                    <div>
+                      <pre>
+{
+"name": "employee-card",
+"displayName": "employee-card",
+"description": "A description of employee-card.",
+"version": "1.0.0",
+"jetVersion": ">= 9.0.0",
+"properties": {
+  "name": {
+    "description": "The employee's full name.",
+    "displayName": "Name",
+    "type": "string"
+  },
+  "avatar": {
+    "description": "The url of the employee's image.",
+    "displayName": "Avatar",
+    "type": "string"
+  },
+  "phoneNumber": {
+    "description": "The employee's phone number.",
+    "displayName": "Phone Number",
+    "type": "string"
+  },
+  "email": {
+    "description": "The employee's email.",
+    "displayName": "Email",
+    "type": "string"
+  }
+},
+"methods": {},
+"events": {},
+"slots": {}
+}
+</pre>
+                    </div>
+                  </oj-collapsible>
+                </li>
+
+                <li>
+                  <oj-collapsible id="employee-card-style">
+                    <a href="" slot="header"><code>employee-card-style.css</code></a>
+                    <div>
+                      <pre>
+employee-card:not(.oj-complete){
+visibility: hidden;
+}
+
+employee-card {
+width: 16rem;
+height: 16rem;
+display: block;
+perspective: 800px;
+margin: 10px;
+box-sizing: border-box;
+cursor: pointer;
+transition: transform 0.15s; 
+}
+
+employee-card:hover {
+transform: scale(1.02);
+}
+
+employee-card .employee-card-flip-container:hover {
+box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, .4);
+}
+
+employee-card .employee-card-text,
+employee-card .employee-card-avatar {
+ color: #fff;
+}
+
+/* To ensure your classes are scoped correctly, we recommend scoping classes and prefixing class names with the composite name. */
+employee-card .employee-card-front-side, 
+employee-card .employee-card-back-side {
+position: absolute;
+height: 100%;
+width: 100%;
+background-size: cover;
+border-radius: 5px;
+background-color: #3A3632;
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+box-sizing: border-box;
+}
+
+employee-card .employee-card-front-side {
+/* Specify a background-image url to provide an image for the front of the card. */
+text-align: center;
+transform: rotateY(0deg);
+z-index: 0;
+}
+
+employee-card .employee-card-back-side {  
+padding-left: 15px;
+padding-right: 15px;
+transform: rotateY(180deg);
+z-index: -1;
+text-align: center;
+}
+
+employee-card .employee-card-inner-back-side {
+/* IE11 workaround to show back side */
+-ms-transform: rotateY(180deg);
+}
+
+employee-card .employee-card-flip-container {
+position: absolute;
+height: 100%;
+width: 100%;
+transform-style: preserve-3d;
+transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, .25);
+border-radius: 5px;
+}
+
+employee-card .employee-card-flip-container.employee-card-flipped {
+transform: rotateY(180deg);
+}
+
+employee-card .employee-card-flip-container.employee-card-flipped .employee-card-back-side {
+/* IE11 workaround to show back side */
+-ms-transform: rotateY(360deg);
+z-index: 0;
+}
+
+employee-card .employee-card-avatar {
+margin: auto;
+}
+</pre>
+                    </div>
+                  </oj-collapsible>
+                </li>
+
+                <li>
+                  <oj-collapsible id="employee-card-view">
+                    <a href="" slot="header"><code>employee-card-view.html</code></a>
+                    <div>
+                      <pre>
+&lt;div tabindex="0" role="group" class="employee-card-flip-container" on-click="[[flipCard]]" on-keypress="[[flipCard]]"
+:aria-label="[[$properties.name + ' Press Enter for more info.']]">
+&lt;div class="employee-card-front-side oj-flex oj-sm-align-items-center">
+  &lt;div class="oj-flex-item  oj-sm-flex-direction-column">
+    &lt;oj-avatar class="oj-flex-item employee-card-avatar" role="img" size="lg" initials="[[initials]]"
+      src="[[ $properties.avatar ]]" :aria-label="[['Avatar of ' + $properties.name]]">
+    &lt;/oj-avatar>
+    &lt;div
+      class="oj-flex-item oj-typography-heading-sm oj-typography-semi-bold employee-card-text oj-sm-padding-2x-top">
+      &lt;oj-bind-text value="[[$properties.name]]">&lt;/oj-bind-text>
+    &lt;/div>
+  &lt;/div>
+&lt;/div>
+&lt;div class="employee-card-back-side oj-flex oj-sm-align-items-center">
+  &lt;div class="employee-card-inner-back-side oj-flex-item  oj-sm-flex-direction-column employee-card-text">
+    &lt;span class="oj-flex-item oj-typography-body-xl oj-typography-bold oj-sm-padding-2x-top">Contact Details&lt;/span>
+    &lt;div class="oj-flex-item oj-typography-body-lg oj-typography-semi-bold oj-sm-padding-2x-top">
+      &lt;oj-bind-text value="[[$properties.name]]">&lt;/oj-bind-text>
+    &lt;/div>
+    &lt;div class="oj-flex-item oj-typography-body-lg oj-typography-semi-bold oj-sm-padding-2x-top">
+      &lt;oj-bind-text value="[[$properties.email]]">&lt;/oj-bind-text>
+    &lt;/div>
+    &lt;div class="oj-flex-item oj-typography-body-lg oj-typography-semi-bold oj-sm-padding-2x-top">
+      &lt;oj-bind-text value="[[$properties.phoneNumber]]">&lt;/oj-bind-text>
+    /&lt;div>
+  &lt;/div>
+/&lt;div>
+&lt;/div></pre>
+                    </div>
+                  </oj-collapsible>
+                </li>
+
+                <li>
+                  <oj-collapsible id="employee-card-viewModel">
+                    <a href="" slot="header"><code>employee-card-viewModel.js</code></a>
+                    <div>
+                      <pre>
+define([
+'knockout',
+'ojs/ojcontext',
+'ojs/ojavatar'
+], function (
+ko,
+ojContext
+) {
+'use strict';
+function EmployeeCardComponentModel(context) {
+  var self = this;
+  this.initials = null;
+  this.workFormatted = null;
+  var element = context.element;
+  if (context.properties.name) {
+    var initials = context.properties.name.match(/\b\w/g);
+    this.initials = (initials.shift() + initials.pop()).toUpperCase();
+  }
+  this.flipCard = function (event) {
+    if (event.type === 'click' || (event.type === 'keypress' && event.keyCode === 13)) {
+      element.querySelector('.employee-card-flip-container').classList.toggle('employee-card-flipped');
+    }
+  };
+}
+return EmployeeCardComponentModel;
+});</pre>
+                    </div>
+                  </oj-collapsible>
+                </li>
+
+                <li>
+                  <oj-collapsible id="loader">
+                    <a href="" slot="header"><code>loader.js</code></a>
+                    <div>
+                      <pre>
+define([
+  './employee-card-viewModel',
+  'ojs/ojcomposite',
+  'text!./employee-card-view.html',
+  'text!./component.json',
+  'css!./employee-card-styles'
+], function (
+  viewModel,
+  Composite,
+  view,
+  metadata) {
+      'use strict';
+
+      Composite.register('employee-card', {
+          view: view,
+          viewModel: viewModel,
+          metadata: JSON.parse(metadata)
+      });
+  }
+);</pre>
+                    </div>
+                  </oj-collapsible>
+                </li>
+              </ul>
+            </div>
+   
+          </li>
+          <li>
+            Import the web component into the <code>components</code> sub-directory of the application's <code>Resources</code> directory and declare the path in your application's 
+            <code>app-flow.json</code> file:
+            <pre>
+  "requirejs": {
+    "paths": {
+      ...
+      "employee-card": "resources/components/employee-card",
+      ...
+    },
+</pre>
+<p><strong>Note</strong>: This step is not required if you created the <code>employee-card</code> web component in your Visual Builder application, as described in Step 1. </p>
+          </li>
+          <li>In the JSON tab of the Employee layout file (<code>layout.json</code>), add the dependency on the web component to the <code>Employee Card Template</code>:
+            <pre>
+"employeeCardTemplate": {
+      "title": "Employee Card Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext",
+        "employee-card/loader"
+      ]
+    },
+</pre>
+          </li>
+          <li>In the Templates tab of the Employee layout, open the <code>Employee Card Template</code>, select Code view and replace the content inside the template to use the web component:
+            <pre>
+  &lt;employee-card class="oj-flex-item" name="[[$value.fullName]]" email="[[$value.email]]" avatar="[[$value.avatar]]"
+    phone-number="[[$value.phoneNumber]]">
+  &lt;/employee-card>
+</pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

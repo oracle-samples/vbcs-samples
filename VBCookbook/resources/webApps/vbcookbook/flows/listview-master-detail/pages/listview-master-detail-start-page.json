@@ -236,6 +236,14 @@
       "oj-avatar": {
         "path": "ojs/ojavatar"
       }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      },
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
+      }
     }
   }
 }

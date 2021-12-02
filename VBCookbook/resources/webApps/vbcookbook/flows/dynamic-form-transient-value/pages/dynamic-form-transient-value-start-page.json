@@ -1,0 +1,86 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "createEmployeeChainInProgress": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "employee": {
+      "type": "createEmployeeRequest"
+    },
+    "formTransientValueText": {
+      "type": "string"
+    }
+  },
+  "metadata": {
+    "businessObjectsCreateEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/create_Employee"
+      }
+    }
+  },
+  "types": {
+    "@decorators.createEmployeeRequest": {
+      "endpoint": "create_Employee",
+      "service": "businessObjects",
+      "path": "request"
+    },
+    "businessObjectsServiceErrorResponseType": {
+      "body": {
+        "status": "string",
+        "title": "string",
+        "o:errorDetails": [
+          {
+            "detail": "string",
+            "o:errorCode": "string"
+          }
+        ]
+      },
+      "status": "number"
+    },
+    "createEmployeeRequest": "object"
+  },
+  "eventListeners": {
+    "ojDynamicFormTransientValue": {
+      "chains": [
+        {
+          "chainId": "DynamicFormTransientValueChangeChain",
+          "parameters": {
+            "transientValue": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chainId": "createEmployeeChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dynamic-form": {
+        "path": "oj-dynamic/form/loader"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

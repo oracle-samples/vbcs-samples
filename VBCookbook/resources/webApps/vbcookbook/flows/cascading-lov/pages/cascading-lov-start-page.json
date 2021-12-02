@@ -71,16 +71,7 @@
   },
   "metadata": {},
   "types": {
-    "@decorators.getallLocationResponse": {
-      "endpoint": "getall_Location",
-      "service": "businessObjects",
-      "path": "response"
-    },
-    "@decorators.getallRegionResponse": {
-      "endpoint": "getall_Region",
-      "service": "businessObjects",
-      "path": "response"
-    },
+   
     "getallLocationResponse": {
       "items": [
         {
@@ -101,11 +92,7 @@
         }
       ]
     },
-    "@decorators.getallCountryResponse": {
-      "endpoint": "getall_Country",
-      "service": "businessObjects",
-      "path": "response"
-    },
+   
     "getallRegionResponse": {
       "items": [
         {
@@ -197,16 +184,6 @@
           "required": true,
           "type": "any",
           "input": "fromCaller"
-        },
-        "data": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "metadata": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
         }
       }
     },
@@ -225,10 +202,20 @@
         "if1": {
           "module": "vb/action/builtin/ifAction",
           "parameters": {
-            "condition": "[[ !($page.variables.selectedCountry.key ==4) ]]"
+            "condition": "[[ !($page.variables.selectedCountry.key == 4) ]]"
           },
           "outcomes": {
-            "true": "resetVariables1"
+            "true": "resetVariables1",
+            "false": "fireNotification"
+          }
+        },
+        "fireNotification": {
+          "module": "vb/action/builtin/fireNotificationEventAction",
+          "parameters": {
+            "target": "leaf",
+            "summary": "hi",
+            "displayMode": "transient",
+            "type": "info"
           }
         }
       },
@@ -236,20 +223,6 @@
         "key": {
           "required": true,
           "type": "any",
-          "input": "fromCaller"
-        },
-        "data": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "metadata": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "updatedFromChain": {
-          "type": "string",
           "input": "fromCaller"
         }
       }
@@ -325,11 +298,7 @@
         {
           "chainId": "CountryValueItemChangeChain",
           "parameters": {
-            "key": "{{$event.detail.value.key}}",
-            "data": "{{$event.detail.value.data}}",
-            "metadata": "{{$event.detail.value.metadata}}",
-            "changeType": "{{ $event.detail.updatedFrom }}",
-            "updatedFromChain": "{{ $event.detail.updatedFrom }}"
+            "key": "{{$event.detail.value.key}}"
           }
         }
       ]
@@ -350,8 +319,6 @@
           "chainId": "RegionValueItemChangeChain",
           "parameters": {
             "key": "{{$event.detail.value.key}}",
-            "data": "{{$event.detail.value.data}}",
-            "metadata": "{{$event.detail.value.metadata}}",
             "changeType": "{{ $event.detail.updatedFrom }}"
           }
         }

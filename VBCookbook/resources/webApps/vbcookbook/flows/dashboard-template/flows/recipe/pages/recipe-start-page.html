@@ -1,0 +1,506 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Laying out content within the individual panels of the dashboard is beyond the scope of this recipe. Content layout
+  needs to cater for the specific information that is presented within individual panels. However, two examples are
+  provided to illustrate how you go about this task.
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create Responsive Template</h1>
+      <div>
+        <ol>
+          <li>In the <code>app.css</code> file of your app's <code>resources/css</code> directory, add the following CSS
+            code to add styling to the panels that will appear in the dashboard.
+            <pre>
+.box-shadow {
+  box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.25);
+  background-color: rgb(95, 125, 79, .05);
+  border-radius: 10px;
+}</pre>
+          </li>
+          <li>
+            In the Code view of the Page Designer, add the following HTML.
+            <oj-collapsible id="JS-code">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+&lt;div id=&quot;first_row&quot; class=&quot;oj-flex-item oj-flex&quot;&gt;
+  &lt;div id=&quot;box1&quot;
+    class=&quot;oj-flex-item oj-flex oj-sm-6 oj-md-6 oj-lg-3 oj-sm-padding-1x-horizontal&quot;
+    :style.min-height=&quot;[[ $application.responsive.lgUp ? &#39;200px&#39; : &#39;130px&#39; ]]&quot;&gt;
+    &lt;div id=&quot;box1_content&quot; class=&quot;oj-flex-item oj-flex box-shadow&quot;&gt;
+      ONE
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;box2&quot;
+    class=&quot;oj-flex-item oj-flex oj-sm-6 oj-md-6 oj-lg-3 oj-sm-padding-1x-horizontal&quot;
+    :style.min-height=&quot;[[ $application.responsive.lgUp ? &#39;200px&#39; : &#39;130px&#39; ]]&quot;&gt;
+    &lt;div id=&quot;box2_content&quot; class=&quot;oj-flex-item oj-flex box-shadow&quot;&gt;
+      TWO
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;box3&quot;
+    class=&quot;oj-flex-item oj-flex oj-sm-6 oj-md-6 oj-lg-3 oj-sm-padding-1x-horizontal oj-sm-only-padding-2x-top oj-md-only-padding-2x-top&quot;
+    :style.min-height=&quot;[[ $application.responsive.lgUp ? &#39;200px&#39; : &#39;130px&#39; ]]&quot;&gt;
+    &lt;div id=&quot;box3_content&quot; class=&quot;oj-flex-item oj-flex box-shadow&quot;&gt;
+      THREE
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;box4&quot;
+    class=&quot;oj-flex-item oj-flex oj-sm-6 oj-md-6 oj-lg-3 oj-sm-padding-1x-horizontal oj-sm-only-padding-2x-top oj-md-only-padding-2x-top&quot;
+    :style.min-height=&quot;[[ $application.responsive.lgUp ? &#39;200px&#39; : &#39;130px&#39; ]]&quot;&gt;
+    &lt;div id=&quot;box4_content&quot; class=&quot;oj-flex-item oj-flex box-shadow&quot;&gt;
+      FOUR
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;second_row&quot; class=&quot;oj-flex-item oj-flex&quot;&gt;
+  &lt;div id=&quot;card_center&quot; 
+    class=&quot;oj-flex-item oj-flex oj-lg-order-2 oj-md-12 oj-lg-6 oj-sm-padding-4x-top oj-sm-padding-1x-horizontal&quot;
+    :style.min-height=&quot;[[ $application.responsive.lgUp ? &#39;400px&#39; : &#39;300px&#39; ]]&quot;&gt;
+    &lt;div id=&quot;card_center_content&quot; class=&quot;oj-flex-item box-shadow&quot;&gt;
+      CENTER
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;card_left&quot; 
+    class=&quot;oj-flex-item oj-flex oj-lg-order-1 oj-sm-12 oj-md-6 oj-lg-3 oj-sm-padding-4x-top oj-sm-padding-1x-horizontal&quot;
+    :style.min-height=&quot;300px&quot;&gt;
+    &lt;div id=&quot;card_left_content&quot; class=&quot;oj-flex-item oj-sm-12 box-shadow&quot;&gt;
+      LEFT
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;card_right&quot;
+    class=&quot;oj-flex-item oj-flex oj-lg-order-3 oj-sm-12 oj-md-6 oj-lg-3 oj-sm-padding-4x-top oj-sm-padding-1x-horizontal&quot;
+    :style.min-height=&quot;300px&quot;&gt;
+    &lt;div id=&quot;card_right_content&quot;
+      class=&quot;oj-flex-item oj-flex oj-sm-12 box-shadow&quot;&gt;
+      RIGHT
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+              </div>
+            </oj-collapsible>
+
+          </li>
+          <li>Inspect the page source code and observe these aspects of its design:
+            <ul>
+               
+            <li>The page is split into two rows. The first row contains 4 boxes and the second row 3 cards. The
+              <code>id</code> attribute of each <code>div</code> element identifies the role of the <code>div</code>
+              element (row, box, or card).
+            </li>
+            <li><a href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/ResponsiveGrid.html" target="_blank">JET
+                Responsive Grid</a> classes control the layout of the four boxes in the first row:
+              <code>
+                class=". . . oj-sm-6 oj-md-6 oj-lg-3 . . ."
+              </code>
+              On large screen sizes a box occupies 4 columns of a 12 column layout and all four boxes occupy a single
+                row. On small and medium screen sizes, a box occupies 6 columns and two rows display the boxes. Each row
+                displays two boxes.
+            </li>
+            <li>The second row with 3 cards demonstrates how to assign different widths to different cards. It also
+              demonstrates how to change the
+              order of cards on different screen sizes.
+              <ul>
+                <li>
+                  <code>oj-md-12 oj-lg-6</code>: Applied to the center card to occupy half of the 12 columns on large
+                  screens. On medium and small screens, the center card uses the full width of the page.
+                </li>
+                <li>
+                  <code>oj-md-6 oj-lg-3</code>: Applied to the other cards to occupy 3 columns on large screens. The
+                  result is that all 3 cards appear on one row. On medium
+                  and smaller screens, the cards occupy the whole page width.
+                </li>
+              </ul>
+              These cards render in the order
+                specified in the page. On larger screen sizes, the <code>oj-lg-order-[1,2,3]</code> classes override the
+                order to move the main card from the first position to the middle position.
+            </li>
+            <li>Some boxes and cards programmatically change their height using a <a
+                href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/ResponsiveUtils.html"
+                target="_blank"><code>ResponsiveUtils</code></a>'s observable:<br>
+              <code>:style.min-height="[[ $application.responsive.lgUp ? '400px' : '300px' ]]"</code>
+            </li>
+            <li>Each box uses two <code>div</code> elements to control padding between boxes. It is
+              tempting to use just one <code>div</code> element with a margin value specified. Unfortunately, this would
+              break layout responsiveness, as the margin is added after each <code>div</code>
+              layout is calculated. Adding extra margin would cause <code>div</code> elements to be moved to the next row
+              to accommodate the need for extra margin
+              space. Instead two <code>div</code> elements are used, with the outside <code>div</code> element using
+              <a href="https://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html?component=spacing&demo=spacingvariants"
+                target="_blank">oj-sm-padding-1x-horizontal</a>.
+              The styling (background color and box radius, and shadow) is applied to the inner content <code>div</code>.
+            </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Add Hover Effect</h1>
+      <div>
+        <ol>
+
+          <li>In the <code>app.css</code> file of your app's <code>resources/css</code> directory, modify the existing
+            <code>box-shadow</code> class definition to be:
+
+            <pre>
+.box-shadow {
+  box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.25);
+  background-color: rgb(95, 125, 79, .05);
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+}
+</pre>
+          </li>
+          <li>Add the following style to implement mouse hover:
+            <pre>
+.box-shadow:hover {
+  box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.4);
+  transform: scale(1.01);
+}
+</pre>
+
+            <strong>Note:</strong> In the Page Designer toolbar, click the <strong>Reload Design Preview</strong> button
+            to view changes that you make in the <code>app.css</code> file.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Add Fold Animation Effect</h1>
+      <div>
+        <ol>
+          <li>In the JavaScript tab of the Designer, add the following code to toggle the visibility of boxes in the
+            first row:
+            <oj-collapsible id="JS-code2">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+      define(['knockout',
+        'ojs/ojresponsiveknockoututils',
+        'ojs/ojresponsiveutils',
+        "ojs/ojanimation"
+        ], function (ko, ResponsiveKnockoutUtils, ResponsiveUtils, AnimationUtils) {
+        'use strict';
+      
+        var PageModule = function PageModule() {
+        };
+      
+        PageModule.prototype.animate = function (selector, open, delay) {
+          const el = document.querySelector(selector);
+          el.style.transitionDelay = delay;
+          if (open) {
+            el.classList.remove("fold-closed");
+          } else {
+            el.classList.add("fold-closed");
+          }
+        };
+      
+        PageModule.prototype.toggle = function () {
+          const rootElement = document.querySelector(".fold-panel1");
+          const parentElement = document.querySelector(".fold-panels-parent");
+          if (rootElement.classList.contains("fold-closed")) {
+            parentElement.classList.remove("fold-panels-parent-closed");
+            var self = this;
+            var show = function () {
+              self.animate(".fold-panel1", true, "0ms");
+              self.animate(".fold-panel2", true, "217ms");
+              self.animate(".fold-panel3", true, "467ms");
+              self.animate(".fold-panel4", true, "700ms");
+            };
+            setTimeout(() => {
+              // wait for animation of "fold-panels-parent-closed" to be finished
+              // and then unfold action panels:
+              show(); 
+              }, 300);
+          }
+          else {
+            this.animate(".fold-panel4", false, "0ms");
+            this.animate(".fold-panel3", false, "217ms");
+            this.animate(".fold-panel2", false, "467ms");
+            this.animate(".fold-panel1", false, "700ms");
+            setTimeout(() => { 
+              // wait for action panels to get folded and then
+              // hide the top bar using "fold-panels-parent-closed" animation
+              parentElement.classList.add("fold-panels-parent-closed");
+              }, 700);
+      
+          }
+        };
+      
+        return PageModule;
+      });
+      
+      </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+
+          <li>In the <code>app.css</code> file, add styling for the boxes:
+
+            <oj-collapsible id="CSS-code">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+.fold-panel {
+  transition: transform 233ms;
+  transform: perspective(2000px) rotateY(0deg);
+  transform-origin: left;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.fold-panel.fold-closed {
+  transform: perspective(2000px) rotateY(90deg);
+}
+
+.fold-panels-parent {
+  max-height: 500px;
+  transition: max-height 500ms ease;
+}
+
+.fold-panels-parent.fold-panels-parent-closed {
+  max-height: 0;
+}
+</pre>
+              </div>
+            </oj-collapsible>
+          </li>
+
+          <li>In the Code view of the Page Designer:
+            <ul>
+              <li>
+                Add the <code>fold-panels-parent</code> class to the <code>div</code> with ID of <code>first_row</code>.
+              </li>
+              <li>
+                Add <code>fold-panel fold-closed fold-panel1</code> classes to the <code>div</code> with ID
+                <code>box1</code>. Repeat for the other 3 boxes.
+                Increase the last digit in the class name to match the number in the ID of the <code>div</code>.
+              </li>
+            </ul>
+
+          </li>
+
+
+          <li>
+            In the Variables tab of the Designer, add a variable, <code>actionsBarVisible</code>, of type Boolean and
+            set its default value to <code>false</code>.
+          </li>
+          <li>In the Actions tab of the Designer, add an action chain named <code>ToggleActionsBarChain</code>.</li>
+          <li>In the action chain, add an Assign Variable action to assign the expression
+            <code>!$page.variables.actionsBarVisible</code> to the
+            <code>$page.variables.actionsBarVisible</code> variable.
+            This toggles the Boolean value.
+          </li>
+          <li>Add a Call Function action to call the <code>toggle</code> JavaScript method which was added earlier.</li>
+
+          <li>In the Event Listeners tab, add a vbEnter event and select <strong>ToggleActionsBarChain</strong> as the
+            action chain to run.
+            <p>
+              The boxes are hidden by default, so that during page opening the unfolding animation can take place.
+              Calling the ToggleActionsBarChain action chain from the vbEnter event starts the animation process that
+              unfolds the boxes when the app enters the page.
+            </p>
+          </li>
+
+
+
+          <li>
+            To add a toggle button to fold and unfold the boxes, replace <code>LEFT</code> text in the Code view of the Page Designer
+            with the following code:
+            <div>
+              <pre>
+&lt;oj-button chroming=&quot;callToAction&quot;&gt;
+&lt;span&gt;&lt;i :class=&quot;[[ [&#39;oj-typography-heading-md&#39;, $page.variables.actionsBarVisible ? &#39;oj-ux-ico-collapse&#39;: &#39;oj-ux-ico-expand&#39;] ]]&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+&lt;/oj-button&gt;
+</pre>
+            </div>
+          </li>
+          <li>In the Page Designer, select the button and, in the Events tab of the Properties pane, add a new custom
+            event, select <strong>ojAction</strong>, and call the
+            ToggleActionsBarChain action chain.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <h1 slot="header">Box Styling Example</h1>
+      <div>
+        <p>The box layout consists of two rows, the first row is split between text and icon, and the second row is
+          aligned to the bottom of the box. Note too that on small screen sizes, the icon disappears
+          (<code>oj-sm-only-hide</code>) and the
+          text center aligns (<code>oj-sm-only-justify-content-center</code>).</p>
+        <ol>
+          <li>
+            In the <code>app.css</code> file of your app's <code>resources/css</code> directory, add the following CSS:
+            <pre>
+.box-bottom-action {
+  color: rgb(255, 255, 255);
+  background-color: rgb(95, 125, 79);
+  height: 40px;
+  margin-top: auto;
+  border-radius: 0 0 10px 10px;
+}
+              </pre>
+          </li>
+          <li>
+
+            In the Code view of the Page Designer, replace <code>ONE</code> with the following code:
+            <oj-collapsible id="JS-code-final">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+&lt;div class=&quot;oj-flex-item oj-flex oj-sm-12 oj-md-8 oj-sm-padding-4x&quot;&gt;
+  &lt;div class=&quot;oj-flex-item oj-flex oj-sm-12 oj-sm-only-justify-content-center&quot;&gt;
+    &lt;span class=&quot;oj-typography-heading-lg&quot;&gt;Heading&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;oj-flex-item oj-flex oj-sm-12 oj-sm-only-justify-content-center&quot;&gt;
+    &lt;span class=&quot;oj-typography-body-md&quot;&gt;Subtext&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;oj-flex-item  oj-flex oj-md-4 icon-style icon1 oj-sm-only-hide oj-sm-padding-4x-top&quot; :style.font-size=&quot;4.5rem&quot;&gt;
+  &lt;i class=&quot;oj-ux-ico-bag&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class=&quot;oj-flex-item oj-flex oj-sm-12 oj-sm-padding-2x box-bottom-action&quot;&gt;
+  &lt;span class=&quot;oj-flex-item oj-flex oj-sm-justify-content-center oj-typography-subheading-xs&quot;&gt;
+    Action &amp;nbsp
+    &lt;i :class=&quot;[[&#39;oj-typography-heading-xs oj-ux-ico-arrow-circle-right&#39;]]&quot;&gt;&lt;/i&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+</pre>
+              </div>
+            </oj-collapsible>
+          </li>
+
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-5">
+      <h1 slot="header">Card Styling Example</h1>
+            <div>
+              <p>The Personal card layout consists of three rows. The top row has a background pattern, the middle row centers the person’s avatar, and the third row sits at the bottom of the card.
+              </p>
+        <ol>
+          <li>In the <code>app.css</code> file of your app's <code>resources/css</code> directory, add the following CSS:
+            <oj-collapsible>
+              <a href="" slot="header">Expand to view code</a>
+              
+              <div>
+                <pre>
+.employee-card-wrapper {
+  margin: 0 auto;
+  position: relative;
+}
+
+.employee-card {
+  text-align: center;
+  color: #fff;
+  background: rgb(95, 125, 79,1);
+  background: linear-gradient(0deg, rgba(95, 125, 79,1) 0%, rgba(95, 125, 79,.8) 100%);
+  background-size: 100% 100%;
+}
+
+.employee-card-footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.employee-card-avatar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius:50%;
+  text-align: center;
+}
+
+.employee-card-avatar-icon {
+  align-items: center;
+  font-size: 6rem;
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  min-height: 120px;
+  min-width: 102px;
+  max-height: 120px;
+  max-width: 120px;
+}
+</pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          
+          <li>
+            In the Code view of the Page Designer, replace <code>CENTER</code> with the following code.
+            <oj-collapsible>
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+&lt;div class=&quot;oj-flex employee-card&quot; :style.min-height=&quot;[[ $application.responsive.lgUp ? &#39;200px&#39; : &#39;150px&#39; ]]&quot;&gt;
+  &lt;div class=&quot;oj-flex-item oj-sm-12&quot;&gt;
+    &lt;h4 class=&quot;oj-typography-subheading-xl white-text oj-sm-padding-2x-top&quot;&gt;Main Heading&lt;/h4&gt;
+    &lt;span class=&quot;oj-typography-body-xl&quot;&gt;Main Subheading&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;oj-flex employee-card-avatar&#39;&gt;
+  &lt;div class=&quot;oj-flex-item oj-flex employee-card-avatar-icon&quot;&gt;
+    &lt;i class=&quot;oj-flex-item oj-ux-ico-avatar&quot;&gt;&lt;/i&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;oj-flex&quot;&gt;
+  &lt;div class=&quot;oj-flex-item oj-flex oj-sm-12 employee-card-footer&quot;&gt;
+    &lt;div class=&quot;oj-flex-item oj-sm-4 box-shadow oj-sm-padding-4x&quot;&gt;
+      &lt;h5 class=&quot;oj-typography-subheading-md&quot;&gt;HeadingA&lt;/h5&gt;
+      &lt;span class=&quot;oj-typography-body-md&quot;&gt;subheading&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;oj-flex-item oj-sm-4 box-shadow oj-sm-padding-4x&quot;&gt;
+      &lt;h5 class=&quot;oj-typography-subheading-md&quot;&gt;HeadingB&lt;/h5&gt;
+      &lt;span class=&quot;oj-typography-body-md&quot;&gt;subheading&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;oj-flex-item oj-sm-4 box-shadow oj-sm-padding-4x&quot;&gt;
+      &lt;h5 class=&quot;oj-typography-subheading-md&quot;&gt;HeadingC&lt;/h5&gt;
+      &lt;span class=&quot;oj-typography-body-md&quot;&gt;subheading&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>
+Add the <code>employee-card-wrapper</code> class to the list of classes in <code>div</code> elements with the <code>card_center_content</code> ID. 
+This class sets the CSS <code>position</code> to <code>relative</code> to center the avatar and to align the third line to the
+            bottom border.
+
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>

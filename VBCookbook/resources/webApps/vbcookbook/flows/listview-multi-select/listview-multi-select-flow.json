@@ -1,6 +1,5 @@
     {
-
-    "id": "multi-select-listview",
+        "id": "listview-multi-select",
         "description": "Flow main",
         "defaultPage": "listview-multi-select-start",
         "chains": {},

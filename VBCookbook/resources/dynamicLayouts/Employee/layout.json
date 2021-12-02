@@ -5,7 +5,8 @@
       "serviceId": "businessObjects",
       "operations": [
         "get_Employee",
-        "getall_Employee"
+        "getall_Employee",
+        "create_Employee"
       ]
     }
   },
@@ -34,6 +35,7 @@
               "salary",
               "hireDate"
             ],
+            "readonly": true,
             "maxColumns": 2
           },
           "usedIn": [
@@ -65,7 +67,8 @@
               "salary",
               "hireDate",
               "manager"
-            ]
+            ],
+            "readonly": true
           },
           "usedIn": []
         },
@@ -79,6 +82,7 @@
               "email",
               "hireDate"
             ],
+            "readonly": true,
             "maxColumns": 2
           },
           "usedIn": [
@@ -102,6 +106,7 @@
                   }
                 }
             ],
+            "readonly": true,
             "maxColumns": 2
           },
           "usedIn": [
@@ -120,6 +125,7 @@
               "hireDate",
               "salary"
             ],
+            "readonly": true,
             "maxColumns": 2,
             "fieldTemplateMap": {
             }
@@ -213,6 +219,7 @@
               "email",
               "hireDate"
             ],
+            "readonly": true,
             "maxColumns": 2
           },
           "usedIn": [
@@ -233,6 +240,7 @@
               "hireDate",
               "salary"
             ],
+            "readonly": true,
             "maxColumns": 2
           },
           "usedIn": [
@@ -318,6 +326,94 @@
       "fieldTemplateMap": {
         "id": "avatarTemplate"
       }
+    },
+    "isDefault5": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "formTransientValueChange": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "formTransientValueChange",
+      "rules": [
+        "isDefault5"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              {
+                "email": {
+                  "readonly": true
+                }
+              }
+            ]
+          },
+          "usedIn": [
+            "isDefault5"
+          ]
+        }
+      }
+    },
+    "isDefault4": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "employeeVirtualFieldCCA": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "employeeVirtualFieldCCA",
+      "rules": [
+        "isDefault4"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "employeeCard"
+            ]
+          },
+          "usedIn": [
+            "isDefault4"
+          ]
+        }
+      },
+      "fieldTemplateMap": {
+        "employeeCard": "employeeCardTemplate"
+      }
+    },
+    "employeeCalculatedField": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "employeeCalculatedField",
+      "rules": [
+        "isDefault4"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              "phoneNumber",
+              "email",
+              "hireDate",
+              "employeeExperience"
+            ],
+            "maxColumns": 2
+          },
+          "usedIn": [
+            "isDefault4"
+          ]
+        }
+      }
     }
   },
   "templates": {
@@ -342,6 +438,18 @@
       },
       "dependencies": [
         "ojs/ojinputtext"
+      ]
+    },
+    "employeeCardTemplate": {
+      "title": "Employee Card Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext",
+        "employee-card/loader"
       ]
     },
     "listViewMailTemplate": {

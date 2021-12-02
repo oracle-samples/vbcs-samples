@@ -13,10 +13,9 @@
       <ol>
         <li>In the Page Designer, add the Form Layout, Select Single, Input Text, and Button components to the page.
         </li>
-
         <li>In the <strong>Types</strong> tab of the page, click <strong>+ Type</strong> and select
-          <strong>Custom</strong>.</li>
-
+          <strong>Custom</strong>.
+        </li>
         <li><a target="_blank"
             href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
             a type from custom</a> named <code>selectedObjectType</code> of type Object, and add the following fields to
@@ -39,10 +38,8 @@
             <li><code>selectedRegion</code> of type <code>selectedObjectType</code>.</li>
             <li><code>selectedCountry</code> of type <code>selectedObjectType</code>.</li>
             <li><code>selectedLocation</code> of type <code>selectedObjectType</code>.</li>
-
           </ul>
         </li>
-
         <li>Add a <code>{{ $variables.selectedLocation.data ? $variables.selectedLocation.data.postalCode : '' }}</code>
           variable and bind it to the Postal Code
           field.</li>
@@ -59,12 +56,9 @@
         </li>
         <li>
           In the General Tab of the Properties pane for the Select Single component, set the Label Hint property to
-          <code>Region</code>.</li>
-
+          <code>Region</code>.
+        </li>
         <li>Bind the value-item property for the Select Single component to <code>selectedRegion</code> above.</li>
-
-
-
         <li>Drag and drop another Select Single component onto the page, use the <a target="_blank"
             href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to bind it to Country data, and in the Bind Data page, select the following fields:
@@ -73,22 +67,18 @@
             <li>Id</li>
             <li>set filterCriterion to
               <code>{{ $variables.selectedRegion.key!=null ? $variables.selectedRegion.key : undefined  }}</code>
+            </li>
           </ul>
         </li>
         <li>
           In the General Tab of the Properties pane for the Select Single component, set the Label Hint property to
           <code>Country</code>.
-
-
         </li>
         <li>
           In the General tab of the Select Single component, set the Disabled attribute to
           <code>[[ !$variables.selectedRegion.key  ]]</code>
         </li>
         <li>Bind the value-item property for the Select Single component to <code>selectedCountry</code> above.</li>
-
-
-
         <li>Drag and drop another Select Single component onto the page, use the <a target="_blank"
             href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to bind it to Location data, and in the Bind Data page, select the following fields:
@@ -97,20 +87,17 @@
             <li>Id</li>
             <li>set filterCriterion to
               <code>{{ $variables.selectedCountry.key!=null ? $variables.selectedCountry.key : undefined }}</code>
+            </li>
           </ul>
         </li>
-
         <li>
           In the General Tab of the Properties pane for the Select Single component, set the Label Hint property to
           <code>Location</code>.
-
-
         </li>
         <li>
           In the General tab of the Select Single component, set the Disabled attribute to
           <code>[[ !($variables.selectedRegion.key  && $variables.selectedCountry.key) ]]</code>
         </li>
-
         <li>Bind the value-item property for the Select Single component to <code>selectedLocation</code> above.</li>
       </ol>
     </div>
@@ -122,28 +109,23 @@
         <li>In the Events tab of the Properties pane for the Reset Values button, add an <code>ojAction</code> event
           and, in the resulting action chain, add a Reset Variables action to reset all page variables.
         </li>
-
         <li>In the Events tab of the Properties pane for the Region Select Single component, click <strong>+ New
             Event</strong> and select <strong>Quick Start</strong>. </li>
         <li>In the Properties pane of the action chain, set ID to <code>RegionValueItemChangeChain</code>. </li>
-
-
         <li>In the Variables tab of the action chain, create a variable, <code>changeType</code>, of type Any.</li>
         <li>In the Properties pane of the variable, select <strong>Enabled</strong> for Input Parameter.</li>
-
-        
-        <li>In the Events tab of the Properties pane for the Region Select Single component, click <strong>Assign</strong> beside the Input Parameter field 
-          and map <code>$event.details.updatedFrom</code> from Source to <code>changeType</code> in Target.</li>
-        
-          
-        
-        
-        
-<li>In the action chain, add an Assign Variable action to map <code>changeType</code> chain variable to the <code>changeType</code> page variable in Target.</li>
-<li>For the true outcome of the If action, add a Reset Variable action to reset the variable to <code>$page.variables.selectedCountry</code>.</li>
-
-<li>Add a similar value item action chain for the Country Select Single component.</li>
-
-</ol>
+        <li>In the Events tab of the Properties pane for the Region Select Single component, click
+          <strong>Assign</strong> beside the Input Parameter field
+          and map <code>$event.details.updatedFrom</code> from Source to <code>changeType</code> in Target.
+        </li>
+        <li>In the action chain, add an Assign Variable action to map <code>changeType</code> chain variable to the
+          <code>changeType</code> page variable in Target.
+        </li>
+        <li>For the true outcome of the If action, add a Reset Variable action to reset the variable to
+          <code>$page.variables.selectedCountry</code>.
+        </li>
+        <li>Add a similar value item action chain for the Country Select Single component.</li>
+      </ol>
     </div>
   </oj-collapsible>
+</oj-accordion>

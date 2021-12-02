@@ -93,6 +93,11 @@
       "oj-validation-group": {
         "path": "ojs/ojvalidationgroup"
       }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      }
     }
   }
 }

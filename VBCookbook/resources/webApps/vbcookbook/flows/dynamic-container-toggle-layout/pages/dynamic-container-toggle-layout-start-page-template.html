@@ -8,7 +8,7 @@
   <h3>Form Example</h3>
   <oj-bind-if test="[[ true ]]">
     <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
-      layout="formExampleLayout" readonly="true" value="{{ $variables.employee }}"
+      layout="formExampleLayout" value="{{ $variables.employee }}"
       value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
       rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" :id="[['form-template']]"></oj-dynamic-form>
   </oj-bind-if>
@@ -17,7 +17,7 @@
   <h3>Table Example</h3>
   <oj-bind-if test="[[ true ]]">
   <oj-dynamic-table data="[[$page.variables.employeeListSDP]]"
-    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" metadata-path="items"
-    layout="tableExampleLayout" style="height:250px" :id="[['table-template']]"></oj-dynamic-table>
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
+    layout="tableExampleLayout" style="height:250px; width: 100%; " :id="[['table-template']]"></oj-dynamic-table>
   </oj-bind-if>
 </template>

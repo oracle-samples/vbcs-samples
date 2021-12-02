@@ -20,7 +20,7 @@
       </div>
       <oj-text-area class="oj-flex-item oj-sm-padding-1x" label-edge='provided' label-hint='Current Selection'
         value="{{ ($variables.currentSelection ? $variables.currentSelection :'')  + ($variables.rowData.length === 0 ? '' : '\n'+ 'Row Data: '+JSON.stringify ($variables.rowData)) }}"
-        resize-behavior="vertical" class="" rows="4"></oj-text-area>
+        resize-behavior="vertical" rows="4"></oj-text-area>
        
     
     </div>
@@ -48,7 +48,7 @@
                   }]' selection-mode.row="multiple"
         scroll-policy-options.fetch-size="6"
         selected='{{$page.functions.getSelectedItems()}}'
-        on-selected-changed="[[$listeners.ojTableSelected]]" style="height:350px;">
+        on-selected-changed="[[$listeners.ojTableSelected]]">
 
 
       </oj-table>
@@ -59,7 +59,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

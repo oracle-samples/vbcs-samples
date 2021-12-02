@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-form-transient-value",
+  "description": "Flow main",
+  "defaultPage": "dynamic-form-transient-value-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -1,0 +1,55 @@
+{
+  "description": "",
+  "root": "assignVariablesFormTransientValueText",
+  "actions": {
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.transientValue.firstName  && $variables.transientValue.lastName!= null]]"
+      },
+      "outcomes": {
+        "true": "callFunctionGenerateEmail"
+      }
+    },
+    "callFunctionGenerateEmail": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "generateEmail",
+        "params": [
+          "{{ $variables.transientValue }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesEmployee"
+      }
+    },
+    "assignVariablesEmployee": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.results.callFunctionGenerateEmail }}",
+          "auto": "always"
+        }
+      }
+    },
+    "assignVariablesFormTransientValueText": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.formTransientValueText": {
+          "source": "{{ JSON.stringify($variables.transientValue) }}"
+        }
+      },
+      "outcomes": {
+        "success": "if"
+      }
+    }
+  },
+  "variables": {
+    "transientValue": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

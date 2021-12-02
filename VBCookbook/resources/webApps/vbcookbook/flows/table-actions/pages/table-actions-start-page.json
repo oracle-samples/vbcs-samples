@@ -186,14 +186,7 @@
 
   },
   "eventListeners": {
-    "aClick": {
-      "chains": [{
-        "chainId": "OpenDialogChain",
-        "parameters": {
-          "current": "{{ $current }}"
-        }
-      }]
-    },
+
     "ojButtonOjAction": {
       "chains": [{
         "chainId": "UpdateEmployeeChain",
@@ -240,6 +233,14 @@
       },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      },
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
       }
     }
   }

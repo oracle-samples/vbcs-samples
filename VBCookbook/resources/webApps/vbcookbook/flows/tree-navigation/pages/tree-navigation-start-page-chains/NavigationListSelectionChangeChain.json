@@ -1,0 +1,15 @@
+{
+  "description": "",
+  "root": "callFunctionCloseDrawer",
+  "actions": {
+    "callFunctionCloseDrawer": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "closeDrawer"
+      }
+    }
+  },
+  "variables": {
+  }
+}

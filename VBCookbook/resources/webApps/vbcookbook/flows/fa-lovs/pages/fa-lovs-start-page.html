@@ -127,12 +127,12 @@
 
               <template slot="departmentNameCellTemplate3">
                 <oj-bind-text
-                  value="[[ $current.data.items.map((r)=>r.departmentName).join(', ') ]]">
+                  value="[[ $current.data.items.map(function(r){return r.departmentName}).join(', ') ]]">
                 </oj-bind-text>
               </template>
               <template slot="nameCellTemplate4">
                 <oj-bind-text
-                  value="[[ $current.data.items.map((r)=>r.name).join(', ') ]]">
+                  value="[[ $current.data.items.map(function(r){return r.name}).join(', ') ]]">
                 </oj-bind-text>
               </template>
 
@@ -158,7 +158,7 @@
 
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
-      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
       <div class="recipe-box oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
         <div class="oj-panel oj-helper-overflow-wrap-anywhere">

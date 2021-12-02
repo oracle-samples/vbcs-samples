@@ -40,7 +40,8 @@
     "businessObjectsGetallEmployeeMetadata": {
       "type": "vb/DynamicLayoutMetadataProviderDescriptor",
       "defaultValue": {
-        "endpoint": "businessObjects/getall_Employee"
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
       }
     },
     "businessObjectsGetEmployeeMetadata": {
@@ -167,7 +168,7 @@
           "module": "vb/action/builtin/fireNotificationEventAction",
           "parameters": {
             "summary": "Could not load data",
-            "message": "[[ 'Could not load data: status ' + $chain.results.loadEmployee.payload.status ]]",
+            "message": "[[ 'Could not load data: status ' + $chain.results.loadEmployee.status ]]",
             "type": "error",
             "displayMode": "persist"
           },
