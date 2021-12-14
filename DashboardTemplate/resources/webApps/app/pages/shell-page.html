@@ -5,7 +5,7 @@
  -->
 
 <div id="pageWrapper" class="oj-offcanvas-outer-wrapper oj-offcanvas-page" style="height: 100%;">
-  <div id="startDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+  <div id="startDrawer" role="navigation" class="demo-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
   <oj-navigation-list data="[[ $functions.getNavigationContent()]]"
     item.selectable="[[ $page.functions.itemSelectable ]]"
     expanded="[[ $functions.getExpandedMenu() ]]"
@@ -65,10 +65,10 @@
 
   <div class="oj-web-applayout-content-nopad oj-web-spacing oj-flex">
     <div id="animationMenu" class="oj-flex-item oj-flex oj-sm-flex-wrap-nowrap" style="overflow-x: auto; position: relative">
-      <div id="navigation-div" style="min-width: 300px; max-width: 300px; height: 100%" class="oj-flex oj-contrast-marker tree-navigation-menu-panel">
+      <div id="navigation-div" style="min-width: 300px; max-width: 300px; height: 100%" class="oj-flex demo-contrast-marker tree-navigation-menu-panel">
         <oj-navigation-list data="[[ $functions.getNavigationContent()]]"
           item.selectable="[[ $page.functions.itemSelectable ]]"
-          class="oj-contrast-background oj-flex-item oj-navigationlist-nofollow-link" drill-mode="collapsible"
+          class="demo-contrast-background oj-flex-item oj-navigationlist-nofollow-link" drill-mode="collapsible"
           on-selection-changed="[[$listeners.ojNavigationListSelection]]" expanded="[[ $functions.getExpandedMenu() ]]">
             <template slot="itemTemplate" data-oj-as="item">
           <li>
