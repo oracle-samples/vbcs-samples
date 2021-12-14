@@ -133,45 +133,34 @@
     },
     "RegionValueItemChangeChain": {
       "description": "",
-      "root": "if1",
+      "root": "ifIsTokyoNotSelected",
       "actions": {
-        "selectedCountryresetVariables": {
-          "module": "vb/action/builtin/resetVariablesAction",
-          "parameters": {
-            "variables": [
-              "$page.variables.selectedCountry"
-            ]
-          },
-          "outcomes": {
-            "success": "if2"
-          }
-        },
-        "if1": {
-          "module": "vb/action/builtin/ifAction",
-          "parameters": {
-            "condition": "[[ !$page.variables.isTokyoSelected ]]"
-          },
-          "outcomes": {
-            "true": "selectedCountryresetVariables",
-            "false": "if2"
-          }
-        },
-        "if2": {
-          "module": "vb/action/builtin/ifAction",
-          "parameters": {
-            "condition": "[[ $variables.changeType ==='internal' ]]"
-          },
-          "outcomes": {
-            "true": "resetVariables1"
-          }
-        },
-        "resetVariables1": {
+
+        "resetVariablesSelectedCountry": {
           "module": "vb/action/builtin/resetVariablesAction",
           "parameters": {
             "variables": [
               "$page.variables.selectedCountry",
               "$page.variables.selectedLocation"
             ]
+          }
+        },
+        "ifIsTokyoNotSelected": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ !$page.variables.isTokyoSelected ]]"
+          },
+          "outcomes": {
+            "true": "if"
+          }
+        },
+        "if": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $variables.previousKey !== $variables.key ]]"
+          },
+          "outcomes": {
+            "true": "resetVariablesSelectedCountry"
           }
         }
       },
@@ -184,38 +173,56 @@
           "required": true,
           "type": "any",
           "input": "fromCaller"
+        },
+        "previousKey": {
+          "type": "any",
+          "required": false,
+          "input": "fromCaller"
         }
       }
     },
     "CountryValueItemChangeChain": {
       "description": "",
-      "root": "if1",
+      "root": "ifIsTokyoNotSelected",
       "actions": {
-        "resetVariables1": {
+
+        "if": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ $variables.previousKey !== $variables.key ]]"
+          },
+          "outcomes": {
+            "true": "resetVariablesSelectedLocation3",
+            "false": "resetVariablesIsTokyoSelected"
+          }
+        },
+        "resetVariablesSelectedLocation3": {
           "module": "vb/action/builtin/resetVariablesAction",
           "parameters": {
             "variables": [
               "$page.variables.selectedLocation"
             ]
-          }
-        },
-        "if1": {
-          "module": "vb/action/builtin/ifAction",
-          "parameters": {
-            "condition": "[[ !($page.variables.selectedCountry.key == 4) ]]"
           },
           "outcomes": {
-            "true": "resetVariables1",
-            "false": "fireNotification"
+            "success": "resetVariablesIsTokyoSelected"
           }
         },
-        "fireNotification": {
-          "module": "vb/action/builtin/fireNotificationEventAction",
+        "resetVariablesIsTokyoSelected": {
+          "module": "vb/action/builtin/resetVariablesAction",
           "parameters": {
-            "target": "leaf",
-            "summary": "hi",
-            "displayMode": "transient",
-            "type": "info"
+            "variables": [
+              "$page.variables.isTokyoSelected"
+            ]
+          }
+        },
+        "ifIsTokyoNotSelected": {
+          "module": "vb/action/builtin/ifAction",
+          "parameters": {
+            "condition": "[[ !$page.variables.isTokyoSelected ]]"
+          },
+          "outcomes": {
+            "true": "if",
+            "false": "resetVariablesIsTokyoSelected"
           }
         }
       },
@@ -223,6 +230,11 @@
         "key": {
           "required": true,
           "type": "any",
+          "input": "fromCaller"
+        },
+        "previousKey": {
+          "type": "any",
+          "required": false,
           "input": "fromCaller"
         }
       }
@@ -298,7 +310,8 @@
         {
           "chainId": "CountryValueItemChangeChain",
           "parameters": {
-            "key": "{{$event.detail.value.key}}"
+            "key": "{{$event.detail.value.key}}",
+            "previousKey": "{{ $event.detail.previousValue.key }}"
           }
         }
       ]
@@ -319,7 +332,8 @@
           "chainId": "RegionValueItemChangeChain",
           "parameters": {
             "key": "{{$event.detail.value.key}}",
-            "changeType": "{{ $event.detail.updatedFrom }}"
+            "changeType": "{{ $event.detail.updatedFrom }}",
+            "previousKey": "{{ $event.detail.previousValue.key }}"
           }
         }
       ]

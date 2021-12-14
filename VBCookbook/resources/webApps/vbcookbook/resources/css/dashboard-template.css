@@ -3,6 +3,21 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
+:root {
+  /* Colors used the dashboard page: */
+  --demo-color-one:      70, 117, 83;
+  --demo-color-two:      59, 112, 135;
+  --demo-color-three:    146, 88, 101;
+  --demo-color-four:     100, 106, 115;
+  --demo-color-five:     240, 204, 113;
+  --demo-color-six:     233, 225, 202;
+
+  --demo-color-one-darker:      51, 85, 60;
+  --demo-color-two-darker:      44, 82, 102;
+  --demo-color-three-darker:    108, 63, 73;
+  --demo-color-four-darker:     73, 77, 83;
+}
+
 .icon-style {
   justify-content: center;
   display: flex;
@@ -10,25 +25,25 @@
   transition: transform 0.3s ease, font-size 1s ease;
 }
 .icon1 {
-  color: #33553c;
+  color: rgb(var(--demo-color-one-darker));
 }
 .icon2 {
-  color: #2c5266;
+  color: rgb(var(--demo-color-two-darker));
 }
 .icon3 {
-  color: #6c3f49;
+  color: rgb(var(--demo-color-three-darker));
 }
 .icon4 {
-  color: #494d53;
+  color: rgb(var(--demo-color-four-darker));
 }
 
 .box-shadow {
-  box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 1px 10px 0 rgba(var(--oj-palette-neutral-rgb-200), 0.25);
   transition: box-shadow 0.3s ease;
   transition: transform 0.3s ease;
 }
 .box-shadow:hover {
-  box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 10px 2px rgba(var(--oj-palette-neutral-rgb-200), 0.4);
   transform: scale(1.01);
 }
 .box-shadow:hover .icon-style {
@@ -36,52 +51,52 @@
 }
 
 .box1 {
-  color: rgb(255, 255, 255);
-  background-color: #467553;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-one));
   border-radius: 10px;
 }
 .box1-inner {
-  color: rgb(255, 255, 255);
-  background-color: #33553c;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-one-darker));
   height: 40px;
   margin-top: auto;
   border-radius: 0 0 10px 10px;
 }
 
 .box2 {
-  color: rgb(255, 255, 255);
-  background-color: #3b7087;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-two));
   border-radius: 10px;
 }
 .box2-inner {
-  color: rgb(255, 255, 255);
-  background-color: #2c5266;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-two-darker));
   height: 40px;
   margin-top: auto;
   border-radius: 0 0 10px 10px;
 }
 
 .box3 {
-  color: rgb(255, 255, 255);
-  background-color: #925865;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-three));
   border-radius: 10px;
 }
 .box3-inner {
-  color: rgb(255, 255, 255);
-  background-color: #6c3f49;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-three-darker));
   height: 40px;
   margin-top: auto;
   border-radius: 0 0 10px 10px;
 }
 
 .box4 {
-  color: rgb(255, 255, 255);
-  background-color: #646a73;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-four));
   border-radius: 10px;
 }
 .box4-inner {
-  color: rgb(255, 255, 255);
-  background-color: #494d53;
+  color: rgba(var(--oj-palette-neutral-rgb-0));
+  background-color: rgb(var(--demo-color-four-darker));
   height: 40px;
   margin-top: auto;
   border-radius: 0 0 10px 10px;
@@ -147,7 +162,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius:50%
 }
 .employee-card-main-toggle-button {
   position: absolute;
@@ -159,8 +173,8 @@
 }
 
 .employee-card-left {
-  background-color: #f0cc71;
-  color: black;
+  background-color: rgb(var(--demo-color-five));
+  color: rgba(var(--oj-palette-neutral-rgb-200));
   background-size: 100% 100%;
   min-height: 175px;
 }
@@ -174,8 +188,8 @@
 }
 .employee-card-right {
   text-align: center;
-  color: black;
-  background-color: #e9e1ca;
+  color: rgba(var(--oj-palette-neutral-rgb-200));
+  background-color: rgb(var(--demo-color-six));
 }
 
 .white-text {

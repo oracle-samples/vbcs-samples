@@ -9,7 +9,7 @@ define([
   'ojs/ojresponsiveknockoututils',
   'ojs/ojresponsiveutils',
   
-], function(
+], function (
   navigationMenu, demos,
   ResponsiveKnockoutUtils, ResponsiveUtils,
   
@@ -35,28 +35,28 @@ define([
   /**
    * Returns metadata describing recipes and navigation menu
    */
-  AppModule.prototype.getMetadata = function() {
+  AppModule.prototype.getMetadata = function () {
     return this.metadata;
   };
 
   /**
    * Returns metadata describing recipes only
    */
-  AppModule.prototype.getDemosMetadata = function() {
+  AppModule.prototype.getDemosMetadata = function () {
     return this.metadata.demos;
   };
 
   /**
    * Returns metadata describing navigation menu
    */
-  AppModule.prototype.getNavigationMetadata = function() {
+  AppModule.prototype.getNavigationMetadata = function () {
     return this.metadata.navigationMenu;
   };
 
   /**
    * For given recipeID return assorted information about the recipe
    */
-  AppModule.prototype.getRecipe = function(currentSelection) {
+  AppModule.prototype.getRecipe = function (currentSelection) {
     var key = currentSelection;
     var recipe;
     if (key === undefined || key.length === 0 || key === "home") {
@@ -85,7 +85,7 @@ define([
    * First array contains parent node IDs (for navigation list selection).
    * Second array is content for breadcrumbs navigation
    */
-  AppModule.prototype._getRecipeParent = function(recipeId) {
+  AppModule.prototype._getRecipeParent = function (recipeId) {
     var results = [];
     var breadCrumb = [];
     this.metadata.navigationMenu.forEach(item => {
@@ -93,10 +93,9 @@ define([
         return;
       }
       item.items.forEach(item2 => {
-        item2.items.forEach(item3 => {
-          if (item3 === recipeId) {
+        if (item2.items === undefined) { // two level navigation items only
+          if (item2 === recipeId) {
             results.push(item.id);
-            results.push(item2.id);
             breadCrumb.push({
               id: '',
               label: 'Home'
@@ -106,15 +105,36 @@ define([
               label: item.label
             });
             breadCrumb.push({
-              id: item2.id,
-              label: item2.label
-            });
-            breadCrumb.push({
-              id: item3,
-              label: this.metadata.demos[item3].label
+              id: recipeId,
+              label: this.metadata.demos[recipeId].label
             });
           }
-        });
+        }
+        else // three level navigation items
+        {
+          item2.items.forEach(item3 => {
+            if (item3 === recipeId) {
+              results.push(item.id);
+              results.push(item2.id);
+              breadCrumb.push({
+                id: '',
+                label: 'Home'
+              });
+              breadCrumb.push({
+                id: item.id,
+                label: item.label
+              });
+              breadCrumb.push({
+                id: item2.id,
+                label: item2.label
+              });
+              breadCrumb.push({
+                id: item3,
+                label: this.metadata.demos[item3].label
+              });
+            }
+          });
+        }
       });
     });
     return [results, breadCrumb];

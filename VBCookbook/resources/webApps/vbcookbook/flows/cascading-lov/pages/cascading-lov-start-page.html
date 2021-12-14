@@ -9,8 +9,6 @@
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
     <div class="oj-flex">
       <oj-form-layout label-edge="start" class="oj-flex-item oj-sm-12 oj-md-6">
-
-
         <oj-select-single label-hint="Region" data="[[$page.variables.regionListSDP]]" item-text="regionName"
           value-item="{{ $variables.selectedRegion }}" id="region-select"
           on-value-item-changed="[[$listeners.regionSelectValueItem]]"></oj-select-single>
@@ -27,8 +25,6 @@
           id="postalcode"></oj-input-text>
       </oj-form-layout>
     </div>
-
-
     <div class="oj-flex">
       <div class="oj-flex-item oj-sm-12 oj-md-2">
         <oj-button on-oj-action="[[$listeners.resetAction]]" id="reset">Reset Values
@@ -36,7 +32,7 @@
       </div>
       <div class="oj-flex-item oj-sm-12 oj-md-1"></div>
       <div class="oj-flex-item oj-sm-12 oj-md-1">
-        <oj-button on-oj-action="[[$listeners.ojButtonOjAction]]">Select Tokyo</oj-button>
+        <oj-button on-oj-action="[[$listeners.ojButtonOjAction]]" id="select-tokyo">Select Tokyo</oj-button>
       </div>
     </div>
   </div>

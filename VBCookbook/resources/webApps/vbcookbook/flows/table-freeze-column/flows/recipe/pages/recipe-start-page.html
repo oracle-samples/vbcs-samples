@@ -1,0 +1,69 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  You add a Table component to your application that displays employee data and you configure the component to freeze
+  columns at the start and the end of the table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <!-- Step 1. -->
+    <oj-collapsible id="step-1" expanded="true">
+      <span slot="header">Create an Employee Table</span>
+      <div>
+
+        <ol>
+          <li>
+            In the Component palette, drag a Table component and drop it on the
+            page.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, use the Table component’s
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data</a> quick start
+            to bind your table to employee data.
+          </li>
+          <li>
+            In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name</li>
+              <li>Last Name</li>
+              <li>Email</li>
+              <li>Phone Number</li>
+              <li>Salary</li>
+              <li>Hire date</li>
+              <li>Job title</li>
+              <li>Manager</li>
+              <li>Created date</li>
+              <li>Created by</li>
+            </ul>
+          </li>
+          <li>Click <strong>Next</strong> and <strong>Finish</strong> to close the dialog.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <!-- Step 2. -->
+    <oj-collapsible id="step-2">
+      <span slot="header">Configure the frozenEdge Property for Columns in the Table</span>
+      <div>
+        
+        <p>To freeze a column in a Table component, you configure the Table Columns <code>frozenEdge</code> property in
+          the Code view of the
+          Designer with the appropriate value (<code>start</code> or <code>end</code>). For example, the following code
+          snippet shows how you
+          configure the First Name and Email columns to freeze at the start of the table and the Created By column to
+          freeze at the end.</p>
+        <pre>
+columns='[{"headerText":"First Name","field":"firstName", "frozenEdge": "start"},...,
+          {"headerText":"Email","field":"email","frozenEdge": "start"},...,
+          {"headerText":"Created By","field":"createdBy", "frozenEdge": "end"}]'>
+        </pre>
+
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

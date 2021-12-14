@@ -1176,6 +1176,18 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "table-freeze-column": {
+    "id": "table-freeze-column",
+    "runtime": "vb",
+    "label": "Frozen Columns",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "table-freeze-column-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "dashboard-template": {
     "id": "dashboard-template",
     "runtime": "vb",

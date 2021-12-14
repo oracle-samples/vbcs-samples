@@ -1,6 +1,6 @@
 {
     "vbcs.dt.version": "20210607-21.10.99",
-    "version": "1.3.8",
+    "version": "1.3.10",
     "source.version": "2110",
     "rootURL": "vbcookbook",
     "dependencies": {

@@ -16,7 +16,7 @@
         },
         "validationTracker": {
           "type": "any",
-          "defaultValue": "[[ document.getElementById($chain.constants.validationGroupId) ]]",
+          "defaultValue": "[[ document.getElementById($constants.validationGroupId) ]]",
           "description": "Validation group component instance."
         }
       },

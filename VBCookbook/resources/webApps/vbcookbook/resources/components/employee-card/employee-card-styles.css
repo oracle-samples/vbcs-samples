@@ -55,11 +55,6 @@ employee-card .employee-card-back-side {
   text-align: center;
 }
 
-employee-card .employee-card-inner-back-side {
-  /* IE11 workaround to show back side */
-  -ms-transform: rotateY(180deg);
-}
-
 employee-card .employee-card-flip-container {
   position: absolute;
   height: 100%;
@@ -75,8 +70,6 @@ employee-card .employee-card-flip-container.employee-card-flipped {
 }
 
 employee-card .employee-card-flip-container.employee-card-flipped .employee-card-back-side {
-  /* IE11 workaround to show back side */
-  -ms-transform: rotateY(360deg);
   z-index: 0;
 }
 

@@ -6,25 +6,7 @@
   {
     "id": "forms",
     "label": "Application",
-    "categoryBannerClass": "rootForms_banner",
-    "categoryBorderClass": "rootForms_border",
     "items": [
-      {
-        "id": "dynamicUI",
-        "label": "Dynamic UI",
-        "icon": "form-layout",
-        "items": [
-          "dynamic-form-multiple-layout",
-          "dynamic-table-field-template",
-          "dynamic-container-toggle-layout",
-          "dynamic-form-context",
-          "dynamic-form-list-view",
-          "dynamic-container-responsive",
-          "dynamic-form-virtual-field",
-          "dynamic-form-transient-value",
-          "dynamic-form-calculated-field"
-        ]
-      },
       {
         "id": "layout",
         "label": "Layout",
@@ -62,7 +44,6 @@
           "select-single"
         ]
       },
-      
       {
         "id": "inputnumber",
         "label": "Input Controls",
@@ -80,8 +61,6 @@
   {
     "id": "collections",
     "label": "Collections",
-    "categoryBannerClass": "rootCollections_banner",
-    "categoryBorderClass": "rootCollections_border",
     "items": [
       {
         "id": "table",
@@ -102,7 +81,8 @@
           "conditional-styling",
           "table-select-cols",
           "row-expander",
-          "dynamic-sdp"
+          "dynamic-sdp",
+          "table-freeze-column"
         ]
       },
       {
@@ -138,10 +118,24 @@
     ]
   },
   {
+    "id": "dynamicUI",
+    "label": "Dynamic UI",
+    "icon": "form-layout",
+    "items": [
+      "dynamic-form-multiple-layout",
+      "dynamic-table-field-template",
+      "dynamic-container-toggle-layout",
+      "dynamic-form-context",
+      "dynamic-form-list-view",
+      "dynamic-container-responsive",
+      "dynamic-form-virtual-field",
+      "dynamic-form-transient-value",
+      "dynamic-form-calculated-field"
+    ]
+  },
+  {
     "id": "rest",
     "label": "REST Services",
-    "categoryBannerClass": "rootRest_banner",
-    "categoryBorderClass": "rootRest_border",
     "items": [
       {
         "id": "helpers",
@@ -190,22 +184,14 @@
     ]
   },
   {
-    "id": "mobile",
-    "label": "Mobile",
-    "categoryBannerClass": "rootRest_banner",
-    "categoryBorderClass": "rootRest_border",
+    "id": "mobile-pwa",
+    "label": "Progressive Web Apps",
+    "icon": "cell-phone",
     "items": [
-      {
-        "id": "mobile-pwa",
-        "label": "Progressive Web Apps",
-        "icon": "cell-phone",
-        "items": [
-          "geolocation",
-          "take-photo",
-          "swipe-to-edit",
-          "barcode-scanner"
-        ]
-      }
+      "geolocation",
+      "take-photo",
+      "swipe-to-edit",
+      "barcode-scanner"
     ]
   }
 ]

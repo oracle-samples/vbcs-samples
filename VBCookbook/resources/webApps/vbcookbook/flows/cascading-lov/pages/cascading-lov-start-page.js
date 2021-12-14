@@ -3,12 +3,10 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-  define([], function() {
-    "use strict";
+define([], function () {
+  "use strict";
 
-    var PageModule = function PageModule() {};
-    
-    
+  var PageModule = function PageModule() { };
 
-    return PageModule;
-  });
+  return PageModule;
+});

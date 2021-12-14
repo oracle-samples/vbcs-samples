@@ -1,0 +1,67 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "createdBy": "string",
+          "creationDate": "string",
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "managerObject": {
+            "items": [
+              {
+                "firstName": "string"
+              }
+            ]
+          },
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  }
+}

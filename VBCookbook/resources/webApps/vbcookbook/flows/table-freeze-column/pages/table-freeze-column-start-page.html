@@ -1,0 +1,42 @@
+<!--
+ Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  This recipe shows a Table component with three frozen columns. At the start, the First Name and Email colums are frozen and the Created By column is frozen at the end. Scroll horizontally to view the implemented behavior.
+
+
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+    <oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
+      data="[[$variables.employeeListSDP]]" style="height:400px; width: 100%"
+      columns='[{"headerText":"First Name","field":"firstName", "frozenEdge": "start"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","field":"email","frozenEdge": "start"},{"headerText":"Phone number","field":"phoneNumber"},{"headerText":"Salary","field":"salary"},{"headerText":"Hire date","field":"hireDate"},{"headerText":"Job title","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate7"},{"headerText":"Department Name","field":"departmentObject","sortProperty":"departmentObject.departmentName","template":"departmentNameCellTemplate8"},{"headerText":"Manager","field":"managerObject","sortProperty":"managerObject.firstName","template":"firstNameCellTemplate9"},{"headerText":"Created","field":"creationDate"},{"headerText":"Created By","field":"createdBy", "frozenEdge": "end"}]'>
+      <template slot="jobTitleCellTemplate7">
+        <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].jobTitle : undefined ]]">
+        </oj-bind-text>
+      </template>
+      <template slot="departmentNameCellTemplate8">
+        <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].departmentName : undefined ]]">
+        </oj-bind-text>
+      </template>
+      <template slot="firstNameCellTemplate9">
+        <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].firstName : undefined ]]">
+        </oj-bind-text>
+      </template>
+    </oj-table>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.functions.smScreen() ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

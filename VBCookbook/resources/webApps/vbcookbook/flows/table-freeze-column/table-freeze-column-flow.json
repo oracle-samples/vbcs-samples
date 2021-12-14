@@ -1,0 +1,8 @@
+{
+  "id": "table-freeze-column",
+  "description": "Flow main",
+  "defaultPage": "table-freeze-column-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

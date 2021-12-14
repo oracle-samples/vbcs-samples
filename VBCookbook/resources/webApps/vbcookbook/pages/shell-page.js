@@ -4,12 +4,12 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['knockout',
-    'ojs/ojknockout-keyset',
-    'ojs/ojarraytreedataprovider',
-    'ojs/ojoffcanvas',
-    'ojs/ojresponsiveknockoututils',
-    'ojs/ojresponsiveutils'
-], function(ko, keySet, ArrayTreeDataProvider, OffCanvasUtils, ResponsiveKnockoutUtils, ResponsiveUtils) {
+  'ojs/ojknockout-keyset',
+  'ojs/ojarraytreedataprovider',
+  'ojs/ojoffcanvas',
+  'ojs/ojresponsiveknockoututils',
+  'ojs/ojresponsiveutils'
+], function (ko, keySet, ArrayTreeDataProvider, OffCanvasUtils, ResponsiveKnockoutUtils, ResponsiveUtils) {
   'use strict';
 
   var drawerParams = {
@@ -27,7 +27,7 @@ define(['knockout',
     // If the drawer is open and the page gets resized close it on medium and larger screens
     var lgUpQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
     var lgUpScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(lgUpQuery);
-    lgUpScreen.subscribe(function(on) {
+    lgUpScreen.subscribe(function (on) {
       if (on) {
         OffCanvasUtils.close(drawerParams);
         self.hideNavMenu(false);
@@ -36,7 +36,7 @@ define(['knockout',
 
     var mdDownQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_DOWN);
     this.mdDownScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdDownQuery);
-    this.mdDownScreen.subscribe(function(on) {
+    this.mdDownScreen.subscribe(function (on) {
       if (on) {
         self.hideNavMenu(true);
       }
@@ -51,26 +51,26 @@ define(['knockout',
   /**
    * Return JET variable not nativelty supported by VB
    */
-  PageModule.prototype.getNavigationListKeySet = function() {
+  PageModule.prototype.getNavigationListKeySet = function () {
     return this.navlistExpanded;
   };
-  
+
   /**
    * Toggle offcanvas navigation menu
    */
-  PageModule.prototype.toggleDrawer = function() {
+  PageModule.prototype.toggleDrawer = function () {
     return OffCanvasUtils.toggle(drawerParams);
   };
 
-  PageModule.prototype.animateNavMenu = function() {
+  PageModule.prototype.animateNavMenu = function () {
     let container = document.getElementById("animationParent");
     if (container.classList.contains("navigation-menu-out")) {
-        this.hideNavMenu(true);
+      this.hideNavMenu(true);
     } else {
-        this.hideNavMenu(false);
+      this.hideNavMenu(false);
     }
   };
-  PageModule.prototype.hideNavMenu = function(hide) {
+  PageModule.prototype.hideNavMenu = function (hide) {
     let container = document.getElementById("animationParent");
     if (hide) {
       this.eventHelper.fireCustomEvent("application:navMenuVisible", {visible: false});
@@ -84,20 +84,20 @@ define(['knockout',
   /**
    * Hide offcanvas navigation menu
    */
-  PageModule.prototype.closeDrawer = function() {
+  PageModule.prototype.closeDrawer = function () {
     OffCanvasUtils.close(drawerParams);
   };
 
   /**
    * Create ArrayTree data provider for left navigation menu
    */
-  PageModule.prototype.getNavigationContent = function(metadata) {
+  PageModule.prototype.getNavigationContent = function (metadata) {
     if (this.navigationContent === undefined) {
       this.navigationContent = ko.observable(new ArrayTreeDataProvider(
         this._getNavigationData(
           metadata.navigationMenu, metadata.demos), {
-          keyAttributes: 'attr.id'
-        }));
+        keyAttributes: 'attr.id'
+      }));
     }
     return this.navigationContent;
   };
@@ -105,7 +105,7 @@ define(['knockout',
   /**
    * Select current recipe in left navigation list and collapse all other nodes.
    */
-  PageModule.prototype.collapseAllButSelection = function(sel) {
+  PageModule.prototype.collapseAllButSelection = function (sel) {
     this.navlistExpanded.clear();
     this.navlistExpanded.add(sel);
   };
@@ -113,14 +113,14 @@ define(['knockout',
   /**
    * Is tree node item selectable?
    */
-  PageModule.prototype.itemSelectable = function(context) {
+  PageModule.prototype.itemSelectable = function (context) {
     return context['leaf'];
   };
 
   /**
-   * Create data for left navigation menu fomr given metadata
+   * Create data for left navigation menu from given metadata
    */
-  PageModule.prototype._getNavigationData = function(menu, demos) {
+  PageModule.prototype._getNavigationData = function (menu, demos) {
     var navData = [],
       self = this;
 
@@ -147,7 +147,7 @@ define(['knockout',
     return navData;
   };
 
-  PageModule.prototype._getDemoOption = function(demoConfig, demoId,
+  PageModule.prototype._getDemoOption = function (demoConfig, demoId,
     optionName, optionDefault) {
     var optionData = optionDefault;
     var demoObject = demoConfig[demoId];
@@ -163,7 +163,7 @@ define(['knockout',
    * @param {Array} vbVersions Array of VB version object
    * @return {String} URL of vbcookbook for a given version
    */
-  PageModule.prototype.goToVBCookbook = function(newVersion, vbVersions) {
+  PageModule.prototype.goToVBCookbook = function (newVersion, vbVersions) {
     for (var i = 0; i < vbVersions.length; i++) {
       if (vbVersions[i].label === newVersion) {
         return vbVersions[i];
@@ -177,35 +177,39 @@ define(['knockout',
    * in combobox popup, eg.:
    * [{groupName: Table, items: [{recipeName : Foo, recipeId: bar}]}]
    */
-  PageModule.prototype.findMatchingRecipes = function(metadata, term) {
+  PageModule.prototype.findMatchingRecipes = function (metadata, term) {
     var results = [];
     term = term.toLowerCase();
+    var recipeResults = [];
+
+    var _addMatchingRecipe = function (_groupName, _categoryName, _recipeItem) {
+      var groupNameMatch = _groupName.toLowerCase().indexOf(term) >= 0;
+      var categoryNameMatch = _categoryName.toLowerCase().indexOf(term) >= 0;
+      var recipe = metadata.demos[_recipeItem].label;
+      var recipeNameMatch = recipe.toLowerCase().indexOf(term) >= 0;
+      if (groupNameMatch || recipeNameMatch || categoryNameMatch) {
+        recipeResults.push({
+          recipeName: (_categoryName === "" ? recipe : _categoryName + ' / ' + recipe),
+          recipeId: _recipeItem
+        });
+      }
+    }
+
     metadata.navigationMenu.forEach(item => {
+      recipeResults = [];
       if (item.items === undefined) {
         return;
       }
       var groupName = item.label;
-      var groupNameMatch = groupName.toLowerCase().indexOf(term) >= 0;
-      var recipeResults = [];
       item.items.forEach(item2 => {
-        var category = item2.label;
-        var categoryNameMatch = category.toLowerCase().indexOf(
-          term) >= 0;
-        if (item2.items === undefined) {
-          return;
+        if (item2.items === undefined) { // two level navigation items only
+          _addMatchingRecipe(groupName, "", item2); // category name is not required for two level
+        } else {  // three level navigation items
+          var category = item2.label;
+          item2.items.forEach(item3 => {
+            _addMatchingRecipe(groupName, category, item3);
+          });
         }
-        item2.items.forEach(item3 => {
-          var recipe = metadata.demos[item3].label;
-          var recipeNameMatch = recipe.toLowerCase().indexOf(
-            term) >= 0;
-          if (groupNameMatch || recipeNameMatch ||
-            categoryNameMatch) {
-            recipeResults.push({
-              recipeName: category + ' / ' + recipe,
-              recipeId: item3
-            });
-          }
-        });
       });
       if (recipeResults.length > 0) {
         results.push({
@@ -221,10 +225,10 @@ define(['knockout',
    * Options provider which return empty array for no search term
    * or matched recipe/category names.
    */
-  PageModule.prototype.createOptionsProvider = function(metadata) {
+  PageModule.prototype.createOptionsProvider = function (metadata) {
     var self = this;
-    return function(context) {
-      return new Promise(function(fulfill, reject) {
+    return function (context) {
+      return new Promise(function (fulfill, reject) {
         var term = context.term;
         if (term) {
           fulfill(self.findMatchingRecipes(metadata, term));
@@ -238,8 +242,8 @@ define(['knockout',
   /**
    * Renderer which understands structure returned by findMatchingRecipes.
    */
-  PageModule.prototype.createSearchResultsRenderer = function() {
-    return function(context) {
+  PageModule.prototype.createSearchResultsRenderer = function () {
+    return function (context) {
       var elem, span;
       if (!context.leaf) {
         elem = document.createElement("oj-optgroup");
@@ -258,7 +262,7 @@ define(['knockout',
   /**
    * Pause execution for given time in milliseconds.
    */
-  PageModule.prototype.wait = function(ms) {
+  PageModule.prototype.wait = function (ms) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();

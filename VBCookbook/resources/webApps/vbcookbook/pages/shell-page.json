@@ -119,14 +119,6 @@
     "BreadCrumbType": {
       "label": "string",
       "id": "string"
-    },
-    "RecipeDescriptionType": {
-      "id": "string",
-      "label": "string",
-      "demoPageName": "string",
-      "recipePageName": "string",
-      "seealso": "ReferenceType[]",
-      "apiRef": "ReferenceType[]"
     }
   },
   "chains": {

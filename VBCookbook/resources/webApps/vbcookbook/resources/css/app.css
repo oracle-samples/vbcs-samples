@@ -17,7 +17,7 @@ pre {
 }
 
 .navigation-menu-out .cookbook-navigation-menu-panel {
-  left: 0px;
+  left: 0;
 } 
 .navigation-menu-out .cookbook-content-panel {
   margin-left: 300px;
@@ -674,7 +674,7 @@ html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.
 .categorybanner {
     transition: padding .4s ease-in-out;
     color: white;
-    margin: 0px;
+    margin: 0;
 }
 .sample-box, .recipe-box {
   border: 1px solid #d6dfe6;
