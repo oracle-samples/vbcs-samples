@@ -6,7 +6,7 @@
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', "ojs/ojarraydataprovider", 'ojs/ojknockout',  'ojs/ojnavigationlist', "ojs/ojformlayout", "ojs/ojslider", "ojs/ojinputnumber", "ojs/ojswitch"],
+define(['ojs/ojcore', 'knockout', "ojs/ojarraydataprovider", 'ojs/ojknockout',  'ojs/ojnavigationlist', "ojs/ojformlayout", "ojs/ojslider", "ojs/ojinputnumber", "ojs/ojswitch", "ojs/ojbutton"],
   function (oj, ko, ArrayDataProvider) {
     function ControllerViewModel() {
       var self = this;
