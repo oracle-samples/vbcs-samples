@@ -84,6 +84,16 @@
           </li>
         </template>
       </oj-navigation-list>
+      <hr>
+      <h3>Sample Dialog</h3>
+      <oj-button on-oj-action="[[dialogOpen]]">Open Dialog</oj-button>
+      <oj-dialog id="sampleDialog" dialog-title="A Dialog">
+        <div slot="header">Header</div>
+        <div>content</div>
+        <div slot="footer">
+          <oj-button on-oj-action="[[dialogClose]]">Close</oj-button>
+        </div>
+      </oj-dialog>
 
       <div class="oj-text-sm oj-text-secondary-color" style="margin-top:2em;">
         <p>Add your own testing components here...</p>

@@ -6,7 +6,7 @@
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', "ojs/ojarraydataprovider", 'ojs/ojknockout',  'ojs/ojnavigationlist', "ojs/ojformlayout", "ojs/ojslider", "ojs/ojinputnumber", "ojs/ojswitch", "ojs/ojbutton"],
+define(['ojs/ojcore', 'knockout', "ojs/ojarraydataprovider", 'ojs/ojknockout',  'ojs/ojnavigationlist', "ojs/ojformlayout", "ojs/ojslider", "ojs/ojinputnumber", "ojs/ojswitch", "ojs/ojbutton","ojs/ojdialog"],
   function (oj, ko, ArrayDataProvider) {
     function ControllerViewModel() {
       var self = this;
@@ -28,6 +28,16 @@ define(['ojs/ojcore', 'knockout', "ojs/ojarraydataprovider", 'ojs/ojknockout',  
         { name: "Disabled", disabled: "true", id: "three" }
       ];
       self.navDataDP = new ArrayDataProvider(navdata, { keyAttributes: "id" })
+
+      self.dialogOpen = function(){
+        var dialog = document.getElementById('sampleDialog');
+        dialog.open();
+      }
+      self.dialogClose = function(){
+        var dialog = document.getElementById('sampleDialog');
+        dialog.close(); 
+      }
+
 
 
       // Footer
