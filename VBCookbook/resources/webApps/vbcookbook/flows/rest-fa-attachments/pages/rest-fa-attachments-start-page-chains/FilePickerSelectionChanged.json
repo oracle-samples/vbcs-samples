@@ -1,0 +1,38 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "resetFileUploadVar",
+  "actions": {
+    "updateFileUploadVar": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.fileUpload": {
+          "source": {
+            "FileName": "{{ $chain.variables.detail.files[0].name }}",
+            "Size": "{{ $chain.variables.detail.files[0].size }}",
+            "File": "{{ $chain.variables.detail.files[0] }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      }
+    },
+    "resetFileUploadVar": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.fileUpload"
+        ]
+      },
+      "outcomes": {
+        "success": "updateFileUploadVar"
+      }
+    }
+  }
+}

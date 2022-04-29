@@ -1,0 +1,26 @@
+{
+  "root": "callFunctionGetFutureDate",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "assignVariables": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.futureDate": {
+          "source": "{{ $chain.results.callFunctionGetFutureDate }}",
+          "auto": "always"
+        }
+      }
+    },
+    "callFunctionGetFutureDate": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getFutureDate"
+      },
+      "outcomes": {
+        "success": "assignVariables"
+      }
+    }
+  }
+}

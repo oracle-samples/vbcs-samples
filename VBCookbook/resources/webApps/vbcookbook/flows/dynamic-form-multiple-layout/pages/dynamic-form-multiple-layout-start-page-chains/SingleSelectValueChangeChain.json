@@ -1,0 +1,33 @@
+{
+  "description": "",
+  "root": "assignVariablesEmp1",
+  "actions": {
+    "assignVariablesEmp1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.emp1": {
+          "source": "{{ $variables.value }}"
+        }
+      },
+      "outcomes": {
+        "success": "callChainLoadEmployeeChain"
+      }
+    },
+    "callChainLoadEmployeeChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "loadEmployeeChain",
+        "params": {
+          "fetchedFields": "{{ $page.variables.employeeDetailFormRenderedFields }}"
+        }
+      }
+    }
+  },
+  "variables": {
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

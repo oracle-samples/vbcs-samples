@@ -1,0 +1,138 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "contactDetailsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.defaultContactsArray }}",
+        "itemType": "contactDetails",
+        "keyAttributes": "id"
+      }
+    },
+    "defaultContactsArray": {
+      "type": "contactDetails[]",
+      "defaultValue": [
+        {
+          "id": 1,
+          "phoneType": "Home",
+          "phoneNumber": "+019876543210"
+        },
+        {
+          "id": 2,
+          "phoneType": "Mobile",
+          "phoneNumber": "+0111234567"
+        },
+        {
+          "id": 3,
+          "phoneType": "Office",
+          "phoneNumber": "+1111111111"
+        }
+      ]
+    },
+    "mobileTypesADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.mobileTypesArray }}",
+        "itemType": "phoneType",
+        "keyAttributes": "value"
+      }
+    },
+    "mobileTypesArray": {
+      "type": "phoneType[]",
+      "defaultValue": [
+        {
+          "value": "Mobile",
+          "label": "Mobile"
+        },
+        {
+          "value": "Home",
+          "label": "Home"
+        },
+        {
+          "value": "Office",
+          "label": "Office"
+        }
+      ]
+    },
+    "newRecordID": {
+      "type": "number",
+      "defaultValue": 10000
+    }
+  },
+  "metadata": {},
+  "types": {
+    "contactDetails": {
+      "id": "number",
+      "phoneNumber": "string",
+      "phoneType": "string"
+    },
+    "phoneType": {
+      "label": "string",
+      "value": "string"
+    }
+  },
+  "eventListeners": {
+    "deleteRowButtonAction": {
+      "chains": [
+        {
+          "chainId": "deleteRowButtonActionChain",
+          "parameters": {
+            "rowId": "{{ $current.data.id }}"
+          }
+        }
+      ]
+    },
+    "insertNewRowButtonAction": {
+      "chains": [
+        {
+          "chainId": "insertRowButtonActionChain"
+        }
+      ]
+    },
+    "onPhoneNumberChanged": {
+      "chains": [
+        {
+          "chainId": "phoneNumberValueChangeChain",
+          "parameters": {
+            "row": "{{ $current.data }}",
+            "newValue": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "onPhoneTypeChanged": {
+      "chains": [
+        {
+          "chainId": "phoneTypeValueChangeChain",
+          "parameters": {
+            "newValue": "{{ $event.detail.value }}",
+            "row": "{{ $current.data }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-file-picker": {
+        "path": "ojs/ojfilepicker"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

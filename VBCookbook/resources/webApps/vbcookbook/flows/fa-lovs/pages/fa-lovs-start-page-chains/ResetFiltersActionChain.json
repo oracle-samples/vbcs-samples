@@ -1,0 +1,23 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "FilterResetVariables",
+  "actions": {
+    "FilterResetVariables": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.AdvanceSearchEmployeeListSDP.filterCriterion",
+          "$page.variables.filters",
+          "$page.variables.departmentListSDP.filterCriterion.criteria"
+        ]
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -7,9 +7,7 @@
 
   The Bar Chart component displays salary totals on the Y-axis and job titles on the X-axis. Before you bind data to the
   component, you need to fetch the data from the REST service and create the fields in an object, including total
-  salary, using a JavaScript function. Finally, you use a Transforms Chart Data action to transform the data into a
-  format
-  the component understands.
+  salary, using a JavaScript function. Finally, you use an Array Data Provider to hold the data and populate the chart component.
 
 </p>
 <div class="oj-flex">
@@ -39,9 +37,9 @@
       <span slot="header">Create Variables, Event Listeners, and an Action Chain</span>
       <div>
         <ol>
-          <li>Create an object variable named <code>transformedDataObject</code>.</li>
-          <li>In the Code view of the Page Designer, set the chart’s groups and series attributes to the group and
-            series field values of the transformedDataObject variable.</li>
+          <li>Create an ADP variable named <code>transformedDataADP</code>.</li>
+          <li>In the Code view of the Page Designer, set the chart’s <strong>data</strong> attribute to this variable and set the value, group and 
+            series attributes for chart item to the value, group and series fields in the variable using oj-chart-item component.</li>
           <li>In the Event Listeners section, add a new <code>vbEnter</code> event that is called when the page loads.
           </li>
           <li>Add a new action chain called <code>fetchDataFromService</code>.</li>
@@ -79,12 +77,9 @@
           <li>Add a Call Module Function action to invoke the <code>aggregateData</code> function and pass the
             <code>flattenArray</code> variable.
           </li>
-          <li>Add a Transform Chart Data action passing the aggregated array of data returned from the
-            <code>aggregateData</code>
-            function.</li>
           <li>Add an Assign Variables action named <code>assignBarChartData</code> and set the value of the
-            <code>transformedDataObject</code>
-            variable to return data from the Transform Chart Data action.</li>
+            <code>transformedDataADP</code>
+            variable to return data from the module function.</li>
 
         </ol>
       </div>

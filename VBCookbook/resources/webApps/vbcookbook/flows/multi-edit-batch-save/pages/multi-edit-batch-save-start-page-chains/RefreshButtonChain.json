@@ -1,0 +1,19 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "refreshDepartmentDetails",
+  "actions": {
+    "refreshDepartmentDetails": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "FetchDepartment"
+      }
+    }
+  }
+}

@@ -151,6 +151,24 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
+  "select-many": {
+    "id": "select-many",
+    "runtime": "vb",
+    "label": "Select-Many Demos",
+    "minHeightLandscape": "450",
+    "seealso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectMany",
+        "type": "jetdoc",
+        "url": "oj.ojSelectMany.html"
+      }
+    ],
+    "demoPageName": "select-many-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
   "conditional-styling": {
     "id": "conditional-styling",
     "defaultOrientation": false,
@@ -1020,18 +1038,6 @@
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
   },
-  "datagrid-freeze": {
-    "id": "datagrid-freeze",
-    "runtime": "vb",
-    "label": "Freeze Column",
-    "defaultOrientation": false,
-    "apiRef": [],
-    "seealso": [],
-    "demoPageName": "datagrid-freeze-start",
-    "recipeFlowName": "recipe",
-    "version": "19.4.3.11",
-    "vbversion": "19.4.3"
-  },
   "batch-editable-table-bdp": {
     "id": "batch-editable-table-bdp",
     "runtime": "vb",
@@ -1196,6 +1202,54 @@
     "apiRef": [],
     "seealso": [],
     "demoPageName": "dashboard-template-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "data-grid-merged": {
+    "id": "data-grid-merged",
+    "runtime": "vb",
+    "label": "Merged",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "data-grid-merged-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "data-grid-nested-header": {
+    "id": "data-grid-nested-header",
+    "runtime": "vb",
+    "label": "Freeze Column",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "data-grid-nested-header-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "data-grid-styling": {
+    "id": "data-grid-styling",
+    "runtime": "vb",
+    "label": "Styling",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "data-grid-styling-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "many-editable-rows": {
+    "id": "many-editable-rows",
+    "runtime": "vb",
+    "label": "Many Editable Rows",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "many-editable-rows-start",
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"

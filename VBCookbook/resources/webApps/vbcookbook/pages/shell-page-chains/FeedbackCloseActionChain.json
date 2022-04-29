@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "root": "callComponentFeedbackDialogClose",
+  "actions": {
+    "callComponentFeedbackDialogClose": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('feedback-dialog') }}",
+        "method": "close"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

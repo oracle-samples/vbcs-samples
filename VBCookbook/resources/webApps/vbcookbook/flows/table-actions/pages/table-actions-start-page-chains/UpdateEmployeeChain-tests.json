@@ -1,0 +1,60 @@
+{
+    "tests": {
+        "SuccessPath": {
+            "mocks": {
+                "RefreshEmployeeSDP": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": {}
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$actions.RefreshEmployeeSDP2.inputs.refresh",
+                    "matcher": "to.be.undefined"
+                },
+                {
+                    "actual": "$actions.RefreshEmployeeSDP2.inputs.target",
+                    "matcher": "to.be.undefined"
+                }
+            ]
+        },
+        "FailurePath": {
+            "mocks": {
+                "RefreshEmployeeSDP": {
+                    "outcome": "failure",
+                    "result": {
+                        "message": {
+                            "summary": "Error executing the action"
+                        }
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$actions.updateSuccessNotification.inputs.target",
+                    "matcher": "to.equal",
+                    "expected": "leaf"
+                },
+                {
+                    "actual": "$actions.updateSuccessNotification.inputs.summary",
+                    "matcher": "to.equal",
+                    "expected": "Record updated succesfully!"
+                },
+                {
+                    "actual": "$actions.updateSuccessNotification.inputs.type",
+                    "matcher": "to.equal",
+                    "expected": "confirmation"
+                },
+                {
+                    "actual": "$actions.updateSuccessNotification.inputs.displayMode",
+                    "matcher": "to.equal",
+                    "expected": "persist"
+                }
+            ]
+        }
+    }
+   }

@@ -1,0 +1,23 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "resetVariables1",
+  "actions": {
+    "resetVariables1": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.selectedCountry",
+          "$page.variables.selectedLocation",
+          "$page.variables.selectedRegion"
+        ]
+      }
+    }
+  }
+}

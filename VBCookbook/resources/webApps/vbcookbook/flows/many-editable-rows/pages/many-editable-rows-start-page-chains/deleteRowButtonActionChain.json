@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "root": "fireDataProviderEventContactsDetailsADP",
+  "actions": {
+    "fireDataProviderEventContactsDetailsADP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.contactDetailsADP ]]",
+        "remove": {
+          "keys": "{{ [ $variables.rowId ] }}"
+        }
+      }
+    }
+  },
+  "variables": {
+    "rowId": {
+      "type": "number",
+      "required": true,
+      "input": "fromCaller"
+    }
+  }
+}

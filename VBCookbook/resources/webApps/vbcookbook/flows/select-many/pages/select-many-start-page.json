@@ -1,0 +1,86 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName",
+            "lastName"
+          ]
+        },
+        "fetchChainId": "getall_EmployeeFetchAction"
+      }
+    },
+    "preselectedValues": {
+      "type": "number[]",
+      "defaultValue": [
+        100,
+        101
+      ]
+    },
+    "selectedValueOptions": {
+      "type": "object[]"
+    },
+    "selectedValues": {
+      "type": "number[]"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string"
+        }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-select-many": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      }
+    }
+  },
+  "events": {}
+}

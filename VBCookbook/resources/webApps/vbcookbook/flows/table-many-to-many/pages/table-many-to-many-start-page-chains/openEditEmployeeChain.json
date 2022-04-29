@@ -1,0 +1,65 @@
+{
+  "description": "",
+  "root": "assignCurrent",
+  "actions": {
+    "assignCurrent": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentEmployee": {
+          "source": "{{ $variables.current.row }}",
+          "reset": "empty"
+        }
+      },
+      "outcomes": {
+        "success": "assignCurrentSkills"
+      }
+    },
+    "assignCurrentSkills": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentSkills": {
+          "source": "{{ $chain.variables.current.row.skillCollection.items }}",
+          "mapping": {
+            "$target": {
+              "source": "$source.id",
+              "reset": "none"
+            }
+          },
+          "reset": "empty"
+        }
+      },
+      "outcomes": {
+        "success": "openEditDialog"
+      }
+    },
+    "openEditDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('dialog-edit-employee') }}",
+        "method": "open"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

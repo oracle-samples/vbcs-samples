@@ -1,0 +1,84 @@
+{
+  "description": "",
+  "root": "resetVariables",
+  "actions": {
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentSelection": {
+          "source": "{{ $chain.results.selectedChangedModuleFunction }}"
+        },
+        "$page.variables.disableDeselectAll": {
+          "source": "{{ $page.functions.isSelectionEmpty($variables.selected) }}"
+        }
+      },
+      "outcomes": {
+        "success": "if"
+      }
+    },
+    "selectedChangedModuleFunction": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "selectedChangedListener",
+        "params": [
+          "{{ $variables.selected }}"
+        ],
+        "returnType": "string"
+      },
+      "outcomes": {
+        "success": "assignVariables1"
+      }
+    },
+    "assignVariables2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowData": {
+          "source": "{{ $chain.results.callFunctionGetRowsForIDs }}",
+          "reset": "empty"
+        }
+      }
+    },
+    "resetVariables": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.rowData"
+        ]
+      },
+      "outcomes": {
+        "success": "selectedChangedModuleFunction"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ !$variables.selected.row.isAddAll() ]]"
+      },
+      "outcomes": {
+        "true": "callFunctionGetRowsForIDs"
+      }
+    },
+    "callFunctionGetRowsForIDs": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getRowsForIDs",
+        "params": [
+          "{{ document.getElementById('table') }}",
+          "{{ Array.from($variables.selected.row.values()) }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariables2"
+      }
+    }
+  },
+  "variables": {
+    "selected": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

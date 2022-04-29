@@ -1,0 +1,66 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "callRestUpdateEmployee",
+  "actions": {
+    "CloseDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "fireDataProviderEventEmployeeListSDP"
+      }
+    },
+    "callRestUpdateEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/update_Employee",
+        "uriParams": {
+          "Employee_Id": "{{ $page.variables.currentEmployee.id }}"
+        },
+        "body": "{{ $page.variables.currentEmployee }}"
+      },
+      "outcomes": {
+        "failure": "updateFailedNotification",
+        "success": "updateSuccessNotification"
+      }
+    },
+    "fireDataProviderEventEmployeeListSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "refresh": null,
+        "target": "[[ $page.variables.employeeListSDP ]]"
+      }
+    },
+    "updateSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Record updated succesfully!",
+        "type": "confirmation",
+        "displayMode": "persist",
+        "message": "Record updated succesfully!"
+      },
+      "outcomes": {
+        "success": "CloseDialog"
+      }
+    },
+    "updateFailedNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestUpdateEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    }
+  }
+}

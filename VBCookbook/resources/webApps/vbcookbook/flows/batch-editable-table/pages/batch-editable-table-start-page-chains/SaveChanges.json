@@ -1,0 +1,76 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "createPayload",
+  "actions": {
+    "createPayload": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "createBatchPayload",
+        "params": [
+          "{{ $page.variables.employeesADP.data }}",
+          "{{ $page.variables.rowStatus }}"
+        ]
+      },
+      "outcomes": {
+        "success": "saveChangesInBatch"
+      }
+    },
+    "saveChangesInBatch": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/batch",
+        "body": "{{ $chain.results.createPayload }}"
+      },
+      "outcomes": {
+        "failure": "fireError",
+        "success": "fireSuccess"
+      }
+    },
+    "reloadTableAfterBatchChange": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "FetchEmployees"
+      }
+    },
+    "fireError": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.saveChangesInBatch.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "fireSuccess": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "displayMode": "transient",
+        "type": "info",
+        "summary": "Changes were saved"
+      },
+      "outcomes": {
+        "success": "resetAllChanges"
+      }
+    },
+    "resetAllChanges": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.rowStatus"
+        ]
+      },
+      "outcomes": {
+        "success": "reloadTableAfterBatchChange"
+      }
+    }
+  }
+}

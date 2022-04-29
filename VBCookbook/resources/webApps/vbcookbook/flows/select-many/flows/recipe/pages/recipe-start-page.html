@@ -1,0 +1,233 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  The following steps provide details about how you create the Select Many component implementations shown here.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-0" expanded="true">
+      <span slot="header">Add a Select Many Component and Service Data Provider</span>
+      <div>
+        <ol>
+          <li>In the Components palette, drag a Select Many component and drop it on the page.
+          </li>
+          <li>In the Quick Start tab of the Properties pane, click <strong>Add Options</strong>, select the Employee
+            business object as the data source, and, in the Endpoint Structure, select <code>firstName</code> for
+            the Label option, <code>id</code> for the Value option, and then click <strong>Finish</strong> to close the
+            dialog.
+            <p>The Code view of the page now contains the following attribute values for the component:</p>
+            <pre>options="[[$variables.employeeListSDP]]" 
+       options-keys.value="id" 
+          options-keys.label="firstName"></pre>
+          </li>
+          <li>In the Variables tab of your page, select <code>employeeListSDP</code> and set <code>firstName</code> and
+            <code>lastName</code> as the values for the Text Filter Attributes property.
+            <p>This enables text search in the Select Many component to retrieve results for both first and last name
+              when searching an employee's name.</p>
+          </li>
+          <li>In the Variables tab, below the Text Filter Attributes property field, click <strong>Customize Fetch Action Chain</strong>, and click <strong>Customize</strong> in the dialog that appears to confirm the creation of an action chain with an ID of <code>getall_EmployeeFetchAction</code>.</li>
+          <li>In the Code view of the action chain, add the following <code>requestTransformFunctions</code> parameter to the entry for the Call REST action:
+<pre>
+"callRestEndpoint1": {
+  . . .
+  "parameters": {
+    . . .
+    "responseType": "getallEmployeeResponse",
+    "requestTransformFunctions": {
+      "filter": "{{ $functions.processFilter }}"
+    },
+  . . .
+</pre>
+
+          </li>
+          <li>In the JavaScript tab of your page, add a <code>processFilter</code> function to enable the search on both
+            fields by
+            setting the transform correctly. This is required only when the search text has to filter multiple
+            fields in the data. Without this function, the component filters the REST call using
+            whatever field is specified in the <code>options-keys.label</code> attribute.
+            <oj-collapsible id="addFile">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+define(['ojs/ojarraytreedataprovider', 'vb/BusinessObjectsTransforms'], function (ArrayTreeDataProvider, BOTransforms) {
+'use strict';
+
+var PageModule = function PageModule() { };
+
+// This function is called through requestTransformFunctions, and it appends the object fields 
+// configured as text filter attributes for filtering.
+PageModule.prototype.processFilter = function (configuration, options, transformsContext) {
+  var textValue = options && options.value;
+
+  if (textValue !== undefined && transformsContext && transformsContext['vb-textFilterAttributes']) {
+    var options_new = {
+      op: '$or',
+      criteria: [
+      ]
+    };
+
+    for (var i = 0; i < transformsContext['vb-textFilterAttributes'].length; i++) {
+      var itemCriterion = {};
+      itemCriterion.attribute = transformsContext['vb-textFilterAttributes'][i];
+      itemCriterion.op = '$co';
+      itemCriterion.value = textValue;
+      options_new.criteria.push(itemCriterion);
+    }
+
+    // - NOTE -
+    // The following assignment overrides any existing FilterCriterion set on the Service Data Provider.
+    // The proper solution is to merge options_new into existing conditions
+    options = options_new;
+  }
+
+  return BOTransforms.request.filter(configuration, options);
+};
+
+return PageModule;
+});
+            </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-1">
+      <span slot="header">Filter Data on One Field</span>
+      <div>
+        <p>The Add Options Quick Start configured the Select Many component to render the employee's first name:
+        </p>
+        <p><code>options-keys.value="id"</code> and <code>options-keys.label="firstName"</code></p>
+      <p>The changes that we made in the previous task (configured the Text Filter Attributes property and add a <code>processFilter</code> function) mean that the app renders <code>Steven</code> and <code>Janette</code> as results when you filter on <code>King</code> (last name of an employee) because employee records exist for <code>Steven King</code> and <code>Janette King</code>.</p>
+
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-2">
+      <span slot="header">Filter on an Employee's Full Name Using a Transient Field</span>
+      <div>
+        <p>Create a transient field, <code>fullName</code>, that includes the data from both the <code>firstName</code>
+          and <code>lastName</code> fields.
+          Configure the Select Many component to filter on the <code>fullName</code> field.</p>
+        <ol>
+          <li>In the <code>getall_EmployeeFetchAction</code> action chain, drag and drop a Call Function action to create a new function named
+            <code>customizeData</code>. Provide the Call REST action's response as an input argument
+            to the <code>customizeData</code> function. This function includes both <code>firstName</code> and
+            <code>lastName</code> in the
+            <code>fullName</code> field.
+            <pre>
+PageModule.prototype.customizeData = function (restResponse) {
+  if (restResponse.body.items.length > 0) {
+    restResponse.body.items.forEach(
+      function (item) {
+        item.fullName = item.firstName + ' ' + item.lastName;
+      }
+    );
+  }
+  return restResponse;
+};
+</pre>
+          </li>
+          <li>Set the Payload property of the Return action to the result of the <code>customizeData</code> function.
+          </li>
+          <li>In the Code view of your page, configure the Select Many component attribute as follows:
+            <code>options-keys.label="fullName"</code>.
+            <p>In this case without the <code>processFilter</code> function, the Select Many component filters the REST
+              call using
+              whatever field is specified in <code>options-keys.label</code> and that would fail the REST call for
+              <code>fullName</code>, which is a transient value.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-3">
+      <span slot="header">Customize the Content of the Dropdown List </span>
+      <div>
+        <p>In this example, we customize the Select Many component to display employee details and an image of the
+          employee using an Avatar component. </p>
+        <ol>
+          <li>In the JavaScript tab of the page, create a new function named <code>createDropdownItemFunction</code>
+            where you include the following code.
+            <oj-collapsible id="customize">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+PageModule.prototype.createDropdownItemFunction = function ( applicationPath ) {
+  return function (context) {
+    const ojOption = document.createElement('oj-option');
+    ojOption.innerHTML = context.data.firstName + ' ' + context.data.lastName + ' ' + context.data.phoneNumber + '  ';
+    ojOption.setAttribute('class', 'oj-sm-align-items-center oj-flex');
+    const avatar = document.createElement('oj-avatar');
+    avatar.setAttribute('src', applicationPath + 'resources/images/employees/' + context.data.id + '.png');
+    avatar.setAttribute('size', 'sm');
+    avatar.setAttribute('shape', 'circle');
+    avatar.setAttribute('slot', 'startIcon');
+    avatar.setAttribute('class', 'oj-sm-padding-4x-end');
+    ojOption.appendChild(avatar);
+    return ojOption;
+  }
+};
+</pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>In the Code view of the page, set the Select Many component's attributes as follows:
+            <p><code>option-renderer="[[ $functions.createDropdownItemFunction( $application.path ) ]]"</code> and
+              <code>options-keys.label="fullName"</code>
+            </p>
+          </li>
+          <li>In the JSON tab of your page, import the Avatar component:
+            <p><code>"oj-avatar": { "path": "ojs/ojavatar" }</code></p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-4">
+      <span slot="header">Display Preselected Values in the Select Many Component</span>
+      <div>
+        <p>In this example, we customize the Select Many component to display preselected values when the component
+          first renders.
+        </p>
+        <ol>
+          <li>In the Variables tab of your page, create an Array variable, <code>preselectedValues</code>, with item
+            type as Number and
+            set its default value to <code>[100,101]</code>.
+            <p>The default value is the id of two rows of employee data.</p>
+          </li>
+          <li>In the Code view of your page, set the Select Many component's attributes as follows:
+            <p>
+              <code>value="{{ $variables.preselectedValues }}"</code> and <code>options-keys.label="fullName"</code>.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-5">
+      <span slot="header">Fetch Data of the Selected Rows</span>
+      <div>
+        <p>In this example, we demonstrate how to fetch the data of the items that you select in the Select Many
+          component.</p>
+        <ol>
+          <li>In the Variables tab of your page, create two Array variables, <code>selectedValue</code> and
+            <code>selectedValueOptions</code>, with item type of Number and Object respectively.
+          </li>
+          <li>In the Code view of the page, set the Select Many component's attributes as follows:
+            <p><code>value="{{ $variables.selectedValues }}"</code> and
+              <code>value-options="{{ $variables.selectedValueOptions }}"</code>
+            </p>
+          </li>
+          <li>In the Components palette, drag and drop a Text Area component on the page and set its <code>value</code>
+            attribute as follows:
+            <p>
+              <code>JSON.stringify($variables.selectedValues )</code> and
+              <code>JSON.stringify($variables.selectedValueOptions )</code>
+            </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

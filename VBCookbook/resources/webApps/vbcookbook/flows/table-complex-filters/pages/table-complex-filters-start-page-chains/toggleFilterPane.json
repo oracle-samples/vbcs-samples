@@ -1,0 +1,31 @@
+{
+  "description": "",
+  "root": "toggle",
+  "actions": {
+    "toggle": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "toggle"
+      },
+      "outcomes": {
+        "success": "assignToggleState"
+      }
+    },
+    "assignToggleState": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.drawerOpen": {
+          "source": "{{ !$page.variables.drawerOpen }}"
+        }
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

@@ -28,7 +28,12 @@
           "vb-textFilterAttributes": [
             "ename"
           ]
-        }
+        },
+        "sortCriteria": [
+          {
+            "attribute": "ename"
+          }
+        ]
       }
     },
     "searchText": {

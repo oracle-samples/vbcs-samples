@@ -1,0 +1,112 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "updateStateVariables",
+  "actions": {
+    "getAttachmentId": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "getRealAttachedDocumentId",
+        "params": [
+          "{{ $chain.variables.current.row }}"
+        ]
+      },
+      "outcomes": {
+        "success": "callGetAttachmentRestEndpoint"
+      }
+    },
+    "generatePreview": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "preview",
+        "params": [
+          "{{ $chain.results.callGetAttachmentRestEndpoint.body }}",
+          "{{ $chain.variables.current.row.UploadedFileContentType }}"
+        ]
+      },
+      "outcomes": {
+        "success": "updatePreviewVariables"
+      }
+    },
+    "updateStateVariables": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.filePreview": {
+          "source": false
+        },
+        "$page.variables.faServerBusy": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "getAttachmentId"
+      }
+    },
+    "callGetAttachmentRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "activities_vb/get_activities-Attachments-FileContents",
+        "uriParams": {
+          "activities_Id": "{{ $page.variables.testingActivityId }}",
+          "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}"
+        },
+        "responseBodyFormat": "blob"
+      },
+      "outcomes": {
+        "success": "generatePreview",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "updatePreviewVariables": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.fileBodyForPreview": {
+          "source": "{{ $chain.results.generatePreview }}"
+        },
+        "$page.variables.filePreview": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "updateFAServerStatusReady"
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "persist",
+        "type": "error",
+        "summary": "Download failed"
+      },
+      "outcomes": {
+        "success": "updateFAServerStatusReady"
+      }
+    },
+    "updateFAServerStatusReady": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.faServerBusy": {
+          "source": "{{ false }}"
+        }
+      }
+    }
+  }
+}

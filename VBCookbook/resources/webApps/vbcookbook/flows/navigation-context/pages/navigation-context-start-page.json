@@ -49,50 +49,6 @@
     }
   },
   "chains": {
-    "NavigateToEditActionChain": {
-      "description": "",
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "navigateToPage1",
-      "actions": {
-        "navigateToPage1": {
-          "module": "vb/action/builtin/navigateAction",
-          "parameters": {
-            "page": "navigation-context-edit",
-            "params": {
-              "id": "{{ $page.variables.selection.key }}"
-            }
-          }
-        }
-      }
-    },
-    "NavigateToDetailActionChain": {
-      "description": "",
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "navigateToPage1",
-      "actions": {
-        "navigateToPage1": {
-          "module": "vb/action/builtin/navigateAction",
-          "parameters": {
-            "page": "navigation-context-detail",
-            "params": {
-              "employee": "{{ $page.variables.selection.data }}"
-            }
-          }
-        }
-      }
-    }
   },
   "eventListeners": {
     "navigateToEditListener": {

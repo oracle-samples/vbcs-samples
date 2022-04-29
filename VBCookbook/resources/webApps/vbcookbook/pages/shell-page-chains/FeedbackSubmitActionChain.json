@@ -1,0 +1,102 @@
+{
+  "description": "",
+  "root": "if",
+  "actions": {
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.feedbackValid === 'valid' ]]"
+      },
+      "outcomes": {
+        "false": "callComponentFeedbackValidShowMessages",
+        "true": "createFeedbackPayload"
+      }
+    },
+    "callComponentFeedbackValidShowMessages": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('feedback-valid') }}",
+        "method": "showMessages"
+      },
+      "outcomes": {
+        "success": "callComponentFeedbackValidFocusOn"
+      }
+    },
+    "callComponentFeedbackValidFocusOn": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('feedback-valid') }}",
+        "method": "focusOn",
+        "params": [
+          "@firstInvalidShown"
+        ]
+      }
+    },
+    "createFeedbackPayload": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$variables.postPayload": {
+          "source": {
+            "description": "{{ $page.variables.feedback.description }}",
+            "rating": "{{ $page.variables.feedback.rating > -1 ? $page.variables.feedback.rating : undefined }}",
+            "feedbackType2": "{{ $page.variables.feedback.type === 'reportIssue' ? 2 : ($page.variables.feedback.type === 'submitNew' ? 1 : 3) }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "callPostFeedback"
+      }
+    },
+    "callPostFeedback": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "feedback/postFeedback",
+        "body": "{{ $variables.postPayload }}"
+      },
+      "outcomes": {
+        "failure": "showError",
+        "success": "closeFeedbackDialog"
+      }
+    },
+    "closeFeedbackDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('feedback-dialog') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "sayThankYou"
+      }
+    },
+    "sayThankYou": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Thank you for your feedback",
+        "displayMode": "transient",
+        "type": "confirmation"
+      }
+    },
+    "showError": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callPostFeedback.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "postPayload": {
+      "type": "postFeedback"
+    }
+  }
+}

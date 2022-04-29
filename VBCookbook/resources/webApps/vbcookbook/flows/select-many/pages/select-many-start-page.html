@@ -1,0 +1,91 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  This recipe demonstrates how to implement use cases that use the Select Many
+  component (<code>oj-select-many</code>).
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box">
+    <h5>Filter Data on One Field</h5>
+    <div class="oj-flex-item" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example uses the options-keys to render only firstName of employees. The search matches both first and last name as defined using vb-textFilterAttributes.">
+      </oj-bind-text>
+    </div>
+    <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
+      <oj-select-many label-hint="Select Many Using options-keys" class="oj-form-control-width-md"
+        options="[[ $variables.employeeListSDP ]]" options-keys.value="id" options-keys.label="firstName">
+      </oj-select-many>
+    </oj-form-layout>
+
+    <h5>Filter on an Employee's Full Name Using a Transient Field</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example uses a transient field fullName for rendering which is combination of firstName and lastName. The SDP variable is customized to have a new transient field called fullName.">
+      </oj-bind-text>
+    </div>
+    <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
+      <oj-select-many label-hint="Select Many Using Transient Field" class="oj-form-control-width-md"
+        options-keys.value="id" options-keys.label="fullName" options="{{ $variables.employeeListSDP }}">
+      </oj-select-many>
+    </oj-form-layout>
+
+    <h5>Customize the Contents of the Dropdown List</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example uses options-renderer to display a custom drop down list. The drop down shows full name along with phoneNumber and employee picture.">
+      </oj-bind-text>
+    </div>
+    <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
+      <oj-select-many label-hint="Custom Dropdown Using options-renderer" class="oj-form-control-width-md"
+        option-renderer="[[ $functions.createDropdownItemFunction( $application.path ) ]]" options-keys.value="id"
+        options-keys.label="fullName" options="{{ $variables.employeeListSDP }}">
+      </oj-select-many>
+    </oj-form-layout>
+
+    <h5>Display Preselected Values in the Select Many Component</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example shows how the values can be preselected in Select Many component on loading. The value attribute contains the selected values.">
+      </oj-bind-text>
+    </div>
+    <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
+      <oj-select-many label-hint="Select Many With Preselected Values" class="oj-form-control-width-md"
+        value="{{ $variables.preselectedValues }}" options="[[ $variables.employeeListSDP ]]" options-keys.value="id"
+        options-keys.label="fullName">
+      </oj-select-many>
+    </oj-form-layout>
+
+    <h5>Fetch Data of the Selected Rows</h5>
+    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example shows how to fetch the details of selected items in Select Many using the value-options.">
+      </oj-bind-text>
+    </div>
+    <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
+      <oj-select-many label-hint="Select Many With value and valueOptions" class="oj-form-control-width-md"
+        value="{{ $variables.selectedValues }}" value-options="{{ $variables.selectedValueOptions }}"
+        options="[[ $variables.employeeListSDP ]]" options-keys.value="id" options-keys.label="fullName">
+      </oj-select-many>
+      <oj-text-area readonly="true" class="oj-form-control-width-md"
+        value="{{ 'Current Selected value:' + '\n' + JSON.stringify($variables.selectedValues ) + '\n\nCurrent Selected valueOptions:' + '\n' + JSON.stringify($variables.selectedValueOptions ) }}"
+        rows="6">
+      </oj-text-area>
+    </oj-form-layout>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,8 @@
+{
+  "id": "many-editable-rows",
+  "description": "Flow main",
+  "defaultPage": "many-editable-rows-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

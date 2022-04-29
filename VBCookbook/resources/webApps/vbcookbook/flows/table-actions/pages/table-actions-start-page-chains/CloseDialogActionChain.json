@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "root": "callComponentMethod1",
+  "actions": {
+    "callComponentMethod1": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+        "method": "close"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

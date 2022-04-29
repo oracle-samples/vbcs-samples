@@ -1,0 +1,52 @@
+{
+  "description": "",
+  "root": "callBatchEndpoint",
+  "actions": {
+    "callBatchEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/batch",
+        "body": "{{ $variables.payload }}"
+      },
+      "outcomes": {
+        "failure": "failure",
+        "success": "success"
+      }
+    },
+    "success": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Upload success",
+        "displayMode": "transient",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "callComponentMethod1"
+      }
+    },
+    "callComponentMethod1": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1728153767-2') }}",
+        "method": "close"
+      }
+    },
+    "failure": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callBatchEndpoint.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    }
+  },
+  "variables": {
+    "payload": {
+      "type": "object",
+      "required": true,
+      "input": "fromCaller"
+    }
+  }
+}

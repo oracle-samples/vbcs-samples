@@ -1,0 +1,40 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "ifFormIsDirty",
+  "actions": {
+    "ifFormIsDirty": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.dirtyForm ]]"
+      },
+      "outcomes": {
+        "true": "setTabToSwitch"
+      }
+    },
+    "setTabToSwitch": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.tabToSwitch": {
+          "source": "{{ $chain.variables.detail.key }}"
+        }
+      },
+      "outcomes": {
+        "success": "openConfirmDialog"
+      }
+    },
+    "openConfirmDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+        "method": "open"
+      }
+    }
+  }
+}

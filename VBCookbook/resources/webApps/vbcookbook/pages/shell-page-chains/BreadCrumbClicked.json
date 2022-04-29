@@ -1,0 +1,42 @@
+{
+  "description": "",
+  "variables": {
+    "selection": {
+      "type": "string[]",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "root": "ifRecipeSelected",
+  "actions": {
+    "navigateToHomePage": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "navigate",
+        "params": {
+          "selection": "home"
+        }
+      }
+    },
+    "ifRecipeSelected": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.variables.selection.length > 0 ]]"
+      },
+      "outcomes": {
+        "true": "updateSelectedNodeInLeftNavMenu",
+        "false": "navigateToHomePage"
+      }
+    },
+    "updateSelectedNodeInLeftNavMenu": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "collapseAllButSelection",
+        "params": [
+          "{{ $chain.variables.selection }}"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "description": "",
+  "root": "assignVariablesIsCurrentRowBeingDeleted",
+  "actions": {
+    "callFunctionRemoveItem": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "removeItem",
+        "params": [
+          "{{ $variables.key }}",
+          "{{ $variables.row }}"
+        ]
+      }
+    },
+    "assignVariablesIsCurrentRowBeingDeleted": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.isCurrentRowBeingDeleted": {
+          "source": true
+        },
+        "$page.variables.noChangesToSave": {
+          "source": false
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionRemoveItem"
+      }
+    }
+  },
+  "variables": {
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "row": {
+      "type": "any",
+      "required": false,
+      "input": "fromCaller"
+    }
+  }
+}

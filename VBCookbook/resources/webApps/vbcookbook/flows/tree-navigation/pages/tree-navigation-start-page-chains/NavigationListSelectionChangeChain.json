@@ -1,12 +1,20 @@
 {
   "description": "",
-  "root": "callFunctionCloseDrawer",
+  "root": "if",
   "actions": {
-    "callFunctionCloseDrawer": {
-      "module": "vb/action/builtin/callModuleFunctionAction",
+    "if": {
+      "module": "vb/action/builtin/ifAction",
       "parameters": {
-        "module": "[[ $functions ]]",
-        "functionName": "closeDrawer"
+        "condition": "[[ $application.responsive.lgUp ]]"
+      },
+      "outcomes": {
+        "false": "callChainCloseNavListActionChain"
+      }
+    },
+    "callChainCloseNavListActionChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "CloseNavListActionChain"
       }
     }
   },

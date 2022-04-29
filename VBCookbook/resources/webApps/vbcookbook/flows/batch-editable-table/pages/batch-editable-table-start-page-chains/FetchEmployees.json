@@ -1,0 +1,42 @@
+{
+  "root": "fetchEmployees",
+  "description": "",
+  "actions": {
+    "fetchEmployees": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Employee",
+        "requestTransformOptions": {
+          "paginate": {
+            "size": -1
+          }
+        },
+        "responseType": "getall_Employee",
+        "uriParams": {
+          "orderBy": "lastName"
+        }
+      },
+      "outcomes": {
+        "success": "assignToEmployees"
+      }
+    },
+    "assignToEmployees": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employeesADP": {
+          "source": {
+            "data": "{{ $chain.results.fetchEmployees.body.items }}"
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.data": {
+              "source": "$source.data",
+              "reset": "empty"
+            }
+          }
+        }
+      }
+    }
+  }
+}

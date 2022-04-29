@@ -1,0 +1,33 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "resetVariables1",
+  "actions": {
+    "CancelButtonActionChain": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('advanced-search-oj-dialog') }}",
+        "method": "close"
+      }
+    },
+    "resetVariables1": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.selectedRow",
+          "$page.variables.filters",
+          "$page.variables.AdvanceSearchEmployeeListSDP.filterCriterion"
+        ]
+      },
+      "outcomes": {
+        "success": "CancelButtonActionChain"
+      }
+    }
+  }
+}

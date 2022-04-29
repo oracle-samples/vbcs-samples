@@ -1,0 +1,54 @@
+{
+  "root": "jobsRestEndPoint",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.jobsRestEndPoint.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "jobsRestEndPoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Job"
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "assignVariableJobs"
+      }
+    },
+    "refreshfilmstripcomponent": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('filmstrip') }}",
+        "method": "refresh"
+      }
+    },
+    "assignVariableJobs": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.jobs": {
+          "source": "{{ $chain.results.jobsRestEndPoint.body.items }}",
+          "mapping": {
+            "$target.id": {
+              "source": "$source.id",
+              "reset": "none"
+            },
+            "$target.title": {
+              "source": "$source.jobTitle",
+              "reset": "none"
+            }
+          }
+        }
+      },
+      "outcomes": {
+        "success": "refreshfilmstripcomponent"
+      }
+    }
+  }
+}

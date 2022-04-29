@@ -1,0 +1,57 @@
+{
+  "description": "",
+  "root": "ifIsTokyoNotSelected",
+  "actions": {
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.previousKey !== $variables.key ]]"
+      },
+      "outcomes": {
+        "true": "resetVariablesSelectedLocation3",
+        "false": "resetVariablesIsTokyoSelected"
+      }
+    },
+    "resetVariablesSelectedLocation3": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.selectedLocation"
+        ]
+      },
+      "outcomes": {
+        "success": "resetVariablesIsTokyoSelected"
+      }
+    },
+    "resetVariablesIsTokyoSelected": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.isTokyoSelected"
+        ]
+      }
+    },
+    "ifIsTokyoNotSelected": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ !$page.variables.isTokyoSelected ]]"
+      },
+      "outcomes": {
+        "true": "if",
+        "false": "resetVariablesIsTokyoSelected"
+      }
+    }
+  },
+  "variables": {
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "previousKey": {
+      "type": "any",
+      "required": false,
+      "input": "fromCaller"
+    }
+  }
+}

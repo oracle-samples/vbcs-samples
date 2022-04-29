@@ -1,0 +1,102 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "prepareDepartmentPayloadForBatch",
+  "actions": {
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callBatchRESTCall.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.prepareEmployeesPayloadForBatch === undefined ]]"
+      },
+      "outcomes": {
+        "true": "fireNotification2",
+        "false": "callBatchRESTCall"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "displayMode": "transient",
+        "type": "info",
+        "summary": "Data Upto Date",
+        "message": "Nothing to save !!"
+      }
+    },
+    "fireNotification3": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "displayMode": "transient",
+        "type": "confirmation",
+        "summary": "Success",
+        "message": "Changes saved !!"
+      },
+      "outcomes": {
+        "success": "fetchDataAgainAfterCommit"
+      }
+    },
+    "prepareDepartmentPayloadForBatch": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "prepareDepartmentBatchPayload",
+        "params": [
+          "{{ $page.variables.departmentName }}",
+          "{{ $page.variables.originalDepartmentName }}",
+          "{{ $page.variables.departmentId }}"
+        ]
+      },
+      "outcomes": {
+        "success": "prepareEmployeesPayloadForBatch"
+      }
+    },
+    "prepareEmployeesPayloadForBatch": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "prepareEmployeesBatchPayload",
+        "params": [
+          "{{ $page.variables.employeeListADP.data }}",
+          "{{ $page.variables.rowStatus }}",
+          "{{ $chain.results.prepareDepartmentPayloadForBatch }}"
+        ]
+      },
+      "outcomes": {
+        "success": "if1"
+      }
+    },
+    "callBatchRESTCall": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/batch",
+        "body": "{{ $chain.results.prepareEmployeesPayloadForBatch }}"
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "fireNotification3"
+      }
+    },
+    "fetchDataAgainAfterCommit": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "FetchDepartment"
+      }
+    }
+  }
+}

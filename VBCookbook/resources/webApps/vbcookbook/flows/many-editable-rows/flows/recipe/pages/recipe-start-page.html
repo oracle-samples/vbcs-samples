@@ -1,0 +1,133 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  You use a template within the <code>oj-bind-for-each</code> component to display Select Single and Input Text components for multiple rows.
+  An Array Data Provider variable holds the data and is updated as the user interacts with the UI.
+</p>
+
+<oj-accordion id="accordionPage" multiple="true">
+  <oj-collapsible id="step1" expanded="true">
+    <span slot="header">Create Types And Variables</span>
+    <div>
+      <ol>
+        <li>In the Types tab of the page, create a new type named <code>contactDetails</code> with ID of type Number,
+          phoneType of type String, and phoneNumber of type String as fields.
+        </li>
+        <li>Create another type named <code>phoneType</code> with label of type String and value of type String as fields.
+        </li>
+        <li>In the Variables tab, create a new array variable named <code>defaultContactsArray</code> with the Item Type property set to <code>contactDetails</code>. 
+          <p>Set the Default Value property of this array to contain a number of records.</p>
+        </li>
+        <li>Create another array variable named <code>mobileTypesArray</code> with item type as phoneType. 
+          <p>Set the Default Value property of this array to contain a number of records.</p>
+        </li>
+        <li>Create a new Array Data Provider variable named <code>contactDetailsADP</code> with item type as contactDetails and bind data
+          to it using the <code>defaultContactsArray</code> variable. Set the key attribute to <code>id</code>.
+        </li>
+        <li>Create another Array Data Provider variable named <code>mobileTypesADP</code> with item type as phoneType and bind data to it
+          using the <code>mobileTypesArray</code> variable. Set the key attribute to <code>value</code>.
+        </li>
+        <li>Create a Number variable named <code>newRecordID</code> and set its default value to 10000. 
+          <p>This variable sets a unique ID for newly-created rows.</p>
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step2">
+    <span slot="header">Create the UI</span>
+    <div>
+      <ol>
+        <li>In the Components palette, drag and drop a Button component onto the page and set its Label property to <code>Add New Phone</code>.
+        </li>
+        <li>Drag and drop an <code>oj-bind-for-each</code> component onto the page. Set its data attribute to
+          <code>$variables.contactDetailsADP</code>.</li>
+        <li>Within the <code>oj-bind-for-each</code> component, create a template with Select Single and Input Text components, and map the phoneType and phoneNumber 
+          fields  as their respective values.
+        </li>
+        <li>Set the data field for the Select Single component to <code>$variables.mobileTypesADP</code>.</li>
+        <li>Drag and drop a Button component onto the page that will be used to delete rows.</li>
+      </ol>
+    </div>
+  </oj-collapsible>
+  <oj-collapsible id="step3">
+    <span slot="header">Create Action Chains</span>
+    <div>
+      <ol>
+        <li>In the Design view of the page, select the Add New Phone button and, in the Events tab of the Properties pane, add an ojAction event to create a new action chain named <code>insertRowButtonActionChain</code>.</li>
+        <li>In the action chain, add a Fire Data Provider Event action named <code>fireDataProviderEventOnADP</code> and, in the Properties pane, set the
+          Event Target property to <code>[[ $page.variables.contactDetailsADP ]]</code>, Type to Mutate, and copy the following code to the add parameter.
+          <pre>
+{
+ "data": "{{ [ { \"id\": $page.variables.newRecordID } ] }}",
+ "keys": "{{ [ $page.variables.newRecordID ] }}",
+ "indexes": [0]
+}
+        </pre>
+        </li>
+        <li>Drag and drop an Assign Variable action named <code>assignVariablesNewRecordId</code> and decrease the value of
+          <code>newRecordID</code> by 1.
+        </li>
+        <li>In the Design view, select the Select Single component and add an ojValueAction event listener named
+          <code>onPhoneTypeChanged</code> to create a new action chain named <code>phoneTypeValueChangeChain</code>.
+        </li>
+        <li>In the Variables tab of the action chain, create the following variables:
+          <ul>
+            <li><code>newValue</code> of type String</li>
+            <li><code>row</code> of type Object</li>
+          </ul>
+        </li>
+        <li>In the Event Listeners tab of the Designer for the onPhoneTypeChanged event listener, assign <code>$current.data</code> to the <code>row</code> parameter and <code>$event.detail.value</code> to the <code>newValue</code>
+          parameter.
+        </li>
+        <li>In the phoneTypeValueChangeChain action chain, add an Assign Variable action, and set the value of <code>row.phoneType</code> to <code>variables.newValue</code>.
+        </li>
+        <li>Add a Fire Data Provider Event action named <code>fireDataProviderEventContactDetailsADP</code>. Set the target to <code>contactsDetailsADP</code>, the type to Mutate, and copy the following code to the update
+          parameter.
+          <pre>
+{
+  "data": "{{ [ $variables.row ] }}"
+}
+        </pre>
+        </li>
+        <li>In the Design view of the page, select the Input Text component and add a value event listener named <code>onPhoneNumberChanged</code> to create a new action chain named <code>phoneNumberValueChangeChain</code>.
+        </li>
+        <li>In the Variables tab of the action chain, create the following variables:
+          <ul>
+            <li><code>newValue</code> of type String</li>
+            <li><code>row</code> of type Object</li>
+          </ul>
+        </li>
+        
+        <li>In the Event Listeners tab of the Designer for the onPhoneNumberChanged event listener, assign <code>$current.data</code> to the <code>row</code> parameter and <code>$event.detail.value</code> to the <code>newValue</code>
+          parameter for the phoneNumberValueChangeChain action chain.
+        </li>
+        <li>In the action chain, add an Assign Variable action and set the value of <code>row.phoneNumber</code> to <code>variables.newValue</code>.
+        </li>
+        <li>Add a Fire Data Provider Event action named <code>fireDataProviderEventContactDetailsADP</code>, and set the target to <code>contactsDetailsADP</code>, the type to Mutate, and copy the following code to the update parameter:
+          <pre>
+{
+  "data": "{{ [ $variables.row ] }}"
+}
+        </pre>
+        </li>
+        <li>In the Design view, select the Delete button, and add an ojAction event listener named <code>deleteRowButtonAction</code> to create a new action chain named <code>deleteRowButtonActionChain</code>.
+        </li>
+        <li>In the Variables tab of the action chain, create a variable, <code>rowId</code>, of type Number.
+        </li>
+        <li>In the Event Listeners tab of the Designer for the deleteRowButtonAction event listener, assign <code>$current.data.id</code> to the <code>rowId</code> variable for the deleteRowButtonActionChain action chain.
+        </li>
+        <li>In the action chain, add a Fire Data Provider Event action named <code>fireDataProviderEventContactsDetailsADP</code>, set the target to contactsDetailsADP, the type to Mutate, and copy the following code to the delete
+          parameter.
+          <pre>
+{
+ "keys": "{{ [ $variables.rowId ] }}"
+}
+        </pre>
+        </li>
+      </ol>
+    </div>
+  </oj-collapsible>
+</oj-accordion>

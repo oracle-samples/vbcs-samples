@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "root": "openDialog",
+  "actions": {
+    "openDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('dialog-create-employee') }}",
+        "method": "open"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

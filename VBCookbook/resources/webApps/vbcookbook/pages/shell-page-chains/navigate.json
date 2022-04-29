@@ -1,0 +1,78 @@
+{
+  "description": "",
+  "variables": {
+    "selection": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "getRecipeDescriptor",
+  "actions": {
+    "getRecipeDescriptor": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $application.functions ]]",
+        "functionName": "getRecipe",
+        "params": [
+          "{{ $chain.variables.selection }}"
+        ]
+      },
+      "outcomes": {
+        "success": "if"
+      }
+    },
+    "updateCurrentPageAndLabel": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.demoLabel": {
+          "source": "{{ $chain.results.getRecipeDescriptor.recipe.label }}"
+        },
+        "$page.variables.apiDocs": {
+          "source": "{{ $chain.results.getRecipeDescriptor.recipe.apiRef }}",
+          "auto": "always",
+          "reset": "empty"
+        },
+        "$page.variables.breadCrumb": {
+          "source": "{{ $chain.results.getRecipeDescriptor.breadCrumb }}",
+          "auto": "always",
+          "reset": "empty"
+        },
+        "$page.variables.selectedNavItem": {
+          "source": "{{ $chain.variables.selection }}"
+        }
+      },
+      "outcomes": {
+        "success": "selectRecipeInNavList"
+      }
+    },
+    "navigateToRecipe": {
+      "module": "vb/action/builtin/navigateToPageAction",
+      "parameters": {
+        "page": "{{ $chain.variables.selection === 'home' ? 'shell/home' : (!$page.variables.usingSubflows || $application.variables.isThisVBDesigner ? 'shell/' + $chain.variables.selection : 'shell/' + $chain.variables.selection + '/' + $chain.results.getRecipeDescriptor.recipe.demoPageName + '/' + $chain.results.getRecipeDescriptor.recipe.recipeFlowName ) }}"
+      }
+    },
+    "selectRecipeInNavList": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "collapseAllButSelection",
+        "params": [
+          "{{ $chain.results.getRecipeDescriptor.parents }}"
+        ]
+      },
+      "outcomes": {
+        "success": "navigateToRecipe"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.getRecipeDescriptor !== undefined ]]"
+      },
+      "outcomes": {
+        "true": "updateCurrentPageAndLabel"
+      }
+    }
+  }
+}

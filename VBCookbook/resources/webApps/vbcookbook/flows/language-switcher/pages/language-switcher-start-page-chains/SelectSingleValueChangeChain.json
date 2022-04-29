@@ -1,0 +1,32 @@
+{
+  "description": "",
+  "root": "callModuleFunction1",
+  "actions": {
+    "callModuleFunction1": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setAppLanguage",
+        "params": [
+          "{{ $page.variables.selectedLocale }}"
+        ]
+      },
+      "outcomes": {
+        "success": "openUrl1"
+      }
+    },
+    "openUrl1": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "index.html?page=shell&shell=language-switcher&language-switcher=language-switcher-start&language-switcher-start=recipe"
+      }
+    }
+  },
+  "variables": {
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

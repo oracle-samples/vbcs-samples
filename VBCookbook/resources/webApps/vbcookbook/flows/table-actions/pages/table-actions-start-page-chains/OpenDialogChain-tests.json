@@ -1,0 +1,28 @@
+{
+    "tests": {
+        "OpenDialog": {
+            "context": {
+                "$variables.current": {
+                    "email": "sking@example.com",
+                    "firstName": "Steven",
+                    "id": 100,
+                    "lastName": "King",
+                    "salary": 24000
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$page.variables.currentEmployee",
+                    "matcher": "to.deep.equal",
+                    "expected": {
+                        "email": "sking@example.com",
+                        "firstName": "Steven",
+                        "id": 100,
+                        "lastName": "King",
+                        "salary": 24000
+                    }
+                }
+            ]
+        }
+    }
+   }

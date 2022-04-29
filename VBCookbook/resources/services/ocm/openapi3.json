@@ -57,36 +57,6 @@
                 }
             }
         },
-        "/files/data": {
-            "post": {
-                "operationId": "uploadFile",
-                "responses": {
-                    "default": {
-                        "description": "The content returned by the server.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Postfilesdata"
-                                },
-                                "examples": {
-                                    "vb": {
-                                        "externalValue": "./examples/uploadFile/response_default_application_json_vb.json"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {}
-                    }
-                },
-                "x-vb": {
-                    "actionHint": "create"
-                }
-            }
-        },
         "/files/{fileID}/data": {
             "get": {
                 "operationId": "downloadFile",
@@ -202,6 +172,42 @@
                 "x-vb": {
                     "actionHint": "getOne"
                 }
+            }
+        },
+        "/files/data": {
+            "post": {
+                "operationId": "uploadFile",
+                "responses": {
+                    "default": {
+                        "description": "The content returned by the server.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Postfilesdata"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "externalValue": "./examples/uploadFile/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {}
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "filename",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
             }
         }
     },

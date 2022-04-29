@@ -1,21 +1,21 @@
 /**
- * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define([], function() {
+define([], function () {
   'use strict';
 
-  var PageModule = function PageModule() {};
+  var PageModule = function PageModule() { };
 
   /**
    * Convert binary file into Base64 string for FA upload
    */
-  PageModule.prototype.getBase64StringFromFile = function(file) {
+  PageModule.prototype.getBase64StringFromFile = function (file) {
     return new Promise((resolve, reject) => {
       var reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function() {
+      reader.onload = function () {
         // reader.result will be "data:image/png;base64,iVBORw0KGgoAAAANSU......"
         var index = reader.result.indexOf(';base64,');
         var result = {
@@ -24,7 +24,7 @@ define([], function() {
         };
         resolve(result);
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         reject(error);
       };
     });
@@ -33,7 +33,7 @@ define([], function() {
   /**
    * Extract attachment ID from self-ref URL
    */
-  PageModule.prototype.getRealAttachedDocumentId = function(row) {
+  PageModule.prototype.getRealAttachedDocumentId = function (row) {
     var href = row.links[0].href;
     var index = href.indexOf('/child/Attachments/') +
       '/child/Attachments/'.length;
@@ -43,7 +43,7 @@ define([], function() {
   /**
    * Create object URL which can be rendered in <img> or <object> tags
    */
-  PageModule.prototype.preview = function(blobData, contentType) {
+  PageModule.prototype.preview = function (blobData, contentType) {
     if (contentType === undefined || contentType.length === 0) {
       contentType = "application/octet-stream";
     }
@@ -57,7 +57,7 @@ define([], function() {
    * Download content of blobData as a file. Downloaded filename can be specified
    * using fileName param.
    */
-  PageModule.prototype.download = function(blobData, contentType, fileName) {
+  PageModule.prototype.download = function (blobData, contentType, fileName) {
     var element = document.createElement('a');
     element.setAttribute('href', this.preview(blobData, contentType));
     element.setAttribute('download', fileName);
@@ -65,20 +65,6 @@ define([], function() {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-  };
-
-  /**
-   * This function not only generates filename for taken photo but also
-   * checks that file type is one ofo supported ones. Returning no filename
-   * means file type is not acceptable.
-   */
-  PageModule.prototype.generateFileName = function(blobFile) {
-    const supportedFileTypes = ["image/png", "image/jpeg", "image/gif"];
-    if (supportedFileTypes.indexOf(blobFile.type) === -1) {
-      return undefined;
-    }
-    return "Photo_" + Math.random().toString(36).substring(7).toUpperCase() +
-      "." + blobFile.type.substring(6);
   };
 
   return PageModule;

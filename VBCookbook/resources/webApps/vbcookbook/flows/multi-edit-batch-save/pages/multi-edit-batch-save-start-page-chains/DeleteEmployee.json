@@ -1,0 +1,94 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "assignVariables1",
+  "actions": {
+    "fireDataProviderEvent1": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "remove": {
+          "keys": "{{ [ $page.variables.currentEmployee.id ] }}"
+        },
+        "target": "[[ $page.variables.employeeListADP ]]"
+      },
+      "outcomes": {
+        "success": "checkIfNewRow"
+      }
+    },
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentEmployee": {
+          "source": "{{ $chain.variables.current }}",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "fireDataProviderEvent1"
+      }
+    },
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.checkIfNewRow ]]"
+      },
+      "outcomes": {
+        "false": "assignVariables2",
+        "true": "assignVariables3"
+      }
+    },
+    "assignVariables2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+          "source": "deleted",
+          "auto": "always"
+        }
+      }
+    },
+    "assignVariables3": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+          "source": "ignore",
+          "auto": "always"
+        }
+      }
+    },
+    "checkIfNewRow": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "isNewRow",
+        "params": [
+          "{{ $page.variables.currentEmployee.id }}",
+          "{{ $page.variables.rowStatus }}"
+        ]
+      },
+      "outcomes": {
+        "success": "if1"
+      }
+    }
+  }
+}

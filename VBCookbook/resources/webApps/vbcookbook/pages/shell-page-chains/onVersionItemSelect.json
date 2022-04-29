@@ -1,0 +1,34 @@
+{
+  "variables": {
+    "selectedVersion": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "goToVBCookbook",
+  "actions": {
+    "goToVBCookbook": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "goToVBCookbook",
+        "params": [
+          "{{ $chain.variables.selectedVersion }}",
+          "{{ $page.variables.VBVersionItems}}"
+        ],
+        "returnType": "any"
+      },
+      "outcomes": {
+        "success": "openNewUrl"
+      }
+    },
+    "openNewUrl": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "[[ $chain.results.goToVBCookbook.url]]",
+        "windowName": "_self"
+      }
+    }
+  }
+}

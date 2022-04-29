@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "root": "assignVariablesRow",
+  "actions": {
+
+    "fireDataProviderEventContactDetailsADP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.contactDetailsADP ]]",
+        "update": {
+          "data": "{{ [ $variables.row ] }}"
+        }
+      }
+    },
+    "assignVariablesRow": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$variables.row": {
+          "source": "{{ {\"id\" : $variables.row.id,\"phoneNumber\": $variables.newValue, \"phoneType\" : $variables.row.phoneType  } }}",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "fireDataProviderEventContactDetailsADP"
+      }
+    }
+  },
+  "variables": {
+    "newValue": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "row": {
+      "type": "object",
+      "required": true,
+      "input": "fromCaller"
+    }
+
+  }
+}

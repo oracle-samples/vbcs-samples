@@ -1,0 +1,82 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "updateOCMServerStatusBusy",
+  "actions": {
+    "callDownloadRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "ocm/downloadFile",
+        "uriParams": {
+          "fileID": "{{ $chain.variables.key }}"
+        },
+        "responseBodyFormat": "blob"
+      },
+      "outcomes": {
+        "success": "callDownloadFunction",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "callDownloadFunction": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "download",
+        "params": [
+          "{{ $chain.results.callDownloadRestEndpoint.body }}",
+          "{{ $chain.variables.current.row.mimeType }}",
+          "{{ $chain.variables.current.row.name }}"
+        ]
+      },
+      "outcomes": {
+        "success": "updateOCMServerStatusReady"
+      }
+    },
+    "updateOCMServerStatusBusy": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.ocmServerBusy": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "callDownloadRestEndpoint"
+      }
+    },
+    "updateOCMServerStatusReady": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.ocmServerBusy": {
+          "source": "{{ false }}"
+        }
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "persist",
+        "type": "error",
+        "summary": "Download failed"
+      },
+      "outcomes": {
+        "success": "updateOCMServerStatusReady"
+      }
+    }
+  }
+}

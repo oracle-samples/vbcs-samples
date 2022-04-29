@@ -1,0 +1,44 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "disableSaveButton",
+  "actions": {
+    "enableSaveButton": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.isSaveDisabled": {
+          "source": false
+        }
+      }
+    },
+    "disableSaveButton": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.isSaveDisabled": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "employeeSuccessNotification"
+      }
+    },
+    "employeeSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Success!",
+        "message": "Record updated successfully. Reload the page to see updated record!",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "enableSaveButton"
+      }
+    }
+  }
+}

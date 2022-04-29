@@ -1,0 +1,59 @@
+{
+  "root": "callRestEndpoint1",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "callRestEndpoint1": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Employee",
+        "uriParams": {
+          "limit": "1"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "assignVariables1"
+      }
+    },
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestEndpoint1.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.results.callRestEndpoint1.body.items[0] }}",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "simulateSlowExecution"
+      }
+    },
+    "assignVariables2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.pageReady": {
+          "source": true
+        }
+      }
+    },
+    "simulateSlowExecution": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "sleep"
+      },
+      "outcomes": {
+        "success": "assignVariables2"
+      }
+    }
+  }
+}

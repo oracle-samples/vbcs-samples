@@ -1,0 +1,45 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "assignVariables1",
+  "actions": {
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentEmployee": {
+          "source": {
+            "department": "{{ $page.variables.departmentId }}",
+            "email": "",
+            "firstName": "",
+            "id": "{{ $page.variables.idForNewEmployee }}",
+            "lastName": "",
+            "salary": "0"
+          },
+          "reset": "none",
+          "auto": "always"
+        },
+        "$page.variables.idForNewEmployee": {
+          "source": "{{ $page.variables.idForNewEmployee - 1 }}"
+        }
+      },
+      "outcomes": {
+        "success": "OpenModalDialog"
+      }
+    },
+    "OpenModalDialog": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "OpenDialogChain",
+        "params": {
+          "current": "{{ $page.variables.currentEmployee }}"
+        }
+      }
+    }
+  }
+}

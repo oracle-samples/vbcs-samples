@@ -1,0 +1,99 @@
+{
+  "description": "",
+  "root": "ifValid",
+  "actions": {
+    "callComponentMethod1": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('bo-config-tacker') }}",
+        "method": "showMessages"
+      },
+      "outcomes": {
+        "success": "callComponentMethod2"
+      }
+    },
+    "callComponentMethod2": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('bo-config-tacker') }}",
+        "method": "focusOn",
+        "params": [
+          "@firstInvalidShown"
+        ]
+      }
+    },
+    "assignVariables2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.isUploadingToBo": {
+          "source": false
+        }
+      }
+    },
+    "boPayload": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "outcomes": {
+        "success": "uploadAction"
+      },
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "preparePayload",
+        "params": [
+          "{{ $page.variables.uploadDataADP.data }}",
+          "{{ $page.variables.boPath }}",
+          "{{ $page.variables.boOp }}"
+        ]
+      }
+    },
+    "ifValid": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.boFormValid === 'valid' ]]"
+      },
+      "outcomes": {
+        "false": "callComponentMethod1",
+        "true": "closeDialog"
+      }
+    },
+    "closeDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "outcomes": {
+        "success": "setUploadFlag"
+      },
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1728153767-1') }}",
+        "method": "close"
+      }
+    },
+    "setUploadFlag": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.isUploadingToBo": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "boPayload"
+      }
+    },
+    "uploadAction": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "UploadActionChain",
+        "params": {
+          "payload": "{{ $chain.results.boPayload }}"
+        }
+      },
+      "outcomes": {
+        "success": "assignVariables2"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

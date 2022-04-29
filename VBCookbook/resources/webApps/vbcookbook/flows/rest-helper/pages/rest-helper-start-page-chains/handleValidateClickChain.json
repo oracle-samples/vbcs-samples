@@ -1,0 +1,65 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "callFunctionWaitTillPending",
+  "actions": {
+    "callFunctionWaitTillPending": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "waitTillPending"
+      },
+      "outcomes": {
+        "success": "validateForm"
+      }
+    },
+    "validateForm": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "isFormValid",
+        "returnType": "boolean"
+      },
+      "outcomes": {
+        "success": "ifValid"
+      }
+    },
+    "ifValid": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.validateForm ]]"
+      },
+      "outcomes": {
+        "false": "fireFailureNotification",
+        "true": "fireSuccessNotification"
+      }
+    },
+    "fireFailureNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Please fix the errors in the form",
+        "message": "Invalid data provided",
+        "displayMode": "transient",
+        "type": "error"
+      }
+    },
+    "fireSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "message": "Form is valid",
+        "displayMode": "transient",
+        "type": "confirmation",
+        "summary": "Details entered are valid"
+      },
+      "outcomes": {}
+    }
+  }
+}

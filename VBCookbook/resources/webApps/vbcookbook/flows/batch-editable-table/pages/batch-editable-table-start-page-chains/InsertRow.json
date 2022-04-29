@@ -1,0 +1,76 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "blankRecord": {
+      "type": "EmployeeType",
+      "defaultValue": {
+        "jobObject": {
+          "items": [
+            {
+              "jobTitle": ""
+            }
+          ]
+        },
+        "job": 0
+      }
+    }
+  },
+  "root": "createBlankRecordWithUniqueID",
+  "actions": {
+    "createBlankRecordWithUniqueID": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$chain.variables.blankRecord": {
+          "source": {
+            "id": "{{ $page.functions.getNextId($page.variables.employeesADP.data) }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "insertRecordIntoDP"
+      }
+    },
+    "insertRecordIntoDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeesADP ]]",
+        "add": {
+          "data": "{{ [$chain.variables.blankRecord] }}",
+          "keys": "{{ [$chain.variables.blankRecord.id] }}"
+        }
+      },
+      "outcomes": {
+        "success": "markRecordAsNewlyInserted"
+      }
+    },
+    "markRecordAsNewlyInserted": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$chain.variables.blankRecord.id]": {
+          "source": "inserted"
+        }
+      },
+      "outcomes": {
+        "success": "selectNewRowAndMakeItEditable"
+      }
+    },
+    "selectNewRowAndMakeItEditable": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.editRow": {
+          "source": "{{ {rowKey: $chain.variables.blankRecord.id} }}"
+        },
+        "$page.variables.scrollPosition": {
+          "source": "{{ {rowKey: $chain.variables.blankRecord.id} }}"
+        }
+      }
+    }
+  }
+}

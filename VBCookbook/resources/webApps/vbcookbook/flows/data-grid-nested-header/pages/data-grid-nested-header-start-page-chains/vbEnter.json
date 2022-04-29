@@ -1,0 +1,53 @@
+{
+  "root": "callRestGetallEmployee",
+  "description": "",
+  "variables": {},
+  "actions": {
+
+    "assignVariablesData": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.data": {
+          "source": "{{ $chain.results.callFunctionGetDatagridData }}"
+        }
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Employee",
+        "responseType": "getall_Employee",
+        "uriParams": {
+          "limit": 999,
+          "orderBy": "department"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "callFunctionGetDatagridData"
+      }
+    },
+    "callFunctionGetDatagridData": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getDatagridData",
+        "params": [
+          "{{ $chain.results.callRestGetallEmployee.body.items }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesData"
+      }
+    }
+  }
+}

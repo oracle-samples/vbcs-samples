@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -102,8 +102,7 @@ define(['urijs/URI'], function (URI) {
 
                 // ORDS query URL is for example:
                 // .../ords/hr/emp?q={"$or":[{"ename":{"$instr":"martin"}},{"job":{"$like":"%developer%"}}]}
-
-                configuration.url = URI(configuration.url).addQuery({ q: JSON.stringify(query) }).toString();
+                configuration.url = addQParam(configuration.url, query);
             }
         }
 
@@ -138,28 +137,26 @@ define(['urijs/URI'], function (URI) {
 
             if (firstItem.attribute) {
                 var dir = firstItem.direction === 'descending' ? 'DESC' : 'ASC';
-                var newUrl = configuration.url;
-
-                var sort = '"$orderby":{"' + firstItem.attribute + '":"' + dir + '"}';
-                var query = URI(newUrl).search(true);
-
-                if (query.q) {
-                    query.q = '{' + sort + ',' + query.q.substr(1);
-                }
-                else {
-                    query.q = '{' + sort + '}';
-                }
+                var sort = {"$orderby" : {}};
+                sort["$orderby"][firstItem.attribute] = dir;
 
                 // ORDS sort URL is for example:
                 // ...ords/hr/emp?q={"$orderby":{"sal":"ASC"}}
-                // BUT: sorting is applied after filter() method above so sorting
-                // needs to be inserted into existing q param if filtering is on
 
-                newUrl = URI(newUrl).search(query).toString();
-                configuration.url = newUrl;
+                configuration.url = addQParam(configuration.url, sort);
             }
         }
         return configuration;
+    };
+
+    var addQParam = function (url, toAdd) {
+        var query = URI(url).search(true);
+
+        if (query.q) {
+            toAdd = Object.assign(JSON.parse(query.q), toAdd);
+        }
+        query.q = JSON.stringify(toAdd);
+        return URI(url).search(query).toString();
     };
 
     var Response = function () { };

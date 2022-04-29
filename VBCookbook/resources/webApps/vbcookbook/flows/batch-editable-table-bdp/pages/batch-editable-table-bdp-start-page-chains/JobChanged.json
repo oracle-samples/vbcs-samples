@@ -1,0 +1,89 @@
+{
+  "description": "",
+  "variables": {
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "detail": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "root": "disableRowEditExit",
+  "actions": {
+    "assignJobSalaryRange": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentRowBuffer": {
+          "source": {
+            "jobObject": {
+              "items": [
+                "{{ $chain.results.getJobDetail.body }}"
+              ]
+            }
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.jobObject": {
+              "source": "$source.jobObject",
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.items": {
+                  "source": "$source.items",
+                  "reset": "empty",
+                  "auto": "always"
+                }
+              }
+            }
+          }
+        },
+        "$page.variables.disableRowEditExit": {
+          "source": "{{ false }}"
+        }
+      }
+    },
+    "getJobDetail": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Job",
+        "uriParams": {
+          "Job_Id": "{{ $chain.variables.value }}"
+        }
+      },
+      "outcomes": {
+        "success": "assignJobSalaryRange"
+      }
+    },
+    "disableRowEditExit": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.disableRowEditExit": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "getJobDetail"
+      }
+    }
+  }
+}

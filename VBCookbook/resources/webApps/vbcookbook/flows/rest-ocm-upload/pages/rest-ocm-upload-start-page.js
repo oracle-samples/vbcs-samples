@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -33,20 +33,6 @@ define([], function() {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-  };
-
-  /**
-   * This function not only generates filename for taken photo but also
-   * checks that file type is one ofo supported ones. Returning no filename
-   * means file type is not acceptable.
-   */
-  PageModule.prototype.generateFileName = function(blobFile) {
-    const supportedFileTypes = ["image/png", "image/jpeg", "image/gif"];
-    if (supportedFileTypes.indexOf(blobFile.type) === -1) {
-      return undefined;
-    }
-    return "Photo_" + Math.random().toString(36).substring(7).toUpperCase() +
-      "." + blobFile.type.substring(6);
   };
 
   return PageModule;

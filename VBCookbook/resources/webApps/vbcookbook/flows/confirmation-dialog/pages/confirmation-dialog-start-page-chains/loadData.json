@@ -1,0 +1,65 @@
+{
+  "root": "runInParallel1",
+  "description": "",
+  "actions": {
+    "runInParallel1": {
+      "module": "vb/action/builtin/forkAction",
+      "parameters": {
+        "actions": {
+          "callRestEndpoint1": "getEmp",
+          "callRestEndpoint2": "getDept"
+        }
+      }
+    },
+    "getEmp": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Employee",
+        "uriParams": {
+          "Employee_Id": "100"
+        }
+      },
+      "outcomes": {
+        "success": "assignEmp"
+      }
+    },
+    "getDept": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Department",
+        "uriParams": {
+          "Department_Id": "4"
+        }
+      },
+      "outcomes": {
+        "success": "assignDept"
+      }
+    },
+    "assignEmp": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.cleanEmp": {
+          "source": "{{ $chain.results.getEmp.body }}",
+          "auto": "always"
+        },
+        "$page.variables.formEmp": {
+          "source": "{{ $chain.results.getEmp.body }}",
+          "auto": "always"
+        }
+      }
+    },
+    "assignDept": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.cleanDept": {
+          "source": "{{ $chain.results.getDept.body }}",
+          "auto": "always"
+        },
+        "$page.variables.formDept": {
+          "source": "{{ $chain.results.getDept.body }}",
+          "auto": "always"
+        }
+      }
+    }
+  }
+}

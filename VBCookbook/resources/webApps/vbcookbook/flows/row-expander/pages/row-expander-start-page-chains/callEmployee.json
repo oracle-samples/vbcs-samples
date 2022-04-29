@@ -1,0 +1,32 @@
+{
+  "root": "fireNotificationCurrent",
+  "description": "",
+  "variables": {
+    "current": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "index": {
+      "type": "number",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "key": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "fireNotificationCurrent": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ 'You are calling '+ $variables.current.data.firstName ]]",
+        "message": "[[ 'Sorry!! '+$variables.current.data.firstName + ' is not available currently']]",
+        "type": "info"
+      }
+    }
+  }
+}

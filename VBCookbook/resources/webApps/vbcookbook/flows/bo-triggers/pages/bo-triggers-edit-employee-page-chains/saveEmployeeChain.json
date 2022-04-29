@@ -1,0 +1,192 @@
+{
+  "variables": {
+    "saveFailureResult": {
+      "type": "page:businessObjectsServiceErrorResponseType"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "saveHeaders": {
+      "type": "object"
+    }
+  },
+  "root": "markSaveStarted",
+  "actions": {
+    "markSaveStarted": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.saveEmployeeChainInProgress": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "validateEmployee"
+      },
+      "description": "Sets the progress variable to true",
+      "label": "Mark Save in progress"
+    },
+    "validateEmployee": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "flow:validateFormChain",
+        "params": {
+          "validationGroupId": "validation-group"
+        }
+      },
+      "outcomes": {
+        "success": "isFormValid"
+      },
+      "label": "Validate",
+      "description": "Validates Employee form"
+    },
+    "isFormValid": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.validateEmployee === true ]]"
+      },
+      "outcomes": {
+        "true": "checkETag",
+        "false": "markSaveEnded"
+      },
+      "label": "Is Form valid",
+      "description": "Tests if form passed validation"
+    },
+    "checkETag": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.employeeETag ]]"
+      },
+      "outcomes": {
+        "true": "assignIfMatchHeader",
+        "false": "saveEmployee"
+      }
+    },
+    "assignIfMatchHeader": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$chain.variables.saveHeaders": {
+          "source": "[[ { 'If-Match': $page.variables.employeeETag } ]]"
+        }
+      },
+      "outcomes": {
+        "success": "saveEmployee"
+      }
+    },
+    "saveEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/update_Employee",
+        "body": "{{ $page.variables.employee }}",
+        "requestType": "json",
+        "uriParams": {
+          "Employee_Id": "[[ $page.variables.employeeId ]]"
+        },
+        "headers": "[[ $chain.variables.saveHeaders ]]"
+      },
+      "outcomes": {
+        "success": "assignPayload",
+        "failure": "assignFailureResult"
+      }
+    },
+    "assignPayload": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.results.saveEmployee.body }}"
+        },
+        "$page.variables.employeeETag": {
+          "source": "[[ $chain.results.saveEmployee.headers.get('ETag') ]]"
+        }
+      },
+      "outcomes": {
+        "success": "fireSuccessNotification"
+      }
+    },
+    "fireSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Employee saved",
+        "message": "Employee record successfully updated",
+        "type": "confirmation",
+        "displayMode": "transient"
+      },
+      "outcomes": {
+        "success": "callGoBackChain"
+      }
+    },
+    "callGoBackChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "goBackChain"
+      },
+      "outcomes": {
+        "success": "markSaveEnded"
+      }
+    },
+    "assignFailureResult": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$chain.variables.saveFailureResult": {
+          "source": "[[ $chain.results.saveEmployee ]]"
+        }
+      },
+      "outcomes": {
+        "success": "testFailureDetails"
+      }
+    },
+    "testFailureDetails": {
+      "module": "vb/action/builtin/ifAction",
+      "outcomes": {
+        "true": "handleDetailedErrorMessage",
+        "false": "handleDefaultErrorMessage"
+      },
+      "parameters": {
+        "condition": "[[ $chain.variables.saveFailureResult.body['o:errorDetails'][0] ]]"
+      }
+    },
+    "handleDetailedErrorMessage": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "outcomes": {
+        "success": "fireErrorNotification"
+      },
+      "parameters": {
+        "$chain.variables.errorMessage": {
+          "source": "[[ $chain.variables.saveFailureResult.body['o:errorDetails'][0].detail ]]"
+        }
+      }
+    },
+    "handleDefaultErrorMessage": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "outcomes": {
+        "success": "fireErrorNotification"
+      },
+      "parameters": {
+        "$chain.variables.errorMessage": {
+          "source": "[[ 'Could not update Employee: status ' + $chain.results.saveEmployee.status ]]"
+        }
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Save failed",
+        "message": "[[ $chain.variables.errorMessage ]]",
+        "type": "error",
+        "displayMode": "persist"
+      },
+      "outcomes": {
+        "success": "markSaveEnded"
+      }
+    },
+    "markSaveEnded": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.saveEmployeeChainInProgress": {
+          "source": false
+        }
+      },
+      "description": "Sets the progress variable to false",
+      "label": "Mark Save done"
+    }
+  }
+}

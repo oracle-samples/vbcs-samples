@@ -1,0 +1,107 @@
+{
+  "description": "",
+  "root": "ifCancelEdit",
+  "actions": {
+    "fireDataProviderEventEmployeeListSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeeListSDP ]]",
+        "update": {
+          "data": {
+            "items": [
+              {
+                "id": "{{ $chain.variables.rowData.id }}",
+                "firstName": "{{ $chain.variables.rowData.firstName }}",
+                "lastName": "{{ $chain.variables.rowData.lastName }}",
+                "email": "{{ $chain.variables.rowData.email }}",
+                "phoneNumber": "{{ $chain.variables.rowData.phoneNumber }}"
+              }
+            ]
+          },
+          "keys": [
+            "{{ $chain.variables.rowData.id }}"
+          ]
+        }
+      },
+      "outcomes": {
+        "success": "callRestUpdateEmployee"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestUpdateEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestUpdateEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/update_Employee",
+        "uriParams": {
+          "Employee_Id": "{{ $variables.rowData.id }}"
+        },
+        "body": {
+          "firstName": "{{ $chain.variables.rowData.firstName }}",
+          "lastName": "{{ $chain.variables.rowData.lastName }}",
+          "email": "{{ $chain.variables.rowData.email }}",
+          "phoneNumber": "{{ $chain.variables.rowData.phoneNumber }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification"
+      }
+    },
+    "ifCancelEdit": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.cancelEdit ]]"
+      },
+      "outcomes": {
+        "false": "hasRecordChanged",
+        "true": "resetVariablesCancelEditVar"
+      }
+    },
+    "resetVariablesCancelEditVar": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.cancelEditVar"
+        ]
+      }
+    },
+    "hasRecordChanged": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "{{ $page.functions.areDifferent($chain.variables.rowData, $chain.variables.originalRowData) }}"
+      },
+      "outcomes": {
+        "true": "fireDataProviderEventEmployeeListSDP"
+      }
+    }
+  },
+  "variables": {
+    "cancelEdit": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "detail": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "originalRowData": {
+      "type": "get_Employee",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "rowData": {
+      "type": "get_Employee",
+      "required": true,
+      "input": "fromCaller"
+    }
+  }
+}

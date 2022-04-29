@@ -1,0 +1,22 @@
+{
+  "root": "navigateToEdit",
+  "variables": {
+    "employeeId": {
+      "type": "string",
+      "input": "fromCaller",
+      "required": true
+    }
+  },
+  "actions": {
+    "navigateToEdit": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "history": "push",
+        "page": "bo-triggers-edit-employee",
+        "params": {
+          "employeeId": "[[ $chain.variables.employeeId ]]"
+        }
+      }
+    }
+  }
+}

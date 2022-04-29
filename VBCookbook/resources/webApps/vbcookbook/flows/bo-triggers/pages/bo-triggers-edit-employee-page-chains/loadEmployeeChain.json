@@ -1,0 +1,39 @@
+{
+  "root": "loadEmployee",
+  "actions": {
+    "loadEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Employee",
+        "uriParams": {
+          "Employee_Id": "[[ $page.variables.employeeId ]]"
+        },
+        "responseType": "page:getEmployeeResponse"
+      },
+      "outcomes": {
+        "success": "assignPayload",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "assignPayload": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.results.loadEmployee.body }}"
+        },
+        "$page.variables.employeeETag": {
+          "source": "[[ $chain.results.loadEmployee.headers.get('ETag') ]]"
+        }
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Could not load data",
+        "message": "{{ 'Could not load data: status ' + $chain.results.loadEmployee.status }}",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    }
+  }
+}

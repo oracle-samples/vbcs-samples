@@ -1,0 +1,76 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "getAttachmentId",
+  "actions": {
+    "getAttachmentId": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "getRealAttachedDocumentId",
+        "params": [
+          "{{ $chain.variables.current.row }}"
+        ]
+      },
+      "outcomes": {
+        "success": "callDeleteAttachmentRestEndpoint"
+      }
+    },
+    "callDeleteAttachmentRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "activities_vb/delete_activities-Attachments",
+        "uriParams": {
+          "activities_Attachments_Id": "{{ $chain.results.getAttachmentId }}",
+          "activities_Id": "{{ $page.variables.testingActivityId }}"
+        }
+      },
+      "outcomes": {
+        "success": "fireSuccessNotification",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "fireSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "[[ 'File ' + $chain.variables.current.row.FileName + ' was deleted' ]]",
+        "displayMode": "transient",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "refreshDataProvider"
+      }
+    },
+    "refreshDataProvider": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "refresh": null,
+        "target": "[[ $page.variables.attachmentsSDP ]]"
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "persist",
+        "type": "error",
+        "summary": "Delete operation failed"
+      }
+    }
+  }
+}

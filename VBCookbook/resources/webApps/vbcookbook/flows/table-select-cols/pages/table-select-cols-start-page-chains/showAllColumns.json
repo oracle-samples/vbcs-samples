@@ -1,0 +1,26 @@
+{
+  "description": "",
+  "root": "assignColsAndMenuValue",
+  "actions": {
+    "assignColsAndMenuValue": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.columns": {
+          "source": "{{ $page.variables.columnOptions }}",
+          "reset": "empty"
+        },
+        "$page.variables.menuValue": {
+          "source": "{{ $page.variables.columnOptions.map(op=>op.field) }}",
+          "reset": "empty"
+        }
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

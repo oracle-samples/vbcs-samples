@@ -1,0 +1,8 @@
+{
+  "id": "data-grid-merged",
+  "description": "Flow main",
+  "defaultPage": "data-grid-merged-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -1,0 +1,78 @@
+{
+  "description": "",
+  "root": "ifstart",
+  "actions": {
+    "AssignSteps": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.steps": {
+          "source": "{{ $page.variables.steps.map(s=> s.id === '2'? { ...s, disabled: false }: s) }}",
+          "reset": "empty"
+        },
+        "$page.variables.selectedStep": {
+          "source": "{{ 2 }}"
+        },
+        "$page.variables.currentJobTitle": {
+          "source": "{{ $page.variables.selectedEmployeeItem.data.jobObject.items[0].jobTitle }}"
+        }
+      }
+    },
+    "selectJobValidationComponentMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "outcomes": {
+        "success": "CheckValidComponent"
+      },
+      "parameters": {
+        "component": "{{ document.getElementById('select-job') }}",
+        "method": "validate"
+      }
+    },
+    "assignSteps": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.steps": {
+          "source": "{{ $page.variables.steps.map(s=> s.id === '3'? { ...s, disabled: false }: s) }}",
+          "reset": "empty"
+        },
+        "$page.variables.selectedStep": {
+          "source": "3"
+        }
+      }
+    },
+    "CheckValidComponent": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.selectJobValidationComponentMethod !=='invalid' ]]"
+      },
+      "outcomes": {
+        "true": "assignSteps"
+      }
+    },
+    "ifstart": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.selectedStep  ===\"1\"]]"
+      },
+      "outcomes": {
+        "true": "AssignSteps",
+        "false": "ifnext"
+      }
+    },
+    "ifnext": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.selectedStep ===\"2\"]]"
+      },
+      "outcomes": {
+        "true": "selectJobValidationComponentMethod"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

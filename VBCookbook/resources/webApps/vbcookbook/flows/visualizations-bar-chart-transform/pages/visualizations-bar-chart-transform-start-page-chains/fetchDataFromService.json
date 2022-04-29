@@ -1,0 +1,84 @@
+{
+  "root": "callRestEndpoint1",
+  "description": "",
+  "actions": {
+    "callRestEndpoint1": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "ords/getEmployees",
+        "uriParams": {
+          "limit": 1000
+        }
+      },
+      "outcomes": {
+        "success": "flattenDataForBar",
+        "failure": "notifyRESTActionFailed"
+      }
+    },
+    "flattenDataForBar": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$variables.flattenedArray": {
+          "source": "{{ $chain.results.callRestEndpoint1.body.items }}",
+          "reset": "toDefault",
+          "mapping": {
+            "$target.group": "$source.job",
+            "$target.series": "$source.job",
+            "$target.value": "$source.sal"
+          }
+        }
+      },
+      "outcomes": {
+        "success": "callAggregateFunction"
+      }
+    },
+    "assignBarChartData": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.transformedDataADP": {
+          "source": {
+            "data": "{{ $chain.results.callAggregateFunction }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      }
+    },
+    "notifyRESTActionFailed": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestEndpoint1.message.summary ]]",
+        "type": "error",
+        "displayMode": "transient",
+        "message": "Rest Call Failed"
+      }
+    },
+    "callAggregateFunction": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "outcomes": {
+        "success": "assignBarChartData"
+      },
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "aggregateData",
+        "params": [
+          "{{ $variables.flattenedArray }}"
+        ]
+      }
+    }
+  },
+  "variables": {
+    "flattenedArray": {
+      "type": [
+        {
+          "group": "string",
+          "series": "string",
+          "value": "number"
+        }
+      ],
+      "description": "array of data points",
+      "input": "none"
+    }
+  }
+}

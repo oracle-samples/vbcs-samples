@@ -9,52 +9,6 @@
   "metadata": {},
   "types": {},
   "chains": {
-    "onPageLoad": {
-      "root": "callFunctionGetFutureDate",
-      "description": "",
-      "variables": {},
-      "actions": {
-        "assignVariables": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.futureDate": {
-              "source": "{{ $chain.results.callFunctionGetFutureDate }}",
-              "auto": "always"
-            }
-          }
-        },
-        "callFunctionGetFutureDate": {
-          "module": "vb/action/builtin/callModuleFunctionAction",
-          "parameters": {
-            "module": "[[ $functions ]]",
-            "functionName": "getFutureDate"
-          },
-          "outcomes": {
-            "success": "assignVariables"
-          }
-        }
-      }
-    },
-    "SubmitActionChain": {
-      "description": "",
-      "root": "callFunctionValidateForm",
-      "actions": {
-        "callFunctionValidateForm": {
-          "module": "vb/action/builtin/callModuleFunctionAction",
-          "parameters": {
-            "module": "[[ $functions ]]",
-            "functionName": "validateForm"
-          }
-        }
-      },
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      }
-    }
   },
   "eventListeners": {
     "ojButtonOjAction": {

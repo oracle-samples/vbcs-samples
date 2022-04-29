@@ -1,0 +1,49 @@
+{
+  "description": "",
+  "root": "ifIsTokyoNotSelected",
+  "actions": {
+    "resetVariablesSelectedCountry": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.selectedCountry",
+          "$page.variables.selectedLocation"
+        ]
+      }
+    },
+    "ifIsTokyoNotSelected": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ !$page.variables.isTokyoSelected ]]"
+      },
+      "outcomes": {
+        "true": "if"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.previousKey !== $variables.key ]]"
+      },
+      "outcomes": {
+        "true": "resetVariablesSelectedCountry"
+      }
+    }
+  },
+  "variables": {
+    "changeType": {
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "previousKey": {
+      "type": "any",
+      "required": false,
+      "input": "fromCaller"
+    }
+  }
+}

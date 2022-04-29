@@ -1,0 +1,113 @@
+{
+  "description": "",
+  "root": "validate",
+  "actions": {
+    "validate": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "validateForm",
+        "params": [
+          "create-form"
+        ],
+        "returnType": "boolean"
+      },
+      "outcomes": {
+        "success": "ifValid"
+      }
+    },
+    "closeDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('dialog-create-employee') }}",
+        "method": "close"
+      }
+    },
+    "fireNotificationSuccess": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Saved Successfully",
+        "displayMode": "transient",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "closeDialog"
+      }
+    },
+    "ifValid": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.validate ]]"
+      },
+      "outcomes": {
+        "true": "assignVariables1"
+      }
+    },
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.newEmployee": {
+          "source": {
+            "employeeSkillCollection": "{{ $page.variables.createSkill }}"
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.employeeSkillCollection": {
+              "source": "$source.employeeSkillCollection",
+              "reset": "empty",
+              "auto": "always",
+              "mapping": {
+                "$target.skill": {
+                  "source": "$source",
+                  "reset": "none"
+                }
+              }
+            }
+          }
+        }
+      },
+      "outcomes": {
+        "success": "createEmployee"
+      }
+    },
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.createEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "refreshEmployeeList": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "refresh": null,
+        "target": "[[ $page.variables.employeeListSDP ]]"
+      },
+      "outcomes": {
+        "success": "fireNotificationSuccess"
+      }
+    },
+    "createEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/create_Employee",
+        "body": "{{ $page.variables.newEmployee }}"
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "refreshEmployeeList"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

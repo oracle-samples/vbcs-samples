@@ -1,0 +1,23 @@
+{
+  "description": "",
+  "variables": {
+    "rowData": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "updateCurrentRowBuffer",
+  "actions": {
+    "updateCurrentRowBuffer": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentRowBuffer": {
+          "source": "{{ $chain.variables.rowData }}",
+          "auto": "always",
+          "reset": "empty"
+        }
+      }
+    }
+  }
+}

@@ -2,32 +2,36 @@
   "title": "",
   "description": "",
   "variables": {
+
+    "openDrawer": {
+      "type": "boolean",
+      "defaultValue": "[[ $application.responsive.lgUp ]]"
+    }
   },
   "metadata": {},
   "types": {},
   "chains": {},
   "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "ToggleeNavListActionChain"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chainId": "CloseNavListActionChain"
+        }
+      ]
+    },
     "navSelection": {
       "chains": [
         {
           "chainId": "NavigationListSelectionChangeChain",
           "parameters": {
           }
-        }
-      ]
-    },
-    "toggleNavListButtonOjAction": {
-      "chains": [
-        {
-          "chainId": "toggleMenu"
-        }
-      ]
-    },
-    "vbEnter": {
-      "chains": [
-        {
-          "chainId": "initNavigationMenu",
-          "parameters": {}
         }
       ]
     }
@@ -38,9 +42,13 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       },
+      "oj-drawer-layout": {
+        "path": "ojs/ojdrawerlayout"
+      },
       "oj-navigation-list": {
         "path": "ojs/ojnavigationlist"
       }
+
     },
     "css": [
       "/resources/css/tree-navigation.css"

@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "callComponentMethod1",
+  "actions": {
+    "callComponentMethod1": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+        "method": "close"
+      }
+    }
+  }
+}

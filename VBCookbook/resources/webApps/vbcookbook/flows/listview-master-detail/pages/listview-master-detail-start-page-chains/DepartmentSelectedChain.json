@@ -1,0 +1,33 @@
+{
+  "description": "",
+  "variables": {
+    "keys": {
+      "required": true,
+      "type": "any[]",
+      "input": "fromCaller"
+    }
+  },
+  "root": "assignSelectedDepartment",
+  "actions": {
+    "assignSelectedDepartment": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.selectedDepartment": {
+          "source": "{{ $chain.variables.keys[0] }}"
+        }
+      },
+      "outcomes": {
+        "success": "resetSelectedEmployee"
+      }
+    },
+    "resetSelectedEmployee": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.selectedEmployee",
+          "$page.variables.employee"
+        ]
+      }
+    }
+  }
+}

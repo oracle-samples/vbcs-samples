@@ -1,0 +1,67 @@
+{
+  "root": "ifCheckThePage",
+  "description": "When cookbook is opened via bookmark the left navigation may need to be updated",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "previousPage": "string",
+        "previousPageParams": "any",
+        "currentPage": "string",
+        "currentPageParams": "any"
+      }
+    }
+  },
+  "actions": {
+    "ifCheckThePage": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.checkFirstPage && !$application.variables.isThisVBDesigner ]]"
+      },
+      "outcomes": {
+        "true": "markPageChecked",
+        "false": "ifBrowserBackOrForwardButtonWasClicked"
+      }
+    },
+    "ifBrowserBackOrForwardButtonWasClicked": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ (($page.variables.breadCrumb !== undefined && $page.variables.breadCrumb.length > 0 && $chain.variables.event.currentPage === 'shell/home/home-start') || ($page.variables.breadCrumb !== undefined && $page.variables.breadCrumb.length === 0 && $chain.variables.event.currentPage !== 'shell/home/home-start')) && !$application.variables.isThisVBDesigner ]]"
+      },
+      "outcomes": {
+        "true": "callNavigateChain"
+      }
+    },
+    "markPageChecked": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.checkFirstPage": {
+          "source": "{{ false }}"
+        }
+      },
+      "outcomes": {
+        "success": "ifNotHomePage"
+      }
+    },
+    "ifNotHomePage": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.variables.event.currentPage !== 'shell/home/home-start' ]]"
+      },
+      "outcomes": {
+        "true": "callNavigateChain"
+      }
+    },
+    "callNavigateChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "navigate",
+        "params": {
+          "selection": "{{ $chain.variables.event.currentPage.split('/')[1] }}"
+        }
+      },
+      "label": "To sync internal state"
+    }
+  }
+}

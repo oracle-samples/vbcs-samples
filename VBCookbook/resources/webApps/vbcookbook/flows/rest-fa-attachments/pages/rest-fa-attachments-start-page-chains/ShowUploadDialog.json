@@ -1,0 +1,31 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "resetFileUploadVar",
+  "actions": {
+    "resetFileUploadVar": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.fileUpload"
+        ]
+      },
+      "outcomes": {
+        "success": "callDialogOpenComponentMethod"
+      }
+    },
+    "callDialogOpenComponentMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('modalDialog1') }}",
+        "method": "open"
+      }
+    }
+  }
+}

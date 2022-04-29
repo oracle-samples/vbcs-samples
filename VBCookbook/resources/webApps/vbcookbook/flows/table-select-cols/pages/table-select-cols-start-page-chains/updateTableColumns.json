@@ -1,0 +1,25 @@
+{
+  "root": "assignColumns",
+  "description": "",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "oldValue": "object[]",
+        "value": "object[]"
+      }
+    }
+  },
+  "actions": {
+    "assignColumns": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.columns": {
+          "source": "{{ $variables.event.value.map(v=>$page.variables.columnOptions.find(i=>i.field === v)) }}",
+          "reset": "empty"
+        }
+      }
+    }
+  }
+}

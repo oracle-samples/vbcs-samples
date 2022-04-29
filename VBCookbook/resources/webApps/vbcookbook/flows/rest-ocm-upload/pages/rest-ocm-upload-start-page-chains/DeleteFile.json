@@ -1,0 +1,62 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "callDeleteRestEndpoint",
+  "actions": {
+    "callDeleteRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "ocm/deleteFile",
+        "uriParams": {
+          "fileID": "{{ $chain.variables.key }}"
+        }
+      },
+      "outcomes": {
+        "success": "fireSuccessNotification",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "fireSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "[[ 'File ' + $chain.variables.current.row.name + ' was deleted' ]]",
+        "displayMode": "transient",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "refreshDataProvider"
+      }
+    },
+    "refreshDataProvider": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "refresh": null,
+        "target": "[[ $page.variables.ocmFilesSDP ]]"
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "persist",
+        "type": "error",
+        "summary": "Delete operation failed"
+      }
+    }
+  }
+}

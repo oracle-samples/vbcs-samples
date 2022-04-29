@@ -1,0 +1,20 @@
+{
+  "root": "openUrl",
+  "description": "",
+  "variables": {
+    "url": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "openUrl": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "[[ 'https://www.oracle.com/webfolder/technetwork/jet/jsdocs/' + $chain.variables.url ]]",
+        "windowName": "apiDocs"
+      }
+    }
+  }
+}

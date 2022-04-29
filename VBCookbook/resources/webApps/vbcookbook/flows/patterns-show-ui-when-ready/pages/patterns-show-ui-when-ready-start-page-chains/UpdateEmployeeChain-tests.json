@@ -1,0 +1,83 @@
+{
+    "tests": {
+        "SuccessPath": {
+            "context": {
+                "$page.variables.isSaveDisabled": true
+            },
+            "mocks": {
+                "callUpdateEndpoint": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": {}
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$page.variables.isSaveDisabled",
+                    "matcher": "to.equal",
+                    "expected": false
+                },
+                {
+                    "actual": "$actions.employeeSuccessNotification.inputs.target",
+                    "matcher": "to.equal",
+                    "expected": "leaf"
+                },
+                {
+                    "actual": "$actions.employeeSuccessNotification.inputs.summary",
+                    "matcher": "to.equal",
+                    "expected": "Success!"
+                },
+                {
+                    "actual": "$actions.employeeSuccessNotification.inputs.message",
+                    "matcher": "to.equal",
+                    "expected": "Record updated successfully. Reload the page to see updated record!"
+                },
+                {
+                    "actual": "$actions.employeeSuccessNotification.inputs.type",
+                    "matcher": "to.equal",
+                    "expected": "confirmation"
+                }
+            ]
+        },
+        "FailurePath": {
+            "context": {
+                "$page.variables.isSaveDisabled": true
+            },
+            "mocks": {
+                "callUpdateEndpoint": {
+                    "outcome": "failure",
+                    "result": {
+                        "message": {
+                            "summary": "Error executing the action"
+                        }
+                    }
+                },
+                "employeeSuccessNotification": {
+                    "outcome": "failure",
+                    "result": {
+                        "message": {
+                            "summary": "Error executing the action"
+                        }
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$actions.updateFailed.inputs.target",
+                    "matcher": "to.be.undefined"
+                },
+                {
+                    "actual": "$actions.updateFailed.inputs.summary",
+                    "matcher": "to.be.undefined"
+                },
+                {
+                    "actual": "$actions.updateFailed.inputs.message",
+                    "matcher": "to.be.undefined"
+                }
+            ]
+        }
+    }
+   }

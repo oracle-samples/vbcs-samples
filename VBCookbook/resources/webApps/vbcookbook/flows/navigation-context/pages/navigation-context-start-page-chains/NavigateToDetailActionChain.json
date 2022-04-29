@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "navigateToPage1",
+  "actions": {
+    "navigateToPage1": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "navigation-context-detail",
+        "params": {
+          "employee": "{{ $page.variables.selection.data }}"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+  <p>
+    This recipe shows you how to style the cells and headers of the Data Grid (<code>oj-data-grid</code>) component
+    using its styling attributes.
+  </p>
+</div>
+<div class="oj-flex oj-flex-item">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
+    <oj-data-grid id="datagrid" class="demo-data-grid" aria-label="Data Grid Cell Based Grid Demo"
+      data="[[ $variables.data ]]" selection-mode.cell="multiple" scroll-policy="loadMoreOnScroll"
+      header.column.resizable='{"width":"enable", "height":"enable"}'
+      header.row.resizable='{"width":"enable", "height":"enable"}'
+      header.column.class-name="[[$functions.getColumnHeaderClassName]]"
+      header.column.style="[[$functions.columnHeaderStyle]]" header.row.style="width:50px;"
+      cell.class-name="[[ $functions.getCellClassName]]" style="height:400px">
+      <template slot="cellTemplate" data-oj-as="cell">
+        <oj-bind-if test="[[cell.item.columnIndex==$constants.colBalance ]]">
+          <span :class="[[cell.item.data.data > 0 ? 'oj-bg-success-30' : 'oj-bg-danger-30']]">
+          <oj-bind-text value="[[$page.functions.numberConverter.format(cell.item.data.data)]]"></oj-bind-text>
+        </span>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[cell.item.columnIndex==$constants.colTotalAmtOrdered]]">
+          <oj-bind-if test="[[cell.item.data.data > 30000]]">
+            <span class="oj-bg-success-30" aria-label="exceeds expectations">
+                              <oj-bind-text value="[[$page.functions.numberConverter.format(cell.item.data.data)]]"></oj-bind-text>
+                          </span>
+          </oj-bind-if>
+          <oj-bind-if test="[[cell.item.data.data > 20000 && cell.item.data.data < 30000]]">
+            <span class="oj-bg-warning-30" aria-label="meets expectations">
+                              <oj-bind-text value="[[$page.functions.numberConverter.format(cell.item.data.data)]]"></oj-bind-text>
+                          </span>
+          </oj-bind-if>
+          <oj-bind-if test="[[cell.item.data.data < 20000]]">
+            <span class="oj-bg-danger-30" aria-label="below expectations">
+                              <oj-bind-text value="[[$page.functions.numberConverter.format(cell.item.data.data)]]"></oj-bind-text>
+                          </span>
+          </oj-bind-if>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[cell.item.columnIndex==$page.constants.colCompany]]">
+          <span>
+          <a :href="[['https://www.morningstar.com/search?query=' + cell.item.data.data]]" :target="[['_blank']]">
+            <oj-bind-text value="[[cell.item.data.data]]"></oj-bind-text>
+          </a>
+        </span>
+        </oj-bind-if>
+
+        <oj-bind-if
+          test="[[cell.item.columnIndex==$page.constants.colRegistered || cell.item.columnIndex==$constants.colLastOrder || cell.item.columnIndex==$constants.colBirthDate ]]">
+          <span>
+                          <oj-bind-text value="[[$page.functions.dateConverter.format(cell.item.data.data)]]"></oj-bind-text>
+                      </span>
+        </oj-bind-if>
+        <oj-bind-if test="[[cell.item.columnIndex==$constants.colActive]]">
+          <oj-bind-if test="[[cell.item.data.data]]">
+            <span class="oj-icon-color-success oj-ux-ico-success-s oj-ux-icon-size-9x" role="img" aria-label="success"></span>
+          </oj-bind-if>
+          <oj-bind-if test="[[!cell.item.data.data]]">
+            <span class="oj-icon-color-danger oj-ux-ico-error-s oj-ux-icon-size-9x" role="img" aria-label="error"></span>
+          </oj-bind-if>
+        </oj-bind-if>
+        <oj-bind-if test="[[cell.item.columnIndex==$constants.colEyeColor ]]">
+          <span :style="[[{color: cell.item.data.data }]]">
+                          <oj-bind-text value="[[cell.item.data.data]]"></oj-bind-text>
+                      </span>
+        </oj-bind-if>
+
+        <oj-bind-if
+          test="[[cell.item.columnIndex!==$constants.colBalance && cell.item.columnIndex!==$constants.colRegistered && cell.item.columnIndex!==$constants.colTotalAmtOrdered && cell.item.columnIndex!==$constants.colLastOrder && cell.item.columnIndex!==$constants.colCompany && cell.item.columnIndex!==$constants.colBirthDate && cell.item.columnIndex!==$constants.colActive && cell.item.columnIndex!==$constants.colEyeColor]]">
+          <span>
+          <oj-bind-text value="[[cell.item.data.data]]" ></oj-bind-text>
+        </span>
+        </oj-bind-if>
+
+      </template>
+    </oj-data-grid>
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

@@ -1,0 +1,88 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "data": {
+      "type": "any"
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Employee": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Employee": {
+      "items": [
+        {
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string",
+                "id": "number"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "id": "number",
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "phoneNumber": "string"
+        }
+      ]
+    }
+  },
+  "eventListeners": {
+
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "vbEnter",
+          "parameters": {}
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-data-grid": {
+        "path": "ojs/ojdatagrid"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-status-meter-gauge": {
+        "path": "ojs/ojgauge"
+      }
+
+    }
+  },
+  "constants": {
+  }
+}

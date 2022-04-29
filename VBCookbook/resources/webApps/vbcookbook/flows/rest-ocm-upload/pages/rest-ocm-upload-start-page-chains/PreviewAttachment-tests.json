@@ -1,0 +1,51 @@
+{
+    "tests": {
+        "create preview Data URI": {
+            "context": {
+                "$variables.current": {
+                    "index": 0,
+                    "key": "12350531",
+                    "mode": "navigation",
+                    "row": {
+                        "id": "12350531",
+                        "mimeType": "image/png",
+                        "name": "recipe.png",
+                        "size": "136191",
+                        "type": "file"
+                    }
+                }
+            },
+            "mocks": {
+                "callDownloadRestEndpoint": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": "ABCD123"
+                    }
+                },
+                "generatePreview": {
+                    "outcome": "success",
+                    "result": "blob:https://server.com/43c23c32-392c-40a4-ae16-33eb85134e34"
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$page.variables.fileBodyForPreview",
+                    "matcher": "to.equal",
+                    "expected": "blob:https://server.com/43c23c32-392c-40a4-ae16-33eb85134e34"
+                },
+                {
+                    "actual": "$page.variables.filePreview",
+                    "matcher": "to.equal",
+                    "expected": true
+                },
+                {
+                    "actual": "$page.variables.oceServerBusy",
+                    "matcher": "to.equal",
+                    "expected": false
+                }
+            ]
+        }
+    }
+   }

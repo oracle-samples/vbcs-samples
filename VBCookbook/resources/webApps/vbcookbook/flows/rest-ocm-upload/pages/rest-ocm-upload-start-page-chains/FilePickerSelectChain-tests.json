@@ -1,0 +1,98 @@
+{
+    "tests": {
+        "wrong file type test": {
+            "mocks": {
+                "callUploadFileRestEndpoint": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": {}
+                    }
+                },
+                "takePhoto1": {
+                    "outcome": "success",
+                    "result": {
+                        "file": {
+                            "type": "image/XXX"
+                        }
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$chain.results.generateFileName",
+                    "matcher": "to.be.undefined"
+                }
+            ]
+        },
+        "file too large": {
+            "mocks": {
+                "callUploadFileRestEndpoint": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": {}
+                    }
+                },
+                "takePhoto1": {
+                    "outcome": "success",
+                    "result": {
+                        "file": {
+                            "type": "image/png",
+                            "size": 20000000
+                        }
+                    }
+                },
+                "generateFileName": {
+                    "outcome": "success",
+                    "result": "Image_123.png"
+                }
+            },
+            "expectations": []
+        },
+        "upload": {
+            "mocks": {
+                "callUploadFileRestEndpoint": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": {}
+                    }
+                },
+                "takePhoto1": {
+                    "outcome": "success",
+                    "result": {
+                        "file": {
+                            "type": "image/png",
+                            "size": 20000
+                        }
+                    }
+                },
+                "generateFileName": {
+                    "outcome": "success",
+                    "result": "Image_123.png"
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$actions.ifValidFileName.outcome",
+                    "matcher": "to.equal",
+                    "expected": "true"
+                },
+                {
+                    "actual": "$actions.ifValidFileSize.outcome",
+                    "matcher": "to.equal",
+                    "expected": "true"
+                },
+                {
+                    "actual": "$actions.fireSuccessNotification.inputs.summary",
+                    "matcher": "to.equal",
+                    "expected": "File Image_123.png was successfully uploaded"
+                }
+            ]
+        }
+    }
+   }

@@ -1,0 +1,66 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "updateDP",
+  "actions": {
+    "markRowDeleted": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$chain.variables.key]": {
+          "source": "deleted"
+        }
+      }
+    },
+    "updateDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "remove": {
+          "keys": "{{ [$chain.variables.key] }}"
+        },
+        "target": "[[ $page.variables.employeesADP ]]"
+      },
+      "outcomes": {
+        "success": "isThisInsertedRow"
+      }
+    },
+    "isThisInsertedRow": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "{{ $page.variables.rowStatus[$chain.variables.key] === 'inserted' }}"
+      },
+      "outcomes": {
+        "false": "markRowDeleted",
+        "true": "removeRowFromChanges"
+      }
+    },
+    "removeRowFromChanges": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$chain.variables.key]": {
+          "source": "{{ undefined }}"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "initializeState",
+  "actions": {
+    "generatePreview": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "preview",
+        "params": [
+          "{{ $chain.results.callDownloadRestEndpoint.body }}",
+          "{{ $chain.variables.current.row.mimeType }}"
+        ]
+      },
+      "outcomes": {
+        "success": "updatePreviewVariables"
+      }
+    },
+    "initializeState": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.filePreview": {
+          "source": false
+        },
+        "$page.variables.ocmServerBusy": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "callDownloadRestEndpoint"
+      }
+    },
+    "callDownloadRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "ocm/downloadFile",
+        "uriParams": {
+          "fileID": "{{ $chain.variables.key }}"
+        },
+        "responseBodyFormat": "blob"
+      },
+      "outcomes": {
+        "success": "generatePreview",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "updatePreviewVariables": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.fileBodyForPreview": {
+          "source": "{{ $chain.results.generatePreview }}"
+        },
+        "$page.variables.filePreview": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "updateOCMServerStatusReady"
+      }
+    },
+    "updateOCMServerStatusReady": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.ocmServerBusy": {
+          "source": "{{ false }}"
+        }
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "persist",
+        "type": "error",
+        "summary": "Download failed"
+      },
+      "outcomes": {
+        "success": "updateOCMServerStatusReady"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "resetselectedEmployee",
+  "actions": {
+    "resetselectedEmployee": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.selectedEmployee"
+        ]
+      }
+    }
+  }
+}

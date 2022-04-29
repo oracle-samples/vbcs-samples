@@ -1,0 +1,55 @@
+{
+  "root": "callgetAllDepartmentRestEndpoint",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callgetAllDepartmentRestEndpoint.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "assignVariableDepartmentADP": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.departmentADP": {
+          "source": {
+            "data": "{{ $chain.results.callgetAllDepartmentRestEndpoint.body.items }}"
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.data": {
+              "source": "$source.data",
+              "reset": "empty",
+              "auto": "always",
+              "mapping": {
+                "$target.departmentName": {
+                  "source": "$source.departmentName",
+                  "reset": "none"
+                },
+                "$target.id": {
+                  "source": "$source.id",
+                  "reset": "none"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "callgetAllDepartmentRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Department"
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "assignVariableDepartmentADP"
+      }
+    }
+  }
+}

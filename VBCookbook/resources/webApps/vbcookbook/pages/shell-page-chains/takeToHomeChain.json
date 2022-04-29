@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "root": "callActionChain1",
+  "actions": {
+    "callActionChain1": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "navigate",
+        "params": {
+          "selection": "home"
+        }
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

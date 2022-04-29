@@ -1,0 +1,73 @@
+{
+  "description": "",
+  "variables": {
+    "keys": {
+      "required": true,
+      "type": "any[]",
+      "input": "fromCaller"
+    }
+  },
+  "root": "assignSelectedEmployee",
+  "actions": {
+    "assignEmployee": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.results.fetchEmployee.body }}",
+          "auto": "always"
+        }
+      }
+    },
+    "assignSelectedEmployee": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.selectedEmployee": {
+          "source": "{{ $chain.variables.keys[0] }}"
+        }
+      },
+      "outcomes": {
+        "success": "if1"
+      }
+    },
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.selectedEmployee == null ]]"
+      },
+      "outcomes": {
+        "true": "resetEmployee",
+        "false": "fetchEmployee"
+      }
+    },
+    "resetEmployee": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.employee"
+        ]
+      }
+    },
+    "fetchEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Employee",
+        "uriParams": {
+          "Employee_Id": "{{ $page.variables.selectedEmployee }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "assignEmployee"
+      }
+    },
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.fetchEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    }
+  }
+}

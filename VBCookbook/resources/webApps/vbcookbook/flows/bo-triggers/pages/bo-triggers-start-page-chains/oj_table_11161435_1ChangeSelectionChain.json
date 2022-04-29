@@ -1,0 +1,20 @@
+{
+  "variables": {
+    "employeeId": {
+      "type": "string",
+      "input": "fromCaller",
+      "defaultValue": ""
+    }
+  },
+  "root": "assignVariable",
+  "actions": {
+    "assignVariable": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.oj_table_11161435_1SelectedId": {
+          "source": "[[ $chain.variables.employeeId ]]"
+        }
+      }
+    }
+  }
+}

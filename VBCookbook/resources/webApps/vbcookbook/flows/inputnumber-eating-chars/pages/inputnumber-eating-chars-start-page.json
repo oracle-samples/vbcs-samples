@@ -10,25 +10,6 @@
   "metadata": {},
   "types": {},
   "chains": {
-    "InputNumberKeypressChain": {
-      "description": "",
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "return1",
-      "actions": {
-        "return1": {
-          "module": "vb/action/builtin/returnAction",
-          "parameters": {
-            "outcome": "success"
-          }
-        }
-    }
-    }
   },
   "eventListeners": {
     "ojInputNumberKeypress": {

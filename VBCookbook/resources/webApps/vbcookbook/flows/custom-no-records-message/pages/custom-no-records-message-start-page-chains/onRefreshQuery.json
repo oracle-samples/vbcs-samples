@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "root": "resetVariablesEmployeeListSDP",
+  "actions": {
+    "resetVariablesEmployeeListSDP": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.employeeListSDP"
+        ]
+      },
+      "outcomes": {
+        "success": "fireDataProviderEventEmployeeListSDP"
+      }
+    },
+    "fireDataProviderEventEmployeeListSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "refresh": null,
+        "target": "[[ $page.variables.employeeListSDP ]]"
+      }
+    }
+  },
+  "variables": {
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

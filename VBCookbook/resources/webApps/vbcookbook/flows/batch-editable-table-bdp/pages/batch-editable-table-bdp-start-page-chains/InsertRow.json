@@ -1,0 +1,83 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "blankRecord": {
+      "type": "EmployeeType",
+      "defaultValue": {
+        "jobObject": {
+          "items": [
+            {
+              "jobTitle": ""
+            }
+          ]
+        },
+        "job": 0
+      }
+    }
+  },
+  "root": "callFunctionGetNextId",
+  "actions": {
+    "assignVariablesBlankRecord": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.noChangesToSave": {
+          "source": false
+        },
+        "$variables.blankRecord": {
+          "source": "10000",
+          "auto": "always",
+          "mapping": {
+            "$target.id": {
+              "source": "$chain.results.callFunctionGetNextId",
+              "reset": "none"
+            }
+          }
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionAddItem"
+      }
+    },
+    "callFunctionAddItem": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "addItem",
+        "params": [
+          "{{ $variables.blankRecord.id }}",
+          "{{ $variables.blankRecord }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesEditRow"
+      }
+    },
+    "callFunctionGetNextId": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getNextId"
+      },
+      "outcomes": {
+        "success": "assignVariablesBlankRecord"
+      }
+    },
+    "assignVariablesEditRow": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.editRow": {
+          "source": "{{ {rowKey: $chain.variables.blankRecord.id} }}"
+        },
+        "$page.variables.scrollPosition": {
+          "source": "{{ {rowKey: $chain.variables.blankRecord.id} }}"
+        }
+      },
+      "outcomes": {}
+    }
+  }
+}

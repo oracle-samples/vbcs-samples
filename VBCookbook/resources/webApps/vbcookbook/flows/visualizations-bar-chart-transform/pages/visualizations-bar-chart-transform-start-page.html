@@ -1,16 +1,20 @@
 <!--
- Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
-  This recipe shows how you can use the Bar Chart component to visually present information about salaries for various job types that you retrieve from an external REST service. It also demonstrates how you use the Transform Data action to transform the data into a format that the chart component understands.
-</div>
+<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">This recipe shows how you can use the
+  Bar Chart component to visually present information about salaries for various job types that you retrieve from an
+  external REST service. It also demonstrates how to transform data into a custom structure to display on the chart
+  component.</div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex-item sample-box oj-flex">
-    <oj-chart type="bar" style="max-width:100%;"
-      series="{{ $variables.transformedDataObject.series }}"
-      groups="{{ $variables.transformedDataObject.groups }}" x-axis.title="Job Title" y-axis.title="Total Salary" stack="on">
+    <oj-chart type="bar" style="max-width:100%;" x-axis.title="Job Title" y-axis.title="Total Salary" stack="on"
+      data="[[ $variables.transformedDataADP ]]">
+      <template slot="itemTemplate">
+        <oj-chart-item value="[[$current.data.value]]" group-id="[[[$current.data.group]]]"
+          series-id="[[$current.data.series]]"></oj-chart-item>
+      </template>
     </oj-chart>
   </div>
 

@@ -1,0 +1,13 @@
+{
+  "root": "openBoConfigDialog",
+  "description": "",
+  "actions": {
+    "openBoConfigDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1728153767-1') }}",
+        "method": "open"
+      }
+    }
+  }
+}

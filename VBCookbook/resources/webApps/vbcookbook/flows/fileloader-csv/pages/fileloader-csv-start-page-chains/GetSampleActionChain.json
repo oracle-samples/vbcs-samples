@@ -1,0 +1,30 @@
+{
+  "description": "",
+  "root": "getSampleCsvPath",
+  "actions": {
+    "getSampleCsvPath": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getSampleCsvPath"
+      },
+      "outcomes": {
+        "success": "downloadSampleCsv"
+      }
+    },
+    "downloadSampleCsv": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "[[ $chain.results.getSampleCsvPath ]]",
+        "windowName": "_blank"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

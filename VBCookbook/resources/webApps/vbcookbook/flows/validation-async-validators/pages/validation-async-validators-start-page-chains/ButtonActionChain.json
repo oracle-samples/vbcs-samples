@@ -1,0 +1,46 @@
+{
+  "description": "",
+  "root": "callFunctionWaitTillPending",
+  "actions": {
+    "callFunctionValidateGroup": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "validateGroup"
+      },
+      "outcomes": {
+        "success": "if"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callFunctionValidateGroup === 'valid' ]]"
+      },
+      "outcomes": {
+        "true": "fireNotification"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "displayMode": "transient",
+        "type": "confirmation",
+        "summary": "Data Is Valid",
+        "message": "Everything is valid. Form has been submitted."
+      }
+    },
+    "callFunctionWaitTillPending": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "waitTillPending"
+      },
+      "outcomes": {
+        "success": "callFunctionValidateGroup"
+      }
+    }
+  },
+  "variables": {}
+}

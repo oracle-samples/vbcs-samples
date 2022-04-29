@@ -1,51 +1,17 @@
 /**
- * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define(['knockout',
   'ojs/ojknockout-keyset',
   'ojs/ojarraytreedataprovider',
-  'ojs/ojoffcanvas',
-  'ojs/ojresponsiveknockoututils',
-  'ojs/ojresponsiveutils'
-], function (ko, keySet, ArrayTreeDataProvider, OffCanvasUtils, ResponsiveKnockoutUtils, ResponsiveUtils) {
+  'ojs/ojoffcanvas'
+], function (ko, keySet, ArrayTreeDataProvider) {
   'use strict';
 
-  var drawerParams = {
-    displayMode: "overlay",
-    selector: '#navDrawer',
-    content: '#pageContent'
-  };
-
-  var PageModule = function PageModule(context) {
-    this.eventHelper = context.getEventHelper();
+  var PageModule = function PageModule() {
     this.navlistExpanded = new keySet.ObservableKeySet();
-
-    var self = this;
-
-    // If the drawer is open and the page gets resized close it on medium and larger screens
-    var lgUpQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
-    var lgUpScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(lgUpQuery);
-    lgUpScreen.subscribe(function (on) {
-      if (on) {
-        OffCanvasUtils.close(drawerParams);
-        self.hideNavMenu(false);
-      }
-    });
-
-    var mdDownQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_DOWN);
-    this.mdDownScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(mdDownQuery);
-    this.mdDownScreen.subscribe(function (on) {
-      if (on) {
-        self.hideNavMenu(true);
-      }
-    });
-
-    PageModule.prototype.initNavigationMenu = function (arg1) {
-      this.hideNavMenu(this.mdDownScreen());
-    };
-
   };
 
   /**
@@ -53,39 +19,6 @@ define(['knockout',
    */
   PageModule.prototype.getNavigationListKeySet = function () {
     return this.navlistExpanded;
-  };
-
-  /**
-   * Toggle offcanvas navigation menu
-   */
-  PageModule.prototype.toggleDrawer = function () {
-    return OffCanvasUtils.toggle(drawerParams);
-  };
-
-  PageModule.prototype.animateNavMenu = function () {
-    let container = document.getElementById("animationParent");
-    if (container.classList.contains("navigation-menu-out")) {
-      this.hideNavMenu(true);
-    } else {
-      this.hideNavMenu(false);
-    }
-  };
-  PageModule.prototype.hideNavMenu = function (hide) {
-    let container = document.getElementById("animationParent");
-    if (hide) {
-      this.eventHelper.fireCustomEvent("application:navMenuVisible", {visible: false});
-      container.classList.remove("navigation-menu-out");
-    } else {
-      this.eventHelper.fireCustomEvent("application:navMenuVisible", {visible: true});
-      container.classList.add("navigation-menu-out");
-    }
-  };
-
-  /**
-   * Hide offcanvas navigation menu
-   */
-  PageModule.prototype.closeDrawer = function () {
-    OffCanvasUtils.close(drawerParams);
   };
 
   /**

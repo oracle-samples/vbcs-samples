@@ -1,0 +1,115 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "CloseDialog",
+  "actions": {
+    "CloseDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "checkIfRowAlreadyThere"
+      }
+    },
+    "fireDataProviderEvent2": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeeListADP ]]",
+        "update": {
+          "keys": "{{ [ $page.variables.currentEmployee.id ] }}",
+          "data": "{{ [ $page.variables.currentEmployee ] }}"
+        }
+      }
+    },
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.checkIfRowAlreadyThere ]]"
+      },
+      "outcomes": {
+        "false": "assignVariables1",
+        "true": "checkIfThisIsNewRow"
+      }
+    },
+    "fireDataProviderEvent1": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeeListADP ]]",
+        "add": {
+          "keys": "{{ [ $page.variables.currentEmployee.id ] }}",
+          "data": "{{ [ $page.variables.currentEmployee ] }}"
+        }
+      }
+    },
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+          "source": "inserted",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "fireDataProviderEvent1"
+      }
+    },
+    "assignVariables2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$page.variables.currentEmployee.id]": {
+          "source": "modified",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "fireDataProviderEvent2"
+      }
+    },
+    "if2": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.checkIfThisIsNewRow ]]"
+      },
+      "outcomes": {
+        "false": "assignVariables2",
+        "true": "fireDataProviderEvent2"
+      }
+    },
+    "checkIfRowAlreadyThere": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "existsInArray",
+        "params": [
+          "{{ $page.variables.currentEmployee.id }}",
+          "{{ $page.variables.employeeListADP.data }}"
+        ]
+      },
+      "outcomes": {
+        "success": "if1"
+      }
+    },
+    "checkIfThisIsNewRow": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "isNewRow",
+        "params": [
+          "{{ $page.variables.currentEmployee.id }}",
+          "{{ $page.variables.rowStatus }}"
+        ]
+      },
+      "outcomes": {
+        "success": "if2"
+      }
+    }
+  }
+}

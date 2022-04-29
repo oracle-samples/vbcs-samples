@@ -1,0 +1,33 @@
+{
+  "description": "",
+  "root": "ifLayoutFlag",
+  "actions": {
+    "ifLayoutFlag": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.layoutFlag == true ]]"
+      },
+      "outcomes": {
+        "true": "assignVariablesLayoutFlag",
+        "false": "assignVariablesLayoutFlag2"
+      }
+    },
+    "assignVariablesLayoutFlag": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.layoutFlag": {
+          "source": false
+        }
+      }
+    },
+    "assignVariablesLayoutFlag2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.layoutFlag": {
+          "source": true
+        }
+      }
+    }
+  },
+  "variables": {}
+}

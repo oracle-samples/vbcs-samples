@@ -1,0 +1,49 @@
+{
+  "root": "callRestEndpoint1",
+  "actions": {
+    "callRestEndpoint1": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "requestType": "json",
+        "endpoint": "businessObjects/getall_Employee",
+        "responseType": "getallEmployeeResponse",
+        "requestTransformFunctions": {
+          "filter": "{{ $functions.processFilter }}"
+        },
+        "hookHandler": "{{ $variables.configuration.hookHandler }}"
+      },
+      "outcomes": {
+        "success": "callFunctionCustomizeData"
+      }
+    },
+    "return1": {
+      "module": "vb/action/builtin/returnAction",
+      "parameters": {
+        "outcome": "success",
+        "payload": "{{ $chain.results.callFunctionCustomizeData }}"
+      }
+    },
+    "callFunctionCustomizeData": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "customizeData",
+        "params": [
+          "{{ $chain.results.callRestEndpoint1 }}"
+        ]
+      },
+      "outcomes": {
+        "success": "return1"
+      }
+    }
+  },
+  "variables": {
+    "configuration": {
+      "type": {
+        "hookHandler": "vb/RestHookHandler"
+      },
+      "input": "fromCaller",
+      "required": true
+    }
+  }
+}

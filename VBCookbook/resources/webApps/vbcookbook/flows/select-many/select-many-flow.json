@@ -1,0 +1,8 @@
+{
+  "id": "select-many",
+  "description": "Flow main",
+  "defaultPage": "select-many-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

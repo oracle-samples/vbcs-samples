@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "root": "callFunctionDeselectAll",
+  "actions": {
+    "callFunctionDeselectAll": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "deselectAll"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

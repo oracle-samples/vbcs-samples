@@ -23,22 +23,6 @@
     }
   },
   "chains": {
-    "goBackChain": {
-      "description": "",
-      "root": "navigateBack",
-      "actions": {
-        "navigateBack": {
-          "module": "vb/action/builtin/navigateBackAction"
-        }
-      },
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      }
-    }
   },
   "eventListeners": {
     "ojButtonOjAction": {

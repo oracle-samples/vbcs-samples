@@ -1,12 +1,12 @@
 <!--
- Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <p>
-  Create a service connection to the server that hosts your instance of Content Management. You’ll add endpoints exposed by the Content Management <a target="_blank"
-    href="https://docs.oracle.com/en/cloud/paas/content-cloud/rest-api-documents/index.html">REST API for documents</a>  to retrieve the content of a folder and manage its files. In your app, you’ll add
-  a Table component that displays the retrieved files. You’ll add other UI components
+  Create a service connection to the server that hosts your instance of Content Management. You'll add endpoints exposed by the Content Management <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/content-cloud/rest-api-documents/index.html">REST API for documents</a>  to retrieve the content of a folder and manage its files. In your app, you'll add
+  a Table component that displays the retrieved files. You'll add other UI components
   to trigger the action chains that call the endpoints exposed by Content Management
   to retrieve, download, and upload files.
 </p>
@@ -16,22 +16,11 @@
   this reason, it is read-only and you cannot upload or delete files unless you replace
   the mock server with a Content Management instance. If you have access to an
   instance of Content Management, you can use it instead of the mock server by
-  editing the VB Cookbook’s <code>ocm</code> service connection in the Visual Builder
+  editing the VB Cookbook's <code>ocm</code> service connection in the Visual Builder
   instance where you import the VB Cookbook app. See <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/edit-service-connection.html#GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
     a Service Connection</a>.
 </p>
 
-<p>
-  The steps that follow describe how to create a service connection, add a Table component
-  and configure the <strong>Preview</strong> button that invokes an action chain.
-  The action chain includes a Call REST endpoint that downloads the requested file
-  and a Call Module Function action that converts the file of type BLOB to a data
-  URI that the
-  <code>fileBodyForPreview</code> page variable can reference. For the <strong>Take Photo</strong>  and <strong>Upload</strong> buttons that upload photos and files, you follow a
-  similar pattern. Refer to the HTML, JS, and JSON tabs in this recipe to view these
-  implementation details or import the VB Cookbook into your Visual Builder instance
-  to review the code.
-</p>
 
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
@@ -45,7 +34,7 @@
               a service connection</a> from an endpoint exposed by your instance
             of Content Management.
             <p>
-              You’ll need to know the base URI of the service and an endpoint. If
+              You'll need to know the base URI of the service and an endpoint. If
               <code>https://ocm-instance-url.com</code> is the base URI of the instance
               of Content Management that you connect to, then enter the following
               URI with an appropriate HTTP method (GET) and action hint (Get Many)
@@ -85,7 +74,7 @@
           <code>/folders/{folderId}/items</code> endpoint.</p>
 
         <ol>
-          <li> In the Component Palette, drag a Table component and drop it on the page.</li>
+          <li> In the Components palette, drag a Table component and drop it on the page.</li>
           <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to map your table to the <code>/folders/{folderId}/items</code>            endpoint.</li>
           <li>In the Bind Data page of the Add Data dialog, select the following items
@@ -99,7 +88,7 @@
               <li><code>mimeType</code></li>
             </ul>
           </li>
-          <li>In the Data tab of the Table component’s Properties pane, add the following
+          <li>In the Data tab of the Table component's Properties pane, add the following
             entries to the Table Columns property to create new columns:
             <code>
             <pre>
@@ -118,7 +107,7 @@
             </pre>
           </code>
           </li>
-          <li>In the Component Palette, drag a Hyperlink component and drop it on the
+          <li>In the Components palette, drag a Hyperlink component and drop it on the
             Preview column in the Table component.
           </li>
           <li>In the Page Structure, select the Hyperlink component and <a target="_blank"
@@ -180,18 +169,10 @@ PageModule.prototype.preview = function(blobData, contentType) {
         </ul>
 
         <p>Inspect the code in the demo app that accompanies this recipe to view the
-          implementation for the remaining UI components. </p>
-
-        <p>For the <strong>Take Photo</strong> button, the event listener for this button
-          invokes the
-          <code>TakePhotoChain</code> action chain that includes the <a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-E927312F-B371-4E9E-803A-AA034EBF92C8">Take
-        Photo action</a>, a specialized Visual Builder action that can take photos
-          with the app’s device camera or allow the user to select from the device
-          image library. As the Take Photo action returns a BLOB, the action chain
-          also includes a Call Module Function (<code>generateFileName</code>) to
-          generate a random file name to assign to the file before the Call REST
-          Endpoint action uploads it to the Content Management folder.
+          implementation for the Upload File feature. You drag and drop a File Picker component on to 
+          the page. Set its <code>accept</code> to <code>"[[['image/*','application/pdf','.pdf']]]"</code>. Add an <code>ojSelect</code> event listener to the component. This automatically creates a <code>FilePickerSelectChain</code> 
+          action chain that gets the list of files (single in this case) through the app's device 
+          camera or allows the user to select an image or a PDF file from the device local storage.
         </p>
 
       </div>

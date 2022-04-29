@@ -1,0 +1,76 @@
+{
+  "description": "",
+  "variables": {
+    "rowKey": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "rowData": {
+      "type": "EmployeeType",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "event": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "originalRowData": {
+      "type": "EmployeeType",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "root": "checkWhetherEventIsBeingIgnored",
+  "actions": {
+    "markRowUpdated": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.rowStatus[$chain.variables.rowKey]": {
+          "source": "modified"
+        }
+      }
+    },
+    "checkWhetherEventIsBeingIgnored": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit ]]"
+      },
+      "outcomes": {
+        "false": "hasRecordChanged"
+      }
+    },
+    "hasRecordChanged": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "{{ $page.functions.areDifferent($chain.variables.rowData, $chain.variables.originalRowData) }}"
+      },
+      "outcomes": {
+        "true": "updateDPWithChanges"
+      }
+    },
+    "updateDPWithChanges": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeesADP ]]",
+        "update": {
+          "keys": "{{ [ $chain.variables.rowData.id ] }}",
+          "data": "{{ [ $chain.variables.rowData ] }}"
+        }
+      },
+      "outcomes": {
+        "success": "isFirstRowChange"
+      }
+    },
+    "isFirstRowChange": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "{{ $page.variables.rowStatus[$chain.variables.rowKey] === undefined }}"
+      },
+      "outcomes": {
+        "true": "markRowUpdated"
+      }
+    }
+  }
+}

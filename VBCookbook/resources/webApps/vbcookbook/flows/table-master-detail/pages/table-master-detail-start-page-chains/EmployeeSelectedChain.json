@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "variables": {
+    "rowData": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "assignEmployee",
+  "actions": {
+    "assignEmployee": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.variables.rowData }}",
+          "auto": "always"
+        }
+      }
+    }
+  }
+}

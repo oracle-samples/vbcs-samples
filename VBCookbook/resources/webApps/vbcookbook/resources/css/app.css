@@ -1,26 +1,16 @@
 /**
- * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
+.demo-data-grid {
+      width:100%;
+      min-height:25rem;
+      height:calc(75vh - 10px);
+      min-width: 300px
+}
 pre {
   overflow-x: auto;
-}
-.cookbook-navigation-menu-panel {
-  left: -300px;
-  position: absolute;
-  transition: left 750ms ease-in-out;
-}
-
-.cookbook-content-panel {
-  transition: margin-left 750ms ease-in-out;
-}
-
-.navigation-menu-out .cookbook-navigation-menu-panel {
-  left: 0;
-} 
-.navigation-menu-out .cookbook-content-panel {
-  margin-left: 300px;
 }
 
 .cookbook-page-footer.oj-web-applayout-footer {

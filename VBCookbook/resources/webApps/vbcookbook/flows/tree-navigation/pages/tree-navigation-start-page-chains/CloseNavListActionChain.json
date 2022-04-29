@@ -1,0 +1,13 @@
+{
+  "description": "",
+  "root": "callChainButtonActionChain",
+  "actions": {
+    "callChainButtonActionChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "ToggleeNavListActionChain"
+      }
+    }
+  },
+  "variables": {}
+}

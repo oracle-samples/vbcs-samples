@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -15,14 +15,12 @@
 </div>
 <div class="oj-flex oj-flex-item">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
-
     <oj-data-grid id="datagrid" style="width:100%;min-width: 300px; height:400px;max-width:954px;"
       aria-label="Data Grid Formatted Row Based Grid Demo" data="[[$functions.getDataSource($variables.employeeData)]]"
       banding-interval.row="1" header.column.renderer="[[$functions.getRenderer('header_template')]]"
       header.column.style="width:125px" header.column.resizable.width="enable" header.column.resizable.height="enable"
       cell.renderer="[[$functions.getRenderer('cell_template')]]" cell.class-name="[[$functions.getCellClassName]]">
     </oj-data-grid>
-
   </div>
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"

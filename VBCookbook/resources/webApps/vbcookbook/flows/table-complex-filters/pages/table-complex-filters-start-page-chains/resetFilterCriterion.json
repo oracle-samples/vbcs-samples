@@ -1,0 +1,21 @@
+{
+  "description": "",
+  "root": "resetFilters",
+  "actions": {
+    "resetFilters": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.filters"
+        ]
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

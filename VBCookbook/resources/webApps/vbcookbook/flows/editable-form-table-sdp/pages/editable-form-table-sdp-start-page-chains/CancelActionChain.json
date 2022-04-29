@@ -1,0 +1,34 @@
+{
+  "description": "",
+  "root": "assignVariablesEditRow",
+  "actions": {
+    "assignVariablesEditRow": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.editRow": {
+          "source": "{{ {rowKey: null} }}"
+        },
+        "$page.variables.cancelEditVar": {
+          "source": true
+        }
+      }
+    }
+  },
+  "variables": {
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

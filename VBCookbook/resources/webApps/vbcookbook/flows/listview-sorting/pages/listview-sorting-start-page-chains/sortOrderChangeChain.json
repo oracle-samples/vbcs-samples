@@ -1,0 +1,33 @@
+{
+  "description": "",
+  "variables": {
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "updateSortDirectionInSDP",
+  "actions": {
+    "updateSortDirectionInSDP": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.countryListSDP": {
+          "source": {
+            "sortCriteria": [
+              {
+                "direction": "{{ $page.variables.ascending ? 'ascending' : 'descending' }}"
+              }
+            ]
+          },
+          "reset": "none",
+          "mapping": {
+            "$target.sortCriteria[0].direction": {
+              "source": "$source.sortCriteria[0].direction"
+            }
+          }
+        }
+      }
+    }
+  }
+}

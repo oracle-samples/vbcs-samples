@@ -1,0 +1,34 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "fireNotification1",
+  "actions": {
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Record updated successfully!",
+        "message": "Record updated successfully!",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "assignVariablesCleanEmp"
+      }
+    },
+    "assignVariablesCleanEmp": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.cleanEmp": {
+          "source": "{{ $page.variables.formEmp }}",
+          "auto": "always"
+        }
+      }
+    }
+  }
+}

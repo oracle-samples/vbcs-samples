@@ -1,0 +1,138 @@
+{
+  "description": "",
+  "root": "callFunctionIsEditingFinished",
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Changes are saved!",
+        "type": "confirmation"
+      },
+      "outcomes": {
+        "success": "resetVariablesEditRow"
+      }
+    },
+    "callRest": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/batch",
+        "body": "{{ $chain.results.callFunctionCreateBatchPayload }}"
+      },
+      "outcomes": {
+        "failure": "callFunctionSetStatusToUnsubmitted",
+        "success": "callFunctionSetStatusToSubmitted"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRest.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callFunctionCreateBatchPayload": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "createBatchPayload",
+        "params": []
+      },
+      "outcomes": {
+        "success": "callFunctionSetStatusToSubmitting"
+      }
+    },
+    "callFunctionSetStatusToSubmitted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToSubmitted",
+        "params": [
+          "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+        ]
+      },
+      "outcomes": {
+        "success": "fireNotification"
+      }
+    },
+    "callFunctionSetStatusToSubmitting": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToSubmitting"
+      },
+      "outcomes": {
+        "success": "callRest"
+      }
+    },
+    "callFunctionSetStatusToUnsubmitted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToUnsubmitted",
+        "params": [
+          "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+        ]
+      },
+      "outcomes": {
+        "success": "fireNotification2"
+      }
+    },
+    "callFunctionIsEditingFinished": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "isEditingFinished"
+      },
+      "outcomes": {
+        "success": "ifNoChangesToSave"
+      }
+    },
+    "resetVariablesEditRow": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.editRow",
+          "$page.variables.noChangesToSave"
+        ]
+      },
+      "outcomes": {
+        "success": "fireDataProviderEventEmployeesSDP"
+      }
+    },
+    "ifNoChangesToSave": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.noChangesToSave ]]"
+      },
+      "outcomes": {
+        "false": "callFunctionCreateBatchPayload",
+        "true": "fireNotification3"
+      }
+    },
+    "fireNotification3": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "There are no changes to save!",
+        "type": "info"
+      }
+    },
+    "fireDataProviderEventEmployeesSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeesSDP ]]",
+        "refresh": null
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    }
+  }
+}

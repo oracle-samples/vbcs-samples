@@ -1,0 +1,138 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "ifFileSelected",
+  "actions": {
+    "callDialogCloseComponentMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('modalDialog1') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "updateFAServerStatusBusy"
+      }
+    },
+    "updateFAServerStatusBusy": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.faServerBusy": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "getBase64FromFile"
+      }
+    },
+    "getBase64FromFile": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "getBase64StringFromFile",
+        "params": [
+          "{{ $page.variables.fileUpload.File }}"
+        ]
+      },
+      "outcomes": {
+        "success": "updateFileUploadVar"
+      }
+    },
+    "updateFileUploadVar": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.fileUpload": {
+          "source": {
+            "FileContents": "{{ $chain.results.getBase64FromFile.base64 }}",
+            "File": "{{ undefined }}",
+            "Size": "{{ undefined }}",
+            "UploadedFileContentType": "{{ $chain.results.getBase64FromFile.contentType }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "callCreateAttachmentRestEndpoint"
+      }
+    },
+    "callCreateAttachmentRestEndpoint": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "activities_vb/create_activities-Attachments",
+        "uriParams": {
+          "activities_Id": "{{ $page.variables.testingActivityId }}"
+        },
+        "body": "{{ $page.variables.fileUpload }}"
+      },
+      "outcomes": {
+        "success": "fireSuccessNotification",
+        "failure": "fireErrorNotification"
+      }
+    },
+    "fireSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "transient",
+        "type": "info",
+        "summary": "{{ 'File ' + $page.variables.fileUpload.FileName + ' was successfully uploaded' }}"
+      },
+      "outcomes": {
+        "success": "refreshDataProvider"
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "displayMode": "persist",
+        "type": "error",
+        "summary": "Upload failed"
+      },
+      "outcomes": {
+        "success": "updateFAServerStatusReady"
+      }
+    },
+    "refreshDataProvider": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.attachmentsSDP ]]",
+        "refresh": null
+      },
+      "outcomes": {
+        "success": "updateFAServerStatusReady"
+      }
+    },
+    "updateFAServerStatusReady": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.faServerBusy": {
+          "source": "{{ false }}"
+        }
+      }
+    },
+    "ifFileSelected": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.fileUpload.File ]]"
+      },
+      "outcomes": {
+        "true": "callDialogCloseComponentMethod",
+        "false": "fireNotification"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Nothing Selected",
+        "message": "Please Select A file To Upload",
+        "displayMode": "transient"
+      }
+    }
+  }
+}

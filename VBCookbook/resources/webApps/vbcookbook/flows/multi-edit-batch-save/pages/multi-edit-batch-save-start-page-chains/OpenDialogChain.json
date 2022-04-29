@@ -1,0 +1,47 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "AssignEmployeeRecord",
+  "actions": {
+    "AssignEmployeeRecord": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentEmployee": {
+          "source": "{{ $chain.variables.current }}",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "OpenDialog"
+      }
+    },
+    "OpenDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj-dialog--1155637190-1') }}",
+        "method": "open"
+      }
+    }
+  }
+}

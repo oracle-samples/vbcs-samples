@@ -18,69 +18,6 @@
   "metadata": {},
   "types": {},
   "chains": {
-    "RecipeTileClicked": {
-      "description": "",
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "key": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        },
-        "index": {
-          "required": true,
-          "type": "number",
-          "input": "fromCaller"
-        },
-        "current": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "getRecipeDetails",
-      "actions": {
-        "getRecipeDetails": {
-          "module": "vb/action/builtin/callModuleFunctionAction",
-          "parameters": {
-            "module": "[[ $application.functions ]]",
-            "functionName": "getRecipe",
-            "params": [
-              "{{ $chain.variables.current.data.url }}"
-            ]
-          },
-          "outcomes": {
-            "success": "fireNavigateToEvent"
-          }
-        },
-        "fireNavigateToEvent": {
-          "module": "vb/action/builtin/fireCustomEventAction",
-          "parameters": {
-            "name": "application:navigateToItem",
-            "payload": {
-              "item": "{{ $chain.results.getRecipeDetails.recipe.id }}"
-            }
-          }
-        }
-      }
-    },
-    "OpenHowToOpenVBDialog": {
-      "root": "callOpenDialog",
-      "description": "",
-      "actions": {
-        "callOpenDialog": {
-          "module": "vb/action/builtin/callComponentMethodAction",
-          "parameters": {
-            "component": "{{ document.getElementById('howToOpenVBDialog') }}",
-            "method": "open"
-          }
-        }
-      }
-    }
   },
   "eventListeners": {
     "aClick": {

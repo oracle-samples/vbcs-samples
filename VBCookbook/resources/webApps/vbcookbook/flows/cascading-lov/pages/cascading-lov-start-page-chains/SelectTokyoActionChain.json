@@ -1,0 +1,63 @@
+{
+  "description": "",
+  "root": "assignVariables1",
+  "actions": {
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.selectedRegion": {
+          "source": {
+            "data": {
+              "id": 3,
+              "regionName": "Asia"
+            },
+            "metadata": {
+              "key": 3
+            },
+            "key": 3
+          },
+          "auto": "ifNoMappings"
+        },
+        "$page.variables.selectedCountry": {
+          "source": {
+            "data": {
+              "countryName": "Japan",
+              "id": 4
+            },
+            "metadata": {
+              "key": 4
+            },
+            "key": 4
+          }
+        },
+        "$page.variables.selectedLocation": {
+          "source": {
+            "data": {
+              "city": "Tokyo",
+              "country": 4,
+              "id": 3,
+              "postalCode": "1689",
+              "stateProvince": "Tokyo Prefecture",
+              "streetAddress": "2017 Shinjuku-ku"
+            },
+            "metadata": {
+              "key": 3
+            },
+            "key": 3
+          },
+          "auto": "always"
+        },
+        "$page.variables.isTokyoSelected": {
+          "source": true
+        }
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

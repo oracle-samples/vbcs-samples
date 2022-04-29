@@ -1,0 +1,54 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "filterModuleFunction",
+  "actions": {
+    "filterModuleFunction": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "mapToCriteria",
+        "params": [
+          "{{ $page.variables.filters }}"
+        ]
+      },
+      "outcomes": {
+        "success": "filtercriterionAssignVariable"
+      }
+    },
+    "filtercriterionAssignVariable": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.AdvanceSearchEmployeeListSDP": {
+          "source": {
+            "filterCriterion": {
+              "op": "$and",
+              "criteria": "{{ $chain.results.filterModuleFunction }}"
+            }
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.filterCriterion": {
+              "source": "$source.filterCriterion",
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.criteria": {
+                  "source": "$source.criteria",
+                  "reset": "empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

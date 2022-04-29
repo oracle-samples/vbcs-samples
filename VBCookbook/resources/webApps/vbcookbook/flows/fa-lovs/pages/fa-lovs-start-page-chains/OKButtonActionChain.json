@@ -1,0 +1,66 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "if1",
+  "actions": {
+    "closeDialogComponentMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('advanced-search-oj-dialog') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "resetVariables1"
+      }
+    },
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.selectedRow.key ]]"
+      },
+      "outcomes": {
+        "true": "assignVariables1",
+        "false": "closeDialogComponentMethod"
+      }
+    },
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.selectedEmployee": {
+          "source": {
+            "data": {
+              "firstName": "{{$page.variables.selectedRow.data.firstName}}",
+              "id": "{{$page.variables.selectedRow.key}}",
+              "lastName": "{{$page.variables.selectedRow.data.lastName}}"
+            },
+            "metadata": {
+              "key": "{{$page.variables.selectedRow.key}}"
+            },
+            "key": "{{$page.variables.selectedRow.key}}"
+          },
+          "auto": "always",
+          "reset": "none"
+        }
+      },
+      "outcomes": {
+        "success": "closeDialogComponentMethod"
+      }
+    },
+    "resetVariables1": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.filters",
+          "$page.variables.AdvanceSearchEmployeeListSDP.filterCriterion",
+          "$page.variables.selectedRow"
+        ]
+      }
+    }
+  }
+}

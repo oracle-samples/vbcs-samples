@@ -1,0 +1,51 @@
+{
+  "root": "callRestGetallEmployee",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallEmployee.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Employee",
+        "uriParams": {
+          "limit": 999
+        },
+        "responseType": "getall_Employee"
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "assignVariablesCurrent"
+      }
+    },
+    "callFunctionUpdateTreeDataProvider": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "updateTreeDataProvider",
+        "params": [
+          "{{ $page.variables.employee }}"
+        ]
+      }
+    },
+    "assignVariablesCurrent": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee": {
+          "source": "{{ $chain.results.callRestGetallEmployee.body.items }}"
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionUpdateTreeDataProvider"
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "data-grid-nested-header",
+  "description": "Flow main",
+  "defaultPage": "data-grid-nested-header-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

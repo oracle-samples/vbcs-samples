@@ -1,0 +1,24 @@
+{
+  "description": "",
+  "root": "resetVariables",
+  "actions": {
+    "resetVariables": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.current",
+          "$page.variables.uploadDataADP",
+          "$page.variables.isUploadingToBo",
+          "$page.variables.error"
+        ]
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

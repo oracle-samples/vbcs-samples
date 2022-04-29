@@ -1,0 +1,63 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": false,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "ifThisFirstBlurEventOnFireFox",
+  "actions": {
+    "hideSearch": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showSearch": {
+          "source": "{{ false }}"
+        }
+      }
+    },
+    "waitForValueChangeEventToBeProcessedFirst": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "{{$page.functions}}",
+        "functionName": "wait",
+        "params": [
+          "{{ 333 }}"
+        ]
+      },
+      "outcomes": {
+        "success": "hideSearch"
+      }
+    },
+    "refocusTheSearchBoxToo": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('recipeSearchCombo') }}",
+        "method": "focus"
+      }
+    },
+    "ifThisFirstBlurEventOnFireFox": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.ignoreFirstBlurOnFireFox ]]"
+      },
+      "outcomes": {
+        "false": "waitForValueChangeEventToBeProcessedFirst",
+        "true": "markFirstBlurAsHandled"
+      },
+      "description": "See description of ignoreFirstBlur variable"
+    },
+    "markFirstBlurAsHandled": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.ignoreFirstBlurOnFireFox": {
+          "source": false
+        }
+      },
+      "outcomes": {
+        "success": "refocusTheSearchBoxToo"
+      }
+    }
+  }
+}

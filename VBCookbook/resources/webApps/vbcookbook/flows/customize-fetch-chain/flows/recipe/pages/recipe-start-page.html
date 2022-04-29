@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -51,9 +51,23 @@
   }
   }
           </pre>
-
         </li>
-        <p>The Select (Single) component now displays the list of employees from the Sales department.</p>
+        <li>Drag and drop a Call Function action after the Call REST action. In properties create a new function 
+          <strong>transformData</strong> with a parameter <strong>data</strong> and set its value to <strong>{{ $chain.results.callRestEndpoint1 }}</strong>. In the function add the following code to capitalize the email in the data.
+          <pre>
+PageModule.prototype.transformData = function (data) {
+// as part of transforming data, lets capitalize the email id
+if (data.body.items) {
+  data.body.items.forEach(element => {
+    element.email = element.email.toUpperCase();
+  });
+}
+
+return data;
+};
+          </pre>
+        </li>
+        <p>The Select (Single) component now displays the list of employees' email in uppercase from the Sales department.</p>
       </ol>
     </div>
   </oj-collapsible>

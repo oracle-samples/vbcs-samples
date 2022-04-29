@@ -1,0 +1,63 @@
+{
+    "tests": {
+        "create blob Data URI": {
+            "context": {
+                "$variables.current": {
+                    "index": 0,
+                    "mode": "navigation",
+                    "key": 300000000000001,
+                    "row": {
+                        "AttachedDocumentId": 300000000000001,
+                        "CreationDate": "2019-12-09T20:29:31.993Z",
+                        "Description": "PNG screenshot of Card Layout recipe",
+                        "FileName": "recipe.png",
+                        "Title": "PNG Card Layout Screenshot",
+                        "UploadedFileContentType": "image/png",
+                        "links": [
+                            {
+                                "href": "https://your-fa-instance.oracledemos.com/crmRestApi/resources/latest/activities/123/child/Attachments/12350531",
+                                "rel": "self"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mocks": {
+                "callGetAttachmentRestEndpoint": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": "ABCD"
+                    }
+                },
+                "generatePreview": {
+                    "outcome": "success",
+                    "result": "blob:https://server.com/43c23c32-392c-40a4-ae16-33eb85134e34"
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$page.variables.faServerBusy",
+                    "matcher": "to.equal",
+                    "expected": false
+                },
+                {
+                    "actual": "$page.variables.fileBodyForPreview",
+                    "matcher": "to.equal",
+                    "expected": "blob:https://server.com/43c23c32-392c-40a4-ae16-33eb85134e34"
+                },
+                {
+                    "actual": "$page.variables.filePreview",
+                    "matcher": "to.equal",
+                    "expected": true
+                },
+                {
+                    "actual": "$chain.results.getAttachmentId",
+                    "matcher": "to.equal",
+                    "expected": "12350531"
+                }
+            ]
+        }
+    }
+   }

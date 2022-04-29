@@ -1,0 +1,99 @@
+{
+  "description": "",
+  "root": "resetCurrent",
+  "actions": {
+    "readFile": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "readAndProcess",
+        "params": [
+          "{{ $variables.files }}"
+        ],
+        "returnType": "upload"
+      },
+      "outcomes": {
+        "success": "ifSuccess"
+      }
+    },
+    "resetCurrent": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.current": {
+          "reset": "toDefault"
+        }
+      },
+      "outcomes": {
+        "success": "readFile"
+      }
+    },
+    "ifSuccess": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.readFile.success ]]"
+      },
+      "outcomes": {
+        "true": "assignVariables",
+        "false": "failure"
+      }
+    },
+    "assignVariables": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.uploadDataADP": {
+          "source": {
+            "data": "{{ $chain.results.readFile.result.tableData }}"
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.data": {
+              "source": "$source.data",
+              "reset": "empty"
+            }
+          }
+        },
+        "$page.variables.columns": {
+          "source": "{{ $chain.results.readFile.result.columns }}"
+        },
+        "$page.variables.current.hasfileLoaded": {
+          "source": true
+        },
+        "$page.variables.current": {
+          "source": {
+            "name": "{{ $chain.results.readFile.result.name }}",
+            "size": "{{ $chain.results.readFile.result.size }}",
+            "type": "{{ $chain.results.readFile.result.type }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      }
+    },
+    "failure": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.readFile.error.detail ]]"
+      },
+      "outcomes": {
+        "success": "resetCurrentOnFailure"
+      }
+    },
+    "resetCurrentOnFailure": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.current": {
+          "reset": "toDefault"
+        }
+      }
+    }
+  },
+  "variables": {
+    "files": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

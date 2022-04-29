@@ -1,0 +1,66 @@
+{
+    "tests": {
+        "SuccessPath": {
+            "mocks": {
+                "callRestEndpoint1": {
+                    "outcome": "success",
+                    "result": {
+                        "status": 200,
+                        "headers": {},
+                        "body": {
+                            "items": [
+                                {}
+                            ]
+                        }
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$page.variables.pageReady",
+                    "matcher": "to.equal",
+                    "expected": true
+                },
+                {
+                    "actual": "$page.variables.employee",
+                    "matcher": "to.deep.equal",
+                    "expected": {}
+                }
+            ]
+        },
+        "FailurePath": {
+            "mocks": {
+                "callRestEndpoint1": {
+                    "outcome": "failure",
+                    "result": {
+                        "message": {
+                            "summary": "Error executing the action"
+                        }
+                    }
+                }
+            },
+            "expectations": [
+                {
+                    "actual": "$actions.fireNotification1.inputs.target",
+                    "matcher": "to.equal",
+                    "expected": "leaf"
+                },
+                {
+                    "actual": "$actions.fireNotification1.inputs.summary",
+                    "matcher": "to.equal",
+                    "expected": "Error executing the action"
+                },
+                {
+                    "actual": "$actions.fireNotification1.inputs.type",
+                    "matcher": "to.equal",
+                    "expected": "error"
+                },
+                {
+                    "actual": "$actions.fireNotification1.inputs.displayMode",
+                    "matcher": "to.equal",
+                    "expected": "persist"
+                }
+            ]
+        }
+    }
+   }

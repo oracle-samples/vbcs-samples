@@ -1,0 +1,32 @@
+{
+  "description": "",
+  "variables": {},
+  "root": "fireDataProviderEventOnADP",
+  "actions": {
+
+    "assignVariablesNewRecordId": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.newRecordID": {
+          "source": "{{ $page.variables.newRecordID-1 }}"
+        }
+      }
+    },
+    "fireDataProviderEventOnADP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.contactDetailsADP ]]",
+        "add": {
+          "data": "{{ [ { \"id\": $page.variables.newRecordID } ] }}",
+          "keys": "{{ [ $page.variables.newRecordID ] }}",
+          "indexes": [
+            0
+          ]
+        }
+      },
+      "outcomes": {
+        "success": "assignVariablesNewRecordId"
+      }
+    }
+  }
+}

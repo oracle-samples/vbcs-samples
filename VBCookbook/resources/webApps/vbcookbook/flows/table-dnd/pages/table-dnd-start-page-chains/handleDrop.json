@@ -1,0 +1,49 @@
+{
+  "root": "addRows",
+  "description": "Manipulate ADP data and update it.",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "rows": "object[]",
+        "startIndex": "number"
+      }
+    }
+  },
+  "actions": {
+    "addRows": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "outcomes": {
+        "success": "updateADP"
+      },
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "addRows",
+        "params": [
+          "{{ $page.variables.employeeDropListADP.data }}",
+          "{{ $variables.event.rows }}",
+          "{{ $variables.event.startIndex }}"
+        ]
+      }
+    },
+    "updateADP": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employeeDropListADP": {
+          "source": {
+            "data": "{{ $chain.results.addRows }}"
+          },
+          "reset": "none",
+          "auto": "always",
+          "mapping": {
+            "$target.data": {
+              "source": "$source.data",
+              "reset": "empty"
+            }
+          }
+        }
+      }
+    }
+  }
+}

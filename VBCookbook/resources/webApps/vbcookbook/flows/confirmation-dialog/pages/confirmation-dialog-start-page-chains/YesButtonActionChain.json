@@ -1,0 +1,68 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "if1",
+  "actions": {
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.formEmp": {
+          "source": "{{ $page.variables.cleanEmp }}",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "closeConfirmDialog"
+      }
+    },
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.currentTab === 'employee']]"
+      },
+      "outcomes": {
+        "true": "assignVariables1",
+        "false": "assignVariables2"
+      }
+    },
+    "assignVariables2": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.formDept": {
+          "source": "{{ $page.variables.cleanDept }}",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "closeConfirmDialog"
+      }
+    },
+    "closeConfirmDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "switchToNewTab"
+      }
+    },
+    "switchToNewTab": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('tab-bar-1') }}",
+        "method": "setProperty",
+        "params": [
+          "selection",
+          "{{ $page.variables.tabToSwitch }}"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "root": "JobChangeSuccessNotification",
+  "actions": {
+    "JobChangeSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Success!",
+        "message": "Employee Job Changed Successfully!",
+        "type": "confirmation"
+      }
+    }
+  },
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

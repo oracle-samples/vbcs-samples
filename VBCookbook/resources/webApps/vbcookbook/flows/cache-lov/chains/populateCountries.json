@@ -1,0 +1,60 @@
+{
+  "root": "ifCountryADPNeedsToBeInitalized",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "ifCountryADPNeedsToBeInitalized": {
+      "module": "vb/action/builtin/ifAction",
+      "outcomes": {
+        "true": "fetchCountries"
+      },
+      "parameters": {
+        "condition": "{{ $flow.variables.countryADPInitialized === false }}"
+      }
+    },
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.fetchCountries.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "fetchCountries": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Country",
+        "uriParams": {
+          "limit": 500
+        },
+        "requestTransformOptions": {
+          "sort": [
+            {
+              "attribute": "countryName"
+            }
+          ]
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "assignADP"
+      }
+    },
+    "assignADP": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$flow.variables.countryADP": {
+          "source": {
+            "data": "{{ $chain.results.fetchCountries.body.items }}"
+          },
+          "reset": "empty",
+          "auto": "always"
+        },
+        "$flow.variables.countryADPInitialized": {
+          "source": "{{ true }}"
+        }
+      }
+    }
+  }
+}

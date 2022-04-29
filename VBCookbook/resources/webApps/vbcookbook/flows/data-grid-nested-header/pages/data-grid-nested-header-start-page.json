@@ -1,0 +1,60 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "data": {
+      "type": "any"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getall_Employee": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Employee": {
+      "items": [
+        {
+          "department": "number",
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string",
+                "id": "number"
+              }
+            ]
+          },
+          "firstName": "string",
+          "job": "number",
+          "jobObject": {
+            "items": [
+              {
+                "id": "number",
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string"
+        }
+      ]
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "vbEnter",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-data-grid": {
+        "path": "ojs/ojdatagrid"
+      }
+    }
+  }
+}

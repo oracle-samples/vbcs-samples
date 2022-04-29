@@ -1,0 +1,29 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "setQuery",
+  "actions": {
+    "setQuery": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employeeListSDP": {
+          "source": {
+            "filterCriterion": {
+              "op": "$eq",
+              "attribute": "firstName",
+              "value": "Nonexistent"
+            }
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      }
+    }
+  }
+}

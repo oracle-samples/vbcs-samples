@@ -1,0 +1,48 @@
+{
+  "root": "fetchDepartmentDetails",
+  "description": "",
+  "actions": {
+    "fireNotification1": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.fetchDepartmentDetails.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.departmentName": {
+          "source": "{{ $chain.results.fetchDepartmentDetails.body.departmentName }}"
+        },
+        "$page.variables.originalDepartmentName": {
+          "source": "{{ $chain.results.fetchDepartmentDetails.body.departmentName }}"
+        }
+      },
+      "outcomes": {
+        "success": "fetchEmployeesDetails"
+      }
+    },
+    "fetchDepartmentDetails": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Department",
+        "uriParams": {
+          "Department_Id": "{{ $page.variables.departmentId }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification1",
+        "success": "assignVariables1"
+      }
+    },
+    "fetchEmployeesDetails": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "FetchEmployees"
+      }
+    }
+  }
+}

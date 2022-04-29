@@ -1,0 +1,65 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "data": {
+      "type": "any"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "chainId": "vbEnter",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-data-grid": {
+        "path": "ojs/ojdatagrid"
+      },
+      "oj-status-meter-gauge": {
+        "path": "ojs/ojgauge"
+      }
+    }
+  },
+  "constants": {
+    "colBalance": {
+      "type": "number",
+      "defaultValue": 2
+    },
+    "colTotalAmtOrdered": {
+      "type": "number",
+      "defaultValue": 4
+    },
+    "colCompany": {
+      "type": "number",
+      "defaultValue": 6
+    },
+    "colRegistered": {
+      "type": "number",
+      "defaultValue": 3
+    },
+    "colLastOrder": {
+      "type": "number",
+      "defaultValue": 5
+    },
+    "colBirthDate": {
+      "type": "number",
+      "defaultValue": 12
+    },
+    "colActive": {
+      "type": "number",
+      "defaultValue": 13
+    },
+     "colEyeColor": {
+      "type": "number",
+      "defaultValue": 14
+    }
+  }
+}

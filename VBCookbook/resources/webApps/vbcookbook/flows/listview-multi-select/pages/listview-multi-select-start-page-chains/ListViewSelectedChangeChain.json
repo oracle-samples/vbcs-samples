@@ -1,0 +1,21 @@
+{
+  "description": "",
+  "variables": {
+    "keys": {
+      "required": true,
+      "type": "any[]",
+      "input": "fromCaller"
+    }
+  },
+  "root": "assignVariables1",
+  "actions": {
+    "assignVariables1": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.selectedEmployeeIds": {
+          "source": "{{ $chain.variables.keys }}"
+        }
+      }
+    }
+  }
+}

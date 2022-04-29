@@ -1,137 +1,145 @@
 <!--
- Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <p>
-You’ll create a service connection that includes <a target="_blank"
-        href="https://docs.oracle.com/en/cloud/saas/sales-and-b2b-service/19d/faaps/api-activities-activity-attachments.html">Activity
-        Attachments REST Endpoints</a>, add a Table component, and configure a 
-Download hyperlink that invokes an action chain. The action chain includes a Call REST endpoint that gets the attachment 
-content for the specified activity and a Call Module Function action that downloads the file attachment to the user’s device. 
-For the remaining UI components (<strong>Preview</strong>, <strong>Take Photo</strong>, and so on), you follow a similar pattern. 
+  You'll create a service connection that includes <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/saas/sales-and-b2b-service/19d/faaps/api-activities-activity-attachments.html">Activity
+    Attachments REST Endpoints</a>, add a Table component, and configure a
+  Download hyperlink that invokes an action chain. The action chain includes a Call REST endpoint that gets the
+  attachment content for the specified activity and a Call Module Function action that downloads the file attachment to
+  the user's
+  device. For the remaining UI components (<strong>Preview</strong>, <strong>Upload File</strong>, and so on), you
+  follow a
+  similar pattern. The File Picker component implements the Upload File feature.
 </p>
-<p><strong>Note:</strong> This recipe uses a mock server that imitates the behavior of an Oracle Cloud Applications instance to demonstrate the 
-code flow pattern. For this reason, it is read-only. If you have access to an instance of Oracle Cloud Applications, 
-you can use it instead by editing the VB Cookbook app’s activities service connection. This will enable the upload and delete functionality in the recipe. See <a target="_blank"
-        href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/edit-service-connection.html#GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
-        a Service Connection</a>.</p>
-
-
+<p><strong>Note:</strong> This recipe uses a mock server that imitates the behavior of an Oracle Cloud Applications
+  instance to demonstrate the code flow pattern. For this reason, it is read-only. If you have access to an instance of
+  Oracle Cloud Applications,
+  you can use it instead by editing the VB Cookbook app's activities service connection. This will enable the upload and
+  delete functionality in the recipe. See <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/edit-service-connection.html#GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
+    a Service Connection</a>.</p>
 
 <div class="oj-flex">
-    <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
-        <oj-collapsible id="step1" expanded="true">
-            <span slot="header">Create a Service Connection</span>
-            <p>You create a service connection to the Sales and Service crmRestApi from the Service Catalog where you
-                add endpoints that
-                manage activity attachments.</p>
-            <div>
-                <ol>
-                    <li><a target="_blank"
-                            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-B95FF6FE-856B-4D0C-AB27-745736283B01">Create
-                            a service connection</a> to the crmRestApi from the Oracle Cloud Applications catalog.
-                    </li>
-                    <li>
-                        Add the following endpoints to the service connection:
-                        <ul>
-                            <li><code>GET /activities/{activities_Id}/child/Attachments</code></li>
-                            <li><code>POST /activities/{activities_Id}/child/Attachments</code></li>
-                            <li><code>GET  /activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}</code>
-                            </li>
-                            <li><code>DELETE  /activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}</code>
-                            </li>
-                            <li><code>GET /activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}/enclosure/FileContents</code>
-                            </li>
-                        </ul>
-                    </li>
-                </ol>
-            </div>
-        </oj-collapsible>
-        <oj-collapsible id="stepb">
-            <span slot="header">Create Page Variables</span>
-            <div><p><a target="_blank"
-                href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
-                the following custom type:</a></p>
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step1" expanded="true">
+      <span slot="header">Create a Service Connection</span>
+      <p>You create a service connection to the Sales and Service crmRestApi from the Service Catalog where you
+        add endpoints that
+        manage activity attachments.</p>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-B95FF6FE-856B-4D0C-AB27-745736283B01">Create
+              a service connection</a> to the crmRestApi from the Oracle Cloud Applications catalog.
+          </li>
+          <li>
+            Add the following endpoints to the service connection:
+            <ul>
+              <li><code>GET /activities/{activities_Id}/child/Attachments</code></li>
+              <li><code>POST /activities/{activities_Id}/child/Attachments</code></li>
+              <li><code>GET  /activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}</code>
+              </li>
+              <li><code>DELETE  /activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}</code>
+              </li>
+              <li>
+                <code>GET /activities/{activities_Id}/child/Attachments/{activities_Attachments_Id}/enclosure/FileContents</code>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepb">
+      <span slot="header">Create Page Variables</span>
+      <div>
+        <p><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+            the following custom type:</a></p>
         <ul>
-            <li><code>UploadType</code> - Object</li>
+          <li><code>UploadType</code> - Object</li>
         </ul>
-                <p><a target="_blank"
-                        href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
-                        the following page variables:</a></p>
-                <ul>
-                    <li><code>fileBodyForPreview</code> – Any</li>
-                    <li><code>filePreview</code> – Boolean</li>
-                    <li><code>fileUpload</code> - UploadType</li>
-                    <li><code>testingActivityId</code> – Number with a default value of 451952
-                        <p>If you have access to an Oracle Cloud Applications instance and know the ID for an activity,
-                            consider using it. </p>
-                    </li>
-                </ul>
-                
-            </div>
-        </oj-collapsible>
-        <oj-collapsible id="stepc">
-            <span slot="header">Create the UI</span>
-            <div>
-                <p>Add a Table component to a page in your app and bind it to the data returned
-                    by the
-                    <code>getall_activities-Attachments</code> endpoint.</p>
+        <p><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+            the following page variables:</a></p>
+        <ul>
+          <li><code>fileBodyForPreview</code> – Any</li>
+          <li><code>filePreview</code> – Boolean</li>
+          <li><code>fileUpload</code> - UploadType</li>
+          <li><code>testingActivityId</code> – Number with a default value of 451952
+            <p>If you have access to an Oracle Cloud Applications instance and know the ID for an activity,
+              consider using it. </p>
+          </li>
+        </ul>
 
-                <ol>
-                    <li> In the Component Palette, drag a Table component and drop it on the page.</li>
-                    <li>Use the Table component's <a target="_blank"
-                            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
-                            Data Quick Start</a> to map your table to the <code>getall_activities-Attachments</code>
-                        endpoint.</li>
-                    <li>In the Bind Data page of the Add Data dialog, select the following items
-                        from the endpoint structure:
-                        <ul>
-                            <li><code>AttachedDocumentId</code></li>
-                            <li><code>Description</code></li>
-                            <li><code>FileName</code></li>
-                            <li><code>Title</code></li>
-                            <li><code>UploadedFileContentType</code></li>
-                            <li><code>href</code> and <code>rel</code> from the node for <code>links</code></li>
-                        </ul>
-                    </li>
-                    <li>In the Define Query page of the Add Data dialog, map the <code>testingActivityID</code> page
-                        variable to the <code>activities_Id</code> of the <code>uriParameters</code> in the
-                        <code>getall_activities-Attachments</code> endpoint.</li>
-                    
-                    
-                    <li>In the Component Palette, drag a Hyperlink component and drop it in the Table component's Cell
-                        Template slot.
-                    </li>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="stepc">
+      <span slot="header">Create the UI</span>
+      <div>
+        <p>Add a Table component to a page in your app and bind it to the data returned
+          by the
+          <code>getall_activities-Attachments</code> endpoint.
+        </p>
 
-                    <li>In the General tab of the Properties pane for the Hyperlink component, enter
-                        <code>Download</code> as the value for the
-                        Text property and in the Events tab, select <strong>Quick Start: ‘click‘</strong> from the New
-                        Event dropdown list to create an
-                        action chain that will download a file attachment from the Oracle Cloud Applications instance.
-                    </li>
-                    <li>In the <code>DownloadAttachment</code> action chain that you have just created, drag and drop a
-                        Call Module Function onto the action chain and click <strong>Select Module Function</strong> to
-                        create a new page module function named <code>getRealAttachedDocumentId</code>.</li>
-                    <li>Write a function that extracts the attachment ID from the Table component row that renders the
-                        <strong>Download</strong> hyperlink.
-                        <pre>
+        <ol>
+          <li> In the Components palette, drag a Table component and drop it on the page.</li>
+          <li>Use the Table component's <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to map your table to the <code>getall_activities-Attachments</code>
+            endpoint.</li>
+          <li>In the Bind Data page of the Add Data dialog, select the following items
+            from the endpoint structure:
+            <ul>
+              <li><code>AttachedDocumentId</code></li>
+              <li><code>Description</code></li>
+              <li><code>FileName</code></li>
+              <li><code>Title</code></li>
+              <li><code>UploadedFileContentType</code></li>
+              <li><code>href</code> and <code>rel</code> from the node for <code>links</code></li>
+            </ul>
+          </li>
+          <li>In the Define Query page of the Add Data dialog, map the <code>testingActivityID</code> page
+            variable to the <code>activities_Id</code> of the <code>uriParameters</code> in the
+            <code>getall_activities-Attachments</code> endpoint.
+          </li>
+
+
+          <li>In the Components palette, drag a Hyperlink component and drop it in the Table component's Cell
+            Template slot.
+          </li>
+
+          <li>In the General tab of the Properties pane for the Hyperlink component, enter
+            <code>Download</code> as the value for the
+            Text property and in the Events tab, select <strong>Quick Start: ‘click‘</strong> from the New
+            Event dropdown list to create an
+            action chain that will download a file attachment from the Oracle Cloud Applications instance.
+          </li>
+          <li>In the <code>DownloadAttachment</code> action chain that you have just created, drag and drop a
+            Call Module Function onto the action chain and click <strong>Select Module Function</strong> to
+            create a new page module function named <code>getRealAttachedDocumentId</code>.</li>
+          <li>Write a function that extracts the attachment ID from the Table component row that renders the
+            <strong>Download</strong> hyperlink.
+            <pre>
 PageModule.prototype.getRealAttachedDocumentId = function(row) {
     var href = row.links[0].href;
     var index = href.indexOf('/child/Attachments/') +
         '/child/Attachments/'.length;
     return href.slice(index);
     };</pre>
-                    </li>
-                    <li>Add a Call REST endpoint action and select the
-                        <code>GET get_activities-Attachments-FileContents</code> endpoint. Use
-                        <code>activities_Attachments_Id</code> as an input parameter.</li>
-                    <li>Drag and drop a Call Module Function onto the success path and click <strong>Select Module
-                            Function</strong> to create a new page module function named <code>download</code>.</li>
-                    <li>Write a function that downloads the content of the attachment (blobData) returned by the Call
-                        REST endpoint action as a file. You can specify
-                        the file name for the downloaded file using the <code>fileName</code> parameter.
-                        <pre>
+          </li>
+          <li>Add a Call REST endpoint action and select the
+            <code>GET get_activities-Attachments-FileContents</code> endpoint. Use
+            <code>activities_Attachments_Id</code> as an input parameter.
+          </li>
+          <li>Drag and drop a Call Module Function onto the success path and click <strong>Select Module
+              Function</strong> to create a new page module function named <code>download</code>.</li>
+          <li>Write a function that downloads the content of the attachment (blobData) returned by the Call
+            REST endpoint action as a file. You can specify
+            the file name for the downloaded file using the <code>fileName</code> parameter.
+            <pre>
  PageModule.prototype.download = function(blobData, contentType, fileName) {
     var element = document.createElement('a');
     element.setAttribute('href', this.preview(blobData, contentType));
@@ -142,40 +150,37 @@ PageModule.prototype.getRealAttachedDocumentId = function(row) {
     document.body.removeChild(element);
   };
  </pre>
-                    </li>
-                </ol>
-            </div>
-        </oj-collapsible>
-        <oj-collapsible id="nextsteps">
-            <span slot="header">Next Steps</span>
-            <div>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="nextsteps">
+      <span slot="header">Next Steps</span>
+      <div>
 
-                <p>By now, you should have a page where you can download a file attachment from a specific activity. The
-                    high-level steps to implement the functionality for the other UI components shown in this recipe are
-                    the same: </p>
-                <ul>
-                    <li>Add a UI component (Button or Hyperlink)</li>
-                    <li>Create an event for the UI component</li>
-                    <li>Add actions, such as Call REST endpoint and Call Module Function, to the
-                        action chain invoked by the UI component event
-                    </li>
-                </ul>
+        <p>By now, you should have a page where you can download a file attachment from a specific activity. The
+          high-level steps to implement the functionality for the other UI components shown in this recipe are
+          the same: </p>
+        <ul>
+          <li>Add a UI component (Button or Hyperlink)</li>
+          <li>Create an event for the UI component</li>
+          <li>Add actions, such as Call REST endpoint and Call Module Function, to the
+            action chain invoked by the UI component event
+          </li>
+        </ul>
 
-                <p>Inspect the code in the VB Cookbook to view the implementation for the remaining UI components. </p>
+        <p>Inspect the code in the VB Cookbook to view the implementation for the remaining UI components. 
+        For the <strong>Upload File</strong> button, the event listener for this button invokes the ShowUploadDialog action chain that
+        opens a Dialog component. The Dialog component includes a File Picker component. The <code>accept</code>
+        attribute of the
+        File Picker component is set to <code>"[[['image/*','application/pdf','.pdf']]]"</code> and an
+        <code>fileSelectionChanged</code> event listener invokes the FilePickerSelectionChanged action chain to get
+        a
+        file through the app's device camera or allow the user to select an image or a PDF file from the device local
+        storage.
+      </p>
 
-                <p>For the <strong>Take Photo</strong> button, the event listener for this button
-                    invokes the
-                    <code>TakePhotoChain</code> action chain that includes the <a target="_blank"
-                        href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-E927312F-B371-4E9E-803A-AA034EBF92C8">Take
-                        Photo action</a>, a specialized Visual Builder action that can take photos
-                    with the app’s device camera or allow the user to select from the device
-                    image library. As the Take Photo action returns a BLOB, the action chain
-                    also includes a Call Module Function (<code>generateFileName</code>) to
-                    generate a random file name to assign to the file before the Call REST
-                    Endpoint action uploads it to the Content Management folder.
-                </p>
-
-            </div>
-        </oj-collapsible>
-    </oj-accordion>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
 </div>

@@ -1,0 +1,44 @@
+{
+    "tests": {
+        "Test 1": {
+            "expectations": [
+                {
+                    "actual": "$page.variables.employeeListSDP",
+                    "matcher": "to.deep.equal",
+                    "expected": {
+                        "responseType": {
+                            "items": []
+                        },
+                        "headers": {},
+                        "transformsContext": {},
+                        "uriParameters": {},
+                        "pagingCriteria": {},
+                        "capabilities": {
+                            "sort": {},
+                            "filter": {
+                                "operators": []
+                            },
+                            "fetchByKeys": {},
+                            "fetchByOffset": {},
+                            "fetchFirst": {}
+                        },
+                        "transforms": {
+                            "request": {},
+                            "response": {}
+                        },
+                        "filterCriterion": {
+                            "op": "$eq",
+                            "attribute": "firstName",
+                            "value": "Nonexistent"
+                        },
+                        "endpoint": "businessObjects/getall_Employee",
+                        "idAttribute": "id",
+                        "itemsPath": "items",
+                        "sortCriteria": [],
+                        "filterCriteria": []
+                    }
+                }
+            ]
+        }
+    }
+   }

@@ -1,0 +1,20 @@
+{
+  "description": "",
+  "variables": {
+    "detail": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "openDialogComponentMethod",
+  "actions": {
+    "openDialogComponentMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('advanced-search-oj-dialog') }}",
+        "method": "open"
+      }
+    }
+  }
+}

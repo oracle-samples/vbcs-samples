@@ -70,61 +70,6 @@
     }
   },
   "chains": {
-    "EmployeeSelectedChain": {
-      "description": "",
-      "variables": {
-
-        "rowData": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "assignEmployee",
-      "actions": {
-        "assignEmployee": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.employee": {
-              "source": "{{ $chain.variables.rowData }}",
-              "auto": "always"
-            }
-          }
-        }
-      }
-    },
-    "DepartmentSelectedChain": {
-      "description": "",
-      "variables": {
-        "rowKey": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      },
-      "root": "assignSelectedDepartment",
-      "actions": {
-        "assignSelectedDepartment": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.selectedDepartmentId": {
-              "source": "{{ $chain.variables.rowKey }}"
-            }
-          },
-          "outcomes": {
-            "success": "resetEmployee"
-          }
-        },
-        "resetEmployee": {
-          "module": "vb/action/builtin/resetVariablesAction",
-          "parameters": {
-            "variables": [
-              "$page.variables.employee"
-            ]
-          }
-        }
-      }
-    }
   },
   "eventListeners": {
     "departmentSelectedRow": {

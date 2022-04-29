@@ -1,0 +1,26 @@
+{
+  "root": "callFunctionGetDatagridData",
+  "description": "",
+  "variables": {},
+  "actions": {
+
+    "assignVariablesData": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.data": {
+          "source": "{{ $chain.results.callFunctionGetDatagridData }}"
+        }
+      }
+    },
+    "callFunctionGetDatagridData": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getDatagridData"
+      },
+      "outcomes": {
+        "success": "assignVariablesData"
+      }
+    }
+  }
+}

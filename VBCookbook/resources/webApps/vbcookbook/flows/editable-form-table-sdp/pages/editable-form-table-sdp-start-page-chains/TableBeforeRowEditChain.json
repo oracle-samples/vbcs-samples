@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "root": "assignVariablesCurrentRow",
+  "actions": {
+    "assignVariablesCurrentRow": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentRow": {
+          "source": "{{ $variables.rowData }}",
+          "auto": "always"
+        }
+      }
+    }
+  },
+  "variables": {
+    "rowData": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

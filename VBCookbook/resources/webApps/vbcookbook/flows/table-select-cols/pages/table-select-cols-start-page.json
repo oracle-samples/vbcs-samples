@@ -154,57 +154,6 @@
     }
   },
   "chains": {
-    "updateTableColumns": {
-      "root": "assignColumns",
-      "description": "",
-      "variables": {
-        "event": {
-          "required": false,
-          "input": "fromCaller",
-          "type": {
-            "oldValue": "object[]",
-            "value": "object[]"
-          }
-        }
-      },
-      "actions": {
-        "assignColumns": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.columns": {
-              "source": "{{ $variables.event.value.map(v=>$page.variables.columnOptions.find(i=>i.field === v)) }}",
-              "reset": "empty"
-            }
-          }
-        }
-      }
-    },
-    "showAllColumns": {
-      "description": "",
-      "root": "assignColsAndMenuValue",
-      "actions": {
-        "assignColsAndMenuValue": {
-          "module": "vb/action/builtin/assignVariablesAction",
-          "parameters": {
-            "$page.variables.columns": {
-              "source": "{{ $page.variables.columnOptions }}",
-              "reset": "empty"
-            },
-            "$page.variables.menuValue": {
-              "source": "{{ $page.variables.columnOptions.map(op=>op.field) }}",
-              "reset": "empty"
-            }
-          }
-        }
-      },
-      "variables": {
-        "detail": {
-          "required": true,
-          "type": "any",
-          "input": "fromCaller"
-        }
-      }
-    }
   },
   "eventListeners": {
     "showColumnsHandler": {

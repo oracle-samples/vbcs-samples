@@ -30,7 +30,8 @@
           "language-switcher",
           "customize-fetch-chain",
           "oj-refresher",
-          "tree-navigation"
+          "tree-navigation",
+          "many-editable-rows"
         ]
       },
       {
@@ -41,7 +42,8 @@
           "cascading-lov",
           "cache-lov",
           "fa-lovs",
-          "select-single"
+          "select-single",
+          "select-many"
         ]
       },
       {
@@ -74,7 +76,8 @@
           "table-complex-filters",
           "table-actions",
           "table-many-to-many",
-          "batch-editable-table",         
+          "batch-editable-table-bdp",
+          "batch-editable-table",
           "editable-form-table-sdp",
           "table-dnd",
           "custom-no-records-message",
@@ -103,7 +106,9 @@
         "label": "Data Grid",
         "icon": "grid-view-small",
         "items": [
-          "datagrid-freeze"
+          "data-grid-styling",
+          "data-grid-nested-header",
+          "data-grid-merged"
         ]
       },
       {
@@ -119,7 +124,7 @@
   },
   {
     "id": "dynamicUI",
-    "label": "Dynamic UI",
+    "label": "Dynamic Components",
     "icon": "form-layout",
     "items": [
       "dynamic-form-multiple-layout",
