@@ -1,6 +1,0 @@
-id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,name,location,budget
-100,2015-06-06T00:00:00,2015-06-06T00:00:00,brian.fry@oracle.com,brian.fry@oracle.com,Sales,Chicago,200000.0
-200,2014-04-03T00:00:00,2014-04-03T00:00:00,brian.fry@oracle.com,brian.fry@oracle.com,Human Resources,Los Angeles,15000.0
-300,2015-03-23T00:00:00,2015-03-23T00:00:00,brian.fry@oracle.com,brian.fry@oracle.com,Research,Houston,120000.0
-400,2015-02-17T00:00:00,2015-02-17T00:00:00,brian.fry@oracle.com,brian.fry@oracle.com,Operations,Boston,80000.0
-500,2015-05-11T00:00:00,2015-05-11T00:00:00,brian.fry@oracle.com,brian.fry@oracle.com,Accounting,New York,35000.0

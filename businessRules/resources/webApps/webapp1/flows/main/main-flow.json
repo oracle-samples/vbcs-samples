@@ -1,9 +1,0 @@
-{
-  "flowModelVersion": "19.3.1",
-  "id": "main",
-  "description": "Expenses application",
-  "defaultPage": "ListExpenses",
-  "chains": {},
-  "types": {},
-  "variables": {}
-}

@@ -34,38 +34,6 @@ Depending on the sample, there may be additional resources made available in ord
 
 ## List of Samples
 
-### businessRules 
-
-This sample shows how server-side triggers and scripting can be used to implement custom business rules in the application.
-
-### ComplexCRUDWithRelationships
-
-This sample explores Many:One and Many:Many relationships and performing CRUD operations on related data.
-
-### ContactsCRUD
-
-Simple application with pages for data retrieval (fetch), create, udpdate, and delete operations on a business object. 
-
-### DaisyChainCombos
-
-This sample shows three cascading combo boxes and how a city selection can be broken down first into selection of continent, then country in that content, and finally city in that country.
-
-### drillDownFromList
-
-Application demonstrates several techniques for implementing drill down from a list to another page with details from the selected row.
-
-### importBosFromExcel
-
-This sample demonstrates how business objects can be created from a spreadsheet or csv file.
-
-### masterDetailDetail
-
-This application presents 3 levels of master-detail on a single page.
-
-### webServiceConsumption
-
-This sample shows how to consume an external REST API and create custom UI to interact with the data from that API.
-
 ### ApplicationsCloudUITheme
 
 This is the source code project for a custom SaaS theme for use in JET and VBCS projects. See the README.md file for information on how to generate and install the theme.
@@ -73,3 +41,7 @@ This is the source code project for a custom SaaS theme for use in JET and VBCS 
 ### VBCookbook
 
 This is the source code project for VB Cookbook. See the README.md file for information on how to use it.
+
+### DashboardTemplate
+
+This is an example of responsive application with navigation menu bar and a dashboard like page. The application responsively scales from desktop size down to mobile phone size.
