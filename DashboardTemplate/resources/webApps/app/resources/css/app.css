@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2021, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -197,20 +197,6 @@
 
 /* Navigation menu styling: */
 
-.tree-navigation-menu-panel {
-  left: -300px;
-  position: absolute;
-  transition: left 750ms ease-in-out;
-}
-.tree-navigation-content-panel {
-  transition: margin-left 750ms ease-in-out;
-}
-.tree-navigation-menu-out .tree-navigation-menu-panel {
-  left: 0;
-} 
-.tree-navigation-menu-out .tree-navigation-content-panel {
-  margin-left: 300px;
-}
 
 /* Stable theme does not support color inversion (JET-48115)
    and to keep the left navigation menu appearance similar to the Redwood theme 
@@ -226,7 +212,7 @@
   --oj-heading-text-color:        rgb(var(--oj-palette-neutral-rgb-0));
 }
 
-.demo-contrast-marker .demo-contrast-background {
+.demo-contrast-background {
   background-color: RGB(var(--oj-palette-neutral-rgb-160));
   color: var(--oj-core-text-color-primary); }
 

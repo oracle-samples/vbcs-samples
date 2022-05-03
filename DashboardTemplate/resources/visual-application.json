@@ -1,14 +1,21 @@
 {
-    "vbcs.dt.version": "20211019-22.01.99",
+    "vbcs.dt.version": "20220315-22.07.0",
     "dependencies": {
         "upgrade": "micro",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/11.0.7",
-            "telemetry": "https://static.oracle.com/cdn/trace/4.0.1",
-            "visualRuntime": "https://static.oracle.com/cdn/vb/2201.0.0"
+            "jet": "https://static.oracle.com/cdn/jet/11.1.6",
+            "telemetry": "https://static.oracle.com/cdn/trace/5.0.0",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2204.4.0"
         }
     },
     "rootURL": "dashboard-template",
-    "version": "1.0",
-    "source.version": "2201"
+    "version": "1.0.9",
+    "source.version": "2204",
+    "migration": {
+        "2204": [
+            "ActionsJsonMigrator",
+            "ACTJsSpecsMigrator",
+            "AppUIRootPageMigrator"
+        ]
+    }
 }

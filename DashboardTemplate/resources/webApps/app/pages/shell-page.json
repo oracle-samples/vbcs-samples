@@ -8,6 +8,10 @@
         "keyAttributes": "id",
         "itemType": "page:messageType"
       }
+    },
+    "openDrawer": {
+      "type": "boolean",
+      "defaultValue": "[[ $application.responsive.lgUp ]]"
     }
   },
   "metadata": {},
@@ -40,14 +44,6 @@
         }
       ]
     },
-    "vbEnter": {
-      "chains": [
-        {
-          "chainId": "initNavigationMenu",
-          "parameters": {}
-        }
-      ]
-    },
     "vbNotification": {
       "chains": [
         {
@@ -74,6 +70,9 @@
     "components": {
       "oj-button": {
         "path": "ojs/ojbutton"
+      },
+      "oj-drawer-layout": {
+        "path": "ojs/ojdrawerlayout"
       },
       "oj-messages": {
         "path": "ojs/ojmessages"

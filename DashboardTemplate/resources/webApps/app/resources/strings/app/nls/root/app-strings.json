@@ -15,7 +15,7 @@
   "@app_footer_about_link": {
     "description": "About link on shell footer"
   },
-  "app_footer_copyright": "Created with Visual Builder, Copyright © 2021",
+  "app_footer_copyright": "Created with Visual Builder, Copyright © 2022",
   "@app_footer_copyright": {
     "description": "Copyright text on shell footer"
   },

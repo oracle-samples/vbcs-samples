@@ -1,29 +1,13 @@
 {
   "description": "",
-  "root": "if",
+  "root": "assignVariables",
   "actions": {
-    "if": {
-      "module": "vb/action/builtin/ifAction",
+    "assignVariables": {
+      "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
-        "condition": "[[ $application.responsive.lgUp ]]"
-      },
-      "outcomes": {
-        "true": "callFunctionAnimateNavMenu",
-        "false": "callFunctionToggleDrawer"
-      }
-    },
-    "callFunctionAnimateNavMenu": {
-      "module": "vb/action/builtin/callModuleFunctionAction",
-      "parameters": {
-        "module": "[[ $functions ]]",
-        "functionName": "animateNavMenu"
-      }
-    },
-    "callFunctionToggleDrawer": {
-      "module": "vb/action/builtin/callModuleFunctionAction",
-      "parameters": {
-        "module": "[[ $functions ]]",
-        "functionName": "toggleDrawer"
+        "$page.variables.openDrawer": {
+          "source": "{{ !$page.variables.openDrawer }}"
+        }
       }
     }
   },
