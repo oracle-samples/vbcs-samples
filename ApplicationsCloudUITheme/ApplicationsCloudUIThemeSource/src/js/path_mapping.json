@@ -227,6 +227,21 @@
       }
     },
 
+    "preact/compat": {
+      "cdn": "3rdparty",
+      "cwd": "node_modules/preact/compat/dist",
+      "debug": {
+        "src":  ["compat.umd.js", "compat.umd.js.map"],
+        "path": "libs/preact/compat/dist/compat.umd.js",
+        "cdnPath": "preact/compat/dist/compat.umd"
+      },
+      "release": {
+        "src":  ["compat.umd.js", "compat.umd.js.map"],
+        "path": "libs/preact/compat/dist/compat.umd.js",
+        "cdnPath": "preact/compat/dist/compat.umd"
+      }
+    },
+
     "preact/debug": {
       "cdn": "3rdparty",
       "cwd": "node_modules/preact/debug/dist",
