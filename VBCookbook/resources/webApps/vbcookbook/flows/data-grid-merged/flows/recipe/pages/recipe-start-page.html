@@ -26,7 +26,7 @@
               under the Resources/js folder.</p>
           </li>
           <li>Replace the content of the <code>DemoDataGridProvider.js</code> file with the following code
-            <code>DataGridProvider</code> implementation that internally uses an array for its data. 
+            <code>DataGridProvider</code> implementation that internally uses an array for its data.
             <oj-collapsible id="addFile">
               <a href="" slot="header">Expand to view code</a>
               <div>
@@ -286,13 +286,12 @@
       <span slot="header">Build the Data Array for the Data Grid</span>
       <div>
         <ol>
-
-
-<li>In the JavaScript tab of your page, add the <code>datagrid/DemoDataGridProvider</code> dependency and declare a variable, <code>cols</code>, that contains column details.
-  <oj-collapsible id="variable-code">
-    <a href="" slot="header">Expand to view code</a>
-    <div>
-      <pre>
+          <li>In the JavaScript tab of your page, add the <code>datagrid/DemoDataGridProvider</code> dependency and
+            declare a variable, <code>cols</code>, that contains column details.
+            <oj-collapsible id="variable-code">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
 define(["datagrid/DemoDataGridProvider"],
 function (dgp) {
   'use strict';
@@ -306,14 +305,16 @@ function (dgp) {
     { "headerText": "Phone", "field": "phoneNumber" }
   ];
 </pre>
-      </div>
-</li>
+              </div>
+            </oj-collapsible>
+          </li>
 
-<li>Add the following constructor code to generate the required <code>dataArray</code> to pass to the <code>DataGridProvider</code> implementation. 
-  <oj-collapsible id="constructor-code">
-    <a href="" slot="header">Expand to view code</a>
-    <div>
-<pre>
+          <li>Add the following constructor code to generate the required <code>dataArray</code> to pass to the
+            <code>DataGridProvider</code> implementation.
+            <oj-collapsible id="constructor-code">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
   var PageModule = function PageModule() {
 
     this.getColHeaders = () => {
@@ -398,18 +399,21 @@ function (dgp) {
     };
   }; 
 </pre>
-  </div>
-</oj-collapsible>
-</li>
+              </div>
+            </oj-collapsible>
+          </li>
 
-        <li>In the Variables tab of your page, create a variable named <code>data</code> of type <code>Any</code>.
-        </li>
-        <li>In the Event Listeners tab of your page, add a <code>vbEnter</code> lifecycle event listener and create an
-          action chain. </li>
-        <li>In the action chain, add a Call REST action that fetches employee data and set <code>getall_Employee</code> as the value for Response Type in the Properties pane.</li>
-        <li>Add a Call Function action and, in the Properties pane, click <strong>Create</strong>
-          beside the Function Name field to create a new function named <code>getDatagridData</code>.</li>
-          <li>Pass the result of the Call REST action (<code>$chain.results.callRestGetallEmployee.body.items</code>) as a parameter to the
+          <li>In the Variables tab of your page, create a variable named <code>data</code> of type <code>Any</code>.
+          </li>
+          <li>In the Event Listeners tab of your page, add a <code>vbEnter</code> lifecycle event listener and create an
+            action chain. </li>
+          <li>In the action chain, add a Call REST action that fetches employee data and set
+            <code>getall_Employee</code> as the value for Response Type in the Properties pane.
+          </li>
+          <li>Add a Call Function action and, in the Properties pane, click <strong>Create</strong>
+            beside the Function Name field to create a new function named <code>getDatagridData</code>.</li>
+          <li>Pass the result of the Call REST action (<code>$chain.results.callRestGetallEmployee.body.items</code>) as
+            a parameter to the
             function.
             <pre>
 PageModule.prototype.getDatagridData = function (items) {
@@ -424,7 +428,8 @@ PageModule.prototype.getDatagridData = function (items) {
     );
     return this.dataGridProvider;
   };
-  </pre></li>
+  </pre>
+          </li>
           <li>Add an Assign Variable action and assign the result of the <code>getDatagridData</code> function to the
             <code>data</code> page variable.
           </li>
@@ -437,31 +442,31 @@ PageModule.prototype.getDatagridData = function (items) {
       <div>
         <p>In the Code view of the Page Designer, add an empty <code>oj-data-grid</code>
           tag, then add the following properties:</p>
-          <ul>
-            <li><code>id</code> to value <code>datagrid</code></li>
-            <li>
-              <code>style</code> to value
-              <code>width:100%;
+        <ul>
+          <li><code>id</code> to value <code>datagrid</code></li>
+          <li>
+            <code>style</code> to value
+            <code>width:100%;
     min-height:25rem;
     height:calc(75vh - 10px);
     min-width: 300px</code>
-            </li>
-            <li>
-              <code>aria-label</code> to value <code>Data Grid Cell Based Grid Demo</code>
-            </li>
-            <li>
-              <code>data</code> to value
-              <code>[[ $page.variables.data ]]</code>
-            </li>
-            <li><code>header.column.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code>
-            </li>
-            <li><code>header.row.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code></li>
-            <li><code>header.row.style</code> to value <code>"width:120px;"</code></li>
-            <li><code>scroll-policy</code> to value <code>"loadMoreOnScroll"</code></li>
-            <li>Add a template with slot <code>cellTemplate</code> to display the data for headers and
-              cells
-              of the datagrid.</li>
-          </ul>
+          </li>
+          <li>
+            <code>aria-label</code> to value <code>Data Grid Cell Based Grid Demo</code>
+          </li>
+          <li>
+            <code>data</code> to value
+            <code>[[ $page.variables.data ]]</code>
+          </li>
+          <li><code>header.column.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code>
+          </li>
+          <li><code>header.row.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code></li>
+          <li><code>header.row.style</code> to value <code>"width:120px;"</code></li>
+          <li><code>scroll-policy</code> to value <code>"loadMoreOnScroll"</code></li>
+          <li>Add a template with slot <code>cellTemplate</code> to display the data for headers and
+            cells
+            of the datagrid.</li>
+        </ul>
       </div>
     </oj-collapsible>
   </oj-accordion>

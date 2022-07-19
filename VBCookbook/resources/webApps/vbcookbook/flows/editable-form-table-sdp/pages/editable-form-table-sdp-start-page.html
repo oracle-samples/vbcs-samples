@@ -39,7 +39,7 @@
             </td>
             <td class="oj-sm-padding-0-vertical">
               <oj-button chroming="borderless" on-oj-action="[[$listeners.editOjAction]]"
-                :id="[['edit-'+$current.index]]">
+                :id="[['edit-'+$current.key]]">
                 <span class="vb-icon vb-icon-pencil"></span>
               </oj-button>
             </td>
@@ -47,7 +47,7 @@
             <!-- ko if: row.mode === "edit" -->
 
             <td colspan="5" class="oj-form-control-default oj-sm-padding-2x">
-              <oj-form-layout :id="[['form-'+$current.index]]" max-columns="2" direction="row">
+              <oj-form-layout :id="[['form-'+$current.key]]" max-columns="2" direction="row">
                 <oj-input-text label-hint="First Name" value="{{ $variables.currentRow.firstName }}" class="editable">
                 </oj-input-text>
                 <oj-input-text label-hint="Last Name" value="{{ $variables.currentRow.lastName }}" class="editable">
@@ -58,9 +58,9 @@
                 </oj-input-text>
               </oj-form-layout>
               <oj-button chroming="outlined" on-oj-action="[[$listeners.cancelOjAction]]"
-                :id="[['cancel-'+$current.index]]">Cancel
+                :id="[['cancel-'+$current.key]]">Cancel
               </oj-button>
-              <oj-button chroming="solid" on-oj-action="[[$listeners.saveOjAction]]" :id="[['save-'+$current.index]]">
+              <oj-button chroming="solid" on-oj-action="[[$listeners.saveOjAction]]" :id="[['save-'+$current.key]]">
                 Save</oj-button>
             </td>
             <!-- /ko -->

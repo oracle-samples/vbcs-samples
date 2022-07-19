@@ -1,0 +1,161 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>
+            Install the JET Dynamic Table component from the Component Exchange,
+            then drag and drop it on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure Dynamic UI</strong>.
+          </li>
+          <li>
+            In the Configure Dynamic UI dialog that appears, choose the business
+            object or REST endpoint that you want to use as the data source for
+            the form, and click <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure Dynamic UI dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Field Template Event</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and click
+            <strong>Next</strong>, and then click <strong>Finish</strong>.
+            <ul>
+              <li><code>email</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>salary</code></li>
+              <li><code>hireDate</code></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Create Field Template and Event</h1>
+      <div>
+        <ol>
+          <li>In the Dynamic UIs tab, select <strong>Employee</strong>.</li>
+          <li>
+            In the Fields tab, click <strong>+ Custom Field</strong> to create a
+            new custom field with an ID value of <code>nameVF</code> and a type of <code>Object (Virtual Field)</code>.
+          </li>
+          <li>In the Properties pane, click <strong>Add</strong> beside Fields to add references to the <code>id</code>
+            and <code>firstName</code> fields.</li>
+          <li>
+            In the Rule Sets tab for the
+            <code>Field Template Event</code>, open the
+            <code>default</code> layout and select the <code>nameVF</code> field
+            in the list of fields.
+          </li>
+          <li>
+            In the Properties pane, click <strong>Create</strong> to create a new template,
+            <code>Table Field Template</code>, for the <code>nameVF</code> virtual field.
+          </li>
+          <li>
+            In the Code view of the template page, replace the content of <code>Table Field Template</code> with the
+            following code that creates a hyperlink on the <code>firstName</code> attribute:
+            <pre>
+&lt;template id="tableFieldTemplate">
+  &lt;a id="nameLink" href="#" :_empId="[[ $value.id ]]">
+    &lt;oj-bind-text value="[[ $value.firstName ]]">&lt;/oj-bind-text>
+  &lt;/a>
+&lt;/template></pre>
+          </li>
+          <li>Still in the Code view, select the anchor tag (<code>&lt;a ...></code>) and, in the Events tab of the Properties pane, create an <code>on-click</code> event and a corresponding action chain.
+            </li>
+          <li>In the action chain, create an input parameter variable, <code>empId</code>, and pass the value from event as <code>$event.target.attributes['_empId'].value</code>.</li>  
+        
+          <li>In the Events tab of the Employee layout, click <strong>+ Custom Event</strong> to create a custom event,
+            <code>empDetail</code>, which emits an event to the page and, in the Properties pane, add a payload
+            parameter, <code>empId</code>, of type <code>Any</code>.
+          </li>
+          <li>
+            In the HyperlinkClickChain action chain, add a Fire Event action and pass the value of the
+            <code>empId</code> action chain variable
+            to the <code>empId</code> payload parameter.
+          </li>
+          <li>To add a label hint for the virtual field, in the Source tab, expand <code>dynamicLayouts</code> and
+            <code>Employee</code> to open the <code>data-decription-overlay.json</code>
+            file.
+          </li>
+          <li>In the <code>data-decription-overlay.json</code> file, add <code>"labelHint": "Name"</code> to the
+            <code>nameVF</code> virtual field.
+            <pre>
+"nameVF": {
+  "type": "object",
+  "labelHint": "Name",
+  "properties": {
+              </pre>
+
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-3">
+      <h1 slot="header">Create Employee Detail Page</h1>
+      <div>
+        <p>
+
+        </p>
+        <ol>
+          <li>
+            <p>In the Web Applications tab, create a new page in your app named
+              <code>dynamic-table-template-event-detail</code>.
+            </p>
+            <p>This page shows the employee details that a user will navigate to when they click the hyperlink that is
+              configured on the first name of the respective employee.</p>
+          </li>
+          <li>In the Variables tab, create a page variable, <code>empId</code>, with the Required option selected on
+            Input Parameter.</li>
+          <li>In the Components palette, drag and drop a Dynamic Form onto the page and, in the Quick Start tab of the
+            Properties pane, click <strong>Configure as Detail
+            Form</strong>.</li>
+          <li>In the Define Query page of the Configure as Detail Form dialog, map the <code>empId</code> variable in
+            the Sources section to the <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+          <li>In the Components palette, drag and drop a Button component onto the page and, in the Events tab, add an
+            <code>ojAction</code> event to create an action chain where you add a Navigate Back action to navigate the
+            user back to the original page.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-4">
+      <h1 slot="header">Add an Event and Action Chain to the Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>In the main page that contains the Dynamic Table, select the Dynamic Table and, in the Events tab of the
+            Properties pane, click <strong>+ New Event</strong> and select
+            <strong>On 'empDetail'</strong> (the event created in the Employee layout) to create a corresponding action
+            chain.
+          </li>
+          <li>In the action chain, add a Navigate action to open the employee details page and map the
+            <code>empId</code> action chain variable from Source to the <code>empId</code> parameter in Target.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

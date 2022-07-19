@@ -15,9 +15,9 @@
     <oj-collapsible id="oj-collapsible-1494599579-12">
       <h1 slot="header">Render Multiple Fields Using itemTemplate Slot</h1>
       <div>
-        <p>This recipe demonstrates how you use the Select Single component and the itemTemplate slot to render additional
+        <p>This recipe demonstrates how you use the Select Single component and the itemTemplate slot to render
+          additional
           items in the dropdown list.</p>
-
         <ol>
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>Use the component’s <a target="_blank"
@@ -87,7 +87,8 @@ PageModule.prototype.getName=function(context){
             collectionTemplate slot.</li>
           <li>In the Select Single component’s Properties pane, in the Collection Template section under the General
             tab, click the <strong>Template</strong> link. In the Properties pane for Template, set Data-Oj-As to
-            <strong>collection</strong>.</li>
+            <strong>collection</strong>.
+          </li>
 
 
           <li>In the General tab of the Select Single component’s Properties pane, click <strong>table</strong> under
@@ -189,6 +190,7 @@ PageModule.prototype.getName=function(context){
           </li>
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>In the Data tab of the Properties pane, set Data to <code>departmentADP</code>.</li>
+          <li>Set the Item Text attribute of the Select Single component to <code>departmentName</code>.</li>
         </ol>
       </div>
     </oj-collapsible>
@@ -203,11 +205,13 @@ PageModule.prototype.getName=function(context){
     <oj-collapsible id="oj-collapsible-1494599579-11">
       <h1 slot="header">Grouping Rows In Categories</h1>
       <div>
-        <p>This recipe shows you how to display different categories of results by group. Here, an ArrayTreeDataProvider references hierarchical data, and allows filtering of these data items.
+        <p>This recipe shows you how to display different categories of results by group. Here, an ArrayTreeDataProvider
+          references hierarchical data, and allows filtering of these data items.
         </p>
         <ol>
           <li>In the <strong>Types</strong> tab of your page, click <strong>+ Type</strong> and select
-            <strong>Custom</strong>. </li>
+            <strong>Custom</strong>.
+          </li>
 
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
@@ -224,7 +228,8 @@ PageModule.prototype.getName=function(context){
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
               Create a page variable</a> named <code>groupingDept</code> of type Array and Array Item Type of
-            <code>obj</code>. </li>
+            <code>obj</code>.
+          </li>
           <li><a target="_blank"
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
               Create a page variable</a> named <code>departmentTDP</code> of type Any. </li>
@@ -322,10 +327,14 @@ PageModule.prototype.getName=function(context){
     <oj-collapsible id="oj-collapsible-1494599579-45">
       <h1 slot="header">Search Multiple Fields with Contains Operand</h1>
       <div>
-        <p>This recipe shows you how to implement search on multiple columns displayed in a Single Select component. By default, search uses the <code>sw</code> operand (Starts With). The recipe demonstrates how to implement search using the <code>co</code> operand (Contains).</p>
+        <p>This recipe shows you how to implement search on multiple columns displayed in a Single Select component. By
+          default, search uses the <code>sw</code> operand (Starts With). The recipe demonstrates how to implement
+          search using the <code>co</code> operand (Contains).</p>
         <ol>
-          <li>Follow the steps in the Item Template recipe to create a Single Select component showing multiple columns of data.</li>
-          <li>In the JSON tab, set a transforms request to a new JavaScript function, <code>processFilter</code>. This function overrides the default search to instead use <code>co</code> operand.
+          <li>Follow the steps in the Item Template recipe to create a Single Select component showing multiple columns
+            of data.</li>
+          <li>In the JSON tab, set a transforms request to a new JavaScript function, <code>processFilter</code>. This
+            function overrides the default search to instead use <code>co</code> operand.
             <pre>
     "employeeListSDP2": {
       "type": "vb/ServiceDataProvider",
@@ -351,7 +360,8 @@ PageModule.prototype.getName=function(context){
             </pre>
           </li>
 
-          <li>In the JavaScript tab, include <code>vb/BusinessObjectsTransforms</code> and create a new function named <code>processFilter</code>.
+          <li>In the JavaScript tab, include <code>vb/BusinessObjectsTransforms</code> and create a new function named
+            <code>processFilter</code>.
             <pre>
   PageModule.prototype.processFilter = function (configuration, options, transformsContext) {
     var textValue = options && options.text;

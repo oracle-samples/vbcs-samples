@@ -42,13 +42,8 @@
     </div>
 
     <div class="oj-flex">
-      <oj-table
-        id="filters-table"
-        scroll-policy="loadMoreOnScroll"
-        scroll-policy-options='{"fetchSize": 5}'
-        style="height: 300px; width: 100%"
-        class="oj-flex-item"
-        columns='[
+      <oj-table id="filters-table" scroll-policy="loadMoreOnScroll" style="height: 300px; width: 100%"
+        class="oj-flex-item" columns='[
         {
           "headerText":"Employee No",
           "field":"empno"
@@ -58,8 +53,7 @@
           "field":"ename",
           "template" : "name"
         }
-      ]'
-        data="{{ $page.variables.getEmployeesListSDP }}"
+      ]' data="{{ $page.variables.getEmployeesListSDP }}" scroll-policy-options='{"fetchSize": 5}'
       >
         <template slot="name">
           <oj-highlight-text

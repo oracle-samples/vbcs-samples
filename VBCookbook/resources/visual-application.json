@@ -1,26 +1,22 @@
 {
-    "vbcs.dt.version": "20211213-22.04.1",
-    "version": "1.4.2",
-    "source.version": "2204",
+    "vbcs.dt.version": "20220614-22.10.0",
+    "version": "1.4.10",
+    "source.version": "2207",
     "rootURL": "vbcookbook",
     "dependencies": {
         "upgrade": "micro",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/11.1.6",
-            "visualRuntime": "https://static.oracle.com/cdn/vb/2204.3.0",
-            "telemetry": "https://static.oracle.com/cdn/trace/5.0.0"
+            "jet": "https://static.oracle.com/cdn/jet/12.0.4",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2207.0.0",
+            "telemetry": "https://static.oracle.com/cdn/trace/6.0.1"
         }
     },
     "migration": {
-        "2204": [
-            "RTIconFontImportMigrator",
-            "TabbedWebAppShellCssMigrator",
-            "NavigateActionMigrator",
-            "ValidationImportMigrator",
-            "ActionsJsonMigrator",
-            "RemoveMetadataImportMetadataMigrator",
+        "2207": [
             "ACTJsSpecsMigrator",
-            "AppUIRootPageMigrator"
+            "AppUIRootPageMigrator",
+            "RemoveReadOnlyAttrDynamicFormMigrator",
+            "RemoveMetadataPathAttrMigrator"
         ]
     }
 }

@@ -1,0 +1,329 @@
+{
+  "title": "  ",
+  "description": "",
+  "variables": {
+    "blankRowBuffer": {
+      "defaultValue": {
+        "jobObject": {
+          "items": [
+            {
+              "jobTitle": ""
+            }
+          ]
+        },
+        "job": 0
+      },
+      "type": "EmployeeType"
+    },
+
+    "employeesBDP": {
+      "type": "any"
+    },
+    "employeesSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "responseType": "getall_Employee_SDP",
+        "itemsPath": "items",
+        "keyAttributes": "id",
+        "uriParameters": {
+          "orderBy": "lastName"
+        }
+      },
+      "required": false,
+      "input": "none"
+    },
+    "isCurrentRowBeingDeleted": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "jobListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Job",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallJobResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "jobTitle"
+          ]
+        }
+      }
+    },
+    "currentRowBuffer": {
+      "type": "EmployeeType",
+      "defaultValue": {
+        "jobObject": {
+          "items": [
+            {
+              "jobTitle": ""
+            }
+          ]
+        },
+        "job": 0
+      }
+    },
+    "disableRowEditExit": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "noChangesToSave": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "editRow": {
+      "type": "any",
+      "defaultValue": {}
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    
+    "EmployeeType": {
+      "commissionPct": "number",
+      "department": "number",
+      "departmentObject": {
+        "items": [{
+          "departmentName": "string"
+        }]
+      },
+      "email": "string",
+      "firstName": "string",
+      "hireDate": "string",
+      "id": "number",
+      "job": "number",
+      "jobObject": {
+        "items": [{
+          "jobTitle": "string",
+          "maxSalary": "number",
+          "minSalary": "number"
+        }]
+      },
+      "lastName": "string",
+      "manager": "number",
+      "phoneNumber": "string",
+      "salary": "number"
+    },
+    "@decorators.EmployeeType": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getall_Employee_SDP": {
+      "items": [
+        {
+          "commissionPct": "number",
+          "department": "number",
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string",
+                "id": "number",
+                "manager": "number",
+                "totalSalary": "number"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "job": "number",
+          "jobObject": {
+            "items": [
+              {
+                "id": "number",
+                "jobTitle": "string",
+                "maxSalary": "number",
+                "minSalary": "number"
+              }
+            ]
+          },
+          "lastName": "string",
+          "manager": "number",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "getallJobResponse": {
+      "items": [{
+        "id": "number",
+        "jobTitle": "string"
+      }]
+    },
+    "@decorators.getallJobResponse": {
+      "endpoint": "getall_Job",
+      "service": "businessObjects",
+      "path": "response"
+    }
+
+  },
+  "chains": {
+
+  },
+  "eventListeners": {
+    "batchEditableTableBeforeRowAddEnd": {
+      "chains": [
+        {
+          "chainId": "TableBeforeRowAddEndChain",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ],
+      "preventDefault": "{{ !$page.functions.isFormValid($event.detail, $event, 'addRow') }}"
+    },
+    "submitRowAction": {
+      "chains": [
+        {
+          "chainId": "SubmitRowActionChain",
+          "parameters": {
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "cancelRowAction": {
+      "chains": [
+        {
+          "chainId": "CancelRowActionChain",
+          "parameters": {
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "deleteRowButtonCurrentRowIdOjAction": {
+      "chains": [
+        {
+          "chainId": "DeleteRow",
+          "parameters": {
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}",
+            "key": "{{ $current.key }}",
+            "row": "{{ $current.row }}"
+          }
+        }
+      ]
+    },
+    "ojSelectSingleValue": {
+      "chains": [
+        {
+          "chainId": "JobChanged",
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}",
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "selectValue": {
+      "chains": [
+        {
+          "chainId": "SelectValueChangeChain",
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}",
+            "previousValue": "{{ $event.detail.previousValue }}"
+          }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [{
+        "chainId": "FetchEmployees",
+        "parameters": {}
+      }]
+    },
+    "ojTable18296469261OjBeforeRowEdit": {
+      "chains": [{
+        "chainId": "TableBeforeRowEditChain",
+        "parameters": {
+          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+          "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
+            "event": "{{ $event }}"
+        }
+      }]
+    },
+    "ojTable18296469261OjBeforeRowEditEnd": {
+			"preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail, $event, 'editRow') }}",
+      "chains": [{
+        "chainId": "TableBeforeRowEditEndChain",
+        "parameters": {
+          "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+          "rowData": "{{$page.variables.currentRowBuffer}}",
+          "event": "{{ $event }}",
+          "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
+        }
+      }]
+    },
+    "ojButtonOjAction3": {
+      "chains": [
+        {
+          "chainId": "SubmitActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      },
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
+      }
+    }
+  }
+}

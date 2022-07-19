@@ -104,7 +104,7 @@
             following value for the Prevent Default property so that the application prevents users from ending the row
             edit if necessary, after evaluating the following expressions:
             <p>
-              <code>{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail) || $page.functions.shouldPreventDefault($event, $event.detail) }}</code>
+              <code>{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event, $event.detail) }}</code>
             </p>
           </li>
 

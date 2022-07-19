@@ -21,38 +21,7 @@
         </div>
 
         <div class="oj-flex-bar-end">
-          <oj-toolbar id="toolbar1">
-            <oj-bind-if test="[[!$page.variables.showSearch]]">
-              <oj-menu-button id="docs-link" chroming="borderless" class="oj-button-sm">Help
-                <oj-menu style="display:none;" slot="menu" on-oj-action="[[$listeners.ojMenuOjAction]]">
-                  <oj-option value="vbhelp" id="vbhelp">Visual Builder Help</oj-option>
-                  <oj-option value="vbshelp" id="vbshelp">Visual Builder Studio Help</oj-option>
-                </oj-menu>
-              </oj-menu-button>
-              <a id="open-in-vb-link" class="oj-link-standalone oj-link-subtle-primary oj-sm-margin-4x-start" href="#"
-                on-click="[[$listeners.openInVBActionClicked]]">
-                <oj-bind-text value="[[ $application.responsive.smOnly ? 'Open Recipe' : 'Open in Visual Builder' ]]">
-                </oj-bind-text>
-              </a>
-              <oj-bind-if test="[[$page.variables.showVersions]]">
-                <oj-menu-button id="versionButton" class="oj-sm-only-hide" chroming="borderless">
-                  <oj-bind-text value="[[$variables.versionNumber]]">
-                  </oj-bind-text>
-                  <oj-menu id="versionMenu" slot="menu" style="display:none"
-                    on-oj-action="[[$listeners.onVersionItemSelect]]">
-                    <oj-bind-for-each data="[[$variables.VBVersionItems]]">
-                      <template>
-                        <oj-option value="[[$current.data.label]]">
-                          <oj-bind-text value="[[$current.data.label]]">
-                          </oj-bind-text>
-                        </oj-option>
-                      </template>
-                    </oj-bind-for-each>
-                  </oj-menu>
-                </oj-menu-button>
-              </oj-bind-if>
-            </oj-bind-if>
-            <oj-bind-if test="[[$page.variables.showSearch]]">
+          <oj-toolbar id="toolbar1" class="oj-sm-flex-wrap-nowrap">
               <oj-combobox-one options="[[$page.functions.createOptionsProvider($application.functions.getMetadata())]]"
                 options-keys.label="groupName" options-keys.children="items" options-keys.child-keys.label="recipeName"
                 options-keys.child-keys.value="recipeId"
@@ -63,14 +32,15 @@
                 on-keyup="[[$listeners.recipeSearchComboKeyup]]" on-blur="[[$listeners.recipeSearchComboBlur]]">
                 <span slot="end" class="oj-ux-ico-search vb-icon-24"></span>
               </oj-combobox-one>
-            </oj-bind-if>
-            <oj-bind-if test="[[!$page.variables.showSearch]]">
-              <oj-button id="toggleSearch" style="padding-left: 20px;" class="toggleNavListButton oj-button-lg"
-                display="icons" chroming="borderless" on-oj-action="[[$listeners.toggleSearchOjAction]]">
-                Search
-                <span slot="startIcon" class="oj-ux-ico-search"></span>
-              </oj-button>
-            </oj-bind-if>
+              <oj-menu-button id="docs-link" chroming="borderless" class="oj-button-sm">Help
+                <oj-menu style="display:none;" slot="menu" on-oj-action="[[$listeners.ojMenuOjAction]]">
+                  <oj-option value="vbhelp" id="vbhelp">Visual Builder Documentation</oj-option>
+                  <oj-option value="vbshelp" id="vbshelp">Visual Builder Studio Documentation</oj-option>
+                  <oj-option value="oracleuni" id="oracleuni">Visual Builder Online Training</oj-option>
+                  <oj-option value="customerconnect" id="customerconnect">Visual Builder Customer Connect Forum</oj-option>
+                  <oj-option value="blog" id="customerconnect">Visual Builder Blog</oj-option>
+                </oj-menu>
+              </oj-menu-button>
           </oj-toolbar>
         </div>
       </div>
@@ -78,9 +48,9 @@
 
     <!-- for message notifications -->
     <oj-messages id="vbDefaultNotifier" position="{}" display="general" messages="{{$page.variables.messagesADP}}"
-      on-oj-close="[[$listeners.onMessageClose]]"></oj-messages>
+      on-oj-close="[[$listeners.onMessageClose]]" display-options.category="none"></oj-messages>
 
-    <div class="oj-web-applayout-content-nopad oj-flex" style="overflow-x: auto">
+    <div class="oj-web-applayout-content-nopad oj-flex oj-sm-flex-wrap-nowrap">
       <oj-drawer-layout start-opened="{{ $page.variables.openDrawer }}" class="oj-flex-item">
         <div slot="start" class="oj-contrast-marker oj-contrast-background" style="min-width:300px; height:100%">
           <oj-navigation-list id="navItem" drill-mode="sliding" class="main-navigation oj-navigationlist-nofollow-link"
@@ -103,10 +73,8 @@
         <div class="oj-flex-item oj-flex oj-sm-flex-direction-column" style="overflow-x: auto;">
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
             <div class="oj-flex categorybanner fltr_banner oj-sm-padding-1x-start">
-              <h1 id="h1-89947901-1" class="oj-flex-item oj-sm-12 oj-md-12 oj-typography-heading-lg">
-                <oj-bind-text value="[[$page.variables.demoLabel]]">
-                </oj-bind-text>
-              </h1>
+              
+              
             </div>
           </oj-bind-if>
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
@@ -137,7 +105,7 @@
                       </oj-bind-if>
                       <oj-bind-if test="[[ !($page.variables.openDrawer || $current.index === 0)]]">
                         <div class="oj-flex-item oj-sm-flex-wrap-nowrap">
-                          <span class="oj-link-standalone oj-link-subtle-primary ">
+                          <span :class="[[ $current.index > 0 ? 'oj-link-standalone oj-link-subtle-primary oj-sm-margin-2x-horizontal':'oj-link-standalone oj-link-subtle-primary oj-sm-margin-2x-end' ]]">
                           <oj-bind-text value="[[ $current.data.label]]">
                           </oj-bind-text>
                         </span>
@@ -178,15 +146,15 @@
                         </oj-menu>
                       </oj-menu-button>
                     </oj-bind-if>
+                    
                   </div>
                 </oj-bind-if>
               </div>
             </div>
           </oj-bind-if>
-          <oj-vb-content id="vbRouterContent" class="vbcs-pages-module recipe-area oj-flex-item"
+          <p style="text-align: end; font-style: italic; margin-right: 12px;">Downloaded from <a href="https://vbcookbook.oracle.com" target="_blank">vbcookbook.oracle.com</a></p><oj-vb-content id="vbRouterContent" class="vbcs-pages-module recipe-area oj-flex-item"
             style="overflow-x: auto; width: 100%" config="[[vbRouterFlow]]"></oj-vb-content>
         </div>
-
       </oj-drawer-layout>
 
       
@@ -237,6 +205,7 @@
         <oj-button id="cancelButton" on-oj-action="[[$listeners.cancelButtonOjAction]]">Close</oj-button>
       </div>
     </oj-dialog>
+    
     
   </div>
 </div>

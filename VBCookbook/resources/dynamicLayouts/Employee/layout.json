@@ -414,6 +414,67 @@
           ]
         }
       }
+    },
+    "isDefault6": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "fieldTemplateEvent": {
+      "type": "businessObjects",
+      "layoutType": "table",
+      "label": "Field Template Event",
+      "rules": [
+        "isDefault6"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "table",
+          "layout": {
+            "displayProperties": [
+              "nameVF",
+              "email",
+              "phoneNumber",
+              "salary",
+              "hireDate"
+            ]
+          },
+          "usedIn": [
+            "isDefault6"
+          ]
+        }
+      },
+      "fieldTemplateMap": {
+        "nameVF": "tableFieldTemplate"
+      }
+    },
+    "isDefault7": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "empDetailForm": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "empDetailForm",
+      "rules": [
+        "isDefault7"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "fullName",
+              "email",
+              "hireDate",
+              "phoneNumber",
+              "salary"
+            ],
+            "readonly": true
+          }
+        }
+      }
     }
   },
   "templates": {
@@ -517,6 +578,17 @@
       "dependencies": [
         "ojs/ojinputtext"
       ]
+    },
+    "tableFieldTemplate": {
+      "title": "Table Field Template",
+      "description": "",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "field"
+      },
+      "dependencies": [
+        "ojs/ojinputtext"
+      ]
     }
 
   },
@@ -524,5 +596,28 @@
     "css": [
       "https://static.oracle.com/cdn/vb/vb-icon-font/1/vb-icon-font.css"
     ]
+  },
+  "eventListeners": {
+    "nameLinkClick": {
+      "chains": [
+        {
+          "chainId": "HyperlinkClickChain",
+          "parameters": {
+            "empId": "{{ $event.target.attributes['_empId'].value }}"
+          }
+        }
+      ]
+    }
+  },
+  "interface": {
+    "events": {
+      "empDetail": {
+        "propagationBehavior": "container",
+        "description": "Emits to page",
+        "payloadType": {
+          "empId": "any"
+        }
+      }
+    }
   }
 }

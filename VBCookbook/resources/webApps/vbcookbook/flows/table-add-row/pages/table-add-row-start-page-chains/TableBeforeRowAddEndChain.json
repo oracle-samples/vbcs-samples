@@ -1,0 +1,80 @@
+{
+  "description": "",
+  "root": "if",
+  "actions": {
+    "callFunctionAddItem": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "addItem",
+        "params": [
+          "{{ $chain.results.callFunctionGetNextId }}",
+          "{{ $page.variables.blankRowBuffer }}"
+        ]
+      },
+      "outcomes": {
+        "success": "resetVariablesBlankRowBuffer"
+      }
+    },
+    "resetVariablesBlankRowBuffer": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.blankRowBuffer"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesNoChangesToSave"
+      }
+    },
+    "callFunctionGetNextId": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getNextId"
+      },
+      "outcomes": {
+        "success": "assignVariablesBlankRowBuffer"
+      }
+    },
+    "assignVariablesNoChangesToSave": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.noChangesToSave": {
+          "source": false
+        }
+      }
+    },
+    "assignVariablesBlankRowBuffer": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.blankRowBuffer": {
+          "source": {
+            "id": "{{ $chain.results.callFunctionGetNextId }}"
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionAddItem"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event, 'addRow')  || $chain.variables.event.detail.cancelAdd ]]"
+      },
+      "outcomes": {
+        "false": "callFunctionGetNextId"
+      }
+    }
+  },
+  "variables": {
+    "event": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    }
+  }
+}

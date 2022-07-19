@@ -34,7 +34,7 @@
       <oj-table edit-row="{{ $page.variables.editRow }}" scroll-position="{{ $page.variables.scrollPosition }}"
         scroll-policy="loadAll" id="batch-editable-table" class="oj-flex-item oj-sm-12 oj-md-12"
         data="[[ $variables.employeesADP ]]"
-        columns='[{"headerText":"First Name","field":"firstName","template":"First Name","style":"min-width: 15em; max-width: 15em; width: 15em;"},{"headerText":"Last Name","field":"lastName","template":"Last Name","style":"min-width: 15em; max-width: 15em; width: 15em;"},{"headerText":"Job","field":"jobObject","template":"Job", "sortable":"disabled", "style":"min-width: 15em; max-width: 20em; width: 20em;"},{"headerText":"Salary","field":"salary","template":"Salary", "style":"min-width: 15em; max-width: 15em; width: 15em; padding: 0"},{"headerText":"Salary Range","template":"Salary Range", "sortable":"disabled", "className" : "oj-read-only", "resizable" : "disabled", "style":"min-width: 15em; max-width: 15em; width: 15em;"},{"headerText":"Actions","field":"","template":"Actions", "sortable":"disabled", "resizable" : "disabled", "style":"min-width: 5em; max-width: 5em; width: 5em; padding-top: 0px; padding-bottom: 0px; text-align: center;"}]'
+        columns='[{"headerText":"First Name","field":"firstName","template":"First Name"},{"headerText":"Last Name","field":"lastName","template":"Last Name"},{"headerText":"Job","field":"jobObject","template":"Job", "sortable":"disabled"},{"headerText":"Salary","field":"salary","template":"Salary"},{"headerText":"Salary Range","template":"Salary Range", "sortable":"disabled", "className" : "oj-read-only", "resizable" : "disabled"},{"headerText":"Actions","field":"","template":"Actions", "sortable":"disabled", "resizable" : "disabled", "style":"padding-top: 0px; padding-bottom: 0px; text-align: center;"}]'
         style="max-height: 400px; width: 100%" scroll-policy-options.fetch-size="999"
         scroll-policy-options.max-count="999" edit-mode="rowEdit"
         on-oj-before-row-edit="[[$listeners.ojTable18296469261OjBeforeRowEdit]]"
@@ -46,7 +46,7 @@
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-select-single data="[[$page.variables.jobListSDP]]"
-              :id="[['oj-select-single  -1829646926-1-' + $current.index]]"
+              :id="[['oj-select-single  -1829646926-1-' + $current.key]]"
               on-oj-value-action="[[$listeners.ojSelectSingleValue]]" value="{{ $variables.currentRowBuffer.job }}"
               item-text="jobTitle"
               value-item="{{ { key: $page.variables.currentRowBuffer.job, data: { id: $page.variables.currentRowBuffer.job, jobTitle: $page.variables.currentRowBuffer.jobObject.items[0].jobTitle }} }}">
@@ -68,14 +68,14 @@
             <oj-input-text
               converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
               value='[[typeof $current.data === "number" ? $current.data : null]]'
-              :id="[['oj-input-number-1829646926-1-' + $current.index]]" readonly="true"></oj-input-text>
+              :id="[['oj-input-number-1829646926-1-' + $current.key]]" readonly="true"></oj-input-text>
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-input-text class="editable"
               validators="{{[$functions.salaryInRangeValidator($page.variables.currentRowBuffer, $page.variables.disableRowEditExit)]}}"
               converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
               value="{{ $variables.currentRowBuffer.salary}}"
-              :id="[['oj-input-number-1829646926-1-' + $current.index]]"></oj-input-text>
+              :id="[['oj-input-number-1829646926-1-' + $current.key]]"></oj-input-text>
           </oj-bind-if>
         </template>
         <template slot="First Name">
@@ -84,7 +84,7 @@
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.firstName}}"
-              :id="[['oj-input-text-1829646926-2-' + $current.index]]" required="true"></oj-input-text>
+              :id="[['oj-input-text-1829646926-2-' + $current.key]]" required="true"></oj-input-text>
           </oj-bind-if>
         </template>
         <template slot="Last Name">
@@ -93,7 +93,7 @@
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.lastName}}"
-              :id="[['oj-input-text-1829646926-3-' + $current.index]]" required="true"></oj-input-text>
+              :id="[['oj-input-text-1829646926-3-' + $current.key]]" required="true"></oj-input-text>
           </oj-bind-if>
         </template>
         <template slot="Actions">

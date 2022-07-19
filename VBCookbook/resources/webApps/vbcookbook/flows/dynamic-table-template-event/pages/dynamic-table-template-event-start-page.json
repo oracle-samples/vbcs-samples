@@ -1,0 +1,56 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+  },
+  "eventListeners": {
+    "tableEmpDetail": {
+      "chains": [
+        {
+          "chainId": "TableEmpDetailChain",
+          "parameters": {
+            "empId": "{{ $event.detail.empId }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-data-grid": {
+        "path": "ojs/ojdatagrid"
+      },
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      }
+    }
+  }
+}

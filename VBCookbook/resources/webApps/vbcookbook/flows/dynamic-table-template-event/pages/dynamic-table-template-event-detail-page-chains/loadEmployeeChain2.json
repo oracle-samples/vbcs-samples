@@ -1,0 +1,102 @@
+{
+  "root": "setPendingFormStatus",
+  "description": "Loads Employee record data",
+  "variables": {
+    "fetchedFields": {
+      "type": "any[]",
+      "input": "fromCaller"
+    },
+    "employeeId": {
+      "type": "string",
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "setPendingFormStatus": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employeeDetailFormLoadingStatus2": {
+          "source": "pending"
+        }
+      },
+      "outcomes": {
+        "success": "resetEmployeeData"
+      },
+      "description": "Updates form status to Pending.",
+      "label": "Set Form status to Pending"
+    },
+    "resetEmployeeData": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.employee2"
+        ]
+      },
+      "outcomes": {
+        "success": "testValidInput"
+      },
+      "description": "Clears Employee data the variable holds",
+      "label": "Reset Employee variable"
+    },
+    "testValidInput": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.fetchedFields && $variables.fetchedFields.length && $variables.employeeId !== undefined ]]"
+      },
+      "outcomes": {
+        "true": "loadEmployee"
+      },
+      "description": "Tests the REST call can be initiated",
+      "label": "Test valid input"
+    },
+    "loadEmployee": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Employee",
+        "responseFields": "[[ $variables.fetchedFields ]]",
+        "uriParams": {
+          "Employee_Id": "[[ $variables.employeeId ]]"
+        }
+      },
+      "outcomes": {
+        "success": "assignEmployeeData",
+        "failure": "fireErrorNotification"
+      },
+      "description": "Initiates REST call loading Employee data",
+      "label": "Load Employee record"
+    },
+    "assignEmployeeData": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employee2": {
+          "source": "[[ $chain.results.loadEmployee.body ]]",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "setReadyFormStatus"
+      },
+      "description": "Assigns data loaded by the REST call to the Employee variable",
+      "label": "Assign Employee data"
+    },
+    "setReadyFormStatus": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employeeDetailFormLoadingStatus2": {
+          "source": "ready"
+        }
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Could not load data",
+        "message": "[[ 'Could not load data: status ' + $chain.results.loadEmployee.status ]]",
+        "type": "error",
+        "displayMode": "persist"
+      },
+      "description": "Shows an error message informing about data load failure",
+      "label": "Show error message"
+    }
+  }
+}

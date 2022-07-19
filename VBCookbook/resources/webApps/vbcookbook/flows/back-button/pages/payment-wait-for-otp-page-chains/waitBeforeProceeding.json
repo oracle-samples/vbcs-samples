@@ -1,0 +1,24 @@
+{
+  "root": "callFunctionWait",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "callFunctionWait": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "wait"
+      },
+      "outcomes": {
+        "success": "navigateToPaymentPage2"
+      }
+    },
+    "navigateToPaymentPage2": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "payment-page2",
+        "history": "skip"
+      }
+    }
+  }
+}

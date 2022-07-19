@@ -52,7 +52,7 @@
     },
     "copyright": {
       "type": "string",
-      "defaultValue": "Copyright © 2014, 2021 Oracle and/or its affiliates All rights reserved."
+      "defaultValue": "Copyright © 2014, 2022 Oracle and/or its affiliates All rights reserved."
     },
     "globalLinks": {
       "type": "object[]",
@@ -299,6 +299,9 @@
   },
   "imports": {
     "components": {
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
+      },
       "oj-drawer-layout": {
         "path": "ojs/ojdrawerlayout"
       },
@@ -319,9 +322,6 @@
       },
       "oj-option": {
         "path": "ojs/ojoption"
-      },
-      "oj-radioset": {
-        "path": "ojs/ojradioset"
       },
       "oj-rating-gauge": {
         "path": "ojs/ojgauge"

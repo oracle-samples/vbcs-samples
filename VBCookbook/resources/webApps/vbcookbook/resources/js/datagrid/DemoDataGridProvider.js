@@ -1,7 +1,11 @@
-define(["require", "exports", "ojs/ojeventtarget"], function (require, exports, ojeventtarget_1) {
+/**
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ */
+define(["ojs/ojeventtarget"], function (ojeventtarget) 
+{
   "use strict";
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.DemoDataGridProvider = void 0;
   class DemoDataGridProvider {
     constructor(dataValues, counts, rowStartHeaderValues, columnHeaderLabels, rowStartHeaderLabels, colEndHeaderLabel, colEndHeaderValues, rowEndHeaderLabel, rowEndHeaderValues) {
       this.dataValues = dataValues;
@@ -226,6 +230,6 @@ define(["require", "exports", "ojs/ojeventtarget"], function (require, exports, 
       return (this.counts.row <= 0 || this.counts.column <= 0) ? 'yes' : 'no';
     }
   }
-  exports.DemoDataGridProvider = DemoDataGridProvider;
-  ojeventtarget_1.EventTargetMixin.applyMixin(DemoDataGridProvider);
+  ojeventtarget.EventTargetMixin.applyMixin(DemoDataGridProvider);
+  return DemoDataGridProvider;
 });

@@ -1,0 +1,24 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      }
+    }
+  }
+}

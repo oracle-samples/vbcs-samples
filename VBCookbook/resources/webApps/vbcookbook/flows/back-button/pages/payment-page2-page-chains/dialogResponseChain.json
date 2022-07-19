@@ -1,0 +1,23 @@
+{
+  "root": "callFunctionUserResponse",
+  "description": "",
+  "variables": {
+    "response": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "callFunctionUserResponse": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "userResponse",
+        "params": [
+          "{{ $variables.response }}"
+        ]
+      }
+    }
+  }
+}

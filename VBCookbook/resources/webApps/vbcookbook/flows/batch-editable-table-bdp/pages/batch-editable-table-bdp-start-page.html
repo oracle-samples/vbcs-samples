@@ -43,7 +43,7 @@
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-select-single data="[[$page.variables.jobListSDP]]" value="{{ $page.variables.currentRowBuffer.job }}"
               value-item="{{ { key: $page.variables.currentRowBuffer.job, data: { id: $page.variables.currentRowBuffer.job, jobTitle: $page.variables.currentRowBuffer.jobObject.items[0].jobTitle }} }}"
-              :id="[[ 'oj_select_single_'+$current.index ]]" on-value-changed="[[$listeners.ojSelectSingleValue]]"
+              :id="[[ 'oj_select_single_'+$current.key ]]" on-value-changed="[[$listeners.ojSelectSingleValue]]"
               item-text="jobTitle">
             </oj-select-single>
           </oj-bind-if>
@@ -64,14 +64,14 @@
             <oj-input-text
               converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
               value='[[typeof $current.data === "number" ? $current.data : null]]'
-              :id="[['oj-input-number-1829646926-1-' + $current.index]]" readonly="true"></oj-input-text>
+              :id="[['oj-input-number-1829646926-1-' + $current.key]]" readonly="true"></oj-input-text>
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-input-text class="editable"
               validators="{{[$functions.salaryInRangeValidator($page.variables.currentRowBuffer, $page.variables.disableRowEditExit)]}}"
               converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
               value="{{ $variables.currentRowBuffer.salary}}"
-              :id="[['oj-input-number-1829646926-1-' + $current.index]]"></oj-input-text>
+              :id="[['oj-input-number-1829646926-1-' + $current.key]]"></oj-input-text>
           </oj-bind-if>
         </template>
         <template slot="First Name">
@@ -80,7 +80,7 @@
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.firstName}}"
-              :id="[['oj-input-text-1829646926-2-' + $current.index]]" required="true"></oj-input-text>
+              :id="[['oj-input-text-1829646926-2-' + $current.key]]" required="true"></oj-input-text>
           </oj-bind-if>
         </template>
         <template slot="Last Name">
@@ -89,7 +89,7 @@
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
             <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.lastName}}"
-              :id="[['oj-input-text-1829646926-3-' + $current.index]]" required="true"></oj-input-text>
+              :id="[['oj-input-text-1829646926-3-' + $current.key]]" required="true"></oj-input-text>
           </oj-bind-if>
         </template>
         <template slot="Actions">

@@ -63,3 +63,9 @@
     phone-number="[[$value.phoneNumber]]">
   </employee-card>
 </template>
+
+<template id="tableFieldTemplate">
+  <a id="nameLink" href="#" :_empId="[[ $value.id ]]" on-click="[[$listeners.nameLinkClick]]">
+    <oj-bind-text value="[[ $value.firstName ]]"></oj-bind-text>
+  </a>
+</template>

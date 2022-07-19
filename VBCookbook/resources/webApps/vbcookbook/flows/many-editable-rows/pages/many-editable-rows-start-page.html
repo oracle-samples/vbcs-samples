@@ -18,10 +18,10 @@
           <div class="oj-panel oj-panel-shadow-lg">
             <div class="oj-flex oj-sm-align-items-center">
               <oj-select-single class="oj-flex-item oj-sm-align-self-center oj-form-control-max-width-sm"
-                data="[[ $variables.mobileTypesADP ]]" value="{{ $current.data.phoneType }}"
+                data="[[ $variables.mobileTypesADP ]]" value="[[ $current.data.phoneType ]]"
                 on-oj-value-action="[[$listeners.onPhoneTypeChanged]]" placeholder="Phone Type"
                 :id="[[ 'selectSingle' + $current.data.id ]]"></oj-select-single>
-              <oj-input-text style="padding:5px;" value="{{ $current.data.phoneNumber }}"
+              <oj-input-text style="padding:5px;" value="[[ $current.data.phoneNumber ]]"
                 on-value-changed="[[$listeners.onPhoneNumberChanged]]"
                 class="oj-flex-item oj-sm-flex-initial oj-form-control-max-width-sm" placeholder="Phone Number"
                 :id="[[ 'inputText' + $current.data.id ]]"></oj-input-text>

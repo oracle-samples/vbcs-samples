@@ -1,0 +1,20 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x-start">
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12 oj-md-12">
+      <h5>Employee Details</h5>
+      <oj-dynamic-form metadata="[[ $metadata.businessObjectsGetEmployeeMetadata.provider ]]" layout="empDetailForm"
+        value="{{ $variables.employee2 }}" value-loading="[[ $variables.employeeDetailFormLoadingStatus2 ]]"
+        rendered-fields="{{ $variables.employeeDetailFormRenderedFields2 }}"></oj-dynamic-form>
+    </div>
+  </div>
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12 oj-md-2">
+      <oj-button label="Back" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+    </div>
+  </div>
+</div>

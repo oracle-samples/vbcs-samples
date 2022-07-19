@@ -1,0 +1,75 @@
+{
+  "root": "ifShowWarningToNavigateAway",
+  "description": "",
+  "variables": {
+  },
+  "actions": {
+
+    "callFunctionCheckWithUser": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "checkWithUser"
+      },
+      "outcomes": {
+        "success": "checkIfUserOkayWithNavigation"
+      }
+    },
+    "ifShowWarningToNavigateAway": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.showWarningToNavigateAway ]]"
+      },
+      "outcomes": {
+        "true": "callFunctionCheckWithUser",
+        "false": "continueWithNavigation"
+      }
+    },
+    "assignVariablesShowWarningToNavigateAway": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showWarningToNavigateAway": {
+          "source": false
+        }
+      },
+      "outcomes": {
+        "success": "navigateToRecipeHome"
+      }
+    },
+    "continueWithNavigation": {
+      "module": "vb/action/builtin/returnAction",
+      "parameters": {
+        "outcome": "success",
+        "payload": {
+          "cancelled": false
+        }
+      }
+    },
+    "checkIfUserOkayWithNavigation": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callFunctionCheckWithUser === 'YES' ]]"
+      },
+      "outcomes": {
+        "true": "assignVariablesShowWarningToNavigateAway",
+        "false": "cancelNavigation"
+      }
+    },
+    "cancelNavigation": {
+      "module": "vb/action/builtin/returnAction",
+      "parameters": {
+        "outcome": "success",
+        "payload": {
+          "cancelled": true
+        }
+      }
+    },
+    "navigateToRecipeHome": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "back-button-start",
+        "history": "replace"
+      }
+    }
+  }
+}

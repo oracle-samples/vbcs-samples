@@ -1,0 +1,27 @@
+{
+  "root": "callFunctionCreateBufferingDP",
+  "description": "",
+  "actions": {
+    "callFunctionCreateBufferingDP": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "createBufferingDP",
+        "params": [
+          "{{ $page.variables.employeesSDP }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesEmployeesBDP"
+      }
+    },
+    "assignVariablesEmployeesBDP": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.employeesBDP": {
+          "source": "{{ $chain.results.callFunctionCreateBufferingDP }}"
+        }
+      }
+    }
+  }
+}

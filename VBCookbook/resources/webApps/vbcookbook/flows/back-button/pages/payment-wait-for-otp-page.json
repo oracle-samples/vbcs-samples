@@ -1,0 +1,27 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "vbAfterNavigate": {
+      "chains": [
+        {
+          "chainId": "waitBeforeProceeding",
+          "parameters": {}
+        }
+      ],
+      "@dt": {
+        "showInDiagram": "off"
+      }
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-progress-circle": {
+        "path": "ojs/ojprogress-circle"
+      }
+    }
+  }
+}

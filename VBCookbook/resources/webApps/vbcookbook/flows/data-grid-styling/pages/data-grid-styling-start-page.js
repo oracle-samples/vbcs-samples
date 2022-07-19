@@ -4,7 +4,7 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define(["datagrid/DemoDataGridProvider", "text!datagrid/customer-data.json", "ojs/ojconverter-datetime", "ojs/ojconverter-number", "ojs/ojdatagridprovider", "ojs/ojdatagrid"],
-  function (dgp, jsonData, ojconverter_datetime, ojconverter_number) {
+  function (DemoDataGridProvider, jsonData, ojconverter_datetime, ojconverter_number) {
     'use strict';
 
     var PageModule = function PageModule() {
@@ -101,7 +101,7 @@ define(["datagrid/DemoDataGridProvider", "text!datagrid/customer-data.json", "oj
 
     PageModule.prototype.getDatagridData = function () {
       let x = ['id'];
-      let dataGridProvider = new dgp.DemoDataGridProvider(
+      let dataGridProvider = new DemoDataGridProvider(
         this.dataArray,
         { row: this.dataArray.length, column: this.colHeaders.length },
         this.rowHeaders,

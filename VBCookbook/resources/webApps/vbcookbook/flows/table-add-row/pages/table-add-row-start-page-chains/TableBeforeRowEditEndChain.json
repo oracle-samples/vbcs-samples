@@ -1,0 +1,83 @@
+{
+  "description": "",
+  "variables": {
+    "rowKey": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "rowData": {
+      "type": "EmployeeType",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "event": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "originalRowData": {
+      "type": "EmployeeType",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "root": "checkWhetherEventIsBeingIgnored",
+  "actions": {
+    "checkWhetherEventIsBeingIgnored": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event, 'editRow')  || $chain.variables.event.detail.cancelEdit || $page.variables.isCurrentRowBeingDeleted ]]"
+      },
+      "outcomes": {
+        "false": "hasRecordChanged",
+        "true": "callFunctionEndEditing"
+      }
+    },
+    "hasRecordChanged": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "{{ $page.functions.areDifferent($chain.variables.rowData, $chain.variables.originalRowData) }}"
+      },
+      "outcomes": {
+        "true": "callFunctionUpdateItem",
+        "false": "callFunctionEndEditing"
+      }
+    },
+    "callFunctionUpdateItem": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "updateItem",
+        "params": [
+          "{{ $variables.rowKey }}",
+          "{{ $variables.rowData }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesNoChangesToSave"
+      }
+    },
+    "assignVariablesNoChangesToSave": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.noChangesToSave": {
+          "source": false
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionEndEditing"
+      }
+    },
+    "callFunctionEndEditing": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "endEditing",
+        "params": [
+          "{{ $variables.rowKey }}"
+        ]
+      }
+    }
+  }
+}

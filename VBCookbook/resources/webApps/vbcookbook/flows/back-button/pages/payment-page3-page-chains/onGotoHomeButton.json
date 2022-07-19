@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "navigateToBackButtonStart",
+  "actions": {
+    "navigateToBackButtonStart": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "back-button-start",
+        "history": "replace"
+      }
+    }
+  },
+  "variables": {}
+}

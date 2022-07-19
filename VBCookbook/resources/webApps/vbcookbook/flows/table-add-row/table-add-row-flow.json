@@ -1,0 +1,8 @@
+{
+  "id": "table-add-row",
+  "description": "Flow main",
+  "defaultPage": "table-add-row-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

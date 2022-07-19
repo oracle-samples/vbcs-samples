@@ -1253,5 +1253,41 @@
     "recipeFlowName": "recipe",
     "version": "19.4.3.11",
     "vbversion": "19.4.3"
+  },
+  "table-add-row": {
+    "id": "table-add-row",
+    "runtime": "vb",
+    "label": "Add Row",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "table-add-row-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "back-button": {
+    "id": "back-button",
+    "runtime": "vb",
+    "label": "Back Button Behavior",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "back-button-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
+  },
+  "dynamic-table-template-event": {
+    "id": "dynamic-table-template-event",
+    "runtime": "vb",
+    "label": "Template Event",
+    "defaultOrientation": false,
+    "apiRef": [],
+    "seealso": [],
+    "demoPageName": "dynamic-table-template-event-start",
+    "recipeFlowName": "recipe",
+    "version": "19.4.3.11",
+    "vbversion": "19.4.3"
   }
 }

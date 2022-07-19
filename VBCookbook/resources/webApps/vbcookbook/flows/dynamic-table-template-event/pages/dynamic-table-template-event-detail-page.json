@@ -1,0 +1,79 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "empId": {
+      "type": "any",
+      "required": true,
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain2",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields2 ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      },
+      "input": "fromCaller"
+    },
+    "employee2": {
+      "type": "getEmployeeResponse"
+    },
+    "employeeDetailFormLoadingStatus2": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields2": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain2",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields2 ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getEmployeeResponse": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getEmployeeResponse": "object"
+  },
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "NavigateBackActionChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dynamic-form": {
+        "path": "oj-dynamic/form/loader"
+      }
+
+    }
+  }
+}

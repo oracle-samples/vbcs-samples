@@ -11,14 +11,9 @@
 				with the implementation, plus some high-level steps that describe how to implement the sample using
 				Visual Builder.</p>
 			<p class="oj-flex-item oj-sm-12 oj-md-12">If you want to examine the source code to gain a better
-				understanding of the sample, Oracle publishes the Visual Builder Cookbook as an application template, so
-				all you need to do is create an application in your instance of Visual Builder where you select
-				<strong>Oracle Visual Builder Cookbook</strong> as the application template. View the step-by-step
-				instructions plus the specific location of each sample within the source by clicking
-				<a id="open-in-vb-link" class="oj-link-standalone" href="#"
-					on-click="[[$listeners.openInVBActionClicked]]">Open in
-					Visual
-					Builder</a>.</p>
+				understanding of the sample, each recipe can be downloaded as a self contained Visual Builder application. Download it and install it into your Visual Builder instance. Oracle also publishes the Visual Builder Cookbook as an application template, so if you want access to all the recipes all you need to do is create an application in your instance of Visual Builder where you select
+				<strong>Oracle Visual Builder Cookbook</strong> as the application template.</p>
+			<p class="oj-flex-item oj-sm-12 oj-md-12">If you require training on using Visual Builder, check out the free Oracle University course - <a href="https://mylearn.oracle.com/course/build-visual-applications-using-oracle-visual-builder-studio-new/101737/">Develop Visual Applications using Visual Builder</a> - which includes lessons and labs to get you started. This course, which provides a Visual Builder environment for its lab practices, teaches the core, fundamental skills for developing with Visual Builder and more fully utilizing these recipes.</p>
 		</div>
 	</div>
 </div>
@@ -28,7 +23,7 @@
 <oj-list-view class="componentCategoryItemListview oj-listview-card-layout oj-flex" selection-mode="single"
 	drill-mode="none" data="[[ $variables.recipeListADP ]]" id="OJ-LIST-VIEW-89947901-2">
 	<template slot="itemTemplate" data-oj-as="listItem">
-		<li :id="[[listItem.data.id + '_category']]" class="oj-actioncard-initial-entrance-animation oj-flex">
+		<li :id="[[listItem.data.id + '_category']]" style="padding: 0; margin: 7.4px; width: 202px;" class="oj-actioncard-initial-entrance-animation oj-flex">
 			<oj-action-card on-oj-action="[[$listeners.aClick]]" class="oj-flex-item oj-sm-padding-4x oj-bg-neutral-10">
 				<div class="oj-flex oj-sm-12">
 

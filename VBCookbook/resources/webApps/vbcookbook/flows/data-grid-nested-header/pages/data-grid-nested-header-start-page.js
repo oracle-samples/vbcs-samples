@@ -4,7 +4,7 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define(["datagrid/DemoDataGridProvider"],
-  function (dgp) {
+  function (DemoDataGridProvider) {
     'use strict';
 
     var gridCols = [
@@ -111,7 +111,7 @@ define(["datagrid/DemoDataGridProvider"],
       let dataValues = this.buildBodyArray(items, gridCols);
       let length = dataValues.length;
       let rowStartHeaderValues = this.buildBodyArray(items, rowStartHeaders);
-      this.dataGridProvider = new dgp.DemoDataGridProvider(
+      this.dataGridProvider = new DemoDataGridProvider(
         dataValues,
         { row: length, column: gridCols.length },
         rowStartHeaderValues,

@@ -1,0 +1,25 @@
+{
+  "description": "",
+  "root": "navigateToDynTableFieldTemplateEventDetail",
+  "actions": {
+    "navigateToDynTableFieldTemplateEventDetail": {
+      "module": "vb/action/builtin/navigateAction",
+      "@dt": {
+        "targetType": "page"
+      },
+      "parameters": {
+        "page": "dynamic-table-template-event-detail",
+        "params": {
+          "empId": "{{ $variables.empId }}"
+        }
+      }
+    }
+  },
+  "variables": {
+    "empId": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

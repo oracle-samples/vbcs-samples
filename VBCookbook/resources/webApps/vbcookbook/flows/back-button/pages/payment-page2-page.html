@@ -1,0 +1,32 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex oj-sm-flex-direction-column">
+  <h6 class="oj-flex-item oj-sm-flex-initial">Please Enter One Time Password (OTP)</h6>
+  <div class="oj-flex">
+    <oj-input-text label-hint="6 digit OTP" class="oj-sm-12 oj-md-3"></oj-input-text>
+  </div>
+  <div class="oj-flex" style="padding-top:10px;">
+    <div class="oj-flex-item oj-sm-flex-initial">
+      <oj-button label="Complete the Payment" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+    </div>
+    <div class="oj-flex-item oj-sm-flex-initial">
+      <oj-button label="Cancel" on-oj-action="[[$listeners.buttonAction3]]"></oj-button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <oj-dialog style="display:none" id="confirmDialog" dialog-title="Transaction will be cancelled."
+    cancel-behavior="none">
+    <div slot="body">
+      <p>Are you sure you want to move away from this page?</p>
+    </div>
+    <div slot="footer">
+      <oj-button id="confirmYes" on-oj-action="[[$listeners.confirmYesOjAction]]">Yes</oj-button>
+      <oj-button id="confirmNo" on-oj-action="[[$listeners.confirmNoOjAction]]">No</oj-button>
+    </div>
+  </oj-dialog>
+</div>

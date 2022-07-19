@@ -1,0 +1,16 @@
+{
+  "description": "",
+  "root": "navigateToPaymentPage1",
+  "actions": {
+    "navigateToPaymentPage1": {
+      "module": "vb/action/builtin/navigateAction",
+      "@dt": {
+        "targetType": "page"
+      },
+      "parameters": {
+        "page": "payment-page1"
+      }
+    }
+  },
+  "variables": {}
+}

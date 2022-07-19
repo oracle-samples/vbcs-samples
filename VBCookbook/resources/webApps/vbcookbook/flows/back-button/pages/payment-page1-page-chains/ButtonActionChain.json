@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "navigateToPaymentWaitForOtp",
+  "actions": {
+    "navigateToPaymentWaitForOtp": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "payment-wait-for-otp",
+        "history": "skip"
+      }
+    }
+  },
+  "variables": {}
+}

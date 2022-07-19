@@ -1,0 +1,71 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "showWarningToNavigateAway": {
+      "type": "boolean",
+      "defaultValue": true
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "confirmYesOjAction": {
+      "chains": [
+        {
+          "chainId": "dialogResponseChain",
+          "parameters": {
+            "response": "YES"
+          }
+        }
+      ]
+    },
+    "confirmNoOjAction": {
+      "chains": [
+        {
+          "chainId": "dialogResponseChain",
+          "parameters": {
+            "response": "NO"
+          }
+        }
+      ]
+    },
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "onCompletePaymentButton"
+        }
+      ]
+    },
+    "buttonAction3": {
+      "chains": [
+        {
+          "chainId": "onCancelTransaction"
+        }
+      ]
+    },
+    "vbBeforeExit": {
+      "chains": [
+        {
+          "chainId": "pageNavigatingAway"
+        }
+      ],
+      "@dt": {
+        "showInDiagram": "off"
+      }
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

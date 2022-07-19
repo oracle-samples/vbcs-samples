@@ -46,12 +46,6 @@
         "success": "selectRecipeInNavList"
       }
     },
-    "navigateToRecipe": {
-      "module": "vb/action/builtin/navigateToPageAction",
-      "parameters": {
-        "page": "{{ $chain.variables.selection === 'home' ? 'shell/home' : (!$page.variables.usingSubflows || $application.variables.isThisVBDesigner ? 'shell/' + $chain.variables.selection : 'shell/' + $chain.variables.selection + '/' + $chain.results.getRecipeDescriptor.recipe.demoPageName + '/' + $chain.results.getRecipeDescriptor.recipe.recipeFlowName ) }}"
-      }
-    },
     "selectRecipeInNavList": {
       "module": "vb/action/builtin/callModuleFunctionAction",
       "parameters": {
@@ -62,7 +56,7 @@
         ]
       },
       "outcomes": {
-        "success": "navigateToRecipe"
+        "success": "navigateToChainVariablesSelectionHomeShell"
       }
     },
     "if": {
@@ -72,6 +66,12 @@
       },
       "outcomes": {
         "true": "updateCurrentPageAndLabel"
+      }
+    },
+    "navigateToChainVariablesSelectionHomeShell": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "{{ $chain.variables.selection === 'home' ? 'shell/home' : (!$page.variables.usingSubflows || $application.variables.isThisVBDesigner ? 'shell/' + $chain.variables.selection : 'shell/' + $chain.variables.selection + '/' + $chain.results.getRecipeDescriptor.recipe.demoPageName + '/' + $chain.results.getRecipeDescriptor.recipe.recipeFlowName ) }}"
       }
     }
   }

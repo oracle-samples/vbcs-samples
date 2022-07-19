@@ -1,0 +1,97 @@
+{
+  "description": "",
+  "root": "if",
+  "actions": {
+
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetJob.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetJob": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Job",
+        "uriParams": {
+          "Job_Id": "{{ $chain.variables.value }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "assignVariablesBlankRowBuffer"
+      }
+    },
+    "assignVariablesBlankRowBuffer": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.blankRowBuffer": {
+          "source": {
+            "jobObject": {
+              "items": [
+                "{{ $chain.results.callRestGetJob.body }}"
+              ]
+            },
+            "job": "{{ $chain.results.callRestGetJob.body.id }}"
+          },
+          "auto": "always",
+          "reset": "none",
+          "mapping": {
+            "$target.jobObject": {
+              "source": "$source.jobObject",
+              "reset": "none",
+              "auto": "always",
+              "mapping": {
+                "$target.items": {
+                  "source": "$source.items",
+                  "reset": "empty",
+                  "auto": "always"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.value == $variables.previousValue  ]]"
+      },
+      "outcomes": {
+        "false": "callRestGetJob"
+      }
+    }
+  },
+  "variables": {
+    "previousValue": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+
+  }
+}

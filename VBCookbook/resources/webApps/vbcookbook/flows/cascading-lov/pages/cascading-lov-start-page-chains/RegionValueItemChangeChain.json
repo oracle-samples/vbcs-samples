@@ -31,10 +31,7 @@
     }
   },
   "variables": {
-    "changeType": {
-      "type": "any",
-      "input": "fromCaller"
-    },
+
     "key": {
       "required": true,
       "type": "any",

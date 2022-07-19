@@ -1,0 +1,44 @@
+{
+  "description": "",
+  "root": "resetVariablesBlankRowBuffer",
+  "actions": {
+    "callFunctionCancelRow": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "cancelRow",
+        "params": [
+          "{{ $variables.current }}"
+        ]
+      }
+    },
+    "resetVariablesBlankRowBuffer": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.blankRowBuffer"
+        ]
+      },
+      "outcomes": {
+        "success": "callFunctionCancelRow"
+      }
+    }
+  },
+  "variables": {
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

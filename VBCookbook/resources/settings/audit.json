@@ -1,6 +1,7 @@
 {
   "paths": {
     "exclude": [
+      "scripts/**", "tests/**", "webApps/vbcookbook/resources/js/**", "services/**", "dynamicLayouts/**"
     ]
   },
   "rules": {

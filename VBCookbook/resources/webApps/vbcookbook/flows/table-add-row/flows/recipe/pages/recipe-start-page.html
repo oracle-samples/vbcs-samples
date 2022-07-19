@@ -1,0 +1,200 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><strong>Prerequisite:</strong> Please refer to the Batch Editable Table (BDP) recipe to create an editable table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <span slot="header">Configure an Add Row Feature for Editable Table</span>
+      <div>
+        <ol>
+
+
+          <li>
+            <p>In the Variables tab of the page, create a variable named <code>blankRowBuffer</code> of type
+              EmployeeType. </p>
+            <p>This variable holds the data values of new rows </p>
+          </li>
+          <li>In the Code view of the Page Designer tab, add a <code>template</code> tag to the table with a
+            <code>slot</code> attribute value of <code>addRowTemplate</code> and the <code>data-oj-as</code> attribute
+            set to <code>addRow</code>.</li>
+
+
+
+          <li>Use <code>&lt;tr></code> and <code>&lt;td></code> tags inside the <code>template</code> tag to add the
+            field components such as <code>oj-input-text</code> for
+            first and last name, <code>oj-select-single</code> for job field, and so on.
+            <p>In the last column, add Submit and Cancel buttons to submit or discard changes that the user makes. </p>
+            <oj-collapsible id="template-code">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <code>
+<pre>  &lt;template slot="addRowTemplate" data-oj-as="addRow">
+          &lt;tr>
+            &lt;td>
+              &lt;oj-input-text class="addRowEditable" value="{{ $variables.blankRowBuffer.firstName }}" required="true">
+              &lt;/oj-input-text>
+            &lt;/td>
+            &lt;td>
+              &lt;oj-input-text class="addRowEditable" value="{{ $variables.blankRowBuffer.lastName }}" required="true">
+              &lt;/oj-input-text>
+            &lt;/td>
+            &lt;td>
+              &lt;oj-select-single class="addRowEditable" data="[[$page.variables.jobListSDP]]"
+                value="{{ $page.variables.blankRowBuffer.job }}" item-text="jobTitle"
+                value-item="{{ { key: $page.variables.blankRowBuffer.job, data: { id: $page.variables.blankRowBuffer.job, jobTitle: $page.variables.blankRowBuffer.jobObject.items[0].jobTitle }} }}"
+                on-oj-value-action="[[$listeners.selectValue]]" :id="[[ 'oj_select_single_addRow'+$current.key ]]"
+                required="true">&lt;/oj-select-single>
+            &lt;/td>
+            &lt;td>
+              &lt;oj-input-number class="addRowEditable" value="{{ $variables.blankRowBuffer.salary }}"
+                validators="{{[$functions.salaryInRangeValidator($page.variables.blankRowBuffer, $page.variables.disableRowEditExit)]}}"
+                converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
+                required="true">
+              &lt;/oj-input-number>
+            &lt;/td>
+            &lt;td>
+                &lt;oj-bind-text
+                  value="[[ $variables.blankRowBuffer.job ? $page.functions.getFormattedSalaryRange($page.variables.blankRowBuffer, $page.variables.disableRowEditExit) : '' ]]">
+                &lt;/oj-bind-text>
+            &lt;/td>
+            &lt;td>
+              &lt;oj-toolbar data-oj-clickthrough="disabled" chroming="borderless" class="oj-sm-padding-0-vertical">
+                &lt;oj-button display="icons" data-oj-clickthrough="disabled">
+                  &lt;span slot="startIcon" class="oj-ux-ico-check">&lt;/span>
+                  Submit
+                &lt;/oj-button>
+                &lt;oj-button display="icons" data-oj-clickthrough="disabled">
+                  &lt;span slot="startIcon" class="oj-ux-ico-multiply">&lt;/span>
+                  Cancel
+                &lt;/oj-button>
+              &lt;/oj-toolbar>
+            &lt;/td>
+          &lt;/tr>
+        &lt;/template>
+           </pre>
+      </code>
+              </div>
+            </oj-collapsible>
+          </li>
+          
+          <li>In the <code>template</code> tag, select the Submit button and, in the Events tab of the Properties pane,
+            add an <code>ojAction</code> event to create a corresponding action chain.</li>
+
+          <li>In the Input Parameters entry of the action chain's Properties pane, add an entry named
+            <code>$current</code> and add a Call Function action to the action chain. </li>
+          <li>In the Properties pane, click <strong>Create</strong> to create a function named <code>submitRow</code>
+          </li>
+          <li>In the function, set the <code>submitAddRow</code> property to <code>false</code> to submit the row.
+            <pre>
+PageModule.prototype.submitRow = function (current) {
+  current.submitAddRow(false);
+};</pre>
+          </li>
+
+          <li>Repeat the same steps for the Cancel button, but in the final step, set the <code>submitAddRow</code>
+            property to <code>true</code> to cancel the submission.
+            <pre>
+  PageModule.prototype.cancelRow = function (current) {
+    current.submitAddRow(true);
+  };
+            </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Add a Validation Function</h1>
+      <div>
+        <p>Copy the Batch Editable Table BDP recipe's <code>isFormValid</code> JavaScript function and modify it to
+          include a <code>rowType</code> parameter that will be used to check whether validation is triggered while
+          adding a new row or editing an existing one.
+          
+          
+<pre>
+PageModule.prototype.isFormValid = function (detail, event, rowType) {
+if (detail !== undefined && detail.cancelEdit == true) {
+  return true;
+}
+if (detail !== undefined && detail.cancelAdd === true) {
+  this.resetAddRowElements(document.getElementById('addRow-editable-table'));
+  return true;
+}
+// iterate over editable fields which are marked with "editable" class
+// and make sure they are valid:
+var table = event.target;
+var editables;
+
+if (rowType == "editRow")
+  editables = table.querySelectorAll('.editable');
+else if (rowType == "addRow")
+  editables = table.querySelectorAll('.addRowEditable');
+else
+  editables = null;
+
+for (var i = 0; i < editables.length; i++) {
+  var editable = editables.item(i);
+  editable.validate();
+  // Table does not currently support editables with async validators
+  // so treating editable with 'pending' state as invalid
+  if (editable.valid !== 'valid') {
+    return false;
+  }
+}
+return true;
+};  
+       </pre>
+  
+          
+        </p>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Add an Event to the Table</h1>
+      <div>
+        <ol>
+          <li>In the Page Designer, select the table component and, in the Events tab of the Properties pane, add an <a
+              target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">
+              <code>ojBeforeRowAddEnd</code></a> event listener. </li>
+
+          <li>In the Events editor for the newly-created <code>ojBeforeRowAddEnd</code> event listener, set the Prevent
+            Default property to the following expression that
+            prevents users from adding the row if the expression evaluates the new row as invalid:
+            <p>
+              <code>{{ !$page.functions.isFormValid($event.detail, $event, 'addRow') }}</code>
+            </p>
+          </li>
+          <li>
+            <p>In the action chain for the <code>ojBeforeRowAddEnd</code> event, add an If action that uses a function
+              to test the validity of the new row. In the Properties pane, set the Condition property to:</p>
+            
+            <p>
+              <code>[[ !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event, 'addRow')  || $chain.variables.event.detail.cancelAdd ]]</code>
+            </p>
+
+          </li>
+          
+          <li>In the false outcome path of the If action, add a Call Function action and create a function named
+            <code>getNextId</code> and use its result
+            to assign <code>id</code> to the <code>blankRowBuffer</code> page variable.</li>
+          <li>Add another Call Function action to call the <code>addItem</code> function and assign the input parameters
+            as follows:
+            <ul>
+              <li><code>key</code> as <code>$chain.results.callFunctionGetNextId</code></li>
+              <li><code>data</code> as <code>$page.variables.blankRowBuffer</code></li>
+            </ul>
+          </li>
+          <li>Add a Reset Variables action to reset the <code>blankRowBuffer</code> page variable and an Assign
+            Variables action to set the <code>noChangesToSave</code> to <code>false</code>.</li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+  </oj-accordion>
+</div>

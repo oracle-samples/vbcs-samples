@@ -13,7 +13,7 @@
             "links": [
                 {
                     "rel": "uri",
-                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7369"
+                    "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/7369"
                 }
             ]
         },
@@ -30,7 +30,7 @@
             "links": [
                 {
                     "rel": "uri",
-                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7499"
+                    "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/7499"
                 }
             ]
         },
@@ -47,7 +47,7 @@
             "links": [
                 {
                     "rel": "uri",
-                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7521"
+                    "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/7521"
                 }
             ]
         },
@@ -64,7 +64,7 @@
             "links": [
                 {
                     "rel": "uri",
-                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7566"
+                    "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/7566"
                 }
             ]
         },
@@ -81,7 +81,7 @@
             "links": [
                 {
                     "rel": "uri",
-                    "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/7654"
+                    "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/7654"
                 }
             ]
         }
@@ -93,19 +93,19 @@
     "links": [
         {
             "rel": "self",
-            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/"
+            "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/"
         },
         {
             "rel": "describedby",
-            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/metadata-catalog/hr/employees/"
+            "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/metadata-catalog/hr/employees/"
         },
         {
             "rel": "first",
-            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/"
+            "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/"
         },
         {
             "rel": "next",
-            "href": "https://apex.oracle.com/pls/apex/sample-ords-rest/hr/employees/?offset=5"
+            "href": "https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees/?offset=5"
         }
     ]
 }

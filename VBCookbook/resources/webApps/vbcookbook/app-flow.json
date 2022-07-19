@@ -14,11 +14,6 @@
       "payloadType": {
         "item": "string"
       }
-    },
-    "navMenuVisible": {
-      "payloadType": {
-        "visible": "boolean"
-      }
     }
   },
   "types": {},
@@ -58,8 +53,8 @@
   },
   "requirejs": {
     "paths": {
-      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/10.1.1/min/",
-      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/5.0.7/min",
+      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/12.0.0/min/",
+      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/6.0.0/min",
       "employee-card": "resources/components/employee-card",
       "datagrid": "resources/js/datagrid"
     },
@@ -79,6 +74,7 @@
         "oj-dynamic/providers/MetadataTransformer",
         "oj-dynamic/providers/AdfBCExtension",
         "oj-dynamic/providers/DefaultFetchable",
+        "oj-dynamic/providers/DynamicDataProvider",
         "oj-dynamic/providers/DynamicLayoutEngine",
         "oj-dynamic/providers/MetadataProviderManager",
         "oj-dynamic/providers/JsonMetadataProvider",
@@ -147,18 +143,7 @@
       ]
     }
   },
-  "eventListeners": {
-    "navMenuVisible": {
-      "chains": [
-        {
-          "chainId": "updateNavMenuVisibility",
-          "parameters": {
-            "event": "{{ $event }}"
-          }
-        }
-      ]
-    }
-  },
+  "eventListeners": {},
   "routerStrategy": "query",
   "imports": {
     "css": [

@@ -6,8 +6,8 @@
 define(['knockout',
   'ojs/ojknockout-keyset',
   'ojs/ojarraytreedataprovider',
-  'ojs/ojoffcanvas'
-], function (ko, keySet, ArrayTreeDataProvider) {
+  'text!resources/LICENSE-download.txt'
+], function (ko, keySet, ArrayTreeDataProvider, license) {
   'use strict';
 
   var PageModule = function PageModule() {
@@ -201,6 +201,14 @@ define(['knockout',
         resolve();
       }, ms);
     });
+  };
+
+  
+
+  
+
+  PageModule.prototype.getLicense = function () {
+    return license;
   };
 
   return PageModule;

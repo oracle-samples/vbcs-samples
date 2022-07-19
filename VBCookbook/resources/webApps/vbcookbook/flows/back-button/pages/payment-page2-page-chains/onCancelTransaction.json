@@ -1,0 +1,25 @@
+{
+  "description": "",
+  "root": "assignVariablesShowWarningToNavigateAway",
+  "actions": {
+    "assignVariablesShowWarningToNavigateAway": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showWarningToNavigateAway": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "navigateToBackButtonStart"
+      }
+    },
+    "navigateToBackButtonStart": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "back-button-start",
+        "history": "skip"
+      }
+    }
+  },
+  "variables": {}
+}

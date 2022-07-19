@@ -31,7 +31,8 @@
           "customize-fetch-chain",
           "oj-refresher",
           "tree-navigation",
-          "many-editable-rows"
+          "many-editable-rows",
+          "back-button"
         ]
       },
       {
@@ -78,6 +79,7 @@
           "table-many-to-many",
           "batch-editable-table-bdp",
           "batch-editable-table",
+          "table-add-row",
           "editable-form-table-sdp",
           "table-dnd",
           "custom-no-records-message",
@@ -86,6 +88,7 @@
           "row-expander",
           "dynamic-sdp",
           "table-freeze-column"
+          
         ]
       },
       {
@@ -135,7 +138,8 @@
       "dynamic-container-responsive",
       "dynamic-form-virtual-field",
       "dynamic-form-transient-value",
-      "dynamic-form-calculated-field"
+      "dynamic-form-calculated-field",
+      "dynamic-table-template-event"
     ]
   },
   {

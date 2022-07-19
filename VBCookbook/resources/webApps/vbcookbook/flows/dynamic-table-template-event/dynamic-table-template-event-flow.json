@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-table-template-event",
+  "description": "Flow main",
+  "defaultPage": "dynamic-table-template-event-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

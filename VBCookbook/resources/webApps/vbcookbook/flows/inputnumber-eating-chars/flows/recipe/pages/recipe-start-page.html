@@ -46,14 +46,14 @@
     </oj-collapsible>
 
     <oj-collapsible id="step-3">
-      <span slot="header">Create the Page Model and Module Function</span>
+      <span slot="header">Create Event Listener And Action Chain</span>
       <div>
         <ol>
           <li>Select the Input Number component and in the Events tab of the Property
             Inspector add a new custom event for keypress. Set the event to launch
             a new action chain.</li>
           <li>Add a single Return action to the action chain.</li>
-          <li>In the Events tab, selec the <code>ojInputNumberKeypress</code> event and
+          <li>In the Event Listeners tab, select the <code>ojInputNumberKeypress</code> event and
             set the Prevent Default property to <code>{{ !$page.functions.isValidChar($event) }}</code>.</li>
         </ol>
       </div>

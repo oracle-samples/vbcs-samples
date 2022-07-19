@@ -1,0 +1,217 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+
+  <p>You create a series of pages and configure navigation between each page so that the user can complete a task. </p>
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <span slot="header">Create Pages</span>
+      <div>
+        <ol>
+          <li>In the Web Apps pane of your app, create pages with the following page IDs:
+            <ul>
+              <li><code>back-button-start-page</code></li>
+              <li><code>payment-page1-page</code></li>
+              <li><code>payment-page2-page</code></li>
+              <li><code>payment-page3-page</code></li>
+              <li><code>payment-wait-for-otp-page</code></li>
+            </ul>
+          </li>
+
+          <li>In the <code>back-button-start-page</code> page, add a Button component and set its Label property to
+            <strong>Proceed to Payment</strong>.
+          </li>
+          <li>In the Events tab of the Properties pane for the Button component, add an ojAction event.</li>
+          <li>In the action chain, add a Navigate action to navigate to the <code>payment-page1-page</code> page and
+            verify that the Browser History property is set to <code>push</code>.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <span slot="header">Configure the payment-page1 Page</span>
+      <div>
+        <ol>
+          <li>In the <code>payment-page1</code> page, add an Input Text and a Button component. Set the Label property
+            of the Button component to <strong>Proceed to One-time Password</strong>. </li>
+          <li>In the Events tab of the Properties pane for the Button component, add an ojAction event.</li>
+          <li>In the action chain, add a Navigate action to navigate to the <code>payment-wait-for-otp-page</code> page
+            and set the Browser History property to <code>skip</code>.</li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-3">
+      <span slot="header">Configure the payment-wait-for-otp Page</span>
+      <div>
+        <p>The <code>payment-wait-for-otp</code> page is a temporary page that automatically redirects to the
+          <code>payment-page2</code> after 2 seconds.
+        </p>
+        <ol>
+          <li>In the <code>payment-wait-for-otp</code> page, add a Progress Circle component. </li>
+          <li>In the Event Listeners tab, add a <code>vbAfterNavigate</code> event and an action chain named
+            <code>waitBeforeProceeding</code>.
+          </li>
+          <li>In the action chain, add a Call Function action and create a new function named <code>wait</code>.
+          </li>
+          <li>In the JavaScript tab that opens, add the following JavaScript code to specify a wait of 2 seconds:
+            <pre>
+wait() {
+  var counter = 0;
+  var start = new Date().getTime();
+  var end = 0;
+  while (counter < 2000) {
+    end = new Date().getTime();
+    counter = end - start;
+  }
+}
+</pre>
+          </li>
+          <li>In the <code>waitBeforeProceeding</code> action chain, add a Navigate action to navigate to the
+            <code>payment-page2 </code> page and set the Browser History property to <code>skip</code>.
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <span slot="header">Configure the payment-page2 Page</span>
+      <div>
+        <ol>
+          <li>In the <code>payment-page2</code> page, add an Input Text component and two Button components where you
+            set the Label properties to <strong>Complete the Payment</strong> and <strong>Cancel</strong> respectively.
+          </li>
+          <li>In the Events tab of the Properties pane for the Button components, add ojAction events to create action
+            chains with IDs of <code>onCompletePaymentButton</code> and <code>onCancelTransaction</code>.
+          </li>
+
+          <li>In the <code>payment-page2</code> page, add a Dialog component that includes a confirmation message and
+            Button components:
+            <pre>
+  &lt;oj-dialog style="display:none" id="confirmDialog" dialog-title="Transaction will be cancelled."
+    cancel-behavior="none"&gt;
+    &lt;div slot="body"&gt;
+      &lt;p&gt;Are you sure you want to move away from this page?&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div slot="footer"&gt;
+      &lt;oj-button id="confirmYes"&gt;Yes&lt;/oj-button&gt;
+      &lt;oj-button id="confirmNo"&gt;No&lt;/oj-button&gt;
+    &lt;/div&gt;
+  &lt;/oj-dialog&gt;
+            </pre>
+
+          </li>
+
+          <li>In the Actions tab, create an action chain with an ID of <code>dialogResponseChain</code>.
+          </li>
+          <li>In the Variables tab of the action chain, create a variable with an ID of <code>response</code> and of type
+            String.</li>
+
+          <li>In the Events tab of the Properties pane for the Button components within the Dialog component, add ojAction
+            events to map to the <code>dialogResponseChain</code> action chain and map the value of the
+            <code>response</code> parameter to Yes or No based on the confirmation button that the user clicks.
+          </li>
+
+          <li>In the Event Listeners tab of the <code>payment-page2</code> page,</code> page, create a new event
+            named <code>vbBeforeExit</code> and an action
+            chain with an ID of <code>pageNavigatingAway</code>.
+          </li>
+          <li>In the Variables tab of the <code>the payment-page2</code> page, add a Boolean variable named
+            <code>showWarningToNavigateAway</code> and set
+            its default value to <code>true</code>.
+          </li>
+
+          <li>In the <code>onCompletePaymentButton</code> action chain, add an Assign Variable action and set the value
+            of the <code>showWarningToNavigateAway</code> variable to <code>false</code>.
+          </li>
+          <li>Also add a Navigate action to navigate to <code>payment-page3</code> and set the Browser History property
+            to <code>skip</code>.
+          </li>
+
+          </li>
+          <li>In the <code>onCancelTransaction</code> action chain, add an Assign Variable action and set the value of
+            the <code>showWarningToNavigateAway</code> variable to <code>true</code>.
+          </li>
+          <li>Also add a Navigate action to navigate to <code>back-button-start</code> and set the Browser History
+            property to <code>skip</code>.
+          </li>
+          <li>In the JavaScript tab of the page, add the following two functions:
+            <pre>
+define([], () => {
+  'use strict';
+      var self = {};
+
+  class PageModule {
+    userResponse(response) {
+      var dialog = document.getElementById('confirmDialog');
+      if (dialog.isOpen()) {
+        dialog.close();
+      }
+      if (self.userInputComplete) {
+        self.userInputComplete(response);
+        delete self.userInputComplete;
+      }
+    }
+
+    checkWithUser() {
+      // var self = this;
+      var checkPromise = new Promise(function (resolve) {
+        self.userInputComplete = resolve;
+        document.getElementById('confirmDialog').open();
+      });
+      return checkPromise;
+    }
+  }
+
+  return PageModule;
+});</pre>
+          </li>
+          <li>In the <code>dialogResponseChain</code> action chain, add a Call Function action that calls the
+            <code>userResponse</code> function and map the <code>response</code> value from the variable to the
+            parameter.
+          </li>
+          <li>In the <code>pageNavigatingAway</code> action chain, add an If action with an ID of
+            <code>ifShowWarningToNavigateAway</code> to check if a confirmation dialog to navigate away from the page is
+            to be displayed. If false, navigate away by returning from the action chain using a Return action with its
+            Payload parameter set to: <code>"payload": { "cancelled": false }</code>.
+          </li>
+          <li>On the True path of the If action, add a Call Function action with an ID of
+            <code>callFunctionCheckWithUser</code> and
+            invoke the <code>checkWithUser</code> function to displays the confirmation dialog.
+          </li>
+          <li>Add another If action to check the response of <code>callFunctionCheckWithUser</code>. If the
+            user clicked No in the confirmation dialog, cancel navigation by returning from the action chain
+            using a Return action with its Payload parameter set to <code>"payload": { "cancelled": true }</code>.
+          </li>
+          <li>On the True path of the If action, add an Assign Variable action to set the
+            <code>ShowWarningToNavigateAway</code> variable
+            to <code>false</code>, followed by a Navigate action to navigate to the <code>back-button-start</code> page
+            and the Browser History property set to <code>replace</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-5">
+      <span slot="header">Configure the payment-page3 Page</span>
+      <div>
+        <ol>
+          <li>In the <code>payment-page3</code> page, add a Button component and set the Label property  to <strong>Go Home</strong>.</li>
+
+          <li>In the Events tab of the Properties pane for the Button component, add an ojAction event.</li>
+          <li>In the action chain, add a Navigate action to navigate to the <code>back-button-start</code> page and set the Browser History property to <code>replace</code>.</li>
+          
+
+
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

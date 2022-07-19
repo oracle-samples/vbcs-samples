@@ -1,17 +1,8 @@
 {
   "description": "",
-  "root": "ifMenuId",
+  "root": "switchMenuId",
   "actions": {
-    "ifMenuId": {
-      "module": "vb/action/builtin/ifAction",
-      "parameters": {
-        "condition": "[[ $variables.menuId === 'vbhelp' ]]"
-      },
-      "outcomes": {
-        "true": "openUrl",
-        "false": "openUrl3"
-      }
-    },
+
     "openUrl": {
       "module": "vb/action/builtin/openUrlAction",
       "parameters": {
@@ -23,6 +14,47 @@
       "module": "vb/action/builtin/openUrlAction",
       "parameters": {
         "url": "https://docs.oracle.com/en/cloud/paas/visual-builder/visualbuilder-building-applications/index.html",
+        "windowName": "_blank"
+      }
+    },
+    "switchMenuId": {
+      "module": "vb/action/builtin/switchAction",
+      "parameters": {
+        "caseValue": "[[ $variables.menuId ]]",
+        "possibleValues": [
+          "vbhelp",
+          "vbshelp",
+          "oracleuni",
+          "customerconnect",
+          "blog"
+        ]
+      },
+      "outcomes": {
+        "vbhelp": "openUrl",
+        "vbshelp": "openUrl3",
+        "oracleuni": "openUrl4",
+        "customerconnect": "openUrl5",
+        "blog": "openUrl6"
+      }
+    },
+    "openUrl4": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "https://mylearn.oracle.com/course/build-visual-applications-using-oracle-visual-builder-studio-new/101737/",
+        "windowName": "_blank"
+      }
+    },
+    "openUrl5": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "https://community.oracle.com/customerconnect/categories/oci-visual-builder",
+        "windowName": "_blank"
+      }
+    },
+    "openUrl6": {
+      "module": "vb/action/builtin/openUrlAction",
+      "parameters": {
+        "url": "https://blogs.oracle.com/vbcs/",
         "windowName": "_blank"
       }
     }

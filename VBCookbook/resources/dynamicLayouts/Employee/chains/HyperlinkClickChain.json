@@ -1,0 +1,22 @@
+{
+  "description": "",
+  "root": "fireEventEmpDetail",
+  "actions": {
+    "fireEventEmpDetail": {
+      "module": "vb/action/builtin/fireCustomEventAction",
+      "parameters": {
+        "name": "empDetail",
+        "payload": {
+          "empId": "{{ $variables.empId }}"
+        }
+      }
+    }
+  },
+  "variables": {
+    "empId": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    }
+  }
+}

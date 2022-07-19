@@ -137,7 +137,6 @@
           "chainId": "RegionValueItemChangeChain",
           "parameters": {
             "key": "{{$event.detail.value.key}}",
-            "changeType": "{{ $event.detail.updatedFrom }}",
             "previousKey": "{{ $event.detail.previousValue.key }}"
           }
         }

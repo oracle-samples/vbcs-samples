@@ -1,71 +1,86 @@
 {
-    "addField": {
-        "employeeCard": {
-            "type": "object",
-            "properties": {
-                "avatar": {
-                    "value": "{{ $fields.avatar.value }}",
-                    "metadata": "[[ $fields.avatar.metadata ]]"
-                },
-                "email": {
-                    "value": "{{ $fields.email.value }}",
-                    "metadata": "[[ $fields.email.metadata ]]"
-                },
-                "fullName": {
-                    "value": "{{ $fields.fullName.value }}",
-                    "metadata": "[[ $fields.fullName.metadata ]]"
-                },
-                "hireDate": {
-                    "value": "{{ $fields.hireDate.value }}",
-                    "metadata": "[[ $fields.hireDate.metadata ]]"
-                },
-                "phoneNumber": {
-                    "value": "{{ $fields.phoneNumber.value }}",
-                    "metadata": "[[ $fields.phoneNumber.metadata ]]"
-                }
-
-            },
-            "referencedFields": [
-                "avatar",
-                "email",
-                "fullName",
-                "hireDate",
-                "phoneNumber"
-            ]
+  "addField": {
+    "employeeCard": {
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "value": "{{ $fields.avatar.value }}",
+          "metadata": "[[ $fields.avatar.metadata ]]"
         },
-        "employeeExperience": {
-            "type": "string",
-            "labelHint": "Employee Experience",
-            "readonly": true,
-            "value": "[[$functions.calculateEmployeeExperience($fields.hireDate.value())]]",
-            "referencedFields": [
-            ]
+        "email": {
+          "value": "{{ $fields.email.value }}",
+          "metadata": "[[ $fields.email.metadata ]]"
         },
         "fullName": {
-            "type": "string",
-            "labelHint": "Full Name",
-            "readonly": true,
-            "referencedFields": [
-                "firstName",
-                "lastName"
-            ],
-            "value": "[[$fields.firstName.value() + ' ' + $fields.lastName.value()]]"
+          "value": "{{ $fields.fullName.value }}",
+          "metadata": "[[ $fields.fullName.metadata ]]"
         },
-        "avatar": {
-            "type": "string",
-            "labelHint": "Avatar",
-            "readonly": true,
-            "value": "[[ $componentContext.applicationPath + 'resources/images/employees/' + $fields.id.value() + '.png' ]]",
-            "referencedFields": [
-                "id"
-            ]
+        "hireDate": {
+          "value": "{{ $fields.hireDate.value }}",
+          "metadata": "[[ $fields.hireDate.metadata ]]"
+        },
+        "phoneNumber": {
+          "value": "{{ $fields.phoneNumber.value }}",
+          "metadata": "[[ $fields.phoneNumber.metadata ]]"
         }
-
+      },
+      "referencedFields": [
+        "avatar",
+        "email",
+        "fullName",
+        "hireDate",
+        "phoneNumber"
+      ]
     },
-    "addMetadata": {},
-    "replaceMetadata": {
+    "employeeExperience": {
+      "type": "string",
+      "labelHint": "Employee Experience",
+      "readonly": true,
+      "value": "[[$functions.calculateEmployeeExperience($fields.hireDate.value())]]",
+      "referencedFields": []
+    },
+    "fullName": {
+      "type": "string",
+      "labelHint": "Full Name",
+      "readonly": true,
+      "referencedFields": [
+        "firstName",
+        "lastName"
+      ],
+      "value": "[[$fields.firstName.value() + ' ' + $fields.lastName.value()]]"
+    },
+    "avatar": {
+      "type": "string",
+      "labelHint": "Avatar",
+      "readonly": true,
+      "value": "[[ $componentContext.applicationPath + 'resources/images/employees/' + $fields.id.value() + '.png' ]]",
+      "referencedFields": [
+        "id"
+      ]
+    },
+    "nameVF": {
+      "type": "object",
+      "labelHint": "Name",
+      "properties": {
+        "firstName": {
+          "value": "{{ $fields.firstName.value }}",
+          "metadata": "[[ $fields.firstName.metadata ]]"
+        },
         "id": {
-            "labelHint": "Avatar"
+          "value": "{{ $fields.id.value }}",
+          "metadata": "[[ $fields.id.metadata ]]"
         }
+      },
+      "referencedFields": [
+        "firstName",
+        "id"
+      ]
     }
+  },
+  "addMetadata": {},
+  "replaceMetadata": {
+    "id": {
+      "labelHint": "Avatar"
+    }
+  }
 }

@@ -4,7 +4,7 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define(["datagrid/DemoDataGridProvider"],
-  function (dgp) {
+  function (DemoDataGridProvider) {
     'use strict';
 
     var cols = [
@@ -20,7 +20,6 @@ define(["datagrid/DemoDataGridProvider"],
 
       this.getColHeaders = () => {
         const colHeaders = cols.map(i => i.headerText);
-        console.log("colheaders", colHeaders);
         return colHeaders;
       };
 
@@ -30,12 +29,6 @@ define(["datagrid/DemoDataGridProvider"],
           const item = items[i];
           rowHeaders.push([item.id]);
         }
-        return rowHeaders;
-      };
-
-      this.getRowHeadersLabel = () => {
-        const rowHeaders = rowHeaderLabels.map(i => i.headerText);
-        console.log("colheaders", rowHeaders);
         return rowHeaders;
       };
 
@@ -80,9 +73,6 @@ define(["datagrid/DemoDataGridProvider"],
         if (typeof value2 === 'object' && 'jobTitle' in value2) {
           value2 = value2.jobTitle;
         }
-        if (value1 == value2) {
-          console.log(" ===========> " + value1 + " " + value2);
-        }
         return value1 == value2;
       };
 
@@ -104,7 +94,7 @@ define(["datagrid/DemoDataGridProvider"],
       let dataValues = this.buildBodyArray(items, cols);
       let length = dataValues.length;
       let rowStartHeaderValues = this.getRowHeaders(items);
-      this.dataGridProvider = new dgp.DemoDataGridProvider(
+      this.dataGridProvider = new DemoDataGridProvider(
         dataValues,
         { row: length, column: cols.length },
         rowStartHeaderValues,

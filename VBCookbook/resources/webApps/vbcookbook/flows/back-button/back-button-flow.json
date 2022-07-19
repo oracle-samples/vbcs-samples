@@ -1,0 +1,8 @@
+{
+  "id": "back-button",
+  "description": "Flow main",
+  "defaultPage": "back-button-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

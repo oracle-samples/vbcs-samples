@@ -1,0 +1,35 @@
+{
+  "description": "",
+  "root": "callFunctionSubmitRow",
+  "actions": {
+    "callFunctionSubmitRow": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "submitRow",
+        "params": [
+          "{{ $variables.current }}"
+        ]
+      }
+    }
+  },
+  "variables": {
+
+    "key": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "index": {
+      "required": true,
+      "type": "number",
+      "input": "fromCaller"
+    },
+    "current": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+
+  }
+}

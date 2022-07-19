@@ -9,115 +9,14 @@
       height:calc(75vh - 10px);
       min-width: 300px
 }
+
 pre {
   overflow-x: auto;
 }
 
-.cookbook-page-footer.oj-web-applayout-footer {
+.cookbook-page-footer {
     background-color: #3A3C3E;
     padding-bottom: 0;
-}
-
-.rss, .twitter, .chat, .youtube, .gplus, .facebook, .stackoverflow {
-    float: right;
-    height: 42px;
-    width: 42px;
-    border-radius: 21px;
-    margin: 15px 0 10px 10px;
-}
-.rss        { background: #7EBD5B url("../images/rss.svg") no-repeat scroll center center; }
-.twitter    { background: #40BFF5 url("../images/twitter.svg") no-repeat scroll center center; }
-.chat       { background: #F08135 url("../images/chat.svg") no-repeat scroll center center; }
-.youtube    { background: #E24A37 url("../images/youtube.svg") no-repeat scroll center center; }
-.facebook   { background: #44619D url("../images/facebook.svg") no-repeat scroll center center; }
-.stackoverflow      { background: #44619D url("../images/stackoverflow.png") no-repeat scroll center center; }
-
-.togglePinnedNavListButtonSet .oj-button.oj-hover.oj-button-half-chrome, .togglePinnedNavListButtonSet .oj-button.oj-selected.oj-button-half-chrome, .toggleNavListButton.oj-button.oj-hover.oj-button-half-chrome .oj-button-button, .toggleNavListButton.oj-button.oj-selected.oj-button-half-chrome .oj-button-button {
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.demo-oracle-logo {
-    margin-right: 20px
-}
-
-.demo-oracle-logo img {
-    background: url("../images/oracle_logo.svg") no-repeat scroll 0 0 transparent;
-    height: 17px;
-    width: 140px;
-}
-
-.demo-applayout-offcanvas-icon {
-    height: 24px;
-    width: 24px;
-    font-family: "Alta Icon Font";
-    line-height: 1;
-    display: inline-block;
-    speak: none;
-    font-style: normal;
-    font-variant: normal;
-    text-transform: none;
-    text-align: center;
-    box-sizing: content-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
-}
-
-.oj-default .demo-applayout-offcanvas-icon::before,.oj-focus-only .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-default .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-focus-only .demo-applayout-offcanvas-icon::before,.oj-disabled .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-disabled .demo-applayout-offcanvas-icon::before {
-    content: url("../images/24px_offcanvas_icon_ena.svg")
-}
-
-.oj-hover .demo-applayout-offcanvas-icon::before,.oj-hover.oj-selected .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-hover .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-hover.oj-selected .demo-applayout-offcanvas-icon::before {
-    content: url("../images/24px_offcanvas_icon_ovr.svg")
-}
-
-.oj-active .demo-applayout-offcanvas-icon::before,.oj-selected .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-active .demo-applayout-offcanvas-icon::before,html[dir="rtl"] .oj-selected .demo-applayout-offcanvas-icon::before {
-    content: url("../images/24px_offcanvas_icon_sel.svg")
-}
-
-.demo-pinned-navlist .oj-web-applayout-content {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column
-}
-
-.demo-pinned-navlist .demo-page-wrapper {
-    -webkit-flex: auto;
-    flex: auto;
-    display: -webkit-flex;
-    display: flex
-}
-
-.demo-pinned-navlist .navDrawer {
-    position: relative
-}
-
-.navDrawer {
-    min-width: 280px;
-    max-width: 280px;
-    width: 280px
-}
-
-.page-container {
-    -webkit-overflow-scrolling: touch
-}
-
-.page-container .oj-web-applayout-content {
-    padding: 0
-}
-
-.page-container .oj-web-applayout-header {
-    z-index: 999
-}
-
-.oj-web-applayout-header>div {
-    height: 64px
-}
-
-.page-container .demo-oracle-logo {
-    margin-right: 14px;
-    margin-top: 7px;
 }
 
 .demo-cook-content {
@@ -127,23 +26,6 @@ pre {
 .demo-pinned-navlist .demo-cook-content {
     width: calc(100% - 280px);
     background-color: #F8F6F4;
-}
-
-.demo-top-drawer {
-    padding-top: 20px;
-    background-color: #000
-}
-
-.demo-footer-global-link {
-    color: #85bbe6
-}
-
-.demo-footer-copyright {
-    color: #fff
-}
-
-.navDrawer.nav-drawer-light-bg {
-    background-color: #f9f9f9;
 }
 
 .demo-content {
@@ -179,90 +61,12 @@ pre {
     border-right: none
 }
 
-.nano>.nano-pane {
-    z-index: 3
-}
-
-.demo-sort-icon {
-    height: 16px;
-    width: 16px
-}
-
-.oj-default .demo-sort-icon:before,.oj-focus-only .demo-sort-icon:before {
-    content: url("../images/arrowupalphabetaz_16_ena.png")
-}
-
-.oj-hover .demo-sort-icon:before,.oj-hover.oj-selected .demo-sort-icon:before {
-    content: url("../images/arrowupalphabetaz_16_hov.png")
-}
-
-.oj-active .demo-sort-icon:before,.oj-selected .demo-sort-icon:before {
-    content: url("../images/arrowupalphabetaz_16_onb.png")
-}
-
-.oj-disabled .demo-sort-icon:before {
-    content: url("../images/arrowupalphabetaz_16_dis.png")
-}
-
-.demo-component-list-container {
-    margin: -10px
-}
-
-.demo-component-list-container>div:nth-child(2) {
-    height: 70px
-}
-
-.componentUnderline {
-    margin: 0 auto;
-    width: 90%
-}
-
-.demo-main-navigation {
-    padding: 10px 0 0 0
-}
-
-.componentCategoryItemListview.oj-listview-card-layout {
+.componentCategoryItemListview {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     border-style:none;
-}
-
-.rootCollections_banner {
-    background-color: #d97638
-}
-
-.rootControls_banner {
-    background-color: #e55a37
-}
-
-.rootForms_banner {
-    background-color: #ea5b6e
-}
-
-.rootFramework_banner {
-    background-color: #d16ba6
-}
-
-.rootLayoutNav_banner {
-    background-color: #2f9ad4
-}
-
-.rootRest_banner {
-    background-color: #2faa3f
-}
-
-.rootPatterns_banner {
-    background-color: #269e9e
-}
-
-.rootVisualizations_banner {
-    background-color: #a5a2a2
-}
-
-.all_banner {
-    background-color: #8d909b
 }
 
 .categorybanner .categorybanner_header {
@@ -278,188 +82,29 @@ pre {
     transition: height 0.4s ease-in-out,width 0.4s ease-in-out,font-size 0.4s ease-in-out
 }
 
-.categorygrouplabel {
-    font-size: 26px;
-    color: #fff;
-    padding: 0;
-    margin: 5px 0;
-    line-height: 40px;
-    padding-left: 20px;
-    opacity: 0.8;
-    font-weight: lighter;
-    font-family: "SF UI Display","Helvetica Neue","Roboto","Segoe UI",Arial,sans-serif
-}
-
-.categorylist {
-    margin: 0 auto
-}
-
-.categorylist.fixed {
-    position: fixed;
-    z-index: 1;
-    background-image: url("../../../oj/v6.0.0/default/css/alta/images/texture.png");
-    background-repeat: repeat;
-    margin: 0;
-    padding: 20px
-}
-
-
-.demo-bread-crumb-section {
-    padding: 20px
-}
-
-.demo-layout-controls-section {
-    min-width: 105px
-}
-
-.demo-component-sort-button {
-    padding-right: 5px
-}
-
-.demo-component-list-container .oj-listview {
-    border-style: none
-}
-
-.componentCategoryItemListview .oj-listview-item {
+.componentCategoryItemListview {
     position: relative;
     background-image: none;
     margin-bottom: 15px;
     padding: 0
 }
 
-.componentCategoryItemListview .oj-listview-item img {
+.componentCategoryItemListview img {
     display: block
 }
 
-.componentCategoryItemListview .oj-listview-item .category_item_header {
+.componentCategoryItemListview .category_item_header {
     font-size: 16px;
     font-weight: normal
 }
 
-.componentCategoryItemListview .oj-listview-item.oj-hover,.componentCategoryItemListview .oj-listview-item.oj-hover+li.oj-listview-item {
+.componentCategoryItemListview {
     border-top: 1px solid #d6dfe6
 }
 
-.componentInfo {
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 10px;
-    background-color: #fff;
-    text-decoration: none
-}
-
-.sortEnabled .componentInfo {
-    padding: 0 0 5px 10px
-}
-
-.componentShortDesc {
-    color: #333;
-    white-space: normal
-}
-
-.preview_border {
-    border-color: #d97638
-}
-
-.rootCollections_border {
-    border-color: #d97638
-}
-
-.rootControls_border {
-    border-color: #e55a37
-}
-
-.rootForms_border {
-    border-color: #ea5b6e
-}
-
-.rootFramework_border {
-    border-color: #d16ba6
-}
-
-.rootLayoutNav_border {
-    border-color: #2f9ad4
-}
-
-.rootRest_border {
-    border-color: #2faa3f
-}
-
-.rootPatterns_border {
-    border-color: #269e9e
-}
-
-.rootVisualizations_border {
-    border-color: #a5a2a2
-}
-
-.all_border {
-    border-color: #8d909b
-}
-
-.rootCollections_border,.rootControls_border,.rootForms_border,.rootFramework_border,.rootLayoutNav_border,.rootPatterns_border,.rootVisualizations_border,.rootRest_border {
-    border-top-width: 5px;
-    margin: 0;
-    border-top-style: solid;
-    flex-wrap: nowrap;
-    display: flex;
-    background-color: #ffffff;
-    justify-content: space-between
-}
-
-.listingRef,.listingRef:hover,.listingRef:focus {
-    text-decoration: none;
-    cursor: default
-}
-
-.componentStatus {
-    font-size: 8px;
-    color: #fff;
-    text-transform: uppercase;
-    background-color: #005396;
-    height: 12px;
-    line-height: 12px;
-    padding: 0 2px;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    display: inline-block;
-    letter-spacing: 0.5pt;
-    position: absolute;
-    top: 19px;
-    right: 10px
-}
-
-.ribbon {
-    margin: 13px 10px 12px 0;
-    font-size: 8px;
-    background-color: #005396;
-    color: #fff;
-    text-transform: uppercase;
-    border-radius: 2px;
-    letter-spacing: 0.5pt;
-    padding: 2px
-}
-
-oj-list-view:not(.oj-listview-card-layout) .oj-listview-item {
-    padding: 0 15px 0 0;
-}
-
-oj-list-view:not(.oj-listview-card-layout) .componentImage {
-    min-height: 90px;
-    min-width: 90px
-}
-
-oj-list-view:not(.oj-listview-card-layout) .componentImage img {
+.componentImage img {
     padding: 5px
 }
-
-oj-list-view:not(.oj-listview-card-layout) .oj-listview-group .componentInfo {
-    border-left-width: 5px;
-    border-left-style: solid
-}
-
 
 .recipeIcon {
     max-width: 200px;
@@ -480,12 +125,7 @@ oj-list-view:not(.oj-listview-card-layout) .oj-listview-group .componentInfo {
     text-align: center;
 }
 
-html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item {
-    margin: 7.5px;
-    width: 202px
-}
-
-.demo-component-list-container .componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item,.demo-component-list-container .componentCategoryItemListview li.oj-listview-item div.demo-list {
+.componentCategoryItemListview, .componentCategoryItemListview div.demo-list {
     border-width: 1px;
     border-style: solid
 }
@@ -494,172 +134,21 @@ html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.
     background-color: #fff
 }
 
-.demo-component-list-container .componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item:hover,.demo-component-list-container .componentCategoryItemListview li.oj-listview-item:hover div.demo-list {
+.componentCategoryItemListview, .componentCategoryItemListview div.demo-list {
     border-color: #d6dfe6
 }
 
-.componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item a:hover,.componentCategoryItemListview li.oj-listview-item a:hover div.demo-list {
+.componentCategoryItemListview a:hover,.componentCategoryItemListview a:hover div.demo-list {
     cursor: pointer
 }
 
-.componentCategoryItemListview.oj-listview-card-layout .componentImage img {
+.componentCategoryItemListview .componentImage img {
     width: 100%;
     max-width: 200px;
     height: 143px;
     padding: 0
 }
 
-html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item {
-    padding: 0
-}
-
-.componentCategoryItemListview.oj-listview-card-layout li.oj-listview-item {
-    width: 202px
-}
-
-.componentCategoryInfo {
-    display: none
-}
-
-.sortEnabled .componentCategoryInfo {
-    display: inline;
-    /*padding: 6px 0 4px 10px*/
-}
-
-.component-center-panels {
-    margin: auto
-}
-
-@media (min-width: 237px) {
-    .component-center-panels {
-        max-width:217px
-    }
-}
-
-@media (min-width: 454px) {
-    .component-center-panels {
-        max-width:434px
-    }
-}
-
-@media (min-width: 671px) {
-    .component-center-panels {
-        max-width:651px
-    }
-}
-
-@media (min-width: 888px) {
-    .component-center-panels {
-        max-width:868px
-    }
-}
-
-@media (min-width: 1105px) {
-    .component-center-panels {
-        max-width:1085px
-    }
-}
-
-@media (min-width: 1322px) {
-    .component-center-panels {
-        max-width:1302px
-    }
-}
-
-@media (min-width: 1539px) {
-    .component-center-panels {
-        max-width:1519px
-    }
-}
-
-@media (min-width: 1756px) {
-    .component-center-panels {
-        max-width:1736px
-    }
-}
-
-@media (min-width: 1973px) {
-    .component-center-panels {
-        max-width:1953px
-    }
-}
-
-@media (min-width: 2190px) {
-    .component-center-panels {
-        max-width:2170px
-    }
-}
-
-@media (min-width: 2407px) {
-    .component-center-panels {
-        max-width:2387px
-    }
-}
-
-/*! nanoScrollerJS - v0.8.7 - 2015
-* http://jamesflorentino.github.com/nanoScrollerJS/
-* Copyright (c) 2015 James Florentino; Licensed MIT */
-.nano {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden
-}
-
-.nano>.nano-content {
-    position: absolute;
-    overflow: scroll;
-    overflow-x: hidden;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0
-}
-
-.nano>.nano-content:focus {
-    outline: thin dotted
-}
-
-.nano>.nano-content::-webkit-scrollbar {
-    display: none
-}
-
-.has-scrollbar>.nano-content::-webkit-scrollbar {
-    display: block
-}
-
-.nano>.nano-pane {
-    background: rgba(0,0,0,0.25);
-    position: absolute;
-    width: 10px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    visibility: hidden\9;
-    opacity: .01;
-    -webkit-transition: .2s;
-    -moz-transition: .2s;
-    -o-transition: .2s;
-    transition: .2s;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px
-}
-
-.nano>.nano-pane>.nano-slider {
-    background: #444;
-    background: rgba(0,0,0,0.5);
-    position: relative;
-    margin: 0 1px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px
-}
-
-.nano:hover>.nano-pane,.nano-pane.active,.nano-pane.flashed {
-    visibility: visible\9;
-    opacity: 0.99
-}
 
 .categorybanner {
     transition: padding .4s ease-in-out;
@@ -674,15 +163,9 @@ html:not([dir="rtl"]) .componentCategoryItemListview.oj-listview-card-layout li.
 
 .recipe-box { overflow: auto; }
 
-.oj-web-applayout-header-title {
-  font-size: 14px;
-  color: rgba(0,0,0,.8);
-}
-
-#vbRouterContent oj-module {
+#vbRouterContent {
   flex-direction: column;
 }
-
 
 .fab-button{
     position: fixed;

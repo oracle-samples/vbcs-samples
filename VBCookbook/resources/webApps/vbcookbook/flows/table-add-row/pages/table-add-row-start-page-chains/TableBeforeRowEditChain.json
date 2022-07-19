@@ -1,0 +1,58 @@
+{
+  "description": "",
+  "variables": {
+    "event": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "rowKey": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "rowData": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  },
+  "root": "updateCurrentRowBuffer",
+  "actions": {
+    "updateCurrentRowBuffer": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.currentRowBuffer": {
+          "source": "{{ $chain.variables.rowData }}",
+          "auto": "always",
+          "reset": "empty"
+        }
+      },
+      "outcomes": {
+        "success": "resetVariablesIsCurrentRowBeingDeleted"
+      }
+    },
+    "resetVariablesIsCurrentRowBeingDeleted": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.isCurrentRowBeingDeleted"
+        ]
+      },
+      "outcomes": {
+        "success": "callFunctionStartEditing"
+      }
+    },
+    "callFunctionStartEditing": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $page.functions ]]",
+        "functionName": "startEditing",
+        "params": [
+          "{{ $variables.rowKey }}"
+        ]
+      },
+      "outcomes": {}
+    }
+  }
+}
