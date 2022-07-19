@@ -73,7 +73,10 @@
         <div class="oj-flex-item oj-flex oj-sm-flex-direction-column" style="overflow-x: auto;">
           <oj-bind-if test="[[ !$application.variables.isThisVBDesigner ]]">
             <div class="oj-flex categorybanner fltr_banner oj-sm-padding-1x-start">
-              
+              <h1 id="h1-89947901-1" class="oj-flex-item oj-sm-12 oj-md-12 oj-typography-heading-lg">
+                <oj-bind-text value="[[$page.variables.demoLabel]]">
+                </oj-bind-text>
+              </h1>
               
             </div>
           </oj-bind-if>
@@ -152,7 +155,7 @@
               </div>
             </div>
           </oj-bind-if>
-          <p style="text-align: end; font-style: italic; margin-right: 12px;">Downloaded from <a href="https://vbcookbook.oracle.com" target="_blank">vbcookbook.oracle.com</a></p><oj-vb-content id="vbRouterContent" class="vbcs-pages-module recipe-area oj-flex-item"
+          <oj-vb-content id="vbRouterContent" class="vbcs-pages-module recipe-area oj-flex-item"
             style="overflow-x: auto; width: 100%" config="[[vbRouterFlow]]"></oj-vb-content>
         </div>
       </oj-drawer-layout>
