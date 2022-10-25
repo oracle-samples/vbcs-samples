@@ -1,52 +1,51 @@
 {
-
-  "title": "",
-    "description": "",
-    "variables": {
-      "departmentListSDP": {
-        "type": "vb/ServiceDataProvider",
-        "defaultValue": {
-          "endpoint": "businessObjects/getall_Department",
-          "responseType": "getAllDepartment",
-          "itemsPath": "items",
-          "capabilities": {
-            "sort": {
-               "attributes": "single"
-            }
-          },
-          "sortCriteria": [
-            {
-              "attribute": "id"
-            }
-          ]
-        }
-      }
-    },
-    "types": {
-      "@decorators.getAllDepartment": {
-        "endpoint": "getall_Department",
-        "service": "businessObjects",
-        "path": "response"
-      },
-      "getAllDepartment": {
-        "items": [
+  "title": "Sorting Recipe",
+  "description": "",
+  "variables": {
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "responseType": "getAllDepartment",
+        "itemsPath": "items",
+        "capabilities": {
+          "sort": {
+            "attributes": "single"
+          }
+        },
+        "sortCriteria": [
           {
-            "id": "number",
-            "departmentName": "string",
-            "manager": "number",
-            "location": "number",
-            "lastUpdateDate": "string"
+            "attribute": "id"
           }
         ]
       }
+    }
+  },
+  "types": {
+    "@decorators.getAllDepartment": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
     },
-    "chains": {},
-    "eventListeners": {},
-    "imports": {
-      "components": {
-        "oj-table": {
-          "path": "ojs/ojtable"
+    "getAllDepartment": {
+      "items": [
+        {
+          "id": "number",
+          "departmentName": "string",
+          "manager": "number",
+          "location": "number",
+          "lastUpdateDate": "string"
         }
+      ]
+    }
+  },
+  "chains": {},
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-table": {
+        "path": "ojs/ojtable"
       }
     }
   }
+}

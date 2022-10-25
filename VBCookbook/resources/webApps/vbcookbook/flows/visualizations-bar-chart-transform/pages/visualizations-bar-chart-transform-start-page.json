@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Chart With Transform Recipe",
   "description": "",
   "variables": {
     "transformedDataADP": {
@@ -8,8 +8,7 @@
   },
   "metadata": {},
   "types": {},
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "vbEnter": {
       "chains": [

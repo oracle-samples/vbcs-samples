@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Table Row Expander Recipe",
   "description": "",
   "variables": {
     "employee": {
@@ -13,7 +13,6 @@
       "service": "businessObjects",
       "path": "response"
     },
-      
     "get_Employee": {
       "firstName": "string",
       "id": "number",
@@ -29,7 +28,6 @@
       "manager": "number",
       "phoneNumber": "string",
       "salary": "number"
-
     },
     "getall_Employee": {
       "items": [
@@ -52,9 +50,7 @@
       ]
     }
   },
-  "chains": {
-
-  },
+  "chains": {},
   "eventListeners": {
     "vbEnter": {
       "chains": [
@@ -100,7 +96,6 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       }
-
     }
   }
 }

@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Card Layout Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -16,14 +15,16 @@
   "metadata": {},
   "types": {
     "getallEmployeeResponse": {
-      "items": [{
-        "email": "string",
-        "firstName": "string",
-        "id": "number",
-        "lastName": "string",
-        "salary": "number",
-        "phoneNumber":"string"
-      }]
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "salary": "number",
+          "phoneNumber": "string"
+        }
+      ]
     },
     "@decorators.getallEmployeeResponse": {
       "endpoint": "getall_Employee",

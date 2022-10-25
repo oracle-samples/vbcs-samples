@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Value Converter Recipe",
   "description": "",
   "variables": {
     "date": {
@@ -10,7 +10,6 @@
       "type": "number",
       "defaultValue": 1234567
     }
-
   },
   "metadata": {},
   "types": {},

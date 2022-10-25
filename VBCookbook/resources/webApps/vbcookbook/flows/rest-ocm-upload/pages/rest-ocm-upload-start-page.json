@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Oracle Content Management Recipe",
   "description": "Manage OCM files",
   "variables": {
     "ocmFilesSDP": {
@@ -34,17 +33,18 @@
       "path": "response"
     },
     "FilesType": {
-      "items": [{
-        "id": "string",
-        "mimeType": "string",
-        "name": "string",
-        "size": "string",
-        "type": "string"
-      }]
+      "items": [
+        {
+          "id": "string",
+          "mimeType": "string",
+          "name": "string",
+          "size": "string",
+          "type": "string"
+        }
+      ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "filePickerSelect": {
       "chains": [

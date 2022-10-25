@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "SDP Factory Recipe",
   "description": "",
   "variables": {
     "deptSDP": {
@@ -33,9 +33,7 @@
     }
   },
   "chains": {},
-  "eventListeners": {
-
-  },
+  "eventListeners": {},
   "imports": {
     "components": {
       "oj-accordion": {
@@ -50,7 +48,6 @@
       "oj-table": {
         "path": "ojs/ojtable"
       }
-
     }
   }
 }

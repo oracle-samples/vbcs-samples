@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Multi Select Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -36,8 +35,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "listviewMultiselectSelected": {
       "chains": [

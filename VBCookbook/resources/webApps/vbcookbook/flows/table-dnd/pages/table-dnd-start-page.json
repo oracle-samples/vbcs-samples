@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Table Drag and Drop Recipe",
   "description": "",
   "variables": {
     "employeeDropListADP": {
@@ -77,8 +76,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "dataDropped": {
       "chains": [

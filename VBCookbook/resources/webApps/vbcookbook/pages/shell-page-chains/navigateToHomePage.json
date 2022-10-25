@@ -1,0 +1,29 @@
+{
+  "description": "",
+  "root": "ifCanNavigateBack",
+  "actions": {
+    "navigateBack": {
+      "module": "vb/action/builtin/navigateBackAction"
+    },
+    "ifCanNavigateBack": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $application.variables.canNavigateBack === true ]]"
+      },
+      "outcomes": {
+        "true": "navigateBack",
+        "false": "navigateToDefaultRootPage"
+      }
+    },
+    "navigateToDefaultRootPage": {
+      "module": "vb/action/builtin/navigateAction",
+      "@dt": {
+        "targetType": "page"
+      },
+      "parameters": {
+        "page": "/"
+      }
+    }
+  },
+  "variables": {}
+}

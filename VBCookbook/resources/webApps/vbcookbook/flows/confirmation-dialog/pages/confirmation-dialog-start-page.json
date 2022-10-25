@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Unsaved Data Confirmation Recipe",
   "description": "",
   "variables": {
     "formDept": {
@@ -47,8 +46,7 @@
       "lastName": "string"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "vbEnter": {
       "chains": [

@@ -1,0 +1,36 @@
+{
+  "root": "callCompareToSimplifedFilterChipsMethod",
+  "actions": {
+    "callCompareToSimplifedFilterChipsMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj_sfs1') }}",
+        "method": "compareToSimplifedFilterChips",
+        "params": [
+          "{{ $page.variables.appliedFiltersStr }}"
+        ]
+      },
+      "outcomes": {
+        "success": "needUpdateAppliedFilers"
+      }
+    },
+    "needUpdateAppliedFilers": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ !$chain.results.callCompareToSimplifedFilterChipsMethod ]]"
+      },
+      "outcomes": {
+        "true": "updatAppliedFilters"
+      }
+    },
+    "updatAppliedFilters": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.appliedFilters": {
+          "source": "{{ $page.variables.appliedFiltersStr && $page.variables.appliedFiltersStr.length > 0 ? JSON.parse($page.variables.appliedFiltersStr) : [] }}",
+          "reset": "empty"
+        }
+      }
+    }
+  }
+}

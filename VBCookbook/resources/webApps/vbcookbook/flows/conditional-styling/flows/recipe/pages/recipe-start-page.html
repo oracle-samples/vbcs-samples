@@ -3,8 +3,8 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<p>Add a LED Gauge component to a Table component’s column to highlight values in the table relative to threshold
-  values that you specify in the LED Gauge component.
+<p>Add a Rating Gauge component to a Table component’s column to highlight values in the table relative to threshold
+  values that you specify in the Rating Gauge component.
 </p>
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
@@ -26,18 +26,34 @@
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
     <oj-collapsible id="step2">
-      <h1 slot="header">Add a LED Gauge Component</h1>
+      <h1 slot="header">Add a Rating Gauge Component</h1>
       <div>
-        
         <ol>
-          <li>In the Component Palette, drag a LED Gauge component and drop it on the Rating column of the Table
+          <li>In the Component Palette, drag a Rating Gauge component and drop it on the Rating column of the Table
             component.</li>
-          <li>In the Data tab of the Properties pane for the LED Gauge component, set the following property values:
+          <li>In the Data tab of the Properties pane for the Rating Gauge component, set the following property values:
             <ul>
               <li>Value: <code>[[$current.data]]</code></li>
-              <li>Threshold: <code>[{"max": 2}, {"max": 4}, {}]</code></li>
+              <li>selected-state.color: <code>"[[ $functions.getRatingColor($current.data) ]]"</code></li>
             </ul>
-            <p>This adjusts the background color based on the value in the Rating column.</p>
+            <p>This adjusts the rating gauge color based on the value in the Rating column.</p>
+          </li>
+          <li>In the JavaScript tab, add a new <code>function getRatingColor( value )</code> and return a custom color based on the input value.
+          <pre>
+PageModule.prototype.getRatingColor = function (value) {
+    if (value >= 0 && value <= 1) {
+      return 'red';
+    } else if (value > 1 && value <= 2) {
+      return 'pink';
+    } else if (value > 2 && value <= 3) {
+      return 'orange';
+    } else if (value > 3 && value <= 4) {
+      return 'blue';
+    } else if (value > 4) {
+      return 'green';
+    }
+  }
+          </pre>
           </li>
         </ol>
       </div>

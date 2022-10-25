@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Load More on Scroll Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -41,8 +40,8 @@
       "oj-vb-list-item": {
         "path": "vb/components/list-item/loader"
       },
-      "oj-avatar":{
-        "path":"ojs/ojavatar"
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
       }
     }
   }

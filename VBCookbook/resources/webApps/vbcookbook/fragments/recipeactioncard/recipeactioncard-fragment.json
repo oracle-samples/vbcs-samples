@@ -1,0 +1,42 @@
+{
+  "title": "",
+  "description": "",
+  "eventListeners": {
+    "cardAction": {
+      "chains": [
+        {
+          "chainId": "CardActionChain"
+        }
+      ]
+    }
+  },
+  "events": {
+    "clicked": {
+      "propagationBehavior": "container",
+      "description": "Emits to container",
+      "payloadType": {
+        "recipeId": "string"
+      }
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-action-card": {
+        "path": "ojs/ojactioncard"
+      }
+    },
+    "css": [
+      "/resources/css/recipe-action-card.css"
+    ]
+  },
+  "metadata": {},
+  "types": {},
+  "variables": {
+    "recipe": {
+      "type": "application:RecipeType",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "referenceable": "self"
+}

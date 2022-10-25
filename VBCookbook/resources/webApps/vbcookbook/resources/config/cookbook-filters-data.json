@@ -1,0 +1,34 @@
+{
+    "items": [
+        {
+            "filter": "CategoryLOV",
+            "value": "Application",
+            "label": "Application",
+            "filterLabel": "Category"
+        },
+        {
+            "filter": "CategoryLOV",
+            "value": "Components",
+            "label": "Components",
+            "filterLabel": "Category"
+        },
+        {
+            "filter": "CategoryLOV",
+            "value": "Dynamic",
+            "label": "Dynamic UI",
+            "filterLabel": "Category"
+        },
+        {
+            "filter": "CategoryLOV",
+            "value": "REST",
+            "label": "REST",
+            "filterLabel": "Category"
+        },
+        {
+            "filter": "CategoryLOV",
+            "value": "PWA",
+            "label": "PWA",
+            "filterLabel": "Category"
+        }        
+    ]
+}

@@ -14,6 +14,26 @@
         "table": "12.0.0",
         "bind-field": "12.0.0"
       }
+    },
+    "oj-sp": {
+      "version": "2207.0.0",
+      "components": {
+        "welcome-page": "2207.0.0",
+        "profile-card": "2207.0.0",
+        "select-single-item-template": "2207.0.0",
+        "object-card": "2207.0.0",
+        "general-overview-page": "2207.0.0",
+        "header-general-overview": "2207.0.0",
+        "in-app-navigation": "2207.0.0",
+        "smart-filter-search": "2207.0.0",
+        "list-item-template": "2207.0.0",
+        "empty-state": "2207.0.0",
+        "collection-container": "2207.0.0",
+        "data-management-page": "2207.0.0",
+        "collection-container-advanced": "2207.0.0",
+        "general-drawer-template": "2207.0.0",
+        "bottom-drawer-template": "2207.0.0"
+      }
     }
   }
 }

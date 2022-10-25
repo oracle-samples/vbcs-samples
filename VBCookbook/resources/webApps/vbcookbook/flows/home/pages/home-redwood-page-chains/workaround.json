@@ -1,0 +1,26 @@
+{
+  "root": "callFunctionWait",
+  "actions": {
+    "callFunctionWait": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "wait",
+        "params": [
+          "{{ 30 }}"
+        ]
+      },
+      "outcomes": {
+        "success": "assignVariablesAppliedFiltersStr"
+      }
+    },
+    "assignVariablesAppliedFiltersStr": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.appliedFiltersStr": {
+          "source": "{{ $page.variables.appliedFiltersStr2 }}"
+        }
+      }
+    }
+  }
+}

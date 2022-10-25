@@ -4,13 +4,13 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([
-  'text!resources/config/vb-navigation-menu.json',
-  'text!resources/config/vb-demos.json',
+  'text!resources/config/vb-metadata.json',
   'ojs/ojresponsiveknockoututils',
   'ojs/ojresponsiveutils',
   
+  'fndconfig/config',
 ], function (
-  navigationMenu, demos,
+  newMetadata,
   ResponsiveKnockoutUtils, ResponsiveUtils,
   
 ) {
@@ -21,10 +21,29 @@ define([
     // by default disable offline toolkit:
     // this.forceOffline();
 
-    this.metadata = {
-      navigationMenu: JSON.parse(navigationMenu),
-      demos: JSON.parse(demos)
-    };
+    this.metadata = JSON.parse(newMetadata);
+    this.recipes = {};
+    this.categories = {};
+    this.metadata.forEach(i => {
+      this.recipes[i.id] = i;
+      if (this.categories[i.category] === undefined) {
+        this.categories[i.category] = [];
+      }
+     if(i.shownOnUI == true){
+      this.categories[i.category].push(i);
+     }
+    });
+    Object.keys(this.categories).forEach(c => this.categories[c].sort((a,b) => {
+      const nameA = a.label.toUpperCase();
+      const nameB = b.label.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    }));
 
     var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
     this.smScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
@@ -32,117 +51,46 @@ define([
 
   
 
-  /**
-   * Returns metadata describing recipes and navigation menu
-   */
-  AppModule.prototype.getMetadata = function () {
-    return this.metadata;
-  };
+  AppModule.prototype.isRecipe = function (recipe) {
+    return this.recipes[recipe] !== undefined;
+  }
+
+  AppModule.prototype.isNotHomePage = function (currentFlow) {
+    return currentFlow !== 'home';
+  }
 
   /**
-   * Returns metadata describing recipes only
+   * Returns recipe metadata from vb-demos.json for given current page
    */
-  AppModule.prototype.getDemosMetadata = function () {
-    return this.metadata.demos;
-  };
+  AppModule.prototype.getRecipeMetadataForPage = function (currentPage) {
+    const recipeId = currentPage.path.split('/')[1];
+    return this.recipes[recipeId];
+  }
 
   /**
-   * Returns metadata describing navigation menu
+   * Returns recipe metadata from vb-demos.json for given recipe ID
    */
-  AppModule.prototype.getNavigationMetadata = function () {
-    return this.metadata.navigationMenu;
-  };
+  AppModule.prototype.getRecipeMetadata = function (recipeId) {
+    return this.recipes[recipeId];
+  }
 
-  /**
-   * For given recipeID return assorted information about the recipe
-   */
-  AppModule.prototype.getRecipe = function (currentSelection) {
-    var key = currentSelection;
-    var recipe;
-    if (key === undefined || key.length === 0 || key === "home") {
-      recipe = {
-        "id": "home",
-        "label": "Welcome to the Visual Builder Cookbook!",
-        "apiRef": []
-      };
-    } else {
-      recipe = this.metadata.demos[key];
-      if (recipe === undefined) {
-        // category was selected and not a menu item
-        return;
-      }
-    }
-    var parents = this._getRecipeParent(recipe.id);
-    return {
-      recipe: recipe,
-      parents: parents[0],
-      breadCrumb: parents[1]
-    };
-  };
-
-  /**
-   * For given recipe ID return array with with two arrays.
-   * First array contains parent node IDs (for navigation list selection).
-   * Second array is content for breadcrumbs navigation
-   */
-  AppModule.prototype._getRecipeParent = function (recipeId) {
-    var results = [];
-    var breadCrumb = [];
-    this.metadata.navigationMenu.forEach(item => {
-      if (!item.items) {
-        return;
-      }
-      item.items.forEach(item2 => {
-        if (item2.items === undefined) { // two level navigation items only
-          if (item2 === recipeId) {
-            results.push(item.id);
-            breadCrumb.push({
-              id: '',
-              label: 'Home'
-            });
-            breadCrumb.push({
-              id: item.id,
-              label: item.label
-            });
-            breadCrumb.push({
-              id: recipeId,
-              label: this.metadata.demos[recipeId].label
-            });
-          }
-        }
-        else // three level navigation items
-        {
-          item2.items.forEach(item3 => {
-            if (item3 === recipeId) {
-              results.push(item.id);
-              results.push(item2.id);
-              breadCrumb.push({
-                id: '',
-                label: 'Home'
-              });
-              breadCrumb.push({
-                id: item.id,
-                label: item.label
-              });
-              breadCrumb.push({
-                id: item2.id,
-                label: item2.label
-              });
-              breadCrumb.push({
-                id: item3,
-                label: this.metadata.demos[item3].label
-              });
-            }
-          });
-        }
-      });
-    });
-    return [results, breadCrumb];
-  };
+  AppModule.prototype.getCategoryRecipes = function (category) {
+    return this.categories[category];
+  }
 
   AppModule.prototype.isMobileDevice = function () {
     return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent));
   }
+
+  /**
+   *
+   * @param {String} arg1
+   * @return {String}
+   */
+  AppModule.prototype.convertToArrayOfRecipes = function (recipeNames) {
+    return recipeNames.map(name => this.getRecipeMetadata(name));
+  };
+
 
   return AppModule;
 });

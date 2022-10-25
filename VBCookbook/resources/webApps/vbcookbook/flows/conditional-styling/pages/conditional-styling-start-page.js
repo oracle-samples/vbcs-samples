@@ -7,18 +7,20 @@ define([], function () {
   'use strict';
 
   var PageModule = function PageModule() { };
+
   PageModule.prototype.getRatingColor = function (value) {
     if (value >= 0 && value <= 1) {
-      return { backgroundColor: '#ff4545', color: 'white'}
+      return 'red';
     } else if (value > 1 && value <= 2) {
-      return { backgroundColor: '#ffa534', color: 'white'}
+      return 'pink';
     } else if (value > 2 && value <= 3) {
-      return { backgroundColor: '#ffe234', color: 'white'}
+      return 'orange';
     } else if (value > 3 && value <= 4) {
-      return { backgroundColor: '#b7dd29', color: 'black'}
+      return 'blue';
     } else if (value > 4) {
-      return { backgroundColor: '#57e32c', color: 'black'}
+      return 'green';
     }
   }
+
   return PageModule;
 });

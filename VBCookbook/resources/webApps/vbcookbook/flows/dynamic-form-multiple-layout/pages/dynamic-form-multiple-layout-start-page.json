@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Dynamic Form Recipe",
   "description": "",
   "variables": {
     "emp1": {
@@ -131,8 +131,7 @@
     },
     "getEmployeeResponse": "object"
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojSelectSingleValue": {
       "chains": [

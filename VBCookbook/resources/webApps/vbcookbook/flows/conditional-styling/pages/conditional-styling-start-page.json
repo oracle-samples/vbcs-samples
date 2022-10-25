@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Conditional Styling Recipe",
   "description": "",
   "variables": {
     "booksListADP": {
@@ -110,11 +109,19 @@
   "eventListeners": {},
   "imports": {
     "components": {
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-rating-gauge": {
+        "path": "ojs/ojgauge"
+      },
       "oj-table": {
         "path": "ojs/ojtable"
-      },
-      "oj-led-gauge": {
-        "path": "ojs/ojgauge"
+      }
+    },
+    "modules": {
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
       }
     }
   }

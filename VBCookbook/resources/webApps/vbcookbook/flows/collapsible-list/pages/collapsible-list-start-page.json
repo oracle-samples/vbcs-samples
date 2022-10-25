@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Collapsible List Recipe",
   "description": "",
   "variables": {
     "departmentArray": {
@@ -70,7 +70,6 @@
       "oj-text-area": {
         "path": "ojs/ojinputtext"
       }
-
     },
     "modules": {
       "ojValidationBase": {

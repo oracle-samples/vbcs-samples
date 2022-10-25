@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "callFunctionScrollRight",
+  "actions": {
+    "callFunctionScrollRight": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "scrollRight"
+      }
+    }
+  },
+  "variables": {}
+}

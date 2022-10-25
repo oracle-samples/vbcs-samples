@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Prevent Double Submission Recipe",
   "description": "",
   "variables": {
     "buttonText": {
@@ -14,8 +13,7 @@
   },
   "metadata": {},
   "types": {},
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojButton2830491771OjAction": {
       "chains": [

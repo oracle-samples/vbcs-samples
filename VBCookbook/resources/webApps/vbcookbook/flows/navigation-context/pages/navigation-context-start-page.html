@@ -3,12 +3,12 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
 
   This recipe shows you how to pass variable values as context while navigating between pages in your application.
 </div>
-<div class="oj-flex">
-  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2">
     <div class="oj-flex-item oj-sm-12 oj-flex oj-md-12 oj-sm-flex-direction-column">
       <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-flex-initial">
         <oj-button disabled="[[!$variables.selection.key]]" class="oj-sm-padding-1x-bottom" on-oj-action="[[$listeners.navigateToEditListener]]">
@@ -16,8 +16,9 @@
         <oj-button disabled="[[!$variables.selection.key]]" class="oj-sm-padding-1x-bottom" on-oj-action="[[$listeners.navigateToDetailListener]]">
           Navigate To Detail with Employee</oj-button>
       </oj-toolbar>
-      <oj-table style="width: 100%; max-height: 500px" scroll-policy="loadMoreOnScroll"
-        class="oj-flex-item oj-sm-flex-initial" data="[[$page.variables.employeeListSDP]]"
+      <oj-table style="width: 100%; height: 500px" scroll-policy="loadMoreOnScroll"
+        :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
+        class="oj-flex-item oj-sm-flex-initial oj-table-stretch" data="[[$page.variables.employeeListSDP]]"
         columns='[{"headerText":"Id","field":"id"},{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","field":"email"}]'
         first-selected-row="{{ $page.variables.selection }}" selection-mode.row="single"></oj-table>
     </div>
@@ -25,9 +26,9 @@
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
       :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
-      <div class="recipe-box oj-flex-item">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
-        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

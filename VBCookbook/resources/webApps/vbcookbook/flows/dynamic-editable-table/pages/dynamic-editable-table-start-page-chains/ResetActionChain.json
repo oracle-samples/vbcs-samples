@@ -1,0 +1,40 @@
+{
+  "description": "",
+  "root": "callFunctionResetChanges",
+  "actions": {
+
+    "callFunctionResetChanges": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "resetChanges",
+        "params": [
+          "{{ $page.variables.employeesBDP }}"
+        ]
+      },
+      "outcomes": {
+        "success": "callComponentDynEditableTableRefresh"
+      }
+    },
+    "fireNotification3": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Reset done",
+        "displayMode": "transient",
+        "type": "confirmation"
+      }
+    },
+    "callComponentDynEditableTableRefresh": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('dyn-editable-table') }}",
+        "method": "refresh"
+      },
+      "outcomes": {
+        "success": "fireNotification3"
+      }
+    }
+  },
+  "variables": {}
+}

@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "callComponentHelpDialogClose",
+  "actions": {
+    "callComponentHelpDialogClose": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('help-dialog') }}",
+        "method": "close"
+      }
+    }
+  },
+  "variables": {}
+}

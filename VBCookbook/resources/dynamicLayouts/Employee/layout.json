@@ -6,7 +6,8 @@
       "operations": [
         "get_Employee",
         "getall_Employee",
-        "create_Employee"
+        "create_Employee",
+        "update_contacts"
       ]
     }
   },
@@ -419,6 +420,58 @@
       "description": "Default Rule",
       "type": "businessObjects",
       "expression": "default"
+    },
+    "editableTable": {
+      "type": "businessObjects",
+      "layoutType": "table",
+      "label": "editableTable",
+      "rules": [
+        "isDefault6"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "table",
+          "layout": {
+            "displayProperties": [
+              {
+                  "firstName": {
+                  "maxWidth": "20%"
+                  }
+                },
+              {
+                  "lastName": {
+                  "maxWidth": "20%"
+                  }
+                },
+              {
+                  "email": {
+                  "maxWidth": "25%"
+                  }
+                },
+              {
+                  "phoneNumber": {
+                  "maxWidth": "25%"
+                  }
+                }
+            ]
+          },
+          "usedIn": [
+            "isDefault6"
+          ]
+        },
+        "layoutWithID": {
+          "layoutType": "table",
+          "type": "businessObjects",
+          "label": "layoutWithID",
+          "description": "",
+          "layout": {
+            "displayProperties": [
+              "id"
+            ]
+          },
+          "usedIn": []
+        }
+      }
     },
     "fieldTemplateEvent": {
       "type": "businessObjects",

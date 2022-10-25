@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Filtering Recipe",
   "description": "",
   "variables": {
     "departmentListSDP": {
@@ -40,7 +39,6 @@
     "filterText": {
       "type": "string"
     }
-
   },
   "metadata": {},
   "types": {
@@ -83,7 +81,6 @@
       "oj-sample-input-text-typeahead": {
         "path": "oj-sample/input-text-typeahead/loader"
       }
-
     }
   }
 }

@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Fetch Only Required Fields Recipe",
   "description": "",
   "variables": {
     "departmentListSDP": {
@@ -23,7 +22,7 @@
         {
           "departmentName": "string",
           "id": "number",
-          "location" : "number",
+          "location": "number",
           "locationObject": {
             "items": [
               {

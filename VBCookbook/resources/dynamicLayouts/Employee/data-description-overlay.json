@@ -37,7 +37,7 @@
       "labelHint": "Employee Experience",
       "readonly": true,
       "value": "[[$functions.calculateEmployeeExperience($fields.hireDate.value())]]",
-      "referencedFields": []
+      "referencedFields": ["hireDate"]
     },
     "fullName": {
       "type": "string",

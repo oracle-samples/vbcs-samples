@@ -1,0 +1,109 @@
+/**
+ * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ */
+
+.recipe-tile {
+  width: 300px;
+  height: 170px;
+  max-height: 170px;
+  position: relative;
+  border-radius: 10px;
+}
+
+.recipe-tile:hover {
+  transform: scale(1.01);
+}
+
+.recipe-heading{
+  max-height: 50px;
+  white-space: nowrap;
+}
+
+.recipe-short-desc{
+   white-space: normal;
+}
+
+.recipe-labels{
+  max-height: 40px;
+  margin-top: auto;
+  border-radius: 0 0 10px 10px;
+  padding-bottom: 10px; padding-top: 8px
+}
+
+.recipe-labels[category="Components"] {
+  background-image: url("../images/categories/componentsbg.png");
+}
+
+.recipe-labels[category="Dynamic"] {
+  background-image: url("../images/categories/dynamicuibg.png");
+}
+
+.recipe-labels[category="PWA"] {
+  background-image: url("../images/categories/pwabg.png");
+}
+
+.recipe-labels[category="REST"] {
+  background-image: url("../images/categories/restbg.png");
+}
+
+.recipe-labels[category="Application"] {
+  background-image: url("../images/categories/applicationbg.png");
+}
+
+.recipe-background-icon {
+  position: absolute;
+  opacity: .5;
+  bottom: -4px;
+  right: 16px;
+  z-index: 1;
+  color: white;
+  overflow: hidden;
+}
+
+.recipe-background-image {
+  opacity: 0.15;
+}
+
+.recipe-background-color {
+  position: absolute;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.recipe-background-color:before {
+  background: #404040;
+  position: absolute;
+  content: '';
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+}
+
+.custom-badge-one {
+  color: black;
+  background: white;
+  opacity: 0.85;
+  padding: 4px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.recipe-icon {
+    max-width: 200px;
+    padding-top: 15px;
+    font-size: 4rem;
+    color: black;
+    text-align: center;
+}
+
+.recipe-bottom-text {
+    /* text-align: center; */
+    color: black;
+}
+
+.recipe-top-text {
+    color: white;
+    opacity: 1;
+}

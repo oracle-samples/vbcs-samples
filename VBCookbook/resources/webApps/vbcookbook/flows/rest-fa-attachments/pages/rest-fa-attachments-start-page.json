@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Oracle Cloud Applications Recipe",
   "description": "Manage single activity attachments",
   "variables": {
     "fileUpload": {

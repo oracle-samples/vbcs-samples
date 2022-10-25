@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Customize Fetch Action Chain Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -40,7 +40,6 @@
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
       }
-
     }
   }
 }

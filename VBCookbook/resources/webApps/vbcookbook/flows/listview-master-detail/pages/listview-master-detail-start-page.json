@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Master Detail Recipe",
   "description": "",
   "variables": {
     "departmentListSDP": {
@@ -83,8 +82,7 @@
       "salary": "number"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "departmentListSelected": {
       "chains": [

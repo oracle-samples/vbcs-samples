@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Data Grid Styling Recipe",
   "description": "",
   "variables": {
     "data": {
@@ -57,7 +57,7 @@
       "type": "number",
       "defaultValue": 13
     },
-     "colEyeColor": {
+    "colEyeColor": {
       "type": "number",
       "defaultValue": 14
     }

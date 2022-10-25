@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Triggers Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -50,8 +49,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "editEmployeeButtonClicked": {
       "chains": [

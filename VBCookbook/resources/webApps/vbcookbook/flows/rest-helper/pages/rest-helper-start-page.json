@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "REST Helper Recipe",
   "description": "",
   "variables": {
     "employee": {
@@ -44,8 +43,7 @@
       "path": "response"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "validateHandler": {
       "chains": [

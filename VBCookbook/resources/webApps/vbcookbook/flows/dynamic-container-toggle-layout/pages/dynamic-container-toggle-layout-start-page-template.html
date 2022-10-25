@@ -16,7 +16,7 @@
 <template id="tableExample">
   <h3>Table Example</h3>
   <oj-bind-if test="[[ true ]]">
-  <oj-dynamic-table data="[[$page.variables.employeeListSDP]]"
+  <oj-dynamic-table data="[[$page.variables.employeeListSDP]]" class="oj-table-stretch oj-flex-item"
     metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
     layout="tableExampleLayout" style="height:250px; width: 100%; " :id="[['table-template']]"></oj-dynamic-table>
   </oj-bind-if>

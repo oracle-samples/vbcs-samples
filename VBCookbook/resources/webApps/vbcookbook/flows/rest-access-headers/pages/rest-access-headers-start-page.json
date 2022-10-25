@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Access Response Headers Recipe",
   "description": "",
   "variables": {
     "responseHeaders": {
@@ -17,8 +16,7 @@
       "value": "string"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "onButtonClick": {
       "chains": [
@@ -39,6 +37,6 @@
       "oj-table": {
         "path": "ojs/ojtable"
       }
-   }
+    }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "root": "ifAppliedFiltersStr2",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "ifAppliedFiltersStr2": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.appliedFiltersStr2 !== undefined ]]"
+      },
+      "outcomes": {
+        "true": "callChainWorkaround"
+      }
+    },
+    "callChainWorkaround": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "workaround"
+      }
+    }
+  }
+}

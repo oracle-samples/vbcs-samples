@@ -1,0 +1,17 @@
+{
+  "description": "",
+  "root": "fireEventClicked",
+  "actions": {
+    "fireEventClicked": {
+      "module": "vb/action/builtin/fireCustomEventAction",
+      "parameters": {
+        "name": "clicked",
+        "payload": {
+          "recipeId": "{{ $fragment.variables.recipe.id }}"
+        }
+      }
+    }
+  },
+  "variables": {
+  }
+}

@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Multi Step Wizard Recipe",
   "description": "",
   "variables": {
     "currentJobTitle": {
@@ -52,7 +51,8 @@
     },
     "steps": {
       "type": "object[]",
-      "defaultValue": [{
+      "defaultValue": [
+        {
           "id": "1",
           "label": "Start"
         },
@@ -82,48 +82,56 @@
       "path": "response"
     },
     "getallEmployeeResponse": {
-      "items": [{
-        "email": "string",
-        "firstName": "string",
-
-        "hireDate": "string",
-        "id": "number",
-        "jobObject": {
-          "items": [{
-            "id": "number",
-            "jobTitle": "string"
-          }]
-        },
-        "lastName": "string",
-        "phoneNumber": "string",
-        "salary": "number"
-      }]
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "id": "number",
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
     },
     "getallJobResponse": {
-      "items": [{
-        "id": "number",
-        "jobTitle": "string"
-      }]
+      "items": [
+        {
+          "id": "number",
+          "jobTitle": "string"
+        }
+      ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "nextButtonOjAction": {
-      "chains": [{
-        "chainId": "NextActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "NextActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "submitButtonOjAction": {
-      "chains": [{
-        "chainId": "SubmitActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "SubmitActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     }
   },
   "imports": {

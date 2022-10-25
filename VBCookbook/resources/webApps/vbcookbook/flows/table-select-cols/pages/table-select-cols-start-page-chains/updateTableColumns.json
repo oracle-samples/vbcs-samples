@@ -6,8 +6,8 @@
       "required": false,
       "input": "fromCaller",
       "type": {
-        "oldValue": "object[]",
-        "value": "object[]"
+        "oldValue": "string[]",
+        "value": "string[]"
       }
     }
   },

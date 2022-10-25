@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Sorting Recipe",
   "description": "",
   "variables": {
     "countryListSDP": {
@@ -77,10 +76,8 @@
       "path": "response"
     }
   },
-  "chains": {
-  },
-  "eventListeners": {
-  },
+  "chains": {},
+  "eventListeners": {},
   "imports": {
     "components": {
       "oj-select-single": {
@@ -98,7 +95,6 @@
       "oj-vb-list-item": {
         "path": "vb/components/list-item/loader"
       }
-
     }
   }
 }

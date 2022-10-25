@@ -1,7 +1,7 @@
 {
-  "title": "",
+  "title": "Dashboard Template Recipe",
   "description": "",
-   "variables": {
+  "variables": {
     "actionsBarVisible": {
       "type": "boolean",
       "defaultValue": false
@@ -92,7 +92,6 @@
         }
       ]
     }
-
   },
   "metadata": {},
   "types": {
@@ -159,7 +158,6 @@
       "oj-radioset": {
         "path": "ojs/ojradioset"
       }
-
     },
     "css": [
       "/resources/css/dashboard-template.css"

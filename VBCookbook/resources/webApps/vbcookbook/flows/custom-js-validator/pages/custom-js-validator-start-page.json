@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Custom JavaScript Validator Recipe",
   "description": "",
   "variables": {
     "futureDate": {
@@ -8,8 +8,7 @@
   },
   "metadata": {},
   "types": {},
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojButtonOjAction": {
       "chains": [

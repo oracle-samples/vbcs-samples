@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Dynamic Container Responsive Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -192,6 +192,5 @@
         "ojs/ojlistview"
       ]
     }
-
   }
 }

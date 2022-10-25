@@ -1,0 +1,351 @@
+{
+  "title": "Oracle Visual Builder Cookbook",
+  "description": "",
+  "variables": {
+
+    "selectContextValue": {
+      "type": "string",
+      "persisted": "device",
+      "input": "fromUrl",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "updateAllFilters"
+          }
+        ]
+      }
+    },
+    "appliedFilters": {
+      "type": "filterChip[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "updateAllFilters"
+          }
+        ]
+      },
+      "persisted": "history",
+      "defaultValue": "{{ $page.variables.appliedFiltersStr && $page.variables.appliedFiltersStr.length > 0 ? JSON.parse($page.variables.appliedFiltersStr) : [] }}"
+    },
+    "appliedFiltersStr": {
+      "type": "string",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "updateAppliedFilters"
+          }          
+        ]
+      }
+    },
+    "appliedFiltersStr2": {
+      "type": "string",
+      "input": "fromUrl",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "workaround"
+          }          
+        ]
+      },
+      "persisted": "none"
+    },
+    "allFilters": {
+      "type": "filterChip[]",
+      "defaultValue" : "{{$page.variables.selectContextValue ? (($page.variables.appliedFilters || []).concat([{ 'filter': 'keyword', 'label': $page.variables.selectContextValue, 'value': $page.variables.selectContextValue }])) :  $page.variables.appliedFilters }}"
+    },
+    "dpOptions": {
+      "type": "resources/js/data-provider/JsonDataProviderOptions",
+      "constructorParams": [
+         {
+           "search": {
+             "dataPath": "[[ $application.path + 'resources/config/vb-metadata.json' ]]"
+           },
+           "filters": {
+             "dataPath": "[[ $application.path + 'resources/config/cookbook-filters-data.json' ]]"
+           },
+           "recentSearch": {
+            "storageKey": "{{ 'VBCookbook' }}"
+          }
+        }
+      ]
+    },
+    "dpSearchStrategy": {
+      "type": "resources/js/data-provider/CookbookSearchStrategy",
+      "constructorParams": [
+        "[[ $page.variables.dpOptions.instance ]]"
+      ]
+    },
+    "dpFiltersStrategy": {
+      "type": "resources/js/data-provider/CookbookFiltersStrategy",
+      "constructorParams": [
+        "[[ $page.variables.dpOptions.instance ]]"
+      ]
+    },
+    "dpAggregateStrategy": {
+      "type": "resources/js/data-provider/BaseJsonDataProviderAggregateStrategy",
+      "constructorParams": [
+        "[[ $page.variables.dpOptions.instance ]]"
+      ]
+    },
+    "dpContext": {
+      "type": "resources/js/data-provider/JsonDataProviderContext",
+      "constructorParams": [
+        "[[ $page.variables.dpOptions.instance ]]",
+        "[[ $page.variables.dpSearchStrategy.instance ]]",
+        "[[ $page.variables.dpFiltersStrategy.instance ]]",
+        "[[ $page.variables.dpAggregateStrategy.instance ]]"
+      ]
+    },
+    "searchResultsDP": {
+      "type": "resources/js/data-provider/SmartSearchAndFilterJsonDataProvider",
+      "constructorParams": [
+        "[[ $page.variables.dpContext.instance ]]",
+        {
+          "filterCriterion": {
+            "op": "$eq",
+            "value": {
+              "filters": "{{$page.variables.allFilters}}"
+            }
+          }
+        }
+      ]
+    },
+    "searchSuggestionsDP": {
+      "type": "resources/js/data-provider/SuggestionsMultiplexDataProvider",
+      "constructorParams": [{
+          "filters": "{{ $page.variables.searchSuggestionsFiltersDP.instance }}",
+          "autocomplete": "{{ $page.variables.searchSuggestionsAutocompleteDP.instance }}",
+          "recentsearch": "{{ $page.variables.searchSuggestionsRecentSearchDP.instance }}"
+        }
+      ]
+    },
+    "searchSuggestionsFiltersDP": {
+      "type": "resources/js/data-provider/SuggestionsFiltersJsonDataProvider",
+      "constructorParams": ["[[ $page.variables.dpContext.instance ]]"]
+    },
+    "searchSuggestionsAutocompleteDP": {
+      "type": "resources/js/data-provider/SuggestionsAutocompleteJsonDataProvider",
+      "constructorParams": ["[[ $page.variables.dpContext.instance ]]"]
+    },
+    "searchSuggestionsRecentSearchDP": {
+      "type": "resources/js/data-provider/SuggestionsRecentSearchDataProvider",
+      "constructorParams": ["[[ $page.variables.dpContext.instance ]]"]
+    },
+    "suggestionFiltersDP": {
+      "type": "resources/js/data-provider/FiltersJsonDataProvider",
+      "constructorParams": ["[[ $page.variables.dpContext.instance ]]"]
+    }
+
+  },
+  "metadata": {
+    "filters": {
+      "type": "vb/JsonMetadataProviderDescriptor",
+      "defaultValue": {
+        "path": "[[ $application.path + 'resources/config/cookbook-filters-metadata.json' ]]"
+      }
+    }
+  },
+  "types": {
+    "filterChip": {
+      "count": "number",
+      "dependencies": "string[]",
+      "dynamicProps":  "object",
+      "filter": "string",
+      "filterLabel": "string",
+      "label": "string",
+      "value": "any"
+    },
+    "resources/js/data-provider/SmartSearchAndFilterJsonDataProvider" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/SuggestionsMultiplexDataProvider": {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/SuggestionsFiltersJsonDataProvider": {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/SuggestionsAutocompleteJsonDataProvider":  {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/SuggestionsRecentSearchDataProvider":  {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/FiltersJsonDataProvider" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/JsonDataProviderOptions" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/JsonDataProviderContext" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/CookbookFiltersStrategy" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/CookbookSearchStrategy" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/BaseJsonDataProviderAggregateStrategy" : {
+      "constructorType": "vb/InstanceFactory"
+    },
+    "resources/js/data-provider/AggregateJsonDataProvider":  {
+      "constructorType": "vb/InstanceFactory"
+    }
+  },
+  "chains": {},
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "ScrollRightActionChain"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chainId": "ScrollLeftActionChain"
+        }
+      ]
+    },
+    "fragmentClicked": {
+      "chains": [
+        {
+          "chainId": "CardActionChain",
+          "parameters": {
+            "recipe": "{{ $event.detail.recipeId }}"
+          }
+        }
+      ]
+    },
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chainId": "CardActionChain",
+          "parameters": {
+            "recipe": "{{ $current.data.id }}"
+          }
+        }
+      ]
+    },
+    "moreApplicationClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "Application"
+          }
+        }
+      ]
+    },
+    "moreRestClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "REST"
+          }
+        }
+      ]
+    },
+    "morePWAClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "PWA"
+          }
+        }
+      ]
+    },
+    "moreDynamicClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "Dynamic"
+          }
+        }
+      ]
+    },
+    "moreComponentsClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "Components"
+          }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chainId": "workaround2"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-action-card": {
+        "path": "ojs/ojactioncard"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-chart": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-item": {
+        "path": "ojs/ojchart"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-defer": {
+        "path": "ojs/ojdefer"
+      },
+      "oj-film-strip": {
+        "path": "ojs/ojfilmstrip"
+      },
+      "oj-input-search": {
+        "path": "ojs/ojinputsearch"
+      },
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-sp-collection-container": {
+        "path": "oj-sp/collection-container/loader"
+      },
+      "oj-sp-empty-state": {
+        "path": "oj-sp/empty-state/loader"
+      },
+      "oj-sp-list-item-template": {
+        "path": "oj-sp/list-item-template/loader"
+      },
+      "oj-sp-object-card": {
+        "path": "oj-sp/object-card/loader"
+      },
+      "oj-sp-select-single-item-template": {
+        "path": "oj-sp/select-single-item-template/loader"
+      },
+      "oj-sp-smart-filter-search": {
+        "path": "oj-sp/smart-filter-search/loader"
+      },
+      "oj-sp-welcome-page": {
+        "path": "oj-sp/welcome-page/loader"
+      }
+
+    },
+    "css": []
+  }
+}

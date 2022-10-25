@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Async Validators Recipe",
   "description": "The starting page of the flow",
   "variables": {
     "inputValid": {
@@ -14,9 +13,7 @@
     }
   },
   "types": {},
-  "chains": {
-
-  },
+  "chains": {},
   "eventListeners": {
     "submitOjAction": {
       "chains": [

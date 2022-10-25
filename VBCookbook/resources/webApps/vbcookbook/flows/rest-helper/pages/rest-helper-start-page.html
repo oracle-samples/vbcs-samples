@@ -3,14 +3,14 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
     This demo shows how to use <b>vb/helpers/rest</b> to make rest calls using custom
     JavaScript. It uses async validators to make rest call to the backend to validate
     email. If you enter one of the employee email from the table below you will get
     an error.
   </div>
-  <div class="oj-flex">
-  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
+  <div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2">
       <div class="oj-flex oj-sm-flex-initial oj-sm-flex-direction-column oj-sm-align-items-flex-start" style="overflow-x: auto">
         <div class="oj-flex-item oj-sm-flex-initial">
           <h2 class="oj-flex-item oj-sm-12 oj-md-12">Create New Employee</h2>
@@ -38,7 +38,8 @@
           <h2 class="">Existing Employees</h2>
         </div>
         <div class="oj-flex">
-          <oj-table style="max-height: 200px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
+          <oj-table style="height: 200px; width: 100%" scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12 oj-table-stretch"
+          :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
           data="[[$page.variables.employeeListSDP]]" columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Email","field":"email"}]'
           scroll-policy-options.fetch-size="10" id="employee-table"></oj-table>
         </div>
@@ -47,9 +48,9 @@
  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
       :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
-      <div class="recipe-box oj-flex-item">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
-        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

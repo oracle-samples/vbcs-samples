@@ -3,7 +3,7 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
 
   This recipe shows you how to use the Data Grid (<code>oj-data-grid</code>) component in a Visual Builder app. Unlike
   other collection components, such as the
@@ -13,9 +13,10 @@
 
 
 </div>
-<div class="oj-flex oj-flex-item">
-  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto">
-    <oj-data-grid id="datagrid" style="width:100%;min-width: 300px; height:400px;max-width:954px;"
+<div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box2" style="overflow-x: auto">
+    <oj-data-grid id="datagrid" style="width:100%;height:400px;max-width:954px;"
+      :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
       aria-label="Data Grid Formatted Row Based Grid Demo" data="[[$functions.getDataSource($variables.employeeData)]]"
       banding-interval.row="1" header.column.renderer="[[$functions.getRenderer('header_template')]]"
       header.column.style="width:125px" header.column.resizable.width="enable" header.column.resizable.height="enable"
@@ -25,9 +26,9 @@
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
       :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
-      <div class="recipe-box oj-flex-item">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
-        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

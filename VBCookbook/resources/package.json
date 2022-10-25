@@ -8,8 +8,8 @@
         "load-grunt-tasks": "^4.0.0",
         "@babel/core": "7.12.3",
         "@babel/traverse": "7.12.5",
-        "@oracle/grunt-vb-build": "https://static.oracle.com/cdn/vb/tools/npm/grunt-vb-build/grunt-vb-build-2207.0.7.tar.gz",
-        "@oracle/grunt-vb-audit": "https://static.oracle.com/cdn/vb/tools/npm/grunt-vb-audit/grunt-vb-audit-2207.0.5.tar.gz"
+        "@oracle/grunt-vb-build": "https://static.oracle.com/cdn/vb/tools/npm/grunt-vb-build/grunt-vb-build-2210.0.9.tar.gz",
+        "@oracle/grunt-vb-audit": "https://static.oracle.com/cdn/vb/tools/npm/grunt-vb-audit/grunt-vb-audit-2210.0.4.tar.gz"
     },
     "com_oracle_visual_builder": {
         "upgrade": "none"

@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Dynamic Choice List Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -24,7 +23,6 @@
       "type": {
         "data": "object",
         "key": "string"
-
       }
     },
     "filters": {
@@ -179,8 +177,7 @@
       "path": "response"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "employeeAdvSearch": {
       "chains": [

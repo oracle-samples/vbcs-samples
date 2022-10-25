@@ -3,14 +3,14 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
   This recipe shows you how to manage image and PDF files in an Oracle Content Management
   folder from a Visual Builder app. You'll use the Content Management REST API for
   documents to get the contents of a folder, download files, plus upload new files and
   photos to the folder. You can also take new photo using device camera for upload.
 </div>
-<div class="oj-flex">
-  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2">
     <div class="oj-flex">
       <div
         class="oj-flex oj-flex-item oj-sm-12 oj-md-12 oj-sm-align-items-center">
@@ -19,7 +19,7 @@
           <oj-file-picker disabled="[[ $variables.ocmServerBusy ]]"
             class="oj-flex-item oj-sm-flex-initial"
             accept="[[['image/*','application/pdf','.pdf']]]" on-oj-select="[[$listeners.filePickerSelect]]"
-            selection-mode="single">
+            selection-mode="multiple">
             <oj-button slot="trigger" chroming="callToAction" id="filepicker-btn" title="Click Photo Or Upload File">Upload File<span class="oj-ux-ico-upload" slot="startIcon"></span>
             </oj-button>
           </oj-file-picker>
@@ -27,8 +27,9 @@
       </div>
     </div>
     <div class="oj-flex">
-      <oj-table scroll-policy="loadMoreOnScroll" id="oj-table-716052071-1" class="oj-flex-item oj-sm-12 oj-md-12"
-        style="width: 100%" data="[[$page.variables.ocmFilesSDP]]"
+      <oj-table scroll-policy="loadMoreOnScroll" id="oj-table-716052071-1" class="oj-flex-item oj-sm-12 oj-md-12 oj-table-stretch"
+        style="height:400px; width: 100%" data="[[$page.variables.ocmFilesSDP]]"
+        :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
         columns='[  {    "headerText": "Name",    "field": "name",    "template": "Name",    "sortable": "disabled"  },  {    "headerText": "Size",    "field": "size",    "sortable": "disabled"  },  {    "headerText": "Type",    "field": "mimeType",    "sortable": "disabled",    "template": "Type"  },  {    "headerText": "",    "template": "Download"  },  {    "headerText": "",    "template": "Preview"  },  {    "headerText": "",    "template": "Delete"  }]'>
         <template slot="Download">
           <oj-bind-if test="[[ $current.row.type === 'file']]">
@@ -89,9 +90,9 @@
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
       :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
-      <div class="recipe-box oj-flex-item">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
-        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

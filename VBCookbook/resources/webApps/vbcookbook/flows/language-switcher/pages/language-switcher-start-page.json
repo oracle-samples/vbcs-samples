@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Language Switcher Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -38,7 +37,6 @@
     "selectedLocale": {
       "type": "any"
     }
-
   },
   "metadata": {},
   "types": {
@@ -61,8 +59,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojSelectSingleValue": {
       "chains": [

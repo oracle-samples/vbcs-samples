@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Passing Context Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -48,8 +47,7 @@
       "lastName": "string"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "navigateToEditListener": {
       "chains": [

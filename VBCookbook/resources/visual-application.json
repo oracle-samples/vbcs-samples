@@ -1,22 +1,21 @@
 {
     "vbcs.dt.version": "20220614-22.10.0",
-    "version": "1.4.11",
-    "source.version": "2207",
+    "version": "2.0.2",
+    "source.version": "2210",
     "rootURL": "vbcookbook",
     "dependencies": {
         "upgrade": "micro",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/12.0.4",
-            "visualRuntime": "https://static.oracle.com/cdn/vb/2207.2.0",
-            "telemetry": "https://static.oracle.com/cdn/trace/6.0.1"
+            "jet": "https://static.oracle.com/cdn/jet/12.1.4",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2210.0.4",
+            "telemetry": "https://static.oracle.com/cdn/trace/7.0.1"
         }
     },
     "migration": {
-        "2207": [
-            "ACTJsSpecsMigrator",
-            "AppUIRootPageMigrator",
+        "2210": [
             "RemoveReadOnlyAttrDynamicFormMigrator",
-            "RemoveMetadataPathAttrMigrator"
+            "RemoveMetadataPathAttrMigrator",
+            "LayoutFieldRestDisplayPropertyMigrator"
         ]
     }
 }

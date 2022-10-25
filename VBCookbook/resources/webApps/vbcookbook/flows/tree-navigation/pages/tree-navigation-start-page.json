@@ -1,8 +1,7 @@
 {
-  "title": "",
+  "title": "Tree Navigation Recipe",
   "description": "",
   "variables": {
-
     "openDrawer": {
       "type": "boolean",
       "defaultValue": "[[ $application.responsive.lgUp ]]"
@@ -30,12 +29,10 @@
       "chains": [
         {
           "chainId": "NavigationListSelectionChangeChain",
-          "parameters": {
-          }
+          "parameters": {}
         }
       ]
     }
-
   },
   "imports": {
     "components": {
@@ -48,7 +45,6 @@
       "oj-navigation-list": {
         "path": "ojs/ojnavigationlist"
       }
-
     },
     "css": [
       "/resources/css/tree-navigation.css"

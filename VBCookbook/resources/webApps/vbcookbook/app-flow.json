@@ -4,8 +4,19 @@
   "defaultPage": "shell",
   "chains": {},
   "services": {},
+  "configuration": {
+    "initParams": {
+      "ojSpVersion": "{{window.appConfig && window.appConfig['OJ_SP_VERSION'] ? window.appConfig['OJ_SP_VERSION'] : '2207.0.0'}}",
+      "cdnLocation": "{{window.FAEndPoints && window.FAEndPoints['CDN_LOCATION'] ? window.FAEndPoints['CDN_LOCATION'] : 'https://static.oracle.com/cdn/'}}",
+      "ojSpDebug": "{{window.appConfig && window.appConfig.DEBUG ? window.appConfig.DEBUG : false}}"
+    },
+    "profile": "DT"
+  },
   "translations": {
     "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    },
+    "appBundle": {
       "path": "./resources/strings/app/nls/app-strings"
     }
   },
@@ -16,8 +27,34 @@
       }
     }
   },
-  "types": {},
+  "types": {
+    "DocReferenceType": {
+      "label": "string",
+      "type": "string",
+      "url": "string"
+    },
+    "RecipeType": {
+      "apiRef": "DocReferenceType[]",
+      "category": "string",
+      "desc": "string",
+      "id": "string",
+      "label": "string",
+      "icon": "string",
+      "redwood": "string",
+      "seeAlso": "DocReferenceType[]",
+      "shortDesc": "string",
+      "subCategory": "string"
+    }
+  },
   "variables": {
+    "canNavigateBack": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "currentRecipe": {
+      "type": "object",
+      "defaultValue": "[[ $application.functions.getRecipeMetadataForPage($application.currentPage )]]"
+    },
     "isMobileDevice": {
       "type": "boolean",
       "defaultValue": "{{ $application.functions.isMobileDevice() }}"
@@ -53,6 +90,9 @@
   },
   "requirejs": {
     "paths": {
+      "colorthief": "https://static.oracle.com/cdn/spectra-ui/oj-sp/2207.0.0/3rdparty/color-thief_2.3.2",
+      "oj-sp": "{{$initParams.ojSpDebug ? ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug') : ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion)}}",
+      "fndconfig": "{{($initParams.ojSpDebug ? $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug' : $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion) + '/spectra-shell/config'}}",
       "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/12.0.0/min/",
       "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/6.0.0/min",
       "employee-card": "resources/components/employee-card",
@@ -140,7 +180,135 @@
         "oj-sample/pull-to-refresh/loader",
         "oj-sample/show-when-ready/loader",
         "oj-sample/timed-event/loader"
-      ]
+      ],
+      "oj-sp/oj-sp-chat-component-bundle": [
+        "oj-sp/chat-message-block/loader",
+        "oj-sp/chat-container/loader",
+        "oj-sp/chat-text/loader",
+        "oj-sp/chat-input/loader",
+        "oj-sp/chat-card/loader",
+        "oj-sp/chat-action/loader",
+        "oj-sp/chat-attachment-message/loader",
+        "oj-sp/common/chat"
+      ],
+      "oj-sp/oj-sp-component-bundle": [
+        "oj-sp/advanced-create-edit/loader",
+        "oj-sp/analytics-canvas/loader",
+        "oj-sp/attachments-common/private/AttachmentManager",
+        "oj-sp/attachments-common/public/AttachmentPublic",
+        "oj-sp/attachments-simple/loader",
+        "oj-sp/attachments-viewer/loader",
+        "oj-sp/attachments/loader",
+        "oj-sp/bottom-drawer-template/loader",
+        "oj-sp/card-footer/loader",
+        "oj-sp/collection-container/loader",
+        "oj-sp/collection-container-advanced/loader",
+        "oj-sp/common-strings/resources/nls/common-component-strings",
+        "oj-sp/common-util/flex-util",
+        "oj-sp/common/EventDispatcher",
+        "oj-sp/common/action",
+        "oj-sp/common/activitystreamutils",
+        "oj-sp/common/avatarinfo",
+        "oj-sp/common/badge",
+        "oj-sp/common/contextualinfo",
+        "oj-sp/common/footertext",
+        "oj-sp/common/iconinfo",
+        "oj-sp/common/imageinfo",
+        "oj-sp/common/positionmanager",
+        "oj-sp/common/PreviousNextIterator",
+        "oj-sp/create-edit-drawer-template/loader",
+        "oj-sp/dashboard-grid/loader",
+        "oj-sp/dashboard-landing-page/loader",
+        "oj-sp/data-management-page/loader",
+        "oj-sp/dashboard-panel/loader",
+        "oj-sp/data-provider/AggregateSearchDataProvider",
+        "oj-sp/data-provider/AggregateSearchOpenApiTransforms",
+        "oj-sp/data-provider/AggregateSearchTransforms",
+        "oj-sp/data-provider/AutocompleteSearchTransforms",
+        "oj-sp/data-provider/BaseKeysHash",
+        "oj-sp/data-provider/CompareUtils",
+        "oj-sp/data-provider/DataProviderBindingContext",
+        "oj-sp/data-provider/DataProviderUtils",
+        "oj-sp/data-provider/KeysHashMap",
+        "oj-sp/data-provider/KeysHashSet",
+        "oj-sp/data-provider/RecentSearchesTransforms",
+        "oj-sp/data-provider/SmartSearchAndFilterDataProvider",
+        "oj-sp/data-provider/SmartSearchAndFilterTransforms",
+        "oj-sp/data-provider/SmartSuggestionChipsDataProvider",
+        "oj-sp/data-provider/SuggestionFiltersDataProvider",
+        "oj-sp/data-provider/SuggestionFiltersTransforms",
+        "oj-sp/diagram-node/loader",
+        "oj-sp/email-address-chip/loader",
+        "oj-sp/emo-button/cca-trace-fields-plugin",
+        "oj-sp/emo-button/loader",
+        "oj-sp/empty-state/loader",
+        "oj-sp/expandable-list-item/loader",
+        "oj-sp/filter-chip/loader",
+        "oj-sp/flex-filter-chip/loader",
+        "oj-sp/flex-switch/loader",
+        "oj-sp/foldout-layout/loader",
+        "oj-sp/foldout-panel/loader",
+        "oj-sp/general-drawer-template/loader",
+        "oj-sp/general-overview-page/loader",
+        "oj-sp/guided-process/loader",
+        "oj-sp/header-create-edit-2/loader",
+        "oj-sp/header-create-edit/loader",
+        "oj-sp/header-general-overview-2/loader",
+        "oj-sp/header-general-overview/loader",
+        "oj-sp/header-navigation/loader",
+        "oj-sp/header-welcome-banner/loader",
+        "oj-sp/hierarchy-card/loader",
+        "oj-sp/hierarchy-card-info/loader",
+        "oj-sp/hierarchy-viewer/loader",
+        "oj-sp/horizontal-overview/loader",
+        "oj-sp/image-card/loader",
+        "oj-sp/image/loader",
+        "oj-sp/in-app-navigation/loader",
+        "oj-sp/input-address/loader",
+        "oj-sp/input-currency-conversion-rate/loader",
+        "oj-sp/input-currency/loader",
+        "oj-sp/input-email/loader",
+        "oj-sp/input-key-flex-field/loader",
+        "oj-sp/input-phone-number/loader",
+        "oj-sp/input-url/loader",
+        "oj-sp/item-overview-page/loader",
+        "oj-sp/item-overview/loader",
+        "oj-sp/list-item-template/loader",
+        "oj-sp/list-section/loader",
+        "oj-sp/message-banner-unsaved-changes/loader",
+        "oj-sp/message-dialog-destructive/loader",
+        "oj-sp/message-dialog-general/loader",
+        "oj-sp/message-unsaved-changes/loader",
+        "oj-sp/messages-banner/loader",
+        "oj-sp/messages-toast/loader",
+        "oj-sp/metric-card/loader",
+        "oj-sp/mini-card/loader",
+        "oj-sp/object-card/loader",
+        "oj-sp/overflow/loader",
+        "oj-sp/preview-card/loader",
+        "oj-sp/profile-card/loader",
+        "oj-sp/scoreboard/loader",
+        "oj-sp/scoreboard-metric-card/loader",
+        "oj-sp/select-single-currency/loader",
+        "oj-sp/select-single-item-template/loader",
+        "oj-sp/selection-chart-card/loader",
+        "oj-sp/simple-create-edit/loader",
+        "oj-sp/skill-chip/loader",
+        "oj-sp/smart-filter-search/loader",
+        "oj-sp/smart-filters/loader",
+        "oj-sp/summarizing-collection/loader",
+        "oj-sp/task-card/loader",
+        "oj-sp/thumbnail/loader",
+        "oj-sp/timestamp/loader",
+        "oj-sp/vertical-overview/loader",
+        "oj-sp/welcome-page/loader",
+        "oj-sp/timestamp/loader",
+        "oj-sp/flex-checkbox/loader"
+      ],
+      "oj-sp/oj-sp-input-rich-text-bundle": [
+        "oj-sp/input-rich-text/loader"
+      ],
+      "oj-sp/spectra-shell/oj-sp-shell-bundle": "{{$initParams.ojSpDebug ? [] : ['oj-sp/spectra-shell/applcore/security/FndSecurityProvider', 'oj-sp/spectra-shell/applcore/security/tokenRelayPlugin', 'fndconfig/config']}}"
     }
   },
   "eventListeners": {},

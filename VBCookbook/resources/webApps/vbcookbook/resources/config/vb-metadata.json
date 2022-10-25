@@ -1,0 +1,1289 @@
+[
+  {
+    "id": "validation-async-validators",
+    "label": "Async Validators",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Create a form control within a Validation Group component where the action chain triggered by the component event calls a JavaScript function that uses Oracle JET's AsyncValidator API",
+    "shortDesc": "Create a form control within a Validation Group component where the action chain triggered by the component event calls a JavaScript function that uses Oracle JET's AsyncValidator API",
+    "seeAlso": [
+      {
+        "label": "JET Async validators",
+        "type": "jetdemo",
+        "url": "?component=validationUsecases&demo=asyncValidators"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      },
+      {
+        "label": "editableValue",
+        "type": "jetdoc",
+        "url": "oj.editableValue.html"
+      },
+      {
+        "label": "ojValidationGroup",
+        "type": "jetdoc",
+        "url": "oj.ojValidationGroup.html"
+      }
+    ]
+  },
+  {
+    "id": "back-button",
+    "label": "Back Button Behavior",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "desc": "Conditionally customize navigation across pages using button clicks and the browser Back button",
+    "shortDesc": "Conditionally customize navigation across pages using button clicks and the browser Back button",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "custom-js-validator",
+    "label": "Custom JavaScript Validator",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Validate input fields using custom JavaScript",
+    "shortDesc": "Validate input fields using custom JavaScript",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "customize-fetch-chain",
+    "label": "Customize Fetch Action Chain",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "desc": "Customize the behavior of a Service Data Provider fetch action using an action chain",
+    "shortDesc": "Customize the behavior of a Service Data Provider fetch action using an action chain",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dashboard-template",
+    "label": "Dashboard Template",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "form-layout-jet",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Create a skeleton responsive dashboard template with animation effects",
+    "shortDesc": "Create a skeleton responsive dashboard template with animation effects",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "inputnumber-eating-chars",
+    "label": "Eating Non-Numbers",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "desc": "Use Javascript to ignore typed characters that are not numbers",
+    "shortDesc": "Use Javascript to ignore typed characters that are not numbers",
+    "seeAlso": [
+      {
+        "label": "JET InputNumber",
+        "type": "jetdemo",
+        "url": "?component=inputNumber&demo=inputNumber"
+      },
+      {
+        "label": "Form Layout",
+        "type": "vbdemo",
+        "url": "form-layout-inline"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojInputNumber",
+        "type": "jetdoc",
+        "url": "oj.ojInputNumber.html"
+      },
+      {
+        "label": "IntlNumberConverter",
+        "type": "jetdoc",
+        "url": "oj.IntlNumberConverter.html"
+      },
+      {
+        "label": "NumberRangeValidator",
+        "type": "jetdoc",
+        "url": "oj.NumberRangeValidator.html"
+      }
+    ]
+  },
+  {
+    "id": "form-layout-inline",
+    "label": "Inline Layout",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "form-layout-jet",
+    "subCategory": "",
+    "desc": "Configure the Form Layout Component",
+    "shortDesc": "Configure the Form Layout Component",
+    "seeAlso": [
+      {
+        "label": "JET Form Layout",
+        "type": "jetdemo",
+        "url": "?component=ojFormLayout&demo=form1colinlineofl"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ]
+  },
+  {
+    "id": "language-switcher",
+    "label": "Language Switcher",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Switch between multiple languages and display content in the newly-selected language",
+    "shortDesc": "Switch between multiple languages and display content in the newly-selected language",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "multi-step-wizard",
+    "label": "Multi Step Wizard",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "form-layout-jet",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Implement a multi-step wizard using a Train component so that users step through the process to change an employee's job role",
+    "shortDesc": "Implement a multi-step wizard using a Train component so that users step through the process to change an employee's job role",
+    "seeAlso": [
+      {
+        "label": "JET Form Layout",
+        "type": "jetdemo",
+        "url": "?component=ojFormLayout&demo=form1colinlineofl"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ]
+  },
+  {
+    "id": "navigation-context",
+    "label": "Passing Context",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "desc": "Pass variable values as context while navigating between pages in your application",
+    "shortDesc": "Pass variable values as context while navigating between pages in your application",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "prevent-double-submission",
+    "label": "Prevent Double Submission",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Prevent double click of the Button component and, as a result, double submission",
+    "shortDesc": "Prevent double click of the Button component and, as a result, double submission",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "oj-refresher",
+    "label": "Refresher",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "desc": "Implement pull-to-refresh functionality in a page that uses a List View component with a collection-based data source",
+    "shortDesc": "Implement pull-to-refresh functionality in a page that uses a List View component with a collection-based data source",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "patterns-show-ui-when-ready",
+    "label": "Show UI When Ready",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Show the UI when data is ready",
+    "shortDesc": "Show the UI when data is ready",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "confirmation-dialog",
+    "label": "Unsaved Data Confirmation",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "desc": "Display an unsaved data warning dialog when navigating away with unsaved changes",
+    "shortDesc": "Display an unsaved data warning dialog when navigating away with unsaved changes",
+    "seeAlso": [
+      {
+        "label": "JET Form Layout",
+        "type": "jetdemo",
+        "url": "?component=ojFormLayout&demo=form1colinlineofl"
+      },
+      {
+        "label": "JET Dialog",
+        "type": "jetdemo",
+        "url": "?component=dialog&demo=modal"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      },
+      {
+        "label": "ojDialog",
+        "type": "jetdoc",
+        "url": "oj.ojDialog.html"
+      },
+      {
+        "label": "ojTabBar",
+        "type": "jetdoc",
+        "url": "oj.ojTabBar.html"
+      }
+    ]
+  },
+  {
+    "id": "value-converter",
+    "label": "Value Converter",
+    "redwood": "false",
+    "category": "Application",
+    "icon": "code",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Use the Oracle JET Converter API to format date, time, currency, and decimal strings",
+    "shortDesc": "Use the Oracle JET Converter API to format date, time, currency, and decimal strings",
+    "seeAlso": [
+      {
+        "label": "JET Date Converter",
+        "type": "jetdemo",
+        "url": "?component=date&demo=converter"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojInputDate",
+        "type": "jetdoc",
+        "url": "oj.ojInputDate.html"
+      },
+      {
+        "label": "IntlDateTimeConverter",
+        "type": "jetdoc",
+        "url": "oj.IntlDateTimeConverter.html#ConverterOptions"
+      },
+      {
+        "label": "ojInputNumber",
+        "type": "jetdoc",
+        "url": "oj.ojInputNumber.html"
+      },
+      {
+        "label": "IntlNumberConverter",
+        "type": "jetdoc",
+        "url": "oj.IntlNumberConverter.html"
+      }
+    ]
+  },
+  {
+    "id": "visualizations-bar-chart-basic",
+    "label": "Bar Chart",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Chart",
+    "shownOnUI":true,
+    "desc": "Use the Bar Chart component to visually present information about salaries for various departments",
+    "shortDesc": "Use the Bar Chart component to visually present information about salaries for various departments",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "chart"
+  },
+  {
+    "id": "visualizations-bar-chart-transform",
+    "label": "Chart With Transform",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Chart",
+    "desc": "Use the Bar Chart component to visually present information about salaries for various job types that you retrieve from an external REST service",
+    "shortDesc": "Use the Bar Chart component to visually present information about salaries for various job types that you retrieve from an external REST service",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "chart"
+  },
+  {
+    "id": "checkbox-set",
+    "label": "Checkbox Set",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Checkbox Set",
+    "shownOnUI":true,
+    "desc": "Demonstrates how to populate the Checkbox Set component with data from a Service Data Provider (SDP), preselect an item, implement custom selection, and reset selections in the component",
+    "shortDesc": "Demonstrates how to populate the Checkbox Set component with data from a Service Data Provider (SDP), preselect an item, implement custom selection, and reset selections in the component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "checkbox-set"
+  },
+  {
+    "id": "data-grid-nested-header",
+    "label": "Frozen Data Grid Columns",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Data Grid",
+    "shownOnUI":true,
+    "desc": "Use a Data Grid Provider instance to create frozen columns and rows in a Data Grid component",
+    "shortDesc": "Use a Data Grid Provider instance to create frozen columns and rows in a Data Grid component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "grid-view-small"
+  },
+  {
+    "id": "data-grid-merged",
+    "label": "Merged",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Data Grid",
+    "desc": "Use a Data Grid Provider instance to create merged cells in a Data Grid component",
+    "shortDesc": "Use a Data Grid Provider instance to create merged cells in a Data Grid component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "grid-view-small"
+  },
+  {
+    "id": "data-grid-styling",
+    "label": "Data Grid Styling",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Data Grid",
+    "shownOnUI":true,
+    "desc": "Style the cells and headers of the Data Grid component using its styling attributes",
+    "shortDesc": "Style the cells and headers of the Data Grid component using its styling attributes",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "grid-view-small"
+  },
+  {
+    "id": "many-editable-rows",
+    "label": "Many Editable Rows",
+    "redwood": "false",
+    "category": "Components",
+    "shownOnUI":true,
+    "subCategory": "Editable Rows",
+    "desc": "Use the Bind For Each component to create an editable form for multiple rows on one page",
+    "shortDesc": "Use the Bind For Each component to create an editable form for multiple rows on one page",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "cache-lov",
+    "label": "Caching LOV",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List of Values - LOV",
+    "desc": "Cache LOV data in a flow-level ArrayDataProvider and bind an oj-select-single to that ArrayDataProvider. In this way the REST API does not need to be called every time you open the oj-select-single",
+    "shortDesc": "Cache LOV data in a flow-level ArrayDataProvider and bind an oj-select-single to that ArrayDataProvider. In this way the REST API does not need to be called every time you o...",
+    "seeAlso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "icon": "text-input-combo"
+  },
+  {
+    "id": "fa-lovs",
+    "label": "Dynamic Choice List",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List of Values - LOV",
+    "desc": "Show dynamic choice list in a combox-box with an advance search where user can select filtered record",
+    "shortDesc": "Show dynamic choice list in a combox-box with an advance search where user can select filtered record",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "text-input-combo"
+  },
+  {
+    "id": "select-many",
+    "label": "Select-Many Demos",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List of Values - LOV",
+    "desc": "Implement use cases that use the Select (Many) component (oj-select-many)",
+    "shortDesc": "Implement use cases that use the Select (Many) component (oj-select-many)",
+    "seeAlso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectMany",
+        "type": "jetdoc",
+        "url": "oj.ojSelectMany.html"
+      }
+    ],
+    "icon": "text-input-combo"
+  },
+  {
+    "id": "select-single",
+    "label": "Select-Single Demos",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List of Values - LOV",
+    "shownOnUI":true,
+    "desc": "Implement use cases that use the Select (Single) component",
+    "shortDesc": "Implement use cases that use the Select (Single) component",
+    "seeAlso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "icon": "text-input-combo"
+  },
+  {
+    "id": "cascading-lov",
+    "label": "Cascading List of Values",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List of Values - LOV",
+    "shownOnUI":true,
+    "desc": "Implement cascading lists of values using the Select (Single) component (oj-select-single)",
+    "shortDesc": "Implement cascading lists of values using the Select (Single) component (oj-select-single)",
+    "seeAlso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "icon": "text-input-combo"
+  },
+  {
+    "id": "listview-cardlayout",
+    "label": "Card Layout",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List View",
+    "desc": "Display a list of employees in a card layout",
+    "shortDesc": "Display a list of employees in a card layout",
+    "seeAlso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      }
+    ],
+    "icon": "list"
+  },
+  {
+    "id": "collapsible-list",
+    "label": "Collapsible List",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List View",
+    "desc": "Implement a collapsible list with hierarchical information",
+    "shortDesc": "Implement a collapsible list with hierarchical information",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "list"
+  },
+  {
+    "id": "list-load-more-on-scroll",
+    "label": "Load More on Scroll",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List View",
+    "desc": "Use List View pagination with the loadMoreOnScroll policy",
+    "shortDesc": "Use List View pagination with the loadMoreOnScroll policy",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "list"
+  },
+  {
+    "id": "listview-master-detail",
+    "label": "Master Detail",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List View",
+    "desc": "Implement a three-level master detail pattern with List View components",
+    "shortDesc": "Implement a three-level master detail pattern with List View components",
+    "seeAlso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      },
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ],
+    "icon": "list"
+  },
+  {
+    "id": "listview-multi-select",
+    "label": "Multi Select",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List View",
+    "desc": "Select one or more list items for the List View component. The recipe also demonstrates how you can monitor the user’s selections",
+    "shortDesc": "Select one or more list items for the List View component. The recipe also demonstrates how you can monitor the user’s selections",
+    "seeAlso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      }
+    ],
+    "icon": "list"
+  },
+  {
+    "id": "listview-sorting",
+    "label": "Sorting",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "List View",
+    "desc": "Implement sorting in a List View component",
+    "shortDesc": "Implement sorting in a List View component",
+    "seeAlso": [
+      {
+        "label": "JET ListView ",
+        "type": "jetdemo",
+        "url": "?component=listView&demo=selectionListView"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojListView",
+        "type": "jetdoc",
+        "url": "oj.ojListView.html"
+      }
+    ],
+    "icon": "list"
+  },
+  {
+    "id": "filmstrip",
+    "label": "Film Strip",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Navigation",
+    "desc": "Use the Film Strip component to navigate content",
+    "shortDesc": "Use the Film Strip component to navigate content",
+    "seeAlso": [],
+    "apiRef": [
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      }
+    ],
+    "icon": "film-strip"
+  },
+  {
+    "id": "tree-navigation",
+    "label": "Tree Navigation",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Navigation",
+    "shownOnUI":true,
+    "desc": "Create a single-level tree structure navigation list in a Drawer Layout. It also describes the steps to include this navigation list in the shell page of your application",
+    "shortDesc": "Create a single-level tree structure navigation list in a Drawer Layout. It also describes the steps to include this navigation list in the shell page of your application",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tree-view"
+  },
+  {
+    "id": "table-actions",
+    "label": "Table Actions",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Open a Dialog component from a Table component row where users can then edit the data for the selected row",
+    "shortDesc": "Open a Dialog component from a Table component row where users can then edit the data for the selected row",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-add-row",
+    "label": "Table Add Row",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Display an empty row at the top of a table so that users can easily enter new data",
+    "shortDesc": "Display an empty row at the top of a table so that users can easily enter new data",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "batch-editable-table",
+    "label": "Batch Editable Table (ADP)",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":false,
+    "desc": "Implement an editable table where users can edit multiple existing rows or create new rows, before they submit all their changes in one transaction to the backend service. The recipe also demonstrates how to implement validation",
+    "shortDesc": "Implement an editable table where users can edit multiple existing rows or create new rows, before they submit all their changes in one transaction to the backend service. T...",
+    "seeAlso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=editableArrayTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojInputDate",
+        "type": "jetdoc",
+        "url": "oj.ojInputDate.html"
+      },
+      {
+        "label": "ojCheckboxset",
+        "type": "jetdoc",
+        "url": "oj.ojCheckboxset.html"
+      },
+      {
+        "label": "ojSelectOne",
+        "type": "jetdoc",
+        "url": "oj.ojSelectOne.html"
+      },
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      }
+    ],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "batch-editable-table-bdp",
+    "label": "Batch Editable Table (BDP)",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Implement an editable table using Buffering Data Provider with Service Data Provider where users can edit multiple existing rows or create new rows, before they submit all their changes in one transaction to the backend service. The recipe also demonstrates how to implement validation",
+    "shortDesc": "Implement an editable table using Buffering Data Provider with Service Data Provider where users can edit multiple existing rows or create new rows, before they submit all t...",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-complex-filters",
+    "label": "Complex Filters",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Write complex server-side filtering using the Service Data Provider",
+    "shortDesc": "Write complex server-side filtering using the Service Data Provider",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "conditional-styling",
+    "label": "Conditional Styling",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Change background color in a Table component's column using the Rating Gauge component",
+    "shortDesc": "Change background color in a Table component's column using the Rating Gauge component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "custom-no-records-message",
+    "label": "Custom No Records Message",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Display a custom message when a table displays an empty data set",
+    "shortDesc": "Display a custom message when a table displays an empty data set",
+    "seeAlso": [],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      }
+    ],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "editable-form-table-sdp",
+    "label": "Editable Form Table",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Use a Form Layout in an editable Table component",
+    "shortDesc": "Use a Form Layout in an editable Table component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-filter",
+    "label": "Filtering",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Implement filters with a Table component",
+    "shortDesc": "Implement filters with a Table component",
+    "seeAlso": [
+      {
+        "label": "JET Table Filter",
+        "type": "jetdemo",
+        "url": "?component=table&demo=filteringTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojLabel",
+        "type": "jetdoc",
+        "url": "oj.ojLabel.html"
+      },
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      }
+    ],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-freeze-column",
+    "label": "Frozen Table Columns",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Create Table component with three frozen columns",
+    "shortDesc": "Create Table component with three frozen columns",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-many-to-many",
+    "label": "Many to Many",
+    "redwood": "false",
+    "shownOnUI":true,
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Use Table and Dialog components to manage data where a many-to-many relationship exists between the Employee and Skills business objects",
+    "shortDesc": "Use Table and Dialog components to manage data where a many-to-many relationship exists between the Employee and Skills business objects",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-master-detail",
+    "label": "Master Detail",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Implement a master-detail relationship using two Table components in an Oracle Visual Builder app",
+    "shortDesc": "Implement a master-detail relationship using two Table components in an Oracle Visual Builder app",
+    "seeAlso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=basicTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      },
+      {
+        "label": "ojFormLayout",
+        "type": "jetdoc",
+        "url": "oj.ojFormLayout.html"
+      }
+    ],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-multi-select",
+    "label": "Table Multi Select",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Enable multiple row selection in a Table component using checkboxes and programatically",
+    "shortDesc": "Enable multiple row selection in a Table component using checkboxes and programatically",
+    "seeAlso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=checkboxSelectableTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      }
+    ],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "row-expander",
+    "label": "Table Row Expander",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "shownOnUI":true,
+    "desc": "Implement row expanders in a Table component when a hierarchical relationship exists between data rows",
+    "shortDesc": "Implement row expanders in a Table component when a hierarchical relationship exists between data rows",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "dynamic-sdp",
+    "label": "SDP Factory",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Implement a dynamic SDP to fetch data on demand using the ServiceDataProviderFactory",
+    "shortDesc": "Implement a dynamic SDP to fetch data on demand using the ServiceDataProviderFactory",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-sorting",
+    "label": "Sorting",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Sort table rows",
+    "shortDesc": "Sort table rows",
+    "seeAlso": [
+      {
+        "label": "JET Table",
+        "type": "jetdemo",
+        "url": "?component=table&demo=basicTable"
+      }
+    ],
+    "apiRef": [
+      {
+        "label": "ojTable",
+        "type": "jetdoc",
+        "url": "oj.ojTable.html"
+      }
+    ],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-select-cols",
+    "label": "Table Columns Select",
+    "redwood": "false",
+    "category": "Components",
+    "shownOnUI":true,
+    "subCategory": "Table",
+    "desc": "Select and update which table columns to display and save preferences in device storage",
+    "shortDesc": "Select and update which table columns to display and save preferences in device storage",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "table-dnd",
+    "label": "Table Drag and Drop",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Table",
+    "desc": "Drag and drop table rows onto another table",
+    "shortDesc": "Drag and drop table rows onto another table",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "tables-basic"
+  },
+  {
+    "id": "dynamic-form-calculated-field",
+    "label": "Calculated Field",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":false,
+    "desc": "Create calculated fields in a dynamic form that a function in the layout module returns",
+    "shortDesc": "Create calculated fields in a dynamic form that a function in the layout module returns",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-form-context",
+    "label": "Component Context",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Render different layouts in a Dynamic Form component using component context",
+    "shortDesc": "Render different layouts in a Dynamic Form component using component context",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-container-toggle-layout",
+    "label": "Dynamic Container",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Configure the display logic of a Dynamic Container to toggle the display of the templates within the container",
+    "shortDesc": "Configure the display logic of a Dynamic Container to toggle the display of the templates within the container",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-container-responsive",
+    "label": "Dynamic Container Responsive",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "desc": "Create a dynamic layout conditionally based on the device size",
+    "shortDesc": "Create a dynamic layout conditionally based on the device size",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-form-multiple-layout",
+    "label": "Dynamic Form",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Render employee details in a Dynamic Form",
+    "shortDesc": "Render employee details in a Dynamic Form",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-form-list-view",
+    "label": "Dynamic Form List View",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "desc": "Implement Dynamic Form in a List View component",
+    "shortDesc": "Implement Dynamic Form in a List View component",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-table-field-template",
+    "label": "Dynamic Table",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Implement a Dynamic Table with templates for two fields, email and phone, that render appropriate icons for each field",
+    "shortDesc": "Implement a Dynamic Table with templates for two fields, email and phone, that render appropriate icons for each field",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-editable-table",
+    "label": "Editable Table",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Make rows in a Dynamic Table editable and display an empty row at the top of the Dynamic Table so that users can easily enter new data",
+    "shortDesc": "Make rows in a Dynamic Table editable and display an empty row at the top of the Dynamic Table so that users can easily enter new data",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-table-template-event",
+    "label": "Template Event",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "desc": "Create a field template event in a Dynamic Table and configure a link that navigates to a different page",
+    "shortDesc": "Create a field template event in a Dynamic Table and configure a link that navigates to a different page",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-form-transient-value",
+    "label": "Transient Value Change",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "desc": "Implement a Dynamic Form that uses a transient value change listener",
+    "shortDesc": "Implement a Dynamic Form that uses a transient value change listener",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-form-virtual-field",
+    "label": "Virtual Field CCA",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Create and render a virtual field in a dynamic form using an Oracle JET web component (CCA)",
+    "shortDesc": "Create and render a virtual field in a dynamic form using an Oracle JET web component (CCA)",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "barcode-scanner",
+    "label": "Barcode Scanner",
+    "redwood": "false",
+    "category": "PWA",
+    "icon": "cell-phone",
+    "subCategory": "",
+    "desc": "Use the Scan Barcode action to decode information such as URLs, Wi-Fi connections, and contact details from QR codes and barcodes",
+    "shortDesc": "Use the Scan Barcode action to decode information such as URLs, Wi-Fi connections, and contact details from QR codes and barcodes",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "geolocation",
+    "label": "Geolocation",
+    "redwood": "false",
+    "category": "PWA",
+    "icon": "cell-phone",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Use the Get Location action to get a user’s live location",
+    "shortDesc": "Use the Get Location action to get a user’s live location",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "swipe-to-edit",
+    "label": "Swipe to Edit List ",
+    "redwood": "false",
+    "category": "PWA",
+    "icon": "cell-phone",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Edit a List View component by swiping the list item from right to left",
+    "shortDesc": "Edit a List View component by swiping the list item from right to left",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "take-photo",
+    "label": "Take Photo",
+    "redwood": "false",
+    "category": "PWA",
+    "icon": "cell-phone",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Use the File Picker action to access the camera and photo gallery on the device where your application is installed",
+    "shortDesc": "Use the File Picker action to access the camera and photo gallery on the device where your application is installed",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "rest-access-headers",
+    "label": "Access Response Headers",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "get-data",
+    "subCategory": "",
+    "desc": "Access the response headers of a REST call",
+    "shortDesc": "Access the response headers of a REST call",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "fileloader-csv",
+    "label": "CSV File Loading",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "bind-data",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Download and upload CSV files that contain data referenced by the business objects in your application",
+    "shortDesc": "Download and upload CSV files that contain data referenced by the business objects in your application",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "partial-get-bo-fa",
+    "label": "Fetch Only Required Fields",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "get-data",
+    "subCategory": "",
+    "desc": "Fetch partial fields in a REST call to a business object or a Fusion Application resource",
+    "shortDesc": "Fetch partial fields in a REST call to a business object or a Fusion Application resource",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "multi-edit-batch-save",
+    "label": "Multi Edit Batch Save",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "bind-data",
+    "subCategory": "",
+    "desc": "Configure your app so that users can make multiple edits on the client and save all changes to the backend service using a single REST batch call",
+    "shortDesc": "Configure your app so that users can make multiple edits on the client and save all changes to the backend service using a single REST batch call",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "rest-fa-attachments",
+    "label": "Oracle Cloud Applications",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "upload",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Manage image and PDF file attachments associated with an Oracle Cloud Application's activity from a Visual Builder app",
+    "shortDesc": "Manage image and PDF file attachments associated with an Oracle Cloud Application's activity from a Visual Builder app",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "rest-ocm-upload",
+    "label": "Oracle Content Management",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "upload",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Manage image and PDF files in an Oracle Content Management folder from a Visual Builder app",
+    "shortDesc": "Manage image and PDF files in an Oracle Content Management folder from a Visual Builder app",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "rest-ords-integration",
+    "label": "ORDS Integration",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "database",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Get data from an instance of Oracle Data REST Services that you can filter, sort and paginate in your Visual Builder application. It also demonstrates how to filter the retrieved data using the Table and Select (Single) components",
+    "shortDesc": "Get data from an instance of Oracle Data REST Services that you can filter, sort and paginate in your Visual Builder application. It also demonstrates how to filter the retr...",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "rest-helper",
+    "label": "REST Helper",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "get-data",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Use Visual Builder's RestHelper API to call service connection endpoints from JavaScript",
+    "shortDesc": "Use Visual Builder's RestHelper API to call service connection endpoints from JavaScript",
+    "apiRef": [
+      {
+        "label": "ojInputText",
+        "type": "jetdoc",
+        "url": "oj.ojInputText.html"
+      },
+      {
+        "label": "ojValidationGroup",
+        "type": "jetdoc",
+        "url": "oj.ojValidationGroup.html"
+      }
+    ]
+  },
+  {
+    "id": "bo-triggers",
+    "label": "Triggers",
+    "redwood": "false",
+    "category": "REST",
+    "icon": "binding-control",
+    "subCategory": "",
+    "desc": "Configure business rules that trigger actions based on the updates that a user makes to business object data",
+    "shortDesc": "Configure business rules that trigger actions based on the updates that a user makes to business object data",
+    "seeAlso": [],
+    "apiRef": []
+  }
+]

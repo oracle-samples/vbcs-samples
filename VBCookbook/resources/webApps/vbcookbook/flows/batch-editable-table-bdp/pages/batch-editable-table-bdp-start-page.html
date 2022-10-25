@@ -3,15 +3,15 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-sm-margin-2x-bottom oj-sm-padding-1x-start oj-sm-padding-1x-end">
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
   This recipe shows you how to implement an editable table using Buffering Data Provider with Service Data Provider
   where users can edit multiple existing rows or create new rows, before they submit all their changes in one
   transaction to the backend service. The recipe also demonstrates how to implement validation. It ensures, for example,
   that a change to an employee's salary remains within the minimum and maximum values for that employee's job
   classification.
 </div>
-<div class="oj-flex">
-  <div class="oj-flex-item oj-sm-flex-direction-column sample-box" style="overflow-x: auto;">
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2">
     <div class="oj-flex">
       <h1 id="h1-1829646926-1" class="oj-flex-item oj-sm-12 oj-md-9">Employees</h1>
       <div
@@ -27,9 +27,10 @@
 
     <div class="oj-flex">
       <oj-table edit-row="{{ $page.variables.editRow }}" scroll-position="{{ $page.variables.scrollPosition }}"
-        scroll-policy="loadAll" :id="[['batch-editable-table']]" class="oj-flex-item"
+        scroll-policy="loadAll" :id="[['batch-editable-table']]" class="oj-table-stretch oj-flex-item"
         columns='[{"headerText":"First Name","field":"firstName","template":"First Name"},{"headerText":"Last Name","field":"lastName","template":"Last Name"},{"headerText":"Job","field":"jobObject","template":"Job","sortable":"disabled"},{"headerText":"Salary","field":"salary","template":"Salary"},{"headerText":"Salary Range","template":"Salary Range","sortable":"disabled","className":"oj-read-only","resizable":"disabled"},{"headerText":"Actions","field":"","template":"Actions","sortable":"disabled","resizable":"disabled","style":"padding-top: 0px; padding-bottom: 0px; text-align: center;"}]'
-        style="max-height: 400px; height:400px; width: 100%" scroll-policy-options.fetch-size="999"
+        :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
+        style="height:400px; width: 100%" scroll-policy-options.fetch-size="999"
         scroll-policy-options.max-count="999" edit-mode="rowEdit"
         on-oj-before-row-edit="[[$listeners.ojTable18296469261OjBeforeRowEdit]]"
         on-oj-before-row-edit-end="[[$listeners.ojTable18296469261OjBeforeRowEditEnd]]"
@@ -114,9 +115,9 @@
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
     <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
       :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
-      <div class="recipe-box oj-flex-item">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
         <h1 class="oj-typography-heading-lg">Recipe</h1>
-        <div class="oj-panel oj-helper-overflow-wrap-anywhere">
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
           <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
         </div>
       </div>

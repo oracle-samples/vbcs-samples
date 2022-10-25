@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Component Context Recipe",
   "description": "",
   "variables": {
     "employee": {
@@ -40,13 +40,10 @@
     }
   },
   "types": {
-    
     "getEmployeeResponse": "object"
   },
-  "chains": {
-  },
-  "eventListeners": {
-  },
+  "chains": {},
+  "eventListeners": {},
   "imports": {
     "components": {
       "oj-dynamic-form": {

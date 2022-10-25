@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Master Detail Recipe",
   "description": "",
   "variables": {
     "departmentListSDP": {
@@ -69,8 +68,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "departmentSelectedRow": {
       "chains": [

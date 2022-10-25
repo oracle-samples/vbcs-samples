@@ -1,0 +1,38 @@
+{
+  "root": "updateAllFiltersAction",
+  "actions": {
+    "updateAllFiltersAction": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.allFilters": {
+          "source": "{{$page.variables.selectContextValue ? (($page.variables.appliedFilters || []).concat([{ 'filter': 'StatusLOV', 'value': $page.variables.selectContextValue }])) :  $page.variables.appliedFilters }}",
+          "reset": "empty"
+        }
+      },
+      "outcomes": {
+        "success": "callStringifyFiltersMethod"
+      }
+    },
+    "callStringifyFiltersMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj_sfs1') }}",
+        "method": "stringifyFilters",
+        "params": [ 
+        ]
+      },
+      "outcomes": {
+        "success": "navigateToHomeRedwood"
+      }
+    },
+    "navigateToHomeRedwood": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "home-redwood",
+        "params": {
+          "appliedFiltersStr2": "{{ $chain.results.callStringifyFiltersMethod !== undefined ? $chain.results.callStringifyFiltersMethod : '[]' }}"
+        }
+      }
+    }
+  }
+}

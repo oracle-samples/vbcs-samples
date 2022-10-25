@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Dynamic Container Recipe",
   "description": "",
   "variables": {
     "employee": {
@@ -53,7 +53,6 @@
     "dynamicContainerMetadata": {
       "type": "vb/ContainerMetadataProviderDescriptor"
     }
-
   },
   "types": {
     "@decorators.getallEmployeeResponse": {
@@ -70,11 +69,8 @@
       "items": "object[]"
     },
     "getEmployeeResponse": "object"
-
   },
-  "chains": {
-
-  },
+  "chains": {},
   "eventListeners": {
     "ojButtonOjAction2": {
       "chains": [
@@ -95,7 +91,6 @@
       "oj-dynamic-form": {
         "path": "oj-dynamic/form/loader"
       }
-
     }
   },
   "layouts": {

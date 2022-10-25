@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "ORDS Integration Recipe",
   "description": "",
   "variables": {
     "getEmployeesListSDP": {
@@ -87,7 +86,6 @@
       "oj-sample-input-text-typeahead": {
         "path": "oj-sample/input-text-typeahead/loader"
       }
-
     }
   }
 }

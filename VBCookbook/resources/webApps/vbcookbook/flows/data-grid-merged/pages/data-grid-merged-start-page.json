@@ -1,11 +1,10 @@
 {
-  "title": "",
+  "title": "Merged Recipe",
   "description": "",
   "variables": {
     "data": {
       "type": "any"
     }
-
   },
   "metadata": {},
   "types": {
@@ -43,7 +42,6 @@
     }
   },
   "eventListeners": {
-
     "vbEnter": {
       "chains": [
         {
@@ -52,7 +50,6 @@
         }
       ]
     }
-
   },
   "imports": {
     "components": {
@@ -80,9 +77,7 @@
       "oj-status-meter-gauge": {
         "path": "ojs/ojgauge"
       }
-
     }
   },
-  "constants": {
-  }
+  "constants": {}
 }

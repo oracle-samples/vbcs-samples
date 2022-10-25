@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Eating Non-Numbers Recipe",
   "description": "",
   "variables": {
     "currentValue": {
@@ -9,8 +8,7 @@
   },
   "metadata": {},
   "types": {},
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojInputNumberKeypress": {
       "preventDefault": "{{ !$page.functions.isValidChar($event) }}",
@@ -18,7 +16,7 @@
         {
           "chainId": "InputNumberKeypressChain",
           "parameters": {
-            "detail": "{{ $event.detail }}"            
+            "detail": "{{ $event.detail }}"
           }
         }
       ]

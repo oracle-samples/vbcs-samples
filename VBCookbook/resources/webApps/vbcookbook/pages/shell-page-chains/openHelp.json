@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "callComponentHelpDialogOpen",
+  "actions": {
+    "callComponentHelpDialogOpen": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('help-dialog') }}",
+        "method": "open"
+      }
+    }
+  },
+  "variables": {}
+}

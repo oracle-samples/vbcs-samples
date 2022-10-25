@@ -1,0 +1,138 @@
+{
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "description": "List of filters for UI consumers.",
+        "properties": {
+          "filter": {
+            "type": "string",
+            "description": "Defines a unique filter within a smart query.  The value is used as the discriminator for a polymorphic collection of filters.",
+            "dataProvider": {
+              "factory": "ojs/ojarraydataprovider",
+              "parameters": [
+                [
+                  {
+                    "value": "RedwoodLOV",
+                    "label": "Recipe"
+                  },
+                  {
+                    "value": "CategoryLOV",
+                    "label": "Category"
+                  }
+                ],
+                {
+                  "keyAttributes": "value"
+                }
+              ]
+            },
+            "optionsKeys": {
+              "value": "value",
+              "label": "label"
+            },
+            "labelHint": "filter",
+            "required": true,
+            "readonly": true
+          },
+          "label": {
+            "type": "string",
+            "description": "Localized human readable name given to describe the filter.",
+            "labelHint": "label",
+            "required": true,
+            "readonly": true
+          },
+          "count": {
+            "type": "integer",
+            "description": "Aggregate count associated with some types filters.",
+            "labelHint": "count",
+            "readonly": true
+          }
+        },
+        "discriminator": "filter",
+        "polymorphicTypes": {
+          "RedwoodLOV": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "labelHint": "Recipe",
+                "readonly": false,
+                "componentType": "oj-radioset",
+                "optionsKeys": {
+                  "value": "value",
+                  "label": "label"
+                },
+                "dataProvider": {
+                  "factory": "resources/js/data-provider/AggregateJsonDataProvider",
+                  "parameters": [
+                    {
+                      "filterCriterion": {
+                        "op": "$AND",
+                        "criteria": [
+                          {
+                            "op": "$eq",
+                            "value": {
+                              "selectedFilter": "[[ $currentFilter.filter ]]"
+                            }
+                          },
+                          {
+                            "op": "$ne",
+                            "value": {
+                              "filters": "[[ $appliedFilters ]]"
+                            }
+                          }
+                        ]
+                      },
+                      "uriParameters": {}
+                    }
+                  ]
+                },
+                "required": true
+              }
+            }
+          },
+          "CategoryLOV": {
+            "properties": {
+              "value": {
+                "type": "array",
+                "labelHint": "Category",
+                "readonly": false,
+                "componentType": "oj-radioset",
+                "optionsKeys": {
+                  "value": "value",
+                  "label": "label"
+                },
+                "dataProvider": {
+                  "factory": "resources/js/data-provider/AggregateJsonDataProvider",
+                  "parameters": [
+                    {
+                      "filterCriterion": {
+                        "op": "$AND",
+                        "criteria": [
+                          {
+                            "op": "$eq",
+                            "value": {
+                              "selectedFilter": "[[ $currentFilter.filter ]]"
+                            }
+                          },
+                          {
+                            "op": "$ne",
+                            "value": {
+                              "filters": "[[ $appliedFilters ]]"
+                            }
+                          }
+                        ]
+                      },
+                      "uriParameters": {}
+                    }
+                  ]
+                },
+                "required": true
+              }
+            }
+          }          
+        },
+        "labelHint": "items"
+      }
+    },
+    "labelHint": "SmartSearchResponse"
+  }

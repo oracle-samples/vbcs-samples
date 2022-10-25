@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Editable Form Table Recipe",
   "description": "",
   "variables": {
     "cancelEditVar": {
@@ -21,11 +21,9 @@
         "responseType": "getallEmployeeResponse"
       }
     }
-
   },
   "metadata": {},
   "types": {
-   
     "get_Employee": {
       "email": "string",
       "firstName": "string",
@@ -45,9 +43,7 @@
       ]
     }
   },
-  "chains": {
-
-  },
+  "chains": {},
   "eventListeners": {
     "cancelOjAction": {
       "chains": [

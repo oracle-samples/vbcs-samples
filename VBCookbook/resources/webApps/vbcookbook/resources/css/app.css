@@ -3,6 +3,95 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
+.main{
+background-image: url("../images/categories/mainbg.png");
+}
+
+.components-tile{
+ background-image: url("../images/categories/componentsbg.png");
+ border-radius: 5px;
+ height:655px
+}
+
+.pwa-tile
+{
+ background-image: url("../images/categories/pwabg.png");
+ border-radius: 5px;
+}
+
+.dynamic-tile{
+ background-image: url("../images/categories/dynamicuibg.png");
+ border-radius: 5px;
+ height:300px
+}
+
+.rest-tile{
+ background-image: url("../images/categories/restbg.png");
+ border-radius: 5px;
+ height:350px
+}
+
+.application-tile{
+ background-image: url("../images/categories/applicationbg.png");
+ border-radius: 5px;
+ height:380px
+}
+
+.tiles-heading{
+  opacity:0.6;
+}
+
+.recipe-action-card{
+  max-width: 300px; 
+  display: inline-block; 
+  width: 300px;
+}
+
+.tile-wrapper-div{
+  color: white; 
+  width: 96vw;
+}
+
+.tile-desc-div{
+opacity: 0.6
+}
+
+.downloaded-recipe-wrapper{
+width: 96vw; 
+overflow-x: auto; 
+white-space: nowrap;
+}
+
+.downloaded-recipe-div{
+  display:inline-block;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip + .tooltip-body {
+  display: block;
+  opacity: 0;
+  position: absolute;
+  transform: translateY(30px) translateX(50px);
+  transition: all .35s ease-out;
+  z-index: -999;
+}
+
+.tooltip:hover + .tooltip-body {
+  opacity: 1;
+  z-index: 999;
+}
+
+.recipeLink{
+  color: white
+}
+
+.recipeLink:hover {
+  color: white;
+}
+
 .demo-data-grid {
       width:100%;
       min-height:25rem;
@@ -106,23 +195,20 @@ pre {
     padding: 5px
 }
 
-.recipeIcon {
-    max-width: 200px;
-    padding-top: 15px;
-    font-size: 4rem;
-    color: black;
-    text-align: center;
-}
 
-.recipeBottomText {
-    text-align: center;
-    color: black;
-}
 
-.recipeTopText {
-    color: #BEBEBE;
-    font-size: .75rem;
-    text-align: center;
+:root {
+  /* Colors used the dashboard page: */
+  --rw-color-one:      70, 117, 83;
+  --rw-color-two:      59, 112, 135;
+  --rw-color-three:    146, 88, 101;
+  --rw-color-four:     100, 106, 115;
+  --rw-color-five:     240, 204, 113;
+
+  --rw-color-one-darker:      51, 85, 60;
+  --rw-color-two-darker:      44, 82, 102;
+  --rw-color-three-darker:    108, 63, 73;
+  --rw-color-four-darker:     73, 77, 83;
 }
 
 .componentCategoryItemListview, .componentCategoryItemListview div.demo-list {
@@ -155,10 +241,18 @@ pre {
     color: white;
     margin: 0;
 }
-.sample-box, .recipe-box {
-  border: 1px solid #d6dfe6;
-  padding: 5px;
-  margin: 5px;
+.sample-box {
+}
+
+.sample-box2 {
+  padding: 16px;
+  background: white;
+}
+
+.recipe-box {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 36px;
 }
 
 .recipe-box { overflow: auto; }

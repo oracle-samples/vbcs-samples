@@ -7,18 +7,18 @@
       "input": "fromCaller"
     }
   },
-  "root": "ifValidFileName",
+  "root": "updateOCMServerStatusBusy",
   "actions": {
 
     "updateOCMServerStatusBusy": {
       "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
         "$page.variables.ocmServerBusy": {
-          "source": "{{ true }}"
+          "source": true
         }
       },
       "outcomes": {
-        "success": "callUploadFileRestEndpoint"
+        "success": "forEachInFiles"
       }
     },
     "callUploadFileRestEndpoint": {
@@ -27,11 +27,11 @@
         "endpoint": "ocm/uploadFile",
         "body": {
           "jsonInputParameters": "{{ '{ \"parentID\":\"self\"}' }}",
-          "primaryFile": "{{ $variables.files[0] }}"
+          "primaryFile": "{{ $current.data }}"
         },
         "contentType": "multipart/form-data",
         "uriParams": {
-          "filename": "{{ $variables.files[0].name }}"
+          "filename": "{{ $current.data.name }}"
         }
       },
       "outcomes": {
@@ -43,8 +43,11 @@
       "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
         "$page.variables.ocmServerBusy": {
-          "source": "{{ false }}"
+          "source": false
         }
+      },
+      "outcomes": {
+        "success": "refreshDataProvider"
       }
     },
     "fireErrorNotification2": {
@@ -58,7 +61,7 @@
     "fireErrorNotification3": {
       "module": "vb/action/builtin/fireNotificationEventAction",
       "parameters": {
-        "summary": "File is too big. (1MB is limit)"
+        "summary": "{{ 'File ' + $current.data.name + ' is too big (1MB is the limit).' }}"
       }
     },
     "fireErrorNotification4": {
@@ -72,10 +75,7 @@
       "parameters": {
         "displayMode": "transient",
         "type": "info",
-        "summary": "{{ 'File ' + $variables.files[0].name + ' was successfully uploaded' }}"
-      },
-      "outcomes": {
-        "success": "refreshDataProvider"
+        "summary": "{{ 'File ' + $current.data.name + ' was successfully uploaded' }}"
       }
     },
     "refreshDataProvider": {
@@ -83,29 +83,36 @@
       "parameters": {
         "target": "[[ $page.variables.ocmFilesSDP ]]",
         "refresh": null
-      },
-      "outcomes": {
-        "success": "updateOCMServerStatusReady"
       }
     },
     "ifValidFileSize": {
       "module": "vb/action/builtin/ifAction",
       "parameters": {
-        "condition": "[[ $variables.files[0].size < 1100000 ]]"
+        "condition": "[[ $current.data.size < 1100000 ]]"
       },
       "outcomes": {
-        "true": "updateOCMServerStatusBusy",
+        "true": "callUploadFileRestEndpoint",
         "false": "fireErrorNotification3"
       }
     },
     "ifValidFileName": {
       "module": "vb/action/builtin/ifAction",
       "parameters": {
-        "condition": "[[ $variables.files[0].name !== undefined ]]"
+        "condition": "[[ $current.data.name !== undefined ]]"
       },
       "outcomes": {
         "true": "ifValidFileSize",
         "false": "fireErrorNotification4"
+      }
+    },
+    "forEachInFiles": {
+      "module": "vb/action/builtin/forEachAction",
+      "parameters": {
+        "actionId": "ifValidFileName",
+        "items": "{{ $variables.files }}"
+      },
+      "outcomes": {
+        "success": "updateOCMServerStatusReady"
       }
     }
   }

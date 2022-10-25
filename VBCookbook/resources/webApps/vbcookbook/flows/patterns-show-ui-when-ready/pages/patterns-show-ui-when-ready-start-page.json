@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Show UI When Ready Recipe",
   "description": "",
   "variables": {
     "pageReady": {
@@ -37,23 +36,25 @@
       "salary": "number"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
-
     "vbEnter": {
-      "chains": [{
-        "chainId": "fetchEmployeeChain",
-        "parameters": {}
-      }]
+      "chains": [
+        {
+          "chainId": "fetchEmployeeChain",
+          "parameters": {}
+        }
+      ]
     },
     "ojButtonOjAction": {
-      "chains": [{
-        "chainId": "UpdateEmployeeChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "UpdateEmployeeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     }
   },
   "imports": {

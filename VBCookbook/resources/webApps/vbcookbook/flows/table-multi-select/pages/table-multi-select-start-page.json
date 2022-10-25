@@ -1,6 +1,5 @@
 {
-
-  "title": "My start page",
+  "title": "Table Multi Select Recipe",
   "description": "The starting page of the flow",
   "variables": {
     "currentSelection": {
@@ -25,16 +24,17 @@
   },
   "types": {
     "getallDepartmentResponse": {
-      "items": [{
-        "departmentName": "string",
-        "id": "number",
-        "location": "number",
-        "manager": "number"
-      }]
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number",
+          "location": "number",
+          "manager": "number"
+        }
+      ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojButtonOjAction": {
       "chains": [

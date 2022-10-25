@@ -15,6 +15,10 @@
     "translations.audit.page.json.valueNotTranslated" : {
       "enabled": false
     },
+    "oj-sp-headers-usage" : {
+      "enabled": false,
+      "description": "in shell page: oj-sp-header-general-overview can not be used directly in any page, instead used appropriate Page template component to uptake this component"
+    },
     "oj-html-ko-comment": {
       "description": "Knockout comment binding \"if:\" found. Use of JET <oj-bind-if> recommended.",
       "enabled": false

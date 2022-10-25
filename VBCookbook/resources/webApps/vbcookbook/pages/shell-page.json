@@ -1,5 +1,5 @@
 {
-  "description": "",
+  "pageModelVersion": "19.4.3.2",
   "routerFlow": "home",
   "variables": {
     "messagesADP": {
@@ -8,51 +8,6 @@
         "idAttribute": "id",
         "itemType": "page:messageType"
       }
-    },
-    "openDrawer": {
-      "type": "boolean",
-      "defaultValue": "[[ ($application.responsive.lgUp) && $application.variables.isThisVBDesigner === false]]"
-    },
-    "selectedNavItem": {
-      "type": "string",
-      "defaultValue": "home-start"
-    },
-    "demoLabel": {
-      "type": "string",
-      "defaultValue": "Welcome to the Visual Builder Cookbook!"
-    },
-    "showSearch": {
-      "type": "boolean",
-      "defaultValue": false
-    },
-    "usingSubflows": {
-      "type": "boolean",
-      "defaultValue": true
-    },
-    "showVersions": {
-      "type": "boolean",
-      "defaultValue": false
-    },
-    "versionNumber": {
-      "type": "string",
-      "defaultValue": "Trunk (Development Build)"
-    },
-    "VBVersionItems": {
-      "type": "object[]",
-      "defaultValue": [
-        {
-          "label": "Trunk (Development Build)",
-          "url": "http://jet.us.oracle.com/trunk/vbcookbook/webApps/vbcookbookshell/index.html"
-        },
-        {
-          "label": "Production Release",
-          "url": "http://jet.us.oracle.com/vbcookbook/webApps/vbcookbookshell/index.html"
-        }
-      ]
-    },
-    "copyright": {
-      "type": "string",
-      "defaultValue": "Copyright © 2014, 2022 Oracle and/or its affiliates All rights reserved."
     },
     "globalLinks": {
       "type": "object[]",
@@ -84,23 +39,21 @@
         }
       ]
     },
-    "apiDocs": {
-      "type": "ReferenceType[]"
+    "copyright": {
+      "type": "string",
+      "defaultValue": "Copyright © 2014, 2022 Oracle and/or its affiliates All rights reserved."
     },
-    "breadCrumb": {
-      "type": "BreadCrumbType[]"
-    },
-    "checkFirstPage": {
-      "type": "boolean",
-      "defaultValue": true
-    },
-    "ignoreFirstBlurOnFireFox": {
-      "type": "boolean",
-      "defaultValue": "[[ navigator.userAgent.indexOf('Mozilla') > -1]]",
-      "description": "For some reason on FireFox the first opening of recipe search combo box fires also Blur event. This variable and its use in CloseSearch chain is attempt to workaround it."
+    "secondaryActions": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "id": "secondary_action_1",
+          "label": "Help",
+          "display": "on"
+        }
+      ]
     }
   },
-  "metadata": {},
   "types": {
     "messageType": {
       "id": "string",
@@ -110,46 +63,28 @@
       "detail": "string",
       "timestamp": "string",
       "autoTimeout": "number"
-    },
-    "ReferenceType": {
-      "label": "string",
-      "type": "string",
-      "url": "string"
-    },
-    "BreadCrumbType": {
-      "label": "string",
-      "id": "string"
     }
   },
   "chains": {},
   "eventListeners": {
-    "aClick2": {
+    "buttonAction3": {
       "chains": [
         {
-          "chainId": "takeToHomeChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chainId": "ButtonActionChain"
         }
       ]
     },
-    "ojMenuOjAction": {
+    "generalOverviewPageHeaderSpGoToParent": {
       "chains": [
         {
-          "chainId": "MenuActionChain",
-          "parameters": {
-            "menuId": "{{$event.target.value}}"
-          }
+          "chainId": "navigateToHomePage"
         }
       ]
     },
-    "onVersionItemSelect": {
+    "generalOverviewPageHeaderSpSecondaryAction": {
       "chains": [
         {
-          "chainId": "onVersionItemSelect",
-          "parameters": {
-            "selectedVersion": "{{ $event.target.value }}"
-          }
+          "chainId": "openHelp"
         }
       ]
     },
@@ -172,187 +107,46 @@
           }
         }
       ]
-    },
-    "navItemSelection": {
-      "chains": [
-        {
-          "chainId": "NavigationHandler",
-          "parameters": {
-            "item": "{{ $event.detail.value }}",
-            "updatedFrom": "{{ $event.detail.updatedFrom }}"
-          }
-        }
-      ]
-    },
-    "application:navigateToItem": {
-      "chains": [
-        {
-          "chainId": "navigate",
-          "parameters": {
-            "selection": "{{ $event.item }}"
-          }
-        }
-      ]
-    },
-    "openInVBActionClicked": {
-      "preventDefault": "true",
-      "chains": [
-        {
-          "chainId": "OpenHowToOpenVBDialog"
-        }
-      ]
-    },
-    "cancelButtonOjAction": {
-      "chains": [
-        {
-          "chainId": "CancelHowToOpenVBDialog"
-        }
-      ]
-    },
-    "toggleSearchOjAction": {
-      "chains": [
-        {
-          "chainId": "ToggleSearch",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
-        }
-      ]
-    },
-    "recipeSearchComboValue": {
-      "chains": [
-        {
-          "chainId": "OpenThisRecipe",
-          "parameters": {
-            "value": "{{ $event.detail.value }}"
-          }
-        }
-      ]
-    },
-    "recipeSearchComboKeyup": {
-      "chains": [
-        {
-          "chainId": "EscapeCancelsSearch",
-          "parameters": {
-            "keyCode": "{{ $event.keyCode }}"
-          }
-        }
-      ]
-    },
-    "recipeSearchComboBlur": {
-      "chains": [
-        {
-          "chainId": "CloseSearch"
-        }
-      ]
-    },
-    "vbAfterNavigate": {
-      "chains": [
-        {
-          "chainId": "CheckFirstLoadedPage",
-          "parameters": {
-            "event": "{{ $event }}"
-          }
-        }
-      ]
-    },
-    "ojButtonOjAction5": {
-      "chains": [
-        {
-          "chainId": "OpenAPIDoc",
-          "parameters": {
-            "url": "{{ $page.variables.apiDocs[0].url }}"
-          }
-        }
-      ]
-    },
-    "ojButtonOjAction6": {
-      "chains": [
-        {
-          "chainId": "OpenAPIDoc",
-          "parameters": {
-            "url": "{{ $event.srcElement.value }}"
-          }
-        }
-      ]
-    },
-    "toggleNavListButtonOjAction": {
-      "chains": [
-        {
-          "chainId": "ToggleDrawer",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
-        }
-      ]
-    },
-    "aClick": {
-      "chains": [
-        {
-          "chainId": "BreadCrumbClicked",
-          "parameters": {
-            "selection": "{{ $page.variables.breadCrumb.slice(1, $current.index+1).map(i => i.id) }}"
-          }
-        }
-      ]
     }
   },
   "imports": {
     "components": {
-      "oj-checkboxset": {
-        "path": "ojs/ojcheckboxset"
-      },
-      "oj-drawer-layout": {
-        "path": "ojs/ojdrawerlayout"
-      },
-      "oj-form-layout": {
-        "path": "ojs/ojformlayout"
-      },
-      "oj-label": {
-        "path": "ojs/ojlabel"
-      },
-      "oj-messages": {
-        "path": "ojs/ojmessages"
-      },
-      "oj-menu": {
-        "path": "ojs/ojmenu"
-      },
-      "oj-menu-button": {
-        "path": "ojs/ojbutton"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
-      },
-      "oj-rating-gauge": {
-        "path": "ojs/ojgauge"
-      },
-      "oj-text-area": {
-        "path": "ojs/ojinputtext"
-      },
-      "oj-toolbar": {
-        "path": "ojs/ojtoolbar"
-      },
-      "oj-navigation-list": {
-        "path": "ojs/ojnavigationlist"
-      },
       "oj-button": {
         "path": "ojs/ojbutton"
       },
-      "oj-combobox-one": {
-        "path": "ojs/ojselectcombobox"
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
       },
       "oj-dialog": {
         "path": "ojs/ojdialog"
       },
-      "oj-validation-group": {
-        "path": "ojs/ojvalidationgroup"
+      "oj-messages": {
+        "path": "ojs/ojmessages"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-sp-header-general-overview": {
+        "path": "oj-sp/header-general-overview/loader"
+      },
+      "oj-sp-in-app-navigation": {
+        "path": "oj-sp/in-app-navigation/loader"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-sp-smart-filter-search": {
+        "path": "oj-sp/smart-filter-search/loader"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
       }
     }
-  },
-  "translations": {
-    "shell": {
-      "path": "./resources/strings/shell/nls/shell-strings"
-    }
-  },
-  "events": {}
+  }
 }

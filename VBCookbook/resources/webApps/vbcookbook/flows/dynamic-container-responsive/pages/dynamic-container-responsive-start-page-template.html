@@ -6,15 +6,15 @@
 <!-- Dynamic Container Templates -->
 <template id="dynamicTable">
   <h3 class="oj-typography-heading-md">Employee Details</h3>
-  <oj-dynamic-table data="[[$page.variables.employeeListSDP]]"
-    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
-    layout="tableExampleLayout" style="max-height:400px; height:400px; width: 100%"  :id="[['table-template-tablet']]"></oj-dynamic-table>
+  <oj-dynamic-table data="[[$page.variables.employeeListSDP]]" class="oj-table-stretch oj-flex-item"
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" layout="tableExampleLayout"
+    style="height:400px; width: 100%" :id="[['table-template-tablet']]"></oj-dynamic-table>
 </template>
 
 <template id="listView">
   <h3 class="oj-typography-heading-md">Employee Detail List</h3>
   <oj-list-view data="[[$page.variables.employeeListSDP2]]" style="max-height:400px"
-    scroll-policy-options.max-count="1200"  :id="[['list-template-mobile']]">
+    scroll-policy-options.max-count="1200" :id="[['list-template-mobile']]">
     <template slot="itemTemplate">
       <oj-list-item-layout>
         <div slot="leading">
@@ -42,8 +42,9 @@
 
 <template id="dynamicTableDesktop">
   <h3 class="oj-typography-heading-md">Employees</h3>
-  <oj-dynamic-table data="[[$page.variables.employeeListSDP3]]"
-    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]"
-    layout="employeeTableDesktopMode" context="[[ $variables.path ]]" style="max-height:400px; height:400px; width: 100%" :id="[['table-template-desktop']]"></oj-dynamic-table>
-  
+  <oj-dynamic-table data="[[$page.variables.employeeListSDP3]]" class="oj-table-stretch oj-flex-item"
+    metadata="[[ $page.metadata.businessObjectsGetallEmployeeMetadata.provider ]]" layout="employeeTableDesktopMode"
+    context="[[ $variables.path ]]" style="height:400px; width: 100%" :id="[['table-template-desktop']]">
+  </oj-dynamic-table>
+
 </template>

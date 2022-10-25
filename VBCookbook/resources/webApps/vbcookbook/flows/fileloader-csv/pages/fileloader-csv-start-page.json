@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "CSV File Loading Recipe",
   "description": "",
   "variables": {
     "boFormValid": {
@@ -13,7 +12,8 @@
     "boOpModeOptionsDP": {
       "type": "vb/ArrayDataProvider2",
       "defaultValue": {
-        "data": [{
+        "data": [
+          {
             "label": "Upsert",
             "value": "upsert"
           },
@@ -33,7 +33,8 @@
     "boPathOptionsDP": {
       "type": "vb/ArrayDataProvider2",
       "defaultValue": {
-        "data": [{
+        "data": [
+          {
             "label": "Employee",
             "value": "/Employee"
           },
@@ -56,10 +57,12 @@
           {
             "label": "JobHistory",
             "value": "/JobHistory"
-          }, {
+          },
+          {
             "label": "Location",
             "value": "/Location"
-          }, {
+          },
+          {
             "label": "Region",
             "value": "/Region"
           }
@@ -114,46 +117,55 @@
       "success": "boolean"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "ojButtonOjAction": {
-      "chains": [{
-        "chainId": "BoConfigActionChain",
-        "parameters": {}
-      }]
+      "chains": [
+        {
+          "chainId": "BoConfigActionChain",
+          "parameters": {}
+        }
+      ]
     },
     "ojButtonOjAction2": {
-      "chains": [{
-        "chainId": "ResetActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "ResetActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "ojButtonOjAction3": {
-      "chains": [{
-        "chainId": "GetSampleActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "GetSampleActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "ojButtonOjAction4": {
-      "chains": [{
-        "chainId": "ValidateAndUploadActionChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "ValidateAndUploadActionChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "ojFilePickerOjSelect": {
-      "chains": [{
-        "chainId": "FilePickerSelectChain",
-        "parameters": {
-          "files": "{{ $event.detail.files }}"
+      "chains": [
+        {
+          "chainId": "FilePickerSelectChain",
+          "parameters": {
+            "files": "{{ $event.detail.files }}"
+          }
         }
-      }]
+      ]
     }
   },
   "imports": {

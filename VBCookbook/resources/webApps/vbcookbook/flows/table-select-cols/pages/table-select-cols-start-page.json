@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Table Columns Select Recipe",
   "description": "",
   "variables": {
     "columnOptions": {
@@ -153,8 +152,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "showColumnsHandler": {
       "chains": [

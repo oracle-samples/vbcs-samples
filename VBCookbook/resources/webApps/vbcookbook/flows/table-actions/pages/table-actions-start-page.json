@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Table Actions Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -21,13 +20,15 @@
   },
   "types": {
     "getallEmployeeResponse": {
-      "items": [{
-        "email": "string",
-        "firstName": "string",
-        "id": "number",
-        "lastName": "string",
-        "salary": "number"
-      }]
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "salary": "number"
+        }
+      ]
     },
     "@decorators.getallEmployeeResponse": {
       "endpoint": "getall_Employee",
@@ -47,18 +48,17 @@
       "salary": "number"
     }
   },
-  "chains": {
-
-  },
+  "chains": {},
   "eventListeners": {
-
     "ojButtonOjAction": {
-      "chains": [{
-        "chainId": "UpdateEmployeeChain",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "UpdateEmployeeChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "ojButtonOjAction2": {
       "chains": [
@@ -71,12 +71,14 @@
       ]
     },
     "spanClick": {
-      "chains": [{
-        "chainId": "OpenDialogChain",
-        "parameters": {
-          "current": "{{ $current.row }}"
+      "chains": [
+        {
+          "chainId": "OpenDialogChain",
+          "parameters": {
+            "current": "{{ $current.row }}"
+          }
         }
-      }]
+      ]
     }
   },
   "imports": {

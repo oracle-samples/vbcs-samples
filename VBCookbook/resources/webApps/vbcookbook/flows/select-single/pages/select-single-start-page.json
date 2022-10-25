@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Select-Single Demos Recipe",
   "description": "",
   "variables": {
     "departmentADP": {
@@ -127,8 +126,7 @@
       "metadata": "object"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "vbEnter": {
       "chains": [

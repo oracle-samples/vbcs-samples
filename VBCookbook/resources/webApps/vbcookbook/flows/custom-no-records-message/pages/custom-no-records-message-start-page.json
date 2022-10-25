@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Custom No Records Message Recipe",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -30,8 +29,7 @@
       "path": "response"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "filterButtonOjAction": {
       "chains": [

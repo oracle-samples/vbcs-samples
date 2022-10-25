@@ -1,0 +1,42 @@
+<!--
+ Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-action-card class="recipe-tile oj-flex-item oj-sm-flex-direction-column" 
+    on-oj-action="[[$listeners.cardAction]]">
+  <div class="oj-flex oj-sm-12 oj-sm-padding-4x recipe-heading">
+    <div class="oj-flex-item oj-flex oj-md-8">
+      <span class="oj-typography-body-lg oj-typography-semi-bold recipe-top-text">
+          <oj-bind-text value="[[$variables.recipe.label]]"></oj-bind-text>
+        </span>
+    </div>
+  </div>
+  <div
+    class="oj-flex oj-sm-12 oj-sm-align-items-flex-start oj-sm-padding-4x-start oj-sm-padding-4x-end recipe-short-desc">
+    <span class="oj-typography-body-xs recipe-top-text">
+      <oj-bind-text value="[[$variables.recipe.shortDesc]]"></oj-bind-text>
+    </span>
+  </div>
+  <div style="padding-bottom: 10px; padding-top: 8px"
+    class="oj-flex oj-sm-12 oj-sm-padding-4x-start oj-sm-align-items-flex-end recipe-labels"
+    :category="[[$variables.recipe.category]]">
+    <span class="custom-badge-one oj-typography-body-sm oj-sm-only-margin-1x-end oj-md-margin-2x-end oj-sm-padding-1x-top">
+        <oj-bind-text value="[[$variables.recipe.category]]"></oj-bind-text>
+      </span>
+    <oj-bind-if test="[[ $variables.recipe.subCategory !== '' ]]">
+      <span class="custom-badge-one oj-typography-body-sm oj-sm-padding-1x-top">
+          <oj-bind-text value="[[$variables.recipe.subCategory]]"></oj-bind-text>
+        </span>
+    </oj-bind-if>
+  </div>
+  <div class="recipe-background-icon" :style.font-size="[[ '2rem' ]]" id="box1-icon">
+    <i :class="[[ 'oj-ux-ico-' + ($variables.recipe.icon ? $variables.recipe.icon : 'box')]]"></i>
+  </div>
+  <div class="recipe-background-color">
+    <img class="recipe-background-image"
+        :src="[[ $application.path + 'resources/images/homepage/' + $fragment.functions.getImagePerCategory($variables.recipe) ]]" 
+        width="350" height="200"
+        style="object-fit: scale-down;">
+  </div>
+</oj-action-card>

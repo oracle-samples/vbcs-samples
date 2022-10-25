@@ -1,0 +1,35 @@
+{
+  "root": "callFunctionGetCategorySmartFilter",
+  "description": "",
+  "variables": {
+    "category": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "callFunctionGetCategorySmartFilter": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "getCategorySmartFilter",
+        "params": [
+          "{{ $variables.category }}"
+        ]
+      },
+      "outcomes": {
+        "success": "navigateToHomeRedwood"
+      }
+    },
+    "navigateToHomeRedwood": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "home-redwood",
+        "params": {
+          "appliedFiltersStr2": "{{ JSON.stringify($chain.results.callFunctionGetCategorySmartFilter) }}"
+        }
+      }
+    }
+  }
+}

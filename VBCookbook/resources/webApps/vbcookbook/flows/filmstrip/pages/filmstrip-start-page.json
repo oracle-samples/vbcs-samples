@@ -1,13 +1,12 @@
 {
-
-  "title": "",
+  "title": "Film Strip Recipe",
   "description": "",
   "variables": {
     "currentJob": {
       "type": {
-          "id": "string",
-          "index": "number"
-        }
+        "id": "string",
+        "index": "number"
+      }
     },
     "employeeListSDP": {
       "type": "vb/ServiceDataProvider",
@@ -50,8 +49,7 @@
       ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "vbEnter": {
       "chains": [

@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Complex Filters Recipe",
   "description": "",
   "variables": {
     "departmentListSDP": {
@@ -27,9 +26,7 @@
         ],
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponse",
-        "uriParameters": {
-
-        },
+        "uriParameters": {},
         "filterCriterion": {
           "op": "$and",
           "criteria": "[[$functions.mapToCriteria($variables.filters)]]"
@@ -39,7 +36,8 @@
     },
     "filters": {
       "type": "filter[]",
-      "defaultValue": [{
+      "defaultValue": [
+        {
           "op": "$sw",
           "attribute": "firstName",
           "value": ""
@@ -101,60 +99,75 @@
       "value": "any"
     },
     "getallDepartmentResponse": {
-      "items": [{
-        "departmentName": "string",
-        "id": "number"
-      }]
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number"
+        }
+      ]
     },
     "getallEmployeeResponse": {
-      "items": [{
-        "departmentObject": {
-          "items": [{
-            "departmentName": "string"
-          }]
-        },
-        "email": "string",
-        "firstName": "string",
-        "id": "number",
-        "jobObject": {
-          "items": [{
-            "jobTitle": "string"
-          }]
-        },
-        "lastName": "string",
-        "salary": "number",
-        "skillCollection": {
-          "items": [{
-            "name": "string"
-          }]
+      "items": [
+        {
+          "departmentObject": {
+            "items": [
+              {
+                "departmentName": "string"
+              }
+            ]
+          },
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "jobObject": {
+            "items": [
+              {
+                "jobTitle": "string"
+              }
+            ]
+          },
+          "lastName": "string",
+          "salary": "number",
+          "skillCollection": {
+            "items": [
+              {
+                "name": "string"
+              }
+            ]
+          }
         }
-      }]
+      ]
     },
     "getallSkillResponse": {
-      "items": [{
-        "id": "number",
-        "name": "string"
-      }]
+      "items": [
+        {
+          "id": "number",
+          "name": "string"
+        }
+      ]
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "clearFilterAction": {
-      "chains": [{
-        "chainId": "resetFilterCriterion",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "resetFilterCriterion",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     },
     "toggleFilterAction": {
-      "chains": [{
-        "chainId": "toggleFilterPane",
-        "parameters": {
-          "detail": "{{ $event.detail }}"
+      "chains": [
+        {
+          "chainId": "toggleFilterPane",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
         }
-      }]
+      ]
     }
   },
   "imports": {

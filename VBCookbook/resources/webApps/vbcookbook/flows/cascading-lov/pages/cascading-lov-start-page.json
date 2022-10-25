@@ -1,6 +1,5 @@
 {
-
-  "title": "",
+  "title": "Cascading List of Values Recipe",
   "description": "",
   "variables": {
     "countryListSDP": {
@@ -71,7 +70,6 @@
   },
   "metadata": {},
   "types": {
-   
     "getallLocationResponse": {
       "items": [
         {
@@ -92,7 +90,6 @@
         }
       ]
     },
-   
     "getallRegionResponse": {
       "items": [
         {
@@ -107,8 +104,7 @@
       "metadata": "object"
     }
   },
-  "chains": {
-  },
+  "chains": {},
   "eventListeners": {
     "countrySelectValueItem": {
       "chains": [

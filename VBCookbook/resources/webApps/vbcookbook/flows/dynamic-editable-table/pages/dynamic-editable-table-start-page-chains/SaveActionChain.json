@@ -1,0 +1,83 @@
+{
+  "description": "",
+  "root": "callFunctionCreateBatchPayload",
+  "actions": {
+
+    "callFunctionCreateBatchPayload": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "createBatchPayload"
+      },
+      "outcomes": {
+        "success": "callFunctionSetStatusToSubmitting"
+      }
+    },
+    "callFunctionSetStatusToSubmitting": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToSubmitting"
+      },
+      "outcomes": {
+        "success": "callRest"
+      }
+    },
+    "callRest": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/batch",
+        "body": "{{ $chain.results.callFunctionCreateBatchPayload }}"
+      },
+      "outcomes": {
+        "failure": "callFunctionSetStatusToUnsubmitted",
+        "success": "callFunctionSetStatusToSubmitted"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRest.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callFunctionSetStatusToSubmitted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToSubmitted",
+        "params": [
+          "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+        ]
+      },
+      "outcomes": {
+        "success": "fireNotification4"
+      }
+    },
+    "callFunctionSetStatusToUnsubmitted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToUnsubmitted",
+        "params": [
+          "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+        ]
+      },
+      "outcomes": {
+        "success": "fireNotification2"
+      }
+    },
+    "fireNotification4": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Saved!",
+        "displayMode": "transient",
+        "type": "confirmation"
+      }
+    }
+  },
+  "variables": {}
+}
