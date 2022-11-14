@@ -3,7 +3,7 @@
   "version": "8.0.1",
   "description": "Developement Application for Fusion Applications Cloud Look and Feel theme",
   "dependencies": {
-    "@oracle/oraclejet": "13.0.5"
+    "@oracle/oraclejet": "13.1.1"
   },
   "devDependencies": {
     "@oracle/oraclejet-tooling": "13.0.0",
