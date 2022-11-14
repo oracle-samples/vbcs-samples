@@ -6,7 +6,7 @@
     "@oracle/oraclejet": "13.0.5"
   },
   "devDependencies": {
-    "@oracle/oraclejet-tooling": "13.0.0",
+    "@oracle/oraclejet-tooling": "13.1.0",
     "autoprefixer": "^9.1.5",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.1",
