@@ -18,7 +18,7 @@
   "defaultBrowser": "chrome",
   "generatorVersion": "12.1.0",
   "defaultTheme": "ApplicationsCloudUI",
-  "sassVer": "5.0.0",
+  "sassVer": "6.0.0",
   "architecture": "mvvm",
   "defaultCssvars": "disabled"
 }

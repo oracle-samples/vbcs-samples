@@ -1,16 +1,16 @@
 {
   "name": "ApplicationsCloudUIThemeSource",
-  "version": "7.1.1",
+  "version": "8.0.1",
   "description": "Developement Application for Fusion Applications Cloud Look and Feel theme",
   "dependencies": {
-    "@oracle/oraclejet": "^12.1.6"
+    "@oracle/oraclejet": "^13.0.5"
   },
   "devDependencies": {
-    "@oracle/oraclejet-tooling": "^12.1.2",
+    "@oracle/oraclejet-tooling": "^13.0.5",
     "autoprefixer": "^9.1.5",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.1",
-    "node-sass": "^5.0.0",
+    "node-sass": "^6.0.0",
     "postcss-calc": "^6.0.1",
     "underscore": "^1.10.2"
   },
