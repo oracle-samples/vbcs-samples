@@ -4,12 +4,12 @@
 
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/13.0.5/default/js",
-      "css": "https://static.oracle.com/cdn/jet/13.0.5/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/13.0.5/3rdparty/oraclejet-preact/amd",      
+      "prefix": "https://static.oracle.com/cdn/jet/13.1.5/default/js",
+      "css": "https://static.oracle.com/cdn/jet/13.1.5/default/css",
+      "csspreact": "https://static.oracle.com/cdn/jet/13.1.5/3rdparty/oraclejet-preact/amd",      
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/13.0.5/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/13.1.5/3rdparty"
   },
 
   "libs": {
