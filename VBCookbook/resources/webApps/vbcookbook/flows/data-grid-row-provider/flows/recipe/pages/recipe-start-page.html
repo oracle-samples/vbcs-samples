@@ -1,0 +1,119 @@
+<!--
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Oracle JET provides <a target="_blank"
+    href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/RowDataGridProvider.html"><code>RowDataGridProvider</code></a>
+  that can be wrapped around an underlying Data Provider to use with Data Grid.
+</p>
+ 
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="step-1">
+      <span slot="header">Create Data Grid Component</span>
+      <div>
+        <ol>
+          <li>Drag and drop an <code>oj-data-grid</code> component onto the page.
+          </li>
+          <li>Set its data property to <code>data</code> variable.
+          </li>
+          <li>Set various style properties on the data grid component.
+            <pre>
+    &ltoj-data-grid data="[[ $variables.data ]]" scroll-policy="loadMoreOnScroll"
+      header.column.resizable='{"width":"enable", "height":"enable"}'
+      header.column.style="[[$functions.columnHeaderStyle]]"
+      cell.class-name="[[$functions.getCellClassName]]"
+      header.column.class-name="[[$functions.getCellClassName]]"
+      header.row.resizable='{"width":"enable", "height":"enable"}' 
+      style="height:400px" class="demo-data-grid"&gt
+    &lt/oj-data-grid&gt
+            </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <span slot="header">Create a ServiceDataProvider</span>
+      <div>
+        <ol>
+          <li>In the Variables tab of the page, create a new variable <code>employeeListSDP</code> of type <code>Service Data Provider</code>.
+          </li>
+          <li>Select the endpoint <code>getall_Employee</code> and select fields from the endpoint to display in data grid.
+          </li>
+          <li>Also create another variable <code>data</code> of type <strong>Any</strong> to feed into the data grid component.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <span slot="header">Create Functions to Populate and Style the Data</span>
+      <div>
+        <ol>
+          <li>Create an Event Listener for <code>vbEnter</code> and hence create an action chain named <code>vbEnter</code>.
+          </li>
+          <li>Add a Call Function action <code>callFunctionGetRowGridDataProvider</code>.
+          </li>
+          <li>In JavaScript tab of the page, create a new function <code>getRowGridDataProvider</code> having input parameter for underlying SDP. Create an instance of ojRowDataGridProvider in this function backed by the input SDP instance.
+          <pre>
+  PageModule.prototype.getRowGridDataProvider = function (sdp) {
+    var EmployeeData = {
+      id: Number,
+      firstName: String,
+      lastName: String,
+      phoneNumber: String,
+      email: String,
+      salary: Number
+    };
+ 
+    return new RowDataGridProvider.RowDataGridProvider(sdp, {
+      columns: {
+        rowHeader: ['id'],
+        databody: ['firstName', 'lastName', 'phoneNumber', 'email', 'salary']
+      },
+      columnHeaders: {
+        column: [
+          { data: 'First Name' },
+          { data: 'Last Name' },
+          { data: 'Phone Number' },
+          { data: 'Email' },
+          { data: 'Salary' }
+        ]
+      }
+    }
+    );
+  };
+          </pre>
+          </li>
+          <li>Select this function in <code>callFunctionGetRowGridDataProvider</code> action and pass on the <code>employeeListSDP</code> as parameter.
+          </li>
+          <li>To style the data grid, add styling functions in the JavaScript code and use them in the <code>oj-data-grid</code> component as header and cell styles. 
+          <pre>
+  PageModule.prototype.columnHeaderStyle = function (headerContext) {
+    if (headerContext.index == 3) // if email
+    {
+      return "width:230px;";
+    }
+    else if (headerContext.index == 2) // if phoneNumber
+    {
+      return "width:160px;";
+    }
+    return "width:120px;";
+  };
+ 
+  PageModule.prototype.getCellClassName = function (cellContext) {
+    return "oj-helper-justify-content-center";
+  };
+          </pre>
+          </li>
+          <li>Create an Assign Variable action in the action chain and set the value of <code>data</code> variable to the 
+          return of the <code>callFunctionGetRowGridDataProvider</code> action.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

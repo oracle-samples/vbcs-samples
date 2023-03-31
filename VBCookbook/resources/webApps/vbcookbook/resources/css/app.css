@@ -1,10 +1,16 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 .main{
 background-image: url("../images/categories/mainbg.png");
+}
+
+.hidden-results {
+  max-height: 1px;
+  height: 1px;
+  visibility: hidden;
 }
 
 .components-tile{

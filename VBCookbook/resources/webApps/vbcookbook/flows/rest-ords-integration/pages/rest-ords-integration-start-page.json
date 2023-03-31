@@ -6,7 +6,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "ords/getEmployees",
-        "idAttribute": "empno",
+        "keyAttributes": "empno",
         "itemsPath": "items",
         "responseType": "page:getEmployeesResponse",
         "filterCriterion": {

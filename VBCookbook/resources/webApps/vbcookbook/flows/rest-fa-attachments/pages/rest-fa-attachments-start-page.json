@@ -20,7 +20,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "activities_vb/getall_activities-Attachments",
-        "idAttribute": "AttachedDocumentId",
+        "keyAttributes": "AttachedDocumentId",
         "itemsPath": "items",
         "responseType": "page:getallActivitiesAttachmentsResponse",
         "uriParameters": {

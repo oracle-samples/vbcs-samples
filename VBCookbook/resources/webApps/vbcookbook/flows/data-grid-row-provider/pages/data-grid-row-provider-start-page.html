@@ -1,0 +1,35 @@
+<!--
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  <p>
+    This recipe shows you how to use a Row Data Grid Provider backed by a Service Data
+    Provider to populate a Data Grid (<code>oj-data-grid</code>) component.
+  </p>
+</div>
+<div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item sample-box2 oj-flex" style="overflow-x: auto">
+    <oj-data-grid data="[[ $variables.data ]]" scroll-policy="loadMoreOnScroll"
+      header.column.resizable='{"width":"enable", "height":"enable"}'
+      header.column.style="[[$functions.columnHeaderStyle]]"
+      cell.class-name="[[$functions.getCellClassName]]"
+      header.column.class-name="[[$functions.getCellClassName]]"
+      header.row.resizable='{"width":"enable", "height":"enable"}' 
+      style="height:400px" class="demo-data-grid">
+    </oj-data-grid>
+ 
+  </div>
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

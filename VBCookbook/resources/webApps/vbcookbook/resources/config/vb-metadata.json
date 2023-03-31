@@ -391,6 +391,19 @@
     "icon": "grid-view-small"
   },
   {
+    "id": "data-grid-row-provider",
+    "label": "Row Data Grid Provider",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Data Grid",
+    "shownOnUI":true,
+    "desc": "Use RowDataGridProvider to populate Data Grid component",
+    "shortDesc": "Use RowDataGridProvider to populate Data Grid component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "grid-view-small"
+  },
+  {
     "id": "many-editable-rows",
     "label": "Many Editable Rows",
     "redwood": "false",
@@ -402,6 +415,19 @@
     "seeAlso": [],
     "apiRef": [],
     "icon": "tables-basic"
+  },
+  {
+    "id": "data-grid-editable",
+    "label": "Editable Data Grid",
+    "redwood": "false",
+    "category": "Components",
+    "subCategory": "Data Grid",
+    "shownOnUI":true,
+    "desc": "Editable Data Grid component",
+    "shortDesc": "Editable Data Grid component",
+    "seeAlso": [],
+    "apiRef": [],
+    "icon": "grid-view-small"
   },
   {
     "id": "cache-lov",

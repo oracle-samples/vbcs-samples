@@ -1,5 +1,5 @@
 {
-  "root": "callFunctionGetCategorySmartFilter",
+  "root": "assignVariablesShowDashboardPanels",
   "description": "",
   "variables": {
     "category": {
@@ -29,6 +29,20 @@
         "params": {
           "appliedFiltersStr2": "{{ JSON.stringify($chain.results.callFunctionGetCategorySmartFilter) }}"
         }
+      }
+    },
+    "assignVariablesShowDashboardPanels": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showDashboardPanels": {
+          "source": "{{ false }}"
+        },
+        "$page.variables.showSearchResults": {
+          "source": "{{ false }}"
+        }
+      },
+      "outcomes": {
+        "success": "callFunctionGetCategorySmartFilter"
       }
     }
   }

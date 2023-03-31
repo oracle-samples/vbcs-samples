@@ -1,21 +1,23 @@
 {
-    "vbcs.dt.version": "20220614-22.10.0",
-    "version": "2.0.2",
-    "source.version": "2210",
+    "vbcs.dt.version": "20230308-23.07.0",
+    "version": "2.0.9",
+    "source.version": "2304",
     "rootURL": "vbcookbook",
+    "features": {
+        "codeChainsEnabled": false
+    },
     "dependencies": {
         "upgrade": "micro",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/12.1.4",
-            "visualRuntime": "https://static.oracle.com/cdn/vb/2210.0.4",
-            "telemetry": "https://static.oracle.com/cdn/trace/7.0.1"
+            "jet": "https://static.oracle.com/cdn/jet/13.1.7",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2304.0.0",
+            "telemetry": "https://static.oracle.com/cdn/trace/7.2.1"
         }
     },
     "migration": {
-        "2210": [
-            "RemoveReadOnlyAttrDynamicFormMigrator",
-            "RemoveMetadataPathAttrMigrator",
-            "LayoutFieldRestDisplayPropertyMigrator"
+        "2304": [
+            "ReferenceToNumberFieldTypeMigrator",
+            "SetHistoryTypeMigrator"
         ]
     }
 }

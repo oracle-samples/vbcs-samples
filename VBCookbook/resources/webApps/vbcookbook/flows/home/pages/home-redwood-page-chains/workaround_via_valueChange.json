@@ -1,13 +1,21 @@
 {
   "root": "callCompareToSimplifedFilterChipsMethod",
   "actions": {
+
+    "callFunctionShowSearchResultsBitLater": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "showSearchResultsBitLater"
+      }
+    },
     "callCompareToSimplifedFilterChipsMethod": {
       "module": "vb/action/builtin/callComponentMethodAction",
       "parameters": {
         "component": "{{ document.getElementById('oj_sfs1') }}",
         "method": "compareToSimplifedFilterChips",
         "params": [
-          "{{ $page.variables.appliedFiltersStr }}"
+          "{{ $variables.value }}"
         ]
       },
       "outcomes": {
@@ -20,17 +28,29 @@
         "condition": "[[ !$chain.results.callCompareToSimplifedFilterChipsMethod ]]"
       },
       "outcomes": {
-        "true": "updatAppliedFilters"
+        "true": "updatAppliedFilters",
+        "false": "callFunctionShowSearchResultsBitLater"
       }
     },
     "updatAppliedFilters": {
       "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
         "$page.variables.appliedFilters": {
-          "source": "{{ $page.variables.appliedFiltersStr && $page.variables.appliedFiltersStr.length > 0 ? JSON.parse($page.variables.appliedFiltersStr) : [] }}",
+          "source": "{{ $variables.value && $variables.value.length > 0 ? JSON.parse($variables.value) : [] }}",
           "reset": "empty"
         }
+      },
+      "outcomes": {
+        "success": "callFunctionShowSearchResultsBitLater"
       }
     }
-  }
+  },
+  "variables": {
+    "value": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "description": "this is an attempt to postpone update of appliedFilterStr to workaround different flickering and multiple re-renders of search results"
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -123,6 +123,22 @@ define(["datagrid/DemoDataGridProvider"],
         this.getRowEndHeaderValues(dataValues)
       );
       return this.dataGridProvider;
+    };
+
+    PageModule.prototype.rowHeaderStyle = function (headerContext) {
+      if (headerContext.level == 0) // if Department column
+      {
+        return "width:110px;font-size:12px;";
+      }
+      else if (headerContext.level == 1) // if Job column
+      {
+        return "width:170px;font-size:12px;";
+      }
+      else if (headerContext.level == 2) // if FirstName column
+      {
+        return "width:100px;font-size:12px;";
+      }
+      return "width:85px;";
     };
 
     return PageModule;

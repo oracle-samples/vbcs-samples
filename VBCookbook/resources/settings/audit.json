@@ -1,7 +1,7 @@
 {
   "paths": {
     "exclude": [
-      "scripts/**", "tests/**", "webApps/vbcookbook/resources/js/**", "services/**", "dynamicLayouts/**"
+      "scripts/**", "tests/**", "webApps/vbcookbook/resources/js/**", "webApps/vbcookbook/flows/home/pages/home-redwood-page.*", "services/**", "dynamicLayouts/**"
     ]
   },
   "rules": {

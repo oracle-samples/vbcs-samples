@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -15,7 +15,7 @@
 
     <!-- Search Results list view code: -->
 
-    <oj-bind-if test="[[ $variables.appliedFilters.length !== 0 ]]">
+    <oj-bind-if test="[[ $variables.appliedFilters.length !== 0 && $variables.showSearchResults ]]">
       <oj-sp-collection-container id="sfs_cc">
         <oj-list-view class="oj-flex-item" data="[[$variables.searchResultsDP.instance]]" selection-mode="none"
           display="card" drill-mode="none" scroll-policy="loadMoreOnScroll"
@@ -35,7 +35,7 @@
 
     <!-- Dashboard code: -->
 
-    <oj-bind-if test="[[ $variables.appliedFilters.length == 0 ]]">
+    <oj-bind-if test="[[ $variables.appliedFilters.length === 0 && $variables.showDashboardPanels ]]">
       <div class="oj-sm-margin-2x-top oj-sm-margin-1x-bottom">
         <span class="oj-typography-body-sm oj-typography-bold tiles-heading">Explore Recipes by Category</span>
       </div>

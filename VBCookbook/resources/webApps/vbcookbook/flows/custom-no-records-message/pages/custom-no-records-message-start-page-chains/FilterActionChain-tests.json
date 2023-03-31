@@ -32,7 +32,7 @@
                             "value": "Nonexistent"
                         },
                         "endpoint": "businessObjects/getall_Employee",
-                        "idAttribute": "id",
+                        "keyAttributes": "id",
                         "itemsPath": "items",
                         "sortCriteria": [],
                         "filterCriteria": []

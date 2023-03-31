@@ -1,0 +1,35 @@
+{
+  "root": "if",
+  "description": "called only upon page opening but not when search criteria changes (and navigation to the same page happens)",
+  "variables": {},
+  "actions": {
+
+    "callChainWorkaround": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "workaround_via_valueChange",
+        "params": {
+          "value": "{{ $page.variables.appliedFiltersStr2 }}"
+        }
+      }
+    },
+    "assignVariablesShowDashboardPanels": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showDashboardPanels": {
+          "source": "{{ true }}"
+        }
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.appliedFiltersStr2 !== undefined && $page.variables.appliedFiltersStr2 !== '' && $page.variables.appliedFiltersStr2 !== '%5B%5D' && $page.variables.appliedFiltersStr2 !== '[]' ]]"
+      },
+      "outcomes": {
+        "true": "callChainWorkaround",
+        "false": "assignVariablesShowDashboardPanels"
+      }
+    }
+  }
+}

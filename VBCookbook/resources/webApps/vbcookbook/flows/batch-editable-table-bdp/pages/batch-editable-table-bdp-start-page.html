@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -32,8 +32,8 @@
         :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
         style="height:400px; width: 100%" scroll-policy-options.fetch-size="999"
         scroll-policy-options.max-count="999" edit-mode="rowEdit"
-        on-oj-before-row-edit="[[$listeners.ojTable18296469261OjBeforeRowEdit]]"
-        on-oj-before-row-edit-end="[[$listeners.ojTable18296469261OjBeforeRowEditEnd]]"
+        on-oj-before-row-edit="[[ function (event) { $page.functions.lineTableBeforeRowEdit(event) } ]]"
+        on-oj-before-row-edit-end="[[ function (event) { $page.functions.lineTableBeforeRowEditEnd(event, $page.variables.disableRowEditExit || !$page.functions.isFormValid(event.detail, event)) } ]]"
         data="[[ $variables.employeesBDP ]]">
 
         <template slot="Job">
@@ -80,7 +80,7 @@
             <oj-bind-text value="[[$current.data]]"></oj-bind-text>
           </oj-bind-if>
           <oj-bind-if test='[[$current.mode === "edit"]]'>
-            <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.firstName}}"
+            <oj-input-text class="editable" value="{{ $variables.currentRowBuffer.firstName }}"
               :id="[['oj-input-text-1829646926-2-' + $current.key]]" required="true"></oj-input-text>
           </oj-bind-if>
         </template>

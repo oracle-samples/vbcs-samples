@@ -182,6 +182,18 @@
         }
       ]
     },
+    "tableEditEvent": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}",
+            "detail": "{{ $event.detail }}",
+            "name": "{{ $event.name }}"
+          },
+          "chainId": "tableEditChain"
+        }
+      ]
+    },
     "vbEnter": {
       "chains": [
         {
@@ -203,7 +215,6 @@
       ]
     },
     "ojTable18296469261OjBeforeRowEditEnd": {
-      "preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail, $event) }}",
       "chains": [
         {
           "chainId": "TableBeforeRowEditEndChain",
@@ -236,6 +247,7 @@
         }
       ]
     }
+
   },
   "imports": {
     "components": {
@@ -261,6 +273,14 @@
     "modules": {
       "ojValidationBase": {
         "path": "ojs/ojvalidation-base"
+      }
+    }
+  },
+  "events": {
+    "tableEditEvent": {
+      "payloadType": {
+        "detail": "any",
+        "name": "string"
       }
     }
   }

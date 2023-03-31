@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -12,11 +12,13 @@
 <div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box2" style="overflow-x: auto">
     <div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-initial">
-      <oj-data-grid id="datagrid" class="demo-data-grid" aria-label="Data Grid Nested Header Data Provider Demo"
+      <oj-data-grid id="datagrid" class="demo-data-grid"
+        aria-label="Data Grid Nested Header Data Provider Demo"
         selection-mode.cell="multiple" header.row.label.class-name="demo-data-grid-header-row"
-        header.column.resizable='{"width":"enable", "height":"enable"}'
-        header.row.resizable='{"width":"enable", "height":"enable"}' header.row.style="['width:85px;']"
-        scroll-policy="loadMoreOnScroll" style="height:400px" data="[[ $variables.data ]]">
+        header.column.style="width:75px;"
+        header.row.style="[[$functions.rowHeaderStyle]]" header.column.resizable='{"width":"enable", "height":"enable"}'
+        header.row.resizable='{"width":"enable", "height":"enable"}' scroll-policy="loadMoreOnScroll"
+        style="width:100%; min-height:25rem; height:calc(75vh - 10px); min-width: 300px;" data="[[ $variables.data ]]">
         <template slot="cellTemplate" data-oj-as="cell">
           <div class="myItem">
             <oj-bind-text value="{{cell.item.data.data}}"></oj-bind-text>

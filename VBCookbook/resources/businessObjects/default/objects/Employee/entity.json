@@ -2,7 +2,6 @@
     "fields": [
         {
             "displayLabel": "Id",
-            "internal": true,
             "key": true,
             "name": "id",
             "oid": "edc9f961-e8a8-4c17-98e2-03dbcf739d0e",
@@ -12,39 +11,38 @@
         },
         {
             "displayLabel": "Created",
-            "internal": true,
             "name": "creationDate",
             "oid": "9c77cb49-f7d5-4d5e-83c7-523f2f6da4e7",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeCreated"
         },
         {
             "displayLabel": "Last Updated",
-            "internal": true,
             "name": "lastUpdateDate",
             "oid": "cc53e20d-087c-4a9d-8ed1-06a1de32a468",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeUpdated"
         },
         {
             "displayLabel": "Created By",
-            "internal": true,
             "name": "createdBy",
             "oid": "aabf0be5-0018-40ac-b1f3-dcaf26652860",
-            "type": "string"
+            "type": "string",
+            "historyType": "createdBy"
         },
         {
             "displayLabel": "Last Updated By",
-            "internal": true,
             "name": "lastUpdatedBy",
             "oid": "557f604f-b85c-4659-9aea-22696597f69b",
-            "type": "string"
+            "type": "string",
+            "historyType": "updatedBy"
         },
         {
-            "displayLabel": "<internal>",
-            "hidden": true,
-            "internal": true,
+            "displayLabel": "Version Number",
             "name": "abcsChangeNumber",
             "oid": "ae76a47b-160b-4263-b270-dd0c7b535fd9",
-            "type": "number"
+            "type": "number",
+            "historyType": "versionNumber"
         },
         {
             "name": "firstName",
@@ -88,7 +86,7 @@
             "oid": "044ab1ed-788d-40a2-b868-a933f5b3196b",
             "required": true,
             "displayLabel": "Job",
-            "type": "reference"
+            "type": "number"
         },
         {
             "name": "salary",
@@ -110,13 +108,13 @@
             "name": "manager",
             "oid": "96b54272-ca12-45e9-adb4-978cd554b60f",
             "displayLabel": "Manager",
-            "type": "reference"
+            "type": "number"
         },
         {
             "name": "department",
             "oid": "3b4287e2-e136-41b0-9fe3-b0c2bda2022c",
             "displayLabel": "Department",
-            "type": "reference"
+            "type": "number"
         }
     ],
     "name": "Employee",

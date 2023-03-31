@@ -6,7 +6,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Employee",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponse"
       }

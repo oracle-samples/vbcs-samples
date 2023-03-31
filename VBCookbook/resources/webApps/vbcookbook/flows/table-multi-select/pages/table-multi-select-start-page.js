@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -7,10 +7,7 @@ define(['knockout', 'ojs/ojkeyset'], function (ko, keySet) {
   "use strict";
 
   var PageModule = function PageModule() {
-    this.selectedItems = ko.observable({
-      row: new keySet.KeySetImpl(),
-      column: new keySet.KeySetImpl()
-    });
+    this.selectedRows = ko.observable(new keySet.KeySetImpl());
   };
 
 
@@ -42,22 +39,16 @@ define(['knockout', 'ojs/ojkeyset'], function (ko, keySet) {
     return selectionText;
   };
 
-  PageModule.prototype.getSelectedItems = function() {
-    return this.selectedItems;
+  PageModule.prototype.getSelectedRows = function() {
+    return this.selectedRows;
   };
 
   PageModule.prototype.deselectAll = function () {
-    this.selectedItems({
-      row: new keySet.KeySetImpl(),
-      column: new keySet.KeySetImpl()
-    });
+    this.selectedRows(new keySet.KeySetImpl());
   };
 
   PageModule.prototype.selectSpecificRows = function () {
-    this.selectedItems({
-      row: new keySet.KeySetImpl([1,3]), // row with dept no. 1 and 3
-      column: new keySet.KeySetImpl()
-    });
+    this.selectedRows(new keySet.KeySetImpl([1,3]));// row with dept no. 1 and 3
   };
 
   PageModule.prototype.isSelectionEmpty = function (selection) {

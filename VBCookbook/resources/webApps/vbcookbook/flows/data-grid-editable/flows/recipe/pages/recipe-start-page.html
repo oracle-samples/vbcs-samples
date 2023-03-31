@@ -1,0 +1,456 @@
+<!--
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Oracle JET provides <a target="_blank"
+    href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/RowDataGridProvider.html"><code>RowDataGridProvider</code></a>
+  that can be wrapped around an underlying Data Provider to use with Data Grid. You create an oj-data-grid component and
+  then
+  enable editing and define the editable component for each column. You then add listeners to handle editing on cell.
+  All changes
+  are stored in a buffer using BufferingDataProvider until the user clicks Save, at which time a REST call posts the
+  changes to
+  the backend service.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="step-1">
+      <span slot="header">Create Data Grid Component and Data Variables</span>
+      <div>
+        <ol>
+          <li>Drag and drop an <code>oj-data-grid</code> component onto the page.
+          </li>
+          <li>In the Variables tab of the page, create a new variable <code>employeeListSDP</code> of type
+            <code>Service Data Provider</code>.
+          </li>
+          <li>Select the endpoint <code>getall_Employee</code> and select fields from the endpoint to display in data
+            grid. Also set the <code>orderBy</code> field to <code>id</code> so the data is sorted on id attribute.
+          </li>
+          <li>Create another variable <code>data</code> of type <strong>Any</strong> to feed into the Data Grid component as its data property.
+          </li>
+          <li>Create another variable <code>jobListSDP</code> of type <code>Service Data Provider</code>. Select the
+            endpoint <code>getall_Job</code>. This is used later to display a list of job titles during editing.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-2">
+      <span slot="header">Create Functions to Populate and Style the Data</span>
+      <div>
+        <ol>
+
+          <li>Create an Event Listener for <code>vbEnter</code> and name the resulting action chain
+            <code>fetchData</code>. This action chain fetches data when the page opens. </li>
+          <li>A custom function is needed to create <code>RowDataGridProvider</code>. This function creates both
+            <code>RowDataGridProvider</code> and <code>BufferingDataProvider</code> but needs Service Data Provider. Add
+            a Call Function action <code>callFunctionGetRowGridDataProvider</code> in the action chain.</li>
+
+          <li>In the JavaScript tab of the page, create a new function <code>getRowGridDataProvider</code> having input
+            parameter for underlying SDP. Create an instance of <code>BufferingDataProvider</code> backed by the input
+            SDP to hold
+            the modified data locally. Then create <code>RowDataGridProvider</code> in this function backed by the
+            <code>BufferingDataProvider</code> instance.
+
+            <oj-collapsible id="JS-code1">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+  define(['ojs/ojrowdatagridprovider', 'ojs/ojbufferingdataprovider', 'ojs/ojconverter-number'], (RowDataGridProvider, BufferingDataProvider, NumberConverter) => {
+  'use strict';
+
+  var PageModule = function PageModule() { };
+  var bufferingDP = null;
+  var dataColumnNames = ['firstName', 'lastName', 'jobObject', 'salary', 'jobObject'];
+  var bufferredRowData = null; // holds cell's original data
+  var editingInProgress = false; // keeps track if editing is going on
+  var numberConverter = new NumberConverter.IntlNumberConverter({
+    style: 'currency',
+    currency: 'USD',
+    currencyDisplay: 'symbol',
+    maximumFractionDigits: 0
+  });
+
+  /**
+   *
+   * @param {String} sdp
+   * @return {String}
+   */
+  PageModule.prototype.getRowGridDataProvider = function (sdp) {
+    if (bufferingDP == null) {
+      bufferingDP = new BufferingDataProvider(sdp);
+      bufferingDP.addEventListener("submittableChange", (event) => {
+        const submittableRows = event.detail;
+        this.showSubmittableItems(submittableRows);
+      });
+    }
+
+    return new RowDataGridProvider.RowDataGridProvider(bufferingDP, {
+      columns: {
+        rowHeader: ['id'],
+        databody: dataColumnNames
+      },
+      columnHeaders: {
+        column: [
+          { data: 'First Name' },
+          { data: 'Last Name' },
+          { data: 'Job' },
+          { data: 'Salary' },
+          { data: 'Salary Range' }
+        ],
+      },
+      headerLabels: {
+        row: ['Id']
+      }
+    });
+  };
+          </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>Select this function in the <code>callFunctionGetRowGridDataProvider</code> action and pass the
+            <code>employeeListSDP</code> as a parameter.
+          </li>
+          <li>To style the Data Grid headers, add a styling function, <code>columnHeaderStyle</code>, in JavaScript code
+            and use it in the <code>oj-data-grid</code> component as a header style.
+            <oj-collapsible id="JS-code1835">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+  PageModule.prototype.columnHeaderStyle = function (headerContext) {
+    if (headerContext.index == 2) // jobTitle
+    {
+      return "width: 260px";
+    } else if (headerContext.index == 4) // salary range
+    {
+      return "width: 155px;";
+    }
+    return "";
+  };
+          </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>To display the cell with a red border when invalid data, like an out-of-range salary is entered, add the 
+            following styling functions and use it in the Data Grid component as a cell style.
+            <oj-collapsible id="JS-code1840">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+  PageModule.prototype.getHeaderClassName = function (headerContext) {
+    return getClassName(headerContext.index);
+  };
+
+  PageModule.prototype.getCellClassName = function (cellContext) {
+    return getClassName(cellContext.indexes.column, cellContext.metadata.rowItem);
+  };
+
+  function getClassName(columnIndex, item) {
+    if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2) {
+      return "oj-sm-justify-content-flex-start";
+    }
+    else if (columnIndex === 3) // salary column
+    {
+      if (item != null && (item.data.salary === undefined ||
+        item.data.salary < item.data.jobObject.items[0].minSalary ||
+        item.data.salary > item.data.jobObject.items[0].maxSalary)) {
+        return "oj-bg-danger-30";
+      }
+    }
+    else if (columnIndex === 4) // salary range column
+    {
+      return "oj-read-only oj-bg-neutral-30";
+    }
+  };
+          </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+
+          <li>Create an Assign Variable action in the action chain and set the value of <code>data</code> variable to
+            the
+            return of the <code>callFunctionGetRowGridDataProvider</code> action.
+          </li>
+          <li>Create a page function <code>getFormattedSalaryRange</code> to format the salary range and use it as a
+            value
+            for the Salary Range column in the Data Grid component. Likewise create another function <code>getFormattedSalary</code> 
+            formatting the salary value.
+            <pre>
+  PageModule.prototype.getFormattedSalaryRange = function (jobObject) {
+    var range = '';
+    if (jobObject.items[0] !== undefined && jobObject.items[0].minSalary !== undefined) {
+      return '$' + jobObject.items[0].minSalary + ' - ' + jobObject.items[0].maxSalary;
+    }
+    return 'loading...';
+  };
+
+  PageModule.prototype.getFormattedSalary = function (data) {
+    return numberConverter.format(data);
+  };
+          </pre>
+          </li>
+          <li>Set various style properties on the Data Grid component.
+            <pre>
+    &ltoj-data-grid data="{{ $variables.data }}" scroll-policy="loadMoreOnScroll"
+      header.column.resizable='{"width":"enable", "height":"enable"}'
+      header.column.style="[[$functions.columnHeaderStyle]]" edit-mode="cellEdit"
+      header.column.class-name="[[$functions.getHeaderClassName]]" style="height:415px"
+      on-oj-before-edit="[[$page.functions.onBeforeEdit]]" on-oj-before-edit-end="[[$page.functions.onBeforeEditEnd]]"
+      cell.class-name="[[$functions.getCellClassName]]"&gt
+            </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-3">
+      <span slot="header">Make Data Grid Component Editable</span>
+      <div>
+        <ol>
+          <li>Set value of <code>edit-mode</code> attribute of the component to <code>"cellEdit"</code>.
+          </li>
+          <li>Configure the cell template in a Data Grid component to display the cell data in navigation mode
+            and to display custom editable component in edit mode.
+
+            <oj-collapsible id="JS-code2">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+    &lttemplate slot="cellTemplate" data-oj-as="cell"&gt
+
+        &lt!-- firstName --&gt
+        &ltoj-bind-if test="[[cell.item.columnIndex==0]]"&gt
+          &ltoj-bind-if test='[[cell.mode=="navigation"]]'&gt
+            &ltoj-bind-text value="{{ cell.item.data.data }}"&gt
+            &lt/oj-bind-text&gt
+          &lt/oj-bind-if&gt
+          &ltoj-bind-if test='[[cell.mode=="edit"]]'&gt
+            &ltoj-input-text required="true" value="[[ cell.item.data.data ]]" class="editable"&gt
+            &lt/oj-input-text&gt
+          &lt/oj-bind-if&gt
+        &lt/oj-bind-if&gt
+
+        &lt!-- lastName --&gt
+        &ltoj-bind-if test="[[cell.item.columnIndex==1]]"&gt
+          &ltoj-bind-if test='[[cell.mode=="navigation"]]'&gt
+            &ltoj-bind-text value="{{cell.item.data.data}}"&gt
+            &lt/oj-bind-text&gt
+          &lt/oj-bind-if&gt
+          &ltoj-bind-if test='[[cell.mode=="edit"]]'&gt
+            &ltoj-input-text required="true" value="[[ cell.item.data.data ]]" class="editable"&gt
+            &lt/oj-input-text&gt
+          &lt/oj-bind-if&gt
+        &lt/oj-bind-if&gt
+
+        &lt!-- jobTitle --&gt
+        &ltoj-bind-if test="[[cell.item.columnIndex==2]]"&gt
+          &ltoj-bind-if test='[[cell.mode=="navigation"]]'&gt
+            &ltoj-bind-text value="[[ cell.item.data.data.items[0].jobTitle ]]"&gt
+            &lt/oj-bind-text&gt
+          &lt/oj-bind-if&gt
+          &ltoj-bind-if test='[[cell.mode=="edit"]]'&gt
+            &ltoj-select-single class="editable" data="[[$page.variables.jobListSDP]]"
+              value="[[ cell.item.data.data.items[0].id ]]"
+              value-item="{{ { key: cell.item.data.data.items[0].id, data: { id: cell.item.data.data.items[0].id, jobTitle: cell.item.data.data.items[0].jobTitle } } }}"
+              :id="[[ 'oj_select_single_'+$current.key ]]" item-text="jobTitle" required="true"&gt
+            &lt/oj-select-single&gt
+          &lt/oj-bind-if&gt
+        &lt/oj-bind-if&gt
+
+        &lt!-- salary --&gt
+        &ltoj-bind-if test="[[cell.item.columnIndex==3]]"&gt
+          &ltoj-bind-if test='[[cell.mode=="navigation"]]'&gt
+            &ltoj-bind-text value="[[ $page.functions.getFormattedSalary( cell.item.data.data ) ]]"&gt&lt/oj-bind-text&gt
+          &lt/oj-bind-if&gt
+          &ltoj-bind-if test='[[cell.mode=="edit"]]'&gt
+            &ltoj-input-number class="editable" validators="[[[$functions.salaryInRangeValidator(cell.item.data.data)]]]"
+              value="[[ cell.item.data.data ]]" :id="[['oj-input-number-salary']]"&gt
+            &lt/oj-input-number&gt
+          &lt/oj-bind-if&gt
+        &lt/oj-bind-if&gt
+
+        &lt!-- salary range --&gt
+        &ltoj-bind-if test="[[cell.item.columnIndex==4]]"&gt
+          &ltoj-bind-if test='[[cell.mode=="navigation"]]'&gt
+            &ltoj-bind-text value="{{ $page.functions.getFormattedSalaryRange( cell.item.data.data ) }}"&gt&lt/oj-bind-text&gt
+          &lt/oj-bind-if&gt
+        &lt/oj-bind-if&gt
+
+      &lt/template&gt   
+            </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>Add a page function <code>salaryInRangeValidator</code> to validate the salary value to be within the
+            range.
+            <pre>
+  PageModule.prototype.salaryInRangeValidator = function (record) {
+    return {
+      getHint: () => {
+        return 'Salary has to be in job salary range';
+      },
+      validate: value => {
+        var jobRecord = bufferredRowData.data.jobObject.items[0];
+        if (jobRecord.minSalary === undefined) {
+          throw new Error(
+            'cannot validate because range is not available yet');
+        }
+        else if (value >= jobRecord.minSalary && value <= jobRecord.maxSalary) {
+          return;
+        }
+        else {
+          throw new Error('salary is out of the salary range');
+        }
+      }
+    };
+  };
+          </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <span slot="header">Add Event Listeners to the Data Grid Component</span>
+      <div>
+        <ol>
+          <li>Create a variable, <code>bufferredRowData</code>, in PageModule to hold the cell's original data.
+          </li>
+          <li>Instead of calling an action chain from the regular VB event listener, we write a custom JavaScript
+            function
+            and
+            call that function directly using syntax <code>on-oj-before-edit="[[$page.functions.onBeforeEdit]]"</code>.
+            Add an event listener <code>on-oj-before-edit</code>
+            in the Data Grid component and set its value to page function <code>onBeforeEdit</code>. Here action chain cannot be used
+            for event handling as the Data Grid component expects the event handlers to be synchronous but Visual Builder action chains are asynchronous by
+            default.
+            <pre>
+  PageModule.prototype.onBeforeEdit = function (event) {
+    // conditionally disable the cells for editing by preventing default on the event
+    if (event.detail.cellContext.indexes.column == '4') {
+      event.preventDefault();
+    }
+    else {
+      editingInProgress = true;
+
+      // copy the original data of this cell
+      bufferredRowData = Object.assign({}, event.detail.cellContext.metadata.rowItem);
+    }
+  };
+          </pre>
+          </li>
+          <li>Similarly add another event <code>on-oj-before-edit-end</code> in the Data Grid component and set its value to another
+            page function
+            <code>onBeforeEditEnd</code>. Perform data validation and update the data in BufferingDataProvider
+            using <code>updateItem</code> method. Again note that action chain is not used here and only
+            synchronous page functions are used to handle events.
+
+            <oj-collapsible id="JS-code3">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+  PageModule.prototype.onBeforeEditEnd = function (event) {
+    if (event.detail.cancelEdit == false) {
+      const editable = event.target.querySelector('.editable');
+
+      if (editable) {
+        editable.validate();
+
+        // DataGrid does not currently support editables with async validators
+        // so treating editable with 'pending' state as invalid and do not allow
+        // editing to end
+        if (editable.valid !== 'valid') {
+          event.preventDefault();
+          return;
+        }
+
+        var newValue = editable.value;
+        var oldValue = event.detail.cellContext.data.data;
+
+        // from update event change the data item with latest update
+        var columnIndex = event.detail.cellContext.indexes.column;
+        var dataColumn = dataColumnNames[columnIndex];
+        
+        if (dataColumn === 'jobObject') {
+           // get the data out of the select single which is in valueItem not value
+          newValue = editable.valueItem.data;
+          if (oldValue.items[0].id === newValue.id) {
+            return; // no change in data
+          }
+
+          // if a new job is set update three row level properties
+          bufferredRowData.data.job = newValue.id; 
+          bufferredRowData.data.jobObject.items[0] = newValue;  // update the salary range as the job title has changed
+          bufferredRowData.data.salary = undefined; // reset the salary value as the job title has changed
+        }
+        else {
+          if (newValue === oldValue) {
+            return; // no change in data
+          }
+          bufferredRowData.data[dataColumn] = newValue;
+        }
+        // write back to the cell context for immediate update
+        event.detail.cellContext.data.data = bufferredRowData.data[dataColumn];
+        bufferingDP.updateItem(bufferredRowData);
+      }
+    }
+
+    editingInProgress = false; // mark end of editing
+  };
+          </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>To handle the change in job title in the Single Select component, mark the class attribute of the 
+            component to <code>editable</code>.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-5">
+      <span slot="header">Track and Save Changes</span>
+      <div>
+        <ol>
+          <li>Drag a Button component and drop it above the Data Grid component. Name it <code>Save</code>.
+          </li>
+          <li>In the Events tab of the Properties pane for the Save button, add a Quick Start: 'ojAction' event and a
+            corresponding action chain named <code>onSaveButton</code>.</li>
+          <li>In the onSaveButton action chain, add a Call Function action. Create and set a new JavaScript function
+            <code>isEditingCompleted</code>.
+            This function checks if any cell is being edited currently and if it has a valid value. If valid, continue
+            with the
+            save operation.
+          </li>
+          <li>Add another Call Function action. Create and set a new JavaScript function
+            <code>createBatchPayload</code>. This
+            function creates a payload of the changes to upload and uses the <code>getSubmittableItems()</code> function
+            of the Buffering Data Provider which contains the changes. It also returns <code>error</code> in case
+            modified
+            data is invalid or <code>nodata</code> if there is not data to submit.
+          </li>
+          <li>Add a Call Function to <code>setItemStatus</code> to set the status of the records to
+            <code>submitting</code>. This empties the current buffer of changes.
+          </li>
+          <li>Add a Call REST action to upload this payload through the business objects Batch REST
+            endpoint. The <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/consume-rest/advanced-tasks.html#GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">Batch
+              REST endpoint</a> sends multiple changes in one transaction.</li>
+          <li>
+            <p>On the success outcome of the REST Call action, set the status of the records to <code>submitted</code>
+              and fire a notification with the message that <code>Changes are Saved !!</code></p>
+            <p>Also refresh the Buffer Data
+              Provider by calling <code>fetchData</code> action chain. On the failure path of the
+              REST Call action, set the status of the records to <code>unsubmitted</code>.</p>
+
+            <p>This saves the changes which are currently stored in the buffer.</p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

@@ -2,46 +2,45 @@
   "title": "",
   "description": "",
   "variables": {
-    "employeeData": {
-      "type": "getall_Employee"
+    "data": {
+      "type": "any"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
     }
   },
   "metadata": {},
   "types": {
-    "@decorators.getall_Employee": {
+    "@decorators.getallEmployeeResponse": {
       "endpoint": "getall_Employee",
       "service": "businessObjects",
       "path": "response"
     },
-    "getall_Employee": {
+    "getallEmployeeResponse": {
       "items": [
         {
-          "departmentObject": {
-            "items": [
-              {
-                "departmentName": "string"
-              }
-            ]
-          },
-          "email": "string",
           "firstName": "string",
-          "hireDate": "string",
           "id": "number",
           "lastName": "string",
           "phoneNumber": "string",
+          "email": "string",
           "salary": "number"
         }
       ]
     }
   },
-  "chains": {
-  },
   "eventListeners": {
     "vbEnter": {
       "chains": [
         {
-          "chainId": "fetchEmployeeData",
-          "parameters": {}
+          "parameters": {},
+          "chainId": "vbEnter"
         }
       ]
     }

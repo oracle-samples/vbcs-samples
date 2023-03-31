@@ -6,7 +6,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Department",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "getallDepartmentResponse",
         "uriParameters": {

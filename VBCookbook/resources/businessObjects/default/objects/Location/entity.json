@@ -2,7 +2,6 @@
     "fields": [
         {
             "displayLabel": "Id",
-            "internal": true,
             "key": true,
             "name": "id",
             "oid": "b33be098-a056-41f5-b121-260cb001bce1",
@@ -12,39 +11,38 @@
         },
         {
             "displayLabel": "Created",
-            "internal": true,
             "name": "creationDate",
             "oid": "cc315372-6a21-4459-b26d-90f58a4b0e27",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeCreated"
         },
         {
             "displayLabel": "Last Updated",
-            "internal": true,
             "name": "lastUpdateDate",
             "oid": "3bd8c978-9b9a-4f17-9296-b86ce33b380e",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeUpdated"
         },
         {
             "displayLabel": "Created By",
-            "internal": true,
             "name": "createdBy",
             "oid": "9e6a2c66-543c-43ca-8463-3f57ac81859e",
-            "type": "string"
+            "type": "string",
+            "historyType": "createdBy"
         },
         {
             "displayLabel": "Last Updated By",
-            "internal": true,
             "name": "lastUpdatedBy",
             "oid": "1844b430-d9ce-4dab-9a1a-95b855d78ccb",
-            "type": "string"
+            "type": "string",
+            "historyType": "updatedBy"
         },
         {
-            "displayLabel": "<internal>",
-            "hidden": true,
-            "internal": true,
+            "displayLabel": "Version Number",
             "name": "abcsChangeNumber",
             "oid": "d01de00d-576e-48a4-84f0-acbb338e0c21",
-            "type": "number"
+            "type": "number",
+            "historyType": "versionNumber"
         },
         {
             "name": "streetAddress",
@@ -70,7 +68,7 @@
             "oid": "9f1a305f-1b68-4e19-8c6b-a7c0e5a4a1ab",
             "required": true,
             "displayLabel": "Country",
-            "type": "reference"
+            "type": "number"
         },
         {
             "name": "city",

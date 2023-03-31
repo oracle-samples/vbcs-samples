@@ -2,7 +2,6 @@
     "fields": [
         {
             "displayLabel": "Id",
-            "internal": true,
             "key": true,
             "name": "id",
             "oid": "e423c650-52a2-4d52-92e4-20f53c25df67",
@@ -12,39 +11,38 @@
         },
         {
             "displayLabel": "Created",
-            "internal": true,
             "name": "creationDate",
             "oid": "f7c51a7d-c3e2-44ed-80ef-7d7afb86644a",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeCreated"
         },
         {
             "displayLabel": "Last Updated",
-            "internal": true,
             "name": "lastUpdateDate",
             "oid": "7f4f7669-649f-4a3e-9b32-fa4a3a8162c9",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeUpdated"
         },
         {
             "displayLabel": "Created By",
-            "internal": true,
             "name": "createdBy",
             "oid": "0de74efc-65ed-4eca-ac31-5450794ed1f5",
-            "type": "string"
+            "type": "string",
+            "historyType": "createdBy"
         },
         {
             "displayLabel": "Last Updated By",
-            "internal": true,
             "name": "lastUpdatedBy",
             "oid": "006460e5-2629-4b2f-ab01-42a44ddf39a7",
-            "type": "string"
+            "type": "string",
+            "historyType": "updatedBy"
         },
         {
-            "displayLabel": "<internal>",
-            "hidden": true,
-            "internal": true,
+            "displayLabel": "Version Number",
             "name": "abcsChangeNumber",
             "oid": "29674c3b-366c-42a5-abe4-75cdcb8d5c2c",
-            "type": "number"
+            "type": "number",
+            "historyType": "versionNumber"
         },
         {
             "name": "jobTitle",

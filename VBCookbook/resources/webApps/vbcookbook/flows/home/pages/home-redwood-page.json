@@ -2,38 +2,13 @@
   "title": "Oracle Visual Builder Cookbook",
   "description": "",
   "variables": {
-
-    "selectContextValue": {
-      "type": "string",
-      "persisted": "device",
-      "input": "fromUrl",
-      "onValueChanged": {
-        "chains": [
-          {
-            "chainId": "updateAllFilters"
-          }
-        ]
-      }
-    },
     "appliedFilters": {
       "type": "filterChip[]",
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "updateAllFilters"
+            "chainId": "refreshVisiblityAndNavigate"
           }
-        ]
-      },
-      "persisted": "history",
-      "defaultValue": "{{ $page.variables.appliedFiltersStr && $page.variables.appliedFiltersStr.length > 0 ? JSON.parse($page.variables.appliedFiltersStr) : [] }}"
-    },
-    "appliedFiltersStr": {
-      "type": "string",
-      "onValueChanged": {
-        "chains": [
-          {
-            "chainId": "updateAppliedFilters"
-          }          
         ]
       }
     },
@@ -43,15 +18,14 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "workaround"
+            "parameters": {
+              "value": "{{ $event.value }}"
+            },
+            "chainId": "workaround_via_valueChange"
           }          
         ]
       },
       "persisted": "none"
-    },
-    "allFilters": {
-      "type": "filterChip[]",
-      "defaultValue" : "{{$page.variables.selectContextValue ? (($page.variables.appliedFilters || []).concat([{ 'filter': 'keyword', 'label': $page.variables.selectContextValue, 'value': $page.variables.selectContextValue }])) :  $page.variables.appliedFilters }}"
     },
     "dpOptions": {
       "type": "resources/js/data-provider/JsonDataProviderOptions",
@@ -104,7 +78,7 @@
           "filterCriterion": {
             "op": "$eq",
             "value": {
-              "filters": "{{$page.variables.allFilters}}"
+              "filters": "{{$page.variables.appliedFilters}}"
             }
           }
         }
@@ -130,6 +104,14 @@
     "searchSuggestionsRecentSearchDP": {
       "type": "resources/js/data-provider/SuggestionsRecentSearchDataProvider",
       "constructorParams": ["[[ $page.variables.dpContext.instance ]]"]
+    },
+    "showDashboardPanels": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "showSearchResults": {
+      "defaultValue": false,
+      "type": "boolean"
     },
     "suggestionFiltersDP": {
       "type": "resources/js/data-provider/FiltersJsonDataProvider",
@@ -278,11 +260,19 @@
         }
       ]
     },
+    "ShowSearchResultsBitLater": {
+      "chains": [
+        {
+          "parameters": {},
+          "chainId": "ShowSearchResults"
+        }
+      ]
+    },
     "vbEnter": {
       "chains": [
         {
           "parameters": {},
-          "chainId": "workaround2"
+          "chainId": "workaround_via_vbEnter"
         }
       ]
     }
@@ -326,26 +316,14 @@
       "oj-sp-collection-container": {
         "path": "oj-sp/collection-container/loader"
       },
-      "oj-sp-empty-state": {
-        "path": "oj-sp/empty-state/loader"
-      },
-      "oj-sp-list-item-template": {
-        "path": "oj-sp/list-item-template/loader"
-      },
-      "oj-sp-object-card": {
-        "path": "oj-sp/object-card/loader"
-      },
-      "oj-sp-select-single-item-template": {
-        "path": "oj-sp/select-single-item-template/loader"
-      },
       "oj-sp-smart-filter-search": {
         "path": "oj-sp/smart-filter-search/loader"
-      },
-      "oj-sp-welcome-page": {
-        "path": "oj-sp/welcome-page/loader"
       }
 
     },
     "css": []
+  },
+  "events": {
+    "ShowSearchResultsBitLater": {}
   }
 }

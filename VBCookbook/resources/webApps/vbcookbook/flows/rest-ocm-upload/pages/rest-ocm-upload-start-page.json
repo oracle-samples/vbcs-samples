@@ -8,7 +8,7 @@
         "endpoint": "ocm/getFolderFiles",
         "responseType": "FilesType",
         "itemsPath": "items",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "uriParameters": {
           "folderId": "self"
         }

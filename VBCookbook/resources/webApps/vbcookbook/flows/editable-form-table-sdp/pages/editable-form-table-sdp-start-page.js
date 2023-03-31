@@ -1,24 +1,19 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['jsondiff'], function(JsonDiffPlugin) {
+define([], function() {
   'use strict';
 
   var PageModule = function PageModule() {};
 
-  var JSON_DIFF = JsonDiffPlugin.create({
-    arrays: {
-      detectMove: false,
-    },
-    cloneDiffValues: false,
-  });
-  
   PageModule.prototype.areDifferent = function(oldValue, newValue) {
-    
-    var diff = JSON_DIFF.diff(oldValue, newValue);
-    return diff !== undefined;
+    if(JSON.stringify(newValue) === JSON.stringify(oldValue))
+    return false
+    else 
+    return true;
   };
+
   return PageModule;
 });

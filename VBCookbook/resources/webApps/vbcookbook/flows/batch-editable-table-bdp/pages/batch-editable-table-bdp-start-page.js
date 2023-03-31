@@ -1,25 +1,26 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['jsondiff', 'ojs/ojbufferingdataprovider'], function (JsonDiffPlugin, BufferingDataProvider) {
+define(['ojs/ojbufferingdataprovider'], function (BufferingDataProvider) {
   'use strict';
 
-   var PageModule = function PageModule() {
+  var PageModule = function PageModule(context) {
     this.editInProgressPromise = Promise.resolve();
+    this.eventHelper = context.getEventHelper();
   };
 
-  PageModule.prototype.startEditing = function(rowKey) {
+  PageModule.prototype.startEditing = function (rowKey) {
     this.rowBeingEditted = rowKey;
     var self = this;
-    this.editInProgressPromise = new Promise( (resolve, reject) => {
-      self.resolveHandler = resolve;     
+    this.editInProgressPromise = new Promise((resolve, reject) => {
+      self.resolveHandler = resolve;
     });
   };
 
-  PageModule.prototype.endEditing = function(rowKey) {
-    if (rowKey !== this.rowBeingEditted) { 
+  PageModule.prototype.endEditing = function (rowKey) {
+    if (rowKey !== this.rowBeingEditted) {
       // the nature of events is that editing multiple rows in one go will
       // cause multiple calls to startEditing and endEditing and it is important
       // it ignore endEditing if it is NOT for row being currently edited - such
@@ -29,12 +30,15 @@ define(['jsondiff', 'ojs/ojbufferingdataprovider'], function (JsonDiffPlugin, Bu
     if (this.resolveHandler) {
       this.resolveHandler();
     }
-  }; 
+  };
 
   PageModule.prototype.isEditingFinished = function() {
-    return this.editInProgressPromise;
+    return new Promise( (resolve, reject) => {
+      setTimeout( () => reject(), 500);
+      this.editInProgressPromise.then( () => resolve() );
+    });
   };
-  
+
   var bufferingDP;
 
   PageModule.prototype.createBufferingDP = function (baseDP) {
@@ -44,8 +48,6 @@ define(['jsondiff', 'ojs/ojbufferingdataprovider'], function (JsonDiffPlugin, Bu
       // We can use this to update the UI.
       const submittableRows = event.detail;
       this.showSubmittableItems(submittableRows);
-      
-     
     });
     return bufferingDP;
   }
@@ -62,6 +64,10 @@ define(['jsondiff', 'ojs/ojbufferingdataprovider'], function (JsonDiffPlugin, Bu
     // iterate over editable fields which are marked with "editable" class
     // and make sure they are valid:
     var table = event.target;
+    if (table === undefined) {
+      table = event.detail.originalEvent.target;
+    }
+    // debugger;
     var editables = table.querySelectorAll('.editable');
     for (var i = 0; i < editables.length; i++) {
       var editable = editables.item(i);
@@ -129,16 +135,11 @@ define(['jsondiff', 'ojs/ojbufferingdataprovider'], function (JsonDiffPlugin, Bu
     };
   };
 
-  var JSON_DIFF = JsonDiffPlugin.create({
-    arrays: {
-      detectMove: false,
-    },
-    cloneDiffValues: false,
-  });
-
   PageModule.prototype.areDifferent = function (newValue, oldValue) {
-    var diff = JSON_DIFF.diff(oldValue, newValue);
-    return diff !== undefined;
+    if(JSON.stringify(newValue) === JSON.stringify(oldValue))
+    return false
+    else 
+    return true;
   };
 
   PageModule.generateBatchSnippet = function (url, payload, operation, id) {
@@ -240,6 +241,49 @@ define(['jsondiff', 'ojs/ojbufferingdataprovider'], function (JsonDiffPlugin, Bu
     });
     textarea.value = textValue;
   };
+
+
+  PageModule.prototype.lineTableBeforeRowEdit = function (event) {
+    let detail = event.detail;
+   this.promise = event.detail.accept(new Promise(function (resolve) {
+      this.rowBeforeEditPromise = resolve;
+      this.eventHelper.fireCustomEvent("tableEditEvent", {
+        "detail": event.detail,
+        "name":"edit"
+      });
+      // reject(); when required
+    }.bind(this)));
+  }
+
+  PageModule.prototype.lineTableBeforeRowEditEnd = function (event, preventDefault) {
+    if (preventDefault) {
+      event.preventDefault();
+      return;
+    }
+    let detail = event.detail;
+    event.detail.accept(new Promise(function (resolve, reject) {
+      this.rowBeforeEditEndPromise = resolve;
+      this.eventHelper.fireCustomEvent("tableEditEvent", {
+        "detail": event.detail ,
+        "name":"editend"
+      });
+      // reject(); when required
+    }.bind(this)));
+  }
+
+  PageModule.prototype.resolveRowBeforeEditPromise = function () {
+    if (this.rowBeforeEditPromise) {
+      this.rowBeforeEditPromise();
+      delete this.rowBeforeEditPromise;
+    }
+  }
+
+  PageModule.prototype.resolveRowBeforeEditEndPromise = function () {
+    if (this.rowBeforeEditEndPromise) {
+      this.rowBeforeEditEndPromise();
+      delete this.rowBeforeEditEndPromise;
+    }
+  }
 
   return PageModule;
 });

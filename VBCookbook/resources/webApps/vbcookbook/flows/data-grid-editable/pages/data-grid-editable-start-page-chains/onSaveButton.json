@@ -1,0 +1,150 @@
+{
+  "description": "",
+  "root": "callFunctionIsEditingCompleted",
+  "actions": {
+
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestBatch.message.summary ]]",
+        "type": "error",
+        "displayMode": "transient"
+      }
+    },
+    "callRestBatch": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/batch",
+        "body": "{{ $chain.results.callFunctionCreateBatchPayload }}"
+      },
+      "outcomes": {
+        "failure": "callFunctionSetStatusToUnsubmitted",
+        "success": "callFunctionSetStatusToSubmitted"
+      }
+    },
+    "callFunctionSetStatusToSubmitted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToSubmitted",
+        "params": [
+          "{{ $chain.results.callFunctionSetStatusToSubmitting }}"
+        ]
+      },
+      "outcomes": {
+        "success": "fireNotification3"
+      }
+    },
+    "callFunctionSetStatusToUnsubmitted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToUnsubmitted",
+        "params": [
+          "$chain.results.callFunctionSetStatusToSubmitting"
+        ]
+      },
+      "outcomes": {
+        "success": "fireNotification"
+      }
+    },
+    "callFunctionSetStatusToSubmitting": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "setStatusToSubmitting"
+      },
+      "outcomes": {
+        "success": "callRestBatch"
+      }
+    },
+    "fireNotification3": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "type": "confirmation",
+        "summary": "Changes are saved !!",
+        "displayMode": "transient"
+      },
+      "outcomes": {
+        "success": "callChainVbEnter"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callFunctionCreateBatchPayload == 'error' ]]"
+      },
+      "outcomes": {
+        "true": "fireNotification2",
+        "false": "if4"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "Invalid Data",
+        "message": "Please correct the data marked in red and submit again.",
+        "displayMode": "transient"
+      }
+    },
+    "fireNotification5": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "No Data",
+        "message": "There is no data to submit.",
+        "type": "info",
+        "displayMode": "transient"
+      }
+    },
+    "callChainVbEnter": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "fetchData"
+      }
+    },
+    "callFunctionCreateBatchPayload": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "createBatchPayload"
+      },
+      "outcomes": {
+        "success": "if"
+      }
+    },
+    "if2": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callFunctionIsEditingCompleted == true ]]"
+      },
+      "outcomes": {
+        "true": "callFunctionCreateBatchPayload"
+      }
+    },
+    "if4": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callFunctionCreateBatchPayload == 'nodata' ]]"
+      },
+      "outcomes": {
+        "true": "fireNotification5",
+        "false": "callFunctionSetStatusToSubmitting"
+      }
+    },
+    "callFunctionIsEditingCompleted": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "isEditingCompleted"
+      },
+      "outcomes": {
+        "success": "if2"
+      }
+    }
+  },
+  "variables": {}
+}

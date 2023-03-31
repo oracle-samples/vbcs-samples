@@ -1,0 +1,56 @@
+{
+  "root": "ifName",
+  "description": "",
+  "variables": {
+    "detail": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "event": {
+
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "callChainTableBeforeRowEditChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "TableBeforeRowEditChain",
+        "params": {
+          "event": "{{ $variables.event }}",
+          "rowData": "{{ $variables.detail.rowContext.componentElement.getDataForVisibleRow($variables.detail.rowContext.status.rowIndex).data }}",
+          "rowKey": "{{ $variables.detail.rowContext.status.rowKey }}"
+        }
+      }
+    },
+    "callChainTableBeforeRowEditEndChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "TableBeforeRowEditEndChain",
+        "params": {
+          "event": "{{ $variables.event }}",
+          "originalRowData": "{{ $variables.detail.rowContext.componentElement.getDataForVisibleRow($variables.detail.rowContext.status.rowIndex).data }}",
+          "rowData": "{{ $page.variables.currentRowBuffer }}",
+          "rowKey": "{{ $variables.detail.rowContext.status.rowKey }}"
+        }
+      }
+    },
+    "ifName": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.name === \"edit\" ]]"
+      },
+      "outcomes": {
+        "true": "callChainTableBeforeRowEditChain",
+        "false": "callChainTableBeforeRowEditEndChain"
+      }
+    }
+  }
+}

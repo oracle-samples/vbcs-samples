@@ -1,0 +1,59 @@
+{
+  "root": "hideSearchResults",
+  "actions": {
+
+    "callStringifyFiltersMethod": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('oj_sfs1') }}",
+        "method": "stringifyFilters",
+        "params": [ 
+        ]
+      },
+      "outcomes": {
+        "success": "ifShowDashboardPanels"
+      }
+    },
+    "navigateToHomeRedwood": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "home-redwood",
+        "params": {
+          "appliedFiltersStr2": "{{ $chain.results.callStringifyFiltersMethod !== undefined ? $chain.results.callStringifyFiltersMethod : '[]' }}"
+        }
+      }
+    },
+    "ifShowDashboardPanels": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ ($chain.results.callStringifyFiltersMethod === undefined || $chain.results.callStringifyFiltersMethod === '' ) && $page.variables.showDashboardPanels === false]]"
+      },
+      "outcomes": {
+        "true": "showDashboardPanels",
+        "false": "navigateToHomeRedwood"
+      }
+    },
+    "hideSearchResults": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showSearchResults": {
+          "source": "{{ false }}"
+        }
+      },
+      "outcomes": {
+        "success": "callStringifyFiltersMethod"
+      }
+    },
+    "showDashboardPanels": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showDashboardPanels": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "navigateToHomeRedwood"
+      }
+    }
+  }
+}

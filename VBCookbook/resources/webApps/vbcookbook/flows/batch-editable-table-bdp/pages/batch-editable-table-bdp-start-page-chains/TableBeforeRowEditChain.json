@@ -17,7 +17,7 @@
       "input": "fromCaller"
     }
   },
-  "root": "updateCurrentRowBuffer",
+  "root": "callFunctionStartEditing",
   "actions": {
     "updateCurrentRowBuffer": {
       "module": "vb/action/builtin/assignVariablesAction",
@@ -40,19 +40,32 @@
         ]
       },
       "outcomes": {
-        "success": "callFunctionStartEditing"
+        "success": "callFunctionResolveRowBeforeEditPromise"
       }
     },
-    "callFunctionStartEditing": {
+    "callFunctionResolveRowBeforeEditPromise": {
       "module": "vb/action/builtin/callModuleFunctionAction",
       "parameters": {
-        "module": "[[ $page.functions ]]",
-        "functionName": "startEditing",
+        "module": "[[ $functions ]]",
+        "functionName": "resolveRowBeforeEditPromise",
         "params": [
           "{{ $variables.rowKey }}"
         ]
       },
       "outcomes": {}
+    },
+    "callFunctionStartEditing": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "startEditing",
+        "params": [
+          "{{ $variables.rowKey }}"
+        ]
+      },
+      "outcomes": {
+        "success": "updateCurrentRowBuffer"
+      }
     }
   }
 }

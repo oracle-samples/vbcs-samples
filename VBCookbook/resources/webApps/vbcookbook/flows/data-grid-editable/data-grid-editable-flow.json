@@ -1,0 +1,8 @@
+{
+  "id": "data-grid-editable",
+  "description": "Flow main",
+  "defaultPage": "data-grid-editable-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

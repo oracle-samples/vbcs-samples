@@ -1,10 +1,10 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(["datagrid/DemoDataGridProvider", "text!datagrid/customer-data.json", "ojs/ojconverter-datetime", "ojs/ojconverter-number", "ojs/ojdatagridprovider", "ojs/ojdatagrid"],
-  function (DemoDataGridProvider, jsonData, ojconverter_datetime, ojconverter_number) {
+define(["ojs/ojrowdatagridprovider", "ojs/ojarraydataprovider", "text!datagrid/customer-data.json", "ojs/ojconverter-datetime", "ojs/ojconverter-number", "ojs/ojdatagridprovider", "ojs/ojdatagrid"],
+  function (RowDataGridProvider, ArrayDataProvider, jsonData, ojconverter_datetime, ojconverter_number) {
     'use strict';
 
     var PageModule = function PageModule() {
@@ -25,26 +25,9 @@ define(["datagrid/DemoDataGridProvider", "text!datagrid/customer-data.json", "oj
         "Active",
         "Eye Color"
       ];
-      this.getRowHeadersAndSetRanges = (items) => {
-        const rowHeaders = [];
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          rowHeaders.push([item.index]);
-          delete item.index;
-        }
-        return rowHeaders;
-      };
-      this.buildBodyArray = (items) => {
-        const bodyArray = [];
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          bodyArray.push(Object.values(item));
-        }
-        return bodyArray;
-      };
+      
       this.jsonData = JSON.parse(jsonData);
-      this.rowHeaders = this.getRowHeadersAndSetRanges(this.jsonData);
-      this.dataArray = this.buildBodyArray(this.jsonData);
+      this.adp = new ArrayDataProvider(this.jsonData);
       this.numericFields = [2, 3, 4, 5, 8];
       this.columnHeaderStyle = (headerContext) => {
         const columnKey = headerContext.index;
@@ -100,13 +83,15 @@ define(["datagrid/DemoDataGridProvider", "text!datagrid/customer-data.json", "oj
     };
 
     PageModule.prototype.getDatagridData = function () {
-      let x = ['id'];
-      let dataGridProvider = new DemoDataGridProvider(
-        this.dataArray,
-        { row: this.dataArray.length, column: this.colHeaders.length },
-        this.rowHeaders,
-        this.colHeaders
-      );
+      let dataGridProvider = new RowDataGridProvider.RowDataGridProvider(this.adp,
+      {
+        columns: {
+          rowHeader: ['index']
+        },
+        columnHeaders: {
+          column: this.colHeaders
+        }
+      });
       return dataGridProvider;
     };
 

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -7,7 +7,7 @@
 <p>
   A Table component displays department data. A Checkbox Set component with an
   event listener updates the <code>selection</code> variable that holds an array
-  of selected department records.
+  of selected department rows.
 </p>
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
@@ -61,10 +61,7 @@ define(['knockout', 'ojs/ojkeyset'], function (ko, keySet) {
   "use strict";
 
   var PageModule = function PageModule() {
-    this.selectedItems = ko.observable({
-      row: new keySet.KeySetImpl(),
-      column: new keySet.KeySetImpl()
-    });
+    this.selectedRows = ko.observable(new keySet.KeySetImpl());
   };
             </pre>
           </li>
@@ -72,15 +69,14 @@ define(['knockout', 'ojs/ojkeyset'], function (ko, keySet) {
             Still in the JavaScript tab, paste the following code snippet to
             make the selected variable accessible:
             <pre>
-PageModule.prototype.getSelectedItems = function() {
-  return this.selectedItems;
+PageModule.prototype.getSelectedRows = function() {
+  return this.selectedRows;
 };
             </pre>
           </li>
           <li>
-            In the Properties pane of the Table component, select the data table
-            and assign <code>[[$page.functions.getSelectedItems()]]</code> to
-            the selected attribute.
+            In the Properties pane of the Table component, assign <code>[[$page.functions.getSelectedRows()]]</code> to
+            the selected.row attribute.
           </li>
         </ol>
       </div>
@@ -297,17 +293,11 @@ PageModule.prototype.getRowsForIDs = function (table, rowIDs) {
             functions that you created.
             <pre> 
 PageModule.prototype.deselectAll = function () {
-  this.selectedItems({
-    row: new keySet.KeySetImpl(),
-    column: new keySet.KeySetImpl()
-  });
+  this.selectedRows(new keySet.KeySetImpl());
 };
 
 PageModule.prototype.selectSpecificRows = function () {
-  this.selectedItems({
-    row: new keySet.KeySetImpl([1,3]), // row with dept no. 1 and 3
-    column: new keySet.KeySetImpl()
-  });
+  this.selectedRows(new keySet.KeySetImpl([1,3])); // row with dept no. 1 and 3
 };
 
 </pre>

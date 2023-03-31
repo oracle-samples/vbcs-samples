@@ -64,7 +64,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Department",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallDepartmentResponse",
         "transformsContext": {
@@ -78,7 +78,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Skill",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallSkillResponse"
       }
@@ -87,7 +87,7 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Employee",
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponseForAdvanceSearch"
       }

@@ -1,10 +1,10 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['vb/helpers/rest', 'ojs/ojdatacollection-utils', 'jsondiff'], function(RestHelper,
-  DataCollectionEditUtils, JsonDiffPlugin) {
+define(['vb/helpers/rest', 'ojs/ojdatacollection-utils'], function(RestHelper,
+  DataCollectionEditUtils) {
   'use strict';
 
   var PageModule = function PageModule() {};
@@ -140,21 +140,11 @@ define(['vb/helpers/rest', 'ojs/ojdatacollection-utils', 'jsondiff'], function(R
     };
   };
 
-  var JSON_DIFF = JsonDiffPlugin.create({
-    arrays: {
-      detectMove: false,
-    },
-    cloneDiffValues: false,
-  });
-
-  /**
-   * Diffs 2 JSON objects using JsonDiffPlugin which is part of VB and return true
-   * if they are different.
-   * See https://github.com/benjamine/jsondiffpatch for more info
-   */
   PageModule.prototype.areDifferent = function(oldValue, newValue) {
-    var diff = JSON_DIFF.diff(oldValue, newValue);
-    return diff !== undefined;
+    if(JSON.stringify(newValue) === JSON.stringify(oldValue))
+    return false
+    else 
+    return true;
   };
 
   return PageModule;

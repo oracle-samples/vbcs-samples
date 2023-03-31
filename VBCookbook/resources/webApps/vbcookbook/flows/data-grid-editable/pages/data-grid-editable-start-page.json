@@ -1,0 +1,149 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "data": {
+      "type": "any"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "jobListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Job",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "page:getallJobResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "jobTitle"
+          ]
+        }
+      }
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.EmployeeType": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "EmployeeType": {
+      "firstName": "string",
+      "id": "number",
+      "job": "number",
+      "jobObject": {
+        "items": [
+          {
+            "id": "number",
+            "jobTitle": "string",
+            "maxSalary": "number",
+            "minSalary": "number"
+
+          }
+        ]
+      },
+      "lastName": "string",
+      "salary": "number"
+
+    },
+    "getallEmployeeResponse": {
+      "items": "EmployeeType[]"
+    },
+    "getallJobResponse": {
+      "items": [
+        {
+          "id": "number",
+          "jobTitle": "string",
+          "maxSalary": "number",
+          "minSalary": "number"
+        }
+      ]
+    },
+    "@decorators.getallJobResponse": {
+      "endpoint": "getall_Job",
+      "service": "businessObjects",
+      "path": "response"
+    }
+  },
+  "eventListeners": {
+    "ojSelectSingleCurrentKeyValue": {
+      "chains": [
+        {
+          "chainId": "SelectValueChangeChain",
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    },
+
+    "saveAction": {
+      "chains": [
+        {
+          "chainId": "onSaveButton"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chainId": "fetchData"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-data-grid": {
+        "path": "ojs/ojdatagrid"
+      },
+      "oj-input-date": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    },
+    "modules": {
+      "ojValidationBase": {
+        "path": "ojs/ojvalidation-base"
+      },
+      "ojValidationNumber": {
+        "path": "ojs/ojvalidation-number"
+      }
+    }
+  }
+}

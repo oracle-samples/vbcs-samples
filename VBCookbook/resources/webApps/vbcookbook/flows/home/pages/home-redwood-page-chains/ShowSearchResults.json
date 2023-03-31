@@ -1,0 +1,15 @@
+{
+  "root": "assignVariablesShowSearchResults",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "assignVariablesShowSearchResults": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.showSearchResults": {
+          "source": "{{ true }}"
+        }
+      }
+    }
+  }
+}

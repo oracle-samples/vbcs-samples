@@ -5,7 +5,7 @@
     "messagesADP": {
       "type": "vb/ArrayDataProvider",
       "defaultValue": {
-        "idAttribute": "id",
+        "keyAttributes": "id",
         "itemType": "page:messageType"
       }
     },
@@ -129,17 +129,11 @@
       "oj-sp-header-general-overview": {
         "path": "oj-sp/header-general-overview/loader"
       },
-      "oj-sp-in-app-navigation": {
-        "path": "oj-sp/in-app-navigation/loader"
-      },
       "oj-input-text": {
         "path": "ojs/ojinputtext"
       },
       "oj-combobox-one": {
         "path": "ojs/ojselectcombobox"
-      },
-      "oj-sp-smart-filter-search": {
-        "path": "oj-sp/smart-filter-search/loader"
       },
       "oj-form-layout": {
         "path": "ojs/ojformlayout"

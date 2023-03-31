@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2023, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -7,6 +7,10 @@ define(['ojs/ojarraytreedataprovider', 'ojs/ojarraydataprovider'], function (Arr
   'use strict';
 
   class PageModule {
+
+    constructor(ctx) {
+      this.eventHelper = ctx.getEventHelper();
+    }
 
     wait(ms) {
       return new Promise((resolve) => {
@@ -105,6 +109,15 @@ define(['ojs/ojarraytreedataprovider', 'ojs/ojarraydataprovider'], function (Arr
       }
     }
 
+
+    /**
+     *
+     * @param {String} arg1
+     * @return {String}
+     */
+    showSearchResultsBitLater() {
+      setTimeout(() => {this.eventHelper.fireCustomEvent('ShowSearchResultsBitLater')}, 33);
+    }
   }
 
   

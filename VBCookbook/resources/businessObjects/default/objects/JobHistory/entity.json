@@ -2,7 +2,6 @@
     "fields": [
         {
             "displayLabel": "Id",
-            "internal": true,
             "key": true,
             "name": "id",
             "oid": "c1af9a58-ba32-4dad-9988-7302e8cc9699",
@@ -12,46 +11,45 @@
         },
         {
             "displayLabel": "Created",
-            "internal": true,
             "name": "creationDate",
             "oid": "8e310c63-b9bd-461c-8de7-28409395b95a",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeCreated"
         },
         {
             "displayLabel": "Last Updated",
-            "internal": true,
             "name": "lastUpdateDate",
             "oid": "95290437-5b68-4f2f-ba40-44110fac6fdb",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeUpdated"
         },
         {
             "displayLabel": "Created By",
-            "internal": true,
             "name": "createdBy",
             "oid": "3c2fce6b-f1bc-4892-8793-41a4793387c9",
-            "type": "string"
+            "type": "string",
+            "historyType": "createdBy"
         },
         {
             "displayLabel": "Last Updated By",
-            "internal": true,
             "name": "lastUpdatedBy",
             "oid": "d1d6e0ca-4e59-4d05-85a8-c22f436a0f84",
-            "type": "string"
+            "type": "string",
+            "historyType": "updatedBy"
         },
         {
-            "displayLabel": "<internal>",
-            "hidden": true,
-            "internal": true,
+            "displayLabel": "Version Number",
             "name": "abcsChangeNumber",
             "oid": "59ab3428-e808-4a9c-8275-9efc0c98d724",
-            "type": "number"
+            "type": "number",
+            "historyType": "versionNumber"
         },
         {
             "name": "employee",
             "oid": "6e5e4ad7-25d4-4620-a3ed-9066fe2576d9",
             "required": true,
             "displayLabel": "Employee",
-            "type": "reference"
+            "type": "number"
         },
         {
             "name": "startDate",
@@ -72,13 +70,13 @@
             "oid": "85a7f140-b104-4ea4-b8fe-9e98e452cb4e",
             "required": true,
             "displayLabel": "Job",
-            "type": "reference"
+            "type": "number"
         },
         {
             "name": "department",
             "oid": "f898455c-e4f9-4f7d-b35f-6bd81d2db62a",
             "displayLabel": "Department",
-            "type": "reference"
+            "type": "number"
         }
     ],
     "name": "JobHistory",

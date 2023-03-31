@@ -31,7 +31,7 @@
       },
       "outcomes": {
         "false": "hasRecordChanged",
-        "true": "callFunctionEndEditing"
+        "true": "callFunctionResolveRowBeforeEditEndPromise"
       }
     },
     "hasRecordChanged": {
@@ -69,6 +69,19 @@
         "success": "callFunctionEndEditing"
       }
     },
+    "callFunctionResolveRowBeforeEditEndPromise": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "resolveRowBeforeEditEndPromise",
+        "params": [
+          "{{ $variables.rowKey }}"
+        ]
+      },
+      "outcomes": {
+        "success" : "fireDataProviderEventEmployeesBDP"
+    }
+    },
     "callFunctionEndEditing": {
       "module": "vb/action/builtin/callModuleFunctionAction",
       "parameters": {
@@ -77,7 +90,23 @@
         "params": [
           "{{ $variables.rowKey }}"
         ]
+      },
+      "outcomes": {
+        "success": "callFunctionResolveRowBeforeEditEndPromise"
       }
+    },
+    "fireDataProviderEventEmployeesBDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.employeesBDP ]]",
+        "update": {
+          "keys": [
+            "{{ $variables.rowKey }}"
+          ],
+          "data": "{{ [$variables.rowData] }}"
+        }
+      },
+      "description": "workaround for BPD bug which updates current row data but removes referenced jobObject. this step re-updates the row with correct values (including jobObject reference)"
     }
   }
 }

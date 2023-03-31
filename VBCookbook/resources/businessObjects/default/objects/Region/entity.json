@@ -2,7 +2,6 @@
     "fields": [
         {
             "displayLabel": "Id",
-            "internal": true,
             "key": true,
             "name": "id",
             "oid": "894ec3b2-ba14-4d19-bd5a-670247bc2dcf",
@@ -12,39 +11,38 @@
         },
         {
             "displayLabel": "Created",
-            "internal": true,
             "name": "creationDate",
             "oid": "ed7a795f-900f-4961-bafd-966398a03285",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeCreated"
         },
         {
             "displayLabel": "Last Updated",
-            "internal": true,
             "name": "lastUpdateDate",
             "oid": "5175b730-7f4a-48ae-82f4-2745f1d562ff",
-            "type": "datetime"
+            "type": "datetime",
+            "historyType": "timeUpdated"
         },
         {
             "displayLabel": "Created By",
-            "internal": true,
             "name": "createdBy",
             "oid": "7abd13b2-a073-47ae-baec-633151d7b446",
-            "type": "string"
+            "type": "string",
+            "historyType": "createdBy"
         },
         {
             "displayLabel": "Last Updated By",
-            "internal": true,
             "name": "lastUpdatedBy",
             "oid": "c89fd2dd-b601-4e1b-8c3c-c3db6da3ac55",
-            "type": "string"
+            "type": "string",
+            "historyType": "updatedBy"
         },
         {
-            "displayLabel": "<internal>",
-            "hidden": true,
-            "internal": true,
+            "displayLabel": "Version Number",
             "name": "abcsChangeNumber",
             "oid": "5d434dce-6187-4854-af49-aefcee1b425a",
-            "type": "number"
+            "type": "number",
+            "historyType": "versionNumber"
         },
         {
             "name": "regionName",

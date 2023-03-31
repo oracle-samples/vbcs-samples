@@ -1,0 +1,29 @@
+{
+  "description": "",
+  "root": "callFunctionOnJobChanged",
+  "actions": {
+    "callFunctionOnJobChanged": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "onJobChanged",
+        "params": [
+          "{{ $variables.event }}",
+          "{{ $variables.value }}"
+        ]
+      }
+    }
+  },
+  "variables": {
+    "event": {
+      "type": "object",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

@@ -1,8 +1,7 @@
 {
-  "id": "recipe",
+  "id": "data-grid-row-provider",
   "description": "Flow main",
-  "defaultPage": "recipe-start",
-  "chains": {},
+  "defaultPage": "data-grid-row-provider-start",
   "services": {},
   "types": {},
   "variables": {}

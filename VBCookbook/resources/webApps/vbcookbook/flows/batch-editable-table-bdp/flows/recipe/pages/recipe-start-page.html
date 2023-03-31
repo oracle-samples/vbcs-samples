@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2022, Oracle and/or its affiliates.
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -260,12 +260,103 @@
               leaving row edit mode, the Promise resolves. The Save button now saves the records after editing
               finishes.</p>
           </li>
-
-
-
-
         </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step6">
+      <span slot="header">Optional Enhancements
+      </span>
+      <div>
+        <p>Handling of ojBeforeRowEdit and ojBeforeRowEditEnd events in Visual Builder is asynchronous and that can
+          sometimes
+          lead to flickering of row values as the user is moving from one row to another row in the edit mode. One way
+          to address
+          this problem is to take advantage of asynchronous accept callback and execute the action chain from such
+          callback. In order to do that you need to follow the steps mentioned below:</p>
+        <ol>
+          <li>In the Events tab of the page, create a custom event <code>tableEditEvent</code> with two payloads:
+            <ul>
+              <li><code>detail</code> of type any</li>
+              <li><code>name</code> of type string</li>
+            </ul>
+          </li>
+          <li>In Javascript tab, create two functions <code>lineTableBeforeRowEdit</code> and
+            <code>lineTableBeforeRowEditEnd</code> that will fire custom event <code>tableEditEvent</code> with accept
+            callback.
+            <pre>
+  PageModule.prototype.lineTableBeforeRowEdit = function (event) {
+    let detail = event.detail;
+   this.promise = event.detail.accept(new Promise(function (resolve) {
+      this.rowBeforeEditPromise = resolve;
+      this.eventHelper.fireCustomEvent("tableEditEvent", {
+        "detail": event.detail,
+        "name":"edit"
+      });
+      // reject(); when required
+    }.bind(this)));
+  }
 
+  PageModule.prototype.lineTableBeforeRowEditEnd = function (event, preventDefault) {
+    if (preventDefault) {
+      event.preventDefault();
+      return;
+    }
+    let detail = event.detail;
+    event.detail.accept(new Promise(function (resolve, reject) {
+      this.rowBeforeEditEndPromise = resolve;
+      this.eventHelper.fireCustomEvent("tableEditEvent", {
+        "detail": event.detail ,
+        "name":"editend"
+      });
+      // reject(); when required
+    }.bind(this)));
+  }
+
+            </pre>
+            Create two more functions that will resolve the promise created by above two functions:
+            <pre>
+  PageModule.prototype.resolveRowBeforeEditPromise = function () {
+    if (this.rowBeforeEditPromise) {
+      this.rowBeforeEditPromise();
+      delete this.rowBeforeEditPromise;
+    }
+  }
+
+  PageModule.prototype.resolveRowBeforeEditEndPromise = function () {
+    if (this.rowBeforeEditEndPromise) {
+      this.rowBeforeEditEndPromise();
+      delete this.rowBeforeEditEndPromise;
+    }
+  }
+            </pre>
+            </li>
+          <li>Replace the ojBeforeRowEdit and ojBeforeRowEditEnd event of the table to call the JS functions that will add
+            the accept promise.
+            Set the <code>on-oj-before-row-edit</code> and <code>on-oj-before-row-edit-end</code> properties of the
+            table to <code>"[[ function (event) { $page.functions.lineTableBeforeRowEdit(event) } ]]"</code> and
+            <code>"[[ function (event) { $page.functions.lineTableBeforeRowEditEnd(event, $page.variables.disableRowEditExit || !$page.functions.isFormValid(event.detail, event)) } ]]"</code>
+            respectively.
+          </li>
+
+          <li>In the Event Listeners tab of the page, create an event listener for the custom event <code>tableEditEvent</code> and create a new corresponding action chain <code>tableEditChain</code> with below input parameters:
+          <ul>
+          <li><code>detail</code> of type any with the value as <code>$event.detail</code></li>
+          <li><code>event</code> of type any with the value as <code>$event</code></li>
+          <li><code>name</code>of type string with the value as <code>$event.name</code></li>
+          </ul>
+          </li>
+          <li>In the <code>tableEditChain</code>, drag and drop an 'If' action to check the condtion <code>[[$variables.name === "edit"]]</code>.
+            In the true branch, drag and drop the 'Call Action Chain' action and call the action chain <code>TableBeforeRowEditChain</code> that was associated with ojBeforeRowEdit event listener of the table and pass the required parameters.
+            Similarly, in the false branch, drag and drop the 'Call Action Chain' action and call the action chain <code>TableBeforeRowEditEndChain</code>that was associated with ojBeforeRowEditEnd event listener of the table and pass the required parameters.</code></li>
+          <li>At the end of the <code>TableBeforeRowEditChain</code> action chain, add the 'Call Function' action and call the <code>resolveRowBeforeEditPromise</code> function to resolve the promise.</li>
+          <li>At the end of the <code>TableBeforeRowEditEndChain</code> action chain, add the 'Call Function' action and call the <code>resolveRowBeforeEditEndPromise</code> function to resolve the promise.</li>
+          <li>Add another action 'Fire Data Provider Event' at the end of the <code>TableBeforeRowEditEndChain</code> action chain to mutate the <code>employeesBDP</code> page variable with update parameter as below:
+          <ul>
+            <li>data as <code>[$variables.rowData]</code></li>
+            <li>keys as <code>["{{ $variables.rowKey }}"]</code></li>
+          </ul>
+           This step acts as a workaround for BDP bug which updates the current row data but removes referenced jobObject. This step re-updates the row with correct values (including jobObject reference)</li>
+        </ol>
       </div>
     </oj-collapsible>
   </oj-accordion>
