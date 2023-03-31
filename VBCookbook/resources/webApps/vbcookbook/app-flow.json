@@ -6,7 +6,7 @@
   "services": {},
   "configuration": {
     "initParams": {
-      "ojSpVersion": "{{window.appConfig && window.appConfig['OJ_SP_VERSION'] ? window.appConfig['OJ_SP_VERSION'] : '2301.1.0'}}",
+      "ojSpVersion": "{{window.appConfig && window.appConfig['OJ_SP_VERSION'] ? window.appConfig['OJ_SP_VERSION'] : '2304.0.1'}}",
       "cdnLocation": "{{window.FAEndPoints && window.FAEndPoints['CDN_LOCATION'] ? window.FAEndPoints['CDN_LOCATION'] : 'https://static.oracle.com/cdn/'}}",
       "ojSpDebug": "{{window.appConfig && window.appConfig.DEBUG ? window.appConfig.DEBUG : false}}"
     },
@@ -90,7 +90,7 @@
   },
   "requirejs": {
     "paths": {
-      "colorthief": "https://static.oracle.com/cdn/spectra-ui/oj-sp/2301.1.0/3rdparty/color-thief_2.3.2",
+      "colorthief": "https://static.oracle.com/cdn/spectra-ui/oj-sp/2304.0.1/3rdparty/color-thief_2.3.2",
       "oj-sp": "{{$initParams.ojSpDebug ? ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug') : ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion)}}",
       "fndconfig": "{{($initParams.ojSpDebug ? $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug' : $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion) + '/spectra-shell/config'}}",
       "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/13.1.1/min/",
