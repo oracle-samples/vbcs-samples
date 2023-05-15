@@ -4,12 +4,12 @@
 
   "cdns": {
     "jet": {
-      "prefix": "https://static.oracle.com/cdn/jet/13.1.5/default/js",
-      "css": "https://static.oracle.com/cdn/jet/13.1.5/default/css",
-      "csspreact": "https://static.oracle.com/cdn/jet/13.1.5/3rdparty/oraclejet-preact/amd",      
+      "prefix": "https://static.oracle.com/cdn/jet/14.0.8/default/js",
+      "css": "https://static.oracle.com/cdn/jet/14.0.8/default/css",
+      "csspreact": "https://static.oracle.com/cdn/jet/14.0.8/3rdparty/oraclejet-preact/amd",      
       "config": "bundles-config.js"
     },
-    "3rdparty": "https://static.oracle.com/cdn/jet/13.1.5/3rdparty"
+    "3rdparty": "https://static.oracle.com/cdn/jet/14.0.8/3rdparty"
   },
 
   "libs": {
@@ -35,12 +35,12 @@
       "debug": {
         "src": "jquery.js",
         "path": "libs/jquery/jquery-#{version}.js",
-        "cdnPath": "jquery/jquery-3.6.0"
+        "cdnPath": "jquery/jquery-3.6.1"
       },
       "release": {
         "src": "jquery.min.js",
         "path": "libs/jquery/jquery-#{version}.min.js",
-        "cdnPath": "jquery/jquery-3.6.0.min"
+        "cdnPath": "jquery/jquery-3.6.1.min"
       }
     },
 
@@ -138,7 +138,7 @@
 
     "@oracle/oraclejet-preact": {
       "cdn": "3rdparty",
-      "cwd": "node_modules/@oracle/oraclejet/dist/js/libs/oraclejet-preact/amd",
+      "cwd": "node_modules/@oracle/oraclejet-preact/amd",
       "debug": {
         "src":  ["**"],
         "path": "libs/oraclejet-preact/amd",
