@@ -12,9 +12,9 @@ This application is an example of how to implement alternative Barcode Scanner i
 
 **Setup instructions:**
 
-1. Import the application zip (local-events-demo-app.zip) using the application import option
-1. After the import is successful, open the application and configure push notifications 
-   service following steps describe in the blog post.
+1. Import the application zip (custom-barcode-scanner-action.zip) using the application import option
+1. After the import is successful, open the application and install the latest zxing libraries 
+   following the steps in the blog post.
 
 **External Dependencies:**
 
