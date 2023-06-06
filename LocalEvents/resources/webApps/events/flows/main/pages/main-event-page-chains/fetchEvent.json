@@ -1,0 +1,40 @@
+{
+  "root": "callRestGetEvent",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetEvent.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetEvent": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Event",
+        "uriParams": {
+          "Event_Id": "{{ $page.variables.eventId }}"
+        },
+        "responseType": "get_Event"
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "assignVariablesEvent"
+      }
+    },
+    "assignVariablesEvent": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.event": {
+          "source": "{{ $chain.results.callRestGetEvent.body }}",
+          "auto": "always",
+          "reset": "empty"
+        }
+      }
+    }
+  }
+}

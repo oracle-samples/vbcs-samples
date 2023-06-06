@@ -1,0 +1,17 @@
+{
+  "root": "callFunctionFunctionsAaa",
+  "description": "",
+  "variables": {},
+  "actions": {
+    "callFunctionFunctionsAaa": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "startFirebase",
+        "params": [
+          "{{ $application.path }}"
+        ]
+      }
+    }
+  }
+}

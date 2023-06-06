@@ -1,0 +1,243 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "createEventChainInProgress": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "event": {
+      "type": "createEventRequest"
+    },
+    "eventListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Event",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEventResponse"
+      }
+    },
+    "eventTypeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_EventType",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEventTypeResponse",
+        "uriParameters": {}
+      }
+    },
+    "eventTypeListSDP2": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_EventType",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEventTypeResponse2",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "type1"
+          ]
+        }
+      }
+    },
+    "preferences": {
+      "type": "get_Preferences"
+    },
+    "typesToBeNotifiedAbout": {
+      "type": "number[]"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.createEventRequest": {
+      "endpoint": "create_Event",
+      "service": "businessObjects",
+      "path": "request"
+    },
+    "@decorators.get_Preferences": {
+      "endpoint": "get_Preferences",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEventResponse": {
+      "endpoint": "getall_Event",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEventTypeResponse": {
+      "endpoint": "getall_EventType",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEventTypeResponse2": {
+      "endpoint": "getall_EventType",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "businessObjectsServiceErrorResponseType": {
+      "body": {
+        "status": "string",
+        "title": "string",
+        "o:errorDetails": [
+          {
+            "detail": "string",
+            "o:errorCode": "string"
+          }
+        ]
+      },
+      "status": "number"
+    },
+    "createEventRequest": {
+      "date1": "string",
+      "description": "string",
+      "name": "string",
+      "type1": "number"
+    },
+    "get_Preferences": {
+      "email": "string",
+      "id": "number",
+      "preferences": "string"
+    },
+    "getallEventResponse": {
+      "items": [
+        {
+          "date1": "string",
+          "description": "string",
+          "id": "number",
+          "name": "string",
+          "type1Object": {
+            "items": [
+              {
+                "type1": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "getallEventTypeResponse": {
+      "items": [
+        {
+          "id": "number",
+          "type1": "string"
+        }
+      ]
+    },
+    "getallEventTypeResponse2": {
+      "items": [
+        {
+          "id": "number",
+          "type1": "string"
+        }
+      ]
+    }
+  },
+  "eventListeners": {
+    "application:notification": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chainId": "refreshListOfEvents"
+        }
+      ]
+    },
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "CreateNewEventRecordChain"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chainId": "CancelNewEventCreationButtonActionChain"
+        }
+      ]
+    },
+    "buttonAction3": {
+      "chains": [
+        {
+          "chainId": "AddNewEventButtonActionChain"
+        }
+      ]
+    },
+    "buttonAction4": {
+      "chains": [
+        {
+          "chainId": "ConfigureNotificationsButtonActionChain"
+        }
+      ]
+    },
+    "buttonAction5": {
+      "chains": [
+        {
+          "chainId": "CancelNotificationDialogButtonActionChain"
+        }
+      ]
+    },
+    "buttonAction6": {
+      "chains": [
+        {
+          "chainId": "UpdatePreferences"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chainId": "fetchPreferences"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
+      },
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date-time": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-sp-welcome-page": {
+        "path": "oj-sp/welcome-page/loader"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  },
+  "@dt": {
+    "iconClass": "vbdt-dynamic-icon-11-icoWelcomePageTemplate48Svg"
+  }
+}

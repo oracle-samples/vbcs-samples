@@ -1,0 +1,1 @@
+Example how to integrate zxing barcode scanner into Visual Builder application using Custom Action

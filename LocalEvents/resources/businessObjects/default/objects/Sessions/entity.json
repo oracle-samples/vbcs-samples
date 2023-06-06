@@ -1,0 +1,75 @@
+{
+    "fields": [
+        {
+            "type": "number",
+            "name": "id",
+            "internal": false,
+            "key": true,
+            "oid": "5c8b289e-1ff4-4690-be65-9bf1db44700c",
+            "required": true,
+            "unique": true,
+            "displayLabel": "Id"
+        },
+        {
+            "type": "datetime",
+            "name": "creationDate",
+            "internal": false,
+            "oid": "8d5bf73a-cb08-4f53-876f-8ccd6dd71b28",
+            "displayLabel": "Created",
+            "historyType": "timeCreated"
+        },
+        {
+            "type": "datetime",
+            "name": "lastUpdateDate",
+            "internal": false,
+            "oid": "7dbec3da-c7fe-4f96-9626-6347853c7193",
+            "displayLabel": "Last Updated",
+            "historyType": "timeUpdated"
+        },
+        {
+            "type": "string",
+            "name": "createdBy",
+            "internal": false,
+            "oid": "90f4b19c-1ecd-4980-86ba-b51fa53e99cc",
+            "displayLabel": "Created By",
+            "historyType": "createdBy"
+        },
+        {
+            "type": "string",
+            "name": "lastUpdatedBy",
+            "internal": false,
+            "oid": "0200f1d2-9093-45d6-b599-f5dfc76f8bed",
+            "displayLabel": "Last Updated By",
+            "historyType": "updatedBy"
+        },
+{
+            "type": "number",
+            "name": "versionNumber",
+            "internal": false,
+            "oid": "70b5188a-0450-4965-a878-49bb6f099d66",
+            "displayLabel": "Version Number",
+            "historyType": "versionNumber"
+        },
+        {
+            "type": "string",
+            "name": "email",
+            "oid": "a26df659-ee83-4284-bb81-004041f9d764",
+            "displayLabel": "Email"
+        }        ,
+        {
+            "type": "string",
+            "name": "client",
+            "oid": "bd10ed3a-bda7-4e59-82c1-f9e22d6bc42d",
+            "displayLabel": "Client"
+        }        ,
+        {
+            "type": "string",
+            "name": "token",
+            "oid": "b6f5d296-4a2d-4940-b58e-1c8c2296bcdd",
+            "displayLabel": "Token"
+        }
+    ],
+    "name": "Sessions",
+    "oid": "8e27c803-80b5-4244-ad7c-0731e960e601",
+    "displayLabel": "Sessions"
+}

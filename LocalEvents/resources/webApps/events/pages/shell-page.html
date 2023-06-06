@@ -1,0 +1,22 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div id="pageContent" class="oj-web-applayout-page">
+  
+  <!-- Displays notification messages -->
+  <oj-messages id="vbDefaultNotifier" display-options.category="none" position="{}" display="general" messages="{{$page.variables.messagesADP}}" on-oj-close="[[$listeners.onMessageClose]]"></oj-messages>
+
+    <div class="oj-web-applayout-content-nopad oj-web-spacing oj-web-applayout-max-width">
+
+  
+      <div class="oj-flex oj-web-applayout-content oj-flex-items-pad">
+        <!-- Renders flow content -->
+        <oj-vb-content id="vbRouterContent" class="oj-flex-item" config="[[vbRouterFlow]]">
+    
+        </oj-vb-content>
+    
+      </div>
+    </div>
+  </div>

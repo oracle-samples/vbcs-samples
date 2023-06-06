@@ -1,0 +1,94 @@
+{
+  "description": "Validates a form within an oj-validation-group with an ID matching the passed parameter.",
+  "constants": {
+    "validationGroupId": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller",
+      "description": "Validation group component id."
+    },
+    "validationTracker": {
+      "type": "any",
+      "defaultValue": "[[ document.getElementById($constants.validationGroupId) ]]",
+      "description": "Validation group component instance."
+    }
+  },
+  "root": "checkValidationTrackerExists",
+  "actions": {
+    "checkValidationTrackerExists": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ !!$constants.validationTracker ]]"
+      },
+      "label": "Check Validation Tracker exists",
+      "outcomes": {
+        "true": "checkFormValid",
+        "false": "returnFailed"
+      },
+      "description": "Tests if the validation group element exists."
+    },
+    "checkFormValid": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $constants.validationTracker.valid === 'valid' ]]"
+      },
+      "label": "Check Validation Tracker valid",
+      "outcomes": {
+        "true": "returnPassed",
+        "false": "showValidationMessages"
+      },
+      "description": "Tests the validation group status."
+    },
+    "showValidationMessages": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ $constants.validationTracker }}",
+        "method": "showMessages"
+      },
+      "outcomes": {
+        "success": "focusInvalidComponent"
+      },
+      "label": "Show Validation Messages",
+      "description": "Displays all validation messages for the form items."
+    },
+    "focusInvalidComponent": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ $constants.validationTracker }}",
+        "method": "focusOn",
+        "params": [
+          "@firstInvalidShown"
+        ]
+      },
+      "outcomes": {
+        "success": "returnFailed"
+      },
+      "label": "Focus Invalid Component",
+      "description": "Focuses the first component failing the validation."
+    },
+    "returnPassed": {
+      "module": "vb/action/builtin/returnAction",
+      "parameters": {
+        "outcome": "success",
+        "payload": true
+      },
+      "label": "Return passed status",
+      "description": "Returns the value (true) representing the passed validation."
+    },
+    "returnFailed": {
+      "module": "vb/action/builtin/returnAction",
+      "parameters": {
+        "outcome": "success",
+        "payload": false
+      },
+      "label": "Return failed status",
+      "description": "Returns the value (false) representing the failed validation."
+    }
+  },
+  "@dt": {
+    "autowire": {
+      "contextKey": "vb-quickstarts",
+      "name": "validateFormChain"
+    }
+  }
+}

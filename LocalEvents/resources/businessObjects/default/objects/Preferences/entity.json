@@ -1,0 +1,70 @@
+{
+    "fields": [
+        {
+            "type": "number",
+            "name": "id",
+            "internal": false,
+            "key": true,
+            "oid": "753259f8-4bbd-4eff-bb93-1cf9895b73c3",
+            "required": true,
+            "unique": true,
+            "displayLabel": "Id"
+        },
+        {
+            "type": "datetime",
+            "name": "creationDate",
+            "internal": false,
+            "oid": "068bbcb9-53c8-48c5-a3bc-520b76db8c75",
+            "displayLabel": "Created",
+            "historyType": "timeCreated"
+        },
+        {
+            "type": "datetime",
+            "name": "lastUpdateDate",
+            "internal": false,
+            "oid": "dbea0713-31fe-407f-a59a-ae7f32706719",
+            "displayLabel": "Last Updated",
+            "historyType": "timeUpdated"
+        },
+        {
+            "type": "string",
+            "name": "createdBy",
+            "internal": false,
+            "oid": "50c6b94e-f849-41ab-9058-868df17a275f",
+            "displayLabel": "Created By",
+            "historyType": "createdBy"
+        },
+        {
+            "type": "string",
+            "name": "lastUpdatedBy",
+            "internal": false,
+            "oid": "1920f8df-15a1-4a0b-aa68-bbc1c9b645af",
+            "displayLabel": "Last Updated By",
+            "historyType": "updatedBy"
+        },
+{
+            "type": "number",
+            "name": "versionNumber",
+            "internal": false,
+            "oid": "d82b8582-a4c2-407f-b5e2-f786ab3078ac",
+            "displayLabel": "Version Number",
+            "historyType": "versionNumber"
+        },
+        {
+            "type": "string",
+            "name": "email",
+            "oid": "58a3ec1d-cb42-4f84-8028-b599fd2155e2",
+            "unique": true,
+            "displayLabel": "Email"
+        }        ,
+        {
+            "type": "string",
+            "name": "preferences",
+            "oid": "0d5fcbed-a72c-450b-be80-a1b915891738",
+            "displayLabel": "Preferences"
+        }
+    ],
+    "name": "Preferences",
+    "oid": "5d3b092c-542a-48b6-9acb-b217c99faa45",
+    "displayLabel": "Preferences"
+}

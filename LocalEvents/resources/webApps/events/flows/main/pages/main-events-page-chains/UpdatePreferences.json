@@ -1,0 +1,72 @@
+{
+  "description": "",
+  "root": "ifPreferences",
+  "actions": {
+    "callComponentSetupNotificationsDialogClose": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('setup-notifications-dialog') }}",
+        "method": "close"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestCreatePreferences.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestCreatePreferences": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/create_Preferences",
+        "body": {
+          "email": "[[ $application.user.email ]]",
+          "preferences": "[[ $page.variables.typesToBeNotifiedAbout.join(',') ]]"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "callComponentSetupNotificationsDialogClose"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestUpdatePreferences.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "ifPreferences": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.preferences.id === undefined ]]"
+      },
+      "outcomes": {
+        "true": "callRestCreatePreferences",
+        "false": "callRestUpdatePreferences"
+      }
+    },
+    "callRestUpdatePreferences": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/update_Preferences",
+        "uriParams": {
+          "Preferences_Id": "{{ $page.variables.preferences.id }}"
+        },
+        "body": {
+          "preferences": "[[ $page.variables.typesToBeNotifiedAbout.join(',') ]]"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification2",
+        "success": "callComponentSetupNotificationsDialogClose"
+      }
+    }
+  },
+  "variables": {}
+}

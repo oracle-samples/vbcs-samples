@@ -1,0 +1,311 @@
+{
+
+  "id": "events",
+  "description": "Local Events app",
+  "defaultPage": "shell",
+  "chains": {},
+  "configuration": {
+    "initParams": {
+      "ojSpVersion": "{{window.appConfig && window.appConfig['OJ_SP_VERSION'] ? window.appConfig['OJ_SP_VERSION'] : '2304.0.1'}}",
+      "cdnLocation": "{{window.FAEndPoints && window.FAEndPoints['CDN_LOCATION'] ? window.FAEndPoints['CDN_LOCATION'] : 'https://static.oracle.com/cdn/'}}",
+      "ojDynamic": "{{window.FAEndPoints && window.FAEndPoints.OJ_DYNAMIC ? window.FAEndPoints.OJ_DYNAMIC : 'https://static.oracle.com/cdn/jet/packs/oj-dynamic/13.1.1/min'}}",
+      "ojSpDebug": "{{window.appConfig && window.appConfig.DEBUG ? window.appConfig.DEBUG : false}}"
+    },
+    "profile": "DT"
+  },
+  "requirejs": {
+    "paths": {
+      "oj-sp": "{{$initParams.ojSpDebug ? ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug') : ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion)}}",
+      "fndconfig": "{{($initParams.ojSpDebug ? $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug' : $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion) + '/spectra-shell/config'}}",
+      "oj-dynamic": "{{$initParams.ojDynamic}}"
+    },
+    "bundles": {
+      "oj-dynamic/common-bundle": [
+        "oj-dynamic/providers/MetadataProviderFactory",
+        "oj-dynamic/providers/TransformState",
+        "oj-dynamic/providers/MetadataUtils",
+        "oj-dynamic/providers/MetadataContentManager",
+        "oj-dynamic/providers/MetadataTransformer",
+        "oj-dynamic/providers/AdfBCExtension",
+        "oj-dynamic/providers/DefaultFetchable",
+        "oj-dynamic/providers/DynamicDataProvider",
+        "oj-dynamic/providers/DynamicLayoutEngine",
+        "oj-dynamic/providers/MetadataProviderManager",
+        "oj-dynamic/providers/JsonMetadataProvider",
+        "oj-dynamic/providers/ServiceMetadataProvider",
+        "oj-dynamic/providers/DynamicLayoutProvider",
+        "oj-dynamic/providers/DynamicLayoutMetadataProvider",
+        "oj-dynamic/providers/DynamicLayoutMetadataProviderFactory",
+        "oj-dynamic/providers/Extension",
+        "oj-dynamic/providers/Fetchable",
+        "oj-dynamic/providers/JsonMetadataProviderFactory",
+        "oj-dynamic/providers/JsonMetadataSchema",
+        "oj-dynamic/providers/OpenAPISchema",
+        "oj-dynamic/providers/ServiceFetchable",
+        "oj-dynamic/providers/ServiceMetadataProviderFactory",
+        "oj-dynamic/providers/ContainerMetadataProviderFactory",
+        "oj-dynamic/shared/CommonUtils",
+        "oj-dynamic/shared/DynamicComponentUtil",
+        "oj-dynamic/shared/DataProviderFactory",
+        "oj-dynamic/shared/UriTemplateUtils",
+        "oj-dynamic/shared/DefaultRestDataProvider",
+        "oj-dynamic/shared/DataProviderFactoryManager",
+        "oj-dynamic/shared/DynamicInputContacts",
+        "oj-dynamic/shared/DynamicLOVUtil",
+        "oj-dynamic/shared/DynamicInputRegistry",
+        "oj-dynamic/shared/DynamicInputFactory",
+        "oj-dynamic/shared/DynamicUIMetadata",
+        "oj-dynamic/shared/MetadataProvider",
+        "oj-dynamic/shared/polyfills",
+        "oj-dynamic/shared/DynamicLayoutContextProperty",
+        "oj-dynamic/shared/ExtensibleMetadata",
+        "oj-dynamic/shared/SharedTypes",
+        "oj-dynamic/shared/UtilTypes",
+        "oj-dynamic/utils/CommonUtils",
+        "oj-dynamic/utils/DynamicComponentUtil",
+        "oj-dynamic/utils/DynamicContainerUtils",
+        "oj-dynamic/utils/DynamicFormUtils",
+        "oj-dynamic/utils/DynamicInputFactory",
+        "oj-dynamic/utils/DynamicLOVUtil",
+        "oj-dynamic/utils/DynamicLayoutEngine",
+        "oj-dynamic/utils/JetUtils",
+        "oj-dynamic/utils/KeyConversionDataPRovider",
+        "oj-dynamic/utils/LayoutExpressionUtils",
+        "oj-dynamic/utils/MetadataUtils",
+        "oj-dynamic/utils/MacroTaskQueue",
+        "oj-dynamic/utils/MicroTaskQueue",
+        "oj-dynamic/utils/UtilTypes"
+      ],
+      "oj-dynamic/component-bundle": [
+        "oj-dynamic/bind-field/loader",
+        "oj-dynamic/bind-section/loader",
+        "oj-dynamic/container/loader",
+        "oj-dynamic/form/loader",
+        "oj-dynamic/table/loader",
+        "oj-dynamic/table/resources/nls",
+        "oj-dynamic/form/resources/nls"
+      ],
+      "oj-sp/oj-sp-chat-component-bundle": [
+        "oj-sp/chat-message-block/loader",
+        "oj-sp/chat-container/loader",
+        "oj-sp/chat-text/loader",
+        "oj-sp/chat-input/loader",
+        "oj-sp/chat-card/loader",
+        "oj-sp/chat-action/loader",
+        "oj-sp/chat-attachment-message/loader",
+        "oj-sp/common/chat"
+      ],
+      "oj-sp/oj-sp-component-bundle": [
+        "oj-sp/advanced-create-edit/loader",
+        "oj-sp/analytics-canvas/loader",
+        "oj-sp/attachments-common/private/AttachmentManager",
+        "oj-sp/attachments-common/private/ComponentUtils",
+        "oj-sp/attachments-common/public/AttachmentPublic",
+        "oj-sp/attachments-simple/loader",
+        "oj-sp/attachments-viewer/loader",
+        "oj-sp/attachments/loader",
+        "oj-sp/attachments-2/loader",
+        "oj-sp/attachments-2-actions/actions/AttachmentActions",
+        "oj-sp/attachments-2-actions/view/BossAttachmentsView",
+        "oj-sp/attachments-2-actions/public/BossPublicAttachmentActions",
+        "oj-sp/attachments-2-actions/public/BossPublicAttachmentsView",
+        "oj-sp/bottom-drawer-template/loader",
+        "oj-sp/card/loader",
+        "oj-sp/card-footer/loader",
+        "oj-sp/collection-container/loader",
+        "oj-sp/collection-container-advanced/loader",
+        "oj-sp/collection-detail-page/loader",
+        "oj-sp/collection-toolbar/loader",
+        "oj-sp/common-strings/resources/nls/common-component-strings",
+        "oj-sp/common-util/flex-util",
+        "oj-sp/common/EventDispatcher",
+        "oj-sp/common/action",
+        "oj-sp/common/activitystreamutils",
+        "oj-sp/common/avatarinfo",
+        "oj-sp/common/badge",
+        "oj-sp/common/contextualinfo",
+        "oj-sp/common/footertext",
+        "oj-sp/common/iconinfo",
+        "oj-sp/common/imageinfo",
+        "oj-sp/common/positionmanager",
+        "oj-sp/common/PreviousNextIterator",
+        "oj-sp/common/timelineEventTemplateUtils",
+        "oj-sp/common/collectionDetailPageUtils",
+        "oj-sp/create-edit-drawer-template/loader",
+        "oj-sp/dashboard-grid/loader",
+        "oj-sp/dashboard-landing-page/loader",
+        "oj-sp/data-management-page/loader",
+        "oj-sp/dashboard-panel/loader",
+        "oj-sp/data-provider/AggregateSearchDataProvider",
+        "oj-sp/data-provider/AggregateSearchOpenApiTransforms",
+        "oj-sp/data-provider/AggregateSearchTransforms",
+        "oj-sp/data-provider/AutocompleteSearchTransforms",
+        "oj-sp/data-provider/BaseKeysHash",
+        "oj-sp/data-provider/CompareUtils",
+        "oj-sp/data-provider/DataProviderBindingContext",
+        "oj-sp/data-provider/DataProviderUtils",
+        "oj-sp/data-provider/KeysHashMap",
+        "oj-sp/data-provider/KeysHashSet",
+        "oj-sp/data-provider/RecentSearchesTransforms",
+        "oj-sp/data-provider/SmartSearchAndFilterDataProvider",
+        "oj-sp/data-provider/SmartSearchAndFilterTransforms",
+        "oj-sp/data-provider/SmartSuggestionChipsDataProvider",
+        "oj-sp/data-provider/SuggestionFiltersDataProvider",
+        "oj-sp/data-provider/SuggestionFiltersTransforms",
+        "oj-sp/detail-panel/loader",
+        "oj-sp/diagram-builder/loader",
+        "oj-sp/diagram-node/loader",
+        "oj-sp/email-address-chip/loader",
+        "oj-sp/emo-button/loader",
+        "oj-sp/empty-state/loader",
+        "oj-sp/expandable-list-item/loader",
+        "oj-sp/filter-chip/loader",
+        "oj-sp/flex-filter-chip/loader",
+        "oj-sp/flex-switch/loader",
+        "oj-sp/foldout-layout/loader",
+        "oj-sp/foldout-panel/loader",
+        "oj-sp/foldout-panel-overflow/loader",
+        "oj-sp/foldout-panel-summarizing/loader",
+        "oj-sp/general-drawer-template/loader",
+        "oj-sp/general-overview-page/loader",
+        "oj-sp/guided-process/loader",
+        "oj-sp/header-create-edit-2/loader",
+        "oj-sp/header-create-edit/loader",
+        "oj-sp/header-general-overview-2/loader",
+        "oj-sp/header-general-overview/loader",
+        "oj-sp/header-navigation/loader",
+        "oj-sp/header-welcome-banner/loader",
+        "oj-sp/hierarchy-card/loader",
+        "oj-sp/hierarchy-card-info/loader",
+        "oj-sp/hierarchy-viewer/loader",
+        "oj-sp/horizontal-overview/loader",
+        "oj-sp/image-card/loader",
+        "oj-sp/image/loader",
+        "oj-sp/in-app-navigation/loader",
+        "oj-sp/input-address/loader",
+        "oj-sp/input-currency-conversion-rate/loader",
+        "oj-sp/input-currency/loader",
+        "oj-sp/input-email/loader",
+        "oj-sp/input-key-flex-field/loader",
+        "oj-sp/input-phone-number/loader",
+        "oj-sp/input-url/loader",
+        "oj-sp/item-overview-page/loader",
+        "oj-sp/item-overview/loader",
+        "oj-sp/list-item-template/loader",
+        "oj-sp/list-section/loader",
+        "oj-sp/message-banner-unsaved-changes/loader",
+        "oj-sp/message-dialog-destructive/loader",
+        "oj-sp/message-dialog-general/loader",
+        "oj-sp/message-unsaved-changes/loader",
+        "oj-sp/messages-banner/loader",
+        "oj-sp/messages-toast/loader",
+        "oj-sp/metric-card/loader",
+        "oj-sp/mini-card/loader",
+        "oj-sp/object-card/loader",
+        "oj-sp/overflow/loader",
+        "oj-sp/preview-card/loader",
+        "oj-sp/primary-action-feedback/loader",
+        "oj-sp/profile-card/loader",
+        "oj-sp/recommendation-card/loader",
+        "oj-sp/scoreboard/loader",
+        "oj-sp/scoreboard-metric-card/loader",
+        "oj-sp/section/loader",
+        "oj-sp/select-single-currency/loader",
+        "oj-sp/select-single-item-template/loader",
+        "oj-sp/selection-chart-card/loader",
+        "oj-sp/simple-create-edit/loader",
+        "oj-sp/skill-chip/loader",
+        "oj-sp/smart-filter-search/loader",
+        "oj-sp/smart-search-page/loader",
+        "oj-sp/smart-filters/loader",
+        "oj-sp/smart-select-single/loader",
+        "oj-sp/summarizing-collection/loader",
+        "oj-sp/task-card/loader",
+        "oj-sp/thumbnail/loader",
+        "oj-sp/timeline-event-template/loader",
+        "oj-sp/timestamp/loader",
+        "oj-sp/vertical-overview/loader",
+        "oj-sp/vertical-anchor-navigator/loader",
+        "oj-sp/welcome-page/loader",
+        "oj-sp/timestamp/loader",
+        "oj-sp/flex-checkbox/loader",
+        "oj-sp/item-gauge/loader",
+        "oj-sp/common/flex/converters/FlexUpperCaseConverter",
+        "oj-sp/converters/phone/E164Converter",
+        "oj-sp/information-organizer/loader"
+      ],
+      "oj-sp/oj-sp-input-rich-text-bundle": [
+        "oj-sp/input-rich-text/loader",
+        "oj-sp/input-rich-text-2/loader"
+      ],
+      "oj-sp/spectra-shell/oj-sp-shell-bundle": "{{$initParams.ojSpDebug ? [] : ['oj-sp/spectra-shell/applcore/security/FndSecurityProvider', 'oj-sp/spectra-shell/applcore/security/tokenRelayPlugin', 'fndconfig/config']}}"
+
+    }
+  },
+  "services": {},
+  "translations": {
+    "appBundle": {
+      "path": "./resources/strings/appBundle/nls/appBundle-strings"
+    }
+  },
+  "types": {},
+  "variables": {},
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {
+    "access": {
+      "requiresAuthentication": true
+    }
+  },
+  "flows": {},
+  "settings": {
+    "stopValidationPreLoading": true
+  },
+  "eventListeners": {
+    "notification": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chainId": "notifyNewLocalEvent"
+        }
+      ]
+    },
+    "token": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chainId": "registerClient"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chainId": "startNotificationsListerner"
+        }
+      ]
+    }
+  },
+  "events": {
+    "notification": {
+      "payloadType": {
+        "eventId": "number",
+        "eventName": "string"
+      }
+    },
+    "token": {
+      "payloadType": {
+        "token": "string",
+        "client": "string"
+      }
+    }
+  }
+}

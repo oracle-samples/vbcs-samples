@@ -1,0 +1,25 @@
+{
+  "root": "fireNotificationEvent",
+  "description": "",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "eventId": "number",
+        "eventName": "string"
+      }
+    }
+  },
+  "actions": {
+    "fireNotificationEvent": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ 'New Event was created: '+$variables.event.eventName ]]",
+        "displayMode": "transient",
+        "type": "info"
+      }
+    }
+  }
+}

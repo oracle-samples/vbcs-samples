@@ -1,0 +1,32 @@
+{
+  "description": "",
+  "root": "assignVariablesEvent",
+  "actions": {
+    "callComponentCreateEventDialogOpen": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('create-event-dialog') }}",
+        "method": "open"
+      }
+    },
+    "assignVariablesEvent": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.event": {
+          "source": {
+            "type1": "{{ 1 }}",
+            "date1": "{{ new Date().toISOString() }}",
+            "description": "Some Event Description",
+            "name": ""
+          },
+          "reset": "none",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "callComponentCreateEventDialogOpen"
+      }
+    }
+  },
+  "variables": {}
+}

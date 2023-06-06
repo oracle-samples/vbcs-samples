@@ -1,0 +1,69 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-sp-welcome-page background-color="dark-plum" page-title="Local Events"
+  description-text="Submit upcoming local events and get notified about them"
+  illustration-background="[[ $application.path + 'resources/images/JourneyHeader-Collaboration_ART.png']]"
+  illustration-foreground="[[ $application.path + 'resources/images/JourneyHeader-Collaboration_ART.png']]"
+  display-options.mobile-image="off">
+  <oj-toolbar chroming="solid">
+    <oj-button label="Add New Event" on-oj-action="[[$listeners.buttonAction3]]"></oj-button>
+    <oj-button label="Configure Notifications" on-oj-action="[[$listeners.buttonAction4]]"></oj-button>
+  </oj-toolbar>
+  <oj-table class="oj-table-stretch" scroll-policy="loadMoreOnScroll" data="[[$variables.eventListSDP]]"
+    columns='[{"headerText":"Name","field":"name"},{"headerText":"Description","field":"description"},{"headerText":"Type","field":"type1Object","sortProperty":"type1Object.type1","template":"type1CellTemplate3"},{"headerText":"Date","field":"date1","template":"Date"}]'
+    style="height: 500px; width: 100%">
+    <template slot="type1CellTemplate3">
+      <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].type1 : undefined ]]"></oj-bind-text>
+    </template>
+    <template slot="Date">
+      <oj-input-date-time value='[[typeof $current.data === "string" ? $current.data : null]]' readonly="true"></oj-input-date-time>
+    </template>
+  </oj-table>
+</oj-sp-welcome-page>
+<oj-dialog dialog-title="Create New Event" id="create-event-dialog">
+  <div slot="body">
+    <div class="oj-flex">
+      <div class="oj-flex-item oj-sm-12 oj-md-12">
+        <oj-validation-group id="event-validation-group-1187993098-1">
+          <oj-form-layout id="oj-form-layout-1187993098-1">
+            <oj-input-text value="{{ $variables.event.name }}" label-hint="Name"></oj-input-text>
+            <oj-input-text value="{{ $variables.event.description }}" label-hint="Description"></oj-input-text>
+            <oj-input-date-time value="{{ $variables.event.date1 }}" label-hint="Date"></oj-input-date-time>
+            <oj-select-single value="{{ $variables.event.type1 }}" label-hint="Type"
+              data="[[ $variables.eventTypeListSDP ]]" item-text="type1"></oj-select-single>
+          </oj-form-layout>
+        </oj-validation-group>
+      </div>
+    </div>
+    <div class="oj-flex">
+      <oj-toolbar id="oj-toolbar-for-oj-form-layout-1187993098-1" chroming="solid"
+        class="oj-flex-item oj-sm-12 oj-md-12">
+      </oj-toolbar>
+    </div>
+  </div>
+  <div slot="footer">
+    <oj-button on-oj-action="[[$listeners.buttonAction]]">Save</oj-button>
+    <oj-button label="Cancel" on-oj-action="[[$listeners.buttonAction2]]"></oj-button>
+  </div>
+</oj-dialog>
+<oj-dialog id="setup-notifications-dialog" dialog-title="My notification preferences">
+  <div slot="body">
+    <div class="oj-flex">
+      <div class="oj-flex-item oj-sm-12 oj-sm-padding-4x-bottom">
+        <span><oj-bind-text value="[[ 'User '+$application.user.email+' wants to be notified about these type of events:' ]]"></oj-bind-text></span>
+      </div>
+    </div>
+    <oj-form-layout>
+      <oj-checkboxset options="[[$variables.eventTypeListSDP2]]" options-keys.value="id" options-keys.label="type1"
+        value="{{ $variables.typesToBeNotifiedAbout }}">
+      </oj-checkboxset>
+    </oj-form-layout>
+  </div>
+  <div slot="footer">
+    <oj-button on-oj-action="[[$listeners.buttonAction6]]">Save</oj-button>
+    <oj-button label="Cancel" on-oj-action="[[$listeners.buttonAction5]]"></oj-button>
+  </div>
+</oj-dialog>

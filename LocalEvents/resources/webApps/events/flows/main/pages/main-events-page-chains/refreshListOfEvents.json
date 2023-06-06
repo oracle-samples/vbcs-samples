@@ -1,0 +1,23 @@
+{
+  "root": "fireDataProviderEventEventListSDP",
+  "description": "",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "eventId": "number",
+        "eventName": "string"
+      }
+    }
+  },
+  "actions": {
+    "fireDataProviderEventEventListSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.eventListSDP ]]",
+        "refresh": null
+      }
+    }
+  }
+}

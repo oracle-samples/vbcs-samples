@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "callComponentCreateEventDialogClose",
+  "actions": {
+    "callComponentCreateEventDialogClose": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('create-event-dialog') }}",
+        "method": "close"
+      }
+    }
+  },
+  "variables": {}
+}

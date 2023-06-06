@@ -1,0 +1,59 @@
+{
+  "root": "callRestGetallPreferences",
+  "description": "",
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallPreferences.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallPreferences": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Preferences",
+        "uriParams": {
+          "q": "{{ \"(email = '\" + $application.user.email + \"')\" }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "if"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callRestGetallPreferences.body.count === 1 ]]"
+      },
+      "outcomes": {
+        "true": "assignVariablesTypesToBeNotifiedAbout3",
+        "false": "assignVariablesTypesToBeNotifiedAbout"
+      }
+    },
+    "assignVariablesTypesToBeNotifiedAbout": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.typesToBeNotifiedAbout": {
+          "source": "{{ [1,2,3] }}"
+        }
+      }
+    },
+    "assignVariablesTypesToBeNotifiedAbout3": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.typesToBeNotifiedAbout": {
+          "source": "{{ $chain.results.callRestGetallPreferences.body.items[0].preferences.split(',').map(i=>Number(i)) }}"
+        },
+        "$page.variables.preferences": {
+          "source": "{{ $chain.results.callRestGetallPreferences.body.items[0] }}",
+          "auto": "always",
+          "reset": "empty"
+        }
+      }
+    }
+  }
+}

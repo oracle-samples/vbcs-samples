@@ -1,0 +1,92 @@
+{
+    "fields": [
+        {
+            "type": "number",
+            "name": "id",
+            "internal": false,
+            "key": true,
+            "oid": "9bbee087-4e7b-473d-9855-c85617669767",
+            "required": true,
+            "unique": true,
+            "displayLabel": "Id"
+        },
+        {
+            "type": "datetime",
+            "name": "creationDate",
+            "internal": false,
+            "oid": "186a3a3d-6046-4c6a-a1d3-3ae67ff64bcc",
+            "displayLabel": "Created",
+            "historyType": "timeCreated"
+        },
+        {
+            "type": "datetime",
+            "name": "lastUpdateDate",
+            "internal": false,
+            "oid": "57c56c86-e5a4-4a38-b153-8a4744f2265d",
+            "displayLabel": "Last Updated",
+            "historyType": "timeUpdated"
+        },
+        {
+            "type": "string",
+            "name": "createdBy",
+            "internal": false,
+            "oid": "ad98564c-672f-49a5-b0c3-ba71069832d7",
+            "displayLabel": "Created By",
+            "historyType": "createdBy"
+        },
+        {
+            "type": "string",
+            "name": "lastUpdatedBy",
+            "internal": false,
+            "oid": "ee54f3d1-c808-4862-9ae5-dd7e1e7b2193",
+            "displayLabel": "Last Updated By",
+            "historyType": "updatedBy"
+        },
+{
+            "type": "number",
+            "name": "versionNumber",
+            "internal": false,
+            "oid": "9ae862a0-a00c-4f63-8d1f-7a4589664762",
+            "displayLabel": "Version Number",
+            "historyType": "versionNumber"
+        },
+        {
+            "type": "string",
+            "name": "name",
+            "oid": "3f5fb00e-3ed5-46b5-bead-d54484815333",
+            "displayLabel": "Name"
+        }        ,
+        {
+            "type": "string",
+            "name": "description",
+            "oid": "3f23f23f-c00e-46c3-9bcc-e6f294507f7b",
+            "displayLabel": "Description"
+        }        ,
+        {
+            "type": "number",
+            "name": "type1",
+            "oid": "470e93d6-3950-442d-bbf2-85a539a50e14",
+            "displayLabel": "Type"
+        }        ,
+        {
+            "type": "datetime",
+            "name": "date1",
+            "oid": "a1888a32-e0bc-46f7-b4e3-591fda15a605",
+            "displayLabel": "Date"
+        }
+    ],
+    "name": "Event",
+    "oid": "d8a08ac7-50ce-40c7-a3db-c8d2bf5fc1f5",
+    "displayLabel": "Event",
+    "relationships": [
+        {
+            "name": "type1Object",
+            "reverseRelationship": "eventCollection",
+            "targetEntity": "EventType",
+            "type": "outgoing",
+            "exposeAccessor": true,
+            "mappingField": "type1",
+            "deleteRule": "restrict"
+        }
+    ]
+}

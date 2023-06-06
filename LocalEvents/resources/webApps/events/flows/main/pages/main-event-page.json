@@ -1,0 +1,81 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "event": {
+      "type": "get_Event"
+    },
+    "eventId": {
+      "type": "number",
+      "required": true,
+      "input": "fromUrl"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.get_Event": {
+      "endpoint": "get_Event",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "action": {
+      "id": "string",
+      "label": "string",
+      "display": "string",
+      "icon": "string"
+    },
+    "get_Event": {
+      "date1": "string",
+      "description": "string",
+      "id": "number",
+      "name": "string",
+      "type1": "number",
+      "type1Object": {
+        "items": [
+          {
+            "type1": "string"
+          }
+        ]
+      }
+    }
+  },
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "ButtonActionChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chainId": "fetchEvent"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date-time": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-sp-general-overview-page": {
+        "path": "oj-sp/general-overview-page/loader"
+      }
+    }
+  },
+  "@dt": {
+    "iconClass": "vbdt-dynamic-icon-6-icoOverviewPageTemplateSvg"
+  }
+}

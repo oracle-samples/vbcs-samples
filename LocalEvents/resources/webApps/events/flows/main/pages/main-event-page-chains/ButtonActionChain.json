@@ -1,0 +1,13 @@
+{
+  "description": "",
+  "root": "navigateToMainEvents",
+  "actions": {
+    "navigateToMainEvents": {
+      "module": "vb/action/builtin/navigateAction",
+      "parameters": {
+        "page": "main-events"
+      }
+    }
+  },
+  "variables": {}
+}

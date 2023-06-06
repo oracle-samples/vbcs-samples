@@ -1,0 +1,249 @@
+{
+  "variables": {
+    "event": {
+      "type": "createEventRequest",
+      "input": "fromCaller",
+      "defaultValue": "[[ $page.variables.event ]]"
+    },
+    "saveFailureResult": {
+      "type": "businessObjectsServiceErrorResponseType"
+    },
+    "errorMessage": {
+      "type": "string"
+    }
+  },
+  "root": "markCreateStarted",
+  "actions": {
+    "markCreateStarted": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.createEventChainInProgress": {
+          "source": true
+        }
+      },
+      "outcomes": {
+        "success": "validateEvent"
+      },
+      "description": "Sets the progress variable to true",
+      "label": "Mark Create in progress"
+    },
+    "validateEvent": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "flow:validateFormChain",
+        "params": {
+          "validationGroupId": "event-validation-group-1187993098-1"
+        }
+      },
+      "outcomes": {
+        "success": "isFormValid"
+      },
+      "label": "Validate",
+      "description": "Validates Event form"
+    },
+    "isFormValid": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.validateEvent === true ]]"
+      },
+      "outcomes": {
+        "true": "saveEvent",
+        "false": "markCreateEnded"
+      },
+      "label": "Is Form valid",
+      "description": "Tests if form passed validation"
+    },
+    "fireSuccessNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Event saved",
+        "message": "Event record successfully created",
+        "type": "confirmation",
+        "displayMode": "transient"
+      },
+      "outcomes": {
+        "success": "callResetEventChain"
+      },
+      "description": "Fires a notification event about successful save",
+      "label": "Fire save success event"
+    },
+    "assignFailureResult": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$variables.saveFailureResult": {
+          "source": "[[ $chain.results.saveEvent ]]"
+        }
+      },
+      "outcomes": {
+        "success": "testFailureDetails"
+      },
+      "description": "Assigns REST call failure result to a local variable",
+      "label": "Assign failure result"
+    },
+    "testFailureDetails": {
+      "module": "vb/action/builtin/ifAction",
+      "outcomes": {
+        "true": "handleDetailedErrorMessage",
+        "false": "handleDefaultErrorMessage"
+      },
+      "parameters": {
+        "condition": "[[ $variables.saveFailureResult.body['o:errorDetails'][0] ]]"
+      },
+      "description": "Tests if the REST call failure output contains error detail message",
+      "label": "Test failure details"
+    },
+    "handleDetailedErrorMessage": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "outcomes": {
+        "success": "fireErrorNotification"
+      },
+      "parameters": {
+        "$variables.errorMessage": {
+          "source": "[[ $variables.saveFailureResult.body['o:errorDetails'][0].detail ]]"
+        }
+      },
+      "description": "Extracts detail error message from the REST call failure result",
+      "label": "Assign detailed error message"
+    },
+    "handleDefaultErrorMessage": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "outcomes": {
+        "success": "fireErrorNotification"
+      },
+      "parameters": {
+        "$variables.errorMessage": {
+          "source": "[[ 'Could not create new Event: status ' + $variables.saveFailureResult.status ]]"
+        }
+      },
+      "description": "Builds default error message",
+      "label": "Assign default error message"
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Save failed",
+        "message": "[[ $variables.errorMessage ]]",
+        "type": "error",
+        "displayMode": "persist"
+      },
+      "description": "Fires a notification event about failed save",
+      "label": "Fire save failed event",
+      "outcomes": {
+        "success": "markCreateEnded"
+      }
+    },
+    "callResetEventChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "clearEventChain"
+      },
+      "description": "Resets Event form state to its default state",
+      "label": "Reset Event form state",
+      "outcomes": {
+        "success": "fireDataProviderEventEventListSDP"
+      }
+    },
+    "saveEvent": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/create_Event",
+        "body": "[[ $variables.event ]]"
+      },
+      "description": "Call REST creating new Event record",
+      "label": "Save Event record",
+      "outcomes": {
+        "success": "fireSuccessNotification",
+        "failure": "assignFailureResult"
+      }
+    },
+    "markCreateEnded": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.createEventChainInProgress": {
+          "source": false
+        }
+      },
+      "description": "Sets the progress variable to false",
+      "label": "Mark Create done"
+    },
+    "fireDataProviderEventEventListSDP": {
+      "module": "vb/action/builtin/fireDataProviderEventAction",
+      "parameters": {
+        "target": "[[ $page.variables.eventListSDP ]]",
+        "refresh": null
+      },
+      "outcomes": {
+        "success": "callComponentCreateEventDialogClose"
+      }
+    },
+    "callComponentCreateEventDialogClose": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('create-event-dialog') }}",
+        "method": "close"
+      },
+      "outcomes": {
+        "success": "callRestGetallSessions"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallSessions.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallSessions": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Sessions"
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "callRestGetallPreferences"
+      }
+    },
+    "callFunctionNotifyClientAboutNewEvent": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "notifyClientAboutNewEvent",
+        "params": [
+          "{{ $chain.results.saveEvent.body }}",
+          "{{ $chain.results.callRestGetallSessions.body.items }}",
+          "{{ $application.functions.getThisClientId() }}"          ,
+          "{{ $application.user.email }}"          ,
+          "{{ $chain.results.callRestGetallPreferences.body.items }}"
+        ]
+      },
+      "outcomes": {
+        "success": "markCreateEnded"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallPreferences.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallPreferences": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Preferences",
+        "uriParams": {
+          "limit": 999
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification2",
+        "success": "callFunctionNotifyClientAboutNewEvent"
+      }
+    }
+  },
+  "description": "Saves changes and creates new Event record."
+}

@@ -1,0 +1,16 @@
+{
+  "root": "resetEvent",
+  "description": "Clears Event form state",
+  "actions": {
+    "resetEvent": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "description": "Resets event variable to the default state",
+      "label": "Reset Event variable",
+      "parameters": {
+        "variables": [
+          "$page.variables.event"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "callComponentSetupNotificationsDialogClose",
+  "actions": {
+    "callComponentSetupNotificationsDialogClose": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('setup-notifications-dialog') }}",
+        "method": "close"
+      }
+    }
+  },
+  "variables": {}
+}

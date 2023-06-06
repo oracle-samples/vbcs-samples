@@ -1,0 +1,4 @@
+id,creationDate,lastUpdateDate,createdBy,lastUpdatedBy,type1
+1,2023-05-23T00:21:36,2023-05-23T00:21:36.012,david.konecny@oracle.com,david.konecny@oracle.com,Art
+2,2023-05-23T00:21:42,2023-05-23T00:21:42.004,david.konecny@oracle.com,david.konecny@oracle.com,Sport
+3,2023-05-23T00:21:58,2023-05-23T00:21:58.004,david.konecny@oracle.com,david.konecny@oracle.com,Communal

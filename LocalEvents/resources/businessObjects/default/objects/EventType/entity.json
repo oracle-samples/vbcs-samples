@@ -1,0 +1,73 @@
+{
+    "fields": [
+        {
+            "type": "number",
+            "name": "id",
+            "internal": false,
+            "key": true,
+            "oid": "ac1faf15-0de9-42f0-a132-9bd4556b7d8e",
+            "required": true,
+            "unique": true,
+            "displayLabel": "Id"
+        },
+        {
+            "type": "datetime",
+            "name": "creationDate",
+            "internal": false,
+            "oid": "a614cf09-0056-4c87-97e4-078282305344",
+            "displayLabel": "Created",
+            "historyType": "timeCreated"
+        },
+        {
+            "type": "datetime",
+            "name": "lastUpdateDate",
+            "internal": false,
+            "oid": "6c5882f0-ac38-48e2-98a6-101e129cc8f5",
+            "displayLabel": "Last Updated",
+            "historyType": "timeUpdated"
+        },
+        {
+            "type": "string",
+            "name": "createdBy",
+            "internal": false,
+            "oid": "a159203b-1871-4642-964b-7dd2015c8f91",
+            "displayLabel": "Created By",
+            "historyType": "createdBy"
+        },
+        {
+            "type": "string",
+            "name": "lastUpdatedBy",
+            "internal": false,
+            "oid": "284e9b57-2d43-4f50-b3c0-b75ed3af73e4",
+            "displayLabel": "Last Updated By",
+            "historyType": "updatedBy"
+        },
+{
+            "type": "number",
+            "name": "versionNumber",
+            "internal": false,
+            "oid": "996df777-96b6-44d8-9b40-8da16182d348",
+            "displayLabel": "Version Number",
+            "historyType": "versionNumber"
+        },
+        {
+            "type": "string",
+            "name": "type1",
+            "oid": "87f1d4a7-2a33-4a82-b274-4a7c9c56d1b0",
+            "displayLabel": "Type"
+        }
+    ],
+    "name": "EventType",
+    "oid": "a90e4569-a391-4ff6-bb0c-bba16afc9d62",
+    "displayLabel": "Event Type",
+    "setupData": true,
+    "relationships": [
+        {
+            "name": "eventCollection",
+            "reverseRelationship": "type1Object",
+            "targetEntity": "Event",
+            "type": "incoming",
+            "displayField": "type1"
+        }
+    ]
+}

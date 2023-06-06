@@ -1,0 +1,1 @@
+place the latest release of zxing_reader.js and zxing_reader.wasm files in this folder

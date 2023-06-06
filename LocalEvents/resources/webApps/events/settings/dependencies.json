@@ -1,0 +1,16 @@
+{
+  "component-dependencies": {
+    "oj-sp": {
+      "version": "2304.0.1",
+      "components": {
+        "welcome-page": "2304.0.1",
+        "collection-detail-page": "2304.0.1",
+        "collection-container": "2304.0.1",
+        "list-item-template": "2304.0.1",
+        "detail-panel": "2304.0.1",
+        "empty-state": "2304.0.1",
+        "general-overview-page": "2304.0.1"
+      }
+    }
+  }
+ }

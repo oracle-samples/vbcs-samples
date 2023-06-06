@@ -1,0 +1,14 @@
+{
+  "description": "",
+  "root": "callComponentSetupNotificationsDialogOpen",
+  "actions": {
+    "callComponentSetupNotificationsDialogOpen": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('setup-notifications-dialog') }}",
+        "method": "open"
+      }
+    }
+  },
+  "variables": {}
+}

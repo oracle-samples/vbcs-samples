@@ -1,0 +1,6 @@
+{
+  "id": "MyCompany/BarcodeScanner",
+  "category": "My Company",
+  "displayName": "BarcodeScanner",
+  "iconClass": "oj-ux-ico-action"
+}

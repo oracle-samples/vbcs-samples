@@ -1,0 +1,18 @@
+{
+  "app_title_navigation_drawer": "Application Navigation Drawer",
+  "@app_title_navigation_drawer": {
+    "description": "Title for Application Navigation Drawer"
+  },
+  "app_footer_about_link": "About",
+  "@app_footer_about_link": {
+    "description": "About link on shell footer"
+  },
+  "app_footer_copyright": "Created with Visual Builder, Copyright © 2022",
+  "@app_footer_copyright": {
+    "description": "Copyright text on shell footer"
+  },
+  "app_sign_out": "Sign Out",
+  "@app_sign_out": {
+    "description": "Text on menu option to log out of the application"
+  }
+}

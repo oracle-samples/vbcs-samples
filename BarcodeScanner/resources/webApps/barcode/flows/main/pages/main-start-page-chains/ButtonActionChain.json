@@ -1,0 +1,21 @@
+{
+  "description": "",
+  "root": "barcodeScanner",
+  "actions": {
+    "barcodeScanner": {
+      "module": "MyCompany/BarcodeScanner",
+      "outcomes": {
+        "success": "fireNotification"
+      }
+    },
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ 'Detected: ' +JSON.stringify($chain.results.barcodeScanner) ]]",
+        "type": "info"
+      }
+    }
+  },
+  "variables": {}
+}

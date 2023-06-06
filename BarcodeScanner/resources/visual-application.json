@@ -1,0 +1,14 @@
+{
+    "vbcs.dt.version": "20221205-23.04.0",
+    "dependencies": {
+        "upgrade": "micro",
+        "paths": {
+            "jet": "https://static.oracle.com/cdn/jet/13.1.7",
+            "telemetry": "https://static.oracle.com/cdn/trace/7.2.1",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2304.0.0"
+        }
+    },
+    "source.version": "2304",
+    "rootURL": "zxing",
+    "version": "1.0"
+}

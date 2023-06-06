@@ -1,0 +1,20 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-sp-general-overview-page id="oj_gop1" page-title="[[ $variables.event.name ]]"
+  page-subtitle="[[ $variables.event.description ]]" >
+
+    
+  <div slot="main">
+        <oj-form-layout readonly="true" label-edge="inside">
+              <oj-input-text label-hint="Name" value="{{ $variables.event.name }}"></oj-input-text>
+              <oj-input-text label-hint="Description" value="{{ $variables.event.description }}"></oj-input-text>
+              <oj-input-date-time label-hint="Date and Time" value="{{ $variables.event.date1 }}"></oj-input-date-time>
+              <oj-input-text label-hint="Type" value="{{ $variables.event.type1Object?.items[0]?.type1 }}"></oj-input-text>
+        </oj-form-layout>
+        <oj-button label="Back" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+  </div>
+
+</oj-sp-general-overview-page>

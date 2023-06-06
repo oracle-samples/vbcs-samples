@@ -1,0 +1,36 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!DOCTYPE html>
+<html class="oj-html" lang="en">
+  <head>
+    <title>Oracle Applications</title>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="preconnect" href="https://static.oracle.com">
+    <link rel="preconnect" href="https://static-stage.oracle.com">
+    <link rel="preconnect" href="https://rt.oraclevb.com">
+    <!-- vb:inject id="headContent" theme="resources/css/dt.theme.redwood" -->
+    <!-- vb:inject id="pwa" -->
+</head>
+  <body class="oj-body">
+    <oj-vb-content config="[[vbApplication]]"></oj-vb-content>
+    <!-- visualBuilderScripts -->
+  </body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging.js";
+
+    // make firebase API accessible to VB pages:
+    window.VB_FB = {
+      initializeApp : initializeApp,
+      getMessaging : getMessaging,
+      getToken : getToken,
+      onMessage : onMessage,
+    };
+  </script>
+
+</html>

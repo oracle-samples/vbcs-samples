@@ -1,0 +1,24 @@
+{
+  "title": "main",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "buttonAction2": {
+      "chains": [
+        {
+          "chainId": "ButtonActionChain"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      }
+    }
+  }
+}

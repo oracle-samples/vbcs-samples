@@ -1,0 +1,95 @@
+{
+  "root": "callRestGetallSessions",
+  "description": "",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "token": "string",
+        "client": "string"
+      }
+    }
+  },
+  "actions": {
+    "fireNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestGetallSessions.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestGetallSessions": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/getall_Sessions",
+        "uriParams": {
+          "q": "{{ \"(email = '\" + $application.user.email + \"' AND client = '\" + $variables.event.client + \"' )\" }}"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification",
+        "success": "if"
+      }
+    },
+    "if": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callRestGetallSessions.body.count > 0 ]]"
+      },
+      "outcomes": {
+        "true": "callRestUpdateSessions",
+        "false": "callRestCreateSessions"
+      }
+    },
+    "fireNotification2": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestUpdateSessions.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestUpdateSessions": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/update_Sessions",
+        "uriParams": {
+          "Sessions_Id": "{{ $chain.results.callRestGetallSessions.body.items[0].id }}"
+        },
+        "body": {
+          "token": "[[ $variables.event.token ]]"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification2"
+      }
+    },
+    "fireNotification3": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "target": "leaf",
+        "summary": "[[ $chain.results.callRestCreateSessions.message.summary ]]",
+        "type": "error",
+        "displayMode": "persist"
+      }
+    },
+    "callRestCreateSessions": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/create_Sessions",
+        "body": {
+          "token": "[[ $variables.event.token ]]",
+          "email": "[[ $application.user.email ]]",
+          "client": "[[ $variables.event.client ]]"
+        }
+      },
+      "outcomes": {
+        "failure": "fireNotification3"
+      }
+    }
+  }
+}
