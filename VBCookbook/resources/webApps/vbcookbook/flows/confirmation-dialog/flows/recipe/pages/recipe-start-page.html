@@ -3,48 +3,157 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<h4>Summary</h4>
-<ul>
-  <li>Add tab-bar to switch between forms.</li>
-  <li>Create Employee and Department Form.</li>
-  <li>Track dirty form status using page variable.</li>
-  <li>Show dialog if user moves away from dirty form.</li>
-  <li>Clear dirty form status on clicking save button.</li>
-</ul>
+<p>
+  The page displays two tabs with forms where a user can modify employee or department data. If the user attempts to
+  navigate from one tab to another without first saving changes, you interrupt navigation to display a Dialog component
+  with a warning about unsaved data. Use the <code>preventDefault</code> property on the <a target="_blank" href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.ojTabBar.html#event:beforeSelect">Tab Bar component's ojBeforeSelect event
+    listener</a> to interrupt navigation.
+</p>
+
+
+<p>If the user confirms in the dialog that they want to discard the changes made in the initial tab, you need to revert
+  the changes made and then navigate to the second tab. You accomplish this by storing the destination tab when you
+  interrupt navigation and then change the selected tab programmatically from the Dialog component's button handler that the user clicks to confirm the discard of changes.</p>
+<p>With the Dialog component's other button handler (the one to retain changes), the user stays on the current tab.</p>
+
 <oj-accordion id="accordionPage">
   <oj-collapsible id="step1" expanded="true">
-    <span slot="header">Creating the Page Model</span>
+    <span slot="header">Create the Page Model</span>
     <div>
       <ol>
-        <li>Create types from endpoints for Employee and Department objects. Then create the corresponding <code>cleanEmp</code> and <code>cleanDept</code>" variables. These will store the state of the data when it is loaded.</li>
-        <li>Create a <code>formEmp</code> and <code>formDept</code> variables using the types above. These will hold the current data bound to the forms.</li>
-        <li>Create a <code>dirtyForm</code> Boolean variable to maintain form status.</li>
-        <li> "currentTab" to track the current open tab</li>
-        <li> "tabToSwitch" to store the new tab to which user is navigating</li>
+
+
+        <li><a target="_blank"
+            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+            types from endpoints</a> for the Employee and Department objects. </li>
+        <li>
+          <p><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              the following variables</a>:</p>
+          <ul>
+            <li><code>cleanDept</code> and <code>cleanEmp</code> to store the state of the Employee and Department data
+              when it loads</li>
+            <li><code>formEmp</code> and <code>formDept</code> variables for the current data bound to
+              the forms</li>
+            <li><code>dirtyForm</code> of type Boolean to maintain form status</li>
+            <li><code>currentTab</code> to track the currently open tab</li>
+          </ul>
+        </li>
       </ol>
     </div>
   </oj-collapsible>
   <oj-collapsible id="step2">
-    <span slot="header">Creating the UI</span>
+    <span slot="header">Create the UI</span>
     <div>
       <ol>
-        <li> Add a Tabs with Content to the page. Add a Form Layout to each tab, add the display components, and bind their values to <code>formEmp</code> and <code>formDept</code> accordingly.</li>
-        <li>Add a Dialog componet to the page and add the warning message and the two buttons.</li>
+        <li>
+          <p><a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-86D717D4-0398-40FE-AC25-B63EC0A32AC6">Add
+              the following components</a> to the page:</p>
+          <ul>
+            <li>Tab Bar and Switcher components</li>
+            <li>Within the slots of the Switcher component, add Form Layout components and the associated Input Text
+              components</li>
+            <li>Dialog component that displays a warning message and two Button components</li>
+          </ul>
+        <li>
+          <p>In the Data tab of the Properties pane for the Input Text component, set the Value property to the
+            appropriate value.</p>
+          <p>For example, <code>{{ $variables.formEmp.firstName }}</code> for the first name of an employee in the
+            Employee form</p>
+        </li>
+        </li>
+        <li>In the General tab of the Properties pane for the Tab Bar component, set the Selection property to the
+          <code>currentTab</code> variable that you created (<code>{{$page.variables.currentTab}}</code>).
+        </li>
+        <li>In the General tab of the Properties pane for the Switcher component, set the Value property to
+          <code>{{$page.variables.currentTab}}</code>.
+        </li>
       </ol>
+
     </div>
   </oj-collapsible>
   <oj-collapsible id="step3">
-    <span slot="header">Adding Events and Action Chains</span>
+    <span slot="header">Add Events and Action Chains</span>
     <div>
       <ol>
-        <li>In the JS tab, add the <code>unsavedChange</code> page module function to verify whether the form is dirty or not.</li>
-        <li>Add a <code>vbEnter</code> event and <code>loadData</code> action chain that load the Employee and Department data.</li>
-        <li>Select the Tab Bar component and use the Properties panet to add an <code>ojBeforeSelect</code> event that launches a <code>beforeTabChange</code> action chain.</li>
-        <li>In the action chain, add an If action and make the condition to <code>[[ $page.variables.dirtyForm ]]</code>.</li>
-        <li>In the True path, drop an Assign Variables action that assigns <code>$page.variables.tabToSwitch</code> to <code>$chain.variables.detail.key</code> and a Call Component Method action that opens the dialog.</li> 
-        <li>Create the <code>YesButtonAction</code> Action Chain to reset form data and switch tabs.</li>
-        <li>Create the <code>NoButtonAction</code> to close the dialog without switching.</li>
-        <li>Create a <code>SaveButtonActionChain</code> to save form data in the <code>myFormsData</code> variable.</li>
+        <li>In the JavaScript tab, add the <code>unsavedChange</code> page module function to determine if the form
+          includes modified data.
+
+          <oj-collapsible id="JS-code">
+            <a href="" slot="header">Expand to view code</a>
+            <div>
+              <pre>// Returns true if there is an unsaved change 
+  PageModule.prototype.unsavedChange = function (cleanObject, dirtyObject) {
+
+    // Create arrays of property names for each Object
+    var cleanProps = Object.getOwnPropertyNames(cleanObject);
+    var dirtyProps = Object.getOwnPropertyNames(dirtyObject);
+
+    // If number of properties is different, objects are not equivalent
+    if (cleanProps.length != dirtyProps.length) {
+        return true;
+    }
+
+    for (var i = 0; i &lt; cleanProps.length; i++) {
+        var propName = cleanProps[i];
+
+        // If values of same property are not equal, objects are not equivalent
+        if (cleanObject[propName] !== dirtyObject[propName]) {
+            return true;
+        }
+    }
+
+    // If we made it this far, objects are considered equivalent
+    return false;
+};
+</pre>
+            </div>
+          </oj-collapsible>
+        </li>
+        <li>In the Event Listeners tab, add a <code>vbEnter</code> event with an associated page action chain named
+          <code>loadData</code> that loads Employee and Department data.
+        </li>
+        <li>In the Events tab of the Properties pane for the Tab Bar component, add an <code>ojBeforeSelect</code> event
+          that launches a <code>beforeTabChange</code> action chain.</li>
+        <li>
+          <p>In the Event Listeners tab, select the <code>ojBeforeSelect</code> event (tabBar1BeforeSelect), and from
+            the Properties pane set the
+            Prevent Default value to <code>[[ $variables.dirtyForm ]]</code>.</p>
+
+          <p>This prevents navigation away from the tab if it contains modified data.</p>
+        </li>
+        <li>In the associated action chain that the Tab Bar component's <code>ojBeforeSelect</code> event invokes, add
+          an If action where you set the Condition property to <code>[[ $page.variables.dirtyForm ]]</code>.</li>
+        
+
+        <li>In the True path, add the following actions:
+          <ul>
+            <li>Assign Variables action to update the value of the <code>tabToSwitch</code> variable</li>
+            <li>Call Component action to open the dialog</li>
+          </ul>
+        </li>
+        <li>
+          <p>In the Actions tab, create an action chain, <code>YesButtonAction</code>, to reset form data and switch
+            tabs.</p>
+
+          <p>This action chain includes the following actions:</p>
+          <ul>
+            <li>Assign Variables action to reset the form data based on current tab.</li>
+            <li>Assign Variables action to assign <code>$page.variables.currentTab</code> to the intended tab name which is <code>tabToSwitch</code>.</li>
+            <li>Call Component action to close the dialog</li>
+          </ul>
+        </li>
+
+        <li>Also in the Actions tab, create the following additional action chains:
+          <ul>
+            <li><code>NoButtonAction</code> to close the dialog without switching.</li>         
+            <li><code>SaveButtonActionChain</code> to save form data .</li>
+          </ul>
+
+        </li>
+
+
       </ol>
     </div>
   </oj-collapsible>

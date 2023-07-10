@@ -50,11 +50,11 @@
   "eventListeners": {},
   "imports": {
     "components": {
-      "oj-dynamic-container": {
-        "path": "oj-dynamic/container/loader"
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
       },
-      "oj-dynamic-form": {
-        "path": "oj-dynamic/form/loader"
+      "oj-dyn-container": {
+        "path": "oj-dyn/container/loader"
       }
     }
   }

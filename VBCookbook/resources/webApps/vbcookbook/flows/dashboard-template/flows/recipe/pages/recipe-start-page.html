@@ -200,50 +200,51 @@
         ], function (ko, ResponsiveKnockoutUtils, ResponsiveUtils, AnimationUtils) {
         'use strict';
       
-        var PageModule = function PageModule() {
-        };
+        class PageModule {
       
-        PageModule.prototype.animate = function (selector, open, delay) {
-          const el = document.querySelector(selector);
-          el.style.transitionDelay = delay;
-          if (open) {
-            el.classList.remove("fold-closed");
-          } else {
-            el.classList.add("fold-closed");
+          animate(selector, open, delay) {
+            const el = document.querySelector(selector);
+            el.style.transitionDelay = delay;
+            if (open) {
+              el.classList.remove("fold-closed");
+            } else {
+              el.classList.add("fold-closed");
+            }
           }
-        };
-      
-        PageModule.prototype.toggle = function () {
-          const rootElement = document.querySelector(".fold-panel1");
-          const parentElement = document.querySelector(".fold-panels-parent");
-          if (rootElement.classList.contains("fold-closed")) {
-            parentElement.classList.remove("fold-panels-parent-closed");
-            var self = this;
-            var show = function () {
-              self.animate(".fold-panel1", true, "0ms");
-              self.animate(".fold-panel2", true, "217ms");
-              self.animate(".fold-panel3", true, "467ms");
-              self.animate(".fold-panel4", true, "700ms");
-            };
-            setTimeout(() => {
-              // wait for animation of "fold-panels-parent-closed" to be finished
-              // and then unfold action panels:
-              show(); 
-              }, 300);
+        
+          toggle() {
+            const rootElement = document.querySelector(".fold-panel1");
+            const parentElement = document.querySelector(".fold-panels-parent");
+            if (rootElement.classList.contains("fold-closed")) {
+              parentElement.classList.remove("fold-panels-parent-closed");
+              var self = this;
+              var show = function () {
+                self.animate(".fold-panel1", true, "0ms");
+                self.animate(".fold-panel2", true, "217ms");
+                self.animate(".fold-panel3", true, "467ms");
+                self.animate(".fold-panel4", true, "700ms");
+              };
+              setTimeout(() => {
+                // wait for animation of "fold-panels-parent-closed" to be finished
+                // and then unfold action panels:
+                show(); 
+                }, 300);
+            }
+            else {
+              this.animate(".fold-panel4", false, "0ms");
+              this.animate(".fold-panel3", false, "217ms");
+              this.animate(".fold-panel2", false, "467ms");
+              this.animate(".fold-panel1", false, "700ms");
+              setTimeout(() => { 
+                // wait for action panels to get folded and then
+                // hide the top bar using "fold-panels-parent-closed" animation
+                parentElement.classList.add("fold-panels-parent-closed");
+                }, 700);
+        
+            }
           }
-          else {
-            this.animate(".fold-panel4", false, "0ms");
-            this.animate(".fold-panel3", false, "217ms");
-            this.animate(".fold-panel2", false, "467ms");
-            this.animate(".fold-panel1", false, "700ms");
-            setTimeout(() => { 
-              // wait for action panels to get folded and then
-              // hide the top bar using "fold-panels-parent-closed" animation
-              parentElement.classList.add("fold-panels-parent-closed");
-              }, 700);
-      
-          }
-        };
+          
+        }
       
         return PageModule;
       });

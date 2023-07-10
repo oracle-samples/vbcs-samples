@@ -272,3 +272,18 @@ pre {
     right: 1em;
     bottom: 1em;
 }
+
+/* this is div added by oj-sp-header-welcome-banner which has excessive padding and margin */
+#main-slot-wrapper {
+  padding-top: 0!important;
+  margin-top: 0!important;
+}
+/* override default padding to match that of smart filter search page */
+.oj-sp-header-welcome-banner-main-panel {
+  padding-top: 18px!important;
+  padding-bottom: 12px!important;
+}
+/* welcome page banner is too high by default - remove that sizing */
+.oj-sp-header-welcome-banner-container {
+  min-height: revert!important;
+}

@@ -7,10 +7,10 @@
 <template id="formExample">
   <h3>Form Example</h3>
   <oj-bind-if test="[[ true ]]">
-    <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+    <oj-dyn-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
       layout="formExampleLayout" value="{{ $variables.employee }}"
       value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
-      rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" :id="[['form-template']]"></oj-dynamic-form>
+      rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" :id="[['form-template']]"></oj-dyn-form>
   </oj-bind-if>
 </template>
 <template id="tableExample">

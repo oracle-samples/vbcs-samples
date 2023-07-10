@@ -18,7 +18,7 @@
       <div>
         <ol>
           <li>
-            Install the JET Dynamic Form component from the Component Exchange,
+            Install the VDOM based JET Dynamic Form (oj-dyn-form) component from the Component Exchange,
             then drag and drop it on the template in the Page Designer.
           </li>
           <li>
@@ -75,7 +75,7 @@
             <ul>
               <li>Call Function action that includes a JavaScript function named <code>generateEmail</code>:
                 <pre>
-PageModule.prototype.generateEmail = function (transientValue) {
+generateEmail(transientValue) {
   transientValue.email = (transientValue.firstName).charAt(0) + transientValue.lastName + "@oracle.com";
   return transientValue;
 };</pre>

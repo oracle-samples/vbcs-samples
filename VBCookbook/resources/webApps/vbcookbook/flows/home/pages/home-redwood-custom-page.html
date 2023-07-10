@@ -1,0 +1,319 @@
+<!--
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-bind-if test="[[ $application.currentPage.id === 'home-redwood-custom']]">
+<oj-sp-welcome-page page-title="Oracle Visual Builder Cookbook"
+  description-text="Browse through the samples of common coding patterns and learn by example" background-color="auto"
+  illustration-foreground="[[ $application.path + 'resources/images/black.png' ]]">
+  <div slot="search">
+    <div class="oj-flex oj-sm-flex-wrap-nowrap">
+      <div class="oj-flex oj-flex-item oj-sm-margin-4x-end oj-sm-flex-items-initial oj-sm-flex-initial">
+        <oj-menu-button id="menuButton1" chroming="outlined" class="oj-sm-flex-initial">
+          <span><oj-bind-text value="[[ $page.functions.getMenuItemLabel($variables.filter) ]]"></oj-bind-text></span>
+          <oj-menu id="myMenu1" slot="menu" on-oj-menu-action="[[$listeners.myMenu1MenuAction]]">
+            <oj-option id="all" value="all">All Recipes</oj-option>
+            <oj-option>---------------------------------</oj-option>
+            <oj-option id="Components" value="Components">Components</oj-option>
+            <oj-option id="REST" value="REST">REST Services</oj-option>
+            <oj-option id="Dynamic" value="Dynamic">Dynamic Components</oj-option>
+            <oj-option id="PWA" value="PWA">Progressive Web Apps</oj-option>
+            <oj-option id="Application" value="Application">Application</oj-option>
+            <oj-option>---------------------------------</oj-option>
+            <oj-option id="Table" value="Table"><span class="oj-ux-ico-tables-basic" slot="startIcon"></span>Table</oj-option>
+            <oj-option id="List View" value="List View"><span class="oj-ux-ico-list" slot="startIcon"></span>List View</oj-option>
+            <oj-option id="Data Grid" value="Data Grid"><span class="oj-ux-ico-grid-view-small" slot="startIcon"></span>Data Grid</oj-option>
+            <oj-option id="List of Values - LOV" value="List of Values - LOV"><span class="oj-ux-ico-text-input-combo" slot="startIcon"></span>List of Values</oj-option>
+            <oj-option id="Chart" value="Chart"><span class="oj-ux-ico-chart" slot="startIcon"></span>Chart</oj-option>
+            <oj-option id="Checkbox Set" value="Checkbox Set"><span class="oj-ux-ico-checkbox-set" slot="startIcon"></span>Checkbox Set</oj-option>
+            <oj-option id="Editable Rows" value="Editable Rows"><span class="oj-ux-ico-tables-basic" slot="startIcon"></span>Editable Rows</oj-option>
+            <oj-option id="Navigation" value="Navigation"><span class="oj-ux-ico-film-strip" slot="startIcon"></span>Navigation</oj-option>
+          </oj-menu>
+        </oj-menu-button>
+      </div>
+      <div class="oj-flex oj-flex-item" data-vb-layout-type="flex">
+        <oj-input-search id="oj-sp-welcome-page-search1" aria-label="Search Recipes" placeholder="Search Recipes"
+          on-raw-value-changed="[[ function (event) { $page.functions.onRawValueListener(event) } ]]"
+          value="{{ $variables.fullText }}"
+          suggestions="[[ $application.functions.getMatchedRecipes($page.variables.filter) ]]"
+          on-oj-value-action="[[$listeners.ojSpWelcomePageSearch1ValueAction]]">
+          <template slot="suggestionItemTemplate">
+            <oj-highlight-text
+                    text='[[$current.data.label]]'
+                    match-text="[[$current.searchText]]"></oj-highlight-text>
+          </template>
+        </oj-input-search>
+      </div>
+      <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-start">
+        <oj-bind-if test="[[ $variables.showDashboardPanels === false ]]">
+          <oj-button display="icons" chroming="outlined" on-oj-action="[[$listeners.buttonAction3]]"
+            aria-label="Clear search criteria">
+            <span slot="startIcon" class="oj-ux-ico-eraser"></span>
+          </oj-button>
+        </oj-bind-if>
+      </div>
+    </div>
+  </div>
+
+  <div>
+
+    <!-- Search Results list view code: -->
+    <oj-bind-if test="[[ $variables.showDashboardPanels === false ]]">
+      <oj-sp-collection-container id="sfs_cc">
+        <oj-list-view class="oj-flex-item" data="[[$application.functions.getMatchedRecipes($variables.filter, $variables.fullText)]]" selection-mode="none"
+          display="card" drill-mode="none" scroll-policy="loadMoreOnScroll"
+          scroll-policy-options.scroller="[[ document.documentElement ]]">
+          <template slot="noData">
+            <span>There are no recipes matching this search criteria. <a on-click="[[$listeners.hyperlinkClick2]]">Reset search form</a>?</span>
+          </template>
+          <template slot="itemTemplate" data-oj-as="item">
+            <li class="demo-card">
+              <oj-vb-fragment bridge="[[vbBridge]]" name="recipeactioncard" class="recipe-action-card"
+                on-clicked="[[$listeners.fragmentClicked]]">
+                <oj-vb-fragment-param name="recipe" value="[[ item.data ]]"></oj-vb-fragment-param>
+              </oj-vb-fragment>
+            </li>
+          </template>
+
+        </oj-list-view>
+      </oj-sp-collection-container>
+    </oj-bind-if>
+
+    <!-- Dashboard code: -->
+    <oj-bind-if test="[[ $variables.showDashboardPanels === true ]]">
+      <div class="oj-sm-margin-2x-top oj-sm-margin-1x-bottom">
+        <span class="oj-typography-body-sm oj-typography-bold tiles-heading">Explore Recipes by Category</span>
+      </div>
+
+      <div class="oj-flex oj-sm-12 oj-md-12 tile-wrapper-div">
+
+        <!-- first column: Components -->
+        <div class="oj-flex-item oj-flex oj-sm-12 oj-md-6 oj-lg-4 oj-sm-only-padding-1x">
+
+          <!-- Components tile: -->
+          <div class="oj-flex-item oj-sm-padding-4x components-tile">
+            <div class="oj-flex oj-sm-flex-direction-column">
+              <div class="oj-flex-item oj-flex">
+                <span class="oj-typography-subheading-md">
+                Components
+              </span>
+              </div>
+              <div class="oj-flex-item oj-flex oj-sm-padding-4x-bottom tile-desc-div">
+                <span class="oj-typography-body-sm">
+                  Practical examples of how to use Oracle JET components inside an Oracle Visual Builder application. For example, how to create an editable Table component using <code>BufferingDataProvider</code>, how to control multiple selection in a Table component, advanced customization of a Data Grid component, various ways to populate and render a Select (Single) component, how to code tree navigation or row expander, and more . . .
+                </span>
+              </div>
+              <div class="oj-flex-item oj-sm-flex-initial">
+                <oj-bind-for-each data="[[$application.functions.getCategoryRecipes('Components', true)]]">
+                  <template>
+                    <div class="oj-flex-item oj-flex oj-sm-padding-1x-top oj-typography-body-sm">
+                      <a on-click="[[$listeners.hyperlinkClick]]" class="tooltip recipeLink">
+                        <span>
+                          <oj-bind-text value="[[ $current.data.label ]]"></oj-bind-text>
+                        </span>
+                      </a>
+                      <div class="oj-typography-body-sm oj-sm-padding-4x-left tooltip-body">
+                        <oj-vb-fragment bridge="[[vbBridge]]" name="recipeactioncard" class="recipe-action-card">
+                          <oj-vb-fragment-param name="recipe" value="[[ $current.data ]]"></oj-vb-fragment-param>
+                        </oj-vb-fragment>
+                      </div>
+                    </div>
+                  </template>
+                </oj-bind-for-each>
+                <div class="oj-flex oj-sm-padding-1x-top tooltip">
+                  <a on-click="[[$listeners.moreComponentsClick]]" class="recipeLink">
+                    <span class="oj-typography-body-lg oj-typography-semi-bold recipeLink">More . . .</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- second column: REST + Dynamic -->
+        <div class="oj-flex-item oj-flex oj-sm-12 oj-md-6 oj-lg-4">
+
+          <!-- REST tile: -->
+          <div class="oj-flex-item oj-sm-padding-4x oj-sm-margin-1x-start oj-sm-margin-1x-end rest-tile">
+            <div class="oj-flex oj-sm-flex-direction-column">
+              <div class="oj-flex-item oj-flex oj-sm-padding-2x-bottom">
+                <span class="oj-typography-subheading-md">
+                  REST Services
+                </span>
+              </div>
+              <div class="oj-flex-item oj-flex oj-sm-padding-4x-bottom tile-desc-div">
+                <span class="oj-typography-body-sm">
+                  Demonstrates how to integrate Oracle REST Data Services into an Oracle Visual Builder application, how to upload and download attachments from Oracle Content Management or Oracle Fusion Applications, how to batch multiple changes into a single REST transaction, upload CSV files, use Oracle Visual Builder's REST Helper API, and more . . .
+                </span>
+              </div>
+              <div class="oj-flex-item oj-sm-flex-initial">
+                <oj-bind-for-each data="[[$application.functions.getCategoryRecipes('REST', true)]]">
+                  <template>
+                    <div class="oj-flex-item oj-flex oj-sm-padding-1x-top oj-typography-body-sm">
+                      <a on-click="[[$listeners.hyperlinkClick]]" class="tooltip recipeLink">
+                        <span>
+                          <oj-bind-text value="[[ $current.data.label ]]"></oj-bind-text>
+                        </span>
+                      </a>
+                      <div class="oj-typography-body-sm oj-sm-padding-4x-left tooltip-body">
+                        <oj-vb-fragment bridge="[[vbBridge]]" name="recipeactioncard" class="recipe-action-card">
+                          <oj-vb-fragment-param name="recipe" value="[[ $current.data ]]"></oj-vb-fragment-param>
+                        </oj-vb-fragment>
+                      </div>
+                    </div>
+                  </template>
+                </oj-bind-for-each>
+                <div class="oj-flex oj-sm-padding-1x-top tooltip">
+                  <a class="recipeLink" on-click="[[$listeners.moreRestClick]]">
+                    <span class="oj-typography-body-lg oj-typography-semi-bold recipeLink">More . . .</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic tile: -->
+          <div
+            class="oj-flex-item oj-sm-padding-4x oj-sm-margin-1x-start oj-sm-margin-1x-end oj-sm-margin-1x-top dynamic-tile">
+            <div class="oj-flex oj-sm-flex-direction-column">
+              <div class="oj-flex-item oj-flex oj-sm-padding-2x-bottom">
+                <span class="oj-typography-subheading-md">
+                   Dynamic Components
+                </span>
+              </div>
+              <div class="oj-flex-item oj-flex oj-sm-padding-4x-bottom tile-desc-div">
+                <span class="oj-typography-body-sm">
+                  Basic usage examples of the Dynamic Table and Dynamic Form components, plus how to customize these components.</span>
+              </div>
+              <div class="oj-flex-item oj-sm-flex-initial">
+                <oj-bind-for-each data="[[$application.functions.getCategoryRecipes('Dynamic', true)]]">
+                  <template>
+                    <div class="oj-flex-item oj-flex oj-sm-padding-1x-top oj-typography-body-sm">
+                      <a on-click="[[$listeners.hyperlinkClick]]" class="tooltip recipeLink">
+                        <span>
+                          <oj-bind-text value="[[ $current.data.label ]]"></oj-bind-text>
+                        </span>
+                      </a>
+                      <div class="oj-typography-body-sm oj-sm-padding-4x-left tooltip-body">
+                        <oj-vb-fragment bridge="[[vbBridge]]" name="recipeactioncard" class="recipe-action-card">
+                          <oj-vb-fragment-param name="recipe" value="[[ $current.data ]]"></oj-vb-fragment-param>
+                        </oj-vb-fragment>
+                      </div>
+                    </div>
+                  </template>
+                </oj-bind-for-each>
+                <div class="oj-flex oj-sm-padding-1x-top tooltip">
+                  <a class="recipeLink" on-click="[[$listeners.moreDynamicClick]]">
+                    <span class="oj-typography-body-lg oj-typography-semi-bold recipeLink">More . . .</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- third column: PWA + Application -->
+        <div class="oj-flex-item oj-flex oj-sm-12 oj-md-12 oj-lg-4 oj-sm-only-padding-1x">
+          <div class="oj-flex-item oj-flex oj-sm-12 oj-md-6 oj-lg-12">
+
+            <!-- PWA tile: -->
+            <div class="oj-flex-item oj-sm-padding-4x pwa-tile"
+              :style.height="[[ $application.responsive.mdOnly ? '380px' : '270px' ]]"
+              :style.margin-top="[[ $application.responsive.mdOnly ? '5px' : '' ]]">
+              <div class="oj-flex oj-sm-flex-direction-column">
+                <div class="oj-flex-item oj-flex oj-sm-padding-2x-bottom">
+                  <span class="oj-typography-subheading-md">
+                  Progressive Web Apps
+                </span>
+                </div>
+                <div class="oj-flex-item oj-flex oj-sm-padding-4x-bottom tile-desc-div">
+                  <span class="oj-typography-body-sm">
+                    Learn how to use browser support for Progressive Web Apps and enhance Oracle Visual Builder applications with device-specific features.
+              </span>
+                </div>
+                <div class="oj-flex-item oj-sm-flex-initial">
+                  <oj-bind-for-each data="[[$application.functions.getCategoryRecipes('PWA', true)]]">
+                    <template>
+                      <div class="oj-flex-item oj-flex oj-sm-padding-1x-top oj-typography-body-sm">
+                        <a on-click="[[$listeners.hyperlinkClick]]" class="tooltip recipeLink">
+                          <span>
+                          <oj-bind-text value="[[ $current.data.label ]]"></oj-bind-text>
+                        </span>
+                        </a>
+                        <div class="oj-typography-body-sm oj-sm-padding-4x-left tooltip-body">
+                          <oj-vb-fragment bridge="[[vbBridge]]" name="recipeactioncard" class="recipe-action-card">
+                            <oj-vb-fragment-param name="recipe" value="[[ $current.data ]]"></oj-vb-fragment-param>
+                          </oj-vb-fragment>
+                        </div>
+                      </div>
+                    </template>
+                  </oj-bind-for-each>
+                  <div class="oj-flex oj-sm-padding-1x-top tooltip">
+                    <a class="recipeLink" on-click="[[$listeners.morePWAClick]]">
+                      <span class="oj-typography-body-lg oj-typography-semi-bold recipeLink">More . . .</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="oj-flex-item oj-flex oj-sm-12 oj-md-6 oj-lg-12">
+
+            <!-- Application tile: -->
+            <div class="oj-flex-item oj-sm-padding-4x oj-sm-margin-1x-top application-tile"
+              :style.margin-left="[[ $application.responsive.mdOnly ? '5px' : '' ]]"
+              :style.margin-right="[[ $application.responsive.mdOnly ? '5px' : '' ]]">
+              <div class="oj-flex oj-sm-flex-direction-column">
+                <div class="oj-flex-item oj-flex oj-sm-padding-2x-bottom">
+                  <span class="oj-typography-subheading-md">
+                  Application
+                </span>
+                </div>
+                <div class="oj-flex-item oj-flex oj-sm-padding-4x-bottom tile-desc-div">
+                  <span class="oj-typography-body-sm">
+                    Includes common application coding patterns and techniques, page layouts, details on how to write custom validation or switch language, and more . . .
+                </span>
+                </div>
+                <div class="oj-flex-item oj-sm-flex-initial">
+                  <oj-bind-for-each data="[[$application.functions.getCategoryRecipes('Application', true)]]">
+                    <template>
+                      <div class="oj-flex-item oj-flex oj-sm-padding-1x-top oj-typography-body-sm">
+                        <a on-click="[[$listeners.hyperlinkClick]]" class="tooltip recipeLink">
+                          <span>
+                          <oj-bind-text value="[[ $current.data.label ]]"></oj-bind-text>
+                        </span>
+                        </a>
+                        <div class="oj-typography-body-sm oj-sm-padding-4x-left tooltip-body">
+                          <oj-vb-fragment bridge="[[vbBridge]]" name="recipeactioncard" class="recipe-action-card">
+                            <oj-vb-fragment-param name="recipe" value="[[ $current.data ]]"></oj-vb-fragment-param>
+                          </oj-vb-fragment>
+                        </div>
+                      </div>
+                    </template>
+                  </oj-bind-for-each>
+                  <div class="oj-flex oj-sm-padding-1x-top">
+                    <a class="recipeLink" on-click="[[$listeners.moreApplicationClick]]">
+                      <span class="oj-typography-body-lg oj-typography-semi-bold recipeLink">More . . .</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      
+
+    </oj-bind-if>
+
+  </div>
+
+</oj-sp-welcome-page>
+</oj-bind-if>

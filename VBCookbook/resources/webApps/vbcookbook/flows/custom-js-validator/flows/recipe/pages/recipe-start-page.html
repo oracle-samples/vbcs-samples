@@ -32,7 +32,7 @@
 				<li>In the JavaScript tab of the page, create <code>validateText</code> and <code>validateDate</code>
 					JavaScript functions to implement custom validation logic for both the text and date fields.</li>
 
-				<pre>PageModule.prototype.validateText = function () {
+				<pre>validateText() {
     return [{
       validate: (value) => {
         if (value == null || String(value) == "") {
@@ -52,7 +52,7 @@
     }];
   };</pre>
 
-				<pre>PageModule.prototype.validateDate = function (futureDate) {    
+				<pre>validateDate(futureDate) {    
     return [{
       validate: (value) => {
         if (value == null || String(value) == "") {
@@ -74,7 +74,7 @@
   };</pre>
 
 				<li>Create a <code>validateForm</code> JavaScript function to call each field's validation.</li>
-				<pre>PageModule.prototype.validateForm = function (arg1) {
+				<pre>validateForm(arg1) {
     document.getElementById("text1").validate();
     document.getElementById("date1").validate();
 
@@ -93,7 +93,7 @@
 
 
         <li>Create a <code>getFutureDate</code> JavaScript function to get the date seven days from today.</li>
-				<pre>PageModule.prototype.getFutureDate = function () {
+				<pre>getFutureDate() {
           var today = new Date();
           today.setDate(today.getDate() + 7); 
           return today;

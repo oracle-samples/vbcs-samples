@@ -24,11 +24,11 @@
       </oj-radioset>
       <div></div>
 
-      <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+      <oj-dyn-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
         layout="contextBasedForm" value="{{ $variables.employee }}"
         value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
         rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" context="[[$page.variables.profileType]]"
-        style="width: 600px; width: 100%;" id="oj-dynamic-form-context"></oj-dynamic-form>
+        style="width: 600px; width: 100%;" id="oj-dyn-form-context"></oj-dyn-form>
     </div>
   </div>
   <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">

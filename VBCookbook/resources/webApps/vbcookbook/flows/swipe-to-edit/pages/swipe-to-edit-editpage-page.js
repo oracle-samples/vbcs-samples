@@ -4,25 +4,27 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([], function () {
-  'use strict';
+  "use strict";
 
-  var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
 
-  /**
-   *
-   * @param {String} arg1
-   * @return {String}
-   */
-  PageModule.prototype.validate_form = function (arg1) {
-    const el = document.getElementById(arg1);
-    if (el.valid === "valid") {
-      return true;
-    } else {
-      el.showMessages();
-      el.focusOn('@firstErrorShown');
-      return false;
+    /**
+     *
+     * @param {String} arg1
+     * @return {String}
+     */
+    validate_form(arg1) {
+      const el = document.getElementById(arg1);
+      if (el.valid === "valid") {
+        return true;
+      } else {
+        el.showMessages();
+        el.focusOn("@firstErrorShown");
+        return false;
+      }
     }
-  };
+  }
 
   return PageModule;
 });

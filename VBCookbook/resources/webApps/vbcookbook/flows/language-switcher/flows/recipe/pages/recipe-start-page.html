@@ -115,7 +115,7 @@
           </li>
           <li>In the JavaScript tab of the page, add following code:
             <pre>
-PageModule.prototype.setAppLanguage = function(selectedLocale){
+setAppLanguage(selectedLocale){
    if (selectedLocale)  {
       window.localStorage.setItem('vbcs.languageSwitcherApplication.locale',selectedLocale);
    }

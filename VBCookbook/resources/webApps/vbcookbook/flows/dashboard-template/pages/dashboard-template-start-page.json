@@ -143,9 +143,6 @@
       "oj-chart-item": {
         "path": "ojs/ojchart"
       },
-      "oj-dynamic-form": {
-        "path": "oj-dynamic/form/loader"
-      },
       "oj-list-item-layout": {
         "path": "ojs/ojlistitemlayout"
       },

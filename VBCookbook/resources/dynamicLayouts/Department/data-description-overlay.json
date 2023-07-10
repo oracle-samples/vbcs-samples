@@ -1,0 +1,8 @@
+{
+  "replaceMetadata": {
+    "totalSalary": {
+      "layoutDiscriminant": "globalTmplSalary",
+      "labelHint": "Total Salary"
+    }
+  }
+}

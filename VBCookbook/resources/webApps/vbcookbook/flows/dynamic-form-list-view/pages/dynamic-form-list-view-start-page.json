@@ -78,8 +78,8 @@
   "eventListeners": {},
   "imports": {
     "components": {
-      "oj-dynamic-form": {
-        "path": "oj-dynamic/form/loader"
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
       },
       "oj-list-item-layout": {
         "path": "ojs/ojlistitemlayout"
@@ -87,6 +87,7 @@
       "oj-list-view": {
         "path": "ojs/ojlistview"
       }
+
     }
   }
 }

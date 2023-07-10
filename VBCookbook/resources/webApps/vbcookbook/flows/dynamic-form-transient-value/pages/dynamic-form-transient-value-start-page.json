@@ -43,7 +43,7 @@
     "createEmployeeRequest": "object"
   },
   "eventListeners": {
-    "ojDynamicFormTransientValue": {
+    "ojDynFormTransientValue": {
       "chains": [
         {
           "chainId": "DynamicFormTransientValueChangeChain",
@@ -66,8 +66,8 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       },
-      "oj-dynamic-form": {
-        "path": "oj-dynamic/form/loader"
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
       },
       "oj-label": {
         "path": "ojs/ojlabel"
@@ -81,6 +81,7 @@
       "oj-validation-group": {
         "path": "ojs/ojvalidationgroup"
       }
+
     }
   }
 }

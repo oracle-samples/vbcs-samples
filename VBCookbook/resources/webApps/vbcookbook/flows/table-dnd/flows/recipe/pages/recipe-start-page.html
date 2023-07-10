@@ -78,7 +78,7 @@
           <li>Add a JavaScript module function named <code>handleDropRows</code>:
             <pre>
             <code>
-PageModule.prototype.handleDropRows = function(event, ui) {
+handleDropRows(event, ui) {
   var dragData = event.dataTransfer.getData(
     'application/ojtablerows+json');
 
@@ -106,7 +106,7 @@ PageModule.prototype.handleDropRows = function(event, ui) {
           <li>Add a Call Module Function named <code>addRows</code>:
             <pre>
             <code>
-PageModule.prototype.addRows = function(data, rows, startIndex) {
+addRows(data, rows, startIndex) {
   return data.slice(0, startIndex).concat(rows).concat(data.slice(
     startIndex))
 };

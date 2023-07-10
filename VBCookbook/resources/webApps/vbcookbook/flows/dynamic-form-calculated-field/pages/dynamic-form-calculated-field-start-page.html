@@ -13,11 +13,11 @@
       <div class="oj-flex-item oj-sm-12 oj-md-12">
         <h3>Employee Details</h3>
         <oj-bind-if test="[[ true ]]">
-          <oj-dynamic-form metadata="[[ $metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+          <oj-dyn-form metadata="[[ $metadata.businessObjectsGetEmployeeMetadata.provider ]]"
             layout="employeeCalculatedField" value="{{ $variables.employee }}"
             value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
-            rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" id="oj-dynamic-form-calculated">
-          </oj-dynamic-form>
+            rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" id="oj-dyn-form-calculated">
+          </oj-dyn-form>
         </oj-bind-if>
       </div>
     </div>

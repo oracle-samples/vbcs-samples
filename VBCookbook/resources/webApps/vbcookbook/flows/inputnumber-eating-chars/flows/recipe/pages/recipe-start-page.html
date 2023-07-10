@@ -28,7 +28,7 @@
         <ol>
           <li>Add a <code>currentValue</code> page variable of type Number.</li>
           <li>Add the following function to the page's JS tab:
-            <pre>PageModule.prototype.isValidChar = function (event) {
+            <pre>isValidChar(event) {
 
   var charCode = (event.which) ? event.which : event.keyCode;
   var char = String.fromCharCode(charCode);

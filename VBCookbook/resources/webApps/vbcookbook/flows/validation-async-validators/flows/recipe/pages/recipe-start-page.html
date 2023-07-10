@@ -35,11 +35,11 @@
           <code>10000</code>.
           <br />
           <pre>
-PageModule.prototype.getAsyncValidator = function () {
+getAsyncValidator() {
   return this.asyncValidator;
 };
 
-PageModule.prototype.asyncValidator = [{
+asyncValidator = [{
   'validate': function (value) {
     var converterOption = {
       type: "number"
@@ -80,7 +80,7 @@ PageModule.prototype.asyncValidator = [{
           Write a function, <code>validateGroup</code>, to validate the input
           values.<br />
           <pre>
-PageModule.prototype.validateGroup = function (arg1) {
+validateGroup(arg1) {
     var tracker = document.getElementById("tracker");
     if (tracker.valid === "valid") {
     }
@@ -98,7 +98,7 @@ PageModule.prototype.validateGroup = function (arg1) {
         <li>
           Write a function, <code>waitTillPending</code>, to make the button action chain wait till the field validation completes.<br />
           <pre>
-PageModule.prototype.waitTillPending = function () {
+waitTillPending() {
     // make the button action wait till the
     // field validation gets over ie tracker 
     // status changes to something other than 'pending'

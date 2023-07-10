@@ -19,7 +19,9 @@
         scroll-policy="loadMoreOnScroll" header.column.style="[[$page.functions.columnHeaderStyle]]"
         style="height:400px">
         <template slot="cellTemplate" data-oj-as="cell">
-          <oj-bind-text value="{{cell.item.data.data}}"></oj-bind-text>
+            <div class="myItem">
+                <oj-bind-text value="{{cell.item.data.data}}"></oj-bind-text>
+            </div>
         </template>
       </oj-data-grid>
     </div>

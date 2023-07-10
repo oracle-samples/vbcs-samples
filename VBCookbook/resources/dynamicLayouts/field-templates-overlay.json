@@ -1,1 +1,16 @@
-{}
+{
+  "addTemplates": {
+    "globalSalaryTmpl": {
+      "title": "Global Salary Template",
+      "description": "Global Salary Template",
+      "extensible": "byReference"
+    }
+  },
+  "addTemplateMap": {
+    "singleValue": {
+      "$byLayoutDiscriminant": {
+        "globalTmplSalary": "globalSalaryTmpl"
+      }
+    }
+  }
+}

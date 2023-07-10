@@ -1,0 +1,23 @@
+{
+  "root": "assignVariablesFullText",
+  "description": "",
+  "variables": {
+    "event": {
+      "required": false,
+      "input": "fromCaller",
+      "type": {
+        "searchTerm": "string"
+      }
+    }
+  },
+  "actions": {
+    "assignVariablesFullText": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.fullText": {
+          "source": "{{ $variables.event.searchTerm }}"
+        }
+      }
+    }
+  }
+}

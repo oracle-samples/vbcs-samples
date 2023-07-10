@@ -123,7 +123,7 @@
           <li>Write a function that extracts the attachment ID from the Table component row that renders the
             <strong>Download</strong> hyperlink.
             <pre>
-PageModule.prototype.getRealAttachedDocumentId = function(row) {
+getRealAttachedDocumentId(row) {
     var href = row.links[0].href;
     var index = href.indexOf('/child/Attachments/') +
         '/child/Attachments/'.length;
@@ -140,7 +140,7 @@ PageModule.prototype.getRealAttachedDocumentId = function(row) {
             REST endpoint action as a file. You can specify
             the file name for the downloaded file using the <code>fileName</code> parameter.
             <pre>
- PageModule.prototype.download = function(blobData, contentType, fileName) {
+ download(blobData, contentType, fileName) {
     var element = document.createElement('a');
     element.setAttribute('href', this.preview(blobData, contentType));
     element.setAttribute('download', fileName);

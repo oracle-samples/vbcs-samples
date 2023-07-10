@@ -90,7 +90,7 @@
           </li>
           <li>In the function, set the <code>submitAddRow</code> property to <code>false</code> to submit the row.
             <pre>
-PageModule.prototype.submitRow = function (current) {
+submitRow(current) {
   current.submitAddRow(false);
 };</pre>
           </li>
@@ -98,7 +98,7 @@ PageModule.prototype.submitRow = function (current) {
           <li>Repeat the same steps for the Cancel button, but in the final step, set the <code>submitAddRow</code>
             property to <code>true</code> to cancel the submission.
             <pre>
-  PageModule.prototype.cancelRow = function (current) {
+  cancelRow(current) {
     current.submitAddRow(true);
   };
             </pre>
@@ -115,7 +115,7 @@ PageModule.prototype.submitRow = function (current) {
           
           
 <pre>
-PageModule.prototype.isFormValid = function (detail, event, rowType) {
+isFormValid(detail, event, rowType) {
 if (detail !== undefined && detail.cancelEdit == true) {
   return true;
 }

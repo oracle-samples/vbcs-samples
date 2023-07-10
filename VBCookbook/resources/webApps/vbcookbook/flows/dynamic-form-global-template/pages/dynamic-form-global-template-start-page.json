@@ -1,0 +1,125 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "department": {
+      "type": "object"
+    },
+    "departmentDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "departmentDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadDepartmentChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.departmentDetailFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employee": {
+      "type": "object"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chainId": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse",
+        "uriParameters": {
+          "q": "{{ \"department=6\" }}"
+        }
+      }
+    },
+    "path": {
+      "type": {
+        "applicationPath": "string"
+      },
+      "defaultValue": {
+        "applicationPath": "[[$application.path]]"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetDepartmentMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Department"
+      }
+    },
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+
+        }
+      ]
+    }
+  },
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-label-value": {
+        "path": "ojs/ojlabelvalue"
+      },
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      }
+
+    }
+  }
+}

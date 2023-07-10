@@ -1,0 +1,217 @@
+<!--
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  To use this recipe, you need to install components from the Component
+  Exchange. Your Visual Builder administrator must have configured your Visual
+  Builder instance for you to be able to
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
+    with the Component Exchange</a>.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Department Form</h1>
+      <div>
+        <ol>
+          <li>
+            Install the Dynamic Form component from the Component Exchange,
+            then drag and drop it on the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object (Department in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Global Field Template</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and then click
+            <strong>Next</strong>.
+            <ul>
+              <li><code>departmentName</code></li>
+              <li><code>totalSalary</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog,
+            provide the value of <code>6</code> for the
+            <code>departmentId</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create an Employee List Form</h1>
+      <div>
+        <ol>
+          <li>
+            In the Component Palette, drag a List View component and drop it on the page. Use the List View component's
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              Data Quick Start</a> to select the Employee business object from which to  to add
+            data. Select the following fields to render in the List View component:
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+            </ul>
+          </li>
+          <li>In the data provider for Employee List (employeeListSDP), set the query parameter as "department=6" so
+            that only that particular department's employees show up in the list.</li>
+          <li>
+            Drag and drop another instance of the Dynamic Form component onto the Page Designer just beside
+            Department form.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure as Detail Form</strong>.
+          </li>
+          <li>
+            In the Configure as Detail Form dialog that appears, choose the
+            business object (Employee in this case) or REST endpoint that you
+            want to use as the data source for the form, and click
+            <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure as Detail Form dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Global Field Template</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and then click
+            <strong>Next</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+            </ul>
+          </li>
+          <li>
+            In the Define Query page of the Configure as Detail Form dialog,
+            provide the value of <code>100</code> for the
+            <code>Employee_Id</code> parameter in the Target section, then click
+            <strong>Finish</strong>.
+          </li>
+          <li>In the All tab of the Properties pane for the Dynamic Form, set the value as
+            <code>value="{{ $current.data }}"</code>.
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Create the Form Template for Employee</h1>
+      <div>
+        <p>
+          Create a form template to improve the UI of the List View component.
+        </p>
+        <ol>
+          <li>In the Layouts tab, open the <strong>Employee</strong> layout.</li>
+          <li>
+            Open the default layout inside <code>Employee List View Layout</code> that you created while
+            creating the Dynamic Form. Here you can choose to render fullName instead of firstName and lastName by
+            creating a
+            <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/design-pages.html#GUID-9D07DA65-EC29-4B6C-822F-FF0E9283723D">custom
+              calculated field</a>.
+          </li>
+          <li>
+            In the Form Template property of the Properties pane, click <strong>Create</strong> to create a new form
+            template, and name it <code>Employee List View Template</code>.
+          </li>
+          <li>To style the Dynamic Form in the List View, open the Code view for
+            <code>Employee List View Template</code>.
+          </li>
+          <li>In the Components Palette drag a Dynamic Field Binding component, drop it inside the template, and bind it
+            with the <code>email</code> field. You can do this for all other fields. You can also add an Avatar
+            component and bind it with the appropriate image path.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-4">
+      <h1 slot="header">Add the Global Field Template to the Salary Field</h1>
+      <div>
+        <ol>
+          <li>Open the 'Source' view from left side panel and create two files under <code>dynamicLayouts</code> section
+            to add the code for global field template:
+            <ul>
+              <li>field-templates-overlay.html</li>
+              <li>field-templates-overlay.json</li>
+            </ul>
+          </li>
+          <li>Open the field-templates-overlay.html to add the template for salary field like below:
+            <code><pre>
+&lt;template id='globalSalaryTmpl'>
+    &lt;oj-input-number  converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
+    data-oj-field="[[$fieldName]]" value="{{$value}}" label-hint="[[$labelHint]]" readonly="true">
+    &lt;/oj-input-number>
+&lt;/template>
+</pre></code>
+          </li>
+          <li>Open the field-templates-overlay.json- and
+            <code><pre>
+{
+  "addTemplates": {
+    "globalSalaryTmpl": {
+      "title": "Global Salary Template",
+      "description": "Global Salary Template",
+      "extensible": "byReference"
+    }
+  },
+  "addTemplateMap": {
+    "singleValue": {
+      "$byLayoutDiscriminant": {
+        "globalTmplSalary": "globalSalaryTmpl"
+      }
+    }
+  }
+}
+</pre></code>
+          </li>
+          <li>Open the <code>data-description-overlay.json</code> file for Employee layout and add the following code to
+            apply the global template to the value of salary field
+            <code><pre>
+  "replaceMetadata": {
+    "salary": {
+      "layoutDiscriminant": "globalTmplSalary"
+    }
+  }
+  </pre></code>
+          </li>
+          <li>Open the <code>data-description-overlay.json</code> file for Department layout and add the following code to
+            apply the global template to the value of salary field and set the label
+            <code><pre>
+  "replaceMetadata": {
+    "totalSalary": {
+      "layoutDiscriminant": "globalTmplSalary",
+      "labelHint": "Total Salary"
+    }
+  }
+  </pre></code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

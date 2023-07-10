@@ -3,21 +3,29 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['knockout', 'ojs/ojflattenedtreedataproviderview', 'ojs/ojarraytreedataprovider',
-  'ojs/ojknockouttemplateutils'],
-  function (ko, FlattenedTreeDataProviderView, ArrayTreeDataProvider, KnockoutTemplateUtils) {
-    'use strict';
+define([
+  "knockout",
+  "ojs/ojflattenedtreedataproviderview",
+  "ojs/ojarraytreedataprovider",
+  "ojs/ojknockouttemplateutils",
+], function (
+  ko,
+  FlattenedTreeDataProviderView,
+  ArrayTreeDataProvider,
+  KnockoutTemplateUtils
+) {
+  "use strict";
 
-    var PageModule = function PageModule() {
+  class PageModule {
+    constructor() {
       this.dataSource = ko.observable();
       this.KnockoutTemplateUtils = KnockoutTemplateUtils;
+    }
 
-    };
-
-    PageModule.prototype.convertArrayIntoTree = function (employeeArray) {
+    convertArrayIntoTree(employeeArray) {
       var empPerManager = {};
       var ceo;
-      employeeArray.forEach(e => {
+      employeeArray.forEach((e) => {
         if (e.manager === undefined || e.manager === null || e.manager === 0) {
           ceo = e;
         } else {
@@ -34,22 +42,26 @@ define(['knockout', 'ojs/ojflattenedtreedataproviderview', 'ojs/ojarraytreedatap
         result.push(element);
         if (empPerManager[emp.id] !== undefined) {
           var children = [];
-          empPerManager[emp.id].forEach(e => addEmployee(e, children));
+          empPerManager[emp.id].forEach((e) => addEmployee(e, children));
           element.children = children;
         }
-      }
+      };
       addEmployee(ceo, r);
       return r;
     }
 
-    PageModule.prototype.updateTreeDataProvider = function (employeeArray) {
+    updateTreeDataProvider(employeeArray) {
       var tree = this.convertArrayIntoTree(employeeArray);
-      var arrayTreeDataProvider = new ArrayTreeDataProvider(tree, { keyAttributes: 'id' });
+      var arrayTreeDataProvider = new ArrayTreeDataProvider(tree, {
+        keyAttributes: "id",
+      });
       this.dataSource(new FlattenedTreeDataProviderView(arrayTreeDataProvider));
     }
-    PageModule.prototype.getTreeDataProvider = function () {
+
+    getTreeDataProvider() {
       return this.dataSource;
     }
+  }
 
-    return PageModule;
-  });
+  return PageModule;
+});

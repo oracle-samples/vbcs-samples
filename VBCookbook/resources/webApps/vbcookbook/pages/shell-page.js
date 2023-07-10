@@ -3,28 +3,26 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define([
-  'text!resources/LICENSE-download.txt'
-], function(license) {
-  'use strict';
+define(["text!resources/LICENSE-download.txt"], function (license) {
+  "use strict";
 
-  const PageModule = function PageModule() {};
+  class PageModule {
+    wait(ms) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, ms);
+      });
+    }
 
-  PageModule.prototype.wait = function (ms) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, ms);
-    });
-  };
+    
 
-  
+    
 
-  
-
-  PageModule.prototype.getLicense = function () {
-    return license;
-  };
+    getLicense() {
+      return license;
+    }
+  }
 
   return PageModule;
 });

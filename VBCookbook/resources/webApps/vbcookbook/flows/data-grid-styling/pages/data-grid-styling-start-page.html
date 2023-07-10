@@ -15,9 +15,9 @@
       data="[[ $variables.data ]]" selection-mode.cell="multiple" scroll-policy="loadMoreOnScroll"
       header.column.resizable='{"width":"enable", "height":"enable"}'
       header.row.resizable='{"width":"enable", "height":"enable"}'
-      header.column.class-name="[[$functions.getColumnHeaderClassName]]"
+      header.column.class-name="[[ function(ctx) { $page.functions.getColumnHeaderClassName(ctx) } ]]" 
       header.column.style="[[$functions.columnHeaderStyle]]" header.row.style="width:50px;"
-      cell.class-name="[[ $functions.getCellClassName]]" style="height:400px">
+      cell.class-name="[[ function(ctx) { $page.functions.getCellClassName(ctx) } ]]" style="height:400px">
       <template slot="cellTemplate" data-oj-as="cell">
         <oj-bind-if test="[[cell.item.columnIndex==$constants.colBalance ]]">
           <span :class="[[cell.item.data.data > 0 ? 'oj-bg-success-30' : 'oj-bg-danger-30']]">

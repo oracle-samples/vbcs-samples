@@ -3,17 +3,20 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define(['ojs/ojarraytreedataprovider'], function (ArrayTreeDataProvider) {
-  'use strict';
+define(["ojs/ojarraytreedataprovider"], function (ArrayTreeDataProvider) {
+  "use strict";
 
-  var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
 
-  PageModule.prototype.buildDept = function (myarray) {
-    return new ArrayTreeDataProvider(myarray, {
-      keyAttributes: 'id',
-      keyAttributesScope: 'siblings',
-      childrenAttribute: 'employeeCollection.items'
-    });
+    buildDept(myarray) {
+      return new ArrayTreeDataProvider(myarray, {
+        keyAttributes: "id",
+        keyAttributesScope: "siblings",
+        childrenAttribute: "employeeCollection.items",
+      });
+    }
   }
+
   return PageModule;
 });

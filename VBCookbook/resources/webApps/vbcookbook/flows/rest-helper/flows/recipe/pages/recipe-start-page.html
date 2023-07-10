@@ -63,7 +63,7 @@
     <div>
       <pre>
                 <code>
-PageModule.prototype.uniqueEmailValidator = function() {
+uniqueEmailValidator() {
     return {
         hint: Promise.resolve('Provide a unique email to the Employee'),
         validate: value => {
@@ -94,7 +94,7 @@ PageModule.prototype.uniqueEmailValidator = function() {
     <div>
       <pre>
                 <code>
-PageModule.prototype.regexpEmailValidator = function() {
+regexpEmailValidator() {
   return new AsyncRegExpValidator({
       pattern: "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})",
       hint: "Enter an email address.",

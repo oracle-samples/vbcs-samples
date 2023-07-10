@@ -4,21 +4,23 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([], function () {
-  'use strict';
+  "use strict";
 
-  var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
 
-  PageModule.prototype.getRatingColor = function (value) {
-    if (value >= 0 && value <= 1) {
-      return 'red';
-    } else if (value > 1 && value <= 2) {
-      return 'pink';
-    } else if (value > 2 && value <= 3) {
-      return 'orange';
-    } else if (value > 3 && value <= 4) {
-      return 'blue';
-    } else if (value > 4) {
-      return 'green';
+    getRatingColor(value) {
+      if (value >= 0 && value <= 1) {
+        return "red";
+      } else if (value > 1 && value <= 2) {
+        return "pink";
+      } else if (value > 2 && value <= 3) {
+        return "orange";
+      } else if (value > 3 && value <= 4) {
+        return "blue";
+      } else if (value > 4) {
+        return "green";
+      }
     }
   }
 

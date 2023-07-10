@@ -26,12 +26,13 @@
       </div>
     </div>
 
-    <oj-data-grid data="{{ $variables.data }}" scroll-policy="loadMoreOnScroll"
+    <oj-data-grid id="datagrid" data="{{ $variables.data }}" scroll-policy="loadMoreOnScroll"
       header.column.resizable='{"width":"enable", "height":"enable"}'
       header.column.style="[[$functions.columnHeaderStyle]]" edit-mode="cellEdit"
-      header.column.class-name="[[$functions.getHeaderClassName]]" style="height:415px"
-      on-oj-before-edit="[[$page.functions.onBeforeEdit]]" on-oj-before-edit-end="[[$page.functions.onBeforeEditEnd]]"
-      cell.class-name="[[$functions.getCellClassName]]">
+      header.column.class-name="[[ function(ctx) { $page.functions.getHeaderClassName(ctx) } ]]" style="height:415px"
+      on-oj-before-edit="[[function(event) { $page.functions.onBeforeEdit(event) } ]]"
+      on-oj-before-edit-end="[[ function(event) { $page.functions.onBeforeEditEnd(event) } ]]"
+      cell.class-name="[[ function(ctx) { $page.functions.getCellClassName(ctx) } ]]">
 
       <template slot="cellTemplate" data-oj-as="cell">
 

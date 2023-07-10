@@ -1,0 +1,38 @@
+{
+  "layoutTypes": {
+    "businessObjects": {
+      "kind": "operationRef",
+      "serviceId": "businessObjects",
+      "operations": [
+        "get_Department"
+      ]
+    }
+  },
+  "layouts": {
+    "isDefault": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "departmentGlobalTemplate": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "departmentGlobalTemplate",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "departmentName",
+              "totalSalary"
+            ],
+            "readonly": true
+          }
+        }
+      }
+    }
+  }
+}

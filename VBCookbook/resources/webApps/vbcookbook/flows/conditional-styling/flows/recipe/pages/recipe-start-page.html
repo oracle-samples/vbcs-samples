@@ -40,7 +40,7 @@
           </li>
           <li>In the JavaScript tab, add a new <code>function getRatingColor( value )</code> and return a custom color based on the input value.
           <pre>
-PageModule.prototype.getRatingColor = function (value) {
+getRatingColor(value) {
     if (value >= 0 && value <= 1) {
       return 'red';
     } else if (value > 1 && value <= 2) {

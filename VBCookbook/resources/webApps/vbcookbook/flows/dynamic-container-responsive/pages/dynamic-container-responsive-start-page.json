@@ -92,9 +92,10 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       },
-      "oj-dynamic-container": {
-        "path": "oj-dynamic/container/loader"
+      "oj-dyn-container": {
+        "path": "oj-dyn/container/loader"
       }
+
     }
   },
   "layouts": {

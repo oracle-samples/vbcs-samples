@@ -42,9 +42,10 @@
   "eventListeners": {},
   "imports": {
     "components": {
-      "oj-dynamic-form": {
-        "path": "oj-dynamic/form/loader"
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
       }
+
     }
   }
 }

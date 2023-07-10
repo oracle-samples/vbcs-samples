@@ -1,3 +1,7 @@
 {
-  "globIgnores": [ "**/*.png" ]
+  "globIgnores": [
+    "**/*.png",
+    "**/*.woff",
+    "**/*.svg"
+  ]
 }

@@ -3,17 +3,17 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define([], function() {
-  'use strict';
+define([], function () {
+  "use strict";
 
-  var PageModule = function PageModule() {};
+  class PageModule {
+    constructor() {}
 
-  PageModule.prototype.areDifferent = function(oldValue, newValue) {
-    if(JSON.stringify(newValue) === JSON.stringify(oldValue))
-    return false
-    else 
-    return true;
-  };
+    areDifferent(oldValue, newValue) {
+      if (JSON.stringify(newValue) === JSON.stringify(oldValue)) return false;
+      else return true;
+    }
+  }
 
   return PageModule;
 });

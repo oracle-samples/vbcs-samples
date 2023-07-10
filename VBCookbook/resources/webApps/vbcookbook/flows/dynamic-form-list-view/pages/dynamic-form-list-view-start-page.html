@@ -15,12 +15,12 @@
 
         <template slot="itemTemplate">
           <oj-bind-if test="[[ (null) !== undefined ]]">
-            <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+            <oj-dyn-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
               layout="employeeListViewLayout" value="{{ $current.data }}"
               value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
               rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" context="[[ $variables.path ]]"
               :id="[['dynamic-form-list-' + $current.index]]">
-            </oj-dynamic-form>
+            </oj-dyn-form>
           </oj-bind-if>
 
         </template>

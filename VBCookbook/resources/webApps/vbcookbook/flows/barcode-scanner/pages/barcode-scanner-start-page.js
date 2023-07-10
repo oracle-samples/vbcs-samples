@@ -4,18 +4,20 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([], function () {
-  'use strict';
+  "use strict";
 
-  var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
 
-  /**
-   *
-   * @param {String} arg1
-   * @return {String}
-   */
-  PageModule.prototype.createImageBitmap = function (fileBlob) {
-    return window.createImageBitmap(fileBlob);
-  };
+    /**
+     *
+     * @param {String} arg1
+     * @return {String}
+     */
+    createImageBitmap(fileBlob) {
+      return window.createImageBitmap(fileBlob);
+    }
+  }
 
   return PageModule;
 });

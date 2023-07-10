@@ -67,7 +67,7 @@
         <ol>
           <li><code>resetChanges</code> - resets all changes to the table before Save.
             <pre>
-  PageModule.prototype.resetChanges = function () {
+  resetChanges() {
     this.bufferingDP.resetAllUnsubmittedItems();
   }
           </pre>
@@ -75,8 +75,8 @@
           <li><code>setItemStatus</code> - sets the status of the rows to <code>submitted</code>,
             <code>submitting</code>, or <code>unsubmitted</code>.
             <pre>
-  PageModule.prototype.setItemStatus = function (editItem, status, error) {
-    bufferingDP.setItemStatus(editItem, status, error);
+  setItemStatus(editItem, status, error) {
+    this.bufferingDP.setItemStatus(editItem, status, error);
   };
           </pre>
           </li>

@@ -49,38 +49,42 @@
         </li>
         <li>In the JavaScript tab, write the following function to refresh the component content:
           <pre>
-// save the event helper to raise the custom event later
-var PageModule = function PageModule(context) {
-  this.eventHelper = context.getEventHelper();
-};
+class PageModule {
+  constructor(context) {
+    this.eventHelper = context.getEventHelper();
+    this.promiseResolver = {};
+  }
 
-// refresh-content function to use in HTML
-PageModule.prototype.getRefreshFunction = function () {
-  return this.checkForUpdates.bind(this);
-};
+  // refresh-content function to use in HTML
+  getRefreshFunction() {
+    return this.checkForUpdates.bind(this);
+  }
 
-var promiseResolver = {};
+  // the function to raise a custom event and return a promise
+  checkForUpdates() {
+    let myPromise = new Promise(function (resolve, reject) {
+      this.promiseResolver.resolveHandler = resolve;
+    });
 
-// the function to raise a custom event and return a promise
-PageModule.prototype.checkForUpdates = function () {
-  let myPromise = new Promise(function (resolve, reject) {
-    promiseResolver.resolveHandler = resolve;
-  });
+    // raise a check for refresh event and refresh the data set
+    // from the action chain associated with the event
+    this.eventHelper.fireCustomEvent("customRefreshContentsEvent");
 
-  // raise a check for refresh event and refresh the data set 
-  // from the action chain associated with the event
-  this.eventHelper.fireCustomEvent("customRefreshContentsEvent");
+    return myPromise;
+  }
 
-  return myPromise;
-};
+  // the function to call to resolve the promise after data refresh
+  concludeRefresher() {
+    // data refreshed, resolve the promise now
+    // timeout is a dummy delay so the refresh does on
+    // complete immediately
+    setTimeout(() => {
+      this.promiseResolver.resolveHandler();
+    }, 2000);
+  }
+}
 
-// the function to call to resolve the promise after data refresh
-PageModule.prototype.concludeRefresher = function () {
-  // data refreshed, resolve the promise now
-  // timeout is a dummy delay so the refresh does not 
-  // complete immediately
-  setTimeout(() => { promiseResolver.resolveHandler(); }, 2000);
-};
+return PageModule;
           </pre>
         </li>
 

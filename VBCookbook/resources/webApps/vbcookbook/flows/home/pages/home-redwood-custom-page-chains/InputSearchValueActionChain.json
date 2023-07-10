@@ -1,0 +1,50 @@
+{
+  "description": "",
+  "root": "callFunctionGetMatchedRecipes",
+  "actions": {
+    "callFunctionGetMatchedRecipes": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $application.functions ]]",
+        "functionName": "getMatchedRecipes",
+        "params": [
+          "{{ $page.variables.filter }}",
+          "{{ $page.variables.fullText }}"
+        ]
+      },
+      "outcomes": {
+        "success": "ifFullText"
+      }
+    },
+    "callChainCardActionChain": {
+      "module": "vb/action/builtin/callChainAction",
+      "parameters": {
+        "id": "CardActionChain",
+        "params": {
+          "recipe": "{{ $chain.results.callFunctionGetMatchedRecipes.data[0].id }}"
+        }
+      }
+    },
+    "ifFullText": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $chain.results.callFunctionGetMatchedRecipes.data.length === 1 && $page.variables.fullText === $chain.results.callFunctionGetMatchedRecipes.data[0].label ]]"
+      },
+      "outcomes": {
+        "true": "callChainCardActionChain"
+      }
+    }
+  },
+  "variables": {
+    "value": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    },
+    "itemContext": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

@@ -52,7 +52,7 @@
         <li>Add a Call Function action and create a JavaScript function named <code>buildDept</code> with the following
           code:
           <pre>
-PageModule.prototype.buildDept = function(myarray) {
+buildDept(myarray) {
       return new ArrayTreeDataProvider(myarray, {
       keyAttributes: 'id',
       keyAttributesScope: 'siblings',

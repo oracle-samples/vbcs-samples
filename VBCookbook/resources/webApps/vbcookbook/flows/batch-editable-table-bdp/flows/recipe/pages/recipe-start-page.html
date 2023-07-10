@@ -42,37 +42,37 @@
         <ol>
           <li><code>addItem</code> - inserts new data in the table.
             <pre>
-  PageModule.prototype.addItem = function (key, data) {
-    bufferingDP.addItem({ metadata: { key: key }, data: data });
+  addItem(key, data) {
+    this.bufferingDP.addItem({ metadata: { key: key }, data: data });
   };
           </pre>
           </li>
           <li><code>removeItem</code> - deletes rows from the table.
             <pre>
-  PageModule.prototype.removeItem = function (key, data) {
-    bufferingDP.removeItem({ metadata: { key: key }, data: data });
+  removeItem(key, data) {
+    this.bufferingDP.removeItem({ metadata: { key: key }, data: data });
   };
           </pre>
           </li>
           <li><code>updateItem</code> - updates existing data in the table.
             <pre>
-  PageModule.prototype.updateItem = function (key, data) {
-    bufferingDP.updateItem({ metadata: { key: key }, data: data });
+  updateItem(key, data) {
+    this.bufferingDP.updateItem({ metadata: { key: key }, data: data });
   };
           </pre>
           </li>
           <li><code>getSubmittableItems</code> - contains all buffered changes.
             <pre>
-  PageModule.prototype.getSubmittableItems = function () {
-    return bufferingDP.getSubmittableItems();
+  getSubmittableItems() {
+    return this.bufferingDP.getSubmittableItems();
   };
           </pre>
           </li>
           <li><code>setItemStatus</code> - sets the status of the rows to <code>submitted</code>,
             <code>submitting</code>, or <code>unsubmitted</code>.
             <pre>
-  PageModule.prototype.setItemStatus = function (editItem, status, error) {
-    bufferingDP.setItemStatus(editItem, status, error);
+  setItemStatus(editItem, status, error) {
+    this.bufferingDP.setItemStatus(editItem, status, error);
   };
           </pre>
           </li>
@@ -284,7 +284,7 @@
             <code>lineTableBeforeRowEditEnd</code> that will fire custom event <code>tableEditEvent</code> with accept
             callback.
             <pre>
-  PageModule.prototype.lineTableBeforeRowEdit = function (event) {
+  lineTableBeforeRowEdit(event) {
     let detail = event.detail;
    this.promise = event.detail.accept(new Promise(function (resolve) {
       this.rowBeforeEditPromise = resolve;
@@ -296,7 +296,7 @@
     }.bind(this)));
   }
 
-  PageModule.prototype.lineTableBeforeRowEditEnd = function (event, preventDefault) {
+  lineTableBeforeRowEditEnd(event, preventDefault) {
     if (preventDefault) {
       event.preventDefault();
       return;
@@ -315,14 +315,14 @@
             </pre>
             Create two more functions that will resolve the promise created by above two functions:
             <pre>
-  PageModule.prototype.resolveRowBeforeEditPromise = function () {
+  resolveRowBeforeEditPromise() {
     if (this.rowBeforeEditPromise) {
       this.rowBeforeEditPromise();
       delete this.rowBeforeEditPromise;
     }
   }
 
-  PageModule.prototype.resolveRowBeforeEditEndPromise = function () {
+  resolveRowBeforeEditEndPromise() {
     if (this.rowBeforeEditEndPromise) {
       this.rowBeforeEditEndPromise();
       delete this.rowBeforeEditEndPromise;

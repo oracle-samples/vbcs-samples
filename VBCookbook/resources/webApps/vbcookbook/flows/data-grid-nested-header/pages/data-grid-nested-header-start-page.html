@@ -29,6 +29,11 @@
             <oj-bind-text value="{{cell.item.data.data}}"></oj-bind-text>
           </div>
         </template>
+        <template slot="rowEndHeaderTemplate" data-oj-as="cell">
+          <div class="myEndHeaderItem">
+            <oj-bind-text value="{{cell.item.data.data}}"></oj-bind-text>
+          </div>
+        </template>
       </oj-data-grid>
     </div>
   </div>

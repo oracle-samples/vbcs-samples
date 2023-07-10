@@ -3,3 +3,8 @@
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
+<template id='globalSalaryTmpl'>
+  <oj-input-number converter='{"options":{"style":"currency","currency":"USD","useGrouping":true},"type":"number"}'
+    data-oj-field="[[$fieldName]]" value="{{$value}}" label-hint="[[$labelHint]]" readonly="true">
+  </oj-input-number>
+</template>

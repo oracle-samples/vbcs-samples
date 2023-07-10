@@ -316,89 +316,79 @@ function (dgp) {
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-  var PageModule = function PageModule() {
+class PageModule {
+  constructor() {}
 
-    this.getColHeaders = () => {
-    const colHeaders = cols.map(i => i.headerText);
-    console.log("colheaders", colHeaders);
+  getColHeaders() {
+    const colHeaders = cols.map((i) => i.headerText);
     return colHeaders;
-    };
-  
-    this.getRowHeaders = (items) => {
+  }
+
+  getRowHeaders(items) {
     const rowHeaders = [];
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       rowHeaders.push([item.id]);
     }
     return rowHeaders;
-    };
-  
-    this.getRowHeadersLabel = () => {
-    const rowHeaders = rowHeaderLabels.map(i => i.headerText);
-    console.log("colheaders", rowHeaders);
-    return rowHeaders;
-    };
-  
-    var getValue = function (item, field) {
-    if (field.indexOf('.') > 0 || field.indexOf('[') > 0) {
-      field = field.replaceAll('[', '.');
-      field = field.replaceAll(']', '.');
-      field = field.replaceAll('..', '.');
-      if (field.endsWith('.')) {
-      field = field.substr(0, field.length - 1);
+  }
+
+  getValue(item, field) {
+    if (field.indexOf(".") > 0 || field.indexOf("[") > 0) {
+      field = field.replaceAll("[", ".");
+      field = field.replaceAll("]", ".");
+      field = field.replaceAll("..", ".");
+      if (field.endsWith(".")) {
+        field = field.substr(0, field.length - 1);
       }
       var res = item;
-      field.split('.').forEach(key => res = res[key]);
+      field.split(".").forEach((key) => (res = res[key]));
       return res;
     } else {
-      return item[field] !== undefined ? item[field] : Math.floor(Math.random() * 25) * 100;
+      return item[field] !== undefined
+        ? item[field]
+        : Math.floor(Math.random() * 25) * 100;
     }
-    };
-  
-    this.buildBodyArray = (items, cols) => {
+  }
+
+  buildBodyArray(items, cols) {
     const bodyArray = [];
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       var flattendArray = [];
-      cols.forEach(col_ => flattendArray.push(getValue(item, col_.field)));
+      cols.forEach((col_) => flattendArray.push(this.getValue(item, col_.field)));
       bodyArray.push(flattendArray);
     }
     return bodyArray;
-    };
-  
-    this.mergeFunction = (value1, value2) => {
+  }
+
+  mergeFunction(value1, value2) {
     //  debugger;
-    if (typeof value1 === 'object' && 'departmentName' in value1) {
+    if (typeof value1 === "object" && "departmentName" in value1) {
       value1 = value1.departmentName;
     }
-    if (typeof value2 === 'object' && 'departmentName' in value2) {
+    if (typeof value2 === "object" && "departmentName" in value2) {
       value2 = value2.departmentName;
     }
-    if (typeof value1 === 'object' && 'jobTitle' in value1) {
+    if (typeof value1 === "object" && "jobTitle" in value1) {
       value1 = value1.jobTitle;
     }
-    if (typeof value2 === 'object' && 'jobTitle' in value2) {
+    if (typeof value2 === "object" && "jobTitle" in value2) {
       value2 = value2.jobTitle;
     }
-    if (value1 == value2) {
-      console.log(" ===========> " + value1 + " " + value2);
-    }
     return value1 == value2;
-    };
-  
-    this.columnHeaderStyle = (headerContext) => {
+  }
+
+  columnHeaderStyle(headerContext) {
     const columnKey = headerContext.index;
     if (columnKey === 1) {
       return "width:270px";
-    }
-    else if (columnKey === 2 || columnKey === 3 || columnKey === 5) {
+    } else if (columnKey === 2 || columnKey === 3 || columnKey === 5) {
       return "width:160px";
-    }
-    else if (columnKey === 4 || columnKey === 0) {
+    } else if (columnKey === 4 || columnKey === 0) {
       return "width:200px";
     }
-    };
-  }; 
+  }
 </pre>
               </div>
             </oj-collapsible>
@@ -417,7 +407,7 @@ function (dgp) {
             a parameter to the
             function.
             <pre>
-PageModule.prototype.getDatagridData = function (items) {
+getDatagridData(items) {
     let dataValues = this.buildBodyArray(items, cols);
     let length = dataValues.length;
     let rowStartHeaderValues = this.getRowHeaders(items);

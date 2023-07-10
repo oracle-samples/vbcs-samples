@@ -37,7 +37,7 @@
     "hasRecordChanged": {
       "module": "vb/action/builtin/ifAction",
       "parameters": {
-        "condition": "{{ $page.functions.areDifferent($chain.variables.rowData, $chain.variables.originalRowData) }}"
+        "condition": "{{ $page.functions.areDifferent($chain.variables.rowKey, $chain.variables.rowData, $chain.variables.originalRowData) }}"
       },
       "outcomes": {
         "true": "callFunctionUpdateItem",

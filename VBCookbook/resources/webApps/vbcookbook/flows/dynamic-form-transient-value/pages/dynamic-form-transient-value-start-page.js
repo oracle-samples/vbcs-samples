@@ -4,14 +4,19 @@
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([], function () {
-  'use strict';
+  "use strict";
 
-  var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
 
-  PageModule.prototype.generateEmail = function (transientValue) {
-    transientValue.email = (transientValue.firstName).charAt(0) + transientValue.lastName + "@oracle.com";
-    return transientValue;
-  };
+    generateEmail(transientValue) {
+      transientValue.email =
+        transientValue.firstName.charAt(0) +
+        transientValue.lastName +
+        "@oracle.com";
+      return transientValue;
+    }
+  }
 
   return PageModule;
 });

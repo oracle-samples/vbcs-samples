@@ -3,18 +3,23 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define([], function() {
-  'use strict';
+define([], function () {
+  "use strict";
 
-  var PageModule = function PageModule() {};
+  class PageModule {
+    constructor() {}
 
-  PageModule.prototype.getName = function(context) {
-    // debugger;
-    var name = context.data.firstName + ' ' + context.data.lastName;
-    if (context.data.managerObject && context.data.managerObject.items.length > 0) {
-      name += " (reports to "+ context.data.managerObject.items[0].lastName + ")";
+    getName(context) {
+      var name = context.data.firstName + " " + context.data.lastName;
+      if (
+        context.data.managerObject &&
+        context.data.managerObject.items.length > 0
+      ) {
+        name +=
+          " (reports to " + context.data.managerObject.items[0].lastName + ")";
+      }
+      return name;
     }
-    return name;
   }
 
   return PageModule;

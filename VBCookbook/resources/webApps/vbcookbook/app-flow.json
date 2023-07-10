@@ -6,7 +6,7 @@
   "services": {},
   "configuration": {
     "initParams": {
-      "ojSpVersion": "{{window.appConfig && window.appConfig['OJ_SP_VERSION'] ? window.appConfig['OJ_SP_VERSION'] : '2304.0.1'}}",
+      "ojSpVersion": "{{window.appConfig && window.appConfig['OJ_SP_VERSION'] ? window.appConfig['OJ_SP_VERSION'] : '2307.0.1'}}",
       "cdnLocation": "{{window.FAEndPoints && window.FAEndPoints['CDN_LOCATION'] ? window.FAEndPoints['CDN_LOCATION'] : 'https://static.oracle.com/cdn/'}}",
       "ojSpDebug": "{{window.appConfig && window.appConfig.DEBUG ? window.appConfig.DEBUG : false}}"
     },
@@ -90,15 +90,23 @@
   },
   "requirejs": {
     "paths": {
-      "colorthief": "https://static.oracle.com/cdn/spectra-ui/oj-sp/2304.0.1/3rdparty/color-thief_2.3.2",
+      "colorthief": "https://static.oracle.com/cdn/spectra-ui/oj-sp/2307.0.1/3rdparty/color-thief_2.3.2/dist",
       "oj-sp": "{{$initParams.ojSpDebug ? ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug') : ($initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion)}}",
       "fndconfig": "{{($initParams.ojSpDebug ? $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion + '/debug' : $initParams.cdnLocation + 'spectra-ui/oj-sp/' + $initParams.ojSpVersion) + '/spectra-shell/config'}}",
-      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/13.1.1/min/",
-      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/7.0.0/min",
+      "oj-dyn": "https://static.oracle.com/cdn/jet/packs/oj-dyn/14.0.4/min/",
+      "oj-dynamic": "https://static.oracle.com/cdn/jet/packs/oj-dynamic/14.0.4/min/",
+      "oj-sample": "https://static.oracle.com/cdn/jet/packs/oj-sample/8.0.0/min",
       "employee-card": "resources/components/employee-card",
       "datagrid": "resources/js/datagrid"
     },
     "bundles": {
+      "oj-dyn/component-bundle": [
+        "oj-dyn/bind-field/loader",
+        "oj-dyn/bind-section/loader",
+        "oj-dyn/container/loader",
+        "oj-dyn/form/loader",
+        "oj-dyn/form/resources/nls"
+      ],
       "oj-dynamic/common-bundle": [
         "oj-dynamic/providers/MetadataProviderFactory",
         "oj-dynamic/providers/TransformState",
@@ -195,7 +203,6 @@
         "oj-sample/flip-card/loader",
         "oj-sample/online-detector/loader",
         "oj-sample/orientation-detector/loader",
-        "oj-sample/pull-to-refresh/loader",
         "oj-sample/show-when-ready/loader",
         "oj-sample/timed-event/loader"
       ],
@@ -224,6 +231,7 @@
         "oj-sp/attachments-2-actions/public/BossPublicAttachmentActions",
         "oj-sp/attachments-2-actions/public/BossPublicAttachmentsView",
         "oj-sp/bottom-drawer-template/loader",
+        "oj-sp/calendar/loader",
         "oj-sp/card/loader",
         "oj-sp/card-footer/loader",
         "oj-sp/collection-container/loader",
@@ -267,8 +275,10 @@
         "oj-sp/data-provider/SuggestionFiltersDataProvider",
         "oj-sp/data-provider/SuggestionFiltersTransforms",
         "oj-sp/detail-panel/loader",
+        "oj-sp/data-switcher/loader",
         "oj-sp/diagram-builder/loader",
         "oj-sp/diagram-node/loader",
+        "oj-sp/diagram-node/diagram-node-utils",
         "oj-sp/email-address-chip/loader",
         "oj-sp/emo-button/loader",
         "oj-sp/empty-state/loader",
@@ -309,7 +319,6 @@
         "oj-sp/list-section/loader",
         "oj-sp/message-banner-unsaved-changes/loader",
         "oj-sp/message-dialog-destructive/loader",
-        "oj-sp/message-dialog-general/loader",
         "oj-sp/message-unsaved-changes/loader",
         "oj-sp/messages-banner/loader",
         "oj-sp/messages-toast/loader",
@@ -330,6 +339,8 @@
         "oj-sp/simple-create-edit/loader",
         "oj-sp/skill-chip/loader",
         "oj-sp/smart-filter-search/loader",
+        "oj-sp/smart-search/loader",
+        "oj-sp/smart-search/default-filters/KeywordFilter",
         "oj-sp/smart-search-page/loader",
         "oj-sp/smart-filters/loader",
         "oj-sp/smart-select-single/loader",
@@ -346,7 +357,11 @@
         "oj-sp/item-gauge/loader",
         "oj-sp/common/flex/converters/FlexUpperCaseConverter",
         "oj-sp/converters/phone/E164Converter",
-        "oj-sp/information-organizer/loader"
+        "oj-sp/information-organizer/loader",
+        "oj-sp/internal-resources/components/collection-toolbars/loader",
+        "oj-sp/internal-resources/components/collection-toolbars/collection-toolbars-types",
+        "oj-sp/internal-resources/components/collection-toolbars/action-converter-utils",
+        "oj-sp/internal-resources/components/color-thief/color-thief"
       ],
       "oj-sp/oj-sp-input-rich-text-bundle": [
         "oj-sp/input-rich-text/loader",
@@ -359,7 +374,7 @@
   "routerStrategy": "query",
   "imports": {
     "css": [
-      "https://static.oracle.com/cdn/fnd/gallery/2107.2.0/images/iconfont/ojuxIconFont.min.css",
+      "https://static.oracle.com/cdn/fnd/gallery/2307.0.2/images/iconfont/ojuxIconFont.min.css",
       "https://static.oracle.com/cdn/vb/vb-icon-font/1/vb-icon-font.css"
     ],
     "components": {

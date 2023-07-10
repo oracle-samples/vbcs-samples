@@ -54,6 +54,18 @@
         ]
       },
       "outcomes": {
+        "success": "callFunctionResetOriginalRowValues"
+      }
+    },
+    "callFunctionResetOriginalRowValues": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "resetOriginalRowValues",
+        "params": [
+        ]
+      },
+      "outcomes": {
         "success": "fireNotification"
       }
     },

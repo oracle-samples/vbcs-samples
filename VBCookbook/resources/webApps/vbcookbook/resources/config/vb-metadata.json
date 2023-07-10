@@ -367,7 +367,7 @@
   },
   {
     "id": "data-grid-merged",
-    "label": "Merged",
+    "label": "Merged Data Grid Cells",
     "redwood": "false",
     "category": "Components",
     "subCategory": "Data Grid",
@@ -1135,6 +1135,19 @@
     "shownOnUI":true,
     "desc": "Create and render a virtual field in a dynamic form using an Oracle JET web component (CCA)",
     "shortDesc": "Create and render a virtual field in a dynamic form using an Oracle JET web component (CCA)",
+    "seeAlso": [],
+    "apiRef": []
+  },
+  {
+    "id": "dynamic-form-global-template",
+    "label": "Global Field Template",
+    "redwood": "false",
+    "category": "Dynamic",
+    "icon": "form-layout",
+    "subCategory": "",
+    "shownOnUI":true,
+    "desc": "Implement a Dynamic Form that uses a global field template",
+    "shortDesc": "Implement a Dynamic Form that uses a global field template",
     "seeAlso": [],
     "apiRef": []
   },

@@ -19,6 +19,18 @@
       "enabled": false,
       "description": "in shell page: oj-sp-header-general-overview can not be used directly in any page, instead used appropriate Page template component to uptake this component"
     },
+    "oj-sp-un-approved-components-restricted" : {
+      "enabled": false,
+      "description": "in fileloader-csv/pages/fileloader-csv-start-page.html: oj-message component is not an approved Redwood component"
+    },
+    "oj-sp-page-templates-displayOptions-responsivePadding-deprecated" : {
+      "enabled": false,
+      "description": "in pages/home-redwood-custom-page.html: This rule checks for oj-sp-advanced-create-edit,oj-sp-general-overview-page,oj-sp-welcome-page component with off value which is deprecated."
+    },
+    "oj-sp-message-dialog-method-open-deprecated" : {
+      "enabled": false,
+      "description": "in many files: Deprecated method open found in webApps/vbcookbook/flows/confirmation-dialog/pages/confirmation-dialog-start-page-chains/beforeTabChange.json in any of oj-sp-message-dialog-destructive,oj-sp-message-dialog-general,oj-sp-message-unsaved-changes component."
+    },
     "oj-html-ko-comment": {
       "description": "Knockout comment binding \"if:\" found. Use of JET <oj-bind-if> recommended.",
       "enabled": false

@@ -48,7 +48,7 @@
 
           <li>In the JavaScript tab, paste the following code:
             <pre>
-PageModule.prototype.getName=function(context){
+getName(context){
    return context.data.firstName + ' ' +context.data.lastName;
    }</pre>
           </li>
@@ -234,7 +234,7 @@ PageModule.prototype.getName=function(context){
               href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
               Create a page variable</a> named <code>departmentTDP</code> of type Any. </li>
           <li>In the JavaScript tab, add the following function:
-            <pre>PageModule.prototype.getDepartmentTreeData = function(data) {
+            <pre>getDepartmentTreeData(data) {
 
     var treeDataProvider;
     treeDataProvider = new ArrayTreeDataProvider(
@@ -363,7 +363,7 @@ PageModule.prototype.getName=function(context){
           <li>In the JavaScript tab, include <code>vb/BusinessObjectsTransforms</code> and create a new function named
             <code>processFilter</code>.
             <pre>
-  PageModule.prototype.processFilter = function (configuration, options, transformsContext) {
+  processFilter(configuration, options, transformsContext) {
     var textValue = options && options.text;
 
     if (transformsContext && transformsContext['vb-textFilterAttributes']) {

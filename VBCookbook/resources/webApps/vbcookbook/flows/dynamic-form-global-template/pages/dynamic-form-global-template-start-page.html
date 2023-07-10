@@ -1,0 +1,59 @@
+<!--
+ Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  This recipe shows you how to implement a global field template in a Dynamic Form. A global field template can be applied
+  to similar fields across different business objects. In this recipe, the global field template has been applied to the
+  Total Salary field of the Department business object and the Salary field of the Employee business object.
+
+</div>
+<div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box2" style="overflow-x: auto"
+    id="div-1108428473-3">
+    <div class="oj-flex oj-sm-flex-direction-column oj-sm-flex-initial">
+
+      <div class="oj-flex-item oj-sm-12 oj-md-4">
+        <h2 class="oj-flex-item oj-sm-align-self-center">Department</h2>
+        <oj-bind-if test="[[ true ]]">
+          <oj-dyn-form metadata="[[ $metadata.businessObjectsGetDepartmentMetadata.provider ]]"
+            layout="departmentGlobalTemplate" value="{{ $variables.department }}"
+            value-loading="[[ $variables.departmentDetailFormLoadingStatus ]]"
+            rendered-fields="{{ $variables.departmentDetailFormRenderedFields }}" operation="view"></oj-dyn-form>
+        </oj-bind-if>
+      </div>
+
+      <div class="oj-flex-item oj-sm-12 oj-md-8">
+        <h2 class="oj-flex-item oj-sm-align-self-center">Employees</h2>
+        <oj-bind-if test="[[ true ]]">
+          <oj-list-view data="[[$variables.employeeListSDP]]" class="oj-flex-item oj-sm-12 oj-md-12"
+            style="max-height:400px" :id="[['list-view']]">
+            <template slot="itemTemplate">
+              <oj-dyn-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+                layout="employeeListViewLayout" value="{{ $current.data }}"
+                value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
+                rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}"
+                :id="[['dynamic-form-list-' + $current.index]]" context="[[ $variables.path ]]">
+              </oj-dyn-form>
+            </template>
+          </oj-list-view>
+
+        </oj-bind-if>
+      </div>
+    </div>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]" id="div-1108428473-2">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item" id="div-1108428473-1">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+
+</div>

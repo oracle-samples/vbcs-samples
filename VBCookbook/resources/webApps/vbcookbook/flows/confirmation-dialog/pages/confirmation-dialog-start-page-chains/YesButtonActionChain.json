@@ -9,7 +9,25 @@
   },
   "root": "if1",
   "actions": {
-    "assignVariables1": {
+
+    "if1": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.currentTab === 'employee']]"
+      },
+      "outcomes": {
+        "true": "assignVariablesFormEmp",
+        "false": "assignVariablesFormDept"
+      }
+    },
+    "closeConfirmDialog": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('unsaved-data-dialog') }}",
+        "method": "close"
+      }
+    },
+    "assignVariablesFormEmp": {
       "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
         "$page.variables.formEmp": {
@@ -18,20 +36,10 @@
         }
       },
       "outcomes": {
-        "success": "closeConfirmDialog"
+        "success": "assignVariablesCurrentTab"
       }
     },
-    "if1": {
-      "module": "vb/action/builtin/ifAction",
-      "parameters": {
-        "condition": "[[ $page.variables.currentTab === 'employee']]"
-      },
-      "outcomes": {
-        "true": "assignVariables1",
-        "false": "assignVariables2"
-      }
-    },
-    "assignVariables2": {
+    "assignVariablesFormDept": {
       "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
         "$page.variables.formDept": {
@@ -40,28 +48,18 @@
         }
       },
       "outcomes": {
-        "success": "closeConfirmDialog"
+        "success": "assignVariablesCurrentTab"
       }
     },
-    "closeConfirmDialog": {
-      "module": "vb/action/builtin/callComponentMethodAction",
+    "assignVariablesCurrentTab": {
+      "module": "vb/action/builtin/assignVariablesAction",
       "parameters": {
-        "component": "{{ document.getElementById('unsaved-data-dialog') }}",
-        "method": "close"
+        "$page.variables.currentTab": {
+          "source": "{{ $page.variables.tabToSwitch }}"
+        }
       },
       "outcomes": {
-        "success": "switchToNewTab"
-      }
-    },
-    "switchToNewTab": {
-      "module": "vb/action/builtin/callComponentMethodAction",
-      "parameters": {
-        "component": "{{ document.getElementById('tab-bar-1') }}",
-        "method": "setProperty",
-        "params": [
-          "selection",
-          "{{ $page.variables.tabToSwitch }}"
-        ]
+        "success": "closeConfirmDialog"
       }
     }
   }

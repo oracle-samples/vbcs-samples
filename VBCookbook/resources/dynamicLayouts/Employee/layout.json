@@ -136,9 +136,6 @@
           ]
         }
 
-      },
-      "fieldTemplateMap": {
-        "salary": "managerSalaryTemplate"
       }
     },
     "simpleEmployeeListRuleSet": {
@@ -278,7 +275,8 @@
             "displayProperties": [
               "fullName",
               "email",
-              "phoneNumber"
+              "phoneNumber",
+              "salary"
             ],
             "templateId": "employeeListViewTemplate"
           },
@@ -528,6 +526,40 @@
           }
         }
       }
+    },
+    "isDefault8": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "globalFieldTemplate": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "Global Field Template",
+      "rules": [
+        "isDefault8"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "firstName",
+              "lastName",
+              {
+                "email": {
+                  "readonly": true
+                }
+              },
+              "salary"
+            ],
+            "readonly": true
+          },
+          "usedIn": [
+            "isDefault8"
+          ]
+        }
+      }
     }
   },
   "templates": {
@@ -608,7 +640,7 @@
         "type": "form"
       },
       "dependencies": [
-        "oj-dynamic/bind-field/loader",
+        "oj-dyn/bind-field/loader",
         "ojs/ojavatar",
         "ojs/ojformlayout"
       ],
@@ -629,6 +661,9 @@
         "type": "field"
       },
       "dependencies": [
+        "employee-card/loader",
+        "oj-dyn/bind-field/loader"        ,
+        "ojs/ojavatar"        ,
         "ojs/ojinputtext"
       ]
     },

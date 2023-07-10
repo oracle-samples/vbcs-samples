@@ -19,9 +19,23 @@
         <ol>
           <li>In the JavaScript tab of your page, add the following dependencies.
             <pre>
-define(["ojs/ojrowdatagridprovider", "ojs/ojarraydataprovider", "text!datagrid/customer-data.json", "ojs/ojconverter-datetime", "ojs/ojconverter-number", "ojs/ojdatagridprovider", "ojs/ojdatagrid"],
-  function (RowDataGridProvider, ArrayDataProvider, jsonData, ojconverter_datetime, ojconverter_number) {
-    'use strict';</pre>
+define([
+  "ojs/ojrowdatagridprovider",
+  "ojs/ojarraydataprovider",
+  "text!datagrid/customer-data.json",
+  "ojs/ojconverter-datetime",
+  "ojs/ojconverter-number",
+  "ojs/ojdatagridprovider",
+  "ojs/ojdatagrid",
+], function (
+  RowDataGridProvider,
+  ArrayDataProvider,
+  jsonData,
+  ojconverter_datetime,
+  ojconverter_number
+) {
+  "use strict";
+</pre>
           </li>
           <li>
             Parse the data from <code>customer-data.json</code> using <code>JSON.parse</code> to create an ArrayDataProvider. Add the following code to the page constructor:
@@ -29,27 +43,40 @@ define(["ojs/ojrowdatagridprovider", "ojs/ojarraydataprovider", "text!datagrid/c
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-var PageModule = function PageModule() {
-  this.colHeaders = [
-    "First Name",
-    "Last Name",
-    "Balance",
-    "Registered",
-    "Total Amount Ordered",
-    "Last Order",
-    "Company",
-    "Short Name",
-    "Phone",
-    "Country origin",
-    "Gender",
-    "Age",
-    "Birth Date",
-    "Active",
-    "Eye Color"
-  ];
-  this.jsonData = JSON.parse(jsonData);
-  this.adp = new ArrayDataProvider(this.jsonData);
-};
+  class PageModule {
+    constructor() {
+      this.colHeaders = [
+        "First Name",
+        "Last Name",
+        "Balance",
+        "Registered",
+        "Total Amount Ordered",
+        "Last Order",
+        "Company",
+        "Short Name",
+        "Phone",
+        "Country origin",
+        "Gender",
+        "Age",
+        "Birth Date",
+        "Active",
+        "Eye Color",
+      ];
+
+      this.jsonData = JSON.parse(jsonData);
+      this.adp = new ArrayDataProvider(this.jsonData);
+      this.numericFields = [2, 3, 4, 5, 8];
+
+      this.dateConverter = new ojconverter_datetime.IntlDateTimeConverter({
+        formatType: "date",
+        dateFormat: "medium",
+      });
+      this.numberConverter = new ojconverter_number.IntlNumberConverter({
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "symbol",
+      });
+    }
   </pre>
               </div>
             </oj-collapsible>
@@ -62,7 +89,7 @@ var PageModule = function PageModule() {
             beside the Function Name field to create a new function named <code>getDatagridData</code> to convert the
             adp to a RowDataGridProvider for the Data Grid component and return the <code>dataGridProvider</code>.
             <pre>
-    PageModule.prototype.getDatagridData = function () {
+    getDatagridData() {
       let dataGridProvider = new RowDataGridProvider.RowDataGridProvider(this.adp,
       {
         columns: {
@@ -93,100 +120,58 @@ var PageModule = function PageModule() {
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-  this.numericFields = [2, 3, 4, 5, 8]; //index of numeric columns
-  this.columnHeaderStyle = (headerContext) => {
-    const columnKey = headerContext.index;
-    if (columnKey === 8) {
-      return "width:175px";
+    columnHeaderStyle(headerContext) {
+      const columnKey = headerContext.index;
+      if (columnKey === 8) {
+        return "width:175px";
+      } else if (columnKey === 4) {
+        return "width:150px";
+      } else if (columnKey === 9) {
+        return "width:220px;";
+      } else if (columnKey === 11 || columnKey === 13) {
+        return "width:100px;";
+      }
+      return "width:125px;";
     }
-    else if (columnKey === 4) {
-      return "width:150px";
+
+    getColumnHeaderClassName(headerContext) {
+      return this.getAlignmentClassNameByIndex(headerContext.index, null);
     }
-    else if (columnKey === 9) {
-      return "width:220px;";
+
+    getCellClassName(cellContext) {
+      return this.getAlignmentClassNameByIndex(
+        cellContext.indexes.column,
+        cellContext.indexes.row
+      );
     }
-    else if (columnKey === 11 || columnKey === 13) {
-      return "width:100px;";
+
+    getAlignmentClassNameByIndex(colIndex, rowIndex) {
+      let styleClass = "";
+      if (this.numericFields.includes(colIndex)) {
+        styleClass += "oj-helper-justify-content-right";
+      } else if (colIndex === 13) {
+        styleClass += "oj-helper-justify-content-center";
+      } else {
+        styleClass += "oj-sm-justify-content-flex-start";
+      }
+      if (rowIndex && (rowIndex + 1) % 5 === 0) {
+        styleClass += " oj-typography-bold oj-bg-neutral-30";
+      }
+      return styleClass;
     }
-    return "width:125px;";
-  };
-  this.getColumnHeaderClassName = (headerContext) => {
-    return this.getAlignmentClassNameByIndex(headerContext.index, null);
-  };
-  this.getCellClassName = (cellContext) => {
-    return this.getAlignmentClassNameByIndex(cellContext.indexes.column, cellContext.indexes.row);
-  };
-  this.getAlignmentClassNameByIndex = (colIndex, rowIndex) => {
-    let styleClass = "";
-    if (this.numericFields.includes(colIndex)) {
-      styleClass += "oj-helper-justify-content-right";
-    }
-    else if (colIndex === 13) {
-      styleClass += "oj-helper-justify-content-center";
-    }
-    else {
-      styleClass += "oj-sm-justify-content-flex-start";
-    }
-    if (rowIndex && (rowIndex + 1) % 5 === 0) {
-      styleClass += " oj-typography-bold oj-bg-neutral-30";
-    }
-    return styleClass;
-  };  
 </pre>
               </div>
             </oj-collapsible>
           </li>
-          <li>Add page functions to align text and set header widths.
-            <oj-collapsible id="addPageFunc">
-              <a href="" slot="header">Expand to view code</a>
-              <div>
-                <pre>
-PageModule.prototype.getCellClassName = function () {
-   return this.getCellClassName;
-};
-PageModule.prototype.columnHeaderStyle = function () {
-   return this.columnHeaderStyle;
-};
-PageModule.prototype.getColumnHeaderClassName = function () {
-   return this.getColumnHeaderClassName;
-};
-</pre>
-              </div>
-            </oj-collapsible>
-          </li>
-          <li>Add date and number converters to the <code>PageModule</code> constructor.
+          <li>Add date formatter function.
             <oj-collapsible id="addConverters">
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-this.dateConverter = new ojconverter_datetime.IntlDateTimeConverter({
-        formatType: "date",
-        dateFormat: "medium",
-  });
-this.numberConverter = new ojconverter_number.IntlNumberConverter({
-        style: "currency",
-        currency: "USD",
-        currencyDisplay: "symbol",
-  });
-this.formatDate = (dateString) => {
-        const trimmedDate = dateString.substring(0, dateString.length - 7);
-        return new Date(trimmedDate).toISOString();
-  };
-</pre>
-              </div>
-            </oj-collapsible>
-          </li>
-          <li>Add page functions to render the date and number converters.
-            <oj-collapsible id="renderConverters">
-              <a href="" slot="header">Expand to view code</a>
-              <div>
-                <pre>
-PageModule.prototype.numberConverter = function () {
-  return this.numberConverter;
-};
-PageModule.prototype.dateConverter = function () {
-  return this.dateConverter;
-};
+    formatDate(dateString) {
+      const trimmedDate = dateString.substring(0, dateString.length - 7);
+      return new Date(trimmedDate).toISOString();
+    }
 </pre>
               </div>
             </oj-collapsible>
@@ -220,11 +205,11 @@ PageModule.prototype.dateConverter = function () {
               <li><code>header.column.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code>
               </li>
               <li><code>header.row.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code></li>
-              <li><code>header.column.class-name</code> to value <code>"[[$functions.getColumnHeaderClassName]]"</code>
+              <li><code>header.column.class-name</code> to value <code>"[[ function(ctx) { $page.functions.getColumnHeaderClassName(ctx) } ]]"</code>
               </li>
               <li><code>header.column.style</code> to value <code>"[[$functions.columnHeaderStyle]]"</code></li>
               <li><code>header.row.style</code> to value <code>"width:50px;"</code></li>
-              <li><code>cell.class-name</code> to value <code>"[[$functions.getCellClassName]]"</code></li>
+              <li><code>cell.class-name</code> to value <code>[[ function(ctx) { $page.functions.getCellClassName(ctx) } ]]"</code></li>
             </ul>
           </li>
           <li>Use a <code>cellTemplate</code> to render the cell content you want and use <code>oj-bind-if</code> to

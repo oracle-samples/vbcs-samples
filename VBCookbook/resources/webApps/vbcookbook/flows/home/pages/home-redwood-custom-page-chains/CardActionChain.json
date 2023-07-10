@@ -1,0 +1,44 @@
+{
+  "description": "",
+  "root": "ifKey",
+  "actions": {
+    "navigateToCheckboxSetCheckboxSetStart": {
+      "module": "vb/action/builtin/navigateAction",
+      "@dt": {
+        "targetType": "flow"
+      },
+      "parameters": {
+        "target": "parent",
+        "flow": "[[ $variables.recipe ]]",
+        "page": "[[ $variables.recipe + '-start/recipe/recipe-start' ]]"
+      }
+    },
+    "ifKey": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $application.functions.isRecipe($variables.recipe) ]]"
+      },
+      "outcomes": {
+        "true": "assignVariablesCanNavigateBack"
+      }
+    },
+    "assignVariablesCanNavigateBack": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$application.variables.canNavigateBack": {
+          "source": "{{ true }}"
+        }
+      },
+      "outcomes": {
+        "success": "navigateToCheckboxSetCheckboxSetStart"
+      }
+    }
+  },
+  "variables": {
+    "recipe": {
+      "required": true,
+      "type": "any",
+      "input": "fromCaller"
+    }
+  }
+}

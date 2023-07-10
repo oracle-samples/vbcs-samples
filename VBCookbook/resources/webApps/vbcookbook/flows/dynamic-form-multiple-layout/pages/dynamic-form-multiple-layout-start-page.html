@@ -31,11 +31,11 @@
       <div class="oj-flex" sXtyle="padding-left:90px; padding-top:20px">
         <div class="oj-flex-item oj-sm-12 oj-md-12">
           <oj-bind-if test="[[ ($variables.emp1) !== undefined ]]">
-            <oj-dynamic-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
+            <oj-dyn-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
               layout="employeeFormRuleSet" value="{{ $variables.employee }}"
               value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
               rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}"
-              :id="[['dynamic-form-multiple-layout']]"></oj-dynamic-form>
+              :id="[['dynamic-form-multiple-layout']]"></oj-dyn-form>
           </oj-bind-if>
         </div>
       </div>

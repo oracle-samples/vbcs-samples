@@ -1,22 +1,21 @@
 {
-    "vbcs.dt.version": "20230308-23.07.0",
-    "version": "2.0.9",
-    "source.version": "2304",
+    "vbcs.dt.version": "20230308-23.07.1",
+    "version": "2307.0.2",
+    "source.version": "2307",
     "rootURL": "vbcookbook",
     "features": {
-        "codeChainsEnabled": false
+        "codeChainsEnabled": true
     },
     "dependencies": {
-        "upgrade": "micro",
+        "upgrade": "none",
         "paths": {
-            "jet": "https://static.oracle.com/cdn/jet/13.1.7",
-            "visualRuntime": "https://static.oracle.com/cdn/vb/2304.0.0",
-            "telemetry": "https://static.oracle.com/cdn/trace/7.2.1"
+            "jet": "https://static.oracle.com/cdn/jet/14.0.5",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2307.0.0",
+            "telemetry": "https://static.oracle.com/cdn/trace/7.3.1"
         }
     },
     "migration": {
-        "2304": [
-            "ReferenceToNumberFieldTypeMigrator",
+        "2307": [
             "SetHistoryTypeMigrator"
         ]
     }

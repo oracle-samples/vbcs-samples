@@ -51,16 +51,11 @@
 define([], function () {
   'use strict';
 
-  var PageModule = function PageModule() { };
-
-  /**
-   *
-   * @param {String} arg1
-   * @return {String}
-   */
-  PageModule.prototype.createImageBitmap = function (fileBlob) {
-    return window.createImageBitmap(fileBlob);
-  };
+  class PageModule {
+   createImageBitmap(fileBlob) {
+      return window.createImageBitmap(fileBlob);
+    }
+  }
 
   return PageModule;
 });

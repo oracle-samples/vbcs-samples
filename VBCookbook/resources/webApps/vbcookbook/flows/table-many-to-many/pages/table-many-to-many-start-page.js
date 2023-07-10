@@ -3,71 +3,91 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define([], function() {
-  'use strict';
+define([], function () {
+  "use strict";
 
-  var PageModule = function PageModule() {};
+  class PageModule {
+    constructor() {}
 
-  /**
-   *
-   * @param {String} id
-   * @return {String}
-   */
-  PageModule.prototype.validateForm = function(id) {
-    var el = document.getElementById(id);
-    if (el.valid === 'valid') {
-      return true;
-    } else {
-      el.showMessages();
-      el.focusOn('@firstErrorShown');
-      return false;
+    /**
+     *
+     * @param {String} id
+     * @return {String}
+     */
+    validateForm(id) {
+      var el = document.getElementById(id);
+      if (el.valid === "valid") {
+        return true;
+      } else {
+        el.showMessages();
+        el.focusOn("@firstErrorShown");
+        return false;
+      }
     }
-  };
 
+    generateBatchSnippet(url, payload, operation, id) {
+      return {
+        id: id ? `part-${id}` : "someID",
+        path: url,
+        operation: operation,
+        payload: payload ? payload : {},
+      };
+    }
 
-  PageModule.generateBatchSnippet = function(url, payload, operation, id) {
-    return {
-      id: id ? `part-${id}` : "someID",
-      path: url,
-      operation: operation,
-      payload: payload ? payload : {}
-    };
-  };
+    /**
+     * Creates batch payload
+     * @param {type} employee
+     * @param {type} selectedSkills
+     * @return {undefined}
+     */
+    batchPayloadForEdit(employee, selectedSkills) {
+      var skillsToDelete = employee.employeeSkillCollection.items
+        .filter((q) => selectedSkills.indexOf(q.skill) === -1)
+        .map((q) => q.id);
+      var originalSkills = employee.employeeSkillCollection.items.map(
+        (q) => q.skill
+      );
+      var skillsToAdd = selectedSkills.filter(
+        (q) => originalSkills.indexOf(q) === -1
+      );
 
-  /**
-   * Creates batch payload
-   * @param {type} employee
-   * @param {type} selectedSkills
-   * @return {undefined}
-   */
-  PageModule.prototype.batchPayloadForEdit = function(employee,
-    selectedSkills) {
+      var payloads = [];
+      payloads.push(
+        this.generateBatchSnippet(
+          "/Employee/" + employee.id,
+          {
+            firstName: employee.firstName,
+          },
+          "update",
+          "employee"
+        )
+      );
+      payloads = payloads.concat(
+        skillsToAdd.map((q) =>
+          this.generateBatchSnippet(
+            "/Employee/" + employee.id + "/child/employeeSkillCollection",
+            {
+              skill: q,
+            },
+            "create",
+            q
+          )
+        ),
+        skillsToDelete.map((q) =>
+          this.generateBatchSnippet(
+            "/Employee/" + employee.id + "/child/employeeSkillCollection/" + q,
+            {},
+            "delete",
+            q
+          )
+        )
+      );
 
-    var skillsToDelete = employee.employeeSkillCollection.items.
-    filter(q => selectedSkills.indexOf(q.skill) === -1).
-    map(q => q.id);
-    var originalSkills = employee.employeeSkillCollection.items.map(q =>
-      q.skill);
-    var skillsToAdd = selectedSkills.
-    filter(q => originalSkills.indexOf(q) === -1);
+      return {
+        parts: payloads,
+      };
+    }
+  }
 
-    var payloads = [];
-    payloads.push(PageModule.generateBatchSnippet(
-      "/Employee/" + employee.id, {
-        firstName: employee.firstName
-      }, 'update', 'employee'));
-    payloads = payloads.concat(
-      skillsToAdd.map(q => PageModule.generateBatchSnippet(
-        "/Employee/" + employee.id + "/child/employeeSkillCollection", {
-          skill: q
-        }, 'create', q)),
-      skillsToDelete.map(q => PageModule.generateBatchSnippet(
-        "/Employee/" + employee.id +
-        "/child/employeeSkillCollection/" + q, {}, 'delete', q)));
-
-    return {
-      parts: payloads
-    };
-  };
   return PageModule;
 });

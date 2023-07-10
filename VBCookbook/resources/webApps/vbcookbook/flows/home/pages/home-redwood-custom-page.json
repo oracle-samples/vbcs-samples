@@ -1,0 +1,223 @@
+{
+  "title": "Oracle Visual Builder Cookbook",
+  "description": "",
+  "variables": {
+    "filter": {
+      "type": "string",
+      "input": "fromUrl"
+    },    
+    "fullText": {
+      "type": "string",
+      "input": "fromUrl"
+    },
+    "showDashboardPanels": {
+      "type": "boolean",
+      "defaultValue": "[[ ($variables.filter === undefined || $variables.filter === 'all' || !$application.functions.isValidFilter($variables.filter) ) && ($variables.fullText  === '' || $variables.fullText === undefined) ]]"
+    }
+
+  },
+  "metadata": {
+  },
+  "types": {
+  },
+  "chains": {},
+  "eventListeners": {
+    "buttonAction3": {
+      "chains": [
+        {
+          "chainId": "ResetSearchActionChain"
+        }
+      ]
+    },
+    "hyperlinkClick2": {
+      "chains": [
+        {
+          "chainId": "ResetSearchActionChain"
+        }
+      ]
+    },
+    "myMenu1MenuAction": {
+      "chains": [
+        {
+          "chainId": "FilterMenuActionChain",
+          "parameters": {
+            "selectedValue": "{{ $event.detail.selectedValue }}"
+          }
+        }
+      ]
+    },
+    "buttonAction": {
+      "chains": [
+        {
+          "chainId": "ScrollRightActionChain"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chainId": "ScrollLeftActionChain"
+        }
+      ]
+    },
+    "fragmentClicked": {
+      "chains": [
+        {
+          "chainId": "CardActionChain",
+          "parameters": {
+            "recipe": "{{ $event.detail.recipeId }}"
+          }
+        }
+      ]
+    },
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chainId": "CardActionChain",
+          "parameters": {
+            "recipe": "{{ $current.data.id }}"
+          }
+        }
+      ]
+    },
+    "moreApplicationClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "Application"
+          }
+        }
+      ]
+    },
+    "moreRestClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "REST"
+          }
+        }
+      ]
+    },
+    "morePWAClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "PWA"
+          }
+        }
+      ]
+    },
+    "moreDynamicClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "Dynamic"
+          }
+        }
+      ]
+    },
+    "moreComponentsClick": {
+      "chains": [
+        {
+          "chainId": "OpenCategory",
+          "parameters": {
+            "category": "Components"
+          }
+        }
+      ]
+    },
+    "ojSpWelcomePageSearch1ValueAction": {
+      "chains": [
+        {
+          "chainId": "InputSearchValueActionChain",
+          "parameters": {
+            "value": "{{$event.detail.value}}",
+            "itemContext": "{{$event.detail.itemContext}}"
+          }
+        }
+      ]
+    },
+    "updateSearchTerm": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chainId": "UpdateSearchTerm"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-action-card": {
+        "path": "ojs/ojactioncard"
+      },
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-chart": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-item": {
+        "path": "ojs/ojchart"
+      },
+      "oj-combobox-one": {
+        "path": "ojs/ojselectcombobox"
+      },
+      "oj-defer": {
+        "path": "ojs/ojdefer"
+      },
+      "oj-film-strip": {
+        "path": "ojs/ojfilmstrip"
+      },
+      "oj-highlight-text": {
+        "path": "ojs/ojhighlighttext"
+      },
+      "oj-input-search": {
+        "path": "ojs/ojinputsearch"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      },
+      "oj-list-view": {
+        "path": "ojs/ojlistview"
+      },
+      "oj-menu": {
+        "path": "ojs/ojmenu"
+      },
+      "oj-menu-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-sp-collection-container": {
+        "path": "oj-sp/collection-container/loader"
+      },
+      "oj-sp-welcome-page": {
+        "path": "oj-sp/welcome-page/loader"
+      }
+
+    },
+    "css": []
+  },
+  "events": {
+    "updateSearchTerm": {
+      "payloadType": {
+        "searchTerm": "string"
+      }
+    }
+  }
+}

@@ -55,7 +55,7 @@
         <li>Drag and drop a Call Function action after the Call REST action. In properties create a new function 
           <strong>transformData</strong> with a parameter <strong>data</strong> and set its value to <strong>{{ $chain.results.callRestEndpoint1 }}</strong>. In the function add the following code to capitalize the email in the data.
           <pre>
-PageModule.prototype.transformData = function (data) {
+transformData(data) {
 // as part of transforming data, lets capitalize the email id
 if (data.body.items) {
   data.body.items.forEach(element => {

@@ -6,7 +6,9 @@
 define([], function () {
   "use strict";
 
-  var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
+  }
 
   return PageModule;
 });

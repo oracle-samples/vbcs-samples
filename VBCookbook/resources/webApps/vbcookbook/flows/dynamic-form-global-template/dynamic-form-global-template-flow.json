@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-form-global-template",
+  "description": "Flow main",
+  "defaultPage": "dynamic-form-global-template-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

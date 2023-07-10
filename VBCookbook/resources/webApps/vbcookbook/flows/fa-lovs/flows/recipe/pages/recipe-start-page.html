@@ -29,7 +29,7 @@
           <li>
             Create a page function named <code>optionRenderer</code>:
             <br>
-<pre>PageModule.prototype.optionRenderer = function(context) {
+<pre>optionRenderer(context) {
     return context.data.firstName + ' ' + context.data.lastName
   }</pre>
           </li>
@@ -169,7 +169,7 @@ new NumberConverter.IntlNumberConverter({
           <li>
             Add a function named <code>formatCurrency</code> for formatting currency.
             <br>
-<pre>PageModule.prototype.formatCurrency = function(data) {
+<pre>formatCurrency(data) {
   return this.inrNumberConverter.format(data);
 };</pre>
           </li>
@@ -360,7 +360,7 @@ new NumberConverter.IntlNumberConverter({
           <li>
             Create a function named <code>mapToCriteria</code>:
             <br>
-<pre>PageModule.prototype.mapToCriteria = function(filters) {
+<pre>mapToCriteria(filters) {
   var criteria = [];
   filters.filter(f =&gt; {
     if (Array.isArray(f.value) &amp;&amp; f.value.length &gt; 0) {

@@ -20,16 +20,6 @@
         "summary": "Upload success",
         "displayMode": "transient",
         "type": "confirmation"
-      },
-      "outcomes": {
-        "success": "callComponentMethod1"
-      }
-    },
-    "callComponentMethod1": {
-      "module": "vb/action/builtin/callComponentMethodAction",
-      "parameters": {
-        "component": "{{ document.getElementById('oj-dialog--1728153767-2') }}",
-        "method": "close"
       }
     },
     "failure": {

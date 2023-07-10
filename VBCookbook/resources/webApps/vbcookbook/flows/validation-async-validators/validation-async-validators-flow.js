@@ -3,10 +3,12 @@
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-  define([], function() {
-    'use strict';
+define([], function () {
+  "use strict";
 
-    var FlowModule = function FlowModule() {};
+  class FlowModule {
+    constructor() {}
+  }
 
-    return FlowModule;
-  });
+  return FlowModule;
+});

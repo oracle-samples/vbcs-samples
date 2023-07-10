@@ -70,32 +70,30 @@ define(['knockout', 'vb/types/factories/serviceDataProviderFactory'], function (
 
 var sdpCache = {};
 
-var PageModule = function PageModule() {
-};
+class PageModule {
+  constructor() {}
 
-PageModule.prototype.createSDP = function (deptNo) {
-  if (sdpCache[deptNo] !== undefined) {
-    return sdpCache[deptNo];
-  }
-  sdpCache[deptNo] = ko.observable();
-  ServiceDataProviderFactory.createInstance(
-    {
-      dataProviderOptions:
-      {
+  createSDP(deptNo) {
+    if (sdpCache[deptNo] !== undefined) {
+      return sdpCache[deptNo];
+    }
+    sdpCache[deptNo] = ko.observable();
+    ServiceDataProviderFactory.createInstance({
+      dataProviderOptions: {
         endpoint: "businessObjects/getall_Employee",
         keyAttributes: "id",
-        itemsPath: 'items',
+        itemsPath: "items",
         uriParameters: {
-          "q": "department=" + deptNo,
-          "limit": 25
-        }
-      }
-    }
-  ).then((sdpInstance) => {
-    sdpCache[deptNo](sdpInstance);
-  });
-  return sdpCache[deptNo];
-};
+          q: "department=" + deptNo,
+          limit: 25,
+        },
+      },
+    }).then((sdpInstance) => {
+      sdpCache[deptNo](sdpInstance);
+    });
+    return sdpCache[deptNo];
+  }
+}
 
 return PageModule;
 });

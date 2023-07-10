@@ -59,7 +59,7 @@
           </li>
           <li>In JavaScript tab of the page, create a new function <code>getRowGridDataProvider</code> having input parameter for underlying SDP. Create an instance of ojRowDataGridProvider in this function backed by the input SDP instance.
           <pre>
-  PageModule.prototype.getRowGridDataProvider = function (sdp) {
+  getRowGridDataProvider(sdp) {
     var EmployeeData = {
       id: Number,
       firstName: String,
@@ -92,7 +92,7 @@
           </li>
           <li>To style the data grid, add styling functions in the JavaScript code and use them in the <code>oj-data-grid</code> component as header and cell styles. 
           <pre>
-  PageModule.prototype.columnHeaderStyle = function (headerContext) {
+  columnHeaderStyle(headerContext) {
     if (headerContext.index == 3) // if email
     {
       return "width:230px;";
@@ -104,7 +104,7 @@
     return "width:120px;";
   };
  
-  PageModule.prototype.getCellClassName = function (cellContext) {
+  getCellClassName(cellContext) {
     return "oj-helper-justify-content-center";
   };
           </pre>

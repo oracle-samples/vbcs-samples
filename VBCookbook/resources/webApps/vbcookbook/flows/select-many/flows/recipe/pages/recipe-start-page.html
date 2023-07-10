@@ -52,41 +52,52 @@
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-define(['ojs/ojarraytreedataprovider', 'vb/BusinessObjectsTransforms'], function (ArrayTreeDataProvider, BOTransforms) {
-'use strict';
+define([
+  "ojs/ojarraytreedataprovider",
+  "vb/BusinessObjectsTransforms",
+], function (ArrayTreeDataProvider, BOTransforms) {
+  "use strict";
 
-var PageModule = function PageModule() { };
+  class PageModule {
+    constructor() {}
 
-// This function is called through requestTransformFunctions, and it appends the object fields 
-// configured as text filter attributes for filtering.
-PageModule.prototype.processFilter = function (configuration, options, transformsContext) {
-  var textValue = options && options.value;
+    processFilter(configuration, options, transformsContext) {
+      var textValue = options && options.value;
 
-  if (textValue !== undefined && transformsContext && transformsContext['vb-textFilterAttributes']) {
-    var options_new = {
-      op: '$or',
-      criteria: [
-      ]
-    };
+      if (
+        textValue !== undefined &&
+        transformsContext &&
+        transformsContext["vb-textFilterAttributes"]
+      ) {
+        var options_new = {
+          op: "$or",
+          criteria: [],
+        };
 
-    for (var i = 0; i < transformsContext['vb-textFilterAttributes'].length; i++) {
-      var itemCriterion = {};
-      itemCriterion.attribute = transformsContext['vb-textFilterAttributes'][i];
-      itemCriterion.op = '$co';
-      itemCriterion.value = textValue;
-      options_new.criteria.push(itemCriterion);
+        for (
+          var i = 0;
+          i < transformsContext["vb-textFilterAttributes"].length;
+          i++
+        ) {
+          var itemCriterion = {};
+          itemCriterion.attribute =
+            transformsContext["vb-textFilterAttributes"][i];
+          itemCriterion.op = "$co";
+          itemCriterion.value = textValue;
+          options_new.criteria.push(itemCriterion);
+        }
+
+        // - NOTE -
+        // below assignment override any existing FilterCriterion set on SDP.
+        // proper solution is to merge options_new into existing conditions
+        options = options_new;
+      }
+
+      return BOTransforms.request.filter(configuration, options);
     }
-
-    // - NOTE -
-    // The following assignment overrides any existing FilterCriterion set on the Service Data Provider.
-    // The proper solution is to merge options_new into existing conditions
-    options = options_new;
   }
 
-  return BOTransforms.request.filter(configuration, options);
-};
-
-return PageModule;
+  return PageModule;
 });
             </pre>
               </div>
@@ -118,16 +129,14 @@ return PageModule;
             <code>lastName</code> in the
             <code>fullName</code> field.
             <pre>
-PageModule.prototype.customizeData = function (restResponse) {
+customizeData(restResponse) {
   if (restResponse.body.items.length > 0) {
-    restResponse.body.items.forEach(
-      function (item) {
-        item.fullName = item.firstName + ' ' + item.lastName;
-      }
-    );
+    restResponse.body.items.forEach(function (item) {
+      item.fullName = item.firstName + " " + item.lastName;
+    });
   }
   return restResponse;
-};
+}
 </pre>
           </li>
           <li>Set the Payload property of the Return action to the result of the <code>customizeData</code> function.
@@ -155,21 +164,35 @@ PageModule.prototype.customizeData = function (restResponse) {
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-PageModule.prototype.createDropdownItemFunction = function ( applicationPath ) {
+createDropdownItemFunction(applicationPath) {
   return function (context) {
-    const ojOption = document.createElement('oj-option');
-    ojOption.innerHTML = context.data.firstName + ' ' + context.data.lastName + ' ' + context.data.phoneNumber + '  ';
-    ojOption.setAttribute('class', 'oj-sm-align-items-center oj-flex');
-    const avatar = document.createElement('oj-avatar');
-    avatar.setAttribute('src', applicationPath + 'resources/images/employees/' + context.data.id + '.png');
-    avatar.setAttribute('size', 'sm');
-    avatar.setAttribute('shape', 'circle');
-    avatar.setAttribute('slot', 'startIcon');
-    avatar.setAttribute('class', 'oj-sm-padding-4x-end');
+    const ojOption = document.createElement("oj-option");
+    ojOption.innerHTML =
+      context.data.firstName +
+      " " +
+      context.data.lastName +
+      " " +
+      context.data.phoneNumber +
+      "  ";
+    ojOption.setAttribute("class", "oj-sm-align-items-center oj-flex");
+
+    const avatar = document.createElement("oj-avatar");
+    avatar.setAttribute(
+      "src",
+      applicationPath +
+        "resources/images/employees/" +
+        context.data.id +
+        ".png"
+    );
+    avatar.setAttribute("size", "sm");
+    avatar.setAttribute("shape", "circle");
+    avatar.setAttribute("slot", "startIcon");
+    avatar.setAttribute("class", "oj-sm-padding-4x-end");
     ojOption.appendChild(avatar);
+
     return ojOption;
-  }
-};
+  };
+}
 </pre>
               </div>
             </oj-collapsible>

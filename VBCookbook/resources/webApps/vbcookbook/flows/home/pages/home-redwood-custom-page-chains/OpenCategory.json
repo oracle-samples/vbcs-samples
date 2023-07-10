@@ -1,0 +1,24 @@
+{
+  "root": "assignVariablesFilter",
+  "description": "",
+  "variables": {
+    "category": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "assignVariablesFilter": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.filter": {
+          "source": "{{ $variables.category }}"
+        },
+        "$page.variables.fullText": {
+          "source": ""
+        }
+      }
+    }
+  }
+}

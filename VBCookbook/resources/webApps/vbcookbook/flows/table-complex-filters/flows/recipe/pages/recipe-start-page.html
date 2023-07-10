@@ -135,7 +135,7 @@
           <li>Add a Module function for Offcanvas toggle support
             <pre>
                 <code>
-PageModule.prototype.toggle = function() {
+toggle() {
   const options = {
     selector: '#filterDrawer',
     content: '#mainContent',
@@ -217,7 +217,7 @@ PageModule.prototype.toggle = function() {
           <li>Create a function (<code>mapToCriteria</code>) to map filters variable to <code>employeeListSDP</code> <code>filterCriterion</code>
             <pre>
               <code>
-PageModule.prototype.mapToCriteria = function(filters) {
+mapToCriteria(filters) {
   var criteria = [];
   filters.filter(f => {
     if (Array.isArray(f.value) && f.value.length > 0) {

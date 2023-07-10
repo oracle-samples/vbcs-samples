@@ -41,7 +41,7 @@
     },
     "copyright": {
       "type": "string",
-      "defaultValue": "Copyright © 2014, 2022 Oracle and/or its affiliates All rights reserved."
+      "defaultValue": "Copyright © 2014, 2023 Oracle and/or its affiliates All rights reserved."
     },
     "secondaryActions": {
       "type": "object[]",
@@ -74,7 +74,7 @@
         }
       ]
     },
-    "generalOverviewPageHeaderSpGoToParent": {
+    "generalOverviewPageHeaderSpInFlowBack": {
       "chains": [
         {
           "chainId": "navigateToHomePage"

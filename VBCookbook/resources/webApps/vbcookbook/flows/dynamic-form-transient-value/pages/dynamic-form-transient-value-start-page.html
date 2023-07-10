@@ -13,10 +13,10 @@
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box2">
     <div class="oj-flex-item oj-sm-12 oj-md-12">
       <oj-validation-group id="employee-validation-group--1209804167-1">
-        <oj-dynamic-form id="oj-dynamic-form-transient"
+        <oj-dyn-form id="oj-dyn-form-transient"
           metadata="[[ $metadata.businessObjectsCreateEmployeeMetadata.provider ]]" layout="formTransientValueChange"
-          value="{{ $variables.employee }}" on-transient-value-changed="[[$listeners.ojDynamicFormTransientValue]]">
-        </oj-dynamic-form>
+          value="{{ $variables.employee }}" on-transient-value-changed="[[$listeners.ojDynFormTransientValue]]">
+        </oj-dyn-form>
       </oj-validation-group>
       <oj-toolbar id="oj-toolbar-for-" chroming="solid" class="oj-flex-item oj-sm-flex-initial">
         <oj-button disabled="[[ $variables.createEmployeeChainInProgress ]]"

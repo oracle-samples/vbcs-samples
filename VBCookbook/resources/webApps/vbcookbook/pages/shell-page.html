@@ -13,12 +13,11 @@
     <oj-bind-if test="[[ $application.functions.isNotHomePage($page.currentFlow)]]">
       <oj-sp-header-general-overview
         page-title="{{ $application.variables.currentRecipe !== undefined ? $application.variables.currentRecipe.label + ' Recipe' : '' }}"
-         display-options.go-to-parent="true"
+         display-options.go-to-parent="false"
         secondary-actions="[[$variables.secondaryActions]]"
-        on-sp-go-to-parent="[[$listeners.generalOverviewPageHeaderSpGoToParent]]"
         
-        on-sp-secondary-action="[[$listeners.generalOverviewPageHeaderSpSecondaryAction]]"
-        display-mode="mixed"
+        on-sp-secondary-action="[[$listeners.generalOverviewPageHeaderSpSecondaryAction]]" display-mode="mixed"
+        display-options.in-flow-back="true" on-sp-in-flow-back="[[$listeners.generalOverviewPageHeaderSpInFlowBack]]"
   ></oj-sp-header-general-overview>
       
     </oj-bind-if>

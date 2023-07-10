@@ -60,54 +60,62 @@
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-  define(['ojs/ojrowdatagridprovider', 'ojs/ojbufferingdataprovider', 'ojs/ojconverter-number'], (RowDataGridProvider, BufferingDataProvider, NumberConverter) => {
-  'use strict';
+define([
+  "ojs/ojrowdatagridprovider",
+  "ojs/ojbufferingdataprovider",
+  "ojs/ojconverter-number",
+], (RowDataGridProvider, BufferingDataProvider, NumberConverter) => {
+  "use strict";
 
-  var PageModule = function PageModule() { };
-  var bufferingDP = null;
-  var dataColumnNames = ['firstName', 'lastName', 'jobObject', 'salary', 'jobObject'];
-  var bufferredRowData = null; // holds cell's original data
-  var editingInProgress = false; // keeps track if editing is going on
-  var numberConverter = new NumberConverter.IntlNumberConverter({
-    style: 'currency',
-    currency: 'USD',
-    currencyDisplay: 'symbol',
-    maximumFractionDigits: 0
-  });
-
-  /**
-   *
-   * @param {String} sdp
-   * @return {String}
-   */
-  PageModule.prototype.getRowGridDataProvider = function (sdp) {
-    if (bufferingDP == null) {
-      bufferingDP = new BufferingDataProvider(sdp);
-      bufferingDP.addEventListener("submittableChange", (event) => {
-        const submittableRows = event.detail;
-        this.showSubmittableItems(submittableRows);
+  class PageModule {
+    constructor() {
+      this.dataColumnNames = [
+        "firstName",
+        "lastName",
+        "jobObject",
+        "salary",
+        "jobObject",
+      ];
+      this.editingInProgress = false; // keeps track if editing is going on
+      this.numberConverter = new NumberConverter.IntlNumberConverter({
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "symbol",
+        maximumFractionDigits: 0,
       });
     }
 
-    return new RowDataGridProvider.RowDataGridProvider(bufferingDP, {
-      columns: {
-        rowHeader: ['id'],
-        databody: dataColumnNames
-      },
-      columnHeaders: {
-        column: [
-          { data: 'First Name' },
-          { data: 'Last Name' },
-          { data: 'Job' },
-          { data: 'Salary' },
-          { data: 'Salary Range' }
-        ],
-      },
-      headerLabels: {
-        row: ['Id']
-      }
-    });
-  };
+    /**
+     *
+     * @param {String} sdp
+     * @return {String}
+     */
+    getRowGridDataProvider(sdp) {
+      this.bufferingDP = new BufferingDataProvider(sdp);
+      this.bufferingDP.addEventListener("submittableChange", (event) => {
+        const submittableRows = event.detail;
+        this.showSubmittableItems(submittableRows);
+      });
+
+      return new RowDataGridProvider.RowDataGridProvider(this.bufferingDP, {
+        columns: {
+          rowHeader: ["id"],
+          databody: this.dataColumnNames,
+        },
+        columnHeaders: {
+          column: [
+            { data: "First Name" },
+            { data: "Last Name" },
+            { data: "Job" },
+            { data: "Salary" },
+            { data: "Salary Range" },
+          ],
+        },
+        headerLabels: {
+          row: ["Id"],
+        },
+      });
+    }
           </pre>
               </div>
             </oj-collapsible>
@@ -121,7 +129,7 @@
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-  PageModule.prototype.columnHeaderStyle = function (headerContext) {
+  columnHeaderStyle(headerContext) {
     if (headerContext.index == 2) // jobTitle
     {
       return "width: 260px";
@@ -141,15 +149,15 @@
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-  PageModule.prototype.getHeaderClassName = function (headerContext) {
-    return getClassName(headerContext.index);
+  getHeaderClassName(headerContext) {
+    return this.getClassName(headerContext.index);
   };
 
-  PageModule.prototype.getCellClassName = function (cellContext) {
-    return getClassName(cellContext.indexes.column, cellContext.metadata.rowItem);
+  getCellClassName(cellContext) {
+    return this.getClassName(cellContext.indexes.column, cellContext.metadata.rowItem);
   };
 
-  function getClassName(columnIndex, item) {
+  getClassName(columnIndex, item) {
     if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2) {
       return "oj-sm-justify-content-flex-start";
     }
@@ -180,7 +188,7 @@
             for the Salary Range column in the Data Grid component. Likewise create another function <code>getFormattedSalary</code> 
             formatting the salary value.
             <pre>
-  PageModule.prototype.getFormattedSalaryRange = function (jobObject) {
+  getFormattedSalaryRange(jobObject) {
     var range = '';
     if (jobObject.items[0] !== undefined && jobObject.items[0].minSalary !== undefined) {
       return '$' + jobObject.items[0].minSalary + ' - ' + jobObject.items[0].maxSalary;
@@ -188,7 +196,7 @@
     return 'loading...';
   };
 
-  PageModule.prototype.getFormattedSalary = function (data) {
+  getFormattedSalary(data) {
     return numberConverter.format(data);
   };
           </pre>
@@ -288,13 +296,13 @@
           <li>Add a page function <code>salaryInRangeValidator</code> to validate the salary value to be within the
             range.
             <pre>
-  PageModule.prototype.salaryInRangeValidator = function (record) {
+  salaryInRangeValidator(record) {
     return {
       getHint: () => {
         return 'Salary has to be in job salary range';
       },
       validate: value => {
-        var jobRecord = bufferredRowData.data.jobObject.items[0];
+        var jobRecord = this.bufferredRowData.data.jobObject.items[0];
         if (jobRecord.minSalary === undefined) {
           throw new Error(
             'cannot validate because range is not available yet');
@@ -329,7 +337,7 @@
             for event handling as the Data Grid component expects the event handlers to be synchronous but Visual Builder action chains are asynchronous by
             default.
             <pre>
-  PageModule.prototype.onBeforeEdit = function (event) {
+  onBeforeEdit(event) {
     // conditionally disable the cells for editing by preventing default on the event
     if (event.detail.cellContext.indexes.column == '4') {
       event.preventDefault();
@@ -338,7 +346,7 @@
       editingInProgress = true;
 
       // copy the original data of this cell
-      bufferredRowData = Object.assign({}, event.detail.cellContext.metadata.rowItem);
+      this.bufferredRowData = Object.assign({}, event.detail.cellContext.metadata.rowItem);
     }
   };
           </pre>
@@ -353,7 +361,7 @@
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-  PageModule.prototype.onBeforeEditEnd = function (event) {
+  onBeforeEditEnd(event) {
     if (event.detail.cancelEdit == false) {
       const editable = event.target.querySelector('.editable');
 
@@ -383,19 +391,19 @@
           }
 
           // if a new job is set update three row level properties
-          bufferredRowData.data.job = newValue.id; 
-          bufferredRowData.data.jobObject.items[0] = newValue;  // update the salary range as the job title has changed
-          bufferredRowData.data.salary = undefined; // reset the salary value as the job title has changed
+          this.bufferredRowData.data.job = newValue.id; 
+          this.bufferredRowData.data.jobObject.items[0] = newValue;  // update the salary range as the job title has changed
+          this.bufferredRowData.data.salary = undefined; // reset the salary value as the job title has changed
         }
         else {
           if (newValue === oldValue) {
             return; // no change in data
           }
-          bufferredRowData.data[dataColumn] = newValue;
+          this.bufferredRowData.data[dataColumn] = newValue;
         }
         // write back to the cell context for immediate update
-        event.detail.cellContext.data.data = bufferredRowData.data[dataColumn];
-        bufferingDP.updateItem(bufferredRowData);
+        event.detail.cellContext.data.data = this.bufferredRowData.data[dataColumn];
+        bufferingDP.updateItem(this.bufferredRowData);
       }
     }
 

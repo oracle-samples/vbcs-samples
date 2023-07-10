@@ -1,0 +1,103 @@
+{
+  "root": "setPendingFormStatus",
+  "description": "Loads Department record data",
+  "variables": {
+    "fetchedFields": {
+      "type": "any[]",
+      "input": "fromCaller"
+    },
+    "departmentId": {
+      "type": "string",
+      "defaultValue": "6",
+      "input": "fromCaller"
+    }
+  },
+  "actions": {
+    "setPendingFormStatus": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.departmentDetailFormLoadingStatus": {
+          "source": "pending"
+        }
+      },
+      "outcomes": {
+        "success": "resetDepartmentData"
+      },
+      "description": "Updates form status to Pending.",
+      "label": "Set Form status to Pending"
+    },
+    "resetDepartmentData": {
+      "module": "vb/action/builtin/resetVariablesAction",
+      "parameters": {
+        "variables": [
+          "$page.variables.department"
+        ]
+      },
+      "outcomes": {
+        "success": "testValidInput"
+      },
+      "description": "Clears Department data the variable holds",
+      "label": "Reset Department variable"
+    },
+    "testValidInput": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $variables.fetchedFields && $variables.fetchedFields.length && $variables.departmentId !== undefined ]]"
+      },
+      "outcomes": {
+        "true": "loadDepartment"
+      },
+      "description": "Tests the REST call can be initiated",
+      "label": "Test valid input"
+    },
+    "loadDepartment": {
+      "module": "vb/action/builtin/restAction",
+      "parameters": {
+        "endpoint": "businessObjects/get_Department",
+        "responseFields": "[[ $variables.fetchedFields ]]",
+        "uriParams": {
+          "Department_Id": "[[ $variables.departmentId ]]"
+        }
+      },
+      "outcomes": {
+        "success": "assignDepartmentData",
+        "failure": "fireErrorNotification"
+      },
+      "description": "Initiates REST call loading Department data",
+      "label": "Load Department record"
+    },
+    "assignDepartmentData": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.department": {
+          "source": "[[ $chain.results.loadDepartment.body ]]",
+          "auto": "always"
+        }
+      },
+      "outcomes": {
+        "success": "setReadyFormStatus"
+      },
+      "description": "Assigns data loaded by the REST call to the Department variable",
+      "label": "Assign Department data"
+    },
+    "setReadyFormStatus": {
+      "module": "vb/action/builtin/assignVariablesAction",
+      "parameters": {
+        "$page.variables.departmentDetailFormLoadingStatus": {
+          "source": "ready"
+        }
+      }
+    },
+    "fireErrorNotification": {
+      "module": "vb/action/builtin/fireNotificationEventAction",
+      "parameters": {
+        "summary": "Could not load data",
+        "message": "[[ 'Could not load data: status ' + $chain.results.loadDepartment.status ]]",
+        "type": "error",
+        "displayMode": "persist"
+      },
+      "description": "Shows an error message informing about data load failure",
+      "label": "Show error message"
+    }
+  }
+}
