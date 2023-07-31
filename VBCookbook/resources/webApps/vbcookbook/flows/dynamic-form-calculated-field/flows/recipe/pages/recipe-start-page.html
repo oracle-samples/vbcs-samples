@@ -90,19 +90,19 @@ DataDescriptionModule.prototype.calculateEmployeeExperience = function (value) {
     if (value != null) {
       let hireDate = new Date(value);
       let currentDate = new Date();
-      var expInYears = currentDate.getUTCFullYear() - hireDate.getUTCFullYear();
-      var hireMonth = hireDate.getMonth();
-      var currentMonth = currentDate.getMonth();
-      var expInMonths = 0;
+      let expInYears = currentDate.getUTCFullYear() - hireDate.getUTCFullYear();
+      let hireMonth = hireDate.getMonth();
+      let currentMonth = currentDate.getMonth();
+      let expInMonths = 0;
       if (hireMonth > currentMonth) {
-        var diffInMonths = hireMonth - currentMonth;
+        let diffInMonths = hireMonth - currentMonth;
         expInMonths = 12 - diffInMonths;
         expInYears = expInYears - 1;
       }
       else {
         expInMonths = currentMonth - hireMonth;
       }
-      var totalExperience = expInYears + ' years ' + expInMonths + ' months ';
+      let totalExperience = expInYears + ' years ' + expInMonths + ' months ';
       return totalExperience;
     }
     return null;

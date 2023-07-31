@@ -57,7 +57,7 @@
         <li>In the Properties pane of the Call Module Function action, create a function named <code>_showBarcodeScanner</code>.</li>
         <li>In the JavaScript tab of the page, add the following code to the <code>_showBarcodeScanner</code> function:
 <pre>_showBarcodeScanner(arg1) {
-      var barcodeScannerPromise = new Promise(function(resolve, reject) {
+      let barcodeScannerPromise = new Promise(function(resolve, reject) {
         window.cordova.plugins.barcodeScanner.scan(function(result) {
 
             resolve(result.text);

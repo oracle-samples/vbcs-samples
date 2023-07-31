@@ -24,8 +24,7 @@ define(["vb/helpers/rest", "ojs/ojasyncvalidator-regexp"], function (
     uniqueEmailValidator() {
       return {
         hint: Promise.resolve("Provide a unique email to the Employee"),
-        validate: (value) => {
-          return new Promise((resolve, reject) => {
+        validate: (value) => new Promise((resolve, reject) => {
             Rest.get("businessObjects/getall_Employee")
               .parameters({
                 q: `email = '${value}'`,
@@ -42,8 +41,7 @@ define(["vb/helpers/rest", "ojs/ojasyncvalidator-regexp"], function (
                   resolve();
                 }
               });
-          });
-        },
+          }),
       };
     }
 
@@ -53,7 +51,7 @@ define(["vb/helpers/rest", "ojs/ojasyncvalidator-regexp"], function (
      * @return {String}
      */
     isFormValid(arg1) {
-      var el = document.getElementById("tracker");
+      let el = document.getElementById("tracker");
       if (el.valid === "valid") {
         return true;
       } else {
@@ -68,8 +66,8 @@ define(["vb/helpers/rest", "ojs/ojasyncvalidator-regexp"], function (
       // field validation gets over ie tracker
       // status changes to something other than 'pending'
       return new Promise(function (resolve, reject) {
-        var tracker = document.getElementById("tracker");
-        var waitForValidation = function () {
+        let tracker = document.getElementById("tracker");
+        let waitForValidation = function () {
           if (tracker.valid === "pending") {
             // simulated field validation at server still going on
             setTimeout(function () {

@@ -12,16 +12,16 @@ define([], function () {
     // Returns true if there is an unsaved change (i.e. dirtyObject is not equivalent to cleanObject)
     unsavedChange(cleanObject, dirtyObject) {
       // Create arrays of property names for each Object
-      var cleanProps = Object.getOwnPropertyNames(cleanObject);
-      var dirtyProps = Object.getOwnPropertyNames(dirtyObject);
+      let cleanProps = Object.getOwnPropertyNames(cleanObject);
+      let dirtyProps = Object.getOwnPropertyNames(dirtyObject);
 
       // If number of properties is different, objects are not equivalent
-      if (cleanProps.length != dirtyProps.length) {
+      if (cleanProps.length !== dirtyProps.length) {
         return true;
       }
 
-      for (var i = 0; i < cleanProps.length; i++) {
-        var propName = cleanProps[i];
+      for (let i = 0; i < cleanProps.length; i++) {
+        let propName = cleanProps[i];
 
         // If values of same property are not equal, objects are not equivalent
         if (cleanObject[propName] !== dirtyObject[propName]) {

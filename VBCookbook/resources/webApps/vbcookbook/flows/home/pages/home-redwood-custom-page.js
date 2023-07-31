@@ -51,9 +51,7 @@ define([], function () {
     }
 
     getMenuItemLabel(selectedValue) {
-      return menu[selectedValue] !== undefined
-        ? menu[selectedValue].label
-        : "All Recipes";
+      return menu[selectedValue] !== undefined ? menu[selectedValue].label : "All Recipes";
     }
 
     onRawValueListener(event) {
@@ -118,16 +116,16 @@ define([], function () {
     }
 
     scrollRight() {
-      var found;
-      var rightEnd = document
+      let found;
+      let rightEnd = document
         .getElementById("downloaded-heading")
         .getBoundingClientRect().right;
-      var width =
+      let width =
         document.getElementById("downloaded-heading").getBoundingClientRect()
           .width - 300;
       [...Array(12).keys()].forEach((ind) => {
-        var e = document.getElementById("tile-" + ind);
-        var tileEnd = e.getBoundingClientRect().left + 300;
+        let e = document.getElementById("tile-" + ind);
+        let tileEnd = e.getBoundingClientRect().left + 300;
         if (tileEnd > rightEnd + width) {
           if (found === undefined) {
             found = e;
@@ -143,16 +141,16 @@ define([], function () {
     }
 
     scrollLeft() {
-      var found;
-      var leftStart = document
+      let found;
+      let leftStart = document
         .getElementById("downloaded-heading")
         .getBoundingClientRect().left;
-      var width =
+      let width =
         document.getElementById("downloaded-heading").getBoundingClientRect()
           .width - 300;
       [...Array(12).keys()].forEach((ind) => {
-        var e = document.getElementById("tile-" + ind);
-        var tileStart = e.getBoundingClientRect().left;
+        let e = document.getElementById("tile-" + ind);
+        let tileStart = e.getBoundingClientRect().left;
         if (tileStart < leftStart - width) {
           found = e;
         }

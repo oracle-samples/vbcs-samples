@@ -347,7 +347,7 @@
           </li>
           <li>In the <code>tableEditChain</code>, drag and drop an 'If' action to check the condtion <code>[[$variables.name === "edit"]]</code>.
             In the true branch, drag and drop the 'Call Action Chain' action and call the action chain <code>TableBeforeRowEditChain</code> that was associated with ojBeforeRowEdit event listener of the table and pass the required parameters.
-            Similarly, in the false branch, drag and drop the 'Call Action Chain' action and call the action chain <code>TableBeforeRowEditEndChain</code>that was associated with ojBeforeRowEditEnd event listener of the table and pass the required parameters.</code></li>
+            Similarly, in the false branch, drag and drop the 'Call Action Chain' action and call the action chain <code>TableBeforeRowEditEndChain</code>that was associated with ojBeforeRowEditEnd event listener of the table and pass the required parameters.</li>
           <li>At the end of the <code>TableBeforeRowEditChain</code> action chain, add the 'Call Function' action and call the <code>resolveRowBeforeEditPromise</code> function to resolve the promise.</li>
           <li>At the end of the <code>TableBeforeRowEditEndChain</code> action chain, add the 'Call Function' action and call the <code>resolveRowBeforeEditEndPromise</code> function to resolve the promise.</li>
           <li>Add another action 'Fire Data Provider Event' at the end of the <code>TableBeforeRowEditEndChain</code> action chain to mutate the <code>employeesBDP</code> page variable with update parameter as below:

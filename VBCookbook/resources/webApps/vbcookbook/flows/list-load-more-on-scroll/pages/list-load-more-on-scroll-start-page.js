@@ -5,7 +5,7 @@
  */
 define([], function () {
   "use strict";
-  var backgroundArray = [
+  let backgroundArray = [
     "red",
     "orange",
     "forest",

@@ -41,7 +41,7 @@ define([
     }
 
     _fadeIn() {
-      var e = document.getElementById("employee-card-right");
+      let e = document.getElementById("employee-card-right");
       AnimationUtils.flipIn(e, {
         duration: "2s",
         persist: "all",
@@ -71,8 +71,8 @@ define([
       const parentElement = document.querySelector(".fold-panels-parent");
       if (rootElement.classList.contains("fold-closed")) {
         parentElement.classList.remove("fold-panels-parent-closed");
-        var self = this;
-        var show = function () {
+        let self = this;
+        let show = function () {
           self.animate(".fold-panel1", true, "0ms");
           self.animate(".fold-panel2", true, "217ms");
           self.animate(".fold-panel3", true, "467ms");

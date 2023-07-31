@@ -12,11 +12,12 @@ define([], function () {
     /**
      * Create object URL which can be rendered in <img> or <object> tags
      */
-    preview(blobData, contentType) {
+    preview(blobData, contentTypeParam) {
+      let contentType = contentTypeParam;
       if (contentType === undefined || contentType.length === 0) {
         contentType = "application/octet-stream";
       }
-      var newBlob = new Blob([blobData], {
+      let newBlob = new Blob([blobData], {
         type: contentType,
       });
       return URL.createObjectURL(newBlob);
@@ -27,7 +28,7 @@ define([], function () {
      * using fileName param.
      */
     download(blobData, contentType, fileName) {
-      var element = document.createElement("a");
+      let element = document.createElement("a");
       element.setAttribute("href", this.preview(blobData, contentType));
       element.setAttribute("download", fileName);
       element.style.display = "none";

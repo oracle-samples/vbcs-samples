@@ -218,7 +218,7 @@ toggle() {
             <pre>
               <code>
 mapToCriteria(filters) {
-  var criteria = [];
+  let criteria = [];
   filters.filter(f => {
     if (Array.isArray(f.value) && f.value.length > 0) {
       return true;
@@ -231,7 +231,7 @@ mapToCriteria(filters) {
     }
   }).forEach(f => {
     if (Array.isArray(f.value)) {
-      var arrayCriteria = [];
+      let arrayCriteria = [];
       f.value.forEach(val => {
         arrayCriteria.push({
           op: f.op,

@@ -79,7 +79,7 @@
             <pre>
             <code>
 handleDropRows(event, ui) {
-  var dragData = event.dataTransfer.getData(
+  let dragData = event.dataTransfer.getData(
     'application/ojtablerows+json');
 
   if (dragData) {

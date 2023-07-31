@@ -8,9 +8,9 @@ define([], () => {
 
   class PageModule {
     wait() {
-      var counter = 0;
-      var start = new Date().getTime();
-      var end = 0;
+      let counter = 0;
+      let start = new Date().getTime();
+      let end = 0;
       while (counter < 2000) {
         end = new Date().getTime();
         counter = end - start;

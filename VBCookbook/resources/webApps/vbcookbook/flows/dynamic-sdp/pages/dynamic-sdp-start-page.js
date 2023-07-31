@@ -9,7 +9,7 @@ define(["knockout", "vb/types/factories/serviceDataProviderFactory"], function (
 ) {
   "use strict";
 
-  var sdpCache = {};
+  let sdpCache = {};
 
   class PageModule {
     constructor() {}

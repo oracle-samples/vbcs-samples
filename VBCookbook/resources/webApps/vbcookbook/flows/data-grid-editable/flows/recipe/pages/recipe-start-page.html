@@ -189,7 +189,7 @@ define([
             formatting the salary value.
             <pre>
   getFormattedSalaryRange(jobObject) {
-    var range = '';
+    let range = '';
     if (jobObject.items[0] !== undefined && jobObject.items[0].minSalary !== undefined) {
       return '$' + jobObject.items[0].minSalary + ' - ' + jobObject.items[0].maxSalary;
     }
@@ -302,7 +302,7 @@ define([
         return 'Salary has to be in job salary range';
       },
       validate: value => {
-        var jobRecord = this.bufferredRowData.data.jobObject.items[0];
+        let jobRecord = this.bufferredRowData.data.jobObject.items[0];
         if (jobRecord.minSalary === undefined) {
           throw new Error(
             'cannot validate because range is not available yet');
@@ -376,12 +376,12 @@ define([
           return;
         }
 
-        var newValue = editable.value;
-        var oldValue = event.detail.cellContext.data.data;
+        let newValue = editable.value;
+        let oldValue = event.detail.cellContext.data.data;
 
         // from update event change the data item with latest update
-        var columnIndex = event.detail.cellContext.indexes.column;
-        var dataColumn = dataColumnNames[columnIndex];
+        let columnIndex = event.detail.cellContext.indexes.column;
+        let dataColumn = dataColumnNames[columnIndex];
         
         if (dataColumn === 'jobObject') {
            // get the data out of the select single which is in valueItem not value

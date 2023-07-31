@@ -68,7 +68,7 @@ oj-bind-for-each data="[[ $variables.deptSDP ]]"</pre>
 define(['knockout', 'vb/types/factories/serviceDataProviderFactory'], function (ko, ServiceDataProviderFactory) {
 'use strict';
 
-var sdpCache = {};
+let sdpCache = {};
 
 class PageModule {
   constructor() {}

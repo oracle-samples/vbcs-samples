@@ -62,24 +62,24 @@ define([
     constructor() {}
 
     processFilter(configuration, options, transformsContext) {
-      var textValue = options && options.value;
+      let textValue = options && options.value;
 
       if (
         textValue !== undefined &&
         transformsContext &&
         transformsContext["vb-textFilterAttributes"]
       ) {
-        var options_new = {
+        let options_new = {
           op: "$or",
           criteria: [],
         };
 
         for (
-          var i = 0;
+          let i = 0;
           i < transformsContext["vb-textFilterAttributes"].length;
           i++
         ) {
-          var itemCriterion = {};
+          let itemCriterion = {};
           itemCriterion.attribute =
             transformsContext["vb-textFilterAttributes"][i];
           itemCriterion.op = "$co";

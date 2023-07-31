@@ -23,8 +23,8 @@ define([
     }
 
     convertArrayIntoTree(employeeArray) {
-      var empPerManager = {};
-      var ceo;
+      let empPerManager = {};
+      let ceo;
       employeeArray.forEach((e) => {
         if (e.manager === undefined || e.manager === null || e.manager === 0) {
           ceo = e;
@@ -35,13 +35,13 @@ define([
           empPerManager[e.manager].push(e);
         }
       });
-      var r = [];
+      let r = [];
 
-      var addEmployee = function (emp, result) {
-        var element = emp;
+      let addEmployee = function (emp, result) {
+        let element = emp;
         result.push(element);
         if (empPerManager[emp.id] !== undefined) {
-          var children = [];
+          let children = [];
           empPerManager[emp.id].forEach((e) => addEmployee(e, children));
           element.children = children;
         }
@@ -51,8 +51,8 @@ define([
     }
 
     updateTreeDataProvider(employeeArray) {
-      var tree = this.convertArrayIntoTree(employeeArray);
-      var arrayTreeDataProvider = new ArrayTreeDataProvider(tree, {
+      let tree = this.convertArrayIntoTree(employeeArray);
+      let arrayTreeDataProvider = new ArrayTreeDataProvider(tree, {
         keyAttributes: "id",
       });
       this.dataSource(new FlattenedTreeDataProviderView(arrayTreeDataProvider));

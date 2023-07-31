@@ -6,7 +6,7 @@
 define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
   "use strict";
 
-  var cols = [
+  let cols = [
     {
       headerText: "Department",
       field: "departmentObject.items[0].departmentName",
@@ -35,7 +35,8 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
       return rowHeaders;
     }
 
-    getValue(item, field) {
+    getValue(item, fieldParam) {
+      let field = fieldParam;
       if (field.indexOf(".") > 0 || field.indexOf("[") > 0) {
         field = field.replaceAll("[", ".");
         field = field.replaceAll("]", ".");
@@ -43,28 +44,28 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
         if (field.endsWith(".")) {
           field = field.substr(0, field.length - 1);
         }
-        var res = item;
+        let res = item;
         field.split(".").forEach((key) => (res = res[key]));
         return res;
       } else {
-        return item[field] !== undefined
-          ? item[field]
-          : Math.floor(Math.random() * 25) * 100;
+        return item[field] !== undefined ? item[field] : Math.floor(Math.random() * 25) * 100;
       }
     }
 
-    buildBodyArray(items, cols) {
+    buildBodyArray(items, colsParam) {
       const bodyArray = [];
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        var flattendArray = [];
-        cols.forEach((col_) => flattendArray.push(this.getValue(item, col_.field)));
+        let flattendArray = [];
+        colsParam.forEach((col_) => flattendArray.push(this.getValue(item, col_.field)));
         bodyArray.push(flattendArray);
       }
       return bodyArray;
     }
 
-    mergeFunction(value1, value2) {
+    mergeFunction(value1Param, value2Param) {
+      let value1 = value1Param;
+      let value2 = value2Param;
       //  debugger;
       if (typeof value1 === "object" && "departmentName" in value1) {
         value1 = value1.departmentName;
@@ -78,7 +79,7 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
       if (typeof value2 === "object" && "jobTitle" in value2) {
         value2 = value2.jobTitle;
       }
-      return value1 == value2;
+      return value1 === value2;
     }
 
     columnHeaderStyle(headerContext) {

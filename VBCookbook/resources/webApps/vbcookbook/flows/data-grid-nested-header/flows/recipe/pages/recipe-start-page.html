@@ -293,7 +293,7 @@
               <a href="" slot="header">Expand to view code</a>
               <div>
                 <pre>
-    var gridCols = [
+    let gridCols = [
       { "headerText": "Jan", "field": "bonus01" },
       { "headerText": "Feb", "field": "bonus02" },
       { "headerText": "Mar", "field": "bonus03" },
@@ -308,17 +308,17 @@
       { "headerText": "Dec", "field": "bonus12" }
     ];
 
-    var rowStartHeaders = [
+    let rowStartHeaders = [
       { "headerText": "Department", "field": "departmentObject.items[0].departmentName" },
       { "headerText": "Job", "field": "jobObject.items[0].jobTitle" },
       { "headerText": "First Name", "field": "firstName" }
     ];
 
-    var colEndHeaderLabel = [
+    let colEndHeaderLabel = [
       { "headerText": "Total Monthly Bonus", "field": "totalMonthlyBonus" }
     ];
 
-    var rowEndHeaderLabel = [
+    let rowEndHeaderLabel = [
       { "headerText": "Yearly Bonus", "field": "yearlyBonus" }
     ];</pre>
               </div>
@@ -344,8 +344,8 @@ class PageModule {
 
   getColumnEndHeaderValues(dataArray) {
     let colSum = [];
-    for (var i = 0; i < dataArray.length; i++) {
-      for (var j = 0; j < dataArray[i].length; j++) {
+    for (let i = 0; i < dataArray.length; i++) {
+      for (let j = 0; j < dataArray[i].length; j++) {
         colSum[j] = (colSum[j] || 0) + dataArray[i][j];
       }
     }
@@ -354,7 +354,7 @@ class PageModule {
   }
 
   getRowEndHeaderValues(dataArray) {
-    var rowSum = [];
+    let rowSum = [];
     for (let i = 0; i < dataArray.length; i++) {
       for (let j = 0; j < gridCols.length; j++) {
         rowSum[i] = (rowSum[i] || 0) + dataArray[i][j];
@@ -381,7 +381,7 @@ class PageModule {
       if (field.endsWith(".")) {
         field = field.substr(0, field.length - 1);
       }
-      var res = item;
+      let res = item;
       field.split(".").forEach((key) => (res = res[key]));
       return res;
     } else {
@@ -395,7 +395,7 @@ class PageModule {
     const bodyArray = [];
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      var flattendArray = [];
+      let flattendArray = [];
       cols.forEach((col_) => flattendArray.push(this.getValue(item, col_.field)));
       bodyArray.push(flattendArray);
     }

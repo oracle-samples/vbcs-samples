@@ -18,6 +18,7 @@
         :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
         class="oj-table-stretch oj-flex-item" data="[[$page.variables.booksListADP]]"
         columns='[{"headerText":"Title","field":"title"},{"headerText":"Rating","field":"rating","template":"ratingTemplate"},{"headerText":"Price","field":"price","template":"currencyTemplate"},{"headerText":"Author","field":"author"},{"headerText":"Reviews","field":"reviews"}]'>
+
         <template slot="ratingTemplate">
           <oj-rating-gauge value='[[$current.data]]' class="oj-sm-flex-initial" style="max-width:100%;" readonly="true"
             selected-state.color="[[ $functions.getRatingColor($current.data) ]]"></oj-rating-gauge>

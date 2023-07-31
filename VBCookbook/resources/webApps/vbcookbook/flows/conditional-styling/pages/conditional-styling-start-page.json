@@ -118,6 +118,7 @@
       "oj-table": {
         "path": "ojs/ojtable"
       }
+
     },
     "modules": {
       "ojValidationNumber": {

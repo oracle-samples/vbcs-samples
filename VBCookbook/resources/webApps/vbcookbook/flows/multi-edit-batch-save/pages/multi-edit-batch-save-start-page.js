@@ -10,9 +10,9 @@ define([], function () {
     constructor() {}
 
     existsInArray(id, employeeArray) {
-      var record = employeeArray.find((e) => e.id === id);
+      let record = employeeArray.find((e) => e.id === id);
 
-      if (record == undefined) {
+      if (record === undefined) {
         return false;
       }
 
@@ -20,14 +20,14 @@ define([], function () {
     }
 
     isNewRow(id, rowStatus) {
-      var status = rowStatus[id];
+      let status = rowStatus[id];
 
-      if (status == undefined) {
+      if (status === undefined) {
         // employee record exists in employeearray but not in rowStatus
         return false; // so this is not a new row, its an existing row
       }
 
-      if (status == "inserted") {
+      if (status === "inserted") {
         // thats a new row, not existing in db
         return true;
       }
@@ -36,9 +36,9 @@ define([], function () {
     }
 
     prepareDepartmentBatchPayload(newdepname, originaldepname, depid) {
-      var payload = [];
+      let payload = [];
 
-      if (newdepname != originaldepname) {
+      if (newdepname !== originaldepname) {
         payload.push(
           this.generateBatchSnippet(
             "/Department/" + depid,
@@ -55,19 +55,19 @@ define([], function () {
     }
 
     prepareEmployeesBatchPayload(employeeArray, rowStatus, payload) {
-      Object.keys(rowStatus).forEach((key) => {
-        key = parseInt(key); // the field is actually numeral
+      Object.keys(rowStatus).forEach((keyParam) => {
+        let key = parseInt(keyParam,10); // the field is actually numeral
 
-        var change = rowStatus[key];
-        var record = employeeArray.find((e1) => e1.id === key);
+        let change = rowStatus[key];
+        let record = employeeArray.find((e1) => e1.id === key);
 
-        if (change == "inserted") {
+        if (change === "inserted") {
           record.hireDate = new Date(); // mandatory field
           record.job = 1; // mandatory field
           payload.push(
             this.generateBatchSnippet("/Employee/", record, "create", key)
           );
-        } else if (change == "modified") {
+        } else if (change === "modified") {
           payload.push(
             this.generateBatchSnippet(
               "/Employee/" + key,
@@ -76,7 +76,7 @@ define([], function () {
               key
             )
           );
-        } else if (change == "deleted") {
+        } else if (change === "deleted") {
           payload.push(
             this.generateBatchSnippet(
               "/Employee/" + key,

@@ -297,7 +297,7 @@ define(["datagrid/DemoDataGridProvider"],
 function (dgp) {
   'use strict';
 
-  var cols = [
+  let cols = [
     { "headerText": "Department", "field": "departmentObject.items[0].departmentName" },
     { "headerText": "Job", "field": "jobObject.items[0].jobTitle" },
     { "headerText": "First Name", "field": "firstName" },
@@ -341,7 +341,7 @@ class PageModule {
       if (field.endsWith(".")) {
         field = field.substr(0, field.length - 1);
       }
-      var res = item;
+      let res = item;
       field.split(".").forEach((key) => (res = res[key]));
       return res;
     } else {
@@ -355,7 +355,7 @@ class PageModule {
     const bodyArray = [];
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      var flattendArray = [];
+      let flattendArray = [];
       cols.forEach((col_) => flattendArray.push(this.getValue(item, col_.field)));
       bodyArray.push(flattendArray);
     }

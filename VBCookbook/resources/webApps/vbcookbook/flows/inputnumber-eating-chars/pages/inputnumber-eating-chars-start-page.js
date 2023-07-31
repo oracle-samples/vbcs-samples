@@ -10,10 +10,10 @@ define([], function () {
     constructor() {}
 
     isValidChar(event) {
-      var charCode = event.which ? event.which : event.keyCode;
-      var char = String.fromCharCode(charCode);
+      let charCode = event.which ? event.which : event.keyCode;
+      let char = String.fromCharCode(charCode);
       // Only allow ".0123456789" (and non-display characters)
-      var replacedValue = char.replace(/[^0-9\.]/g, "");
+      let replacedValue = char.replace(/[^0-9.]/g, "");
       if (char !== replacedValue) {
         return false;
       }

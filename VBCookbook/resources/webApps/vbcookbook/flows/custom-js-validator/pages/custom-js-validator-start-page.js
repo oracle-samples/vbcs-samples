@@ -13,21 +13,19 @@ define([], function (oj) {
       return [
         {
           validate: (value) => {
-            if (value == null || String(value) == "") {
+            if (value === null || String(value) === "") {
               throw new Error("This is a mandatory field.");
             }
 
-            var pattern = new RegExp(/[a-zA-Z0-9]+$/);
-            var validValue = pattern.test(value);
+            let pattern = new RegExp(/[a-zA-Z0-9]+$/);
+            let validValue = pattern.test(value);
 
             if (!validValue) {
               throw new Error("Please enter alphabets and numbers only.");
             }
           },
-          getHint: () => {
-            return "Special characters are not allowed";
-          },
-        },
+          getHint: () => "Special characters are not allowed"
+        }
       ];
     }
 
@@ -35,19 +33,19 @@ define([], function (oj) {
       return [
         {
           validate: (value) => {
-            if (value == null || String(value) == "") {
+            if (value === null || String(value) === "") {
               throw new Error("This is a mandatory field.");
             }
-            var options = {
+            let options = {
               year: "numeric",
               month: "numeric",
               day: "numeric",
             };
-            var futureDateString = futureDate.toLocaleDateString(
+            let futureDateString = futureDate.toLocaleDateString(
               "en-US",
               options
             );
-            var enterredDate = new Date(value);
+            let enterredDate = new Date(value);
             if (enterredDate <= futureDate) {
               throw new Error(
                 "Entered date must be after " + futureDateString + "."
@@ -62,7 +60,7 @@ define([], function (oj) {
       document.getElementById("text1").validate();
       document.getElementById("date1").validate();
 
-      var tracker = document.getElementById("tracker");
+      let tracker = document.getElementById("tracker");
 
       if (tracker.valid === "valid") {
         return true;
@@ -74,7 +72,7 @@ define([], function (oj) {
     }
 
     getFutureDate() {
-      var today = new Date();
+      let today = new Date();
       today.setDate(today.getDate() + 7); // 7 days ahead of today
       return today;
     }

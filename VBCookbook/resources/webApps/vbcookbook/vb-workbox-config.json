@@ -2,6 +2,7 @@
   "globIgnores": [
     "**/*.png",
     "**/*.woff",
-    "**/*.svg"
+    "**/*.svg",
+    "static.oracle.com/cdn/fnd/gallery/**"
   ]
 }

@@ -5,11 +5,11 @@
  */
 define([], () => {
   'use strict';
-      var self = {};
+      let self = {};
 
   class PageModule {
     userResponse(response) {
-      var dialog = document.getElementById('confirmDialog');
+      let dialog = document.getElementById('confirmDialog');
       if (dialog.isOpen()) {
         dialog.close();
       }
@@ -20,8 +20,8 @@ define([], () => {
     }
 
     checkWithUser() {
-      // var self = this;
-      var checkPromise = new Promise(function (resolve) {
+      // let self = this;
+      let checkPromise = new Promise(function (resolve) {
         self.userInputComplete = resolve;
         document.getElementById('confirmDialog').open();
       });

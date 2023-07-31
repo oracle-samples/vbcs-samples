@@ -12,10 +12,10 @@ define(["knockout", "ojs/ojkeyset"], function (ko, keySet) {
     }
 
     selectedChangedListener(selected) {
-      var selectionText = "";
+      let selectionText = "";
 
       if (selected.row.isAddAll()) {
-        var iterator = selected.row.deletedValues();
+        let iterator = selected.row.deletedValues();
         iterator.forEach(function (key) {
           selectionText =
             selectionText.length === 0 ? key : selectionText + ", " + key;
@@ -49,7 +49,7 @@ define(["knockout", "ojs/ojkeyset"], function (ko, keySet) {
     }
 
     isSelectionEmpty(selection) {
-      var row = selection.row;
+      let row = selection.row;
       if (row.isAddAll()) {
         return false;
       } else {
@@ -58,11 +58,11 @@ define(["knockout", "ojs/ojkeyset"], function (ko, keySet) {
     }
 
     getRowsForIDs(table, rowIDs) {
-      var index = 0;
-      var result = [];
+      let index = 0;
+      let result = [];
       // search only in first 1000 rows:
       while (index < 1000) {
-        var row = table.getDataForVisibleRow(index);
+        let row = table.getDataForVisibleRow(index);
         if (row === null) {
           return result;
         }

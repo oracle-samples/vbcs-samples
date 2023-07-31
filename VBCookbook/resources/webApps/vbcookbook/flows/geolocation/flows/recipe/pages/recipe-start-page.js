@@ -8,7 +8,7 @@ define([], function() {
 
   class PageModule {
 
-    constructor() {};
+    constructor() {}
   
     
   }

@@ -14,12 +14,12 @@ define([], function () {
      */
     getBase64StringFromFile(file) {
       return new Promise((resolve, reject) => {
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
           // reader.result will be "data:image/png;base64,iVBORw0KGgoAAAANSU......"
-          var index = reader.result.indexOf(";base64,");
-          var result = {
+          let index = reader.result.indexOf(";base64,");
+          let result = {
             base64: reader.result.slice(index + 8),
             contentType: reader.result.slice(5, index),
           };
@@ -35,8 +35,8 @@ define([], function () {
      * Extract attachment ID from self-ref URL
      */
     getRealAttachedDocumentId(row) {
-      var href = row.links[0].href;
-      var index =
+      let href = row.links[0].href;
+      let index =
         href.indexOf("/child/Attachments/") + "/child/Attachments/".length;
       return href.slice(index);
     }
@@ -44,11 +44,12 @@ define([], function () {
     /**
      * Create object URL which can be rendered in <img> or <object> tags
      */
-    preview(blobData, contentType) {
+    preview(blobData, contentTypeParam) {
+      let contentType = contentTypeParam;
       if (contentType === undefined || contentType.length === 0) {
         contentType = "application/octet-stream";
       }
-      var newBlob = new Blob([blobData], {
+      let newBlob = new Blob([blobData], {
         type: contentType,
       });
       return URL.createObjectURL(newBlob);
@@ -59,7 +60,7 @@ define([], function () {
      * using fileName param.
      */
     download(blobData, contentType, fileName) {
-      var element = document.createElement("a");
+      let element = document.createElement("a");
       element.setAttribute("href", this.preview(blobData, contentType));
       element.setAttribute("download", fileName);
       element.style.display = "none";

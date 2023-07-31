@@ -36,10 +36,10 @@ define(["ojs/ojrowdatagridprovider"], (RowDataGridProvider) => {
     }
 
     columnHeaderStyle(headerContext) {
-      if (headerContext.index == 3) {
+      if (headerContext.index === 3) {
         // if email
         return "width:230px;";
-      } else if (headerContext.index == 2) {
+      } else if (headerContext.index === 2) {
         // if phoneNumber
         return "width:160px;";
       }

@@ -42,7 +42,7 @@
       <pre>define([], () => {
   'use strict';
 
-  var PageModule = function PageModule() {};
+  let PageModule = function PageModule() {};
   
   PageModule.prototype.fetchContacts = function(arg1) 
   {
@@ -62,12 +62,12 @@
 
     function onDeviceReady()
     {      
-      var options = {};
+      let options = {};
         options.filter = ""; // no filter
         options.multiple = true;
         options.hasPhoneNumber = true;
         
-      var fields = ["displayName"];
+      let fields = ["displayName"];
       navigator.contacts.find(fields, function (foundContacts)
       {
         callbackFunc(foundContacts);

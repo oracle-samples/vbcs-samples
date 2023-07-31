@@ -29,10 +29,10 @@
     <oj-data-grid id="datagrid" data="{{ $variables.data }}" scroll-policy="loadMoreOnScroll"
       header.column.resizable='{"width":"enable", "height":"enable"}'
       header.column.style="[[$functions.columnHeaderStyle]]" edit-mode="cellEdit"
-      header.column.class-name="[[ function(ctx) { $page.functions.getHeaderClassName(ctx) } ]]" style="height:415px"
+      header.column.class-name="[[ function(ctx) { return $page.functions.getHeaderClassName(ctx) } ]]" style="height:415px"
       on-oj-before-edit="[[function(event) { $page.functions.onBeforeEdit(event) } ]]"
       on-oj-before-edit-end="[[ function(event) { $page.functions.onBeforeEditEnd(event) } ]]"
-      cell.class-name="[[ function(ctx) { $page.functions.getCellClassName(ctx) } ]]">
+      cell.class-name="[[ function(ctx) { return $page.functions.getCellClassName(ctx) } ]]">
 
       <template slot="cellTemplate" data-oj-as="cell">
 

@@ -23,28 +23,29 @@ define([
     }
 
     getDepartmentTreeData(data) {
-      var treeDataProvider;
+      let treeDataProvider;
       treeDataProvider = new ArrayTreeDataProvider(data, {
         keyAttributes: "value",
       });
       return treeDataProvider;
     }
 
-    processFilter(configuration, options, transformsContext) {
-      var textValue = options && options.text;
+    processFilter(configuration, optionsParam, transformsContext) {
+      let options = optionsParam;
+      let textValue = optionsParam && optionsParam.text;
 
       if (transformsContext && transformsContext["vb-textFilterAttributes"]) {
-        var options_new = {
+        let options_new = {
           op: "$or",
           criteria: [],
         };
 
         for (
-          var i = 0;
+          let i = 0;
           i < transformsContext["vb-textFilterAttributes"].length;
           i++
         ) {
-          var itemCriterion = {};
+          let itemCriterion = {};
           itemCriterion.attribute =
             transformsContext["vb-textFilterAttributes"][i];
           itemCriterion.op = "$co";

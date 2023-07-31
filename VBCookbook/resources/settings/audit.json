@@ -35,10 +35,6 @@
       "description": "Knockout comment binding \"if:\" found. Use of JET <oj-bind-if> recommended.",
       "enabled": false
     },
-    "jshint.W033": {
-      "description": "Missing semicolon.",
-      "enabled": false
-    },
     "json#unused_import" : {
       "description": "Unused components dependency",
       "enabled": false
@@ -52,6 +48,18 @@
     },
     "csp-html-script-unsafe-inline": {
       "description": "CSP-1020:<br>Inline script blocks are considered to be CSP violation. The general solution is to use hashes or a nonce to allow inline scripts to run.<p>CSP-1021:<br>The execution of a JS event handler from inline HTML markup is a CSP violation. e.g. onclick onload onmouseover onsubmit, etc.<p>The general solution is to use <b>addEventListener()</b>. e.g.<p> &nbsp; &nbsp; <b>&lt;button id=\"btn\" <b>onclick='doSomething()'&gt;</b><p>can be replaced with<p> &nbsp; &nbsp; document.getElementById(\"btn\")<b>.addEventListener('click', doSomething)</b>",
+      "enabled": false
+    },
+    "oj-sp-avoid-oj-messages": {
+      "description": "Ensure oj-messages , oj-message,  oj-message-banner is not used in redwood application instead use oj-sp-messages-banner or oj-sp-messages-toast",
+      "enabled": false
+    },
+    "oj-sp-empty-state-usage": {
+      "description": "Ensure noData slot of collections use oj-sp-empty-state",
+      "enabled": false
+    },
+    "oj-sp-welcome-page-search-contents": {
+      "description": "Ensure correct contents for oj-sp-welcome-page",
       "enabled": false
     }
   },

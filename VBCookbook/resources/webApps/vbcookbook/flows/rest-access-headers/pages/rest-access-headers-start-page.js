@@ -10,11 +10,11 @@ define([], function () {
     constructor() {}
 
     getHeadersArray(responseHeaders) {
-      var allHeaders = [];
-      var entries = responseHeaders.entries();
+      let allHeaders = [];
+      let entries = responseHeaders.entries();
 
       for (const element of entries) {
-        var item = {};
+        let item = {};
         item.key = element[0]; // header name
         item.value = element[1]; // header value
         allHeaders.push(item);

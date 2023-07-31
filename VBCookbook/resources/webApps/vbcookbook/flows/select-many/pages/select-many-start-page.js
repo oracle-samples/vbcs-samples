@@ -55,25 +55,26 @@ define([
 
     // this function is called through requestTransformFunctions, and it appends the object fields
     // configured as text filter attributes for filtering.
-    processFilter(configuration, options, transformsContext) {
-      var textValue = options && options.value;
+    processFilter(configuration, optionsParam, transformsContext) {
+      let options = optionsParam;
+      let textValue = options && options.value;
 
       if (
         textValue !== undefined &&
         transformsContext &&
         transformsContext["vb-textFilterAttributes"]
       ) {
-        var options_new = {
+        let options_new = {
           op: "$or",
           criteria: [],
         };
 
         for (
-          var i = 0;
+          let i = 0;
           i < transformsContext["vb-textFilterAttributes"].length;
           i++
         ) {
-          var itemCriterion = {};
+          let itemCriterion = {};
           itemCriterion.attribute =
             transformsContext["vb-textFilterAttributes"][i];
           itemCriterion.op = "$co";

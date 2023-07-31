@@ -36,7 +36,7 @@ define(["ojs/ojoffcanvas", "ojs/ojconverter-number"], function (
     }
 
     mapToCriteria(filters) {
-      var criteria = [];
+      let criteria = [];
       filters
         .filter((f) => {
           if (Array.isArray(f.value) && f.value.length > 0) {
@@ -51,7 +51,7 @@ define(["ojs/ojoffcanvas", "ojs/ojconverter-number"], function (
         })
         .forEach((f) => {
           if (Array.isArray(f.value)) {
-            var arrayCriteria = [];
+            let arrayCriteria = [];
             f.value.forEach((val) => {
               arrayCriteria.push({
                 op: "$eq",

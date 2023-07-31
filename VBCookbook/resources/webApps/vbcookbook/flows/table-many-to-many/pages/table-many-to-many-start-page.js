@@ -15,7 +15,7 @@ define([], function () {
      * @return {String}
      */
     validateForm(id) {
-      var el = document.getElementById(id);
+      let el = document.getElementById(id);
       if (el.valid === "valid") {
         return true;
       } else {
@@ -41,17 +41,17 @@ define([], function () {
      * @return {undefined}
      */
     batchPayloadForEdit(employee, selectedSkills) {
-      var skillsToDelete = employee.employeeSkillCollection.items
+      let skillsToDelete = employee.employeeSkillCollection.items
         .filter((q) => selectedSkills.indexOf(q.skill) === -1)
         .map((q) => q.id);
-      var originalSkills = employee.employeeSkillCollection.items.map(
+      let originalSkills = employee.employeeSkillCollection.items.map(
         (q) => q.skill
       );
-      var skillsToAdd = selectedSkills.filter(
+      let skillsToAdd = selectedSkills.filter(
         (q) => originalSkills.indexOf(q) === -1
       );
 
-      var payloads = [];
+      let payloads = [];
       payloads.push(
         this.generateBatchSnippet(
           "/Employee/" + employee.id,

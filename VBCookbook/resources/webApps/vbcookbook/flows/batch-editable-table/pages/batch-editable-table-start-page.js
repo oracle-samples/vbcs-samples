@@ -24,10 +24,10 @@ define(["vb/helpers/rest", "ojs/ojdatacollection-utils"], function (
 
       // iterate over editable fields which are marked with "editable" class
       // and make sure they are valid:
-      var table = event.target;
-      var editables = table.querySelectorAll(".editable");
-      for (var i = 0; i < editables.length; i++) {
-        var editable = editables.item(i);
+      let table = event.target;
+      let editables = table.querySelectorAll(".editable");
+      for (let i = 0; i < editables.length; i++) {
+        let editable = editables.item(i);
         editable.validate();
         // Table does not currently support editables with async validators
         // so treating editable with 'pending' state as invalid
@@ -60,7 +60,7 @@ define(["vb/helpers/rest", "ojs/ojdatacollection-utils"], function (
      * The helper method also handles state when job description is not yet available.
      */
     getFormattedSalaryRange(currentRowBuffer, disableRowEditExit) {
-      var range = "";
+      let range = "";
       if (
         currentRowBuffer.jobObject.items[0] !== undefined &&
         currentRowBuffer.jobObject.items[0].minSalary !== undefined
@@ -79,11 +79,9 @@ define(["vb/helpers/rest", "ojs/ojdatacollection-utils"], function (
      */
     salaryInRangeValidator(record, disableRowEditExit) {
       return {
-        getHint: () => {
-          return "Salary has to be in job salary range";
-        },
+        getHint: () => "Salary has to be in job salary range",
         validate: (value) => {
-          var jobRecord = record.jobObject.items[0];
+          let jobRecord = record.jobObject.items[0];
           if (jobRecord.minSalary === undefined) {
             throw new Error(
               "cannot validate because range is not available yet"
@@ -114,12 +112,12 @@ define(["vb/helpers/rest", "ojs/ojdatacollection-utils"], function (
      * multiple changes to be persited in one transaction.
      */
     createBatchPayload(empArray, rowStatus) {
-      var payloads = [];
-      var record;
-      var uniqueId = new Date().getTime();
-      Object.keys(rowStatus).forEach((key) => {
-        var change = rowStatus[key];
-        key = parseInt(key);
+      let payloads = [];
+      let record;
+      let uniqueId = new Date().getTime();
+      Object.keys(rowStatus).forEach((keyParam) => {
+        let change = rowStatus[keyParam];
+        let key = parseInt(keyParam,10);
         if (change === "deleted") {
           payloads.push(
             this.generateBatchSnippet("/Employee/" + key, {}, "delete")
@@ -130,7 +128,8 @@ define(["vb/helpers/rest", "ojs/ojdatacollection-utils"], function (
           delete record.jobObject;
           delete record.id;
           // default some required fields:
-          record.email = "person" + ++uniqueId + "@company.com";
+          uniqueId = ++uniqueId;
+          record.email = "person" + uniqueId + "@company.com";
           record.hireDate = new Date();
           record.department = 1;
           payloads.push(

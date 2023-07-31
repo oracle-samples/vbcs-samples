@@ -112,14 +112,14 @@ define([
     }
 
     _getNavigationData(menu) {
-      var navData = [],
+      let navData = [],
         self = this;
 
-      for (var i = 0; i < menu.length; i++) {
-        var menuItem = {};
-        var origMenuItem = menu[i];
+      for (let i = 0; i < menu.length; i++) {
+        let menuItem = {};
+        let origMenuItem = menu[i];
         if (typeof origMenuItem === "object") {
-          menuItem["attr"] = {
+          menuItem.attr = {
             id: origMenuItem.id,
             name: origMenuItem.label,
             icon: origMenuItem.icon,
@@ -128,14 +128,14 @@ define([
           };
         }
         if (origMenuItem.items && origMenuItem.items.length > 0)
-          menuItem["children"] = this._getNavigationData(origMenuItem.items);
+          menuItem.children = this._getNavigationData(origMenuItem.items);
         navData.push(menuItem);
       }
       return navData;
     }
 
     itemSelectable(context) {
-      return context["leaf"];
+      return context.leaf;
     }
     
   }

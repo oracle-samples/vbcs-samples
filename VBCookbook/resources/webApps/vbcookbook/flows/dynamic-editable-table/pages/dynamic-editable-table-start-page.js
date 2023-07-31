@@ -22,7 +22,7 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
 
     showSubmittableItems(submittableRows) {
       let textarea = document.getElementById("bufferContent");
-      var textValue = "";
+      let textValue = "";
       submittableRows.forEach((editItem) => {
         textValue += "Operation: " + editItem.operation + ", ";
         textValue += "Row ID: " + editItem.item.metadata.key;
@@ -49,14 +49,14 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
     }
 
     createBatchPayload() {
-      var payloads = [];
-      var uniqueId = new Date().getTime();
+      let payloads = [];
+      let uniqueId = new Date().getTime();
       let editItems = this.bufferingDP.getSubmittableItems();
       editItems.forEach((editItem) => {
-        var change = editItem.operation;
-        var key = editItem.item.metadata.key;
+        let change = editItem.operation;
+        let key = editItem.item.metadata.key;
         // clone record - some properties will be deleted from the clone:
-        var record = JSON.parse(JSON.stringify(editItem.item.data));
+        let record = JSON.parse(JSON.stringify(editItem.item.data));
         if (change === "remove") {
           payloads.push(
             this.generateBatchSnippet("/Employee/" + key, {}, "delete")

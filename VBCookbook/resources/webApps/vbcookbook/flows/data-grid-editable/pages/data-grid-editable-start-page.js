@@ -65,7 +65,7 @@ define([
      * The helper method also handles state when job description is not yet available.
      */
     getFormattedSalaryRange(jobObject) {
-      var range = "";
+      let range = "";
       if (
         jobObject.items[0] !== undefined &&
         jobObject.items[0].minSalary !== undefined
@@ -84,10 +84,10 @@ define([
     }
 
     columnHeaderStyle(headerContext) {
-      if (headerContext.index == 2) {
+      if (headerContext.index === 2) {
         // jobTitle
         return "width: 260px";
-      } else if (headerContext.index == 4) {
+      } else if (headerContext.index === 4) {
         // salary range
         return "width: 155px;";
       }
@@ -111,7 +111,7 @@ define([
       } else if (columnIndex === 3) {
         // salary column
         if (
-          item != null &&
+          item !== null && item !== undefined &&
           (item.data.salary === undefined ||
             item.data.salary < item.data.jobObject.items[0].minSalary ||
             item.data.salary > item.data.jobObject.items[0].maxSalary)
@@ -126,7 +126,7 @@ define([
 
     onBeforeEdit(event) {
       // conditionally disable the cells for editing by preventing default on the event
-      if (event.detail.cellContext.indexes.column == "4") {
+      if (event.detail.cellContext.indexes.column === "4") {
         event.preventDefault();
       } else {
         this.editingInProgress = true;
@@ -140,7 +140,7 @@ define([
     }
 
     onBeforeEditEnd(event) {
-      if (event.detail.cancelEdit == false) {
+      if (event.detail.cancelEdit === false) {
         const editable = event.target.querySelector(".editable");
 
         if (editable) {
@@ -154,12 +154,12 @@ define([
             return;
           }
 
-          var newValue = editable.value;
-          var oldValue = event.detail.cellContext.data.data;
+          let newValue = editable.value;
+          let oldValue = event.detail.cellContext.data.data;
 
           // from update event change the data item with latest update
-          var columnIndex = event.detail.cellContext.indexes.column;
-          var dataColumn = this.dataColumnNames[columnIndex];
+          let columnIndex = event.detail.cellContext.indexes.column;
+          let dataColumn = this.dataColumnNames[columnIndex];
 
           if (dataColumn === "jobObject") {
             // get the data out of the select single which is in valueItem not value
@@ -190,7 +190,7 @@ define([
 
     showSubmittableItems(submittableRows) {
       let textarea = document.getElementById("bufferContent");
-      var textValue = "";
+      let textValue = "";
       submittableRows.forEach((editItem) => {
         textValue += "Operation: " + editItem.operation + ", ";
         textValue += "Row ID: " + editItem.item.data.id;
@@ -214,7 +214,7 @@ define([
 
     isEditingCompleted() {
       if (this.editingInProgress) {
-        var self = this;
+        let self = this;
         return new Promise((resolve, reject) => {
           setTimeout(function () {
             if (this.editingInProgress) {
@@ -231,9 +231,9 @@ define([
     }
 
     createBatchPayload() {
-      var isInvalidData = false;
-      var payloads = [];
-      var uniqueId = new Date().getTime();
+      let isInvalidData = false;
+      let payloads = [];
+      let uniqueId = new Date().getTime();
       let editItems = this.bufferingDP.getSubmittableItems();
       editItems.forEach((editItem) => {
         // validate the record
@@ -242,11 +242,11 @@ define([
           return;
         }
 
-        var change = editItem.operation;
-        var key = editItem.item.data.id;
+        let change = editItem.operation;
+        let key = editItem.item.data.id;
 
         // clone record - some properties will be deleted from the clone:
-        var record = JSON.parse(JSON.stringify(editItem.item.data));
+        let record = JSON.parse(JSON.stringify(editItem.item.data));
         if (change === "remove") {
           payloads.push(
             this.generateBatchSnippet("/Employee/" + key, {}, "delete")
@@ -256,7 +256,8 @@ define([
           delete record.jobObject;
           delete record.id;
           // default some required fields:
-          record.email = "person" + ++uniqueId + "@company.com";
+          uniqueId = ++uniqueId;
+          record.email = "person" + uniqueId + "@company.com";
           record.hireDate = new Date();
           record.department = 1;
           payloads.push(
@@ -334,11 +335,9 @@ define([
      */
     salaryInRangeValidator(record) {
       return {
-        getHint: () => {
-          return "Salary has to be in job salary range";
-        },
+        getHint: () => "Salary has to be in job salary range",
         validate: (value) => {
-          var jobRecord = this.bufferredRowData.data.jobObject.items[0];
+          let jobRecord = this.bufferredRowData.data.jobObject.items[0];
           if (jobRecord.minSalary === undefined) {
             throw new Error(
               "cannot validate because range is not available yet"

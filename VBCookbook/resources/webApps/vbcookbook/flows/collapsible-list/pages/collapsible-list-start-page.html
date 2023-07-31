@@ -11,6 +11,7 @@
     <div class="oj-flex">
       <oj-list-view class="oj-flex-item oj-sm-12 oj-md-12" data="[[ $variables.departmentTree ]]"
         style="max-height:400px">
+
         <template slot="itemTemplate">
           <oj-bind-if test="[[$current.data.departmentName]]">
             <span>

@@ -125,8 +125,8 @@ if (detail !== undefined && detail.cancelAdd === true) {
 }
 // iterate over editable fields which are marked with "editable" class
 // and make sure they are valid:
-var table = event.target;
-var editables;
+let table = event.target;
+let editables;
 
 if (rowType == "editRow")
   editables = table.querySelectorAll('.editable');
@@ -135,8 +135,8 @@ else if (rowType == "addRow")
 else
   editables = null;
 
-for (var i = 0; i < editables.length; i++) {
-  var editable = editables.item(i);
+for (let i = 0; i < editables.length; i++) {
+  let editable = editables.item(i);
   editable.validate();
   // Table does not currently support editables with async validators
   // so treating editable with 'pending' state as invalid

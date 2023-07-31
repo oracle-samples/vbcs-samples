@@ -20,7 +20,7 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
 
     startEditing(rowKey) {
       this.rowBeingEditted = rowKey;
-      var self = this;
+      let self = this;
       this.editInProgressPromise = new Promise((resolve, reject) => {
         self.resolveHandler = resolve;
       });
@@ -59,7 +59,7 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
      * this recipe is currently editted row.
      */
     isFormValid(detail, event, rowType) {
-      if (detail !== undefined && detail.cancelEdit == true) {
+      if (detail !== undefined && detail.cancelEdit === true) {
         return true;
       }
       if (detail !== undefined && detail.cancelAdd === true) {
@@ -70,16 +70,16 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
       }
       // iterate over editable fields which are marked with "editable" class
       // and make sure they are valid:
-      var table = event.target;
-      var editables;
+      let table = event.target;
+      let editables;
 
-      if (rowType == "editRow") editables = table.querySelectorAll(".editable");
-      else if (rowType == "addRow")
+      if (rowType === "editRow") editables = table.querySelectorAll(".editable");
+      else if (rowType === "addRow")
         editables = table.querySelectorAll(".addRowEditable");
       else editables = null;
 
-      for (var i = 0; i < editables.length; i++) {
-        var editable = editables.item(i);
+      for (let i = 0; i < editables.length; i++) {
+        let editable = editables.item(i);
         editable.validate();
         // Table does not currently support editables with async validators
         // so treating editable with 'pending' state as invalid
@@ -109,7 +109,7 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
      * The helper method also handles state when job description is not yet available.
      */
     getFormattedSalaryRange(currentRowBuffer, disableRowEditExit) {
-      var range = "";
+      let range = "";
       if (
         currentRowBuffer.jobObject.items[0] !== undefined &&
         currentRowBuffer.jobObject.items[0].minSalary !== undefined
@@ -128,11 +128,9 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
      */
     salaryInRangeValidator(record, disableRowEditExit) {
       return {
-        getHint: () => {
-          return "Salary has to be in job salary range";
-        },
+        getHint: () => "Salary has to be in job salary range",
         validate: (value) => {
-          var jobRecord = record.jobObject.items[0];
+          let jobRecord = record.jobObject.items[0];
           if (jobRecord.minSalary === undefined) {
             throw new Error(
               "cannot validate because range is not available yet"
@@ -164,14 +162,14 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
     }
 
     createBatchPayload() {
-      var payloads = [];
-      var uniqueId = new Date().getTime();
+      let payloads = [];
+      let uniqueId = new Date().getTime();
       let editItems = this.bufferingDP.getSubmittableItems();
       editItems.forEach((editItem) => {
-        var change = editItem.operation;
-        var key = editItem.item.data.id;
+        let change = editItem.operation;
+        let key = editItem.item.data.id;
         // clone record - some properties will be deleted from the clone:
-        var record = JSON.parse(JSON.stringify(editItem.item.data));
+        let record = JSON.parse(JSON.stringify(editItem.item.data));
         if (change === "remove") {
           payloads.push(
             this.generateBatchSnippet("/Employee/" + key, {}, "delete")
@@ -181,7 +179,8 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
           delete record.jobObject;
           delete record.id;
           // default some required fields:
-          record.email = "person" + ++uniqueId + "@company.com";
+          uniqueId = ++uniqueId;
+          record.email = "person" + uniqueId + "@company.com";
           record.hireDate = new Date();
           record.department = 1;
           payloads.push(
@@ -249,7 +248,7 @@ define(["ojs/ojbufferingdataprovider"], function (BufferingDataProvider) {
 
     showSubmittableItems(submittableRows) {
       let textarea = document.getElementById("bufferContent");
-      var textValue = "";
+      let textValue = "";
       submittableRows.forEach((editItem) => {
         textValue += "Operation: " + editItem.operation + ", ";
         textValue += "Row ID: " + editItem.item.data.id;

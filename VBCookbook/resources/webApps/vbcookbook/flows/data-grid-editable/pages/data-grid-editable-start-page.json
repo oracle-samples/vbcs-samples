@@ -81,18 +81,6 @@
     }
   },
   "eventListeners": {
-    "ojSelectSingleCurrentKeyValue": {
-      "chains": [
-        {
-          "chainId": "SelectValueChangeChain",
-          "parameters": {
-            "value": "{{ $event.detail.value }}",
-            "event": "{{ $event }}"
-          }
-        }
-      ]
-    },
-
     "saveAction": {
       "chains": [
         {

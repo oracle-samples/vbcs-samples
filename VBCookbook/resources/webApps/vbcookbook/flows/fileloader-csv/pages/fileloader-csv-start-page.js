@@ -91,14 +91,12 @@ define([], function () {
      */
     preparePayload(data, boPath, boOp) {
       return {
-        parts: data.map((r, idx) => {
-          return {
+        parts: data.map((r, idx) => ( {
             id: `part-${idx}`,
             operation: boOp,
             path: boPath,
             payload: r,
-          };
-        }),
+          } ) ),
       };
     }
   }

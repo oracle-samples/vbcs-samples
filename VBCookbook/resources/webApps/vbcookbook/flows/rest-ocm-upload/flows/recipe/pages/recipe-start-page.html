@@ -126,7 +126,7 @@ preview(blobData, contentType) {
   if (contentType === undefined || contentType.length === 0) {
      contentType = "application/octet-stream";
   }
-  var newBlob = new Blob([blobData], {
+  let newBlob = new Blob([blobData], {
      type: contentType
   });
      return URL.createObjectURL(newBlob);

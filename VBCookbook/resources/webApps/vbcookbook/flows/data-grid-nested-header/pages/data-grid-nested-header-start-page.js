@@ -6,7 +6,7 @@
 define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
   "use strict";
 
-  var gridCols = [
+  let gridCols = [
     { headerText: "Jan", field: "bonus01" },
     { headerText: "Feb", field: "bonus02" },
     { headerText: "Mar", field: "bonus03" },
@@ -21,7 +21,7 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
     { headerText: "Dec", field: "bonus12" },
   ];
 
-  var rowStartHeaders = [
+  let rowStartHeaders = [
     {
       headerText: "Department",
       field: "departmentObject.items[0].departmentName",
@@ -30,11 +30,11 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
     { headerText: "First Name", field: "firstName" },
   ];
 
-  var colEndHeaderLabel = [
+  let colEndHeaderLabel = [
     { headerText: "Total Monthly Bonus", field: "totalMonthlyBonus" },
   ];
 
-  var rowEndHeaderLabel = [
+  let rowEndHeaderLabel = [
     { headerText: "Yearly Bonus", field: "yearlyBonus" },
   ];
 
@@ -53,8 +53,8 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
 
     getColumnEndHeaderValues(dataArray) {
       let colSum = [];
-      for (var i = 0; i < dataArray.length; i++) {
-        for (var j = 0; j < dataArray[i].length; j++) {
+      for (let i = 0; i < dataArray.length; i++) {
+        for (let j = 0; j < dataArray[i].length; j++) {
           colSum[j] = (colSum[j] || 0) + dataArray[i][j];
         }
       }
@@ -63,7 +63,7 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
     }
 
     getRowEndHeaderValues(dataArray) {
-      var rowSum = [];
+      let rowSum = [];
       for (let i = 0; i < dataArray.length; i++) {
         for (let j = 0; j < gridCols.length; j++) {
           rowSum[i] = (rowSum[i] || 0) + dataArray[i][j];
@@ -82,7 +82,8 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
       return colHeaderLabel;
     }
 
-    getValue(item, field) {
+    getValue(item, fieldParam) {
+      let field = fieldParam;
       if (field.indexOf(".") > 0 || field.indexOf("[") > 0) {
         field = field.replaceAll("[", ".");
         field = field.replaceAll("]", ".");
@@ -90,13 +91,11 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
         if (field.endsWith(".")) {
           field = field.substr(0, field.length - 1);
         }
-        var res = item;
+        let res = item;
         field.split(".").forEach((key) => (res = res[key]));
         return res;
       } else {
-        return item[field] !== undefined
-          ? item[field]
-          : Math.floor(Math.random() * 25) * 100;
+        return item[field] !== undefined ? item[field] : Math.floor(Math.random() * 25) * 100;
       }
     }
 
@@ -104,7 +103,7 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
       const bodyArray = [];
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        var flattendArray = [];
+        let flattendArray = [];
         cols.forEach((col_) => flattendArray.push(this.getValue(item, col_.field)));
         bodyArray.push(flattendArray);
       }
@@ -130,13 +129,13 @@ define(["datagrid/DemoDataGridProvider"], function (DemoDataGridProvider) {
     }
 
     rowHeaderStyle(headerContext) {
-      if (headerContext.level == 0) {
+      if (headerContext.level === 0) {
         // if Department column
         return "width:110px;font-size:12px;";
-      } else if (headerContext.level == 1) {
+      } else if (headerContext.level === 1) {
         // if Job column
         return "width:170px;font-size:12px;";
-      } else if (headerContext.level == 2) {
+      } else if (headerContext.level === 2) {
         // if FirstName column
         return "width:100px;font-size:12px;";
       }

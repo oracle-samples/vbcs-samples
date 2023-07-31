@@ -18,14 +18,14 @@ define(["ojs/ojcore", "ojs/ojvalidation-number"], function (oj) {
           validate: function (value) {
             // used to format the value
             // in the validation error message.
-            var converterOption = {
+            let converterOption = {
               type: "number",
             };
 
             // In our demo validator, We could use different numberRange
             // validators based on credit score.
             // Here we will create only one for simplicity
-            var validator = oj.Validation.validatorFactory(
+            let validator = oj.Validation.validatorFactory(
               "numberrange"
             ).createValidator({
               min: 100,
@@ -75,7 +75,7 @@ define(["ojs/ojcore", "ojs/ojvalidation-number"], function (oj) {
     }
 
     validateGroup(arg1) {
-      var tracker = document.getElementById("tracker");
+      let tracker = document.getElementById("tracker");
       if (tracker.valid === "valid") {
       } else if (tracker.valid.startsWith("invalid")) {
         if (tracker.valid === "invalidHidden") {
@@ -91,8 +91,8 @@ define(["ojs/ojcore", "ojs/ojvalidation-number"], function (oj) {
       // field validation gets over ie tracker
       // status changes to something other than 'pending'
       return new Promise(function (resolve, reject) {
-        var tracker = document.getElementById("tracker");
-        var waitForValidation = function () {
+        let tracker = document.getElementById("tracker");
+        let waitForValidation = function () {
           if (tracker.valid === "pending") {
             // simulated field validation at server still going on
             setTimeout(function () {

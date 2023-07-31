@@ -10,7 +10,7 @@ define([], function () {
     constructor() {}
 
     getName(context) {
-      var name = context.data.firstName + " " + context.data.lastName;
+      let name = context.data.firstName + " " + context.data.lastName;
       if (
         context.data.managerObject &&
         context.data.managerObject.items.length > 0

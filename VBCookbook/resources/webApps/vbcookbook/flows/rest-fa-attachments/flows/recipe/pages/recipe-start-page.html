@@ -124,8 +124,8 @@
             <strong>Download</strong> hyperlink.
             <pre>
 getRealAttachedDocumentId(row) {
-    var href = row.links[0].href;
-    var index = href.indexOf('/child/Attachments/') +
+    let href = row.links[0].href;
+    let index = href.indexOf('/child/Attachments/') +
         '/child/Attachments/'.length;
     return href.slice(index);
     };</pre>
@@ -141,7 +141,7 @@ getRealAttachedDocumentId(row) {
             the file name for the downloaded file using the <code>fileName</code> parameter.
             <pre>
  download(blobData, contentType, fileName) {
-    var element = document.createElement('a');
+    let element = document.createElement('a');
     element.setAttribute('href', this.preview(blobData, contentType));
     element.setAttribute('download', fileName);
     element.style.display = 'none';

@@ -19,7 +19,7 @@ define([], function () {
      * @return {undefined}
      */
     handleDropRows(event, ui) {
-      var dragData = event.dataTransfer.getData("application/ojtablerows+json");
+      let dragData = event.dataTransfer.getData("application/ojtablerows+json");
 
       if (dragData) {
         this.eventHelper.fireCustomEvent("dataDropped", {

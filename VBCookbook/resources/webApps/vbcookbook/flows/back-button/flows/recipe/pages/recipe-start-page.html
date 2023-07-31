@@ -62,9 +62,9 @@
           <li>In the JavaScript tab that opens, add the following JavaScript code to specify a wait of 2 seconds:
             <pre>
 wait() {
-  var counter = 0;
-  var start = new Date().getTime();
-  var end = 0;
+  let counter = 0;
+  let start = new Date().getTime();
+  let end = 0;
   while (counter < 2000) {
     end = new Date().getTime();
     counter = end - start;
@@ -144,11 +144,11 @@ wait() {
             <pre>
 define([], () => {
   'use strict';
-      var self = {};
+      let self = {};
 
   class PageModule {
     userResponse(response) {
-      var dialog = document.getElementById('confirmDialog');
+      let dialog = document.getElementById('confirmDialog');
       if (dialog.isOpen()) {
         dialog.close();
       }
@@ -159,8 +159,8 @@ define([], () => {
     }
 
     checkWithUser() {
-      // var self = this;
-      var checkPromise = new Promise(function (resolve) {
+      // let self = this;
+      let checkPromise = new Promise(function (resolve) {
         self.userInputComplete = resolve;
         document.getElementById('confirmDialog').open();
       });

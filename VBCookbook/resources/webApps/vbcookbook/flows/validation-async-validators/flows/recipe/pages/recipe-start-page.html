@@ -41,11 +41,11 @@ getAsyncValidator() {
 
 asyncValidator = [{
   'validate': function (value) {
-    var converterOption = {
+    let converterOption = {
       type: "number"
     };
     
-    var validator = oj.Validation.validatorFactory("numberrange")
+    let validator = oj.Validation.validatorFactory("numberrange")
       .createValidator({
         min: 100, max: 10000, options: converterOption
       });
@@ -81,7 +81,7 @@ asyncValidator = [{
           values.<br />
           <pre>
 validateGroup(arg1) {
-    var tracker = document.getElementById("tracker");
+    let tracker = document.getElementById("tracker");
     if (tracker.valid === "valid") {
     }
     else if (tracker.valid.startsWith("invalid")) {
@@ -103,8 +103,8 @@ waitTillPending() {
     // field validation gets over ie tracker 
     // status changes to something other than 'pending'
     return new Promise(function (resolve, reject) {
-      var waitForValidation = function () {
-        var tracker = document.getElementById("tracker");
+      let waitForValidation = function () {
+        let tracker = document.getElementById("tracker");
         if (tracker.valid === "pending") {
           // simulated field validation at server still going on
           setTimeout(function () {

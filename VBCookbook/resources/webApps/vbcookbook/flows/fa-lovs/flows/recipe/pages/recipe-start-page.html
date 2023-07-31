@@ -361,7 +361,7 @@ new NumberConverter.IntlNumberConverter({
             Create a function named <code>mapToCriteria</code>:
             <br>
 <pre>mapToCriteria(filters) {
-  var criteria = [];
+  let criteria = [];
   filters.filter(f =&gt; {
     if (Array.isArray(f.value) &amp;&amp; f.value.length &gt; 0) {
       return true;
@@ -374,7 +374,7 @@ new NumberConverter.IntlNumberConverter({
     }
   }).forEach(f =&gt; {
     if (Array.isArray(f.value)) {
-      var arrayCriteria = [];
+      let arrayCriteria = [];
       f.value.forEach(val =&gt; {
         arrayCriteria.push({
           op: f.op,

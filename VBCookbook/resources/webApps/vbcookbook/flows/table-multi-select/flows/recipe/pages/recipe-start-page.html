@@ -135,10 +135,10 @@ getSelectedRows() {
                 <code>selectedChangedListener</code>
                 <pre>
 selectedChangedListener(selected) {
-  var selectionText = '';
+  let selectionText = '';
 
   if (selected.row.isAddAll()) {
-    var iterator = selected.row.deletedValues();
+    let iterator = selected.row.deletedValues();
     iterator.forEach(function (key) {
       selectionText = selectionText.length === 0 ? key :
         selectionText + ', ' + key;
@@ -207,11 +207,11 @@ selectedChangedListener(selected) {
                 the table and finds matching row data for selected row IDs:
                 <pre>
 getRowsForIDs(table, rowIDs) {
-  var index = 0;
-  var result = [];
+  let index = 0;
+  let result = [];
   // search only in first 1000 rows:
   while (index < 1000) {
-    var row = table.getDataForVisibleRow(index);
+    let row = table.getDataForVisibleRow(index);
     if (row === null) {
       return result;
     }
@@ -306,7 +306,7 @@ selectSpecificRows() {
           <li>Also in the JavaScript tab, write the following code to disable the <strong>Deselect All</strong> button when no table rows are selected.
             <pre>
 isSelectionEmpty(selection) {
-  var row = selection.row;
+  let row = selection.row;
   if (row.isAddAll()) {
     return false;
   } else {

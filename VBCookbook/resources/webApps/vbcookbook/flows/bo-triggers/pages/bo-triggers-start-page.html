@@ -23,6 +23,7 @@
         columns='[{"headerText":"Id","field":"id"},{"headerText":"Last Name","field":"lastName"},{"headerText":"Salary","field":"salary"},{"headerText":"Job","field":"jobObject","sortProperty":"jobObject.jobTitle","template":"jobTitleCellTemplate2"},{"headerText":"Manager","field":"managerObject","sortProperty":"managerObject.lastName","template":"lastNameCellTemplate3"}]'
         id="oj-table-11161435-1" selection-mode.row="single" selection-mode.column="single"
         on-first-selected-row-changed="[[ $page.listeners.oj_table_11161435_1SelectionChanged ]]">
+
         <template slot="jobTitleCellTemplate2">
           <oj-bind-text value="[[ $current.data.items[0] ? $current.data.items[0].jobTitle : undefined ]]">
           </oj-bind-text>

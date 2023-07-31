@@ -19,9 +19,9 @@ define([
 ) {
   "use strict";
 
-  var searchables = ["label", "id", "desc", "category", "subCategory"];
-  var categories = ["Components", "REST", "Dynamic", "PWA", "Application"];
-  var subCategories = [
+  const searchables = ["label", "id", "desc", "category", "subCategory"];
+  const categories = ["Components", "REST", "Dynamic", "PWA", "Application"];
+  const subCategories = [
     "Table",
     "List View",
     "Data Grid",
@@ -45,7 +45,7 @@ define([
         if (this.categories[i.category] === undefined) {
           this.categories[i.category] = [];
         }
-        if (i.shownOnUI == true) {
+        if (i.shownOnUI === true) {
           this.categories[i.category].push(i);
         }
       });
@@ -63,7 +63,7 @@ define([
         })
       );
 
-      var smQuery = ResponsiveUtils.getFrameworkQuery(
+      let smQuery = ResponsiveUtils.getFrameworkQuery(
         ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY
       );
       this.smScreen =
@@ -81,7 +81,7 @@ define([
     }
 
     _matches(recipe, fullTextWord) {
-      var match = false;
+      let match = false;
       searchables.forEach((f) => {
         if (recipe[f].toUpperCase().indexOf(fullTextWord) >= 0) {
           match = true;
@@ -96,7 +96,7 @@ define([
 
     getMatchedRecipes(filter, fullText) {
       const self = this;
-      var ignoreFilter = false;
+      let ignoreFilter = false;
       if (filter !== undefined && filter !== "all") {
         if (!this.isValidFilter(filter)) {
           // wrong URL param passed in; ignore the filter
@@ -115,7 +115,7 @@ define([
         }
         if (fullText !== undefined && fullText !== "") {
           const fullTextWords = fullText.toUpperCase().split(" ");
-          var count = 0;
+          let count = 0;
           fullTextWords.forEach((word) => {
             if (self._matches(recipe, word)) {
               count++;

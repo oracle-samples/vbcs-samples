@@ -14,13 +14,13 @@ define([
   'use strict';
 
   function EmployeeCardComponentModel(context) {
-    var self = this;
+    let self = this;
     this.initials = null;
     this.workFormatted = null;
-    var element = context.element;
+    let element = context.element;
 
     if (context.properties.name) {
-      var initials = context.properties.name.match(/\b\w/g);
+      let initials = context.properties.name.match(/\b\w/g);
       this.initials = (initials.shift() + initials.pop()).toUpperCase();
     }
 

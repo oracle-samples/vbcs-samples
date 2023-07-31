@@ -211,12 +211,12 @@ define([
     }
 
     _getNavigationData(menu) {
-      var navData = [],
+      let navData = [],
         self = this;
 
-      for (var i = 0; i < menu.length; i++) {
-        var menuItem = {};
-        var origMenuItem = menu[i];
+      for (let i = 0; i < menu.length; i++) {
+        let menuItem = {};
+        let origMenuItem = menu[i];
         if (typeof origMenuItem === "object") {
           menuItem["attr"] = {
             id: origMenuItem.id,

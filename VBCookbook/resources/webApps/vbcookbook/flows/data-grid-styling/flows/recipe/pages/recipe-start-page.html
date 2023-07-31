@@ -205,11 +205,11 @@ define([
               <li><code>header.column.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code>
               </li>
               <li><code>header.row.resizable</code> to value <code>'{"width":"enable", "height":"enable"}'</code></li>
-              <li><code>header.column.class-name</code> to value <code>"[[ function(ctx) { $page.functions.getColumnHeaderClassName(ctx) } ]]"</code>
+              <li><code>header.column.class-name</code> to value <code>"[[ function(ctx) { return $page.functions.getColumnHeaderClassName(ctx) } ]]"</code>
               </li>
               <li><code>header.column.style</code> to value <code>"[[$functions.columnHeaderStyle]]"</code></li>
               <li><code>header.row.style</code> to value <code>"width:50px;"</code></li>
-              <li><code>cell.class-name</code> to value <code>[[ function(ctx) { $page.functions.getCellClassName(ctx) } ]]"</code></li>
+              <li><code>cell.class-name</code> to value <code>[[ function(ctx) { return $page.functions.getCellClassName(ctx) } ]]"</code></li>
             </ul>
           </li>
           <li>Use a <code>cellTemplate</code> to render the cell content you want and use <code>oj-bind-if</code> to

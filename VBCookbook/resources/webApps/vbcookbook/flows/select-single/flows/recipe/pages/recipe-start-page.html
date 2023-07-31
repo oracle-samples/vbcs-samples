@@ -236,7 +236,7 @@ getName(context){
           <li>In the JavaScript tab, add the following function:
             <pre>getDepartmentTreeData(data) {
 
-    var treeDataProvider;
+    let treeDataProvider;
     treeDataProvider = new ArrayTreeDataProvider(
       data, {
         keyAttributes: 'value'
@@ -364,17 +364,17 @@ getName(context){
             <code>processFilter</code>.
             <pre>
   processFilter(configuration, options, transformsContext) {
-    var textValue = options && options.text;
+    let textValue = options && options.text;
 
     if (transformsContext && transformsContext['vb-textFilterAttributes']) {
-      var options_new = {
+      let options_new = {
         op: '$or',
         criteria: [
         ]
       };
 
-      for (var i = 0; i < transformsContext['vb-textFilterAttributes'].length; i++) {
-        var itemCriterion = {};
+      for (let i = 0; i < transformsContext['vb-textFilterAttributes'].length; i++) {
+        let itemCriterion = {};
         itemCriterion.attribute = transformsContext['vb-textFilterAttributes'][i];
         itemCriterion.op = '$co';
         itemCriterion.value = textValue;

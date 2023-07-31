@@ -122,6 +122,11 @@ define([
     dateConverter() {
       return this.dateConverter;
     }
+
+    formatNumber( value )
+    {
+      return this.numberConverter.format( value );
+    }
   }
 
   return PageModule;

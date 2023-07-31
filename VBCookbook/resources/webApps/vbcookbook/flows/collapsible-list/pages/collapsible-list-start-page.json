@@ -70,6 +70,7 @@
       "oj-text-area": {
         "path": "ojs/ojinputtext"
       }
+
     },
     "modules": {
       "ojValidationBase": {
