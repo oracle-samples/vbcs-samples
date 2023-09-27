@@ -10,9 +10,14 @@
   then
   enable editing and define the editable component for each column. You then add listeners to handle editing on cell.
   All changes
-  are stored in a buffer using BufferingDataProvider until the user clicks Save, at which time a REST call posts the
+  are stored in a buffer using BufferingDataProvider (BDP) until the user clicks Save, at which time a REST call posts the
   changes to
   the backend service.
+</p>
+
+<p>
+  A <code>review</code> field is added in the employee BO as an example of how to code a checkbox in the datagrid which
+  is always editable. The technique ignores datagrid's edit-mode and instead renders checkbox with a listener and it is this listener which updates records in the underlying BDP. Notice that checkbox <code>value</code> property is intentionally not writable and only renders BPD state.
 </p>
 
 <div class="oj-flex">
@@ -75,6 +80,7 @@ define([
         "jobObject",
         "salary",
         "jobObject",
+        "review"
       ];
       this.editingInProgress = false; // keeps track if editing is going on
       this.numberConverter = new NumberConverter.IntlNumberConverter({
@@ -109,6 +115,7 @@ define([
             { data: "Job" },
             { data: "Salary" },
             { data: "Salary Range" },
+            { data: "Review Needed"}
           ],
         },
         headerLabels: {
@@ -130,12 +137,12 @@ define([
               <div>
                 <pre>
   columnHeaderStyle(headerContext) {
-    if (headerContext.index == 2) // jobTitle
-    {
-      return "width: 260px";
-    } else if (headerContext.index == 4) // salary range
-    {
+    if (headerContext.index === 2) { // jobTitle
+      return "width: 240px";
+    } else if (headerContext.index === 4) { // salary range
       return "width: 155px;";
+    } else if (headerContext.index === 3) { // salary
+      return "max-width: 80px;";
     }
     return "";
   };
@@ -158,7 +165,7 @@ define([
   };
 
   getClassName(columnIndex, item) {
-    if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2) {
+    if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 5) {
       return "oj-sm-justify-content-flex-start";
     }
     else if (columnIndex === 3) // salary column
@@ -288,6 +295,16 @@ define([
           &lt/oj-bind-if&gt
         &lt/oj-bind-if&gt
 
+        &lt!-- review needed checkbox --&gt
+        &ltoj-bind-if test="[[cell.item.columnIndex==5]]"&gt
+          &ltdiv class="oj-flex-item oj-sm-flex-direction-column oj-lg-justify-content-center"&gt
+            &ltoj-checkboxset on-value-changed="[[$listeners.checkboxSetValue]]" value="[[ cell.item.data.data === 'yes' ? ['yes'] : []  ]]"&gt
+              &ltoj-option value="yes"&gt
+              &lt/oj-option&gt
+            &lt/oj-checkboxset>
+          &lt/div>
+        &lt/oj-bind-if>
+
       &lt/template&gt   
             </pre>
               </div>
@@ -415,6 +432,53 @@ define([
           </li>
           <li>To handle the change in job title in the Single Select component, mark the class attribute of the 
             component to <code>editable</code>.
+          </li>
+          <li>To handle the change in checkbox selection, add a value change listener <code>checkboxSetValue</code> to
+            the oj-checkboxset and hence an JS action chain <code>onCheckboxSelection</code>. Fetch the value of
+            checkbox selection and update it in the BDP using updateItem() as shown below.
+
+            The listener takes two parameters with details of the checkbox selection as shown below.
+          <pre>
+  "checkboxSetValue": {
+      "chains": [
+        {
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "current": "{{ $current }}"
+          },
+          "chain": "onCheckboxSelection"
+        }
+      ]
+    }
+          </pre>
+          The action chain <code>onCheckboxSelection</code> does the value setting for the checkbox in the BDP.
+          <pre>
+  class onCheckboxSelection extends ActionChain {
+
+    /**
+     * @param {Object} context
+     * @param {Object} params
+     * @param {object} params.value 
+     * @param {object} params.current
+     */
+    async run(context, { value, current }) {
+      const { $page, $flow, $application } = context;
+
+      const rowData = Object.assign({}, current.item.metadata.rowItem.data);
+      const reviewTicked = value.length > 0 ? 'yes' : 'no';
+      rowData.review = reviewTicked;
+
+      const callFunctionResult = await $page.functions.updateReview(rowData);
+    }
+          </pre>
+
+  And in the JS add the following function to update the BDP with the change in checkbox state:
+
+          <pre>
+    updateReview(rowData) {
+      this.bufferingDP.updateItem({ data: rowData, metadata: { key: rowData.id } });
+    }
+          </pre>
           </li>
         </ol>
       </div>

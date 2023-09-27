@@ -22,16 +22,16 @@
       "input": "fromCaller"
     }
   },
-  "root": "checkWhetherEventIsBeingIgnored",
+  "root": "ifDisableRowEditExit",
   "actions": {
     "checkWhetherEventIsBeingIgnored": {
       "module": "vb/action/builtin/ifAction",
       "parameters": {
-        "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event) || $chain.variables.event.detail.cancelEdit || $page.variables.isCurrentRowBeingDeleted ]]"
+        "condition": "[[ $chain.variables.event.detail.cancelEdit || $page.variables.isCurrentRowBeingDeleted ]]"
       },
       "outcomes": {
         "false": "hasRecordChanged",
-        "true": "callFunctionResolveRowBeforeEditEndPromise"
+        "true": "callFunctionEndEditing"
       }
     },
     "hasRecordChanged": {
@@ -66,7 +66,7 @@
         }
       },
       "outcomes": {
-        "success": "callFunctionEndEditing"
+        "success": "fireDataProviderEventEmployeesBDP"
       }
     },
     "callFunctionResolveRowBeforeEditEndPromise": {
@@ -77,10 +77,7 @@
         "params": [
           "{{ $variables.rowKey }}"
         ]
-      },
-      "outcomes": {
-        "success" : "fireDataProviderEventEmployeesBDP"
-    }
+      }
     },
     "callFunctionEndEditing": {
       "module": "vb/action/builtin/callModuleFunctionAction",
@@ -106,7 +103,20 @@
           "data": "{{ [$variables.rowData] }}"
         }
       },
-      "description": "workaround for BPD bug which updates current row data but removes referenced jobObject. this step re-updates the row with correct values (including jobObject reference)"
+      "description": "workaround for BPD bug which updates current row data but removes referenced jobObject. this step re-updates the row with correct values (including jobObject reference)",
+      "outcomes": {
+        "success": "callFunctionEndEditing"
+      }
+    },
+    "ifDisableRowEditExit": {
+      "module": "vb/action/builtin/ifAction",
+      "parameters": {
+        "condition": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($chain.variables.event.detail, $chain.variables.event) ]]"
+      },
+      "outcomes": {
+        "false": "checkWhetherEventIsBeingIgnored",
+        "true": "callFunctionResolveRowBeforeEditEndPromise"
+      }
     }
   }
 }

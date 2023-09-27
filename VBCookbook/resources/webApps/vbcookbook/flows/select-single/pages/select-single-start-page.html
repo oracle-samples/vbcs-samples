@@ -10,7 +10,7 @@
 <div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
   <div class="oj-flex oj-flex-item oj-sm-flex-direction-column sample-box2">
     <h5>itemTemplate Slot Example</h5>
-    <div class="oj-flex-item" style="padding-bottom: 1em">
+    <div class="oj-flex-item text-wrap" style="padding-bottom: 1em">
       <oj-bind-text
         value="This example uses the itemTemplate slot to render multiple field values (full employee name and phone number). The first and last name fields are configured as searchable fields. Typed text is matched from the beginning of these fields."
       >
@@ -18,14 +18,13 @@
     </div>
     <oj-form-layout
       label-edge="inside"
-      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+      class="oj-flex-item oj-sm-flex-initial"
     >
       <oj-select-single
         label-hint="Employee"
         data="[[$page.variables.employeeListSDP]]"
         item-text="[[$functions.getName]]"
         value-item="{{ $variables.selectedEmployee }}"
-        class="oj-form-control-width-md"
       >
         <template slot="itemTemplate">
           <span style="font-weight: bold">
@@ -40,14 +39,13 @@
       </oj-select-single>
       <oj-text-area
         readonly="true"
-        class="oj-form-control-width-md"
         value="{{ $variables.selectedEmployee.data ==null ? '' : JSON.stringify($variables.selectedEmployee) }}"
         rows="6"
       >
       </oj-text-area>
     </oj-form-layout>
     <h5 id="h1--1545021545-1">collectionTemplate Slot Example</h5>
-    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+    <div class="oj-flex-item oj-sm-flex-initial text-wrap" style="padding-bottom: 1em">
       <oj-bind-text
         value="This example uses the collectionTemplate slot to render matching employees in a Table component. The first and last name fields are configured as searchable fields. Typed text is matched from the beginning of these fields."
       >
@@ -55,14 +53,13 @@
     </div>
     <oj-form-layout
       label-edge="inside"
-      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+      class="oj-flex-item oj-sm-flex-initial"
     >
       <oj-select-single
         label-hint="Employee"
         data="[[$page.variables.employeeListSDP]]"
         item-text="firstName"
         value-item="{{ $variables.selectedEmployee2 }}"
-        class="oj-form-control-width-md"
       >
         <template slot="collectionTemplate" data-oj-as="collection">
           <oj-table
@@ -89,7 +86,7 @@
       </oj-select-single>
     </oj-form-layout>
     <h5 id="h1--1545021545-2">ArrayDataProvider-based Example</h5>
-    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+    <div class="oj-flex-item oj-sm-flex-initial text-wrap" style="padding-bottom: 1em">
       <oj-bind-text
         value="This example shows Department names from an ArrayDataProvider. Typed text is matched anywhere in the department name field. ."
       >
@@ -97,17 +94,16 @@
     </div>
     <oj-form-layout
       label-edge="inside"
-      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+      class="oj-flex-item oj-sm-flex-initial"
     >
       <oj-select-single
         label-hint="Department"
         data="[[ $variables.departmentADP ]]"
         item-text="departmentName"
-        class="oj-form-control-width-md"
       ></oj-select-single>
     </oj-form-layout>
     <h5 id="h1--1545021545-3">Grouping Example</h5>
-    <div class="oj-flex-item oj-sm-flex-initial" style="padding-bottom: 1em">
+    <div class="oj-flex-item oj-sm-flex-initial text-wrap" style="padding-bottom: 1em">
       <oj-bind-text
         value="This example uses a TreeDataProvider to group matching departments. Typed text is matched anywhere in the department name field."
       >
@@ -115,16 +111,15 @@
     </div>
     <oj-form-layout
       label-edge="inside"
-      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+      class="oj-flex-item oj-sm-flex-initial"
     >
       <oj-select-single
         label-hint="Department"
         data="[[ $variables.departmentTDP ]]"
-        class="oj-form-control-width-md"
       ></oj-select-single>
     </oj-form-layout>
     <h5>Multi-field Full Text Search Example</h5>
-    <div class="oj-flex-item" style="padding-bottom: 1em">
+    <div class="oj-flex-item text-wrap" style="padding-bottom: 1em">
       <oj-bind-text
         value="This example demonstrates search of the typed value in multiple fields (first name, last name, and so on). Full-text search for the typed text is matched anywhere in the field values."
       >
@@ -132,10 +127,26 @@
     </div>
     <oj-form-layout
       label-edge="inside"
-      class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width"
+      class="oj-flex-item oj-sm-flex-initial"
     >
-      <oj-select-single class="oj-form-control-width-md" label-hint="Employee"
+      <oj-select-single label-hint="Employee"
         data="[[$page.variables.employeeListSDP2]]" item-text="[[$functions.getName]]"
+      ></oj-select-single>
+    </oj-form-layout>
+
+    <h5>Default Value Example</h5>
+    <div class="oj-flex-item text-wrap" style="padding-bottom: 1em">
+      <oj-bind-text
+        value="This example demonstrates how to set a default value in select-single using value-item property."
+      >
+      </oj-bind-text>
+    </div>
+    <oj-form-layout
+      label-edge="inside"
+      class="oj-flex-item oj-sm-flex-initial"
+    >
+      <oj-select-single data="[[$variables.employeeListSDP3]]" item-text="firstName"
+        value-item="{{ $variables.selectedEmployee3 }}" :id="[['select-single-default-value']]"
       ></oj-select-single>
     </oj-form-layout>
   </div>

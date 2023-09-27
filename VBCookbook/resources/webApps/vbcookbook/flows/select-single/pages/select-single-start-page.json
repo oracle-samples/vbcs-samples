@@ -2,6 +2,7 @@
   "title": "Select-Single Demos Recipe",
   "description": "",
   "variables": {
+
     "departmentADP": {
       "type": "vb/ArrayDataProvider2",
       "defaultValue": {
@@ -57,6 +58,20 @@
         }
       }
     },
+    "employeeListSDP3": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse3",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName"
+          ]
+        }
+      }
+    },
     "groupingDept": {
       "type": "obj[]"
     },
@@ -65,7 +80,24 @@
     },
     "selectedEmployee2": {
       "type": "selectedObjectType"
+    },
+    "selectedEmployee3": {
+      "type": {
+        "data": {
+          "firstName": "string",
+          "id": "number"
+        },
+        "key": "number"
+      },
+      "defaultValue": {
+        "data": {
+          "firstName": "Steven",
+          "id": 100
+        },
+        "key": 100
+      }
     }
+
   },
   "metadata": {},
   "types": {
@@ -80,6 +112,11 @@
       "path": "response"
     },
     "@decorators.getallEmployeeResponse2": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse3": {
       "endpoint": "getall_Employee",
       "service": "businessObjects",
       "path": "response"
@@ -115,6 +152,14 @@
         }
       ]
     },
+    "getallEmployeeResponse3": {
+      "items": [
+        {
+          "firstName": "string",
+          "id": "number"
+        }
+      ]
+    },
     "obj": {
       "children": "childobj[]",
       "label": "string",
@@ -125,6 +170,7 @@
       "key": "number",
       "metadata": "object"
     }
+
   },
   "chains": {},
   "eventListeners": {

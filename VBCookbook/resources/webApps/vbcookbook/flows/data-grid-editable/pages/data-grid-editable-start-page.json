@@ -58,7 +58,8 @@
         ]
       },
       "lastName": "string",
-      "salary": "number"
+      "salary": "number",
+      "review": "string"
 
     },
     "getallEmployeeResponse": {
@@ -81,6 +82,17 @@
     }
   },
   "eventListeners": {
+    "checkboxSetValue": {
+      "chains": [
+        {
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "current": "{{ $current }}"
+          },
+          "chain": "onCheckboxSelection"
+        }
+      ]
+    },
     "saveAction": {
       "chains": [
         {
@@ -103,6 +115,9 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       },
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
+      },
       "oj-data-grid": {
         "path": "ojs/ojdatagrid"
       },
@@ -115,6 +130,9 @@
       "oj-input-text": {
         "path": "ojs/ojinputtext"
       },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
       },
@@ -124,6 +142,7 @@
       "oj-text-area": {
         "path": "ojs/ojinputtext"
       }
+
     },
     "modules": {
       "ojValidationBase": {

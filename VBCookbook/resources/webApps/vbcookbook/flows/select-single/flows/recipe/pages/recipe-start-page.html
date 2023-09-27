@@ -393,3 +393,46 @@ getName(context){
     </oj-collapsible>
   </oj-accordion>
 </div>
+
+<!-- Step 6. -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-collapsible id="oj-collapsible-1494599579-46">
+      <h1 slot="header">Setting Default Value</h1>
+      <div>
+        <p>This recipe shows you how to set the default value for the select-single LOV using value-item property.</p>
+        <ol>
+          <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
+          <li>Use the component’s <a target="_blank"
+              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              Start</a> to bind your component to employee data.</li>
+          <li>In the Bind Data page, select the following employee fields:
+            <ul>
+              <li>First Name as Label</li>
+              <li>id as Value</li>
+            </ul>
+            Click Next and Finish on the next page.
+          </li>
+          <li>Create a page variable 'selectedEmployee3' of Object type and the object has to have two properties - key
+            and data as specified in <a target="_blank"
+              href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.ojSelectSingle.html#valueItem">JET API
+              documentation</a>. Where, <code>key</code> is where value is put and <code>data</code> is row's data in the same structure as provided
+              by the data provider.</li>
+          <li>Assign the initial/default value to the variable ‘defaultValue’ as below:
+            <pre>
+{
+  "data": {
+    "firstName": "Steven",
+    "id": 100
+  },
+  "key": 100
+}
+  </pre>
+          </li>
+          <li>Now assign the variable 'selectedEmployee3' to the value-item property of select-single and notice the default
+            value is set.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

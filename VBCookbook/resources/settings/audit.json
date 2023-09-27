@@ -5,6 +5,10 @@
     ]
   },
   "rules": {
+    "oj-sp-pageTemplate-notFound-in-vbPage": {
+       "description": "Page template missing in back-button-start-page.html. Supported page templates are: oj-sp-dashboard-landing-page,oj-sp-data-management-page,oj-sp-guided-process,oj-sp-item-overview-page,oj-sp-simple-create-edit,oj-sp-advanced-create-edit,oj-sp-foldout-layout,oj-sp-general-overview-page,oj-sp-welcome-page,oj-sp-smart-filter-search,oj-sp-smart-filter-search-2,oj-sp-smart-search-page,oj-sp-collection-detail-page.",
+      "enabled": false
+    },
     "oj-html-cspexpr": {
        "description": "Attribute 'value' contains an expression that may not be compatible with all Content Security policies: Expected expression after = at attribute value -> the csp expression evaluator does not support arrow function syntax",
       "enabled": false

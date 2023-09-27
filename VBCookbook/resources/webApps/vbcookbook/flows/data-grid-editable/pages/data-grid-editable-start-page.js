@@ -18,6 +18,7 @@ define([
         "jobObject",
         "salary",
         "jobObject",
+        "review"
       ];
       this.editingInProgress = false; // keeps track if editing is going on
       this.numberConverter = new NumberConverter.IntlNumberConverter({
@@ -52,6 +53,7 @@ define([
             { data: "Job" },
             { data: "Salary" },
             { data: "Salary Range" },
+            { data: "Review Needed"}
           ],
         },
         headerLabels: {
@@ -84,12 +86,12 @@ define([
     }
 
     columnHeaderStyle(headerContext) {
-      if (headerContext.index === 2) {
-        // jobTitle
-        return "width: 260px";
-      } else if (headerContext.index === 4) {
-        // salary range
+      if (headerContext.index === 2) { // jobTitle
+        return "width: 240px";
+      } else if (headerContext.index === 4) { // salary range
         return "width: 155px;";
+      } else if (headerContext.index === 3) { // salary
+        return "max-width: 80px;";
       }
       return "";
     }
@@ -106,7 +108,7 @@ define([
     }
 
     getClassName(columnIndex, item) {
-      if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2) {
+      if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 5) {
         return "oj-sm-justify-content-flex-start";
       } else if (columnIndex === 3) {
         // salary column
@@ -126,7 +128,7 @@ define([
 
     onBeforeEdit(event) {
       // conditionally disable the cells for editing by preventing default on the event
-      if (event.detail.cellContext.indexes.column === "4") {
+      if (event.detail.cellContext.indexes.column === 4 || event.detail.cellContext.indexes.column === 5) {
         event.preventDefault();
       } else {
         this.editingInProgress = true;
@@ -352,6 +354,10 @@ define([
           }
         },
       };
+    }
+
+    updateReview(rowData) {
+      this.bufferingDP.updateItem({ data: rowData, metadata: { key: rowData.id } });
     }
   }
 

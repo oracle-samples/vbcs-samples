@@ -21,4 +21,4 @@ This application contains variety of recipes illustrating how to implement more 
 
 **Compatibility**
 
-* 2307
+* 2310

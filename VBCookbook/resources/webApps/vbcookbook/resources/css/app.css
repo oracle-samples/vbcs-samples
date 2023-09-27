@@ -288,3 +288,7 @@ pre {
 .oj-sp-header-welcome-banner-container {
   min-height: revert!important;
 }
+
+.text-wrap {
+  max-width: 600px;
+}

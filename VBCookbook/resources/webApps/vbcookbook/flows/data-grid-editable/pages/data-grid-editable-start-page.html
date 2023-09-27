@@ -11,7 +11,8 @@
     service. The recipe also
     demonstrates how to implement validation. It ensures, for example, that a change to an employee's salary remains
     within the minimum and maximum
-    values for that employee's job classification.
+    values for that employee's job classification. It also demonstrates how to render and edit a cell with a checkbox 
+    in the data grid.
   </p>
 </div>
 <div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
@@ -92,6 +93,15 @@
           <oj-bind-if test='[[cell.mode=="navigation"]]'>
             <oj-bind-text value="{{ $page.functions.getFormattedSalaryRange( cell.item.data.data ) }}"></oj-bind-text>
           </oj-bind-if>
+        </oj-bind-if>
+
+        <!-- review needed checkbox -->
+        <oj-bind-if test="[[cell.item.columnIndex==5]]">
+          <div class="oj-flex-item oj-sm-flex-direction-column oj-lg-justify-content-center">
+            <oj-checkboxset on-value-changed="[[$listeners.checkboxSetValue]]" value="[[ cell.item.data.data === 'yes' ? ['yes'] : []  ]]">
+              <oj-option value="yes"></oj-option>
+            </oj-checkboxset>
+          </div>
         </oj-bind-if>
 
       </template>

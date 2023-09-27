@@ -110,11 +110,17 @@
             "displayLabel": "Manager",
             "type": "number"
         },
-        {
+{
             "name": "department",
             "oid": "3b4287e2-e136-41b0-9fe3-b0c2bda2022c",
             "displayLabel": "Department",
             "type": "number"
+        },
+        {
+            "type": "string",
+            "name": "review",
+            "oid": "62f19539-bfcf-49fe-a927-a8138243052c",
+            "displayLabel": "Review Needed"
         }
     ],
     "name": "Employee",

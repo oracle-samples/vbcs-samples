@@ -9,7 +9,7 @@ define([
   "ojs/ojresponsiveknockoututils",
   "ojs/ojresponsiveutils",
   
-  "fndconfig/config",
+  "oj-sp/spectra-shell/config/config",
 ], function (
   newMetadata,
   ArrayDataProvider,
