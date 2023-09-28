@@ -1,5 +1,5 @@
 # Source for the Sample Applications Cloud UI Theme
-Version 9.1.0 - Visual Builder 23.10.0 compatible
+Version 9.1.0 - Visual Builder 2310.0.0 compatible
 
 Sep 2023
 
