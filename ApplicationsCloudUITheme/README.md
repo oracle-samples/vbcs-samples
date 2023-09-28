@@ -1,7 +1,7 @@
 # Source for the Sample Applications Cloud UI Theme
-Version 9.0.0 - Visual Builder 23.07.0 compatible
+Version 9.1.0 - Visual Builder 23.10.0 compatible
 
-May 2023
+Sep 2023
 
 ## About
 This distribution is a sample UI theme for Oracle JET and Oracle Visual Builder. This provides a look and feel similar to the Oracle SaaS lightBlue theme and can be used as the basis for creating customized themes of your own.
