@@ -1,0 +1,50 @@
+{
+  "root": "callFunctionFetchData",
+  "actions": {
+
+    "return1": {
+      "module": "vb/action/builtin/returnAction",
+      "parameters": {
+        "outcome": "success",
+        "payload": "{{ $chain.results.callFunctionReshapeResponse }}"
+      }
+    },
+    "callFunctionFetchData": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $application.functions ]]",
+        "functionName": "fetchData",
+        "params": [
+          "{{ $application.variables.compartmentId }}",
+          "{{ $page.variables.timeFilter }}",
+          "'Log Source' != 'OCI VCN Flow Unified Schema Logs' and 'Log Source' != 'Export Analyze Source' and 'Log Source' != 'OCI Audit Logs' | fieldsummary maxvalues = 2000 mtag"
+        ]
+      },
+      "outcomes": {
+        "success": "callFunctionReshapeResponse"
+      }
+    },
+    "callFunctionReshapeResponse": {
+      "module": "vb/action/builtin/callModuleFunctionAction",
+      "parameters": {
+        "module": "[[ $functions ]]",
+        "functionName": "reshapeResponse",
+        "params": [
+          "{{ $chain.results.callFunctionFetchData }}"
+        ]
+      },
+      "outcomes": {
+        "success": "return1"
+      }
+    }
+  },
+  "variables": {
+    "configuration": {
+      "type": {
+        "hookHandler": "vb/RestHookHandler"
+      },
+      "input": "fromCaller",
+      "required": true
+    }
+  }
+}

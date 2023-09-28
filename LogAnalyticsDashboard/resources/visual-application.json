@@ -1,0 +1,22 @@
+{
+    "vbcs.dt.version": "20230620-23.10.0",
+    "features": {
+        "codeChainsEnabled": true
+    },
+    "dependencies": {
+        "upgrade": "micro",
+        "paths": {
+            "jet": "https://static.oracle.com/cdn/jet/14.1.4",
+            "telemetry": "https://static.oracle.com/cdn/trace/7.4.0",
+            "visualRuntime": "https://static.oracle.com/cdn/vb/2310.0.0",
+            "oracleImageGallery": "https://static.oracle.com/cdn/fnd/gallery/2310.0.1"
+        }
+    },
+    "source.version": "2310",
+    "migration": {
+        "2310": [
+            "SetHistoryTypeMigrator",
+            "RemoveCSPMetatagMigrator"
+        ]
+    }
+}

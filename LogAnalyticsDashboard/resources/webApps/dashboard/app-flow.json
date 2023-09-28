@@ -1,0 +1,119 @@
+{
+  "id": "lad",
+  "description": "OCI Log Analytics Dashboard",
+  "defaultPage": "shell",
+  "services": {},
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      },
+      "description": "Event to configure navigation between items/tabs."
+    },
+    "toggleDrawer": {
+      "description": "Event to toggle the drawer."
+    }
+  },
+  "types": {
+    "navigationItem": {
+      "id": "string",
+      "name": "string",
+      "iconClass": "string"
+    },
+    "globalHeaderItem": {
+      "id": "string",
+      "name": "string",
+      "iconClass": "string"
+    },
+    "avatarMenuItem": {
+      "id": "string",
+      "name": "string",
+      "iconClass": "string"
+    },
+    "TimeFilterType": {
+      "timeEnd": "string",
+      "timeStart": "string",
+      "timeZone": "string"
+    }
+  },
+  "variables": {
+    "compartmentId": {
+      "type": "string",
+      "defaultValue": "ocid1.tenancy.oc1..your-id"
+    },
+    "globalHeadersADP": {
+      "type": "vb/ArrayDataProvider2",
+      "description": "The model describing the Global Applications headers",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "data": "{{ $variables.globalHeadersData }}",
+        "itemType": "navigationItem"
+      }
+    },
+    "navigationADP": {
+      "type": "vb/ArrayDataProvider2",
+      "description": "The model describing the flows in the app",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "data": "{{ $variables.navigationData }}",
+        "itemType": "navigationItem"
+      }
+    },
+    "avatarItems": {
+      "type": "avatarMenuItem[]",
+      "defaultValue": [
+        {
+          "name": "Sign Out",
+          "id": "signout",
+          "iconClass": "oj-ux-ico-logout"
+        }
+      ]
+    },
+    "globalHeadersData": {
+      "type": "globalHeaderItem[]",
+      "defaultValue": [
+      ]
+    },
+    "navigationData": {
+      "type": "navigationItem[]",
+      "defaultValue": []
+    }
+
+  },
+  "eventListeners": {
+    "vbResourceChanged": {
+      "chains": [
+        {
+          "chainId": "resourceChangedHandler",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    }
+  },
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {
+    "access": {
+      "requiresAuthentication": true
+    }
+  },
+  "imports": {
+    "css": [
+      "https://static.oracle.com/cdn/fnd/gallery/2210.0.0/images/iconfont/ojuxIconFont.min.css",
+      "/resources/css/app.css"
+    ]
+  },
+  "@dt": {
+    "applicationTemplateType": "redwood"
+  }
+}

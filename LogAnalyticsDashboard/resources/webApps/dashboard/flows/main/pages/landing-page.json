@@ -1,0 +1,124 @@
+{
+  "title": "landing page",
+  "description": "",
+  "variables": {
+    "filterADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "application:TimeFilterType",
+        "keyAttributes": "label",
+        "data": "{{ $application.functions.getTimePickerOptions() }}"
+      }
+    },
+    "filterValue": {
+      "type": "string",
+      "defaultValue": "Last 15 Minutes",
+      "persisted": "history"
+    },
+    "filterValueItemRecord": {
+      "type": "FilterValueItemType",
+      "onValueChanged": {
+        "chains": [
+          {
+            "parameters": {
+              "event": "{{ $event }}"
+            },
+            "chain": "updateTimeFilter"
+          }
+        ]
+      }
+    },
+    "labelFilter": {
+      "type": "string",
+      "defaultValue": "",
+      "persisted": "history"
+    },
+    "labelFilterSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "responseType": "LabelFilterType",
+        "itemsPath": "items",
+        "fetchChainId": "getLabelFilterDataFetchAction",
+        "keyAttributes": "value",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "label"
+          ]
+        }
+      }
+    },
+    "showMoreFilters": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "timeFilter": {
+      "type": "application:TimeFilterType"
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    "FilterValueItemType": {
+      "data": "application:TimeFilterType"
+    },
+    "LabelFilterType": {
+      "items": [
+        {
+          "value": "string",
+          "label": "string"
+        }
+      ]
+    }
+  },
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "ToggleShowMoreFiltersChain"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chain": "EraseLabelFilterActionChain"
+        }
+      ]
+    },
+    "fragmentClicked": {
+      "chains": [
+        {
+          "chain": "FragmentClickedChain",
+          "parameters": {
+            "value": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "fragmentSelectedLabel": {
+      "chains": [
+        {
+          "chain": "FragmentSelectedLabelChain",
+          "parameters": {
+            "label": "{{ $event.detail.label }}"
+          }
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      }
+
+    }
+  }
+}

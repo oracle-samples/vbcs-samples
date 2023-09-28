@@ -1,0 +1,49 @@
+{
+  "title": "detail page",
+  "description": "",
+  "variables": {
+    "timeEnd": {
+      "type": "string",
+      "defaultValue": "2023-06-06T21:12:06.905Z",
+      "required": true,
+      "input": "fromUrl"
+    },
+    "timeFilter": {
+      "type": "application:TimeFilterType",
+      "defaultValue": {
+        "timeEnd": "[[ $variables.timeEnd ]]",
+        "timeStart": "[[ $variables.timeStart ]]",
+        "timeZone": "[[ $variables.timeZone ]]"
+      },
+      "required": false,
+      "input": "none"
+    },
+    "timeStart": {
+      "type": "string",
+      "defaultValue": "2023-05-30T21:12:06.905Z",
+      "required": true,
+      "input": "fromUrl"
+    },
+    "timeZone": {
+      "type": "string",
+      "defaultValue": "Pacific/Auckland",
+      "required": true,
+      "input": "fromUrl"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chain": "HyperlinkClickChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "description": "Opens About Dialog",
+  "root": "callComponentAboutDialogOpen",
+  "actions": {
+    "callComponentAboutDialogOpen": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "{{ document.getElementById('aboutDialog') }}",
+        "method": "open"
+      }
+    }
+  },
+  "variables": {}
+}

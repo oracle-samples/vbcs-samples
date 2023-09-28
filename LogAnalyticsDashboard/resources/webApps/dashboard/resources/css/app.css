@@ -1,0 +1,25 @@
+/**
+ * Copyright (c)2023 Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ */
+
+.widget-frame {
+  border: 1px solid #959594; 
+  padding: 8px; 
+  border-radius: 4px;
+  background: white;
+  display: block;
+  max-width: 100%;
+  height: 250px;
+}
+
+.widget-frame2 {
+  border: 1px solid #959594; 
+  padding: 8px; 
+  border-radius: 4px;
+  background: white;
+  display: block;
+  max-width: 100%;
+  height: 500px;
+}

@@ -1,0 +1,34 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="oj-flex">
+  <span class="oj-typography-body-lg oj-sm-padding-2x-bottom oj-flex-item oj-sm-12 oj-md-12">
+    <oj-bind-text
+      value='[[ "Top Labels" ]]'></oj-bind-text></span>
+</div>
+<oj-bind-if test="[[ !$fragment.variables.isLoading ]]">
+  <div class="oj-flex">
+    <div class="oj-sm-flex-initial oj-flex-item oj-sm-12 oj-md-12">
+      <oj-table class="oj-table-stretch" style="height:220px; width: 100%" scroll-policy="loadMoreOnScroll"
+        data="[[ $variables.adp ]]"
+        columns='[{"headerText":"Label","field":"Label","template":"Label"},{"headerText":"Records","field":"Records"}]'
+        display="grid">
+        <template slot="Label">
+          <a target="_blank" class="oj-link" on-click="[[$listeners.hyperlinkClick]]">
+            <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+          </a>
+        </template>
+      </oj-table>
+    </div>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[ $fragment.variables.isLoading ]]">
+  <div class="oj-flex oj-sm-justify-content-center oj-sm-align-items-center" style="height: 200px">
+    <div class="oj-sm-flex-initial oj-flex-item">
+      <oj-progress-circle size="md" value="-1"></oj-progress-circle>
+    </div>
+  </div>
+</oj-bind-if>

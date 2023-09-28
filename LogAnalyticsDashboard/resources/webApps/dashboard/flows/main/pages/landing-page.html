@@ -1,0 +1,83 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="oj-flex oj-sm-align-items-center oj-sm-padding-4x-vertical">
+  <div class="oj-flex-item oj-sm-flex-initial">
+    <oj-select-single label-hint="Time Filter" style="max-width: 300px; min-width: 300px"
+      value-item="{{ $variables.filterValueItemRecord }}" data="[[ $variables.filterADP ]]"
+      value="{{ $variables.filterValue }}"></oj-select-single>
+  </div>
+  <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-4x-start">
+    <oj-button chroming="outlined" on-oj-action="[[$listeners.buttonAction]]"
+      label="[[ $variables.showMoreFilters ? 'Less Filters' : 'More Filters' ]]"></oj-button>
+  </div>
+</div>
+
+<oj-bind-if test="[[ $variables.showMoreFilters ]]">
+  <div class="oj-flex oj-sm-align-items-center oj-sm-padding-4x-bottom">
+    <div class="oj-flex-item oj-sm-flex-initial">
+      <oj-select-single label-hint="Label Filter" style="max-width: 300px; min-width: 300px"
+        data="[[ $variables.labelFilterSDP ]]" value="{{ $variables.labelFilter }}" placeholder="show all">
+      </oj-select-single>
+    </div>
+    <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-4x-start">
+      <oj-button chroming="outlined" display="icons" on-oj-action="[[$listeners.buttonAction2]]">
+        <span slot="startIcon" class="oj-ux-ico-eraser"></span>
+      </oj-button>
+    </div>
+  </div>
+</oj-bind-if>
+
+
+<oj-bind-if test="[[ $variables.timeFilter.timeStart !== undefined]]">
+
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12 oj-md-12 oj-lg-5 oj-md-only-padding-4x-bottom oj-sm-only-padding-4x-bottom">
+      <oj-vb-fragment bridge="[[vbBridge]]" class="widget-frame" name="top-log-sources">
+        <oj-vb-fragment-param name="compartmentId" value="[[ $application.variables.compartmentId ]]">
+        </oj-vb-fragment-param>
+        <oj-vb-fragment-param name="timeFilter" value="[[ $variables.timeFilter ]]"></oj-vb-fragment-param>
+        <oj-vb-fragment-param name="extraQuery" value="{{ $functions.formatExtraQuery($variables.labelFilter) }}">
+        </oj-vb-fragment-param>
+        <oj-vb-fragment-param name="queryName" value="[[ $variables.labelFilter ]]"></oj-vb-fragment-param>
+      </oj-vb-fragment>
+    </div>
+    <div
+      class="oj-flex-item oj-sm-12 oj-md-8 oj-lg-5 oj-lg-padding-4x-horizontal oj-md-padding-4x-end oj-sm-only-padding-4x-bottom">
+      <oj-vb-fragment bridge="[[vbBridge]]" class="widget-frame" name="top-labels"
+        on-selected-label="[[$listeners.fragmentSelectedLabel]]">
+        <oj-vb-fragment-param name="compartmentId" value="[[ $application.variables.compartmentId ]]">
+        </oj-vb-fragment-param>
+        <oj-vb-fragment-param name="timeFilter" value="[[ $variables.timeFilter ]]"></oj-vb-fragment-param>
+      </oj-vb-fragment>
+    </div>
+    <div class="oj-flex-item oj-sm-12 oj-md-4 oj-lg-2">
+      <oj-vb-fragment bridge="[[vbBridge]]" class="widget-frame" name="count-widget"
+        on-clicked="[[$listeners.fragmentClicked]]">
+        <oj-vb-fragment-param name="compartmentId" value="[[ $application.variables.compartmentId ]]">
+        </oj-vb-fragment-param>
+        <oj-vb-fragment-param name="timeFilter" value="[[ $variables.timeFilter ]]"></oj-vb-fragment-param>
+        <oj-vb-fragment-param name="label" value="Active OCI Users"></oj-vb-fragment-param>
+        <oj-vb-fragment-param name="query" value="'Log Source' = 'OCI Audit Logs' and 'User Name' not in ('null', 'oci-optimizer', scanplatform) | stats distinctcount('User Name') as 'Active Users'"></oj-vb-fragment-param>
+        <oj-vb-fragment-param name="queryProperty" value="Active Users"></oj-vb-fragment-param>
+        <oj-vb-fragment-param name="canBeClicked" value="true"></oj-vb-fragment-param>
+      </oj-vb-fragment>
+    </div>
+  </div>
+  <div class="oj-flex">
+    <div class="oj-flex-item oj-sm-12 oj-sm-padding-4x-top">
+      <oj-vb-fragment bridge="[[vbBridge]]" class="widget-frame" name="log-records-trend">
+        <oj-vb-fragment-param name="compartmentId" value="[[ $application.variables.compartmentId ]]">
+        </oj-vb-fragment-param>
+        <oj-vb-fragment-param name="timeFilter" value="[[ $variables.timeFilter ]]"></oj-vb-fragment-param>
+        <oj-vb-fragment-param name="extraQuery" value="{{ $functions.formatExtraQuery($variables.labelFilter) }}">
+        </oj-vb-fragment-param>
+        <oj-vb-fragment-param name="queryName" value="[[ $variables.labelFilter ]]"></oj-vb-fragment-param>
+      </oj-vb-fragment>
+    </div>
+  </div>
+
+</oj-bind-if>

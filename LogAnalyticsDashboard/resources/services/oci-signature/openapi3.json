@@ -1,0 +1,276 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "oci-signature",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://loganalytics.us-phoenix-1.oci.oraclecloud.com",
+            "description": "Loganalytics Us Phoenix 1 Oci Oraclecloud Com",
+            "x-vb": {
+                "authentication": {
+                    "authenticated": {
+                        "type": "http_signature_oci",
+                        "credentials": "vb_fa196dc3-63a2-4bb6-baf3-4bcd523ae97a"
+                    },
+                    "anonymous": {
+                        "type": "as_authenticated_user"
+                    }
+                },
+                "anonymousAccess": true
+            }
+        }
+    ],
+    "paths": {
+        "/20200601/namespaces/ax1zffkcg1fy/search/actions/query": {
+            "post": {
+                "operationId": "postQuery",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostSearchActionsQueryRequest"
+                            },
+                            "examples": {
+                                "vb": {
+                                    "externalValue": "./examples/postQuery/request_application_json_vb.json"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostSearchActionsQueryResponse"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/postQuery/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+               },
+                "x-vb": {
+                    "actionHint": "getMany",
+                    "headers": {
+                        "content-type": "application/json"
+                    },
+                    "queryParameters": {
+                        "limit": "2000"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getQuery",
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetSearchActionsQuery"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/getQuery/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany",
+                    "queryParameters": {
+
+                        "limit": "-1",
+                        "shouldIncludeColumns": "true",
+                        "shouldIncludeFields": "true"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "workRequestId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "x-vb": {
+                            "defaultValue": "ocid1.loganalyticsqueryjobworkrequest.oc1.phx.abcd"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PostSearchActionsQueryRequest": {
+                "type": "object",
+                "properties": {
+                    "subSystem": {
+                        "type": "string"
+                    },
+                    "queryString": {
+                        "type": "string"
+                    },
+                    "shouldRunAsync": {
+                        "type": "boolean"
+                    },
+                    "shouldIncludeTotalCount": {
+                        "type": "boolean"
+                    },
+                    "compartmentId": {
+                        "type": "string"
+                    },
+                    "compartmentIdInSubtree": {
+                        "type": "boolean"
+                    },
+                    "scopeFilters": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "timeFilter": {
+                        "type": "object",
+                        "properties": {
+                            "timeStart": {
+                                "type": "string"
+                            },
+                            "timeEnd": {
+                                "type": "string"
+                            },
+                            "timeZone": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "maxTotalCount": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "GetSearchActionsQuery": {
+                "type": "object",
+                "properties": {
+                    "totalCount": {
+                        "type": "integer"
+                    },
+                    "totalMatchedCount": {
+                        "type": "integer"
+                    },
+                    "arePartialResults": {
+                        "type": "boolean"
+                    },
+                    "isContentHidden": {
+                        "type": "boolean"
+                    },
+                    "columns": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "displayName": {
+                                    "type": "string"
+                                },
+                                "subSystem": {
+                                    "type": "string"
+                                },
+                                "values": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "displayValue": {
+                                                "type": "string"
+                                            },
+                                            "internalValue": {
+                                                "type": "string"
+                                            },
+                                            "isDeleted": {
+                                                "type": "boolean"
+                                            }
+                                        }
+                                    }
+                                },
+                                "isListOfValues": {
+                                    "type": "boolean"
+                                },
+                                "isMultiValued": {
+                                    "type": "boolean"
+                                },
+                                "isGroupable": {
+                                    "type": "boolean"
+                                },
+                                "isEvaluable": {
+                                    "type": "boolean"
+                                },
+                                "valueType": {
+                                    "type": "string"
+                                },
+                                "internalName": {
+                                    "type": "string"
+                                },
+                                "span": {
+                                    "type": "string"
+                                },
+                                "times": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "isCaseSensitive": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Time": {
+                                    "type": "integer"
+                                },
+                                "Log Source": {
+                                    "type": "string"
+                                },
+                                "logrecords": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "queryExecutionTimeInMs": {
+                        "type": "integer"
+                    },
+                    "percentComplete": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "PostSearchActionsQueryResponse": {
+                "type": "object",
+                "properties": {
+                    "percentComplete": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}

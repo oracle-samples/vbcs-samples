@@ -1,0 +1,38 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="oj-flex">
+  <span class="oj-typography-body-lg oj-flex-item oj-sm-12 oj-md-12">
+    <oj-bind-text
+      value='[[ "Top Log Sources" +  ($variables.queryName && $variables.queryName.length > 0 ? " ("+$variables.queryName+")" : "") ]]'></oj-bind-text></span>
+</div>
+<oj-bind-if test="[[ !$fragment.variables.isLoading ]]">
+  <div class="oj-flex">
+    <div class="oj-sm-flex-initial oj-flex-item oj-sm-12 oj-md-12">
+      <oj-chart type="pie" style="max-width: 100%; max-height: 230px" data="[[ $variables.adp ]]"
+         animation-on-display="auto"
+        animation-on-data-change="auto" hover-behavior="dim">
+        <template slot="itemTemplate" data-oj-as="item">
+          <oj-chart-item value="[[item.data.logrecords]]" group-id="[[ ['Group A'] ]]"
+            series-id="[[ item.data['Log Source'] ]]"></oj-chart-item>
+        </template>
+        <template slot="tooltipTemplate" data-oj-as="item">
+          <oj-form-layout readonly="true">
+            <oj-input-text label-hint="Source" value="{{ item.itemData['Log Source'] }}"></oj-input-text>
+            <oj-input-text label-hint="Number of Logs" value="{{ item.itemData.logrecords }}"></oj-input-text>
+          </oj-form-layout>
+        </template>
+      </oj-chart>
+    </div>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[ $fragment.variables.isLoading ]]">
+  <div class="oj-flex oj-sm-justify-content-center oj-sm-align-items-center" style="height: 200px">
+    <div class="oj-sm-flex-initial oj-flex-item">
+      <oj-progress-circle size="md" value="-1"></oj-progress-circle>
+    </div>
+  </div>
+</oj-bind-if>

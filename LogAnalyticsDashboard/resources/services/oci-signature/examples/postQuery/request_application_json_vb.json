@@ -1,0 +1,16 @@
+{
+	"subSystem": "LOG",
+	"queryString": "'Log Source' != 'OCI VCN Flow Unified Schema Logs' and 'Log Source' != 'OCI Audit Logs' | timestats count as logrecords by 'Log Source' | sort -logrecords",
+	"shouldRunAsync": true,
+	"shouldIncludeTotalCount": true,
+	"compartmentId": "ocid1.tenancy.oc1..your-id",
+	"compartmentIdInSubtree": true,
+	"scopeFilters": [
+	],
+	"timeFilter": {
+		"timeStart": "2023-05-23T18:39:16.206Z",
+		"timeEnd": "2023-05-24T02:39:16.206Z",
+		"timeZone": "America/Los_Angeles"
+	},
+	"maxTotalCount": 2000
+}

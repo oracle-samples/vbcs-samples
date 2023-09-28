@@ -1,0 +1,72 @@
+{
+  "description": "",
+  "routerFlow": "main",
+  "variables": {
+    "avatarInfo": {
+      "type": "object",
+      "defaultValue": {
+        "initials": "RG",
+        "title": "Example Avatar",
+        "items": [
+          {
+            "name": "Sign Out",
+            "action": "signout",
+            "iconClass": "oj-ux-ico-logout"
+          }
+        ]
+      }
+    },
+    "messagesADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "itemType": "page:messageType"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {
+    "messageType": {
+      "id": "string",
+      "severity": "string",
+      "category": "string",
+      "summary": "string",
+      "detail": "string",
+      "timestamp": "string",
+      "autoTimeout": "number"
+    }
+  },
+  "eventListeners": {
+    "vbNotification": {
+      "chains": [
+        {
+          "chainId": "showNotification",
+          "parameters": {
+            "eventPayload": "{{ { id: $event.key, summary: $event.summary, detail: $event.message, severity: $event.type, autoTimeout: $event.displayMode === 'transient' ? 0 : -1 } }}"
+          }
+        }
+      ]
+    },
+    "onMessageClose": {
+      "chains": [
+        {
+          "chainId": "closeNotificationHandler",
+          "parameters": {
+            "eventMessage": "{{ $event.detail.message }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-messages": {
+        "path": "ojs/ojmessages"
+      }
+    },
+    "css": [
+      "/resources/css/shell.css"
+    ]
+  },
+  "translations": {}
+}

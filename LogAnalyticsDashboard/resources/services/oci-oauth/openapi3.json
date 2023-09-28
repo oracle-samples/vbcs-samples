@@ -1,0 +1,218 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "oci-oauth",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://your-id.apigateway.us-phoenix-1.oci.customer-oci.com/v1/secure",
+            "description": "protected OCI endpoint",
+            "x-vb": {
+                "authentication": {
+                    "authenticated": {
+                        "type": "oauth2_user_assertion",
+                        "clientIdCredentials": "vb_eba0aa40-8de2-48ca-8cf3-8c03d34c05d6",
+                        "scope": "log-dashboard-audiencelog-dashboard-scope"
+                    }
+                },
+                "forceProxy": "always"
+            }
+        }
+    ],
+    "paths": {
+        "/loganalytics-query": {
+            "post": {
+                "operationId": "postQuery",
+                "requestBody": {
+                    "description": "Request for application/json",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostLoganalytics-queryRequest"
+                            },
+                            "examples": {
+                                "vb": {
+                                    "summary": "Example stored by VB User",
+                                    "externalValue": "./examples/postQuery/request_application_json_vb.json"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostLoganalytics-queryResponse"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/postQuery/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PostLoganalytics-queryResponse": {
+                "type": "object",
+                "properties": {
+                    "response": {
+                        "type": "object",
+                        "properties": {
+                            "totalCount": {
+                                "type": "integer"
+                            },
+                            "totalMatchedCount": {
+                                "type": "integer"
+                            },
+                            "arePartialResults": {
+                                "type": "boolean"
+                            },
+                            "isContentHidden": {
+                                "type": "boolean"
+                            },
+                            "columns": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "displayName": {
+                                            "type": "string"
+                                        },
+                                        "subSystem": {
+                                            "type": "string"
+                                        },
+                                        "values": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "displayValue": {
+                                                        "type": "string"
+                                                    },
+                                                    "internalValue": {
+                                                        "type": "string"
+                                                    },
+                                                    "isDeleted": {
+                                                        "type": "boolean"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "isListOfValues": {
+                                            "type": "boolean"
+                                        },
+                                        "isMultiValued": {
+                                            "type": "boolean"
+                                        },
+                                        "isCaseSensitive": {
+                                            "type": "boolean"
+                                        },
+                                        "isGroupable": {
+                                            "type": "boolean"
+                                        },
+                                        "isEvaluable": {
+                                            "type": "boolean"
+                                        },
+                                        "valueType": {
+                                            "type": "string"
+                                        },
+                                        "internalName": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Log Source": {
+                                            "type": "string"
+                                        },
+                                        "logrecords": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            },
+                            "queryExecutionTimeInMs": {
+                                "type": "integer"
+                            },
+                            "percentComplete": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "token_email": {
+                        "type": "string"
+                    },
+                    "token_user": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PostLoganalytics-queryRequest": {
+                "type": "object",
+                "properties": {
+                    "subSystem": {
+                        "type": "string"
+                    },
+                    "queryString": {
+                        "type": "string"
+                    },
+                    "shouldRunAsync": {
+                        "type": "boolean"
+                    },
+                    "shouldIncludeTotalCount": {
+                        "type": "boolean"
+                    },
+                    "compartmentId": {
+                        "type": "string"
+                    },
+                    "compartmentIdInSubtree": {
+                        "type": "boolean"
+                    },
+                    "scopeFilters": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "timeFilter": {
+                        "type": "object",
+                        "properties": {
+                            "timeStart": {
+                                "type": "string"
+                            },
+                            "timeEnd": {
+                                "type": "string"
+                            },
+                            "timeZone": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "maxTotalCount": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}

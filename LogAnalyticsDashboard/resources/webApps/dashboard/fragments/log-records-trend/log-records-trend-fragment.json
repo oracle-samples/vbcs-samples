@@ -1,0 +1,110 @@
+{
+  "title": "",
+  "description": "",
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {
+            "compartmentId": "{{ $variables.compartmentId }}",
+            "timeFilter": "{{ $variables.timeFilter }}",
+            "extraQuery": "{{ $variables.extraQuery }}"
+          },
+          "chain": "fetchRecordsAsync"
+        }
+      ]
+    }
+  },
+  "events": {},
+  "imports": {
+    "components": {
+      "oj-chart": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-group": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-item": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-series": {
+        "path": "ojs/ojchart"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date-time": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-progress-circle": {
+        "path": "ojs/ojprogress-circle"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "variables": {
+    "adp": {
+      "type": "vb/ArrayDataProvider2"
+    },
+    "compartmentId": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller",
+      "defaultValue": "[[ $application.variables.compartmentId ]]"
+    },
+    "extraQuery": {
+      "type": "string",
+      "defaultValue": "",
+      "required": false,
+      "onValueChanged": {
+        "chains": [
+          {
+            "parameters": {
+              "compartmentId": "{{ $variables.compartmentId }}",
+              "timeFilter": "{{ $variables.timeFilter }}",
+              "extraQuery": "{{ $variables.extraQuery }}"
+            },
+            "chain": "fetchRecordsAsync"
+          }
+        ]
+      },
+      "input": "fromCaller"
+    },
+    "isLoading": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "queryName": {
+      "type": "string",
+      "input": "fromCaller"
+    },
+    "timeFilter": {
+      "type": "application:TimeFilterType",
+      "required": true,
+      "onValueChanged": {
+        "chains": [
+          {
+            "parameters": {
+              "compartmentId": "{{ $variables.compartmentId }}",
+              "timeFilter": "{{ $variables.timeFilter }}",
+              "extraQuery": "{{ $variables.extraQuery }}"
+            },
+            "chain": "fetchRecordsAsync"
+          }
+        ]
+      },
+      "input": "fromCaller",
+      "defaultValue": {
+        "timeEnd": "2023-06-06T21:12:06.905Z",
+        "timeStart": "2023-05-30T21:12:06.905Z",
+        "timeZone": "Pacific/Auckland"
+      }
+    }
+
+  },
+  "referenceable": "self"
+}

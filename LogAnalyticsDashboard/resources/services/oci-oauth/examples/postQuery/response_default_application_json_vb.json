@@ -1,0 +1,87 @@
+{
+    "response": {
+        "totalCount": 5,
+        "totalMatchedCount": 147547,
+        "arePartialResults": false,
+        "isContentHidden": false,
+        "columns": [
+            {
+                "type": "COLUMN",
+                "displayName": "Log Source",
+                "subSystem": "LOG",
+                "values": [
+                    {
+                        "displayValue": "OCI VCN Flow Unified Schema Logs",
+                        "internalValue": "ociVcnFlowUniFmtLogSource",
+                        "isDeleted": false
+                    },
+                    {
+                        "displayValue": "Linux Audit Logs",
+                        "internalValue": "AuditLogSource",
+                        "isDeleted": false
+                    },
+                    {
+                        "displayValue": "Linux Syslog Logs",
+                        "internalValue": "LinuxSyslogSource",
+                        "isDeleted": false
+                    },
+                    {
+                        "displayValue": "Linux Secure Logs",
+                        "internalValue": "LinuxSecureLogSource",
+                        "isDeleted": false
+                    },
+                    {
+                        "displayValue": "Kubernetes Core DNS Logs",
+                        "internalValue": "ociK8sCoreDNSLogSource",
+                        "isDeleted": false
+                    }
+                ],
+                "isListOfValues": true,
+                "isMultiValued": false,
+                "isCaseSensitive": false,
+                "isGroupable": true,
+                "isEvaluable": true,
+                "valueType": "STRING",
+                "internalName": "msrcid"
+            },
+            {
+                "type": "COLUMN",
+                "displayName": "logrecords",
+                "values": [],
+                "isListOfValues": false,
+                "isMultiValued": false,
+                "isCaseSensitive": false,
+                "isGroupable": true,
+                "isEvaluable": true,
+                "valueType": "LONG",
+                "internalName": "func1_count"
+            }
+        ],
+        "items": [
+            {
+                "Log Source": "OCI VCN Flow Unified Schema Logs",
+                "logrecords": 105395
+            },
+            {
+                "Log Source": "Linux Audit Logs",
+                "logrecords": 24230
+            },
+            {
+                "Log Source": "Linux Syslog Logs",
+                "logrecords": 15203
+            },
+            {
+                "Log Source": "Linux Secure Logs",
+                "logrecords": 443
+            },
+            {
+                "Log Source": "Kubernetes Core DNS Logs",
+                "logrecords": 353
+            }
+        ],
+        "queryExecutionTimeInMs": 1026,
+        "percentComplete": 100
+    },
+    "token_email": "david.konecny@oracle.com",
+    "token_user": "David Konecny"
+}

@@ -1,0 +1,43 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="oj-flex">
+  <span class="oj-flex-item oj-sm-12 oj-md-12 oj-typography-body-lg">
+    <oj-bind-text
+      value="[[ $variables.label ]]"></oj-bind-text></span>
+</div>
+<oj-bind-if test="[[ !$fragment.variables.isLoading ]]">
+  <div class="oj-flex oj-sm-justify-content-center oj-sm-flex-direction-column oj-sm-align-items-center" style="min-height: 200px">
+    <div class="oj-sm-flex-initial oj-flex-item">
+      <oj-bind-if test="[[ $variables.canBeClicked ]]">
+        <a target="_blank" class="oj-link" on-click="[[$listeners.hyperlinkClick]]">
+        <span style="font-size: 5em; font-weight: bold;">
+        <oj-bind-text
+          value="[[ $variables.adp.data.length > 0 ? $variables.adp.data[0][$variables.queryProperty] : '?' ]]"></oj-bind-text>
+        </span>
+        </a>
+      </oj-bind-if>
+      <oj-bind-if test="[[ !$variables.canBeClicked ]]">
+        <span style="font-size: 5em; font-weight: bold;">
+        <oj-bind-text
+          value="[[ $variables.adp.data.length > 0 ? $variables.adp.data[0][$variables.queryProperty] : '?' ]]"></oj-bind-text>
+        </span>
+      </oj-bind-if>
+    </div>
+    <div class="oj-sm-flex-initial oj-flex-item">
+      <span class="oj-typography-body-lg">
+      <oj-bind-text value="[[ $variables.subLabel !== undefined ? $variables.subLabel :  $variables.queryProperty ]]"></oj-bind-text>
+      </span>
+    </div>
+  </div>
+</oj-bind-if>
+<oj-bind-if test="[[ $fragment.variables.isLoading ]]">
+  <div class="oj-flex oj-sm-justify-content-center oj-sm-align-items-center" style="height: 200px">
+    <div class="oj-sm-flex-initial oj-flex-item">
+      <oj-progress-circle size="md" value="-1"></oj-progress-circle>
+    </div>
+  </div>
+</oj-bind-if>

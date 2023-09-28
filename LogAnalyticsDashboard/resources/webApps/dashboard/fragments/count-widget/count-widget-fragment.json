@@ -1,0 +1,136 @@
+{
+  "title": "",
+  "description": "",
+  "eventListeners": {
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chain": "HyperlinkClickChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {
+            "compartmentId": "{{ $variables.compartmentId }}",
+              "timeFilter": "{{ $variables.timeFilter }}",
+              "query": "{{ $variables.query }}",
+              "queryProperty": "{{ $variables.queryProperty }}"
+          },
+          "chain": "fetchRecordsAsync"
+        }
+      ]
+    }
+
+  },
+  "events": {
+    "clicked": {
+      "propagationBehavior": "container",
+      "description": "Emits to container",
+      "payloadType": {
+        "value": "string"
+      }
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-chart": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-group": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-item": {
+        "path": "ojs/ojchart"
+      },
+      "oj-chart-series": {
+        "path": "ojs/ojchart"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-date-time": {
+        "path": "ojs/ojdatetimepicker"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-progress-circle": {
+        "path": "ojs/ojprogress-circle"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "variables": {
+    "adp": {
+      "type": "vb/ArrayDataProvider2"
+    },
+    "canBeClicked": {
+      "type": "boolean",
+      "defaultValue": false,
+      "input": "fromCaller"
+    },
+    "compartmentId": {
+      "type": "string",
+      "required": true,
+      "input": "fromCaller",
+      "defaultValue": "[[ $application.variables.compartmentId ]]"
+    },
+    "isLoading": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "label": {
+      "type": "string",
+      "defaultValue": "Active OCI Users",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "query": {
+      "type": "string",
+      "defaultValue": "'Log Source' = 'OCI Audit Logs' and 'User Name' not in ('null', 'oci-optimizer', scanplatform) | stats distinctcount('User Name') as 'Active Users'",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "queryProperty": {
+      "type": "string",
+      "defaultValue": "Active Users",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "subLabel": {
+      "type": "string",
+      "input": "fromCaller"
+    },
+    "timeFilter": {
+      "type": "application:TimeFilterType",
+      "required": true,
+      "onValueChanged": {
+        "chains": [
+          {
+            "parameters": {
+              "compartmentId": "{{ $variables.compartmentId }}",
+              "timeFilter": "{{ $variables.timeFilter }}",
+              "query": "{{ $variables.query }}",
+              "queryProperty": "{{ $variables.queryProperty }}"
+            },
+            "chain": "fetchRecordsAsync"
+          }
+        ]
+      },
+      "input": "fromCaller",
+      "defaultValue": {
+        "timeEnd": "2023-06-06T21:12:06.905Z",
+        "timeStart": "2023-05-30T21:12:06.905Z",
+        "timeZone": "Pacific/Auckland"
+      }
+    }
+
+  },
+  "referenceable": "self"
+}

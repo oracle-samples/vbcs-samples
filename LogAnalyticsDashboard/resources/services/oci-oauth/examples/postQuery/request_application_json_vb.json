@@ -1,0 +1,15 @@
+{
+  "subSystem": "LOG",
+  "queryString": "* | stats count as logrecords by 'Log Source' | sort -logrecords | top limit = 5 logrecords",
+  "shouldRunAsync": false,
+  "shouldIncludeTotalCount": true,
+  "compartmentId": "ocid1.tenancy.oc1..your-id",
+  "compartmentIdInSubtree": true,
+  "scopeFilters": [],
+  "timeFilter": {
+    "timeStart": "2023-06-19T22:47:23.156Z",
+    "timeEnd": "2023-06-19T23:47:23.156Z",
+    "timeZone": "Pacific/Auckland"
+  },
+  "maxTotalCount": 2000
+}

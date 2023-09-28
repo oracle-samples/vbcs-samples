@@ -1,0 +1,1086 @@
+{
+    "totalCount": 193,
+    "totalMatchedCount": 7255,
+    "arePartialResults": false,
+    "isContentHidden": false,
+    "columns": [
+        {
+            "type": "TIME_COLUMN",
+            "displayName": "Time",
+            "subSystem": "LOG",
+            "values": [],
+            "isListOfValues": false,
+            "isMultiValued": false,
+            "isGroupable": false,
+            "isEvaluable": true,
+            "valueType": "TIMESTAMP",
+            "internalName": "time",
+            "span": "10MINUTE",
+            "times": [
+                1684867156206,
+                1684867740000,
+                1684868340000,
+                1684868940000,
+                1684869540000,
+                1684870140000,
+                1684870740000,
+                1684871340000,
+                1684871940000,
+                1684872540000,
+                1684873140000,
+                1684873740000,
+                1684874340000,
+                1684874940000,
+                1684875540000,
+                1684876140000,
+                1684876740000,
+                1684877340000,
+                1684877940000,
+                1684878540000,
+                1684879140000,
+                1684879740000,
+                1684880340000,
+                1684880940000,
+                1684881540000,
+                1684882140000,
+                1684882740000,
+                1684883340000,
+                1684883940000,
+                1684884540000,
+                1684885140000,
+                1684885740000,
+                1684886340000,
+                1684886940000,
+                1684887540000,
+                1684888140000,
+                1684888740000,
+                1684889340000,
+                1684889940000,
+                1684890540000,
+                1684891140000,
+                1684891740000,
+                1684892340000,
+                1684892940000,
+                1684893540000,
+                1684894140000,
+                1684894740000,
+                1684895340000,
+                1684895940000
+            ]
+        },
+        {
+            "type": "COLUMN",
+            "displayName": "Log Source",
+            "subSystem": "LOG",
+            "values": [
+                {
+                    "displayValue": "Linux Secure Logs",
+                    "internalValue": "LinuxSecureLogSource",
+                    "isDeleted": false
+                },
+                {
+                    "displayValue": "Linux Syslog Logs",
+                    "internalValue": "LinuxSyslogSource",
+                    "isDeleted": false
+                },
+                {
+                    "displayValue": "AVDFAlert Linux Syslog",
+                    "internalValue": "AVDFAlertLinuxSyslogSource",
+                    "isDeleted": false
+                },
+                {
+                    "displayValue": "Linux Cron Logs",
+                    "internalValue": "LinuxCronLogSource",
+                    "isDeleted": false
+                }
+            ],
+            "isListOfValues": true,
+            "isMultiValued": false,
+            "isCaseSensitive": false,
+            "isGroupable": true,
+            "isEvaluable": true,
+            "valueType": "STRING",
+            "internalName": "msrcid"
+        },
+        {
+            "type": "COLUMN",
+            "displayName": "logrecords",
+            "values": [],
+            "isListOfValues": false,
+            "isMultiValued": false,
+            "isCaseSensitive": false,
+            "isGroupable": true,
+            "isEvaluable": true,
+            "valueType": "LONG",
+            "internalName": "func1_count"
+        }
+    ],
+    "items": [
+        {
+            "Time": 1684888140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 368
+        },
+        {
+            "Time": 1684877340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 237
+        },
+        {
+            "Time": 1684885140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 213
+        },
+        {
+            "Time": 1684876740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 204
+        },
+        {
+            "Time": 1684887540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 197
+        },
+        {
+            "Time": 1684885740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 190
+        },
+        {
+            "Time": 1684877940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 173
+        },
+        {
+            "Time": 1684875540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 159
+        },
+        {
+            "Time": 1684891140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 159
+        },
+        {
+            "Time": 1684888740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 158
+        },
+        {
+            "Time": 1684890540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 157
+        },
+        {
+            "Time": 1684878540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 152
+        },
+        {
+            "Time": 1684891740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 147
+        },
+        {
+            "Time": 1684892940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 145
+        },
+        {
+            "Time": 1684889940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 134
+        },
+        {
+            "Time": 1684876140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 129
+        },
+        {
+            "Time": 1684886940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 124
+        },
+        {
+            "Time": 1684893540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 113
+        },
+        {
+            "Time": 1684874940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 109
+        },
+        {
+            "Time": 1684892340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 102
+        },
+        {
+            "Time": 1684879140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 101
+        },
+        {
+            "Time": 1684889340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 101
+        },
+        {
+            "Time": 1684894140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 100
+        },
+        {
+            "Time": 1684884540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 96
+        },
+        {
+            "Time": 1684879740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 89
+        },
+        {
+            "Time": 1684880340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 76
+        },
+        {
+            "Time": 1684873740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 75
+        },
+        {
+            "Time": 1684874340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 71
+        },
+        {
+            "Time": 1684886340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 70
+        },
+        {
+            "Time": 1684894740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 66
+        },
+        {
+            "Time": 1684880940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 55
+        },
+        {
+            "Time": 1684878540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 50
+        },
+        {
+            "Time": 1684878540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 50
+        },
+        {
+            "Time": 1684895340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 49
+        },
+        {
+            "Time": 1684882740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684882740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684889940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684889940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684891140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684891140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684893540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684893540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 45
+        },
+        {
+            "Time": 1684868940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684868940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684870140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684870140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684872540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684872540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684873140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684873740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684873740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684876140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684876140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684877340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684877340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684879740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684879740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684881540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684881540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684885140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684885140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684886940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684886940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684888140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684888140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684892340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684892340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 44
+        },
+        {
+            "Time": 1684867740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684867740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684871340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684871340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684874940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684874940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684883940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684883940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684889340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684889340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684894740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684894740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 43
+        },
+        {
+            "Time": 1684883940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 39
+        },
+        {
+            "Time": 1684867740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 36
+        },
+        {
+            "Time": 1684871340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 29
+        },
+        {
+            "Time": 1684867156206,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 28
+        },
+        {
+            "Time": 1684870740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 25
+        },
+        {
+            "Time": 1684881540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 24
+        },
+        {
+            "Time": 1684870140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 21
+        },
+        {
+            "Time": 1684868340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 20
+        },
+        {
+            "Time": 1684882740000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 20
+        },
+        {
+            "Time": 1684882140000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 19
+        },
+        {
+            "Time": 1684868940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 18
+        },
+        {
+            "Time": 1684869540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 18
+        },
+        {
+            "Time": 1684871940000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 18
+        },
+        {
+            "Time": 1684872540000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 18
+        },
+        {
+            "Time": 1684883340000,
+            "Log Source": "Linux Secure Logs",
+            "logrecords": 18
+        },
+        {
+            "Time": 1684875540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 10
+        },
+        {
+            "Time": 1684875540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 10
+        },
+        {
+            "Time": 1684868340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684868340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684871940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684871940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684879140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684879140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684886340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684886340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 9
+        },
+        {
+            "Time": 1684867156206,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684867156206,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684870740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684870740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684874340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684874340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684877940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684877940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684880940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684880940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684883340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684883340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684884540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684884540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684885740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684885740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684888740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684888740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684890540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684890540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684891740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684891740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684894140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684894140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684895340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684895340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 8
+        },
+        {
+            "Time": 1684869540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684869540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684873140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684873140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684876740000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684876740000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684880340000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684880340000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684882140000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684882140000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684886340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684887540000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684887540000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684889940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684892940000,
+            "Log Source": "AVDFAlert Linux Syslog",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684892940000,
+            "Log Source": "Linux Syslog Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684893540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 7
+        },
+        {
+            "Time": 1684868340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 5
+        },
+        {
+            "Time": 1684871940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 5
+        },
+        {
+            "Time": 1684875540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 5
+        },
+        {
+            "Time": 1684879140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 5
+        },
+        {
+            "Time": 1684882740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 5
+        },
+        {
+            "Time": 1684867156206,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684868940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684870140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684870740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684872540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684873740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684874340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684876140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684877340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684877940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684879740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684880940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684881540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684883340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684884540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684885140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684885740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684886940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684888140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684888740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684890540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684891740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684892340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684894140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684895340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 2
+        },
+        {
+            "Time": 1684867740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684869540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684871340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684873140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684874940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684876740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684878540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684880340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684882140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684883940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684887540000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684889340000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684891140000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684892940000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684894740000,
+            "Log Source": "Linux Cron Logs",
+            "logrecords": 1
+        },
+        {
+            "Time": 1684895940000,
+            "logrecords": 0
+        }
+    ],
+    "queryExecutionTimeInMs": 608,
+    "percentComplete": 100
+}

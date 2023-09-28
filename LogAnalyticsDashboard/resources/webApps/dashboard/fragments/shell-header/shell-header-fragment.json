@@ -1,0 +1,35 @@
+{
+  "title": "Shell Header",
+  "eventListeners": {
+    "openAvatarMenu": {
+      "chains": [
+        {
+          "chainId": "openAvatarMenu"
+        }
+      ]
+    }
+  },
+  "events": {},
+  "imports": {
+    "components": {
+      "oj-avatar": {
+        "path": "ojs/ojavatar"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-popup": {
+        "path": "ojs/ojpopup"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      }
+    },
+    "css": [
+      "/resources/css/shell.css"
+    ]
+  },
+  "metadata": {},
+  "types": {},
+  "variables": {}
+}
