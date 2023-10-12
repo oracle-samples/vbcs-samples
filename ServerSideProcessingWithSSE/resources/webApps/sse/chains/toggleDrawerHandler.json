@@ -1,0 +1,13 @@
+{
+  "description": "Toggles the navigation drawer for the page",
+  "root": "fireEventToggleDrawer",
+  "actions": {
+    "fireEventToggleDrawer": {
+      "module": "vb/action/builtin/fireCustomEventAction",
+      "parameters": {
+        "name": "application:toggleDrawer"
+      }
+    }
+  },
+  "variables": {}
+}

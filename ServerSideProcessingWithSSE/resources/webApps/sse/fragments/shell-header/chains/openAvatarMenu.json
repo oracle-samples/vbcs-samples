@@ -1,0 +1,17 @@
+{
+  "description": "Opens the menu invoked from avatar icon in the header",
+  "root": "avatarmenuOpen",
+  "actions": {
+    "avatarmenuOpen": {
+      "module": "vb/action/builtin/callComponentMethodAction",
+      "parameters": {
+        "component": "[[document.getElementById('header-avatar-menu')]]",
+        "method": "open",
+        "params": [
+          "#header-avatar"
+        ]
+      }
+    }
+  },
+  "variables": {}
+}

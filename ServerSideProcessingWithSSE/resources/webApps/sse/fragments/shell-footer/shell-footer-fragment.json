@@ -1,0 +1,31 @@
+{
+  "title": "Shell Footer",
+  "eventListeners": {
+    "aboutClick": {
+      "chains": [
+        {
+          "chainId": "openAboutDialog"
+        }
+      ],
+      "preventDefault": "true"
+    }
+  },
+  "events": {},
+  "imports": {
+    "components": {
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      },
+      "oj-progress-bar": {
+        "path": "ojs/ojprogress-bar"
+      }
+    },
+    "css": [
+      "/resources/css/shell.css"
+    ]
+  },
+  "metadata": {},
+  "types": {},
+  "variables": {
+  }
+}

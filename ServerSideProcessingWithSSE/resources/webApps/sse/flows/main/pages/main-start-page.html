@@ -1,0 +1,31 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="oj-flex">
+  <h2 class="oj-header oj-flex-item oj-sm-12 oj-md-12">Tasks</h2>
+</div>
+<div class="oj-flex">
+  <p class="oj-flex-item oj-sm-12 oj-md-12">
+    This is an example how to work with SSE events from Visual Builder 
+    application. Follow 
+    <a href="https://github.com/oracle-samples/vbcs-samples/tree/master/ServerSideProcessingWithSSE">instructions from GitHub page</a>
+    to setup and start SSE server, which is required for this application 
+    to function.</p>
+</div>
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-12 oj-md-2">
+    <oj-button label="Create New Task" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+  </div>
+</div>
+<div class="oj-flex">
+  <oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12" data="[[ $variables.tasks ]]"
+    columns='[{"headerText":"name","field":"name"},{"headerText":"progress","field":"progress","template":"progress"},{"headerText":"id","field":"id"}]'>
+    <template slot="progress">
+      <oj-bind-text
+        value='[[ $page.functions.getProgress($page.variables.tasksArrayLive, $current.index) ]]'></oj-bind-text>
+    </template>
+  </oj-table>
+</div>

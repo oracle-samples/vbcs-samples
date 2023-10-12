@@ -1,0 +1,159 @@
+.vb-web-applayout-body {
+    overflow-y: hidden;
+}
+
+.vb-web-applayout-page {
+    position: relative;
+    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+/* Sticky header on the top so that the rest of the page can scroll independent of the header */
+.vb-web-applayout-page.fixed-header {
+    padding-top: calc(3.25rem + env(safe-area-inset-top));
+}
+
+.vb-web-applayout-page.fixed-header .vb-web-applayout-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.vb-web-applayout-header {
+    background-color: rgb(var(--oj-palette-neutral-rgb-10));
+    border-bottom: 1px solid var(--oj-private-app-layout-web-header-border-color);
+    z-index: 1;
+    box-shadow: var(--oj-private-app-layout-web-header-box-shadow);
+}
+
+.vb-content-and-footer-container {
+    position: relative;
+    overflow-y: auto;
+}
+
+.vb-pages-module {
+    /* Matches the headers and footers. Extra 1em is for the padding in the offcanvas icon */
+    padding-left: calc(var(--oj-core-spacing-10x) + var(--oj-core-spacing-4x));
+    padding-right: var(--oj-core-spacing-10x);
+    position: relative;
+    width: 100%;
+}
+
+.vb-pages-module > oj-module {
+    /* This makes sure that the content inside the page starts underneath the header */
+    flex-direction: column;
+}
+
+.vb-web-applayout-footer-image-stripe {
+    height: 8px;
+    content: '';
+    background: url(../images/footer-stripe.png);
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
+}
+
+.vb-web-applayout-footer-content {
+    background-color: rgb(var(--oj-palette-neutral-rgb-170));
+    padding-top: var(--oj-core-spacing-4x);
+    padding-bottom: var(--oj-core-spacing-4x);
+}
+
+.vb-web-applayout-footer-content,
+.vb-web-applayout-header-content {
+    padding-left: var(--oj-core-spacing-10x);
+    padding-right: var(--oj-core-spacing-10x);
+}
+
+/* Special selectors for desktop Form factor */
+@media screen and (min-width: 600px) {
+    .vb-web-applayout-header  {
+        background-color: rgb(var(--oj-palette-neutral-rgb-30));
+    }
+
+    .vb-content-header {
+        /* minimum height ensures that the content flex item does not bleed up */
+        min-height: 7.875rem;
+        /* Limit the height of the content header on the top to 126px */
+        max-height: 7.875rem;
+        /* This accounts for the image strip at the bottom */
+        margin-bottom: 12px;
+    }
+
+    .vb-content-header-image-stripe {
+        /* Matches the page header height of 7.875rem */
+        top: 7.875rem;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        /* height of the image strip */
+        height: 12px;
+        content: '';
+        z-index: 1;
+
+        background: url(../images/header-stripe-desktop.png);
+        background-position: left bottom;
+        background-repeat: repeat-x;
+        background-size: 100% 100%;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .vb-web-applayout-page {
+        /* In landscape mode for the devices, the page will occupy entire height and safe-are is contained in the bottom margins */
+        min-height: 100vh;
+    }
+}
+
+/* Special selectors for Phone Form factor */
+@media screen and (max-width: 599.9px) {
+    /* Account for addition height of the page header */
+    .vb-web-applayout-page.fixed-header {
+        padding-top: calc(3.5rem + 6px + env(safe-area-inset-top));
+    }
+
+    /* color strip is displayed under the header region for phone form factor */
+    .vb-web-applayout-header {
+        /* This accounts for the image strip at the bottom */
+        padding-bottom: 6px;
+    }
+
+    .vb-web-applayout-header-image-stripe {
+        position: absolute;
+        width: 100%;
+        height: 6px;
+        content: '';
+        z-index: 1;
+        left: 0;
+        bottom: 0;
+        background: url(../images/header-stripe-phone.png);
+        background-position: left bottom;
+        background-repeat: repeat-x;
+        background-size: 100% 100%;
+    }
+
+    .vb-web-applayout-header-content {
+        padding-left: var(--oj-core-spacing-2x);
+        padding-right: var(--oj-core-spacing-2x);
+        height: 3.5rem;
+    }
+
+    .vb-web-applayout-footer-content {
+        /* Matches the headers. Extra 1x is for the padding in the offcanvas icon */
+        padding-left: var(--oj-core-spacing-3x);
+    }
+
+    .vb-pages-module {
+        padding-left: var(--oj-core-spacing-4x);
+    }
+
+    .vb-web-applayout-footer-image-stripe {
+        /* height of the image strip */
+        height: 6px;
+    }
+
+    .vb-web-applayout-footer-content {
+        padding-bottom: calc(var(--oj-core-spacing-4x) + env(safe-area-inset-bottom));
+    }
+}

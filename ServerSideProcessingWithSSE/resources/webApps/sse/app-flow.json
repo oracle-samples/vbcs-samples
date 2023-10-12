@@ -1,0 +1,143 @@
+{
+  "id": "sse",
+  "description": "A new VB app",
+  "defaultPage": "shell",
+  "services": {},
+  "translations": {
+    "app": {
+      "path": "./resources/strings/app/nls/app-strings"
+    }
+  },
+  "events": {
+    "navigateToItem": {
+      "payloadType": {
+        "item": "string"
+      },
+      "description": "Event to configure navigation between items/tabs."
+    },
+    "progress": {
+      "payloadType": {
+        "tasks": [
+            {
+              "id": "number",
+              "length": "number",
+              "name": "string",
+              "progress": "number",
+              "start": "number"
+            }
+          ]
+      }
+    },
+    "toggleDrawer": {
+      "description": "Event to toggle the drawer."
+    }
+
+  },
+  "types": {
+    "navigationItem": {
+      "id": "string",
+      "name": "string",
+      "iconClass": "string"
+    },
+    "globalHeaderItem": {
+      "id": "string",
+      "name": "string",
+      "iconClass": "string"
+    },
+    "avatarMenuItem": {
+      "id": "string",
+      "name": "string",
+      "iconClass": "string"
+    },
+    "TaskType": {
+      "id": "number",
+      "length": "number",
+      "name": "string",
+      "progress": "number",
+      "start": "number"
+    }
+  },
+  "variables": {
+    "globalHeadersADP": {
+      "type": "vb/ArrayDataProvider2",
+      "description": "The model describing the Global Applications headers",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "data": "{{ $variables.globalHeadersData }}",
+        "itemType": "navigationItem"
+      }
+    },
+    "navigationADP": {
+      "type": "vb/ArrayDataProvider2",
+      "description": "The model describing the flows in the app",
+      "defaultValue": {
+        "keyAttributes": "id",
+        "data": "{{ $variables.navigationData }}",
+        "itemType": "navigationItem"
+      }
+    },
+    "avatarItems": {
+      "type": "avatarMenuItem[]",
+      "defaultValue": [
+        {
+          "name": "Sign Out",
+          "id": "signout",
+          "iconClass": "oj-ux-ico-logout"
+        }
+      ]
+    },
+    "globalHeadersData": {
+      "type": "globalHeaderItem[]",
+      "defaultValue": [
+        {
+          "name": "Example 1",
+          "id": "settings",
+          "iconClass": "oj-ux-ico-settings"
+        },
+        {
+          "name": "Example 2",
+          "id": "like",
+          "iconClass": "oj-ux-ico-thumbs-up"
+        },
+        {
+          "name": "Example 3",
+          "id": "bookmark",
+          "iconClass": "oj-ux-ico-bookmark-add"
+        }
+      ]
+    },
+    "navigationData": {
+      "type": "navigationItem[]",
+      "defaultValue": []
+    }
+  },
+  "eventListeners": {
+
+    "vbResourceChanged": {
+      "chains": [
+        {
+          "chainId": "resourceChangedHandler",
+          "parameters": {
+            "event": "{{ $event }}"
+          }
+        }
+      ]
+    }
+
+  },
+  "userConfig": {
+    "type": "vb/DefaultSecurityProvider",
+    "configuration": {},
+    "embedding": "deny"
+  },
+  "security": {},
+  "imports": {
+    "css": [
+      "https://static.oracle.com/cdn/fnd/gallery/2210.0.0/images/iconfont/ojuxIconFont.min.css",
+      "/resources/css/app.css"
+    ]
+  },
+  "@dt": {
+    "applicationTemplateType": "redwood"
+  }
+}

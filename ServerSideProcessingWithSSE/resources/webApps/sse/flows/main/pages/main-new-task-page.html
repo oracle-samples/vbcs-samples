@@ -1,0 +1,20 @@
+<!--
+ Copyright (c)2023 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<div class="oj-flex">
+  <h5 class="oj-header oj-flex-item oj-sm-12 oj-md-12">New Task Name:</h5>
+</div>
+<div class="oj-flex">
+  <oj-input-text label-hint="Text" class="oj-flex-item oj-sm-12 oj-md-6" value="{{ $variables.taskName }}"></oj-input-text>
+</div>
+<div class="oj-sm-padding-2x-top oj-flex">
+  <div class="oj-flex-item oj-sm-flex-initial">
+    <oj-button label="Create" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+  </div>
+  <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-start">
+    <oj-button label="Cancel" on-oj-action="[[$listeners.buttonAction2]]"></oj-button>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+{
+  "title": "main",
+  "description": "",
+  "variables": {
+    "tasks": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.tasksArray }}",
+        "itemType": "application:TaskType",
+        "keyAttributes": "id"
+      }
+    },
+    "tasksArray": {
+      "type": "application:TaskType[]"
+    },
+    "tasksArrayLive": {
+      "type": "application:TaskType[]"
+    }
+  },
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "application:progress": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chain": "updateProgress"
+        }
+      ]
+    },
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "createNewTask"
+        }
+      ]
+    },
+    "toggleDrawer": {
+      "chains": [
+        {
+          "chainId": "application:toggleDrawerHandler"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chain": "fetchTasks"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  }
+}
