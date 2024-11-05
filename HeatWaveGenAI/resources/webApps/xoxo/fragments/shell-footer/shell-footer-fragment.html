@@ -1,0 +1,31 @@
+<footer class="vb-web-applayout-footer oj-flex oj-sm-flex-direction-column" role="contentinfo">
+  <div role="img" class="vb-web-applayout-footer-image-stripe"></div>
+  <div class="vb-web-applayout-footer-content oj-contrast-marker">
+    <div class="oj-flex oj-typography-body-sm oj-sm-margin-2x-start">
+      <div class="oj-flex oj-flex-item  oj-sm-flex-direction-column">
+        <a id="about" class="oj-text-color-primary oj-sm-margin-2x-bottom" href="#"
+           on-click="[[$listeners.aboutClick]]">
+          <oj-bind-text value="[[ $application.translations.app.app_footer_about_link ]]"></oj-bind-text>
+        </a>
+        <a class="oj-text-color-primary">
+          <oj-bind-text value="[[ 'Footer Item 1' ]]"></oj-bind-text>
+        </a>
+      </div>
+      <div class="oj-flex oj-flex-item oj-sm-flex-direction-column">
+        <a class="oj-text-color-primary oj-sm-margin-2x-bottom">
+          <oj-bind-text value="[[ 'Footer Item 2' ]]"></oj-bind-text>
+        </a>
+        <a class="oj-text-color-primary">
+          <oj-bind-text value="[[ 'Footer Item 3' ]]"></oj-bind-text>
+        </a>
+      </div>
+    </div>
+    <div class="oj-flex oj-sm-margin-2x-top oj-text-color-secondary oj-typography-body-sm oj-sm-margin-2x-start"><oj-bind-text value="[[ $application.translations.app.app_footer_copyright ]]"></oj-bind-text></div>
+    <oj-dialog id="aboutDialog" dialog-title="My Application"
+      cancel-behavior="icon">
+      <div class="oj-flex oj-text-color-secondary oj-typography-body-sm">
+        <oj-bind-text value="[[ $application.translations.app.app_footer_copyright ]]"></oj-bind-text>
+      </div>
+    </oj-dialog>
+  </div>
+</footer>

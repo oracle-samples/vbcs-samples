@@ -1,0 +1,127 @@
+{
+  "title": "main",
+  "description": "",
+  "variables": {
+    "ask_hash": {
+      "type": "string"
+    },
+    "ask_id": {
+      "type": "number"
+    },
+    "busy": {
+      "type": "boolean"
+    },
+    "chat": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "ConversationType",
+        "keyAttributes": "id"
+      }
+    },
+    "lastId": {
+      "type": "number",
+      "defaultValue": 1
+    },
+    "model": {
+      "type": "string",
+      "defaultValue": "mistral-7b-instruct-v1"
+    },
+    "models": {
+      "type": [
+        {
+          "label": "string",
+          "value": "string"
+        }
+      ],
+      "defaultValue" : [ 
+        {"value" : "mistral-7b-instruct-v1", "label" : "mistral-7b-instruct-v1"},
+        {"value" : "llama3-8b-instruct-v1", "label" : "llama3-8b-instruct-v1"}
+         ]
+    },
+    "modelsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.models }}",
+        "keyAttributes": "value"
+      }
+    },
+    "question": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "string[]",
+      "defaultValue": [
+        "table1"
+      ]
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.AskResponseType": {
+      "endpoint": "postAsk2",
+      "service": "ask",
+      "path": "response"
+    },
+    "AskResponseType": {
+      "answer": "string",
+      "chat_history": [
+        {
+          "chat_bot_message": "string",
+          "chat_query_id": "string",
+          "user_message": "string"
+        }
+      ],
+      "documents": [
+        {
+          "distance": "number",
+          "id": "string",
+          "segment": "string",
+          "title": "string"
+        }
+      ],
+      "hash": "string",
+      "id": "number"
+    },
+    "ConversationType": {
+      "answer": "string[]",
+      "id": "number",
+      "question": "string"
+    }
+  },
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "AskQuestion"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chain": "Clear"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-checkboxset": {
+        "path": "ojs/ojcheckboxset"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-option": {
+        "path": "ojs/ojoption"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+   }
+  }
+}
