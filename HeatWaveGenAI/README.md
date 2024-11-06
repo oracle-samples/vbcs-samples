@@ -12,7 +12,7 @@ This application is an example of how to implement communicate from from Visual 
 
 **Setup instructions:**
 
-1. Import the application zip (custom-barcode-scanner-action.zip) using the application import option
+1. Import the application zip (heatwave-genai-ask-question.zip) using the application import option
 1. After the import is successful, open the application and in Service -> Backends open OCI_Gateway backend,
    switch to Source and update URL with your Ask endpoint
 1. If you endpoint is different from /ask you may have to update in similar way also AskQuestion service connection
