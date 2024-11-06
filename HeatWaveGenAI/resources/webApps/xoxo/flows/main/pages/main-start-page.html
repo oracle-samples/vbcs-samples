@@ -1,0 +1,65 @@
+<!--
+ Copyright (c)2024 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex-bar oj-sm-align-items-center oj-sm-padding-2x">
+  <oj-input-text label-hint="Ask me a question" class="oj-flex-bar-start" value="{{ $variables.question }}"
+    disabled="[[ $variables.busy ]]"></oj-input-text>
+  <div class="oj-flex-bar-end">
+    <oj-button label="Ask" class="oj-sm-padding-2x-start" style="min-width: 100px"
+      on-oj-action="[[$listeners.buttonAction]]" disabled="[[ $variables.busy ]]"></oj-button>
+    <oj-button label="Clear" class="oj-sm-padding-2x-start" disabled="[[ $variables.busy ]]" style="min-width: 100px"
+      on-oj-action="[[$listeners.buttonAction2]]"></oj-button>
+  </div>
+</div>
+<div class="oj-flex">
+  <oj-checkboxset label-hint="Which source to use?" class="oj-flex-item oj-sm-12 oj-md-12 oj-choice-direction-row"
+    value="{{ $variables.sources }}">
+    <oj-option value="table1">Corpus One</oj-option>
+    <oj-option value="table2">Corpus Two</oj-option>
+    <oj-option value="table3">Corpus Three</oj-option>
+  </oj-checkboxset>
+</div>
+<div class="oj-flex">
+  <oj-select-single label-hint="ML Model to use?" class="oj-flex-item oj-sm-12 oj-md-6"
+    data="[[ $variables.modelsADP ]]" value="{{ $variables.model }}"></oj-select-single>
+</div>
+<div class="oj-flex oj-sm-padding-2x" style="max-height: 70%; background: #F5F5F5">
+  <div class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-bind-for-each data="[[ $variables.chat ]]">
+      <template>
+        <div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-padding-4x-bottom">
+          <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-end" style="font-weight: bold;">
+            <oj-bind-text value="Question: "></oj-bind-text>
+          </div>
+          <div class="oj-flex-item oj-sm-flex-initial">
+            <oj-bind-text value="[[ $current.data.question ]]"></oj-bind-text>
+          </div>
+        </div>
+        <div class="oj-flex oj-sm-padding-8x-bottom oj-sm-flex-wrap-nowrap">
+          <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-2x-end" style="font-weight: bold;">
+            <oj-bind-text value="Answer: "></oj-bind-text>
+          </div>
+          <div class="oj-flex-item oj-sm-flex-initial">
+            <oj-bind-if test="[[ $current.data.answer.length > 0]]">
+              <oj-bind-for-each data="[[ $current.data.answer ]]">
+                <template data-oj-as="ans">
+                  <span><oj-bind-text value="[[ ans.data ]]"></oj-bind-text></span>
+                  <br>
+                </template>
+              </oj-bind-for-each>
+              
+              
+            </oj-bind-if>
+          </div>
+          <div class="oj-flex-item oj-sm-flex-initial">
+            <oj-bind-if test="[[ $current.data.answer.length === 0 ]]">
+              <img :src="[[ $application.path + 'resources/images/spinner_mono.gif' ]]" width="20">
+            </oj-bind-if>
+          </div>
+        </div>
+      </template>
+    </oj-bind-for-each>
+  </div>
+</div>

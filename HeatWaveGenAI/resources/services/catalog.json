@@ -1,0 +1,12 @@
+{
+    "backends": {
+        "OCI_Gateway": {
+            "servers": [
+                {
+                    "url": "https://<your-id>.apigateway.<your-region>.oci.customer-oci.com/v1",
+                    "description": "V1 Ask Question"
+                }
+            ]
+        }
+      }
+}
