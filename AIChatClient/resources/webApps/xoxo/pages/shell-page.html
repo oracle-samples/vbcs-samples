@@ -1,0 +1,25 @@
+<!--
+ Copyright (c)2025 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div id="pageContent" class="oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap vb-web-applayout-page fixed-header">
+  <!-- Header: Includes branding and avatar -->
+  <oj-vb-fragment id="shell-header" bridge="[[vbBridge]]" name="shell-header">
+  </oj-vb-fragment>
+
+  <!-- Displays notification messages -->
+  <oj-messages id="vbDefaultNotifier" display-options.category="none" position="{}" display="general" messages="[[$page.variables.messagesADP]]" on-oj-close="[[$listeners.onMessageClose]]"></oj-messages>
+
+  <!-- Container to scroll content and the footer independent of header -->
+  <div class="vb-content-and-footer-container oj-flex oj-sm-flex-direction-column oj-sm-flex-1 oj-sm-flex-wrap-nowrap">
+    <!-- Renders flow content -->
+    <oj-vb-content id="vbRouterContent" class="vb-pages-module oj-flex-item oj-flex" config="[[vbRouterFlow]]">
+
+    </oj-vb-content>
+
+    <!-- Footer: Remove if not needed -->
+    <oj-vb-fragment id="shell-footer" bridge="[[vbBridge]]" name="shell-footer">
+    </oj-vb-fragment>
+  </div>
+</div>

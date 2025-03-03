@@ -1,0 +1,178 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OpenAI Chat Completions",
+        "version": "1.0.0",
+        "description": "OpenAI Chat Completions"
+    },
+    "servers": [
+        {
+            "url": "vb-catalog://backends/OpenAI_Backend"
+        }
+    ],
+    "paths": {
+        "/completions": {
+            "post": {
+                "operationId": "postCompletions",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostCompletionsRequest"
+                            },
+                            "examples": {
+                                "vb": {
+                                    "externalValue": "./examples/postCompletions/request_application_json_vb.json",
+                                    "summary": "Example stored by VB User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostCompletionsResponse"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/postCompletions/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+               },
+                "x-vb": {
+                    "actionHint": "getOne"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PostCompletionsRequest": {
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string"
+                    },
+                    "messages": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "role": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "PostCompletionsResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "object": {
+                        "type": "string"
+                    },
+                    "created": {
+                        "type": "integer"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "choices": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "object",
+                                    "properties": {
+                                        "role": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "refusal": {
+                                            "nullable": true
+                                        }
+                                    }
+                                },
+                                "logprobs": {
+                                    "nullable": true
+                                },
+                                "finish_reason": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "usage": {
+                        "type": "object",
+                        "properties": {
+                            "prompt_tokens": {
+                                "type": "integer"
+                            },
+                            "completion_tokens": {
+                                "type": "integer"
+                            },
+                            "total_tokens": {
+                                "type": "integer"
+                            },
+                            "prompt_tokens_details": {
+                                "type": "object",
+                                "properties": {
+                                    "cached_tokens": {
+                                        "type": "integer"
+                                    },
+                                    "audio_tokens": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "completion_tokens_details": {
+                                "type": "object",
+                                "properties": {
+                                    "reasoning_tokens": {
+                                        "type": "integer"
+                                    },
+                                    "audio_tokens": {
+                                        "type": "integer"
+                                    },
+                                    "accepted_prediction_tokens": {
+                                        "type": "integer"
+                                    },
+                                    "rejected_prediction_tokens": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "service_tier": {
+                        "type": "string"
+                    },
+                    "system_fingerprint": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

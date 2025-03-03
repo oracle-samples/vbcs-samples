@@ -1,0 +1,21 @@
+{
+    "backends": {
+
+        "OpenAI_Backend": {
+            "description": "OpenAI",
+            "servers": [
+                {
+                    "url": "https://api.openai.com/v1/chat",
+                    "description": "V1 Chat",
+                    "x-vb": {
+                        "forceProxy": "always",
+                        "anonymousAccess": true
+                    }
+                }
+            ],
+            "secureHeaders": {
+                "Authorization": "vb_ff5c3c08-815b-4594-a7bb-5d46788fb6ed"
+            }
+        }
+      }
+}

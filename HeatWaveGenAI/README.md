@@ -4,7 +4,7 @@ HeatWave GenAI Ask Question application
 
 **Description:**
 
-This application is an example of how to implement communicate from from Visual Builder application with Oracle HeatWave GenAI services as described in the https://blogs.oracle.com/vbcs/post/heatwave-genai-in-vb-application blog post. To use the application read the blog post first to setup HeatWave backend.
+This application is an example of how to communicate from Visual Builder application with Oracle HeatWave GenAI services as described in the https://blogs.oracle.com/vbcs/post/heatwave-genai-in-vb-application blog post. To use the application read the blog post first to setup HeatWave backend.
 
 **Environment Requirements:**
 
