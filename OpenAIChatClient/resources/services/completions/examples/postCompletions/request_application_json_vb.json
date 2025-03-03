@@ -1,0 +1,21 @@
+{
+        "model": "gpt-4o-mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant."
+            },
+            {
+                "role": "user",
+                "content": "Tell me something interesting what happened today but 10 years ago"
+            },
+ {
+                "role": "assistant",
+                "content": "On October 6, 2013, the Nobel Prize in Physiology or Medicine was awarded to James Rothman, Randy Schekman, and Thomas Südhof for their discoveries of machinery regulating vesicle traffic, which is essential for the transport of materials within cells. Their work has had significant implications for our understanding of various physiological processes and diseases, and it underscored the importance of cellular communication in biology. This recognition highlighted groundbreaking advances in cellular and molecular biology that are still relevant to current research."
+            },
+{
+                "role": "user",
+                "content": "That is not 10 years ago, because today is January 2025"
+            }
+        ]
+    }

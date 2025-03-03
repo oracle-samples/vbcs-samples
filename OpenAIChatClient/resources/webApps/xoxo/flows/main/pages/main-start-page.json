@@ -1,0 +1,165 @@
+{
+  "title": "main",
+  "description": "",
+  "variables": {
+
+    "busy": {
+      "type": "boolean"
+    },
+    "chat": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "ConversationType",
+        "keyAttributes": "id"
+      }
+    },
+    "lastId": {
+      "type": "number",
+      "defaultValue": 0
+    },
+    "model": {
+      "type": "string",
+      "defaultValue": "gpt-4o-mini"
+    },
+    "models": {
+      "type": [
+        {
+          "label": "string",
+          "value": "string"
+        }
+      ],
+      "defaultValue" : [ 
+        {"value" : "gpt-4o", "label" : "gpt-4o"},
+        {"value" : "gpt-4o-mini", "label" : "gpt-4o-mini"}
+         ]
+    },
+    "modelsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.models }}",
+        "keyAttributes": "value"
+      }
+    },
+    "question": {
+      "type": "string"
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.CompletionsRequestType": {
+      "endpoint": "postCompletions",
+      "service": "completions",
+      "path": "request"
+    },
+    "@decorators.CompletionsResponseType": {
+      "endpoint": "postCompletions",
+      "service": "completions",
+      "path": "response"
+    },
+    "CompletionsRequestType": {
+      "messages": [
+        {
+          "content": "string",
+          "role": "string"
+        }
+      ],
+      "model": "string"
+    },
+    "CompletionsResponseType": {
+      "choices": [
+        {
+          "finish_reason": "string",
+          "index": "number",
+          "logprobs": "any",
+          "message": {
+            "content": "string",
+            "refusal": "any",
+            "role": "string"
+          }
+        }
+      ],
+      "created": "number",
+      "id": "string",
+      "model": "string",
+      "object": "string",
+      "service_tier": "string",
+      "system_fingerprint": "string",
+      "usage": {
+        "completion_tokens": "number",
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": "number",
+          "audio_tokens": "number",
+          "reasoning_tokens": "number",
+          "rejected_prediction_tokens": "number"
+        },
+        "prompt_tokens": "number",
+        "prompt_tokens_details": {
+          "audio_tokens": "number",
+          "cached_tokens": "number"
+        },
+        "total_tokens": "number"
+      }
+    },
+    "ConversationType": {
+      "busy": "boolean",
+      "content": "string",
+      "id": "number",
+      "role": "string"
+
+    }
+
+  },
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "AskQuestion"
+        }
+      ]
+    },
+    "buttonAction2": {
+      "chains": [
+        {
+          "chain": "Clear"
+        }
+      ]
+    },
+    "inputTextKeydown": {
+      "chains": [
+        {
+          "chain": "onEnter",
+          "parameters": {
+            "key": "{{ $event.key }}"
+          }
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chain": "vbEnterListener"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-bind-dom": {
+        "path": "ojs/ojbinddom"
+      },
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      }
+
+   }
+  }
+}

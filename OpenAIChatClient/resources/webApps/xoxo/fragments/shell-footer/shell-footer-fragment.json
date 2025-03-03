@@ -1,0 +1,19 @@
+{
+  "title": "Shell Footer",
+  "eventListeners": {
+  },
+  "events": {},
+  "imports": {
+    "components": {
+      "oj-dialog": {
+        "path": "ojs/ojdialog"
+      }
+    },
+    "css": [
+      "/resources/css/shell.css"
+    ]
+  },
+  "metadata": {},
+  "types": {},
+  "variables": {}
+}
