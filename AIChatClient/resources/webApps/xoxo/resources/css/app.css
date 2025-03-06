@@ -1,0 +1,23 @@
+.answer {
+    position: absolute;
+    top: 15px;
+    bottom: 100px;
+    width: 90%;
+    overflow-y: auto;
+}
+
+.question {
+    position: absolute;
+    bottom: 8px;
+    height: 80px;
+    width: 90%;
+}
+
+.chat-padding {
+    padding: 8px 16px 8px 16px;
+}
+
+.chat-prompt {
+    background-color: #EEEEEE;
+    border-radius: 10px; 
+}

@@ -1,0 +1,74 @@
+<!--
+ Copyright (c)2025 Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="answer oj-flex">
+  <div class="oj-flex oj-flex-item oj-sm-12 oj-md-12 oj-sm-flex-direction-column" data-vb-layout-type="grid">
+    <oj-bind-for-each data="[[ $variables.chat ]]">
+      <template data-oj-as="chat">
+
+        <oj-bind-if test="[[ chat.data.role === 'user' ]]">
+          <div :id="[[ 'ref_'+chat.data.id ]]" class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-justify-content-flex-end">
+            <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-flex-end chat-prompt chat-padding">
+              <oj-bind-text value="[[ chat.data.content ]]"></oj-bind-text>
+            </div>
+          </div>
+        </oj-bind-if>
+
+        <oj-bind-if test="[[ chat.data.role === 'assistant' ]]">
+          <div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-padding-4x-bottom">
+
+            <oj-bind-if test="[[chat.data.busy === false]]">
+              <div class="oj-flex-item oj-sm-flex-initial chat-padding">
+
+                <span>
+                  <oj-bind-dom config="[[ $application.functions.getBindDOMConfigForMarkdownContent(chat.data.content) ]]"></oj-bind-dom>
+                  </span>
+
+              </div>
+            </oj-bind-if>
+
+            <oj-bind-if test="[[chat.data.busy === true]]">
+              <div class="oj-flex-item oj-sm-flex-initial chat-padding">
+                <img :src="[[ $application.path + 'resources/images/spinner_mono.gif' ]]" width="20">
+              </div>
+            </oj-bind-if>
+            
+          </div>
+        </oj-bind-if>
+        
+      </template>
+    </oj-bind-for-each>
+    <div class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-padding-4x-bottom" style="min-height: 70vh;">
+    </div>
+  </div>
+</div>
+<div class="oj-flex question">
+  <div class="oj-flex-item oj-sm-12 oj-md-12 oj-flex oj-sm-flex-direction-column">
+    <div class="oj-flex-bar oj-sm-align-items-center oj-sm-padding-2x oj-flex-item oj-sm-flex-initial">
+      <oj-input-text label-hint="Ask anything" class="oj-flex-bar-start" value="{{ $variables.question }}"
+      raw-value="{{ $variables.question }}"
+        disabled="[[ $variables.busy ]]" on-keydown="[[$listeners.inputTextKeydown]]"></oj-input-text>
+      <div class="oj-flex-bar-end">
+        <oj-button label="Ask" class="oj-sm-padding-2x-start"
+          on-oj-action="[[$listeners.buttonAction]]" disabled="[[ $variables.busy ]]" display="icons"
+          chroming="callToAction">
+          <span class="oj-ux-ico-arrow-up-alt" slot="startIcon"></span>
+          </oj-button>
+        <oj-button label="Clear" class="oj-sm-padding-2x-start" disabled="[[ $variables.busy ]]"
+          on-oj-action="[[$listeners.buttonAction2]]" display="icons">
+          <span class="oj-ux-ico-trash" slot="startIcon"></span>
+          </oj-button>
+      </div>
+    </div>
+    <!-- <div class="oj-flex-item oj-sm-flex-initial">
+      <oj-bind-if test="[[false]]">
+        <div class="oj-flex">
+          <oj-select-single label-hint="ML Model to use?" class="oj-flex-item oj-sm-12 oj-md-6"
+            data="[[ $variables.modelsADP ]]" value="{{ $variables.model }}"></oj-select-single>
+        </div>
+      </oj-bind-if>
+    </div> -->
+  </div>
+</div>
