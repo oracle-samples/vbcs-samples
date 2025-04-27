@@ -1,0 +1,71 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "empId": {
+      "type": "number",
+      "input": "fromCaller",
+      "required": true,
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      }
+    },
+    "employee": {
+      "type": "object"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "ButtonActionChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      }
+    }
+  }
+}

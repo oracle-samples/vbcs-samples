@@ -1,0 +1,12 @@
+{
+  "id": "dyn-table-save-scroll-pos",
+  "description": "Flow main",
+  "defaultPage": "dyn-table-save-scroll-pos-start",
+  "services": {},
+  "types": {},
+  "variables": {
+    "scrollPosition": {
+      "type": "object"
+    }
+  }
+}

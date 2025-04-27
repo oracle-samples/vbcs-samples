@@ -81,10 +81,11 @@
     "dataDropped": {
       "chains": [
         {
-          "chainId": "handleDrop",
+
           "parameters": {
             "event": "{{ $event }}"
-          }
+          },
+          "chain": "handleDrop"
         }
       ]
     }

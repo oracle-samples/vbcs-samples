@@ -1,0 +1,107 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">Add a
+    Dynamic Form</a> and use the Configure as Edit Form quick start to display employee details in the dynamic form. In
+  this example, the Employee dynamic form displays three boolean fields (Safety, Security, and Ethical Training) and our
+  goal is to edit these fields using one Checkbox Set component.
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a Checkbox Field Template</h1>
+      <div>
+        <ol>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-9664C621-36B6-4B1D-A7D3-56AE9A3B2F2F">Create
+              a virtual field</a> named <code>trainingVF</code> and add the individual training fields to it (Safety,
+            and so on).</li>
+
+          <li>Add the <code>trainingVF</code> virtual field to the layout and create a field template for it.</li>
+          <li>In the Templates tab, select the Training VF field template and, from the Components palette, drag and
+            drop a Checkbox Set component onto the field template.</li>
+
+          <li>
+            <p><a
+                href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-EDEBC4CD-3884-4945-8A46-A60ECEE7094E"
+                target="_blank">Add two JavaScript functions</a>, one to get the selected checkbox values and the other
+              to update changed
+              values.</p>
+            <p>The Checkbox Set component reads and writes selected values from arrays of strings. Therefore, we need to
+              convert
+              the
+              values of the three individual fields and write them into the array (as well as read them from it). And
+              because the individual field values have the same type (boolean Yes/No), we need to create an artificial
+              value
+              representing each individual training field being set.</p><oj-collapsible id="JS-code1">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <code><pre>
+getTrainingsValue(fields) {
+  let trainingArray = [];
+  if (fields.safetyTraining() === "Yes") {
+    trainingArray.push("safety");
+  }
+  if (fields.ethicalTraining() === "Yes") {
+    trainingArray.push("ethical");
+  }
+  if (fields.securityTraining() === "Yes") {
+    trainingArray.push("security");
+  }
+  return trainingArray;
+}
+
+storeTrainingsChanges(event, fields) {
+  const value = event.detail.value;
+  let v = value.includes("safety") ? "Yes" : "No";
+  if (v !== fields.safetyTraining) {
+    fields.safetyTraining( v );
+  }
+  v = value.includes("ethical") ? "Yes" : "No";
+  if (v !== fields.ethicalTraining) {
+    fields.ethicalTraining( v );
+  }
+  v = value.includes("security") ? "Yes" : "No";
+  if (v !== fields.securityTraining) {
+    fields.securityTraining( v );
+  }
+}
+</pre></code>
+              </div>
+            </oj-collapsible>
+          </li>
+
+          <li>
+            <p>In the Data tab of the Checkbox Set component's Properties pane, set the Value property to
+              <code>"[[ $functions.getTrainingsValue($value) ]]"</code>.
+            </p>
+            <p>Note the use of square brackets which means that the value is not writable, but the function result value
+              initializes the Checkbox Set component's state.</p>
+          </li>
+          <li>
+            <p>In Code view, add an <code>on-value-changed</code> event to the Checkbox Set component to fire an event
+              which calls the <code>storeTrainingsChanges</code> function. This propagates the change in the Checkbox
+              Set
+              component state back to the
+              underlying virtual object fields. Also add a static list with the three training options.</p>
+            <code><pre>
+&lt;oj-checkboxset
+      label-hint="Trainings Completed" 
+      value="[[ $functions.getTrainingsValue($value) ]]"
+      on-value-changed="[[ function (event) { $functions.storeTrainingsChanges(event, $value) } ]]"&gt;
+    &lt;oj-option value="safety"&gt;Safety and Wellbing&lt;/oj-option&gt;
+    &lt;oj-option value="ethical"&gt;Code of Ethics&lt;/oj-option&gt;
+    &lt;oj-option value="security"&gt;Security Training&lt;/oj-option&gt;
+  &lt;/oj-checkboxset&gt;</pre></code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -11,7 +11,7 @@
 <div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box2">
     <oj-table scroll-policy="loadMoreOnScroll" id="oj-table-175486407-2" class="oj-table-stretch oj-flex-item"
-      data="{{ $page.functions.getTreeDataProvider() }}" columns='[{"headerText":"Name","field":"firstName","style":"min-width: 20rem"},
+      data="{{ $page.variables.dataSource }}" columns='[{"headerText":"Name","field":"firstName","style":"min-width: 20rem"},
 	{"headerText":"Phone","field":"phoneNumber","style":"min-width: 15rem"},
 	{"headerText":"Salary","field":"salary","style":"min-width: 15rem"},
 	{"headerText":"Job Title","field":"job","style":"min-width: 20rem"}]' style="height: 300px; width: 100%"

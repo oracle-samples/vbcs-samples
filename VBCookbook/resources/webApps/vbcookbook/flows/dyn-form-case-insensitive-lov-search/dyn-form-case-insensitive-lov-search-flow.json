@@ -1,0 +1,18 @@
+{
+  "id": "dyn-form-case-insensitive-lov-search",
+  "description": "Flow main",
+  "defaultPage": "dyn-form-case-insensitive-lov-search-start",
+  "services": {},
+  "types": {},
+  "variables": {},
+  "@dt": {
+    "chains": {
+      "validateFormChain": {
+        "autowire": {
+          "contextKey": "vb-quickstarts-js",
+          "name": "validateFormChain"
+        }
+      }
+    }
+  }
+}

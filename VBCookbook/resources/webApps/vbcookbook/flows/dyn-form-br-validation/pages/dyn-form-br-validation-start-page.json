@@ -1,0 +1,76 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "object"
+    },
+    "employeeEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeETag": {
+      "type": "string"
+    },
+    "fetchedEmployee": {
+      "type": "object"
+    }
+  },
+  "metadata": {
+    "businessObjectsUpdateEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Employee"
+      }
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chain": "saveEmployeeChain",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-sp-advanced-create-edit": {
+        "path": "oj-sp/advanced-create-edit/loader"
+      },
+      "oj-sp-message-unsaved-changes": {
+        "path": "oj-sp/message-unsaved-changes/loader"
+      },
+      "oj-sp-vertical-anchor-navigator": {
+        "path": "oj-sp/vertical-anchor-navigator/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

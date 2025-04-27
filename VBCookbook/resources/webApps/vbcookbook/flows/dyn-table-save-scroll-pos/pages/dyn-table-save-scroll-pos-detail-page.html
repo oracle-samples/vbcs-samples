@@ -1,0 +1,43 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+
+  <p>This example shows you how to save the scroll position in dynamic table. Scroll down few rows and click any of the rows to
+    navigate to a different page, and then click <code>Back</code> button to come back to the main page and notice the
+    scroll position has beem preserved.</p>
+
+</div>
+
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-sm-flex-direction-column sample-box2" style="width:100%;">
+
+    <oj-button id="button" on-oj-action="[[$listeners.buttonAction]]">
+      <span>Back</span>
+    </oj-button>
+
+
+    <oj-bind-if test="[[ ($variables.empId) !== undefined ]]">
+      <oj-dyn-form metadata="[[ $metadata.businessObjectsGetEmployeeMetadata.provider ]]" layout="scrollSaveDetailForm"
+        value="{{ $variables.employee }}" value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
+        rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" operation="view"></oj-dyn-form>
+    </oj-bind-if>
+
+  </div>
+</div>
+
+
+
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

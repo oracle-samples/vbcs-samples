@@ -1,0 +1,127 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  <a
+    target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D0C26115-1F0D-46A2-8619-39FD4E3180D8"
+    >Add a dynamic table</a
+  >
+  to the page. In the Properties pane, click <strong>Configure Layout</strong> in
+  the Quick Start tab to add data to the table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Create a Custom Action Column</h1>
+      <div>
+        <ol>
+          <li>
+            <p>
+              In the Fields tab of the Employee layout, create a custom field
+              named <code>Actions</code>, set its type to <code>String</code>,
+              and assign it a placeholder value.
+            </p>
+            <p>
+              This field serves as a placeholder for the custom action. We add it
+              as a column in the dynamic table while using a custom field
+              template to render the custom actions, which in this example, are
+              icon buttons. It is important to set the field's placeholder value,
+              otherwise the dynamic table attempts to retrieve the field's value
+              from the backend when the field does not yet exist.
+            </p>
+          </li>
+          <li>
+            In the rule set for the dynamic table layout, add the
+            <code>Actions</code> field as the last column.
+          </li>
+
+          <li>
+            In the Templates tab of the Employee layout, create a field template
+            with one button for an edit operation and a second button for a
+            delete operation.
+          </li>
+
+          <li>
+            <p>
+              In the Events tab of the Employee layout, create a custom event
+              named <code>customAction</code> with <code>action</code> and
+              <code>rowKey</code> parameters.
+            </p>
+
+            <p>
+              Select the <strong>Emit event to page</strong> checkbox. The page
+              listens for these events, and the dynamic table will fire them with
+              the payload, providing information about which action should be
+              executed on which row, identified by its key. If additional record
+              information is necessary (for example, the eTag value of the
+              record), it can be added to the payload similar to the
+              <code>rowKey</code> parameter.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              In the Events tab of the Properties pane for the edit operation
+              button that you added to the field template, add an
+              <code>ojAction</code> event listener and pass the following input
+              parameters to the action chain that this event listener invokes:
+            </p>
+            <ul>
+              <li>
+                Input parameter named <code>action</code> with a value of
+                <code>edit</code>
+              </li>
+              <li>
+                Input parameter named <code>rowId</code> with a value of
+                <code>{{ $current.row.id }}</code>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <p>
+              Similarly, for the delete operation button that you added, also add
+              an <code>ojAction</code> event listener and pass the following
+              input parameters to the action chain:
+            </p>
+            <ul>
+              <li>
+                Input parameter named <code>action</code> with a value of
+                <code>delete</code>
+              </li>
+              <li>
+                Input parameter named <code>rowId</code> with a value of
+                <code>{{ $current.row.id }}</code>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            In both action chains, add a Fire Event action to trigger the
+            <code>customAction</code> event, mapping the input parameters as
+            follows:
+            <ul>
+              <li><code>action</code> → <code>action</code></li>
+              <li><code>rowId</code> → <code>rowKey</code></li>
+            </ul>
+          </li>
+
+          <li>
+            In the Event Listeners tab of the page where you added the dynamic
+            table component, add an event listener for the
+            <code>customAction</code> event for the dynamic table.
+          </li>
+
+          <li>
+            Within the event listener's action chain, add an If action to check
+            the value of the action parameter and perform either an edit or
+            delete operation accordingly.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

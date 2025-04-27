@@ -14,7 +14,21 @@
             "lastName"
           ]
         },
-        "fetchChainId": "getall_EmployeeFetchAction"
+        "fetchChain": "getall_EmployeeFetchAction"
+      }
+    },
+    "employeeListSDPDefault": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "firstName"
+          ]
+        }
       }
     },
     "preselectedValues": {

@@ -1,12 +1,11 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-
-
 <p>
-You'll add a Button component to your application's page and configure an action chain that disables the button and displays a different label ("Processing...") until an action completes.
+  Imagine you have an edit form with button which takes long time to save changes. To make sure that the user does not click the button multiple times, 
+  you will create an action chain that disables the button until the operation completes.
 
 </p>
 <oj-accordion id="accordionPage" multiple="true">
@@ -14,18 +13,13 @@ You'll add a Button component to your application's page and configure an action
   <span slot="header">Create a Form With a Button</span>
   <div>
     <ol>
-      <li>In the Component Palette, drag and drop an Input Text component and a Button component onto the page.</li>
-      <li>In the Variables tab of the Page Designer, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create the following variables</a>: 
-      
-      <ul>
-        <li><code>buttonText</code> of type String.</li>
-        <li><code>disableButton</code> of type Boolean.</li>
-      </ul>
+      <li>Create an input text (Form) and a button in the page.</li>
+      <li>Create a variable <code>disableButton</code> of type Boolean to control disabled state of the button. Set this variable as 
+      the <strong>disabled</strong> property of the button, defaulted to <code>false</code>. The variable when set to true disables the button demonstrating that some 
+      backend operation is in progress.
       </li>
-      <li>In the Component Palette, drag and drop a Text component (oj-bind-text) onto the Button component and set the Value property of the Text component to <code>[[ $variables.buttonText ]]</code>.</li>
-      <li>Wrap the Text component with a span tag.</li>
-
-      
+      <li>Create another variable <code>buttonText</code> of type String and use it to set the <code>Label</code> property of the button, defaulted to <code>'Add'</code>.
+      </li>
     </ol>
   </div>
   </oj-collapsible>
@@ -33,14 +27,13 @@ You'll add a Button component to your application's page and configure an action
   <span slot="header">Add an Event Listener and an Action Chain to Prevent Double Click</span>
   <div>
     <ol>
-      
-      <li>In the Events tab of the Properties pane for the Button component, click <strong>New Event</strong> to create an ojAction event listener.</li>
-      <li>In the action chain editor, add an <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign Variables action</a> to map to the two page variables that you created previously. </li>
-      <li>In the Assign Variables dialog, assign <code>Processing....</code> to the buttonText variable in Target and set the disableButton variable in Target to <code>true</code>.</li>
-      <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E7BE6B00-7221-40E4-821D-59BEBBA0D896">Add a Call Function action</a> to call a JavaScript function, <code>addCountry</code>, that waits 1500 milliseconds.</li>
-      <li>Add another Assign Variables action to reset the buttonText and disableButton variables to their original values after the Call Function action completes. </li>
-
-      
+      <li>In the Events tab of the Properties pane for the Button component, click <strong>New Event</strong> to create 
+      an ojAction event listener.</li>
+      <li>In the action chain editor, add an <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">
+      Assign Variables action</a> to map the two page variables that you created previously. Assign <code>'Processing...'</code> to the 
+      buttonText variable and set the disableButton variable to <code>true</code>. This will disable the button.</li>
+      <li>Perform your server action here, a dummy delay using a promise in this example.</li>
+      <li>Once the server operation completes, use Assign Variables action to reset the buttonText and disableButton variables to <code>'Add'</code> and false respectively.</li>
     </ol>
   </div>
   </oj-collapsible>

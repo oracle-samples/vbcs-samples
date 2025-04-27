@@ -1,0 +1,84 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Add a Table to the page and add data using the Employee endpoint to the table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Implement default sorting in the table</h1>
+      <div>
+        <ol>
+          <li>
+            Define the default sort for the table by creating a page variable <code>sort</code> of type
+            <code>Object</code> with two fields:
+            <ul>
+              <li><code>attribute</code> with default value as <code>firstName</code></li>
+              <li><code>direction</code> with default value as <code>descending</code></li>
+            </ul>
+            Set the persistence of the variable to <code>Device</code> if sort criteria needs to be stored across
+            sessions
+            or
+            <code>History</code> if sorting should be preserved only when drilling into child page and coming
+            back.
+          </li>
+          <li>
+            Set the <code>sortCriteria</code> parameter of the table's
+            Service Data Provider variable (<code>employeeListSDP</code> in this
+            example) to the <code>sort</code> page variable created in Step 1.
+            The <code>sortCriteria</code> is of type array, allowing sorting by multiple attributes such as
+            firstName, lastName, email. The <code>sort</code> variable is an object which
+            during assignment is converted into an array of objects.
+          </li>
+          <strong>Note:</strong>
+          <p>If your SDP uses a customized fetch chain, the name of the parameter is not <code>sortCriteria</code> but
+            <code>requestTransformOptions.sort</code>.
+          </p>
+          <p></p>
+          <p>
+            The firstName column of the table is now sorted in descending order.
+          </p>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Preserve sorting in the table</h1>
+      <div>
+        <ol>
+          <li>
+            The table needs to fire an event called <code>ojSort</code> when sorting is applied on the columns.
+            Add this event to the table component which fires an action chain <code>TableSortChain</code>.
+            <code><pre>
+ "ojTableSort": {
+      "chains": [
+        {
+          "chain": "TableSortChain",
+          "parameters": {
+            "sort": "[[ $event.detail ]]"
+          }
+        }
+      ]
+  } 
+  </pre></code>
+          </li>
+          <li>In the <code>TableSortChain</code>
+            action chain, add <code>{ sort }</code> parameter into chain's run function:
+            <code>
+            <pre>async run(context, { sort }) {</pre></code>
+            and set the value of <code>sort</code> variable to:
+            <code>
+            <pre>
+{
+  attribute: sort.header,
+  direction: sort.direction,
+}
+            </pre>
+          </code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

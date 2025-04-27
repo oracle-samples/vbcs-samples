@@ -1,0 +1,73 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">Add a
+    Dynamic Form</a> and use the Configure as Edit Form quick start to display employee details.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Import Translation Bundle</h1>
+      <div>
+        <p>Before you can use the Property Inspector to reference UI strings from the translation bundle, you need to
+          import the
+          translation bundle into the <code>data-description-overlay.json</code> and <code>layout.json</code> files by
+          adding the following entry
+          to each file:</p>
+        <code><pre>"translations": {
+  "app": {
+    "path": "resources/strings/app/nls/app-strings"
+  }
+}</pre></code>
+        <p>To access the <code>data-description-overlay.json</code> file, use the Source tab and expand
+          dynamicLayouts and the
+          appropriate layout
+          (Employee in our example). You can access the <code>layout.json</code> file from the JSON tab in the Layouts
+          tab.</p>
+        <p>After you import the translation bundle, you can use the Property Inspector to translate dynamic UI elements.
+          You can
+          view the following examples in this recipe. The following UI references assume that you selected English as
+          the language (First Name, Review Needed? and Contact Details)</p>
+        <ul>
+          <li>
+            <p>Field Template</p>
+            <p>Components inside a custom field template can be translated. See the
+              <code>label-hint</code> for First Name.
+            </p>
+            <code><pre>
+&lt;template id="firstNameTranslation"&gt;
+  &lt;oj-input-text value="{{ $value }}" 
+    label-hint="[[ $translations.app.key_firstname ]]"&gt;&lt;/oj-input-text&gt;
+&lt;/template&gt;
+</pre>
+</code>
+          </li>
+          <li>
+
+            <p>Entity fields can have label hints translated. See Review Needed?</p>
+            <code><pre>"review": {
+  "labelHint": "[[ $translations.app.key_review]]"
+},</pre>
+            </code>
+          </li>
+          <li>
+            <p>Layout sections can have translated labels. See the Contact Details section.</p>
+            <code><pre>"Contact Details": &#123;
+  "description": "",
+  "layout": &#123;
+  "labelHint": "[[ $translations.app.key_contactdetails ]]",
+  "displayProperties": [
+  "phoneNumber",
+  "email"
+  ]
+ &#125;</pre></code>
+          </li>
+        </ul>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

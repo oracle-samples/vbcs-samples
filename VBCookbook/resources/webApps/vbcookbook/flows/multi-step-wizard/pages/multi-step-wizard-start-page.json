@@ -116,20 +116,14 @@
     "nextButtonOjAction": {
       "chains": [
         {
-          "chainId": "NextActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "NextActionChain"
         }
       ]
     },
     "submitButtonOjAction": {
       "chains": [
         {
-          "chainId": "SubmitActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "SubmitActionChain"
         }
       ]
     }

@@ -1,11 +1,11 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <p>
   You'll create a service connection that includes <a target="_blank"
-    href="https://docs.oracle.com/en/cloud/saas/sales/23a/faaps/api-activities-activity-attachments.html">Activity
+    href="https://docs.oracle.com/en/cloud/saas/sales/faaps/api-activities-activity-attachments.html">Activity
     Attachments REST Endpoints</a>, add a Table component, and configure a
   Download hyperlink that invokes an action chain. The action chain includes a Call REST endpoint that gets the
   attachment content for the specified activity and a Call Module Function action that downloads the file attachment to
@@ -19,7 +19,7 @@
   Oracle Cloud Applications,
   you can use it instead by editing the VB Cookbook app's activities service connection. This will enable the upload and
   delete functionality in the recipe. See <a target="_blank"
-    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/edit-service-connection.html#GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
     a Service Connection</a>.</p>
 
 <div class="oj-flex">
@@ -32,7 +32,7 @@
       <div>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-B95FF6FE-856B-4D0C-AB27-745736283B01">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-B95FF6FE-856B-4D0C-AB27-745736283B01">Create
               a service connection</a> to the crmRestApi from the Oracle Cloud Applications catalog.
           </li>
           <li>
@@ -56,13 +56,13 @@
       <span slot="header">Create Page Variables</span>
       <div>
         <p><a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
             the following custom type:</a></p>
         <ul>
           <li><code>UploadType</code> - Object</li>
         </ul>
         <p><a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
             the following page variables:</a></p>
         <ul>
           <li><code>fileBodyForPreview</code> – Any</li>
@@ -87,7 +87,7 @@
         <ol>
           <li> In the Components palette, drag a Table component and drop it on the page.</li>
           <li>Use the Table component's <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to map your table to the <code>getall_activities-Attachments</code>
             endpoint.</li>
           <li>In the Bind Data page of the Add Data dialog, select the following items

@@ -18,14 +18,14 @@
     "submitOjAction": {
       "chains": [
         {
-          "chainId": "ButtonActionChain"
+          "chain": "ButtonActionChain"
         }
       ]
     },
     "trackerValid": {
       "chains": [
         {
-          "chainId": "InputTextValidChange",
+          "chain": "InputTextValidChange",
           "parameters": {
             "valid": "{{ $event.detail.value }}"
           }

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -17,7 +17,7 @@
       <span slot="header">Create a Service Connection</span>
       <p>
         <a target="_blank"
-          href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">
+          href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">
           Create a service connection </a>using the <code>employee</code> endpoint that returns employee
         data (<code>https://apex.oracle.com/pls/apex/sample_ords_rest/hr/employees</code>).</p>
     </oj-collapsible>
@@ -43,43 +43,58 @@
           <li>In the Event Listeners section, add a new <code>vbEnter</code> event that is called when the page loads.
           </li>
           <li>Add a new action chain called <code>fetchDataFromService</code>.</li>
-          <li>Create an array variable <code>flattedArray</code> of type Object with group, series, and value fields.
-          </li>
-
         </ol>
       </div>
     </oj-collapsible>
 
     <oj-collapsible id="step4">
-      <span slot="header">Create a JavaScript Function</span>
-      <div>
-        <ol>
-          <li>In the JavaScript tab, add a new function named <code>aggregateData</code>.</li>
-          <li>In the function, get the array of data objects as input, calculate the total salary and total employees
-            count for a given job type, and add it to a new data array object.</li>
-          <li>Return the new set of data array.</li>
-
-        </ol>
-      </div>
-    </oj-collapsible>
-
-    <oj-collapsible id="step5">
       <span slot="header">Configure the Action Chain</span>
       <div>
         <ol>
           <li>In the <code>fetchDataFromService</code> action chain, add a Call REST Endpoint action and select the
-            <code>employee</code> endpoint
-            you created earlier. Set the limit query parameter to 1000 so that one call can fetch many records. By
-            default, the ORDS REST service returns 5 records.</li>
-          <li>Add an Assign Variables action named <code>flattenDataForBar</code> and map the job and salary values from
-            the REST
-            response to the <code>flattenArray</code> variable.</li>
-          <li>Add a Call Module Function action to invoke the <code>aggregateData</code> function and pass the
-            <code>flattenArray</code> variable.
+            <code>employee</code> endpoint you created earlier. Optionally set the limit query parameter to 1000 so that one 
+            call can fetch many records. By default, the ORDS REST service returns 5 records.</li>
+          <li>Map the job and salary values from the REST response to <code>flattenedArray</code> variable.</li>
+          <li>Using the array of data objects of flattenedArray variable, calculate the total salary and total employees
+            count for a given job type, and add it to a new data array object named <code>aggregatedData</code> as shown below.
+            <pre>
+// create group, series, value based items for chart
+let flattenedArray = [];
+response.body.items.forEach(function (employeeRecord) {
+  let chartItem = {};
+  chartItem.group = employeeRecord.job;
+  chartItem.series = employeeRecord.job;
+  chartItem.value = employeeRecord.sal;
+  flattenedArray.push(chartItem);
+});
+
+// create aggregate data items for chart
+let groupByJobMap = new Map();
+
+flattenedArray.forEach(function (employeeRecord) {
+  // employeeRecord is the emp record with fields series (job), group (job), value (sal)
+  if (groupByJobMap.has(employeeRecord.series)) {
+    // aggregated data object with fields series (job), group (job), value (totalsalary) and count
+    let aggregateDataObject = groupByJobMap.get(employeeRecord.series);
+    aggregateDataObject.value =
+      aggregateDataObject.value + employeeRecord.value; // total salary for given job
+    aggregateDataObject.count = aggregateDataObject.count + 1; // count of employees
+    groupByJobMap.set(employeeRecord.series, aggregateDataObject);
+  } else {
+    employeeRecord.count = 1; // initialize count=1
+    groupByJobMap.set(employeeRecord.series, employeeRecord);
+  }
+});
+
+let aggregatedData = Array.from(groupByJobMap, ([jobKey, jobRecord]) => ({
+  group: jobRecord.group,
+  series: jobRecord.series + " (" + jobRecord.count + " Employees)",
+  value: jobRecord.value,
+}));
+            </pre>
           </li>
-          <li>Add an Assign Variables action named <code>assignBarChartData</code> and set the value of the
-            <code>transformedDataADP</code>
-            variable to return data from the module function.</li>
+          <li>Add an Assign Variables action and set the data of the <code>transformedDataADP</code>
+            variable to <code>aggregatedData</code>.</li>
 
         </ol>
       </div>

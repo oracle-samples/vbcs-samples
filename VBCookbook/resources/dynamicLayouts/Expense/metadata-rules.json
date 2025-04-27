@@ -1,0 +1,64 @@
+{
+  "metadataRulesVersion": "17.0.8",
+  "metadataRules": [
+{
+      "id": "currencyChange",
+      "label": "Currency Change",
+      "description": "",
+      "status": "active",
+      "overlay": {
+        "fields": {
+          "currencyAmount": {
+            "value": {
+              "value": "[[ $objectContext.exchangeRate ? ($fields.baseAmount.value() * $objectContext.exchangeRate) : undefined ]]"
+            }
+          },
+          "currencyAmountVP": {
+            "value": {
+              "value": "[[ $objectContext.exchangeRate ? ($fields.baseAmount.value() * $objectContext.exchangeRate) : undefined ]]"
+            }
+          }
+        }
+      },
+      "condition": {
+        "expression": true
+      }
+    },
+    {
+      "id": "default",
+      "label": "Default",
+      "description": "The default settings for fields and regions.",
+      "status": "active",
+      "overlay": {
+        "fields": {
+          "exchangeRate": {
+            "readonly": {
+              "value": true
+            },
+            "value": {
+              "value": "[[ $objectContext.exchangeRate ]]"
+            }
+          },
+          "currencyAmount": {
+            "readonly": {
+              "value": true
+            }
+          }
+        },
+        "referencedObjectContext": {
+          "generated": [
+            "exchangeRate"
+          ]
+        }
+      },
+      "condition": {
+        "expression": true
+      }
+    }
+  ],
+  "collectionMetadataRules": {
+    "metadataRules": [],
+    "collectionOnly": true
+  },
+  "imports": {}
+ }

@@ -1,0 +1,41 @@
+{
+  "addField": {
+    "DummyField": {
+      "type": "string",
+      "labelHint": "Business Rule created Value"
+    },
+    "positionsLov": {
+      "type": "object",
+      "properties": {
+        "PositionId": {
+          "type": "string",
+          "readonly": "true"
+        },
+        "PositionName": {
+          "type": "string",
+          "readonly": "true",
+          "labelHint": "positionsLov.Position Name"
+        },
+        "PositionCode": {
+          "type": "string",
+          "readonly": "true",
+          "labelHint": "positionsLov.Position Code"
+        },
+        "JobName": {
+          "type": "string",
+          "readonly": "true",
+          "labelHint": "positionsLov.Job Name"
+        },
+        "DepartmentId": {
+          "readonly": "true",
+          "type": "string"
+        },
+        "DepartmentName": {
+          "type": "string",
+          "readonly": "true",
+          "labelHint": "Department Name"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeTreeData": {
+      "type": "any"
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+  },
+  "eventListeners": {
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chain": "loadEmployeeData"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

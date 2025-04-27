@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -72,38 +72,6 @@ define(["ojs/ojcore", "ojs/ojvalidation-number"], function (oj) {
 
     getAsyncValidator() {
       return this.asyncValidator;
-    }
-
-    validateGroup(arg1) {
-      let tracker = document.getElementById("tracker");
-      if (tracker.valid === "valid") {
-      } else if (tracker.valid.startsWith("invalid")) {
-        if (tracker.valid === "invalidHidden") {
-          tracker.showMessages();
-        }
-        tracker.focusOn("@firstInvalidShown");
-      }
-      return tracker.valid;
-    }
-
-    waitTillPending() {
-      // make the button action wait till the
-      // field validation gets over ie tracker
-      // status changes to something other than 'pending'
-      return new Promise(function (resolve, reject) {
-        let tracker = document.getElementById("tracker");
-        let waitForValidation = function () {
-          if (tracker.valid === "pending") {
-            // simulated field validation at server still going on
-            setTimeout(function () {
-              return waitForValidation();
-            }, 200);
-          } else {
-            resolve(true);
-          }
-        };
-        waitForValidation();
-      });
     }
   }
 

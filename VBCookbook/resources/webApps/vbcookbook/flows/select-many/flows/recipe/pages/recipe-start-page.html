@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -31,14 +31,15 @@
           <li>In the Variables tab, below the Text Filter Attributes property field, click <strong>Customize Fetch Action Chain</strong>, and click <strong>Customize</strong> in the dialog that appears to confirm the creation of an action chain with an ID of <code>getall_EmployeeFetchAction</code>.</li>
           <li>In the Code view of the action chain, add the following <code>requestTransformFunctions</code> parameter to the entry for the Call REST action:
 <pre>
-"callRestEndpoint1": {
+class getall_EmployeeFetchAction extends ActionChain {
   . . .
-  "parameters": {
-    . . .
-    "responseType": "getallEmployeeResponse",
-    "requestTransformFunctions": {
-      "filter": "{{ $functions.processFilter }}"
-    },
+  const response = await Actions.callRest( context, {
+    endpoint: 'businessObjects/getall_Employee',
+    hookHandler: configuration.hookHandler,
+    requestTransformFunctions: {
+      filter: $page.functions.processFilter
+    }
+  });
   . . .
 </pre>
 
@@ -109,10 +110,26 @@ define([
     <oj-collapsible id="oj-collapsible-1">
       <span slot="header">Filter Data on One Field</span>
       <div>
-        <p>The Add Options Quick Start configured the Select Many component to render the employee's first name:
-        </p>
-        <p><code>options-keys.value="id"</code> and <code>options-keys.label="firstName"</code></p>
-      <p>The changes that we made in the previous task (configured the Text Filter Attributes property and add a <code>processFilter</code> function) mean that the app renders <code>Steven</code> and <code>Janette</code> as results when you filter on <code>King</code> (last name of an employee) because employee records exist for <code>Steven King</code> and <code>Janette King</code>.</p>
+        <ol>
+          <li>In this scenario the SDP is created by default and has no customization applied.
+          </li>
+          <li>In the Components palette, drag a Select Many component and drop it on the page.
+          </li>
+          <li>In the Quick Start tab of the Properties pane, click <strong>Add Options</strong>, select the Employee
+            business object as the data source, and, in the Endpoint Structure, select <code>firstName</code> for
+            the Label option, <code>id</code> for the Value option, and then click <strong>Finish</strong> to close the
+            dialog. Name the SDP variable as employeeListSDPDefault.
+            <p>The Code view of the page now contains the following attribute values for the component:</p>
+            <pre>options="[[$variables.employeeListSDPDefault]]" 
+       options-keys.value="id" 
+          options-keys.label="firstName"></pre>
+          </li>
+          <li>In the Variables tab of your page, select <code>employeeListSDPDefault</code> and set <code>firstName</code> as the 
+          value for the Text Filter Attributes property.
+            <p>This enables text search in the Select Many component to retrieve results for firstName when searching 
+              an employee's name.</p>
+          </li>
+        </ol>
 
       </div>
     </oj-collapsible>
@@ -123,13 +140,12 @@ define([
           and <code>lastName</code> fields.
           Configure the Select Many component to filter on the <code>fullName</code> field.</p>
         <ol>
-          <li>In the <code>getall_EmployeeFetchAction</code> action chain, drag and drop a Call Function action to create a new function named
-            <code>customizeData</code>. Provide the Call REST action's response as an input argument
-            to the <code>customizeData</code> function. This function includes both <code>firstName</code> and
+          <li>In the <code>getall_EmployeeFetchAction</code> action chain, create a function <code>customizeData</code> and provide the Call REST action's 
+          response as an input argument to the function. This function includes both <code>firstName</code> and
             <code>lastName</code> in the
             <code>fullName</code> field.
             <pre>
-customizeData(restResponse) {
+function customizeData(restResponse) {
   if (restResponse.body.items.length > 0) {
     restResponse.body.items.forEach(function (item) {
       item.fullName = item.firstName + " " + item.lastName;

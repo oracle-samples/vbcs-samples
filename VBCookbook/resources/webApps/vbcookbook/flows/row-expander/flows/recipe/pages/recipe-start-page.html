@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -14,7 +14,7 @@
           <li>
             <a
               target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-8014DB84-0DBF-4A01-B243-6E82525224EC"
               >Create a custom type from the GET /Employee endpoint.</a
             >
             Add the appropriate fields to the Employee custom type.
@@ -22,25 +22,26 @@
           <li>
             <a
               target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBPMR-GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA"
               >Create a page variable</a
-            >, <code>employee</code>, of Array type and assign the array item
-            type <code>get_Employee</code>.
+            >, <code>dataSource</code>, of Any type.
           </li>
         </ol>
       </div>
     </oj-collapsible>
 
     <oj-collapsible id="step2">
-      <span slot="header">Write JavaScript Code</span>
-      <p>
-        Define the dependencies of <code>knockout</code>,
-        <code>ojs/ojflattenedtreedataproviderview</code>,
-        <code>ojs/ojarraytreedataprovider</code> and
-        <code>ojs/ojknockouttemplateutils</code> in your JavaScript code.
-      </p>
+      <span slot="header">Create Event Listener and Action Chain</span>
       <div>
         <ol>
+          <li>
+            Create a <code>vbEnter</code> event listener and a new page level
+            action chain named <code>fetchEmployees</code>.
+          </li>
+          <li>Define the dependencies of <code>knockout</code>,
+        <code>ojs/ojflattenedtreedataproviderview</code>,
+        <code>ojs/ojarraytreedataprovider</code> 
+          </li>
           <li>
             Create a function named <code>convertArrayIntoTree</code> to convert
             the array of employee records into a tree structure.
@@ -50,38 +51,18 @@
             convert your tree structure into a FlattenedTreeDataProviderView.
           </li>
           <li>
-            Create another function, <code>getTreeDataProvider</code>, to return
-            the data in the FlattenedTreeDataProviderView structure.
-          </li>
-        </ol>
-      </div>
-    </oj-collapsible>
-    <oj-collapsible id="step3">
-      <span slot="header">Create Event Listener and Action Chain</span>
-      <div>
-        <ol>
-          <li>
-            Create a <code>vbEnter</code> event listener and a new page level
-            action chain named <code>fetchEmployees</code>.
-          </li>
-          <li>
             Add a Call REST action to the action chain and select the Get
             Employee endpoint.
           </li>
-          <li>
-            Add an Assign Variable action and assign the result of the REST call
-            to the <code>employee</code> page variable.
-          </li>
-          <li>
-            Add a Call Function action and select the function
-            <code>updateTreeDataProvider</code>. Map the
-            <code>employee</code> page variable to the
-            <code>employeeArray</code> function parameter.
+          <li>Call the function
+            <code>updateTreeDataProvider</code> passing 
+            the result of the REST call.
           </li>
         </ol>
       </div>
     </oj-collapsible>
-    <oj-collapsible id="step4">
+    
+    <oj-collapsible id="step3">
       <span slot="header">Create the UI</span>
       <div>
         <ol>
@@ -92,7 +73,7 @@
           <li>
             In the Data tab of the Properties pane for the newly-added Table
             component, bind the Data property to
-            <code>{{ $page.functions.getTreeDataProvider() }}</code>.
+            <code>{{ $page.variables.dataSource }}</code>.
           </li>
           <li>
             Configure the Table component's <code>columns</code> property as
@@ -137,7 +118,7 @@
             Add a <code>fire notification</code> action to the action chain and
             set the Summary and Message appropriately (for example:
             <code
-              >[[ 'You are calling '+ $variables.current.data.firstName ]]</code
+              >[[ 'You are calling '+ current.data.firstName ]]</code
             >).
           </li>
           <li>

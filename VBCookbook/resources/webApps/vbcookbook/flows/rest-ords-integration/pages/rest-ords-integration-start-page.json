@@ -83,8 +83,8 @@
       "oj-label": {
         "path": "ojs/ojlabel"
       },
-      "oj-sample-input-text-typeahead": {
-        "path": "oj-sample/input-text-typeahead/loader"
+      "input-text-typeahead": {
+        "path": "input-text-typeahead/loader"
       }
     }
   }

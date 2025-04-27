@@ -122,48 +122,53 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "BoConfigActionChain",
-          "parameters": {}
+
+          "parameters": {},
+          "chain": "BoConfigActionChain"
         }
       ]
     },
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "ResetActionChain",
+
           "parameters": {
             "detail": "{{ $event.detail }}"
-          }
+          },
+          "chain": "ResetActionChain"
         }
       ]
     },
     "ojButtonOjAction3": {
       "chains": [
         {
-          "chainId": "GetSampleActionChain",
+
           "parameters": {
             "detail": "{{ $event.detail }}"
-          }
+          },
+          "chain": "GetSampleActionChain"
         }
       ]
     },
     "ojButtonOjAction4": {
       "chains": [
         {
-          "chainId": "ValidateAndUploadActionChain",
+
           "parameters": {
             "detail": "{{ $event.detail }}"
-          }
+          },
+          "chain": "ValidateAndUploadActionChain"
         }
       ]
     },
     "ojFilePickerOjSelect": {
       "chains": [
         {
-          "chainId": "FilePickerSelectChain",
+
           "parameters": {
             "files": "{{ $event.detail.files }}"
-          }
+          },
+          "chain": "FilePickerSelectChain"
         }
       ]
     }

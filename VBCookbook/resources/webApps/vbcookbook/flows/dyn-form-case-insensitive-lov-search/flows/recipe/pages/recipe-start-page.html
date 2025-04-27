@@ -1,0 +1,166 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>To implement this recipe, you'll add a <a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">dynamic
+    form to your page</a> and configure it using the
+  <a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-0BF12C24-7C14-4F90-B56C-BE101285070E">Configure
+    as Edit Form quick start</a>, in addition to adding a regular list of values for
+  the Job
+  field from the Job
+  business object. Once
+  you have completed these tasks, add a global field template to the Job field.
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Add a Global Field Template to the Job Field</h1>
+      <div>
+        <ol>
+          <li>In the Source tab, open the Employee layout's <code>data-description-overlay.json</code> file and add the
+            following code under <code>replaceMetadata</code>:
+            <code><pre>"job": {
+    "layoutDiscriminant" : "globalJobLOV",
+    "labelHint" : "New Job"
+  }
+</pre></code>
+          </li>
+          <li>Also in the Source tab, click the Create Layout icon beside <strong>dynamicLayouts</strong> and create the
+            following files to add the code for the global field template:
+            <ul>
+              <li><code>field-templates-overlay.html</code></li>
+              <li><code>field-templates-overlay.json</code></li>
+              <li><code>helper-functions.js</code></li>
+            </ul>
+          </li>
+          <li>Open the <code>field-templates-overlay.json</code> file and create entries to add and map the global
+            field template and import the <code>helper-functions.js</code> file.
+            <oj-collapsible id="js-code1">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <code><pre>{
+"addTemplates": {
+  "globalCaseInsensitiveJobLOV": {
+    "title": "Global Case Insensitive Job LOV Template",
+    "description": "Global Case Insensitive Job LOV Template",
+    "extensible": "byReference"
+  }
+},
+"addTemplateMap": {
+  "singleValue": {
+    "$byLayoutDiscriminant": {
+      "globalJobLOV": "globalCaseInsensitiveJobLOV"
+    }
+  }
+},
+"imports": {
+  "modules": {
+    "helperFunctions": {
+      "path": "./helper-functions.js"
+    }
+  }
+}
+}</pre></code>
+              </div>
+            </oj-collapsible>
+          </li>
+
+          <li>
+            <p>Open the <code>helper-functions.js</code> file and write a function to make a REST call that fetches
+              <code>jobTitles</code> from the Job business object and another function to transform the query call
+              from case sensitive to case insensitive.
+            </p>
+            <p>The transform function code is a simplistic example that you need
+              to update
+              to work with your backend REST API.</p>
+            <oj-collapsible id="js-code2">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>define(["knockout", 
+    "vb/types/factories/serviceDataProviderFactory",
+    "vb/BusinessObjectsTransforms",
+], function (
+  ko,
+  ServiceDataProviderFactory,
+  BOTransforms
+) {
+  "use strict";
+
+  let sdpCache;
+
+  const HelperFunctions = function HelperFunctions() { };
+
+  HelperFunctions.prototype.createJobSDP = function() {
+    if (sdpCache === undefined) {
+      sdpCache = ko.observable();
+      ServiceDataProviderFactory.createInstance({
+        dataProviderOptions: {
+          endpoint: "businessObjects/getall_Job",
+          keyAttributes: "id",
+          itemsPath: "items",
+          transformsContext: {
+            "vb-textFilterAttributes": [
+              "jobTitle"
+            ]
+          },
+          transforms: {
+            request: {
+              query: this.patchQueryURL
+            }
+          }
+        },
+      }).then((sdpInstance) => {
+        sdpCache(sdpInstance);
+      });
+
+    }
+    return sdpCache;
+  };
+
+  HelperFunctions.prototype.patchQueryURL = function(configuration, options, transformsContext) {
+      const o = options;
+      const c = configuration;
+      let newUrl = c.url;
+      // this is just a very simplistic example which turns
+      //   "jobTitle LIKE '%searchTermHere%'"
+      // into
+      //   "UPPER(jobTitle) LIKE UPPER('%searchTermHere%')"
+      // whether and how the case insensitive search is supported
+      // differs per REST backend and concrete REST API specification needs to be consulted
+      if (newUrl.indexOf('jobTitle%20LIKE%20') >= 0) {
+        newUrl = newUrl.replace("jobTitle%20LIKE%20", "UPPER(jobTitle)%20LIKE%20");
+        newUrl = newUrl.replace("%20%27", "%20UPPER(%27%25");
+        newUrl = newUrl.replace("%25%27", "%25%27)");
+        
+      }
+      c.url = newUrl;
+
+      return c;
+  };
+
+  return new HelperFunctions();
+}); </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+
+          <li>In the <code>field-templates-overlay.html</code> file, add the template for the Job field. It uses a
+            custom SDP with a case-insensitive REST lookup.
+            <code><pre>
+&lt;template id='globalCaseInsensitiveJobLOV'>
+  &lt;oj-select-single label-hint="[[ $labelHint ]]" value="{{ $value }}"
+    data="[[$modules.helperFunctions.createJobSDP()]]" item-text="jobTitle">&lt;/oj-select-single>
+&lt;/template>
+</pre></code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

@@ -110,6 +110,13 @@
   },
   "chains": {},
   "eventListeners": {
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chain": "HyperlinkClickChain"
+        }
+      ]
+    },
     "vbEnter": {
       "chains": [
         {
@@ -189,6 +196,7 @@
         }
       ]
     }
+
   },
   "imports": {
     "components": {

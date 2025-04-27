@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -10,6 +10,17 @@ define([
   "ojs/ojresponsiveutils",
   
   "oj-sp/spectra-shell/config/config",
+  "text!mockrest/businessObjects/objects/Country/entity-data.csv",
+  "text!mockrest/businessObjects/objects/Department/entity-data.csv",
+  "text!mockrest/businessObjects/objects/Employee/entity-data.csv",
+  "text!mockrest/businessObjects/objects/EmployeeSkill/entity-data.csv",
+  "text!mockrest/businessObjects/objects/Job/entity-data.csv",
+  "text!mockrest/businessObjects/objects/JobHistory/entity-data.csv",
+  "text!mockrest/businessObjects/objects/Location/entity-data.csv",
+  "text!mockrest/businessObjects/objects/Region/entity-data.csv",
+  "text!mockrest/businessObjects/objects/Skill/entity-data.csv",
+  "text!mockrest/fa/objects/activities/entity-data.csv",
+  "text!mockrest/fa/objects/Attachments/entity-data.csv",
 ], function (
   newMetadata,
   ArrayDataProvider,
@@ -30,6 +41,8 @@ define([
     "Checkbox Set",
     "Editable Rows",
     "Navigation",
+    "Form",
+    "Other",
   ];
 
   class AppModule {
@@ -91,29 +104,49 @@ define([
     }
 
     isValidFilter(filter) {
-      return categories.includes(filter) || subCategories.includes(filter);
+      if (filter.includes("|")) {
+        return categories.includes(filter.split("|")[0]) && subCategories.includes(filter.split("|")[1]);
+      } else {
+        return categories.includes(filter);
+      }
+    }
+
+    sortRecipes(recipes) {
+      recipes.sort((a, b) => {
+        const nameA = a.label.toUpperCase();
+        const nameB = b.label.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
     }
 
     getMatchedRecipes(filter, fullText) {
+      let category;
+      let subCategory;
       const self = this;
       let ignoreFilter = false;
       if (filter !== undefined && filter !== "all") {
+        let x = filter.split("|");
+        category = x[0];
+        subCategory = x.length > 1 ? x[1] : undefined;
         if (!this.isValidFilter(filter)) {
           // wrong URL param passed in; ignore the filter
           ignoreFilter = true;
         }
       }
-      const data = this.metadata.filter((recipe) => {
+      let data = this.metadata.filter((recipe) => {
         if (!ignoreFilter && filter !== undefined && filter !== "all") {
-          const isCategory = categories.includes(filter);
-          if (isCategory && recipe.category !== filter) {
-            return false;
-          }
-          if (!isCategory && recipe.subCategory !== filter) {
+          if ( recipe.category !== category || 
+            (subCategory !== undefined && recipe.subCategory !== subCategory)) {
             return false;
           }
         }
-        if (fullText !== undefined && fullText !== "") {
+        if (fullText !== undefined && fullText !== "" && fullText !== null ) {
           const fullTextWords = fullText.toUpperCase().split(" ");
           let count = 0;
           fullTextWords.forEach((word) => {
@@ -126,6 +159,7 @@ define([
 
         return true;
       });
+      this.sortRecipes(data);
       return new ArrayDataProvider(data, {
         keyAttributes: "id",
         textFilterAttributes: searchables,
@@ -155,15 +189,6 @@ define([
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(
         navigator.userAgent
       );
-    }
-
-    /**
-     *
-     * @param {String} arg1
-     * @return {String}
-     */
-    convertToArrayOfRecipes(recipeNames) {
-      return recipeNames.map((name) => this.getRecipeMetadata(name));
     }
   }
 

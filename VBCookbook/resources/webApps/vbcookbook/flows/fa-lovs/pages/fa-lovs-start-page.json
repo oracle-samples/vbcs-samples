@@ -26,7 +26,7 @@
       }
     },
     "filters": {
-      "type": "filter[]",
+      "type": "filterType[]",
       "defaultValue": [
         {
           "op": "$sw",
@@ -100,7 +100,7 @@
       "service": "businessObjects",
       "path": "response"
     },
-    "filter": {
+    "filterType": {
       "op": "string",
       "attribute": "string",
       "value": "any"
@@ -182,7 +182,7 @@
     "employeeAdvSearch": {
       "chains": [
         {
-          "chainId": "OpenAdvancedSearchDialog",
+          "chain": "OpenAdvancedSearchDialog",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -192,7 +192,7 @@
     "spanClick": {
       "chains": [
         {
-          "chainId": "DeSelectEmployeeChain",
+          "chain": "DeSelectEmployeeChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -202,14 +202,14 @@
     "okojButtonOjAction": {
       "chains": [
         {
-          "chainId": "OKButtonActionChain"
+          "chain": "OKButtonActionChain"
         }
       ]
     },
     "searchojButtonOjAction": {
       "chains": [
         {
-          "chainId": "ApplyFilterActionChain",
+          "chain": "ApplyFilterActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -219,7 +219,7 @@
     "resetojButtonOjAction": {
       "chains": [
         {
-          "chainId": "ResetFiltersActionChain",
+          "chain": "ResetFiltersActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -229,7 +229,7 @@
     "cancelojButtonOjAction": {
       "chains": [
         {
-          "chainId": "CancelButtonActionChain"
+          "chain": "CancelButtonActionChain"
         }
       ]
     }

@@ -1,0 +1,97 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "empId": {
+      "type": "any",
+      "required": true,
+      "input": "fromUrl",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      }
+    },
+    "employee": {
+      "type": "object"
+    },
+    "employeeEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      }
+    },
+    "employeeETag": {
+      "type": "string"
+    },
+    "fetchedEmployee": {
+      "type": "object"
+    }
+  },
+  "metadata": {
+    "businessObjectsUpdateEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Employee"
+      }
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "ButtonActionChain"
+        }
+      ]
+    },
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chain": "saveEmployeeChain",
+          "parameters": {
+            "employeeId": "{{ $variables.empId }}"
+          }
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

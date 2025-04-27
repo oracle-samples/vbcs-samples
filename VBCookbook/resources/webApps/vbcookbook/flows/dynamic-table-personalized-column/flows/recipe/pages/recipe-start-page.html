@@ -1,0 +1,80 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>
+            In the Page Designer, drag and drop the Dynamic Table component onto the template.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure Layout</strong>.
+          </li>
+          <li>
+            In the Configure Layout dialog that appears, choose the business
+            object or REST endpoint that you want to use as the data source for
+            the form, and click <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure Layout dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>tableExampleLayout RuleSet</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and click
+            <strong>Next</strong>, and then click <strong>Finish</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+
+
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Enable Personalization of Columns</h1>
+      <div>
+        <ol>
+          <li>In the Variables tab, create a new variable named <code>personalization</code> of type
+            <code>Object</code>.
+          </li>
+          <li>
+            <p>In the Properties pane for the newly-created <code>personalization</code> variable, set the Persisted
+              property
+              to <code>Device</code>.</p>
+            <p>This property enables Dynamic Table columns to be persisted on the device where the Dynamic Table is used
+              and
+              restored when the page is reopened.</p>
+          </li>
+          <li>
+            <p>In the Code view of the Page Designer, set the Dynamic Table's <code>private-state</code> property to
+              <code>{{ $variables.personalization }}</code> and the <code>column-management</code> property to
+              <code>enabled</code>.
+            </p>
+            <p><code>
+                        &lt;oj-dynamic-table ... private-state="{{ $variables.personalization }}" column-management="enabled" ...&gt;
+                        </code></p>
+
+            <p>The <code>personalization</code> variable stores the order of columns and which columns are visible or
+              hidden, while the <code>column-management</code> property adds a column
+              customization button to the top right
+              corner of the Dynamic Table. </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

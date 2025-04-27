@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -76,51 +76,6 @@ asyncValidator = [{
 }];</pre
           >
         </li>
-        <li>
-          Write a function, <code>validateGroup</code>, to validate the input
-          values.<br />
-          <pre>
-validateGroup(arg1) {
-    let tracker = document.getElementById("tracker");
-    if (tracker.valid === "valid") {
-    }
-    else if (tracker.valid.startsWith("invalid")) {
-      if (tracker.valid === "invalidHidden") {
-        tracker.showMessages();
-      }
-      tracker.focusOn("@firstInvalidShown");
-    }
-    return tracker.valid;
-  };
-        </pre
-          >
-        </li>
-        <li>
-          Write a function, <code>waitTillPending</code>, to make the button action chain wait till the field validation completes.<br />
-          <pre>
-waitTillPending() {
-    // make the button action wait till the
-    // field validation gets over ie tracker 
-    // status changes to something other than 'pending'
-    return new Promise(function (resolve, reject) {
-      let waitForValidation = function () {
-        let tracker = document.getElementById("tracker");
-        if (tracker.valid === "pending") {
-          // simulated field validation at server still going on
-          setTimeout(function () {
-            return waitForValidation();
-          }, 200);
-        }
-        else {
-          resolve(true);
-        }
-      };
-      waitForValidation();
-    });
-  };
-        </pre
-          >
-        </li>
       </ol>
     </div>
   </oj-collapsible>
@@ -174,8 +129,56 @@ waitTillPending() {
           In the Component Palette, drag and drop a Button component onto the
           Form Layout component.
         </li>
-        <li>
-          In the button action, invoke the function waitTillPending(), and then validateGroup() and display a form submitted confirmation message or error based on validaity of field values.
+        <li>In the button action chain, write a function, <code>waitTillPending</code>, to make the button action 
+        chain wait till the field validation completes and another function, <code>validateGroup</code>, for validating the form.
+          <pre>
+function waitTillPending() {
+    // make the button action wait till the
+    // field validation gets over ie tracker 
+    // status changes to something other than 'pending'
+    return new Promise(function (resolve, reject) {
+      let waitForValidation = function () {
+        let tracker = document.getElementById("tracker");
+        if (tracker.valid === "pending") {
+          // simulated field validation at server still going on
+          setTimeout(function () {
+            return waitForValidation();
+          }, 200);
+        }
+        else {
+          resolve(true);
+        }
+      };
+      waitForValidation();
+    });
+  };
+
+await waitTillPending();
+
+function validateGroup(arg1) {
+    let tracker = document.getElementById("tracker");
+    if (tracker.valid === "valid") {
+    }
+    else if (tracker.valid.startsWith("invalid")) {
+      if (tracker.valid === "invalidHidden") {
+        tracker.showMessages();
+      }
+      tracker.focusOn("@firstInvalidShown");
+    }
+    return tracker.valid;
+  };
+
+const validateGroupFlag = await validateGroup();
+
+if (validateGroupFlag === 'valid') {
+  await Actions.fireNotificationEvent(context, {
+    summary: 'Data Is Valid',
+    message: 'Everything is valid. Form has been submitted.',
+    displayMode: 'transient',
+    type: 'confirmation',
+  });
+}
+        </pre>
         </li>
       </ol>
     </div>

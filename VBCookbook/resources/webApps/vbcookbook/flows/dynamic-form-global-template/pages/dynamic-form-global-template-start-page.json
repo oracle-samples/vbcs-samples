@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Global Field Template",
   "description": "",
   "variables": {
     "department": {
@@ -14,7 +14,7 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadDepartmentChain",
+            "chain": "loadDepartmentChain",
             "parameters": {
               "fetchedFields": "[[ $variables.departmentDetailFormRenderedFields ]]"
             }
@@ -34,7 +34,7 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadEmployeeChain",
+            "chain": "loadEmployeeChain",
             "parameters": {
               "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
             }

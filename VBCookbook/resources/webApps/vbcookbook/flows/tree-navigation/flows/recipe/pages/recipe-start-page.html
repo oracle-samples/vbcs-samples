@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -289,7 +289,7 @@ define([
       <div>
         <ol>
           <li>In the Events tab of the Properties pane for the navigation list, add an On 'selection' event.</li>
-          <li>In the action chain, add an If action with the condition <code>[[ $application.responsive.lgUp ]]</code>.
+          <li>In the action chain, add an If action with the condition <code>$application.responsive.lgUp</code>.
           </li>
           <li>In the false branch of the If action, add an Assign Variable action and assign the
             <code>!$page.variables.openDrawer</code>

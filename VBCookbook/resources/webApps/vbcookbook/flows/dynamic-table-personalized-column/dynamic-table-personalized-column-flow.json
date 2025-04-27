@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-table-personalized-column",
+  "description": "Flow main",
+  "defaultPage": "dynamic-table-personalized-column-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -21,7 +21,7 @@
         <ol>
           <li>In the Component Palette, drag a List View component and drop it on the page.</li>
           <li>Use the List View component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind the list to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -81,7 +81,7 @@
             <code>employee_ID</code>.
           </li>
           <li>Navigate to <strong>swipe-to-edit-editpage</strong> and <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">
               create a type from Patch endpoint</a> where you select the following employee fields:
             <ul>
               <li>First Name</li>
@@ -91,7 +91,7 @@
             </ul>
           </li>
           <li> <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
               Create a variable</a>, <code>editEmployeeDetails</code>, and assign it the type that you just created.
           </li>
         </ol>
@@ -103,7 +103,7 @@
       <div>
         <ol>
           <li>Add a <code>vbEnter</code> <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-85B98D5E-B1A1-4AD6-9D67-CC9AE28DA668">
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBPMR-GUID-85B98D5E-B1A1-4AD6-9D67-CC9AE28DA668">
               event listener</a> to <strong>swipe-to-edit-editpage</strong>, and
             create a page action chain with an ID of <code>getDatafromMainPage</code>.</li>
 
@@ -112,7 +112,7 @@
           <li>Map <code>employee_ID</code> to <code>Employee_Id</code> under Parameters and click <strong>Save</strong>.
           </li>
           <li>Drop an <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Assign
               Variables action</a> under the success outcome of the Call REST action and map the body of the
             REST endpoint to <code>editEmployeeDetails</code>.</li>
         </ol>
@@ -154,7 +154,7 @@
       <div>
         <ol>
           <li>In the Events tab of the Properties pane for the Save button, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">create
               a new event</a> for ojAction and assign it an ID of <code>SaveEmployeeDataActionChain</code>.</li>
           <li>In the action chain, add a Call Function action with an ID of <code>Validity_tracker</code>, create
             a function name of <code>validate_form</code>.</li>
@@ -180,7 +180,7 @@
               </code>
           </li>
           <li>In the action chain, drag an If action onto the chain and set Condition to
-            <code>[[ $chain.results.Validity_tracker ]]</code>.
+            <code>validateForm</code> the result of validation_form function.
           </li>
           <li>Drag a Call REST action, drop it on the true path of the action chain, and select the Patch
             endpoint. </li>
@@ -191,7 +191,7 @@
             </ul>
           </li>
           <li>Drop a <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-9388B17C-3306-4966-BE66-2A0889879A17">Navigate
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-2091DB24-53FE-4E66-9D60-BDA8E7EE8A92">Navigate
               Back action</a> on the
             success path of the action chain.</li>
         </ol>
@@ -208,11 +208,11 @@
       <div>
         <ol>
           <li>In the Events tab of the Properties pane for the Back button, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">create
               a new event</a> for ojAction and assign it an ID of <code>navigateBackActionChain</code>.
           </li>
           <li>Drop a <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-9388B17C-3306-4966-BE66-2A0889879A17">Navigate
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-2091DB24-53FE-4E66-9D60-BDA8E7EE8A92">Navigate
               Back action</a> in the action chain.
           </li>
         </ol>

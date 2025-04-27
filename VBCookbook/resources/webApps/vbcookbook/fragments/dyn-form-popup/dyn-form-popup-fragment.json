@@ -1,0 +1,86 @@
+{
+  "title": "",
+  "description": "",
+  "eventListeners": {
+  },
+  "events": {},
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsUpdateEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Employee"
+      }
+    }
+  },
+  "types": {},
+  "variables": {
+    "empId": {
+      "type": "any",
+      "required": true,
+      "input": "fromCaller"
+    },
+    "employee": {
+      "type": "object",
+      "input": "fromCaller",
+      "writeback": true
+    },
+    "employeeEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending",
+      "input": "fromCaller",
+      "writeback": true,
+      "@dt": {
+        "createOptions": {}
+      }
+    },
+    "employeeEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields ]]",
+              "employeeId": "{{ $variables.empId }}"
+            }
+          }
+        ]
+      }
+    },
+    "employeeETag": {
+      "type": "string",
+      "input": "fromCaller",
+      "writeback": true,
+      "@dt": {
+        "createOptions": {}
+      }
+    },
+    "fetchedEmployee": {
+      "type": "object",
+      "input": "fromCaller",
+      "writeback": true
+    }
+  },
+  "referenceable": "self",
+  "@dt": {
+    "usedFor": [
+      "pageContent"
+    ]
+  }
+}

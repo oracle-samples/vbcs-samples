@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -11,7 +11,7 @@
 <div class="oj-flex oj-flex-item oj-md-margin-8x-start oj-md-margin-8x-end sample-box ">
   <div class="oj-flex-item sample-box2 oj-flex">
     <oj-refresher id="refresher" text="Checking for updates" style="width:100%;"
-      refresh-content="{{ $functions.getRefreshFunction() }}">
+      refresh-content="[[ $functions.getRefreshFunction() ]]">
       <oj-list-view class="oj-flex-item oj-sm-flex-initial" data="[[$page.variables.employeeListSDP]]"
         selection-mode="single" scroll-policy="loadMoreOnScroll" scroll-policy-options.fetch-size="10"
         style="height:500px;">

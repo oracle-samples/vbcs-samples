@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -19,13 +19,13 @@
       header.column.style="[[$functions.columnHeaderStyle]]" header.row.style="width:50px;"
       cell.class-name="[[ function(ctx) { return $page.functions.getCellClassName(ctx) } ]]" style="height:400px">
       <template slot="cellTemplate" data-oj-as="cell">
-        <oj-bind-if test="[[cell.item.columnIndex==$constants.colBalance ]]">
+        <oj-bind-if test="[[cell.item.columnIndex === $constants.colBalance ]]">
           <span :class="[[cell.item.data.data > 0 ? 'oj-bg-success-30' : 'oj-bg-danger-30']]">
           <oj-bind-text value="[[$page.functions.formatNumber(cell.item.data.data)]]"></oj-bind-text>
         </span>
         </oj-bind-if>
 
-        <oj-bind-if test="[[cell.item.columnIndex==$constants.colTotalAmtOrdered]]">
+        <oj-bind-if test="[[cell.item.columnIndex === $constants.colTotalAmtOrdered]]">
           <oj-bind-if test="[[cell.item.data.data > 30000]]">
             <span class="oj-bg-success-30" aria-label="exceeds expectations">
                               <oj-bind-text value="[[$page.functions.formatNumber(cell.item.data.data)]]"></oj-bind-text>
@@ -43,7 +43,7 @@
           </oj-bind-if>
         </oj-bind-if>
 
-        <oj-bind-if test="[[cell.item.columnIndex==$page.constants.colCompany]]">
+        <oj-bind-if test="[[cell.item.columnIndex === $page.constants.colCompany]]">
           <span>
           <a :href="[['https://www.morningstar.com/search?query=' + cell.item.data.data]]" :target="[['_blank']]">
             <oj-bind-text value="[[cell.item.data.data]]"></oj-bind-text>
@@ -52,12 +52,12 @@
         </oj-bind-if>
 
         <oj-bind-if
-          test="[[cell.item.columnIndex==$page.constants.colRegistered || cell.item.columnIndex==$constants.colLastOrder || cell.item.columnIndex==$constants.colBirthDate ]]">
+          test="[[cell.item.columnIndex === $page.constants.colRegistered || cell.item.columnIndex === $constants.colLastOrder || cell.item.columnIndex === $constants.colBirthDate ]]">
           <span>
-            <oj-bind-text value="[[$page.functions.formatNumber(cell.item.data.data)]]"></oj-bind-text>
+            <oj-bind-text value="[[$page.functions.formatDate(cell.item.data.data)]]"></oj-bind-text>
           </span>
         </oj-bind-if>
-        <oj-bind-if test="[[cell.item.columnIndex==$constants.colActive]]">
+        <oj-bind-if test="[[cell.item.columnIndex === $constants.colActive]]">
           <oj-bind-if test="[[cell.item.data.data]]">
             <span class="oj-icon-color-success oj-ux-ico-success-s oj-ux-icon-size-9x" role="img" aria-label="success"></span>
           </oj-bind-if>
@@ -65,7 +65,7 @@
             <span class="oj-icon-color-danger oj-ux-ico-error-s oj-ux-icon-size-9x" role="img" aria-label="error"></span>
           </oj-bind-if>
         </oj-bind-if>
-        <oj-bind-if test="[[cell.item.columnIndex==$constants.colEyeColor ]]">
+        <oj-bind-if test="[[cell.item.columnIndex === $constants.colEyeColor ]]">
           <span :style="[[{color: cell.item.data.data }]]">
                           <oj-bind-text value="[[cell.item.data.data]]"></oj-bind-text>
                       </span>

@@ -1,0 +1,45 @@
+{
+  "addField": {
+    "currency": {
+      "type": "string",
+      "labelHint": "Currency",
+      "componentType": "oj-select-single",
+      "dataProvider": {
+        "factory": "ojs/ojarraydataprovider",
+        "parameters": [
+          [
+            {
+              "value": "eur",
+              "label": "EUR"
+            },
+            {
+              "value": "inr",
+              "label": "INR"
+            },
+            {
+              "value": "usd",
+              "label": "USD"
+            }
+          ],
+          {
+            "keyAttributes": "value"
+          }
+        ]
+      }
+    }
+  },
+  "replaceMetadata": {
+    "maxSalary": {
+      "labelHint": "[[ $functions.getMaxSalaryLabel($fields.currency.value()) ]]",
+      "referencedFields": [
+          "currency"
+        ]
+    },
+    "minSalary": {
+       "labelHint": "[[ $functions.getMinSalaryLabel($fields.currency.value()) ]]",
+      "referencedFields": [
+          "currency"
+        ]
+    }
+  }
+}

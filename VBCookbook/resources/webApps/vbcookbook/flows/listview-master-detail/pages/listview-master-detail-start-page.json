@@ -87,7 +87,7 @@
     "departmentListSelected": {
       "chains": [
         {
-          "chainId": "DepartmentSelectedChain",
+          "chain": "DepartmentSelectedChain",
           "parameters": {
             "keys": "{{ Array.from($event.detail.value.values()) }}"
           }
@@ -97,7 +97,7 @@
     "employeeListSelected": {
       "chains": [
         {
-          "chainId": "EmployeeSelectedChain",
+          "chain": "EmployeeSelectedChain",
           "parameters": {
             "keys": "{{ Array.from($event.detail.value.values()) }}"
           }

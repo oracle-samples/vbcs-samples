@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -32,42 +32,42 @@
       header.column.style="[[$functions.columnHeaderStyle]]" edit-mode="cellEdit"
       header.column.class-name="[[ function(ctx) { return $page.functions.getHeaderClassName(ctx) } ]]" style="height:415px"
       on-oj-before-edit="[[function(event) { $page.functions.onBeforeEdit(event) } ]]"
-      on-oj-before-edit-end="[[ function(event) { $page.functions.onBeforeEditEnd(event) } ]]"
+      on-oj-before-edit-end="[[ function(event) { $page.functions.onBeforeEditEnd(event, $page.variables.bufferingDP, $page.variables.dataColumnNames) } ]]"
       cell.class-name="[[ function(ctx) { return $page.functions.getCellClassName(ctx) } ]]">
 
       <template slot="cellTemplate" data-oj-as="cell">
 
         <!-- firstName -->
-        <oj-bind-if test="[[cell.item.columnIndex==0]]">
-          <oj-bind-if test='[[cell.mode=="navigation"]]'>
+        <oj-bind-if test="[[cell.item.columnIndex === 0]]">
+          <oj-bind-if test='[[cell.mode === "navigation"]]'>
             <oj-bind-text value="{{ cell.item.data.data }}">
             </oj-bind-text>
           </oj-bind-if>
-          <oj-bind-if test='[[cell.mode=="edit"]]'>
+          <oj-bind-if test='[[cell.mode === "edit"]]'>
             <oj-input-text required="true" value="[[ cell.item.data.data ]]" class="editable">
             </oj-input-text>
           </oj-bind-if>
         </oj-bind-if>
 
         <!-- lastName -->
-        <oj-bind-if test="[[cell.item.columnIndex==1]]">
-          <oj-bind-if test='[[cell.mode=="navigation"]]'>
+        <oj-bind-if test="[[cell.item.columnIndex === 1]]">
+          <oj-bind-if test='[[cell.mode === "navigation"]]'>
             <oj-bind-text value="{{cell.item.data.data}}">
             </oj-bind-text>
           </oj-bind-if>
-          <oj-bind-if test='[[cell.mode=="edit"]]'>
+          <oj-bind-if test='[[cell.mode === "edit"]]'>
             <oj-input-text required="true" value="[[ cell.item.data.data ]]" class="editable">
             </oj-input-text>
           </oj-bind-if>
         </oj-bind-if>
 
         <!-- jobTitle -->
-        <oj-bind-if test="[[cell.item.columnIndex==2]]">
-          <oj-bind-if test='[[cell.mode=="navigation"]]'>
+        <oj-bind-if test="[[cell.item.columnIndex === 2]]">
+          <oj-bind-if test='[[cell.mode === "navigation"]]'>
             <oj-bind-text value="[[ cell.item.data.data.items[0].jobTitle ]]">
             </oj-bind-text>
           </oj-bind-if>
-          <oj-bind-if test='[[cell.mode=="edit"]]'>
+          <oj-bind-if test='[[cell.mode === "edit"]]'>
             <oj-select-single class="editable" data="[[$page.variables.jobListSDP]]"
               value="[[ cell.item.data.data.items[0].id ]]"
               value-item="{{ { key: cell.item.data.data.items[0].id, data: { id: cell.item.data.data.items[0].id, jobTitle: cell.item.data.data.items[0].jobTitle } } }}"
@@ -77,11 +77,11 @@
         </oj-bind-if>
 
         <!-- salary -->
-        <oj-bind-if test="[[cell.item.columnIndex==3]]">
-          <oj-bind-if test='[[cell.mode=="navigation"]]'>
+        <oj-bind-if test="[[cell.item.columnIndex === 3]]">
+          <oj-bind-if test='[[cell.mode === "navigation"]]'>
             <oj-bind-text value="[[ $page.functions.getFormattedSalary( cell.item.data.data ) ]]"></oj-bind-text>
           </oj-bind-if>
-          <oj-bind-if test='[[cell.mode=="edit"]]'>
+          <oj-bind-if test='[[cell.mode === "edit"]]'>
             <oj-input-number class="editable" validators="[[[$functions.salaryInRangeValidator(cell.item.data.data)]]]"
               value="[[ cell.item.data.data ]]" :id="[['oj-input-number-salary']]">
             </oj-input-number>
@@ -89,14 +89,14 @@
         </oj-bind-if>
 
         <!-- salary range -->
-        <oj-bind-if test="[[cell.item.columnIndex==4]]">
-          <oj-bind-if test='[[cell.mode=="navigation"]]'>
+        <oj-bind-if test="[[cell.item.columnIndex === 4]]">
+          <oj-bind-if test='[[cell.mode === "navigation"]]'>
             <oj-bind-text value="{{ $page.functions.getFormattedSalaryRange( cell.item.data.data ) }}"></oj-bind-text>
           </oj-bind-if>
         </oj-bind-if>
 
         <!-- review needed checkbox -->
-        <oj-bind-if test="[[cell.item.columnIndex==5]]">
+        <oj-bind-if test="[[cell.item.columnIndex === 5]]">
           <div class="oj-flex-item oj-sm-flex-direction-column oj-lg-justify-content-center">
             <oj-checkboxset on-value-changed="[[$listeners.checkboxSetValue]]" value="[[ cell.item.data.data === 'yes' ? ['yes'] : []  ]]">
               <oj-option value="yes"></oj-option>

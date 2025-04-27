@@ -13,7 +13,7 @@
     "ojFilePickerOjSelect": {
       "chains": [
         {
-          "chainId": "FilePickerSelectChain",
+          "chain": "FilePickerSelectChain",
           "parameters": {
             "files": "[[ Array.prototype.slice.call($event.detail.files) ]]"
           }

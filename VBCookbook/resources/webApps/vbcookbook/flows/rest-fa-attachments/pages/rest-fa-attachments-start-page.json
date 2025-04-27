@@ -67,7 +67,7 @@
     "downloadClick": {
       "chains": [
         {
-          "chainId": "DownloadAttachment",
+          "chain": "DownloadAttachment",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -79,7 +79,7 @@
     "previewClick": {
       "chains": [
         {
-          "chainId": "PreviewAttachment",
+          "chain": "PreviewAttachment",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -91,17 +91,14 @@
     "uploadButtonAction": {
       "chains": [
         {
-          "chainId": "UploadFile",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "UploadFile"
         }
       ]
     },
     "cancelButtonAction": {
       "chains": [
         {
-          "chainId": "CancelUploadDialog",
+          "chain": "CancelUploadDialog",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -111,7 +108,7 @@
     "showUploadDialogAction": {
       "chains": [
         {
-          "chainId": "ShowUploadDialog",
+          "chain": "ShowUploadDialog",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -121,7 +118,7 @@
     "deleteFileAction": {
       "chains": [
         {
-          "chainId": "DeleteFile",
+          "chain": "DeleteFile",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -133,7 +130,7 @@
     "fileSelectionChanged": {
       "chains": [
         {
-          "chainId": "FilePickerSelectionChanged",
+          "chain": "FilePickerSelectionChanged",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }

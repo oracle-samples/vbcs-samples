@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -59,13 +59,12 @@
 
 
           <li>
-            Create a new action chain on vbenter event
+            Create a new action chain named <code>fetchEmployeeChain</code> on vbEnter event
             <ul>
               <li>Dnd a rest action and select businessObjects/getall_employee with limit
                 param set to 1</li>
               <li>
-                Dnd a assign variable action employee with { "data": "{{ $chain.results.callRestEndpoint1.body.items
-                }}" }
+                Dnd a assign variable action employee with { "data": response.body.items[0] }
               </li>
               <li>on success of callRestEndpoint1 action, Dnd a if logic with condition
                 [[ $page.variables.employee.id ]]</li>

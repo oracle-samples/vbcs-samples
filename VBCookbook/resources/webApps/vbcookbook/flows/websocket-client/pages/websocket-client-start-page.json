@@ -1,0 +1,84 @@
+{
+  "title": "main",
+  "description": "",
+  "variables": {
+    "lastId": {
+      "type": "number",
+      "defaultValue": 0
+    },
+    "logADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "itemType": "LogRecord",
+        "keyAttributes": "id"
+      }
+    },
+    "msg": {
+      "type": "string",
+      "defaultValue": "Knock knock!"
+    },
+    "wsActions": {
+      "type": "any"
+    },
+    "wsConnection": {
+      "type": "any"
+    }
+
+  },
+  "metadata": {},
+  "types": {
+    "LogRecord": {
+      "id": "number",
+      "text": "string"
+    }
+  },
+  "eventListeners": {
+    "application:websocketData": {
+      "chains": [
+      ]
+    },
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "sendMessage"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chain": "vbEnterListener"
+        }
+      ]
+    },
+    "wsData": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chain": "wsDataListener"
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      }
+   }
+  },
+  "events": {
+    "wsData": {
+      "payloadType": {
+        "data": "any"
+      }
+    }
+  }
+}

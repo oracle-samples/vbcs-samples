@@ -1,0 +1,85 @@
+{
+  "@dt": {
+    "metadataRulesEnabled": "on"
+  },
+  "layoutTypes": {
+    "employmentWhenAndWhy": {
+      "kind": "operationRef",
+      "serviceId": "employmentWhenAndWhy",
+      "operations": [
+        "update_employmentWhenAndWhy"
+      ]
+    }
+  },
+  "layouts": {
+    "isDefault": {
+      "description": "Default Rule",
+      "type": "employmentWhenAndWhy",
+      "expression": "default"
+    },
+    "whenAndWhy": {
+      "type": "employmentWhenAndWhy",
+      "layoutType": "form",
+      "label": "WhenAndWhy",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              {
+                "Base whenAndWhyObject": {
+                  "layout": {
+                    "labelHint": "Base whenAndWhy Object Properties",
+                    "displayProperties": [
+                      "PositionId",
+                      "DummyField"
+                    ]
+                  }
+                }
+              },
+              {
+                "Other whenAndWhyObject": {
+                  "layout": {
+                    "labelHint": "Other whenAndWhy Object Properties",
+                    "displayProperties": [
+                      {
+                        "CategoryCode": {
+                          "readonly": "true"
+                        }
+                      },
+                      {
+                        "BusinessUnitId": {
+                          "readonly": "true"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "Position LOV": {
+                  "description": "",
+                  "layout": {
+                    "labelHint": "Full Position LOV record for selected PositionLOV value",
+                    "displayProperties": [
+                      "positionsLov.PositionName",
+                      "positionsLov.PositionCode",
+                      "positionsLov.JobName",
+                      "positionsLov.DepartmentName"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "usedIn": [
+            "isDefault"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "websocket-client",
+  "description": "Flow main",
+  "defaultPage": "websocket-client-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

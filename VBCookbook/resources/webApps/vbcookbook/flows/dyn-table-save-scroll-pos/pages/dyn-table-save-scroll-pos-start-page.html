@@ -1,0 +1,45 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+
+  <p>
+
+    This recipe shows you how to save the scroll position in a Dynamic Table. Scroll down a few rows and click any row to
+    navigate to a different page with more detail (the detail page). When you click the Back button in the detail page to
+    navigate back, you'll see that the scroll position has been preserved in the original page.
+  </p>
+  
+  
+
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-sm-flex-direction-column sample-box2" style="width:100%;">
+    <oj-dynamic-table data="[[$variables.employeeListSDP]]"
+      metadata="[[ $metadata.businessObjectsGetallEmployeeMetadata.provider ]]" layout="saveScrollPosition"
+      style="width:100%; height:400px" scroll-policy="loadMoreOnScroll"
+      scroll-position="{{ $variables.scrollPositionPage }}"
+      on-scroll-position-changed="[[$listeners.tableScrollPosition]]" selection-mode.row="single"
+      on-first-selected-row-changed="[[$listeners.tableFirstSelectedRow]]"></oj-dynamic-table>
+  </div>
+  <div class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-text-area id="scroll-position-writeback" class="oj-flex-item oj-sm-12" rows="2"
+      value="[[JSON.stringify($variables.scrollPositionPage)]]"></oj-text-area>
+  </div>
+</div>
+
+
+
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

@@ -1,90 +1,128 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<div class="oj-flex oj-sm-flex-direction-column" id="pageContent"  >
+<div class="oj-flex oj-sm-flex-direction-column" id="pageContent"
+  >
   <!-- for message notifications -->
   <oj-messages id="vbDefaultNotifier" position="{}" display="general" messages="{{$page.variables.messagesADP}}"
     on-oj-close="[[$listeners.onMessageClose]]" display-options.category="none"></oj-messages>
 
-  
+
   <div>
     <oj-bind-if test="[[ $application.functions.isNotHomePage($page.currentFlow)]]">
-      <oj-sp-header-general-overview
-        page-title="{{ $application.variables.currentRecipe !== undefined ? $application.variables.currentRecipe.label + ' Recipe' : '' }}"
-         display-options.go-to-parent="false"
-        secondary-actions="[[$variables.secondaryActions]]"
-        
-        on-sp-secondary-action="[[$listeners.generalOverviewPageHeaderSpSecondaryAction]]" display-mode="mixed"
-        display-options.in-flow-back="true" on-sp-in-flow-back="[[$listeners.generalOverviewPageHeaderSpInFlowBack]]"
-  ></oj-sp-header-general-overview>
-      
+      <div class="header-style oj-color-invert">
+        <div class="oj-flex-bar oj-sm-align-items-center" style="padding-bottom: 20px">
+          <div class="oj-flex-bar-start">
+            <div :style="[[ $application.responsive.lgUp ? 'padding-right: 100px' : 'padding-right: 30px' ]]"
+              class="oj-flex oj-sm-flex-wrap-nowrap oj-sm-align-items-center oj-sm-justify-content-space-between"
+              data-vb-layout-type="flex">
+              <oj-button display="icons" class="oj-sm-padding-4x-start" chroming="borderless"
+                on-oj-action="[[$listeners.generalOverviewPageHeaderSpInFlowBack]]">
+                <span class="oj-typography-heading-sm oj-ux-ico-nav-left" slot="startIcon"></span>
+              </oj-button>
+              <span class="oj-typography-subheading-lg oj-typography-bold">
+                <oj-bind-text
+                  value="[[ $application.variables.currentRecipe !== undefined ? $application.variables.currentRecipe.label + ' Recipe' : '' ]]"></oj-bind-text>
+              </span>
+            </div>
+          </div>
+
+          <div class="oj-flex-bar-end">
+            <div class="oj-flex oj-sm-flex-initial oj-sm-flex-wrap-nowrap">
+              <oj-button class="oj-sm-padding-4x-end oj-flex-item"
+                on-oj-action="[[$listeners.generalOverviewPageHeaderSpSecondaryAction]]" label="Help">
+              </oj-button>
+              
+            </div>
+          </div>
+        </div>
+        <div class="redwood-strip"></div>
+      </div>
+      <oj-bind-if test="[[ $application.variables.currentRecipe !== undefined && $application.variables.currentRecipe.redwood === 'false' ]]">
+        <div class="oj-sm-padding-4x-top oj-md-padding-8x-start oj-sm-padding-2x-start">
+          <span >Note: This demo does not use 
+            <a target="_blank" href="https://redwood.oracle.com"
+              class="oj-link-standalone oj-link-subtle-primary"
+              style="color:red;text-decoration: underline;font-weight: bold;">Redwood Design Patterns</a> and is meant to show technical functionality rather than the best practices in UI design.</span>
+        </div>
+      </oj-bind-if>
     </oj-bind-if>
   </div>
 
   <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-flex-initial"></oj-vb-content>
 
-  
-    <oj-bind-if test="[[ $application.functions.isNotHomePage($page.currentFlow)]]">
-      
-    </oj-bind-if>
 
-    <oj-bind-if test="[[ $application.functions.isNotHomePage($page.currentFlow) == false]]">
-      <footer id="cookbook-page-footer" role="contentinfo" class="oj-web-applayout-footer oj-sm-padding-2x-horizontal">
-        <div class="oj-flex oj-sm-align-items-center oj-sm-justify-content-space-between">
-          <div class="oj-flex-item">
-            <ul>
-              <oj-bind-for-each data="[[ $page.variables.globalLinks ]]">
-                <template data-oj-as="item">
-                  <li>
-                    <a :class="[[ 'oj-sm-margin-2x oj-link-standalone oj-link-subtle-primary ' + ( $application.responsive.lgUp  ? 'oj-typography-body-md oj-typography-bold' : 'oj-typography-body-sm oj-typography-bold')]]" target="_blank"
-                      :id="[[item.data.id]]" :href="[[item.data.url]]">
-                      <oj-bind-text value="[[item.data.label]]"> </oj-bind-text>
-                    </a>
-                  </li>
-                </template>
-              </oj-bind-for-each>
-            </ul>
-            <div class="oj-typography-body-sm oj-sm-margin-2x-top">
-              <oj-bind-text value="{{ $page.variables.copyright }}">
-              </oj-bind-text>
-            </div>
+  <oj-bind-if test="[[ $application.functions.isNotHomePage($page.currentFlow)]]">
+    
+  </oj-bind-if>
+
+  <oj-bind-if test="[[ $application.functions.isNotHomePage($page.currentFlow) === false]]">
+    <footer id="cookbook-page-footer" role="contentinfo" class="oj-web-applayout-footer oj-sm-padding-2x-horizontal">
+      <div class="oj-flex oj-sm-align-items-center oj-sm-justify-content-space-between">
+        <div class="oj-flex-item">
+          <ul>
+            <oj-bind-for-each data="[[ $page.variables.globalLinks ]]">
+              <template data-oj-as="item">
+                <li>
+                  <a :class="[[ 'oj-sm-margin-2x oj-link-standalone oj-link-subtle-primary ' + ( $application.responsive.lgUp  ? 'oj-typography-body-md oj-typography-bold' : 'oj-typography-body-sm oj-typography-bold')]]"
+                    target="_blank" :id="[[item.data.id]]" :href="[[item.data.url]]">
+                    <oj-bind-text value="[[item.data.label]]"> </oj-bind-text>
+                  </a>
+                </li>
+              </template>
+            </oj-bind-for-each>
+          </ul>
+          <div class="oj-typography-body-sm oj-sm-margin-2x-top">
+            <oj-bind-text value="{{ $page.variables.copyright }}">
+            </oj-bind-text>
           </div>
         </div>
-      </footer>
-    </oj-bind-if>
+      </div>
+    </footer>
+  </oj-bind-if>
 </div>
 
 
 
 
 
-<oj-dialog id="help-dialog" style="display:none; min-width: 900px;"
-  dialog-title='Visual Builder Cookbook Help' cancel-behavior="escape" drag-affordance="title-bar">
+<oj-dialog id="help-dialog" style="display:none; min-width: 900px;" dialog-title='Visual Builder Cookbook Help'
+  cancel-behavior="escape" drag-affordance="title-bar">
   <div slot="body">
-		<div class="oj-flex">
-			<p class="oj-flex-item oj-sm-12 oj-md-12">Browse through the samples to view
-				implementations of common usage patterns developed using Visual Builder. Each sample displays a page
-				with the implementation, plus some high-level steps that describe how to implement the sample using
-				Visual Builder.</p>
-			<p class="oj-flex-item oj-sm-12 oj-md-12">If you want to examine the source code to gain a better
-				understanding of the sample, each recipe can be downloaded as a self contained Visual Builder application. Download it and install it into your Visual Builder instance. Oracle also publishes the Visual Builder Cookbook as an application template, so if you want access to all the recipes all you need to do is create an application in your instance of Visual Builder where you select
-				<strong>Oracle Visual Builder Cookbook</strong> as the application template.</p>
-			<p class="oj-flex-item oj-sm-12 oj-md-12">If you require training on using Visual Builder, check out the free Oracle University course - <a target="_blank" href="https://mylearn.oracle.com/course/build-visual-applications-using-oracle-visual-builder-studio/110035/">Develop Visual Applications using Visual Builder</a> - which includes lessons and labs to get you started. This course, which provides a Visual Builder environment for its lab practices, teaches the core, fundamental skills for developing with Visual Builder and more fully utilizing these recipes.</p>
+    <div class="oj-flex">
+      <p class="oj-flex-item oj-sm-12 oj-md-12">Browse through the samples to view
+        implementations of common usage patterns developed using Visual Builder. Each sample displays a page
+        with the implementation, plus some high-level steps that describe how to implement the sample using
+        Visual Builder.</p>
+      <p class="oj-flex-item oj-sm-12 oj-md-12">If you want to examine the source code to gain a better
+        understanding of the sample, each recipe can be downloaded as a self contained Visual Builder application.
+        Download it and install it into your Visual Builder instance.</p>
+      <p class="oj-flex-item oj-sm-12 oj-md-12">If you require training on using Visual Builder, check out the free
+        Oracle University course - <a target="_blank"
+          href="https://mylearn.oracle.com/ou/course/build-visual-applications-using-oracle-visual-builder-studio/137749/">Develop
+          Visual Applications using Visual Builder</a> - which includes lessons and labs to get you started. This
+        course, which provides a Visual Builder environment for its lab practices, teaches the core, fundamental skills
+        for developing with Visual Builder and more fully utilizing these recipes.</p>
       <p class="oj-flex-item oj-sm-12 oj-md-12">Other useful links to learn more about Visual Builder:</p>
       <ul class="oj-flex-item oj-sm-12 oj-md-12">
-        <li><a href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/index.html" target="_blank">Visual Builder Documentation</a></li>
-        <li><a href="https://docs.oracle.com/en/cloud/paas/visual-builder/visualbuilder-building-applications/index.html" target="_blank">Visual Builder Studio Documentation</a></li>
-        <li><a href="https://mylearn.oracle.com/course/build-visual-applications-using-oracle-visual-builder-studio/110035/" target="_blank">Visual Builder Online Training</a></li>
-        <li><a href="https://community.oracle.com/customerconnect/categories/oci-visual-builder" target="_blank">Visual Builder Customer Connect Forum</a></li>
+        <li><a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG" target="_blank">Visual Builder
+            Documentation</a></li>
+        <li><a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA" target="_blank">Visual Builder Studio
+            Documentation</a></li>
+        <li><a
+            href="https://mylearn.oracle.com/ou/course/build-visual-applications-using-oracle-visual-builder-studio/137749/"
+            target="_blank">Visual Builder Online Training</a></li>
+        <li><a href="https://community.oracle.com/customerconnect/categories/oci-visual-builder" target="_blank">Visual
+            Builder Customer Connect Forum</a></li>
         <li><a href="https://blogs.oracle.com/vbcs/" target="_blank">Visual Builder Blog</a></li>
       </ul>
-		</div>
+    </div>
   </div>
   <div slot="footer">
     <oj-toolbar chroming="solid">
-      <oj-button chroming="borderless"  class="oj-button-sm" on-oj-action="[[$listeners.buttonAction3]]">Close
+      <oj-button chroming="borderless" class="oj-button-sm" on-oj-action="[[$listeners.buttonAction3]]">Close
       </oj-button>
     </oj-toolbar>
   </div>

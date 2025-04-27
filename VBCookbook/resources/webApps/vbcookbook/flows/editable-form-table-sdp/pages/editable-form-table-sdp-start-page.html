@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -23,49 +23,8 @@
         :style.min-width="[[ $application.responsive.smOnly ? '300px' : '600px' ]]"
         data="[[$page.variables.employeeListSDP]]" on-oj-before-row-edit="[[$listeners.ojTableOjBeforeRowEdit]]"
         on-oj-before-row-edit-end="[[$listeners.ojTableOjBeforeRowEditEnd]]">
-        <template slot='rowTemplate' data-oj-as='row'>
-          <tr>
-            <!-- ko if: row.mode === "navigation" -->
-            <td>
-              <oj-bind-text value="[[row.data.firstName]]"></oj-bind-text>
-            </td>
-            <td>
-              <oj-bind-text value="[[row.data.lastName]]"></oj-bind-text>
-            </td>
-            <td>
-              <oj-bind-text value="[[row.data.email]]"></oj-bind-text>
-            </td>
-            <td>
-              <oj-bind-text value="[[row.data.phoneNumber]]"></oj-bind-text>
-            </td>
-            <td class="oj-sm-padding-0-vertical">
-              <oj-button chroming="borderless" on-oj-action="[[$listeners.editOjAction]]"
-                :id="[['edit-'+$current.key]]">
-                <span class="vb-icon vb-icon-pencil"></span>
-              </oj-button>
-            </td>
-            <!-- /ko -->
-            <!-- ko if: row.mode === "edit" -->
-
-            <td colspan="5" class="oj-form-control-default oj-sm-padding-2x">
-              <oj-form-layout :id="[['form-'+$current.key]]" max-columns="2" direction="row">
-                <oj-input-text label-hint="First Name" value="{{ $variables.currentRow.firstName }}" class="editable">
-                </oj-input-text>
-                <oj-input-text label-hint="Last Name" value="{{ $variables.currentRow.lastName }}" class="editable">
-                </oj-input-text>
-                <oj-input-text label-hint="Email" value="{{ $variables.currentRow.email }}" class="editable">
-                </oj-input-text>
-                <oj-input-text label-hint="Phone" value="{{ $variables.currentRow.phoneNumber }}" class="editable">
-                </oj-input-text>
-              </oj-form-layout>
-              <oj-button chroming="outlined" on-oj-action="[[$listeners.cancelOjAction]]"
-                :id="[['cancel-'+$current.key]]">Cancel
-              </oj-button>
-              <oj-button chroming="solid" on-oj-action="[[$listeners.saveOjAction]]" :id="[['save-'+$current.key]]">
-                Save</oj-button>
-            </td>
-            <!-- /ko -->
-          </tr>
+        <template slot="rowTemplate" data-oj-as="row">
+          <oj-bind-dom config="[[$page.functions.getRowConfig($application, $flow, $page, $current, $listeners, $variables, row)]]"></oj-bind-dom>
         </template>
       </oj-table>
 

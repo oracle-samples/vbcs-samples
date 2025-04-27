@@ -40,7 +40,7 @@
     "listviewMultiselectSelected": {
       "chains": [
         {
-          "chainId": "ListViewSelectedChangeChain",
+          "chain": "ListViewSelectedChangeChain",
           "parameters": {
             "keys": "{{Array.from($event.detail.value.values())}}"
           }

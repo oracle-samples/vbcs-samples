@@ -7,11 +7,11 @@
     },
     "departmentId": {
       "type": "number",
-      "defaultValue": 2,
+      "defaultValue": 8,
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "FetchDepartment",
+            "chain": "FetchDepartment",
             "parameters": {
               "event": "{{ $event }}"
             }
@@ -87,7 +87,7 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "UpdateEmployeeChain",
+          "chain": "UpdateEmployeeChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -97,7 +97,7 @@
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "RefreshButtonChain",
+          "chain": "RefreshButtonChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -107,7 +107,7 @@
     "ojButtonOjAction3": {
       "chains": [
         {
-          "chainId": "NewEmployeeButtonActionChain",
+          "chain": "NewEmployeeButtonActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -117,7 +117,7 @@
     "editEmployee": {
       "chains": [
         {
-          "chainId": "OpenDialogChain",
+          "chain": "OpenDialogChain",
           "parameters": {
             "current": "{{ $current.row }}"
           }
@@ -127,7 +127,7 @@
     "deleteEmployee": {
       "chains": [
         {
-          "chainId": "DeleteEmployee",
+          "chain": "DeleteEmployee",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -140,7 +140,7 @@
     "ojButtonOjAction4": {
       "chains": [
         {
-          "chainId": "SaveButtonActionChain",
+          "chain": "SaveButtonActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -150,14 +150,16 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "FetchDepartment",
-          "parameters": {}
+          "chain": "FetchDepartment"
         }
       ]
     }
   },
   "imports": {
     "components": {
+      "oj-label-value": {
+        "path": "ojs/ojlabelvalue"
+      },
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
       },
@@ -179,6 +181,7 @@
       "oj-form-layout": {
         "path": "ojs/ojformlayout"
       }
+
     },
     "modules": {
       "ojValidationBase": {

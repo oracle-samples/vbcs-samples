@@ -35,7 +35,7 @@
     "ojSwipeActionsPerformed": {
       "chains": [
         {
-          "chainId": "performSwipeOperationChain",
+          "chain": "performSwipeOperationChain",
           "parameters": {
             "navigationItem": "[[$event.target.value]]",
             "employeeId": "[[$current.key]]"

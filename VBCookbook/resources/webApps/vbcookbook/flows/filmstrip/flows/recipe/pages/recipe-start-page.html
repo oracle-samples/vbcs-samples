@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -29,7 +29,7 @@
           on the data assigned to the variable. </p>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
               a page variable</a> named <code>jobs</code> of type Array.</li>
 
           <li>Add a field named <code>id</code> of type Number and a field named <code>title</code> of type String.</li>
@@ -40,30 +40,25 @@
           </li>
           <li>Next, we need to invoke an action chain to call the REST endpoint that returns jobs and assigns the
             response to the <code>jobs</code> variable you created.</li>
-          <li>In the Event Listeners Tab, click <strong>+ Event Listener</strong>, select <strong>vbenter</strong>, and
+          <li>In the Event Listeners Tab, click <strong>+ Event Listener</strong>, select <strong>vbEnter</strong>, and
             click <strong>Next</strong>.</li>
           <li>Click the + icon to create a new page action chain named <code>loadJobsChain</code>.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
-              a Call REST Endpoint action</a> to the action chain named <code>jobsRestEndPoint</code>.</li>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-154A8060-942A-4B34-8C49-D641BB7DA354">Add
+              a Call REST Endpoint action</a> to the action chain.</li>
           <li>In the Properties pane of the action, click <strong>Select</strong> and navigate to select GET/Job
             under the Job
             business object.</li>
 
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-              an Assign Variables action</a> to the action chain named <code>assignVariableJobs</code> that assigns the
-            response of the
-            Call REST endpoint action variable in the Sources of the action chain to the <code>jobs</code> page variable
-            in Target.</li>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add
+              an Assign Variables action</a> to the action chain that assigns the response of the
+            Call REST endpoint action to the <code>jobs</code> page variable.</li>
 
-          <li>During assignment from Sources to Target, in Sources, expand <code>jobsRestEndpoint -> body</code>. Assign
-            Items array to Jobs array. Then, expand <code>items</code> and assign <code>id</code> from
-            Sources to the <code>id</code> field in <code>jobs</code>. Repeat this step for the <code>title</code>
-            attribute.</li>
+          <li>During assignment copy the 'id' attribute as is and change the key name for 'jobTitle' attribute to 'title'.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
-              a Call Component Method</a> action named <code>refreshfilmstripcomponent</code>.</li>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-0E25B7E8-0116-461E-8799-E031763F594A">Add
+              a Call Component Method action</a>.</li>
 
           <li>In the Properties pane, select <strong>filmstrip</strong> from the Component dropdown list and
             <strong>refresh</strong> from the Method Name dropdown list.</li>
@@ -106,7 +101,7 @@
         <ol>
           <li>In the Component Palette, drag a Table component and drop it on the page.</li>
           <li>Use the Table component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your table to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>

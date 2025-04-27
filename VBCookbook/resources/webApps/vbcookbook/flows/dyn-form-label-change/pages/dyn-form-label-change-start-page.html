@@ -1,0 +1,42 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+<p>This recipe shows you how to update a field's label hint based on the value of another field. In this example, the
+    label hints for the Minimum and Maximum salary fields derive from the selected value in the Currency field.
+    When the Currency field value changes, the label hints for the Minimum and Maximum salary fields update accordingly.</p>
+
+
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2" style="width: 100%">
+    <h3>Job Details</h3>
+    <oj-bind-if test="[[ true ]]">
+      <oj-validation-group id="job-validation-group--665055711-1">
+        <oj-dyn-form class="oj-flex-item oj-sm-flex-initial"
+          metadata="[[ $metadata.businessObjectsUpdateJobMetadata.provider ]]" layout="editJobSalaryForm" value="{{ $variables.job }}"
+          value-loading="[[ $variables.jobEditFormLoadingStatus ]]"
+          rendered-fields="{{ $variables.jobEditFormRenderedFields }}" operation="edit" id="oj-dyn-form--665055711-1">
+        </oj-dyn-form>
+      </oj-validation-group>
+    </oj-bind-if>
+    <oj-toolbar id="oj-toolbar-for-oj-dyn-form--665055711-1" chroming="solid">
+      <oj-button label="Save" disabled="[[ $variables.jobEditFormLoadingStatus === 'pending' ]]"
+        on-oj-action="[[$listeners.saveButtonClicked]]"></oj-button>
+    </oj-toolbar>
+  </div>
+</div>
+
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

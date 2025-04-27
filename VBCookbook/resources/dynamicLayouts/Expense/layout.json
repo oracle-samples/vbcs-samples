@@ -1,0 +1,66 @@
+{
+  "layoutTypes": {
+    "customMetadata": {
+      "kind": "metadataRef"
+    }
+  },
+  "layouts": {
+    "isDefault": {
+      "type": "customMetadata",
+      "description": "Default Rule",
+      "expression": "default"
+    },
+    "objectContextLayout": {
+      "type": "customMetadata",
+      "layoutType": "form",
+      "label": "Object Context Layout",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "expenseType",
+              "baseAmount",
+              "currency",
+              "exchangeRate",
+              "currencyAmount"
+            ]
+          },
+          "usedIn": [
+            "isDefault"
+          ]
+        }
+      }
+    },
+    "isDefault2": {
+      "description": "Default Rule",
+      "type": "customMetadata",
+      "expression": "default"
+    },
+    "valuePrecedence": {
+      "type": "customMetadata",
+      "layoutType": "form",
+      "label": "Value Precedence",
+      "rules": [
+        "isDefault2"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              "expenseType",
+              "baseAmount",
+              "currency",
+              "exchangeRate",
+              "currencyAmountVP"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

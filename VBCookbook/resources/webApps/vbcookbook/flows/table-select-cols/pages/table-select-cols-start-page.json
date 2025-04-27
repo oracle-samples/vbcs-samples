@@ -24,7 +24,7 @@
           "template": "departmentNameCellTemplate4"
         },
         {
-          "headerText": "Name",
+          "headerText": "Skill",
           "field": "skillCollection",
           "sortProperty": "skillCollection.name",
           "template": "nameCellTemplate5"
@@ -69,7 +69,7 @@
           "template": "departmentNameCellTemplate4"
         },
         {
-          "headerText": "Name",
+          "headerText": "Skill",
           "field": "skillCollection",
           "sortProperty": "skillCollection.name",
           "template": "nameCellTemplate5"
@@ -104,11 +104,11 @@
     },
     "menuValue": {
       "type": "string[]",
-      "defaultValue": "[[$variables.columns.map(op=>op.field)]]",
+      "defaultValue": "[[$variables.columns.map(function(op) { return op.field;} )]]",
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "updateTableColumns",
+            "chain": "updateTableColumns",
             "parameters": {
               "event": "{{ $event }}"
             }
@@ -157,10 +157,7 @@
     "showColumnsHandler": {
       "chains": [
         {
-          "chainId": "showAllColumns",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "showAllColumns"
         }
       ]
     }

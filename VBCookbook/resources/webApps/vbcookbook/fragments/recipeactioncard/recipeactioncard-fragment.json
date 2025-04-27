@@ -5,7 +5,7 @@
     "cardAction": {
       "chains": [
         {
-          "chainId": "CardActionChain"
+          "chain": "CardActionChain"
         }
       ]
     }

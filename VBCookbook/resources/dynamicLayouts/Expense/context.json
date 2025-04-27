@@ -1,0 +1,11 @@
+{
+  "objectContext": {
+    "rate": {
+      "@dt": {
+        "labelHint": "contextParam1",
+        "description": ""
+      },
+      "type": "number"
+    }
+  }
+}

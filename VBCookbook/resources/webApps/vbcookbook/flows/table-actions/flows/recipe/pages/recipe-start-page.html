@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -22,7 +22,7 @@
         <ol>
           <li>In the Component Palette, drag a Table component and drop it on the page.</li>
           <li>Use the Table component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your table to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -64,7 +64,7 @@
           update the selected employee. </p>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
               a type from endpoint</a> named <code>get_Employee</code> based on the GET / Employee {Employee_ID}
             endpoint.</li>
           <li>Add the following fields to this newly-created type:
@@ -77,7 +77,7 @@
             </ul>
           </li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
               a page variable</a> named <code>currentEmployee</code> of type get_Employee.</li>
               <li>In the Component Palette, drag a Dialog component and drop it on the page.</li>
 
@@ -97,8 +97,6 @@
             <code>currentEmployee</code>
             page variable from the Value drop-down list. For example, <code>{{ $variables.currentEmployee.firstName }}</code>.
             </li>
-          
-          
           </ol>
       </div>
     </oj-collapsible>
@@ -115,23 +113,23 @@
           employee data.</p>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-              an event listener</a> to the Icon component.</li>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
+              an Event Listener</a> to the Icon component.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add
               an Assign Variables action</a> to the action chain named <code>AssignEmployeeRecord</code> that assigns the current variable in the Sources
             of the action chain to the <code>currentEmployee</code> page variable in Target.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-0E25B7E8-0116-461E-8799-E031763F594A">Add
               a Call Component Method
               action</a> named <code>OpenDialog</code>. </li>
-          <li>In the Properties pane, select the <strong>oj-dialog</strong> component from the Component drop-down list and
+          <li>In the Properties pane, select the <strong>oj-dialog</strong> component from the Selector drop-down list and
             <strong>open</strong> from the Method Name drop-down list.</li>
           <li>Add an event listener to the Button component in the Dialog component.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
-              a Call REST Endpoint action</a> to the action chain called callRestUpdateEmployee
-            that assigns {currentEmployee} to the body of the rest action, passing the Employee_Id={currentEmployee.id} as rest action parameter.</li>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-154A8060-942A-4B34-8C49-D641BB7DA354">Add
+              a Call REST Endpoint action</a> to the action chain called <code>callRestUpdateEmployee</code>
+            that assigns <code>{currentEmployee}</code> to the body of the rest action, passing the Employee_Id as {currentEmployee.id} as rest action parameter.</li>
           <li>On the success outcome path, add a Fire Data Provider Event action to refresh the employee Service Data
             Provider page variable and a Call Component Method action to close the Dialog component. </li>
         </ol>

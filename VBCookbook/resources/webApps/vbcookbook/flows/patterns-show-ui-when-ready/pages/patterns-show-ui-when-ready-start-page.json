@@ -41,15 +41,14 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "fetchEmployeeChain",
-          "parameters": {}
+          "chain": "fetchEmployeeChain"
         }
       ]
     },
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "UpdateEmployeeChain",
+          "chain": "UpdateEmployeeChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }

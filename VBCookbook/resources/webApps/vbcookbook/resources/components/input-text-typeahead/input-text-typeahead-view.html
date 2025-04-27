@@ -1,0 +1,13 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<oj-input-text :id="[[valueInputElementId]]" value="{{$properties.value}}" placeholder="[[$properties.placeholder]]"
+    disabled="[[$properties.disabled||$properties.disable]]" required="[[$properties.required]]" readonly="[[$properties.readonly]]"
+    clear-icon="[[$properties.clearIcon]]" described-by="[[$properties.describedBy]]"
+    labelled-by="[[$properties.labelledBy]]" help="[[$properties.help]]" help-hints="[[$properties.helpHints]]"
+    display-options="[[$properties.displayOptions]]" virtual-keyboard="url" validators="[[properties.validators]]"
+    valid="{{$properties.valid}}" raw-value="{{internalRawValue}}" style="min-width:100%;" user-assistance-density="[[$properties.userAssistanceDensity]]"
+    label-edge="[[$properties.labelEdge]]" label-hint="[[$properties.labelHint]]">
+</oj-input-text>

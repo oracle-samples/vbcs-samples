@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -12,12 +12,12 @@
     <h5>Filter Data on One Field</h5>
     <div class="oj-flex-item" style="padding-bottom: 1em">
       <oj-bind-text
-        value="This example uses the options-keys to render only firstName of employees. The search matches both first and last name as defined using vb-textFilterAttributes.">
+        value="This example uses the options-keys to render only firstName of employees. The search matches only the firstName as defined using vb-textFilterAttributes. The SDP variable is created by default with no customization.">
       </oj-bind-text>
     </div>
     <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
       <oj-select-many label-hint="Select Many Using options-keys" class="oj-form-control-width-md"
-        options="[[ $variables.employeeListSDP ]]" options-keys.value="id" options-keys.label="firstName">
+        options="[[ $variables.employeeListSDPDefault ]]" options-keys.value="id" options-keys.label="firstName">
       </oj-select-many>
     </oj-form-layout>
 
@@ -29,7 +29,7 @@
     </div>
     <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
       <oj-select-many label-hint="Select Many Using Transient Field" class="oj-form-control-width-md"
-        options-keys.value="id" options-keys.label="fullName" options="{{ $variables.employeeListSDP }}">
+        options-keys.value="id" options-keys.label="fullName" options="[[ $variables.employeeListSDP ]]">
       </oj-select-many>
     </oj-form-layout>
 
@@ -42,7 +42,7 @@
     <oj-form-layout label-edge="inside" class="oj-flex-item oj-sm-flex-initial oj-formlayout-full-width">
       <oj-select-many label-hint="Custom Dropdown Using options-renderer" class="oj-form-control-width-md"
         option-renderer="[[ $functions.createDropdownItemFunction( $application.path ) ]]" options-keys.value="id"
-        options-keys.label="fullName" options="{{ $variables.employeeListSDP }}">
+        options-keys.label="fullName" options="[[ $variables.employeeListSDP ]]">
       </oj-select-many>
     </oj-form-layout>
 

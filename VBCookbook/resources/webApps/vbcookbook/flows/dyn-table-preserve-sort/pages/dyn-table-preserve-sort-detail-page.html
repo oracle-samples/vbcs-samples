@@ -1,0 +1,20 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-12 oj-md-12">
+    <h4>Employee Details</h4>
+    <oj-bind-if test="[[ ($variables.empId) !== undefined ]]">
+      <oj-dyn-form metadata="[[ $metadata.businessObjectsGetEmployeeMetadata.provider ]]" layout="preserveSortEmpDetail"
+        value="{{ $variables.employee }}" value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
+        rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" operation="view"></oj-dyn-form>
+    </oj-bind-if>
+  </div>
+</div>
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-12 oj-md-2">
+    <oj-button label="Back" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+  </div>
+</div>

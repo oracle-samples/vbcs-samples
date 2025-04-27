@@ -16,7 +16,10 @@
       "type": "EmployeeType"
     },
     "employeesBDP": {
-      "type": "any"
+      "type": "application:ojs/ojbufferingdataprovider",
+      "constructorParams": [
+        "[[ $page.variables.employeesSDP ]]"
+      ]
     },
     "employeesSDP": {
       "type": "vb/ServiceDataProvider",
@@ -67,9 +70,19 @@
       "type": "boolean",
       "defaultValue": false
     },
+    "nextIdValue": {
+      "type": "number",
+      "defaultValue": 10000
+    },
     "noChangesToSave": {
       "type": "boolean",
       "defaultValue": true
+    },
+    "originalRowValues": {
+      "type": "any"
+    },
+    "scrollPosition": {
+      "type": "any"
     },
     "editRow": {
       "type": "any",
@@ -165,21 +178,21 @@
   },
   "chains": {},
   "eventListeners": {
-    "batchEditableTableBeforeRowAddEnd": {
+    "tableBeforeRowAddEnd": {
       "chains": [
         {
-          "chainId": "TableBeforeRowAddEndChain",
+          "chain": "TableBeforeRowAddEnd",
           "parameters": {
             "event": "{{ $event }}"
           }
         }
       ],
-      "preventDefault": "{{ !$page.functions.isFormValid($event.detail, $event, 'addRow') }}"
+      "preventDefault": "[[ !$page.functions.isFormValid($event, 'addRow') ]]"
     },
-    "submitRowAction": {
+    "buttonAction": {
       "chains": [
         {
-          "chainId": "SubmitRowActionChain",
+          "chain": "SubmitAddRow",
           "parameters": {
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",
@@ -188,10 +201,10 @@
         }
       ]
     },
-    "cancelRowAction": {
+    "buttonAction2": {
       "chains": [
         {
-          "chainId": "CancelRowActionChain",
+          "chain": "CancelAddRow",
           "parameters": {
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",
@@ -203,26 +216,10 @@
     "deleteRowButtonCurrentRowIdOjAction": {
       "chains": [
         {
-          "chainId": "DeleteRow",
+          "chain": "DeleteRow",
           "parameters": {
-            "index": "{{ $current.index }}",
-            "current": "{{ $current }}",
             "key": "{{ $current.key }}",
             "row": "{{ $current.row }}"
-          }
-        }
-      ]
-    },
-    "ojSelectSingleValue": {
-      "chains": [
-        {
-          "chainId": "JobChanged",
-          "parameters": {
-            "value": "{{ $event.detail.value }}",
-            "key": "{{ $current.key }}",
-            "index": "{{ $current.index }}",
-            "current": "{{ $current }}",
-            "detail": "{{ $event.detail }}"
           }
         }
       ]
@@ -230,47 +227,66 @@
     "selectValue": {
       "chains": [
         {
-          "chainId": "SelectValueChangeChain",
+          "chain": "SelectJobValue",
+          "parameters": {
+            "value": "{{ $event.detail.value }}",
+            "previousValue": "{{ $event.detail.previousValue }}",
+            "key": "{{ $current.key }}",
+            "index": "{{ $current.index }}",
+            "current": "{{ $current }}"
+          }
+        }
+      ]
+    },
+    "ojSelectSingleValue": {
+      "chains": [
+        {
+          "chain": "JobChanged",
           "parameters": {
             "value": "{{ $event.detail.value }}",
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",
             "current": "{{ $current }}",
-            "previousValue": "{{ $event.detail.previousValue }}"
+            "detail": "{{ $event.detail }}"
           }
         }
       ]
     },
-    "vbEnter": {
+    "tableBeforeRowEdit": {
+      "asyncBehavior": "enabled",
       "chains": [
         {
-          "chainId": "FetchEmployees",
-          "parameters": {}
+          "chain": "TableBeforeRowEdit",
+          "parameters": {
+            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+            "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
+          }
         }
       ]
     },
-    "ojTable18296469261OjBeforeRowEdit": {
+    "tableBeforeRowEditEnd": {
+      "asyncBehavior": "enabled",
       "chains": [
         {
-          "chainId": "TableBeforeRowEditChain",
+          "chain": "TableBeforeRowEditEnd",
           "parameters": {
+            "cancelEdit": "{{$event.detail.cancelEdit}}",
             "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
             "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
-            "event": "{{ $event }}"
+            "event": "{{$event}}",
+            "currentRowBuffer": "{{$page.variables.currentRowBuffer}}"
           }
         }
-      ]
+      ],
+      "preventDefault": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event) ]]"
     },
-    "ojTable18296469261OjBeforeRowEditEnd": {
-      "preventDefault": "{{ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event.detail, $event, 'editRow') }}",
+    "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "TableBeforeRowEditEndChain",
+          "chain": "InsertRow",
           "parameters": {
-            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-            "rowData": "{{$page.variables.currentRowBuffer}}",
-            "event": "{{ $event }}",
-            "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
           }
         }
       ]
@@ -278,30 +294,39 @@
     "ojButtonOjAction3": {
       "chains": [
         {
-          "chainId": "SubmitActionChain",
+          "chain": "SubmitChanges",
           "parameters": {
-            "detail": "{{ $event.detail }}"
           }
         }
       ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chain": "AddChangesListener"
+        }
+      ]
+    },
+    "WorkaroundVBS28095": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chain": "WorkaroundVBS28095"
+        }
+      ]
     }
+
   },
   "imports": {
     "components": {
-      "oj-combobox-one": {
-        "path": "ojs/ojselectcombobox"
-      },
-      "oj-input-date": {
-        "path": "ojs/ojdatetimepicker"
-      },
       "oj-input-number": {
         "path": "ojs/ojinputnumber"
       },
       "oj-label": {
         "path": "ojs/ojlabel"
-      },
-      "oj-option": {
-        "path": "ojs/ojoption"
       },
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
@@ -330,5 +355,13 @@
         "path": "ojs/ojvalidation-number"
       }
     }
-  }
+  },
+  "events": {
+    "WorkaroundVBS28095": {
+      "payloadType": {
+        "record": "object"
+      }
+    }
+  },
+  "routerFlow": "recipe"
 }

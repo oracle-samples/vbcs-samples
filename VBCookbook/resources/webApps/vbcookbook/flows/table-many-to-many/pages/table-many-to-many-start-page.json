@@ -147,7 +147,7 @@
     "openEditListener": {
       "chains": [
         {
-          "chainId": "openEditEmployeeChain",
+          "chain": "openEditEmployeeChain",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -160,7 +160,7 @@
     "openNewEmployeeListener": {
       "chains": [
         {
-          "chainId": "openNewEmployeeDialogChain",
+          "chain": "openNewEmployeeDialogChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -170,7 +170,7 @@
     "createNewEmployeeListener": {
       "chains": [
         {
-          "chainId": "createNewEmployeeChain",
+          "chain": "createNewEmployeeChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -180,7 +180,7 @@
     "updateEmployeeListener": {
       "chains": [
         {
-          "chainId": "saveEmployeeChain",
+          "chain": "saveEmployeeChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }

@@ -1,0 +1,18 @@
+{
+  "id": "dyn-table-custom-action",
+  "description": "Flow main",
+  "defaultPage": "dyn-table-custom-action-start",
+  "services": {},
+  "types": {},
+  "variables": {},
+  "@dt": {
+    "chains": {
+      "validateFormChain": {
+        "autowire": {
+          "contextKey": "vb-quickstarts-js",
+          "name": "validateFormChain"
+        }
+      }
+    }
+  }
+}

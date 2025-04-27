@@ -1,0 +1,82 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse",
+        "sortCriteria": [
+          "[[ $page.variables.sort ]]"
+        ]
+      }
+    },
+    "sort": {
+      "type": {
+        "attribute": "string",
+        "direction": "string"
+      },
+      "defaultValue": {
+        "attribute": "firstName",
+        "direction": "descending"
+      },
+      "persisted": "history"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "lastName": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "eventListeners": {
+    "tableFirstSelectedRow": {
+      "chains": [
+        {
+          "chain": "TableFirstSelectedRowChangeChain",
+          "parameters": {
+            "rowKey": "{{$event.detail.value.key}}",
+            "rowData": "{{$event.detail.value.data}}"
+          }
+        }
+      ]
+    },
+    "tableSort": {
+      "chains": [
+        {
+          "chain": "TableSortChain",
+          "parameters": {
+            "sort": "[[ $event.detail ]]"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
+      }
+    }
+  }
+}

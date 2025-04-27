@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -11,16 +11,6 @@ define([
 
   class PageModule {
     constructor() {}
-
-    // this function adds a new field fullName in data
-    customizeData(restResponse) {
-      if (restResponse.body.items.length > 0) {
-        restResponse.body.items.forEach(function (item) {
-          item.fullName = item.firstName + " " + item.lastName;
-        });
-      }
-      return restResponse;
-    }
 
     // this function creates a customized oj-option item containing firstName, lastName, phoneNumber, and employee picture
     createDropdownItemFunction(applicationPath) {

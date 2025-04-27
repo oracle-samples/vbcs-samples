@@ -1,64 +1,21 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
 define([
-  "ojs/ojrowdatagridprovider",
-  "ojs/ojbufferingdataprovider",
   "ojs/ojconverter-number",
-], (RowDataGridProvider, BufferingDataProvider, NumberConverter) => {
+], (NumberConverter) => {
   "use strict";
 
   class PageModule {
     constructor() {
-      this.dataColumnNames = [
-        "firstName",
-        "lastName",
-        "jobObject",
-        "salary",
-        "jobObject",
-        "review"
-      ];
       this.editingInProgress = false; // keeps track if editing is going on
       this.numberConverter = new NumberConverter.IntlNumberConverter({
         style: "currency",
         currency: "USD",
         currencyDisplay: "symbol",
         maximumFractionDigits: 0,
-      });
-    }
-
-    /**
-     *
-     * @param {String} sdp
-     * @return {String}
-     */
-    getRowGridDataProvider(sdp) {
-      this.bufferingDP = new BufferingDataProvider(sdp);
-      this.bufferingDP.addEventListener("submittableChange", (event) => {
-        const submittableRows = event.detail;
-        this.showSubmittableItems(submittableRows);
-      });
-
-      return new RowDataGridProvider.RowDataGridProvider(this.bufferingDP, {
-        columns: {
-          rowHeader: ["id"],
-          databody: this.dataColumnNames,
-        },
-        columnHeaders: {
-          column: [
-            { data: "First Name" },
-            { data: "Last Name" },
-            { data: "Job" },
-            { data: "Salary" },
-            { data: "Salary Range" },
-            { data: "Review Needed"}
-          ],
-        },
-        headerLabels: {
-          row: ["Id"],
-        },
       });
     }
 
@@ -141,7 +98,7 @@ define([
       }
     }
 
-    onBeforeEditEnd(event) {
+    onBeforeEditEnd(event, bufferingDP, dataColumnNames) {
       if (event.detail.cancelEdit === false) {
         const editable = event.target.querySelector(".editable");
 
@@ -161,7 +118,7 @@ define([
 
           // from update event change the data item with latest update
           let columnIndex = event.detail.cellContext.indexes.column;
-          let dataColumn = this.dataColumnNames[columnIndex];
+          let dataColumn = dataColumnNames[columnIndex];
 
           if (dataColumn === "jobObject") {
             // get the data out of the select single which is in valueItem not value
@@ -183,35 +140,11 @@ define([
           // write back to the cell context for immediate update
           event.detail.cellContext.data.data =
             this.bufferredRowData.data[dataColumn];
-          this.bufferingDP.updateItem(this.bufferredRowData);
+          bufferingDP.updateItem(this.bufferredRowData);
         }
       }
 
       this.editingInProgress = false; // mark end of editing
-    }
-
-    showSubmittableItems(submittableRows) {
-      let textarea = document.getElementById("bufferContent");
-      let textValue = "";
-      submittableRows.forEach((editItem) => {
-        textValue += "Operation: " + editItem.operation + ", ";
-        textValue += "Row ID: " + editItem.item.data.id;
-        if (editItem.item.metadata.message) {
-          textValue +=
-            " error: " + JSON.stringify(editItem.item.metadata.message);
-        }
-        textValue += "\n";
-      });
-      textarea.value = textValue;
-    }
-
-    generateBatchSnippet(url, payload, operation, id) {
-      return {
-        id: id ? id : "someID",
-        path: url,
-        operation: operation,
-        payload: payload ? payload : {},
-      };
     }
 
     isEditingCompleted() {
@@ -230,106 +163,6 @@ define([
         });
       }
       return true;
-    }
-
-    createBatchPayload() {
-      let isInvalidData = false;
-      let payloads = [];
-      let uniqueId = new Date().getTime();
-      let editItems = this.bufferingDP.getSubmittableItems();
-      editItems.forEach((editItem) => {
-        // validate the record
-        if (!this.validateRecord(editItem.item.data)) {
-          isInvalidData = true;
-          return;
-        }
-
-        let change = editItem.operation;
-        let key = editItem.item.data.id;
-
-        // clone record - some properties will be deleted from the clone:
-        let record = JSON.parse(JSON.stringify(editItem.item.data));
-        if (change === "remove") {
-          payloads.push(
-            this.generateBatchSnippet("/Employee/" + key, {}, "delete")
-          );
-        } else if (change === "add") {
-          delete record.departmentObject;
-          delete record.jobObject;
-          delete record.id;
-          // default some required fields:
-          uniqueId = ++uniqueId;
-          record.email = "person" + uniqueId + "@company.com";
-          record.hireDate = new Date();
-          record.department = 1;
-          payloads.push(
-            this.generateBatchSnippet("/Employee", record, "create")
-          );
-        } else if (change === "update") {
-          delete record.departmentObject;
-          delete record.jobObject;
-          payloads.push(
-            this.generateBatchSnippet(
-              "/Employee/" + key,
-              record,
-              "update"
-            )
-          );
-        }
-      });
-
-      if (isInvalidData) {
-        return "error";
-      }
-
-      if (payloads.length > 0) {
-        return {
-          parts: payloads,
-        };
-      }
-
-      return "nodata";
-    }
-
-    validateRecord(record) {
-      if (
-        record.firstName === undefined ||
-        record.lastName === undefined ||
-        record.job === undefined ||
-        record.salary === undefined ||
-        record.salary < record.jobObject.items[0].minSalary ||
-        record.salary > record.jobObject.items[0].maxSalary
-      ) {
-        return false;
-      }
-      return true;
-    }
-
-    setItemStatus(editItem, status, error) {
-      this.bufferingDP.setItemStatus(editItem, status, error);
-    }
-
-    // Setting the status of saved items to 'submitting'
-    setStatusToSubmitting() {
-      let editItems = this.bufferingDP.getSubmittableItems();
-      editItems.forEach((editItem) => {
-        this.setItemStatus(editItem, "submitting");
-      });
-      return editItems;
-    }
-
-    // Setting the status of saved items to 'submitted'
-    setStatusToSubmitted(submittableItems) {
-      submittableItems.forEach((editItem) => {
-        this.setItemStatus(editItem, "submitted");
-      });
-    }
-
-    // Setting the status of saved items to 'unsubmitted'
-    setStatusToUnsubmitted(unsubmittableItems) {
-      unsubmittableItems.forEach((editItem) => {
-        this.setItemStatus(editItem, "unsubmitted");
-      });
     }
 
     /**
@@ -354,10 +187,6 @@ define([
           }
         },
       };
-    }
-
-    updateReview(rowData) {
-      this.bufferingDP.updateItem({ data: rowData, metadata: { key: rowData.id } });
     }
   }
 

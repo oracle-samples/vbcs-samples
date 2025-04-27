@@ -18,10 +18,7 @@
     "ojButton2830491771OjAction": {
       "chains": [
         {
-          "chainId": "ButtonActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "ButtonActionChain"
         }
       ]
     }

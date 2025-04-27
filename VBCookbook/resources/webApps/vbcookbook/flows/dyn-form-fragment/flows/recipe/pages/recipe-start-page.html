@@ -1,0 +1,46 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Create a dynamic table</h1>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D0C26115-1F0D-46A2-8619-39FD4E3180D8">Add
+              a Dynamic Table</a> to the page and use the quick start wizard to add the data to it.</li>
+          <li>Set the table's <code>selection-mode.row</code> property to <code>single</code> and
+            <code>selection-required</code> to <code>true</code>.
+          </li>
+          <li>Add a <code>First Selected Row</code> Event Listener to the table and assign the key of the selected row
+            to a
+            page variable <code>rowId</code> in the corresponding action chain.</li>
+          <li>
+            Add an oj-drawer-popup component to the page, which will contain the fragment.
+          </li>
+          <li>Add a button to the page on top of the table to handle opening and closing
+            the drawer component</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create a fragment with dynamic form</h1>
+      <div>
+        <ol>
+          <li>
+            Create a fragment and add a dynamic form to it. Use the Configure as Edit Form quick start to display the
+            values.
+          </li>
+          <li>Add this fragment inside the oj-drawer-popup component on the page. Surround it by oj-bind-if to
+            conditionally remove it from the DOM when the drawer closes, and to re-add it when the drawer opens. This
+            way, the fragment always has the updated values when the drawer re-opens.</li>
+          <li>Pass the page variable <code>rowId</code> as an input parameter to the fragment to fetch the record
+            of the selected row for editing.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

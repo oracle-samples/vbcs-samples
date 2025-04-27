@@ -1,0 +1,56 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  When multiple dynamic forms share editing of a single entity record, as in the case of the Advanced Create and Edit
+  Page
+  Template that composes a UI of focused sections, the quick-start generated code results in one REST call per dynamic
+  form.
+</p>
+<p>
+  We use the dynamic UI's <code>$metadata.provider.getFieldsToFetch</code> API and then edit the page to make one REST
+  call for the dynamic forms in the page that edit the record.
+  The <code>getFieldsToFetch</code> returns the configuration of the fields which are needed to render the layout(s)
+  based on the layout and metadata. We pass <code>getFieldsToFetch</code> all three layouts and it returns a union of
+  fields to fetch if all layouts are for the same entity record.
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Update Page to Make One REST Call</h1>
+      <div>
+        <ol>
+          <li>In the Code view of the Page Designer, remove the <code>rendered-fields</code> property from all the forms
+            and, in the Event Listeners and Variables tabs, also remove the variables and
+            listeners used for this property.</li>
+
+          <li>In the Event Listeners tab, use one of the <code>loadEmployeeChain</code> action chains from the
+            <code>vbEnter</code>
+            page event listener to fetch data during page opening and delete the other two redundant
+            <code>loadEmployeeChain</code> action chains.
+          </li>
+          <li>In the <code>loadEmployeeChain</code> action chain, remove the <code>fetchedFields</code> parameter from
+            the action
+            chain and replace it with the
+            <code>$metadata</code> input parameter instead. In the <code>vbEnter</code> listener,
+            map <code>$metadata.businessObjectsUpdateEmployeeMetadata</code> as a value for the
+            <code>$metadata</code> chain parameter.
+          </li>
+
+          <li>
+            Still in the action chain, add the following line after the Reset Variables block to combine all
+            the fields from multiple dynamic form layouts into one constant:
+            <pre><code>const fetchedFields = await $metadata.provider.getFieldsToFetch({layout:["nameSection", "salaryForm", "contactForm"]});</code></pre>
+            Note that the <code>fetchedFields</code> variable is later passed into <code>Actions.callRest</code> through
+            the
+            <code>responseFields</code> parameter to tell the REST call which fields to fetch.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

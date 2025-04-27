@@ -1,0 +1,19 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Dynamic Container Templates -->
+
+<template id="template1">
+  <oj-sp-section section-title="[[$labelHint]]">
+    <oj-validation-group id="employmentWhenAndWhy-validation-group--2120301831-1">
+      <oj-dyn-form metadata="[[ $metadata.employmentWhenAndWhyUpdateEmploymentWhenAndWhyMetadata.provider ]]"
+        layout="whenAndWhy" value="{{ $variables.employmentWhenAndWhy }}"
+        value-loading="[[ $variables.employmentWhenAndWhyEditFormLoadingStatus ]]"
+        rendered-fields="{{ $variables.employmentWhenAndWhyEditFormRenderedFields }}" operation="edit"
+        id="oj-dyn-form-fetch-record-for-lov" on-transient-value-changed="[[$listeners.ojDynForm21203018311TransientValue]]">
+      </oj-dyn-form>
+    </oj-validation-group>
+  </oj-sp-section>
+</template>

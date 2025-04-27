@@ -1,0 +1,67 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "fetchedJob": {
+      "type": "object"
+    },
+    "job": {
+      "type": "object"
+    },
+    "jobEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "jobEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadJobChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.jobEditFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "jobETag": {
+      "type": "string"
+    }
+  },
+  "metadata": {
+    "businessObjectsUpdateJobMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Job"
+      }
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chain": "saveJobChain",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

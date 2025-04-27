@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -21,7 +21,7 @@
             <code>mypic</code>.
           </li>
           <li>In the Variables tab of the page, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create
               the following variables</a>:
             <ul>
               <li><code>imageUrl</code> of type String</li>
@@ -39,88 +39,51 @@
           <li>Select the File Picker component and in the Properties pane add an ojSelect event that creates an action
             chain named <strong>FilePickerActionChain</strong> with files array as parameter.
           </li>
-          <li>Add a <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E7BE6B00-7221-40E4-821D-59BEBBA0D896">
-              Call Function action</a> in the action chain and assign it an ID of
-            <code>callAddImageFunction</code>.
-          </li>
-          <li>In the Properties pane, click <strong>Create</strong> beside the Function Name field to create a new
-            function with a page scope named <code>addImageFunction</code>.</li>
-
-          <li>Click <strong>Go to Module Function</strong> and in the JavaScript tab add the following code:
+          <li>In the action chain write a function to read the selected file data.
             <code>
                   <pre>
-define([], function () {
-  "use strict";
+async run(context, { files }) {...
+  function addImageFunction(file) {
+    return new Promise((resolve) =&gt; {
+      const blobURL = URL.createObjectURL(file);
+      const reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        function () {
+          // convert image file to base64 string
+          resolve({
+            data: reader.result,
+            url: blobURL,
+          });
+          document.getElementById("mypic").onload = function () {
+            URL.revokeObjectURL(blobURL);
+          };
+        },
+        false
+      );
 
-  class PageModule {
-    constructor() {}
-
-    /**
-     *
-     * @param {String} arg1
-     * @return {String}
-     */
-    addImageFunction(file) {
-      return new Promise((resolve) => {
-        const blobURL = URL.createObjectURL(file);
-        const reader = new FileReader();
-        reader.addEventListener(
-          "load",
-          function () {
-            // convert image file to base64 string
-            resolve({
-              data: reader.result,
-              url: blobURL,
-            });
-            document.getElementById("mypic").onload = function () {
-              URL.revokeObjectURL(blobURL);
-            };
-          },
-          false
-        );
-
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-      });
-    }
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
   }
 
-  return PageModule;
-});
+  const addImageFunctionReturn = await addImageFunction(files[0]);
+..
+}
+
+return FilePickerSelectChain;
+
 </pre>
 </code>
           </li>
-          <li>In the action chain Properties pane of the Call Function action, click <strong>Assign</strong> beside
-            Input Parameters.</li>
-          <li>In the Assign Input Parameters dialog, expand Results under Source to locate the Variables->Files->item[0]
-          </li>
-          <li>Map item[0] to file under Parameters in Target so that the final expression for the file parameter
-            reads as follows:
-            <br><code>$variables.files[0]</code>.
-          </li>
-          <li>Click <strong>Save</strong>.</li>
-        </ol>
-      </div>
-    </oj-collapsible>
-
-    <oj-collapsible id="step-3">
-      <span slot="header">Map Output of Module Function to Page Variables</span>
-      <div>
-        <ol>
-          <li>In the action chain, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
-              an Assign Variables action</a> after the Call Function action.
-          </li>
-          <li>In the Properties pane of the Assign Variables action, click <strong>Assign</strong> and map the output of
-            <code>callModuleFunction</code> to <code>imageUrl</code> and <code>holdImage</code> respectively.
-            <ul>
-              <li>For <code>imageUrl</code> add <code>.url</code> in the Expression editor so that the final expression
-                is <code>$chain.results.callModuleFunction.url</code>.</li>
-              <li>For <code>holdImage</code> add <code>.data</code> in the Expression editor so that the final
-                expression is <code>$chain.results.callModuleFunction.data</code>.</li>
-            </ul>
+          <li>Update the page variables <code>holdImage</code> and <code>imageUrl</code> based on the <code>addImageFunctionReturn</code>.
+          <code>
+            <pre>
+$page.variables.holdImage = addImageFunctionReturn.data;
+$page.variables.imageUrl = addImageFunctionReturn.url;
+            </pre>
+          </code>
           </li>
 
           <li>Click <strong>Save</strong>.</li>

@@ -1,13 +1,14 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <!-- template -->
 <p>
   A Table component displays department data. A Checkbox Set component with an
-  event listener updates the <code>selection</code> variable that holds an array
-  of selected department rows.
+  event listener updates the <code>selectionRows</code> variable that holds an array
+  of selected department rows. getEnhancedDataProvider() API is used to retrieve the 
+  cached rows data avoiding new REST calls on every selection change.
 </p>
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
@@ -25,10 +26,10 @@
             page.
           </li>
           <li>
-            Use the Table component’s
+            Use the Table component's
             <a
               target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D"
               >Add Data Quick Start</a
             >
             to bind your table to department data.
@@ -42,280 +43,153 @@
               <li>Location Id</li>
             </ul>
           </li>
-          <li>
-            <a
-              target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B"
-              >Create a page variable</a
-            >
-            named <code>currentSelection</code> of type String.
+          <li>This create a new variable <code>departmentListSDP</code> of type Service Data Provider.
           </li>
-          <li>
-            Create a page variable named <code>rowData</code> of type Array and
-            subtype Object.
-          </li>
-          <li>
-            Open the JavaScript tab and change the import section and the constructor code to include the required dependencies:
-            <pre>
-define(["knockout", "ojs/ojkeyset"], function (ko, keySet) {
-  "use strict";
-
-  class PageModule {
-    constructor() {
-      this.selectedRows = ko.observable(new keySet.KeySetImpl());
-    }
-            </pre>
-          </li>
-          <li>
-            Still in the JavaScript tab, paste the following code snippet to
-            make the selected variable accessible:
-            <pre>
-getSelectedRows() {
-  return this.selectedRows;
-};
-            </pre>
-          </li>
-          <li>
-            In the Properties pane of the Table component, assign <code>[[$page.functions.getSelectedRows()]]</code> to
-            the selected.row attribute.
-          </li>
+          <li>In the General tab of the Properties pane for the Table select <strong>Multiple</strong> for 
+          the Selection Mode, Row property.</li>
         </ol>
       </div>
     </oj-collapsible>
-
+    
     <oj-collapsible id="oj-collapsible-1494599579-2">
-      <span slot="header">Add Event Listeners to Invoke Action Chains</span>
-      <div>
-        <p>
-          Add listeners for events that then invoke the action chain to get
-          selected keys and assign them to the page variable to display in the
-          UI.
-        </p>
-        <ol>
-          <li>
-            <a
-              target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314"
-              >Add an event listener</a
-            >, <code>selected</code>, to the Table component:
-            <ul>
-              <li>
-                In the Events tab, click <strong>New Event</strong> and then
-                select <strong>New Custom Event</strong>.
-              </li>
-              <li>
-                In the Select Event dialog, expand the Property Changes section,
-                select <b>selected</b> and click <strong>Next</strong>.
-              </li>
-              <li>
-                In the Select Action Chain dialog, select an existing action
-                chain or create a new action chain by clicking
-                <strong>New Action Chain</strong>.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html"
-              >Add a Call Module Function action</a
-            >
-            to the action chain named <code>TableSelectedChangeChain</code>. In
-            the Properties pane of the Call Function action:
-            <ul>
-              <li>Enter ID of <code>selectedChangedModuleFunction</code>.</li>
-              <li>
-                Create a function named <code>selectedChangedListener</code> and
-                assign the <code>selected</code> variable in the action chain to
-                the <code>selected</code> variable in the target which is the
-                name of function argument.
-              </li>
-              <li>
-                Copy and paste the following code for
-                <code>selectedChangedListener</code>
-                <pre>
-selectedChangedListener(selected) {
-  let selectionText = '';
-
-  if (selected.row.isAddAll()) {
-    let iterator = selected.row.deletedValues();
-    iterator.forEach(function (key) {
-      selectionText = selectionText.length === 0 ? key :
-        selectionText + ', ' + key;
-    });
-
-    if (iterator.size > 0) {
-      selectionText = ' except row key(s): ' + selectionText;
-    }
-    selectionText = 'All rows are selected' +
-      selectionText;
-  } else {
-    if (selected.row.values().size > 0) {
-      selected.row.values().forEach(function (key) {
-        selectionText += (selectionText.length === 0 ? key :
-          ', ' + key);
-      });
-      selectionText = 'Selected row key(s): ' + selectionText;
-    }
-
-  }
-  return selectionText;
-};
-</pre
-                >
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <a
-              target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D"
-              >Add an Assign Variables action</a
-            >
-            to the action chain named <code>TableSelectedChangeChain</code> that
-            assigns the output of the
-            <code>selectedChangedModuleFunction</code> function of the action
-            chain to the <code>currentSelection</code> page variable in Target.
-          </li>
-          <li>
-            Add an If action to the action chain named
-            <code>TableSelectedChangeChain</code>. In the Properties pane of the
-            If action, set the Condition property to
-            <code>[[ !$variables.selected.row.isAddAll() ]]</code>.
-          </li>
-          <li>
-            <a
-              target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html"
-              >Add a Call Module Function action</a
-            >
-            to the action chain named <code>TableSelectedChangeChain</code>. In
-            the Properties pane of the Call Function action:
-            <ul>
-              <li>Enter ID of <code>callFunctionGetRowsForIDs</code>.</li>
-              <li>
-                Create a function named <code>getRowsForIDs</code> and assign
-                the <code>document.getElementById('table')</code> to the first
-                function argument and
-                <code>Array.from($variables.selected.row.values())</code> to the
-                second function argument.
-              </li>
-              <li>
-                Copy and paste the following code for
-                <code>getRowsForIDs</code> which iterates over row records in
-                the table and finds matching row data for selected row IDs:
-                <pre>
-getRowsForIDs(table, rowIDs) {
-  let index = 0;
-  let result = [];
-  // search only in first 1000 rows:
-  while (index < 1000) {
-    let row = table.getDataForVisibleRow(index);
-    if (row === null) {
-      return result;
-    }
-    const match = rowIDs.indexOf(row.data.id);
-    if (match > -1) {
-      rowIDs.splice(match, 1);
-      result.push(row.data);
-      if (rowIDs.length === 0) {
-        return result;
-      }
-    }
-    index++;
-  }
-  return result;
-};
-</pre
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a>Add an Assign Variables action</a> to the action chain named
-            <code>TableSelectedChangeChain</code> that assigns the output of the
-            Call Function action from Sources to <code>rowData</code> in Target.
-            Reset Target to <code>none</code>.
-          </li>
-        </ol>
-      </div>
-    </oj-collapsible>
-
-    <oj-collapsible id="oj-collapsible-1494599579-3">
-      <span slot="header"
-        >Add a Text Area Component to Display Selected Records</span
-      >
+      <h1 slot="header">Read and Select Rows</h1>
       <div>
         <ol>
-          <li>
-            In the Component Palette, drag a Text Area component and drop it on
-            the page.
+          <li>In the Variables tab, create a new variable named <code>selectedRows</code> of type Any.</li>
+          <li>In the Event Listener tab, add the <code>vbEnter</code> event listener to the page and name the associated
+            action chain <code>initializeVariables</code>.
           </li>
-          <li>
-            In the General tab of the Text Area component's Properties pane,
-            assign label-hint attribute to <code>Current Selection</code>.
+          <li>In the Code view of the action chain, initialize <code>selectionRows</code> as follows:
+            <pre>$page.variables.selectedRows = { "row": new keySet.KeySetImpl(), "column": new keySet.KeySetImpl() };</pre>
+            Remember to add the definition for <code>'ojs/ojkeyset'</code>.
           </li>
-          <li>
-            In the Data Tab, assign the Value field to
-            <code
-              >{{ ($variables.currentSelection ? $variables.currentSelection
-              :'') + ($variables.rowData.length === 0 ? '' : '\n'+ 'Row Data:
-              '+JSON.stringify ($variables.rowData)) }}</code
-            >.
+          <li>In the Data tab of the Properties pane for Table, set the Selected property to
+            <code>{{ $variables.selectedRows }}</code>.
           </li>
-        </ol>
-      </div>
-    </oj-collapsible>
-
-    <oj-collapsible id="oj-collapsible-1494599579-4">
-      <span slot="header">Add Programmatic Selection Of Rows</span>
-      <div>
-        <p>
-          Add a button to programmatically select two rows and another button to
-          deselect all selected rows.
-        </p>
-        <ol>
-          <li>
-            In the Component Palette, drag two Button components and drop them
-            on the page.
-          </li>
-          <li>
-            In the Events tab of the Properties pane for each Button component, add an ojAction event.
-          </li>
-          <li>
-            In each of the action chains that are created, add a Call Function
-            action and click <strong>Create</strong> in the Call Function
-            Properties pane to create functions named
-            <code>deselectAll</code> and <code>selectSpecificRows</code>.
-          </li>
-          <li>
-            In the JavaScript tab, write the following code for each of the
-            functions that you created.
-            <pre> 
-deselectAll() {
-  this.selectedRows(new keySet.KeySetImpl());
-};
-
-selectSpecificRows() {
-  this.selectedRows(new keySet.KeySetImpl([1,3])); // row with dept no. 1 and 3
-};
-
+          <li>To control row selection programmatically, set the <code>selectedRows</code> variable as follows:
+            <pre>// reset the current selection to none
+$page.variables.selectedRows = { "row": new keySet.KeySetImpl(), "column": new keySet.KeySetImpl() };
+ 
+// select only specific key rows with keys 1,3
+$page.variables.selectedRows = { "row": new keySet.KeySetImpl([1,3]), "column": new keySet.KeySetImpl() };
+ 
+// access selected row keys
+let rowSelection = $page.variables.selectedRows.row;
+if (rowSelection.isAddAll()) {
+  // all rows are selected and no row keys will be provided
+  // as table may not have all of them displayed anyway.
+  // check also Array.from(rowSelection.deletedValues()) for individual
+  // rows which may have been excluded from "all rows selected" list
+} else {
+  // array of row keys:
+  const rowKeys = Array.from(rowSelection.values());
+}
+ 
+// to check if any row is selected or not
+let rowSelection = $page.variables.selectedRows.row;
+return rowSelection.isAddAll() || rowSelection.values().size > 0;
 </pre>
+ 
+ 
           </li>
-          <li>Also in the JavaScript tab, write the following code to disable the <strong>Deselect All</strong> button when no table rows are selected.
+ 
+        </ol>
+      </div>
+    </oj-collapsible>
+ 
+    <oj-collapsible id="oj-collapsible-1494599579-3">
+      <h1 slot="header">Access Data for the Selected Rows</h1>
+      <div>
+        <p>To access data for the selected rows, we need to fetch it from the data provider. The
+          <code>departmentListSDP</code> is stateless and does not cache row data, so the Table 
+          cannot be relied on to return up-to-date data without a REST call to the backend service. 
+          To avoid unnecessary REST calls, we'll make use of 
+          <a target="_blank" href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/ojdataproviderfactory.html">DataProviderFactory.getEnhancedDataProvider</a> to create an enhanced data provider
+          (<code>enhancedDP</code>)
+          that wraps <code>departmentListSDP</code> and caches row data, 
+          so that data for selected rows is returned from an in-memory cache.
+        </p>
+        <ol>
+ 
+          <li>In the Variables tab, create a new variable named <code>enhancedDP</code> of type Any.
+          </li>
+          <li>In the Code view of the <code>initializeVariables</code> action chain, initialize
+            <code>enhancedDP</code> as follows:
+ 
             <pre>
-isSelectionEmpty(selection) {
-  let row = selection.row;
-  if (row.isAddAll()) {
-    return false;
-  } else {
-    return row.values().size === 0;  
-  }
-};
+// initialize the enhancedDP using the departmentListSDP
+$page.variables.enhancedDP = DataProviderFactory.getEnhancedDataProvider( $page.variables.departmentListSDP, {fetchFirst :
+{ caching: 'visitedByCurrentIterator' }});
+</pre>
+            Remember to also add the definition for <code>ojs/ojdataproviderfactory</code> at the start of the action
+            chain:
+            <pre>
+define([
+  . . .
+  'ojs/ojdataproviderfactory',
+  'ojs/ojkeyset'
+], (
+  . . .
+  DataProviderFactory,
+  keySet
+) => {
             </pre>
           </li>
+ 
+          <li>In the All tab of the Properties pane for Table, set the Data property to
+            <code>[[$page.variables.enhancedDP]]</code>.
+          </li>
+          <li>In the Events tab of the Properties pane for Table, add a <code>selected</code> event listener and
+            name the associated action chain <code>TableSelectedChangeChain</code>.</li>
+ 
+          <li>In the action chain, access the selected row keys using the <code>selected.row.keys</code> input parameter
+            and access
+            row data using
+            the <code>enhancedDP</code> variable's <code>fetchByKeys</code> method, as shown below:
+            <pre>
+async run(context, { keys, selected }) {
+  const { $page, $flow, $application } = context;
+ 
+  let isAllSelected = selected.row.keys.all;
+  let selectedKeys = selected.row.keys.keys;
+  let uncheckedKeys = selected.row.keys.deletedKeys;
+ 
+  if (isAllSelected === true) {
+    let selectionString = "All rows are selected.";
+ 
+    // check for unselected keys
+    if (uncheckedKeys.size > 0) {
+      selectionString += " except rows with key : " + Array.from(uncheckedKeys).toString();
+    }
+ 
+    $page.variables.currentSelectionString = selectionString;
+  }
+  else if (selectedKeys.size === 0) {
+    // all check box is not selected, check if any row is selected at all
+    $page.variables.currentSelectionString = "Nothing selected.";
+  }
+  else {
+    // only few specific rows are selected by user, get the row data for each.
+    $page.variables.enhancedDP.fetchByKeys({ keys: keys }).then(fetchResult => {
+      let rowsData = (fetchResult.results);
+ 
+      let selectionString = "Selected rows data: ";
 
+      rowsData.forEach(rowItem => {
+        selectionString += "\n{'id':'" + rowItem.data.id;
+        selectionString += "','departmentName':'" + rowItem.data.departmentName;
+        selectionString += "','location':'" + rowItem.data.location;
+        selectionString += "','manager':'" + rowItem.data.manager + "'}";
+      });
+ 
+      // optional - update the text area that shows the selection details
+      $page.variables.currentSelectionString = selectionString;
+    }
+    );
+  }
+}</pre>
+          </li>
+ 
         </ol>
       </div>
     </oj-collapsible>

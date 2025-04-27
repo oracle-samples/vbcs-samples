@@ -1,0 +1,21 @@
+/**
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ */
+define([], () => {
+  'use strict';
+
+  class DataDescriptionModule {
+
+  }
+  DataDescriptionModule.prototype.getMinSalaryLabel = function (currency) {
+    return "Minimum salary in " + currency?.toUpperCase();
+  };
+
+  DataDescriptionModule.prototype.getMaxSalaryLabel = function (currency) {
+    return "Maximum salary in " + currency?.toUpperCase();
+  };
+
+  return DataDescriptionModule;
+});

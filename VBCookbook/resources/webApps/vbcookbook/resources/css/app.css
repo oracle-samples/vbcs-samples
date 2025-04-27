@@ -1,8 +1,12 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
+.indent {
+  width: 16px;
+}
+
 .main{
 background-image: url("../images/categories/mainbg.png");
 }
@@ -291,4 +295,20 @@ pre {
 
 .text-wrap {
   max-width: 600px;
+}
+
+.header-style {
+  background-color: rgb(36 28 28);
+  padding-top: 20px;
+}
+
+.redwood-strip {
+  background-position: left bottom;
+  background-position-x: left;
+  background-position-y: bottom;
+  background-repeat: repeat-x;
+  height: 12px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-image: url("../images/colorstrip_redwood_desktop.png");
 }

@@ -1,0 +1,91 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">Add a
+    Dynamic Form</a> and use the Configure as Edit Form quick start to display employee details. In this example, we use
+  a Radio Button Set component
+  (<code>oj-radioset</code>) with an Array Data Provider to change the value of the <code>employmentStatus</code> field.
+</p>
+
+<p>
+
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Configure componentType and Data Provider for the Employee Status Field</h1>
+      <div>
+        <ol>
+          <li>In the Source tab, open the Employee layout's <code>data-description-overlay.json</code> file and, using
+            <code>addMetadata</code> or
+            <code>replaceMetadata</code>, set the <code>componentType</code> of <code>employmentStatus</code> field to
+            <code>oj-radioset</code>
+            and configure the <code>dataProvider</code> as <code>ojs/ojarraydataprovider</code>.
+            <code><pre>
+"employmentStatus": {
+  "type": "string",
+  "labelHint": "Employment Status",
+  "componentType": "oj-radioset",
+  "dataProvider": {
+    "factory": "ojs/ojarraydataprovider",
+    "parameters": [
+      [
+        {
+          "value": "active",
+          "label": "Active"
+        },
+        {
+          "value": "pending",
+          "label": "Pending"
+        },
+        {
+          "value": "inactive",
+          "label": "Inactive"
+        }
+      ],
+      {
+        "keyAttributes": "value"
+      }
+    ]
+  }
+},
+  </pre></code>
+            <p>In this example, the data provider uses an Array Data Provider with static data. A Service Data Provider
+              can also be
+              configured in this way.</p>
+          </li>
+          <li>The default arrangement of options in a Radio Button Set component is vertical. That is, a new option
+            appears underneath
+            the previous option. The Radio Button Set component's <a
+              href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.ojRadioset.html#oj-choice-direction-row"
+              target="_blank">oj-choice-direction-row class</a>
+            lays out options in a
+            row. To use
+            this class, in the JSON tab of the dynamic form's Employee layout, add the class to the
+            <code>employeeStatus</code>
+            field, as shown
+            in the following example.
+            <code><pre>
+"displayProperties": [
+  "firstName",
+  "lastName",
+  {
+    "employmentStatus" :{
+      "class" : "oj-choice-direction-row"
+    }
+  }
+]</pre></code>
+
+          </li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

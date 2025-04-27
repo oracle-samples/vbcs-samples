@@ -41,7 +41,7 @@
     },
     "copyright": {
       "type": "string",
-      "defaultValue": "Copyright © 2014, 2023 Oracle and/or its affiliates All rights reserved."
+      "defaultValue": "Copyright © 2014, 2025 Oracle and/or its affiliates All rights reserved."
     },
     "secondaryActions": {
       "type": "object[]",
@@ -70,41 +70,41 @@
     "buttonAction3": {
       "chains": [
         {
-          "chainId": "ButtonActionChain"
+          "chain": "ButtonActionChain"
         }
       ]
     },
     "generalOverviewPageHeaderSpInFlowBack": {
       "chains": [
         {
-          "chainId": "navigateToHomePage"
+          "chain": "navigateToHomePage"
         }
       ]
     },
     "generalOverviewPageHeaderSpSecondaryAction": {
       "chains": [
         {
-          "chainId": "openHelp"
+          "chain": "openHelp"
         }
       ]
     },
     "vbNotification": {
       "chains": [
         {
-          "chainId": "showNotification",
           "parameters": {
             "eventPayload": "{{ { id: $event.key, summary: $event.summary, detail: $event.message, severity: $event.type, autoTimeout: $event.displayMode === 'transient' ? 0 : -1, timestamp: oj.IntlConverterUtils.dateToLocalIso(new Date()) } }}"
-          }
+          },
+          "chain": "showNotification"
         }
       ]
     },
     "onMessageClose": {
       "chains": [
         {
-          "chainId": "closeNotificationHandler",
           "parameters": {
             "eventMessage": "{{ $event.detail.message }}"
-          }
+          },
+          "chain": "closeNotificationHandler"
         }
       ]
     }
@@ -125,9 +125,6 @@
       },
       "oj-option": {
         "path": "ojs/ojoption"
-      },
-      "oj-sp-header-general-overview": {
-        "path": "oj-sp/header-general-overview/loader"
       },
       "oj-input-text": {
         "path": "ojs/ojinputtext"

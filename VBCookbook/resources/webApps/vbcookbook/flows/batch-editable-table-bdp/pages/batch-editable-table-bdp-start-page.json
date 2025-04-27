@@ -3,7 +3,11 @@
   "description": "",
   "variables": {
     "employeesBDP": {
-      "type": "any"
+      "type": "application:ojs/ojbufferingdataprovider",
+      "constructorParams": [
+        "[[ $variables.employeesSDP ]]",
+        null
+      ]
     },
     "employeesSDP": {
       "type": "vb/ServiceDataProvider",
@@ -54,9 +58,16 @@
       "type": "boolean",
       "defaultValue": false
     },
+    "nextIdValue": {
+      "type": "number",
+      "defaultValue": 10000
+    },
     "noChangesToSave": {
       "type": "boolean",
       "defaultValue": true
+    },
+    "originalRowValues": {
+      "type": "any"
     },
     "scrollPosition": {
       "type": "any"
@@ -65,6 +76,7 @@
       "type": "any",
       "defaultValue": {}
     }
+
   },
   "metadata": {},
   "types": {
@@ -158,10 +170,8 @@
     "deleteRowButtonCurrentRowIdOjAction": {
       "chains": [
         {
-          "chainId": "DeleteRow",
+          "chain": "DeleteRow",
           "parameters": {
-            "index": "{{ $current.index }}",
-            "current": "{{ $current }}",
             "key": "{{ $current.key }}",
             "row": "{{ $current.row }}"
           }
@@ -171,7 +181,7 @@
     "ojSelectSingleValue": {
       "chains": [
         {
-          "chainId": "JobChanged",
+          "chain": "JobChanged",
           "parameters": {
             "value": "{{ $event.detail.value }}",
             "key": "{{ $current.key }}",
@@ -182,57 +192,41 @@
         }
       ]
     },
-    "tableEditEvent": {
+    "tableBeforeRowEdit": {
+      "asyncBehavior": "enabled",
       "chains": [
         {
-          "parameters": {
-            "event": "{{ $event }}",
-            "detail": "{{ $event.detail }}",
-            "name": "{{ $event.name }}"
-          },
-          "chainId": "tableEditChain"
-        }
-      ]
-    },
-    "vbEnter": {
-      "chains": [
-        {
-          "chainId": "FetchEmployees",
-          "parameters": {}
-        }
-      ]
-    },
-    "ojTable18296469261OjBeforeRowEdit": {
-      "chains": [
-        {
-          "chainId": "TableBeforeRowEditChain",
+          "chain": "TableBeforeRowEdit",
           "parameters": {
             "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
+            "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
+          }
+        }
+      ]
+    },
+    "tableBeforeRowEditEnd": {
+      "asyncBehavior": "enabled",
+      "chains": [
+        {
+          "chain": "TableBeforeRowEditEnd",
+          "parameters": {
+            "cancelEdit": "{{$event.detail.cancelEdit}}",
+            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
+            "rowIndex": "{{$event.detail.rowContext.status.rowIndex}}",
             "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}",
-            "event": "{{ $event }}"
+            "event": "{{$event}}",
+            "currentRowBuffer": "{{$page.variables.currentRowBuffer}}"
           }
         }
-      ]
-    },
-    "ojTable18296469261OjBeforeRowEditEnd": {
-      "chains": [
-        {
-          "chainId": "TableBeforeRowEditEndChain",
-          "parameters": {
-            "rowKey": "{{$event.detail.rowContext.status.rowKey}}",
-            "rowData": "{{$page.variables.currentRowBuffer}}",
-            "event": "{{ $event }}",
-            "originalRowData": "{{ $event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data }}"
-          }
-        }
-      ]
+      ],
+      "preventDefault": "[[ $page.variables.disableRowEditExit || !$page.functions.isFormValid($event) ]]"
     },
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "InsertRow",
+          "chain": "InsertRow",
           "parameters": {
-            "detail": "{{ $event.detail }}"
           }
         }
       ]
@@ -240,14 +234,30 @@
     "ojButtonOjAction3": {
       "chains": [
         {
-          "chainId": "SubmitActionChain",
+          "chain": "SubmitChanges",
           "parameters": {
-            "detail": "{{ $event.detail }}"
           }
         }
       ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "parameters": {},
+          "chain": "AddChangesListener"
+        }
+      ]
+    },
+    "WorkaroundVBS28095": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chain": "WorkaroundVBS28095"
+        }
+      ]
     }
-
   },
   "imports": {
     "components": {
@@ -277,11 +287,11 @@
     }
   },
   "events": {
-    "tableEditEvent": {
+    "WorkaroundVBS28095": {
       "payloadType": {
-        "detail": "any",
-        "name": "string"
+        "record": "object"
       }
     }
-  }
+  },
+  "routerFlow": "recipe"
 }

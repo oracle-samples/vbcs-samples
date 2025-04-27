@@ -152,7 +152,7 @@
     "clearFilterAction": {
       "chains": [
         {
-          "chainId": "resetFilterCriterion",
+          "chain": "resetFilterCriterion",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -162,7 +162,7 @@
     "toggleFilterAction": {
       "chains": [
         {
-          "chainId": "toggleFilterPane",
+          "chain": "toggleFilterPane",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }

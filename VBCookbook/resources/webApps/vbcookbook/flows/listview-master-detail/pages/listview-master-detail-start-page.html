@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -48,7 +48,7 @@
       <div class="oj-flex-item oj-sm-flex-initial oj-flex oj-sm-flex-direction-column">
         <h2 class="oj-flex-item oj-sm-flex-initial">Employee Data</h2>
         <div class="oj-flex-item oj-sm-flex-initial oj-sm-align-self-center">
-          <oj-bind-if test="[[ $variables.selectedEmployee == undefined ]]">
+          <oj-bind-if test="[[ $variables.selectedEmployee === undefined ]]">
             <oj-avatar class="oj-flex-item oj-sm-flex-initial" size="lg"></oj-avatar>
           </oj-bind-if>
         </div>

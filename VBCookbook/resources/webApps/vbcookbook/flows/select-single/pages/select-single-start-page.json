@@ -177,12 +177,14 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "GetDeptData",
-          "parameters": {}
+
+          "parameters": {},
+          "chain": "GetDeptData"
         },
         {
-          "chainId": "GetDeptMultipleSuggestionGroupsData",
-          "parameters": {}
+
+          "parameters": {},
+          "chain": "GetDeptMultipleSuggestionGroupsData"
         }
       ]
     }

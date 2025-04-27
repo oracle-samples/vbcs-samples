@@ -35,8 +35,7 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "fetchEmployees",
-          "parameters": {}
+          "chain": "fetchEmployees"
         }
       ]
     }

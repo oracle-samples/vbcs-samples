@@ -1,0 +1,9 @@
+{
+  "id": "recipe",
+  "description": "Flow main",
+  "defaultPage": "recipe-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

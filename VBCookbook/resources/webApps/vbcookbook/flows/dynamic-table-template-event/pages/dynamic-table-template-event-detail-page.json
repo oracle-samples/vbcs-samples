@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Link Field Template Detail",
   "description": "",
   "variables": {
     "empId": {
@@ -8,9 +8,9 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadEmployeeChain2",
+            "chain": "loadEmployeeChain",
             "parameters": {
-              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields2 ]]",
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
               "employeeId": "{{ $variables.empId }}"
             }
           }
@@ -18,21 +18,21 @@
       },
       "input": "fromCaller"
     },
-    "employee2": {
+    "employee": {
       "type": "getEmployeeResponse"
     },
-    "employeeDetailFormLoadingStatus2": {
+    "employeeDetailFormLoadingStatus": {
       "type": "string",
       "defaultValue": "pending"
     },
-    "employeeDetailFormRenderedFields2": {
+    "employeeDetailFormRenderedFields": {
       "type": "any[]",
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadEmployeeChain2",
+            "chain": "loadEmployeeChain",
             "parameters": {
-              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields2 ]]",
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
               "employeeId": "{{ $variables.empId }}"
             }
           }
@@ -60,7 +60,7 @@
     "buttonAction": {
       "chains": [
         {
-          "chainId": "NavigateBackActionChain"
+          "chain": "NavigateBackActionChain"
         }
       ]
     }

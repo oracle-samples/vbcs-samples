@@ -1,0 +1,167 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  <a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-dynamic-table.html">Add
+    a Dynamic Table</a>
+  to the page and click <strong>Configure Layout</strong> in the Quick Start tab
+  of the Properties pane to add data using the Employee endpoint to the table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Implement Default Sorting in the Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>
+            <p>
+              Define the default sort for the dynamic table by creating a page
+              variable <code>sort</code> of type <code>Object</code> with two
+              fields:
+            </p>
+            <ul>
+              <li>
+                <code>attribute</code> with default value as
+                <code>firstName</code>
+              </li>
+              <li>
+                <code>direction</code> with default value as
+                <code>descending</code>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              Set the Persisted property of the <code>sort</code> page variable
+              to <code>Device</code> if sort criteria needs to be stored across
+              sessions or <code>History</code> if sorting should be preserved
+              only when drilling into a child page and navigating back.
+            </p>
+          </li>
+          <li>
+            Set the <code>sortCriteria</code> parameter of the dynamic table's
+            Service Data Provider variable (<code>employeeListSDP</code> in this
+            example) to the <code>sort</code> page variable created in Step 1.
+            The <code>sortCriteria</code> is of type array, allowing sorting by multiple attributes such as
+            firstName, lastName, email. The <code>sort</code> variable is an object which
+            during assignment is converted into an array of objects.
+          </li>
+
+          <strong>Note:</strong>
+          <p>If your SDP uses a customized fetch chain, the name of the parameter is not <code>sortCriteria</code> but
+            <code>requestTransformOptions.sort</code>.
+          </p>
+          <p></p>
+          <p>
+            The dynamic table's First Name column now sorts in descending order.
+          </p>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Preserve Sorting in the Dynamic Table</h1>
+      <div>
+        <p>Oracle Visual Builder's Designer does not expose the
+          <code>ojSort</code> event that the dynamic table needs to fire
+          when sorting is applied to a dynamic table column, so you need to add this
+          event manually to your page.
+        </p>
+        <ol>
+          <li>
+            In the JSON tab of your page, add the <code>ojSort</code> event under the <code>eventListeners</code>
+            section.
+            <code>
+              <pre>
+"eventListeners": {
+  . . . 
+  },
+  "ojTableSort": {
+    "chains": [
+      {
+        "chain": "TableSortChain",
+        "parameters": {
+          "sort": "[[ $event.detail ]]"
+        }
+      }
+    ]
+  }
+},
+. . .
+                  
+</pre
+              >
+            </code>
+          </li>
+          <li>In Code mode of the Page Designer, define the event for the dynamic table.
+            <code>
+              <pre>
+ &lt;oj-dynamic-table ... on-oj-sort="[[$listeners.ojTableSort]]">&lt;/oj-dynamic-table>    
+  </pre>
+            </code>
+          </li>
+          <li>
+            <p>Create an action chain named <code>TableSortChain</code>.</p>
+            <p>This action chain is already referenced in the
+              <code>ojTableSort</code> event listener's that we created in Step
+              1.
+            </p>
+            <p><strong>Note:</strong> The action chain's name is case-sensitive, so use the exact case as the event
+              listener code when
+              creating the action chain.</p>
+
+          </li>
+          <li>In Code mode of the action chain, add the <code>{ sort }</code> parameter into the action chain's
+            <code>run</code> function
+            <code>
+              <pre>async run(context, { sort }) {</pre>
+            </code>
+
+
+          </li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add
+              an Assign Variable action</a>
+            and select <code>sort</code> from the Variable dropdown list in the action chain's Properties pane.</li>
+          <li>Set the value of the <code>sort</code> variable to:
+            <code>
+                <pre>
+  {
+    attribute: sort.header,
+    direction: sort.direction,
+  }
+              </pre
+                >
+              </code>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="more-info">
+      <h1 slot="header">Learn More</h1>
+
+      <div>
+        <p>
+          If you are unfamiliar with the components or concepts used in this
+          example, the following resources may be helpful.
+        </p>
+
+
+        <ul>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-5FF7232D-BD7E-4383-85E6-8A9580735CB8">Understand
+              Actions and Action Chains</a></li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-9DBF7809-47B6-4309-ADED-D0DCBEDD8FE5">Service
+              Data Provider</a></li>
+
+        </ul>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

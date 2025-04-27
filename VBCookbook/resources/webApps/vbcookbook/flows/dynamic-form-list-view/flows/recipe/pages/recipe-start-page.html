@@ -1,27 +1,18 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<p>
-  To use this recipe, you need to install components from the Component
-  Exchange. Your Visual Builder administrator must have configured your Visual
-  Builder instance for you to be able to
-  <a target="_blank"
-    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
-    with the Component Exchange</a>.
-</p>
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
     <oj-collapsible id="step-1" expanded="true">
       <h1 slot="header">Create a Dynamic Form in a List View Component</h1>
       <div>
         <ol>
-
           <li>
             In the Component Palette, drag a List View component and drop it on the page. Use the List View component's
             <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to add
             data. Select the following fields to render in the List View component:
             <ul>
@@ -33,8 +24,8 @@
           </li>
 
           <li>
-            Install the VDOM based JET Dynamic Form (oj-dyn-form) component from the Component Exchange,
-            then drag and drop it inside the <code>itemTemplate</code> of the List View component. Remove all other
+            Drag and drop the VDOM based JET Dynamic Form (oj-dyn-form) component inside the <code>itemTemplate</code>
+            of the List View component. Remove all other
             fields inside <code>itemTemplate</code>.
           </li>
           <li>
@@ -76,6 +67,39 @@
     </oj-collapsible>
 
     <oj-collapsible id="step-2">
+      <h1 slot="header">Create the customised fetch chain for SDP</h1>
+      <div>
+        <p>
+          Customise the fetch of the SDP for list view to limit the fields in the rest call to those needed by the
+          dynamic form. 
+        </p>
+        <ol>
+          <li>In the action chain for customised SDP, use <code>getFieldsToFetch</code> method to retrieve fields which are defined in the layout of the dyn form. Use Actions.callRest's requestTransformFunctions
+          to fetch only these fields.
+          <code>
+            <pre>
+    async createCustomSelectFunction(context) {
+      const { $page, $flow, $application } = context;
+
+      const fieldsToFetch = await $page.metadata.businessObjectsGetEmployeeMetadata.provider.getFieldsToFetch({layout:["employeeListViewLayout"]});
+      
+      const customSelect = function(configuration, options, transformsContext) {
+        options.attributes = fieldsToFetch;
+          const newCfg = BOTransforms.request.select(configuration, options);
+          return newCfg;
+      };
+
+      return customSelect;
+    }
+            </pre>
+          </code>
+          </li>
+          <li>Remove the <code>rendered-fields</code> property from the dynamic form and remove all other redundant variables and action chains too.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="step-3">
       <h1 slot="header">Create the Form Template</h1>
       <div>
         <p>
@@ -89,7 +113,7 @@
             creating the Dynamic Form. Here you can choose to render fullName instead of firstName and lastName by
             creating a
             <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/design-pages.html#GUID-9D07DA65-EC29-4B6C-822F-FF0E9283723D">custom
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-9D07DA65-EC29-4B6C-822F-FF0E9283723D">custom
               calculated field</a>.
           </li>
 

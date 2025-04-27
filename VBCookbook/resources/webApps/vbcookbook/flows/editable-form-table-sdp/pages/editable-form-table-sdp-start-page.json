@@ -48,7 +48,7 @@
     "cancelOjAction": {
       "chains": [
         {
-          "chainId": "CancelActionChain",
+          "chain": "CancelActionChain",
           "parameters": {
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",
@@ -60,7 +60,7 @@
     "editOjAction": {
       "chains": [
         {
-          "chainId": "EditActionChain",
+          "chain": "EditActionChain",
           "parameters": {
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",
@@ -72,7 +72,7 @@
     "ojTableOjBeforeRowEdit": {
       "chains": [
         {
-          "chainId": "TableBeforeRowEditChain",
+          "chain": "TableBeforeRowEditChain",
           "parameters": {
             "rowData": "{{$event.detail.rowContext.componentElement.getDataForVisibleRow($event.detail.rowContext.status.rowIndex).data}}"
           }
@@ -82,7 +82,7 @@
     "ojTableOjBeforeRowEditEnd": {
       "chains": [
         {
-          "chainId": "TableBeforeRowEditEndChain",
+          "chain": "TableBeforeRowEditEndChain",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "cancelEdit": "{{ $variables.cancelEditVar }}",
@@ -95,7 +95,7 @@
     "saveOjAction": {
       "chains": [
         {
-          "chainId": "SaveActionChain",
+          "chain": "SaveActionChain",
           "parameters": {
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",
@@ -107,6 +107,9 @@
   },
   "imports": {
     "components": {
+      "oj-bind-dom": {
+        "path": "ojs/ojbinddom"
+      },
       "oj-button": {
         "path": "ojs/ojbutton"
       },
@@ -122,6 +125,7 @@
       "oj-text-area": {
         "path": "ojs/ojinputtext"
       }
+
     }
   }
 }

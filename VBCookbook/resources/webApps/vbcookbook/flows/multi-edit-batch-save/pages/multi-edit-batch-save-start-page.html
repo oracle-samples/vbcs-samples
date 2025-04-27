@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -60,10 +60,7 @@
       <div class="oj-flex oj-sm-flex-items-initial">
         <oj-form-layout label-edge="start"
           class="oj-flex-item oj-sm-flex-initial">
-          <oj-select-single class="oj-form-control-full-width"
-            label-hint="Department"
-            data="[[$page.variables.departmentListSDP]]"
-            value="{{ $variables.departmentId }}" item-text="departmentName" required="true"></oj-select-single>
+          <oj-input-text value="{{ $variables.departmentName }}" id="departmentName" label-hint="Department"></oj-input-text>
         </oj-form-layout>
       </div>
       <div

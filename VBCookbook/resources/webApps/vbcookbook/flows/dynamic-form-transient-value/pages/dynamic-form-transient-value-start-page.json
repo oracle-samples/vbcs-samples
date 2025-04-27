@@ -1,7 +1,64 @@
 {
-  "title": "Transient Value Change Recipe",
+  "title": "Transient Value Change",
   "description": "",
   "variables": {
+    "avatar": {
+      "type": {
+        "initials": "string",
+        "src": "string"
+      },
+      "defaultValue": {
+        "initials": "",
+        "src": ""
+      }
+    },
+    "contextualInfoLabelVisible": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "contextualInfoSticky": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "dirtyDataFlag": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "dirtyDialogOpen": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "displayMode": {
+      "type": "string"
+    },
+    "formState1": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "formState2": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "goToParentOption": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "isSaved": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "objectId": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "primaryAlwaysOn": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "saveOption": {
+      "type": "string",
+      "defaultValue": "off"
+    },
     "createEmployeeChainInProgress": {
       "type": "boolean",
       "defaultValue": false
@@ -19,6 +76,9 @@
       "defaultValue": {
         "endpoint": "businessObjects/create_Employee"
       }
+    },
+    "dynamicContainerMetadata": {
+      "type": "vb/ContainerMetadataProviderDescriptor"
     }
   },
   "types": {
@@ -27,61 +87,142 @@
       "service": "businessObjects",
       "path": "request"
     },
-    "businessObjectsServiceErrorResponseType": {
-      "body": {
-        "status": "string",
-        "title": "string",
-        "o:errorDetails": [
-          {
-            "detail": "string",
-            "o:errorCode": "string"
-          }
-        ]
-      },
-      "status": "number"
-    },
     "createEmployeeRequest": "object"
   },
   "eventListeners": {
-    "ojDynFormTransientValue": {
+    "confirmNoOjAction": {
       "chains": [
         {
-          "chainId": "DynamicFormTransientValueChangeChain",
+          "chain": "dialogResponseChain",
           "parameters": {
-            "transientValue": "{{ $event.detail.value }}"
+            "detail": "{{ $event.detail }}",
+            "response": "NO"
           }
         }
       ]
     },
-    "saveButtonClicked": {
+    "confirmYesOjAction": {
       "chains": [
         {
-          "chainId": "createEmployeeChain"
+          "chain": "dialogResponseChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "response": "YES"
+          }
+        }
+      ]
+    },
+    "ojSpCancel": {
+      "chains": [
+        {
+          "chain": "spCancelChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "ojSpGoToParent": {
+      "chains": [
+        {
+          "chain": "goToParent",
+          "parameters": {}
+        }
+      ]
+    },
+    "ojSpSubmit": {
+      "chains": [
+        {
+          "chain": "createEmployeeChain",
+          "parameters": {
+          }
+        }
+      ]
+    },
+    "vbBeforeExit": {
+      "chains": [
+        {
+          "chain": "checkBeforeExit",
+          "parameters": {}
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chain": "firePageLayoutEventChain"
+        }
+      ]
+    },
+    "ojDynFormTransientValue": {
+      "chains": [
+        {
+          "chain": "DynamicFormTransientValueChangeChain",
+          "parameters": {
+            "transientValue": "{{ $event.detail.value }}"
+          }
         }
       ]
     }
   },
   "imports": {
     "components": {
-      "oj-button": {
-        "path": "ojs/ojbutton"
+      "oj-sp-advanced-create-edit": {
+        "path": "oj-sp/advanced-create-edit/loader"
       },
-      "oj-dyn-form": {
-        "path": "oj-dyn/form/loader"
+      "oj-sp-message-unsaved-changes": {
+        "path": "oj-sp/message-unsaved-changes/loader"
       },
-      "oj-label": {
-        "path": "ojs/ojlabel"
-      },
-      "oj-list-view": {
-        "path": "ojs/ojlistview"
-      },
-      "oj-toolbar": {
-        "path": "ojs/ojtoolbar"
-      },
-      "oj-validation-group": {
-        "path": "ojs/ojvalidationgroup"
+      "oj-sp-vertical-anchor-navigator": {
+        "path": "oj-sp/vertical-anchor-navigator/loader"
       }
-
+    }
+  },
+  "layouts": {
+    "containerLayout1": {
+      "label": "Container Rule Set 1",
+      "layoutType": "container",
+      "layouts": {
+        "case1": {
+          "label": "Case 1",
+          "layoutType": "container",
+          "layout": {
+            "sectionTemplateMap": {
+              "template1": "template1"
+            },
+            "displayProperties": [
+              "template1"
+            ]
+          }
+        }
+      },
+      "rules": [
+        "containerLayout1-rule1"
+      ]
+    },
+    "containerLayout1-rule1": {
+      "expression": "case1"
+    }
+  },
+  "templates": {
+    "template1": {
+      "title": "Section 1",
+      "description": "Sample Section 1",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "oj-dyn/form/loader",
+        "oj-dynamic/form/loader",
+        "oj-sp/section/loader",
+        "ojs/ojbutton",
+        "ojs/ojlabel",
+        "ojs/ojtoolbar",
+        "ojs/ojvalidationgroup"
+      ],
+      "labelHint": "Generate Employee Email"
     }
   }
 }

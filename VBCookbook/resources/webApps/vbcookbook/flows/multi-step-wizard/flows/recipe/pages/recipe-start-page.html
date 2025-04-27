@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -46,23 +46,30 @@
           <li>Drag a Button component and drop it on the page (set text to <b>Next</b>).</li>
           <li>
             <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
               an event listener</a> to the Button component. Add the following actions to the action chain named
             <code>NextActionChain</code>:
             <ul>
+              <li>Create a function:
+                <pre>
+function map(steps, idToMatch) {
+  return steps.map(s=> s.id === idToMatch ? { ...s, disabled: false }: s);
+}
+      </pre>
+              </li>
               <li>
                 Add an If Action named <code>Ifstep1</code>. In the Property
                 Inspector of the If action, set Condition to
-                <code>[[ $page.variables.selectedStep  ==="1"]]</code>.
+                <code>$page.variables.selectedStep === "1"</code>.
               </li>
               <li>
                 For the true path of the <code>Ifstep1</code> action, <a target="_blank"
-                  href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
-                  an Assign Variables action</a>:
+                  href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">add
+                  an Assign Variables action</a>.
                 <ul>
                   <li>
                     <code>steps</code> set to
-                    <code>$page.variables.steps.map(s=> s.id === '2'? { ...s, disabled: false }: s)</code>
+                    <code>map($page.variables.steps, '2')</code>
                   </li>
                   <li>
                     <code>selectedStep</code> set to 2.
@@ -71,16 +78,16 @@
               </li>
               <li>
                 For the false path of <code>IfStep1</code>, add a new If action named <code>ifstep2</code> with
-                condition <code>[[ $page.variables.selectedStep  ==="2"]]</code>.
+                condition <code>$page.variables.selectedStep === "2"</code>.
               </li>
               <li>
                 For <code>ifstep2</code> is true, <a target="_blank"
-                  href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+                  href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add
                   an Assign Variables action</a> with:
                 <ul>
                   <li>
                     Set <code>steps</code> to
-                    <code>$page.variables.steps.map(s=> s.id === '3'? { ...s, disabled: false }: s)</code>
+                    <code>map($page.variables.steps, '3')</code>
                   </li>
                   <li>
                     Set <code>selectedStep</code> to 3
@@ -88,10 +95,7 @@
                 </ul>
               </li>
             </ul>
-
           </li>
-
-
         </ol>
       </div>
     </oj-collapsible>
@@ -114,7 +118,7 @@
             <code>"{{ $variables.selectedStep }}"</code>.
           </li>
           <li>Use the oj-select-single component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your component to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -168,7 +172,7 @@
           </li>
           <li>
             In the action chain named <code>NextActionChain</code>. For the true path of Ifstep1, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add
               an Assign Variables action</a> with <code>currentJobTitle</code> set to
             <code>$page.variables.selectedEmployeeItem.data.jobObject.items[0].jobTitle</code>
           </li>
@@ -184,7 +188,7 @@
             property of the single-select component.
           </li>
           <li>Use the oj-select-single component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your component to employee data.</li>
           <li>In the Bind Data page, select the following job fields:
             <ul>
@@ -212,11 +216,11 @@
               </li>
               <li>
                 In the Properties pane of <code>selectJobComponentMethod</code>, select the <b>select-job</b> from the
-                Component dropdown list and <b>validate</b> from the Method
-                Name dropdown list.
+                Component dropdown list and <b>validate</b> from the Method Name dropdown list and store the result in local variable
+                <code>selectJobValidate</code>.
               </li>
               <li>
-                Add an If condition with condition <code>[[ $chain.results.selectJobComponentMethod !=='invalid' ]]</code>.
+                Add an If condition with condition <code>selectJobValidate !=='invalid'</code>.
               </li>
               <li>
                 Move Assign Variable action to true condition of if3.
@@ -255,7 +259,7 @@
           </li>
           <li>
             <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
               an event listener</a> to the Button component. Add the following actions in the action chain  named <code>SubmitActionChain</code>:
             <ul>
               <li>

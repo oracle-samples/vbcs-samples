@@ -1,0 +1,50 @@
+{
+  "title": "Personalized Columns",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "personalization": {
+      "type": "object",
+      "persisted": "device"
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+  },
+  "eventListeners": {
+  },
+  "imports": {
+    "components": {
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-label": {
+        "path": "ojs/ojlabel"
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">Add a
+    Dynamic Form</a>, and use the Configure as Edit Form quick start to display the appropriate fields (First Name,
+  Department, and so on) using the Employee business object.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Add Validation</h1>
+      <div>
+
+        <ol>
+          
+          <li>
+            In the Layouts tab, select the <strong>Employee</strong> dynamic layout.
+          </li>
+          <li>In the Validations tab for the Employee dynamic layout, click <strong>+ Validation</strong>
+            to
+            create a
+            validation rule named <code>Check Department</code> with Rule Type as <code>Regular</code>.
+          </li>
+          <li><p>In the <code>Check Department</code> rule, click the Edit button in the Conditions section, switch to
+            Code view, and enter the following code:</p>
+            <p><code>$fields.department.$numberValue() === 8</code></p>
+            <p>This checks if the value of the <code>department</code> field is equal to 8. You can delete the
+              Messages section for this rule.</p>
+          </li>
+          <li>Hover over the <code>Check Department</code> rule in the Built-in Rules section and then click the
+            <strong>+</strong> icon to create a
+            nested rule under the <code>Check Department</code> rule. Name the rule <code>Commission Percent Range</code>
+             with Rule Type set to
+            <code>Regular</code>.
+          </li>
+          <li><p>In the <code>Commission Percent Range</code> rule, click the Edit button in the Conditions section, switch to Code view, and enter the following code:</p>
+
+            <p><code>$fields.commissionPct.$numberValue() < 5 || $fields.commissionPct.$numberValue() > 20</code> </p>
+
+          
+          <p>  This checks that the value of the <code>commissionPct</code> field remains within the range of <code>5</code> to <code>20</code>.</p>
+          </li>
+
+          <li>In the Messages section, set the following values:
+            <ul>
+              <li>Summary to <code>Commission Percent Range</code></li>
+              <li>Severity to <code>Warning</code></li>
+              <li>Target Fields to <code>Commission Percent</code></li>
+              <li>Detail to <code>Commission should be between 5 to 20</code></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

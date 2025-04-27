@@ -2,7 +2,7 @@
   "title": "Table Multi Select Recipe",
   "description": "The starting page of the flow",
   "variables": {
-    "currentSelection": {
+    "currentSelectionString": {
       "type": "string"
     },
     "departmentListSDP": {
@@ -14,13 +14,13 @@
         "responseType": "page:getallDepartmentResponse"
       }
     },
-    "disableDeselectAll": {
-      "type": "boolean",
-      "defaultValue": true
+    "enhancedDP": {
+      "type": "any"
     },
-    "rowData": {
-      "type": "object[]"
+    "selectedRows": {
+      "type": "any"
     }
+
   },
   "types": {
     "getallDepartmentResponse": {
@@ -36,33 +36,37 @@
   },
   "chains": {},
   "eventListeners": {
-    "ojButtonOjAction": {
+    "onDeselectAllButtonAction": {
       "chains": [
         {
-          "chainId": "onDeselectAll",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "onDeselectAllActionChain"
         }
       ]
     },
-    "ojButtonOjAction2": {
+    "onSelectSpecificRowsAction": {
       "chains": [
         {
-          "chainId": "onSelectSpecificRows",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "onSelectSpecificRowsActionChain"
         }
       ]
     },
     "ojTableSelected": {
       "chains": [
         {
-          "chainId": "TableSelectedChangeChain",
+
           "parameters": {
+            "keys": "{{ $event.detail.value.row.values ? Array.from($event.detail.value.row.values()) : [] }}",
             "selected": "{{ $event.detail.value }}"
-          }
+          },
+          "chain": "TableSelectedChangeChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chain": "initializeVariables",
+          "parameters": {}
         }
       ]
     }

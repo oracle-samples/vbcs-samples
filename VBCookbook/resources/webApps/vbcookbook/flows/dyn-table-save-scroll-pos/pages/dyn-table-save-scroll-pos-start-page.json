@@ -1,0 +1,72 @@
+{
+  "title": "Save Scroll Position",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "scrollPositionPage": {
+      "type": "object",
+      "defaultValue": "{{$flow.variables.scrollPosition}}"
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+  },
+  "eventListeners": {
+    "tableFirstSelectedRow": {
+      "chains": [
+        {
+          "chain": "TableFirstSelectedRowChangeChain",
+          "parameters": {
+            "rowKey": "{{$event.detail.value.key}}",
+            "rowData": "{{$event.detail.value.data}}"
+          }
+        }
+      ]
+    },
+    "tableScrollPosition": {
+      "chains": [
+        {
+          "chain": "TableScrollPositionChangeChain",
+          "parameters": {
+            "scrollPosition": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

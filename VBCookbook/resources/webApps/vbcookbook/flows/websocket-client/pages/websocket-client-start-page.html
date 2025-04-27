@@ -1,0 +1,56 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+
+  <p>
+    This recipe shows you how to establish a connection to a WebSocket server from a Visual Builder app to send and receive messages. In our example, we establish a connection to <a target="_blank" href="https://websocket.org/tools/websocket-echo-server">WebSocket Echo Server</a>, which responds with the same message that it received.    
+  </p>
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-sm-flex-direction-column sample-box2" style="width:100%;">
+
+    <div class="oj-flex">
+      <div class="oj-flex oj-flex-item oj-sm-12 oj-md-6">
+        <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-padding-4x">
+          <div class="oj-flex-item oj-sm-flex-initial">
+                  <h6>WebSocket Client:</h6>
+          </div>
+          <div class="oj-flex-item oj-sm-flex-initial oj-sm-padding-4x-bottom">
+            <oj-input-text label-hint="Message to Send" class="oj-flex-item" value="{{ $variables.msg }}">
+            </oj-input-text>
+          </div>
+          <div class="oj-flex-item oj-sm-flex-initial">
+            <oj-button label="Send Message" on-oj-action="[[$listeners.buttonAction]]"></oj-button>
+          </div>
+        </div>
+      </div>
+      <div class="oj-flex oj-flex-item oj-sm-12 oj-md-6">
+        <div class="oj-flex oj-flex-item oj-sm-12 oj-md-12 oj-sm-padding-4x" style="max-height: 400px;  overflow-y: auto; ">
+          <h6 class="oj-header oj-flex-item oj-sm-flex-initial">Communication Log:</h6>
+          <oj-bind-for-each data="[[ $variables.logADP ]]">
+            <template data-oj-as="data">
+              <div class="oj-flex-item oj-sm-12 oj-md-12">
+                <oj-bind-text value="[[ $current.data.text ]]"></oj-bind-text>
+              </div>
+            </template>
+          </oj-bind-for-each>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

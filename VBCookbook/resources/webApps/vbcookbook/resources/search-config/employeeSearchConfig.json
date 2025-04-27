@@ -1,0 +1,28 @@
+{
+  "description": "Emps BO smart search configuration",
+  "filters": {
+    "DepartmentsFilter": {
+      "type": "oj-sp/smart-search/default-filters/SelectSingleFilter",
+      "label": "Departments",
+      "options": {
+        "field": "department",
+        "optionsData": "[[ $search.filters.DepartmentsFilter.options.optionsData ]]",
+        "optionsKeys": "[[ $search.filters.DepartmentsFilter.options.optionsKeys ]]"
+      },
+      "data": {}
+    },
+    "SalaryFilter": {
+      "type": "oj-sp/smart-search/default-filters/NumericRangeFilter",
+      "label": "Salary",
+      "options": {
+        "field": "salary",
+        "min": 1,
+        "max": 30000
+      },
+      "data": {
+        "start": 1,
+        "end": 5000
+      }
+    }
+  }
+}

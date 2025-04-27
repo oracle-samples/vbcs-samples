@@ -1,8 +1,0 @@
-{
-  "root": "navigateBack",
-  "actions": {
-    "navigateBack": {
-      "module": "vb/action/builtin/navigateBackAction"
-    }
-  }
-}

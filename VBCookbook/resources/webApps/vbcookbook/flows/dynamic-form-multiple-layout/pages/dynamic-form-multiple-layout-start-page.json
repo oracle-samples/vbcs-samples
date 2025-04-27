@@ -1,21 +1,10 @@
 {
-  "title": "Dynamic Form Recipe",
+  "title": "Simple Form",
   "description": "",
   "variables": {
     "emp1": {
       "type": "number",
-      "defaultValue": 100,
-      "onValueChanged": {
-        "chains": [
-          {
-            "chainId": "loadEmployeeChain",
-            "parameters": {
-              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
-              "employeeId": "{{ $variables.emp1 }}"
-            }
-          }
-        ]
-      }
+      "defaultValue": 100
     },
     "employee": {
       "type": "page:getEmployeeResponse"
@@ -29,11 +18,11 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadEmployeeChain",
             "parameters": {
               "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]",
               "employeeId": "{{ $variables.emp1 }}"
-            }
+            },
+            "chain": "loadEmployeeChain"
           }
         ]
       }
@@ -42,14 +31,16 @@
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
         "endpoint": "businessObjects/getall_Employee",
-        "keyAttributes": "id",
-        "itemsPath": "items",
         "responseType": "getallEmployeeResponse",
+        "itemsPath": "items",
+        "keyAttributes": "id",
         "transformsContext": {
           "vb-textFilterAttributes": [
-            "firstName"
+            "firstName",
+            "lastName"
           ]
         }
+
       }
     }
   },
@@ -136,7 +127,7 @@
     "ojSelectSingleValue": {
       "chains": [
         {
-          "chainId": "SingleSelectValueChangeChain",
+          "chain": "SingleSelectValueChangeChain",
           "parameters": {
             "value": "{{ $event.detail.value }}"
           }
@@ -152,7 +143,6 @@
       "oj-select-single": {
         "path": "ojs/ojselectsingle"
       }
-
     }
   }
 }

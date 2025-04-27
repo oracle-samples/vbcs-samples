@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -412,7 +412,7 @@ class PageModule {
           <li>In the action chain, add a Call REST action that fetches employee data and set <code>getall_Employee</code> as the value for Response Type in the Properties pane.</li>
             <li>Add a Call Function action and, in the Properties pane, click <strong>Create</strong>
               beside the Function Name field to create a new function named <code>getDatagridData</code>.</li>
-              <li>Pass the result of the Call REST action (<code>$chain.results.callRestGetallEmployee.body.items</code>) as a parameter to the
+              <li>Pass the result of the Call REST action (<code>response.body.items</code>) as a parameter to the
                 function.
                 <pre>
 getDatagridData(items) {
@@ -469,15 +469,15 @@ getDatagridData(items) {
           <li>Add a function in JavaScript tab to pick up the row header styles as follows.
             <pre>
 rowHeaderStyle(headerContext) {
-  if (headerContext.level == 0) // if Department column
+  if (headerContext.level === 0) // if Department column
   {
     return "width:110px;font-size:12px;";
   }
-  else if (headerContext.level == 1) // if Job column
+  else if (headerContext.level === 1) // if Job column
   {
     return "width:170px;font-size:12px;";
   }
-  else if (headerContext.level == 2) // if FirstName column
+  else if (headerContext.level === 2) // if FirstName column
   {
     return "width:100px;font-size:12px;";
   }

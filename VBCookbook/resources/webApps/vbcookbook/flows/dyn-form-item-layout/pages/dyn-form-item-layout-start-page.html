@@ -1,0 +1,81 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+
+  <p>This recipe demonstrates how to customize the layout of a dropdown list in a dynamic form. </p>
+
+  <p>The recipe uses Oracle JET Select Single components (<code>oj-select-single</code>) to render the dropdown lists
+    that you see
+    below (Department and Manager). Select Single components support the customization of the layout of
+    the dropdown list items. In Example 1, the Department dropdown list uses a Table Item Layout to display
+    multiple fields as columns (departmentName and totalSalary, in our example). In Example 2, the Department dropdown
+    list uses a different layout, List Item Layout,
+    so
+    that multiple fields (departmentName, location etc.) are arranged in a list format within the dropdown list. In
+    Example 3, the
+    Manager dropdown list display value (<<a target="_blank"
+      href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.ojSelectSingle.html#itemText">
+      <code>item-text</code></a>>) is customized to concatenate different fields (firstName and email)
+      into a single display value.</p>
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2" style="width: 100%">
+    <h3>Example 1 - Table Item Layout</h3>
+    <oj-bind-if test="[[ true ]]">
+      <oj-validation-group id="employee-validation-group--207698439-1">
+        <oj-dyn-form class="oj-flex-item oj-sm-flex-initial"
+          metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]" layout="selectSingleItemLayout"
+          value="{{ $variables.employee }}" value-loading="[[ $variables.employeeEditFormLoadingStatus ]]"
+          rendered-fields="{{ $variables.employeeEditFormRenderedFields }}" operation="edit"
+          id="oj-dyn-form--207698439-1"></oj-dyn-form>
+      </oj-validation-group>
+    </oj-bind-if>
+    <oj-toolbar id="oj-toolbar-for-oj-dyn-form--207698439-1" chroming="solid">
+      <oj-button label="Save" disabled="[[ $variables.employeeEditFormLoadingStatus === 'pending' ]]"
+        on-oj-action="[[$listeners.saveButtonClicked]]"></oj-button>
+    </oj-toolbar>
+    <h3>Example 2 - List Item Layout</h3>
+    <oj-bind-if test="[[ true ]]">
+      <oj-validation-group id="employee-validation-group--207698439-2">
+        <oj-dyn-form class="oj-flex-item oj-sm-flex-initial"
+          metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]" layout="selectSingleItemLayoutList"
+          value="{{ $variables.employee2 }}" value-loading="[[ $variables.employeeEditFormLoadingStatus2 ]]"
+          rendered-fields="{{ $variables.employeeEditFormRenderedFields2 }}" operation="edit"
+          id="oj-dyn-form--207698439-2"></oj-dyn-form>
+      </oj-validation-group>
+    </oj-bind-if>
+    <oj-toolbar id="oj-toolbar-for-oj-dyn-form--207698439-2" chroming="solid">
+      <oj-button label="Save" disabled="[[ $variables.employeeEditFormLoadingStatus2 === 'pending' ]]"
+        on-oj-action="[[$listeners.saveButtonClicked2]]"></oj-button>
+    </oj-toolbar>
+    <h3>Example 3 - Custom Display Value</h3>
+    <oj-bind-if test="[[ true ]]">
+      <oj-validation-group id="employee-validation-group--207698439-3">
+        <oj-dyn-form metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]"
+          layout="itemLayoutDisplayValue" value="{{ $variables.employee3 }}"
+          value-loading="[[ $variables.employeeEditFormLoadingStatus3 ]]"
+          rendered-fields="{{ $variables.employeeEditFormRenderedFields3 }}" operation="edit"
+          id="oj-dyn-form--207698439-3"></oj-dyn-form>
+      </oj-validation-group>
+    </oj-bind-if>
+    <oj-toolbar id="oj-toolbar-for-oj-dyn-form--207698439-3" chroming="solid">
+      <oj-button label="Save" disabled="[[ $variables.employeeEditFormLoadingStatus3 === 'pending' ]]"
+        on-oj-action="[[$listeners.saveButtonClicked3]]"></oj-button>
+    </oj-toolbar>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

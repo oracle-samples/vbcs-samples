@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -17,7 +17,7 @@
           <strong>Custom</strong>.
         </li>
         <li><a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
             a type from custom</a> named <code>selectedObjectType</code> of type Object, and add the following fields to
           this new type:
           <ul>
@@ -46,7 +46,7 @@
         <li>In the Component Palette, drag and drop a Select Single component onto the page.</li>
 
         <li>Use the Select Single component's <a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to bind it to Region data.</li>
         <li>In the Bind Data page, select the following fields:
           <ul>
@@ -60,7 +60,7 @@
         </li>
         <li>Bind the value-item property for the Select Single component to <code>selectedRegion</code> above.</li>
         <li>Drag and drop another Select Single component onto the page, use the <a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to bind it to Country data, and in the Bind Data page, select the following fields:
           <ul>
             <li>Country Name</li>
@@ -80,7 +80,7 @@
         </li>
         <li>Bind the value-item property for the Select Single component to <code>selectedCountry</code> above.</li>
         <li>Drag and drop another Select Single component onto the page, use the <a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to bind it to Location data, and in the Bind Data page, select the following fields:
           <ul>
             <li>City</li>
@@ -111,18 +111,12 @@
         </li>
         <li>In the Events tab of the Properties pane for the Region Select Single component, click <strong>+ New
             Event</strong> and select <strong>Quick Start</strong>. </li>
-        <li>In the Properties pane of the action chain, set ID to <code>RegionValueItemChangeChain</code>. </li>
-        <li>In the Variables tab of the action chain, create a variable, <code>changeType</code>, of type Any.</li>
-        <li>In the Properties pane of the variable, select <strong>Enabled</strong> for Input Parameter.</li>
-        <li>In the Events tab of the Properties pane for the Region Select Single component, click
-          <strong>Assign</strong> beside the Input Parameter field
-          and map <code>$event.details.updatedFrom</code> from Source to <code>changeType</code> in Target.
+        <li>In the Properties pane of the action chain, set ID to <code>RegionValueItemChangeChain</code>.</li>
+        <li>In the Input Parameters of the action chain, create two variables, <code>key</code> and <code>previousKey</code>, of type Any.</li>
+        <li>Set the values of these variables in the event listener to <code>$event.detail.value.key</code> and <code>$event.detail.previousValue.key</code> respectively.
         </li>
-        <li>In the action chain, add an Assign Variable action to map <code>changeType</code> chain variable to the
-          <code>changeType</code> page variable in Target.
-        </li>
-        <li>For the true outcome of the If action, add a Reset Variable action to reset the variable to
-          <code>$page.variables.selectedCountry</code>.
+        <li>In action chain, compare the values of the key and previousKey and if different, reset the variables
+          <code>$page.variables.selectedCountry</code> and <code>$page.variables.selectedLocation</code>.
         </li>
         <li>Add a similar value item action chain for the Country Select Single component.</li>
       </ol>

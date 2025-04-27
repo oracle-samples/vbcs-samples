@@ -1,0 +1,841 @@
+{
+    "items": [
+        {
+            "PositionId": "3950",
+            "EffectiveStartDate": "2000-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD3950",
+            "PositionName": "1001.Operations Vice President",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "8",
+            "JobCode": "JOBCD8",
+            "JobName": "VP300.Vice President",
+            "DepartmentId": "3645",
+            "DepartmentName": "Vision Electric",
+            "LocationId": "11523",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "3950,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3950%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3950%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "3504",
+            "EffectiveStartDate": "2002-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD3504",
+            "PositionName": "1010.Senior Marketing Manager",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "1649",
+            "JobCode": "JOBCD1649",
+            "JobName": "MM100.Marketing Manager",
+            "DepartmentId": "498",
+            "DepartmentName": "Vision ADB",
+            "LocationId": "208",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "3504,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3504%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3504%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "3954",
+            "EffectiveStartDate": "2000-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD3954123456",
+            "PositionName": "1031.Corporate Accounting Manager",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "16",
+            "JobCode": "JOBCD16",
+            "JobName": "MGR500.Manager",
+            "DepartmentId": "3645",
+            "DepartmentName": "Vision Electric",
+            "LocationId": "11523",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "3954,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3954%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3954%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "3951",
+            "EffectiveStartDate": "2023-11-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD3951",
+            "PositionName": "1300.Customer Service Administrator",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "724",
+            "JobCode": "JOBCD724",
+            "JobName": "FS300.Field Service Administrator",
+            "DepartmentId": "3645",
+            "DepartmentName": "Vision Electric",
+            "LocationId": "213",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "3951,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3951%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3951%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "3953",
+            "EffectiveStartDate": "2000-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD3953",
+            "PositionName": "1501.Resource Planner",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "124",
+            "JobCode": "JOBCD124",
+            "JobName": "PLN500.Planner",
+            "DepartmentId": "3645",
+            "DepartmentName": "Vision Electric",
+            "LocationId": "11523",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "3953,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3953%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3953%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "3952",
+            "EffectiveStartDate": "2000-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD3952",
+            "PositionName": "2001.Materials Manager",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "16",
+            "JobCode": "JOBCD16",
+            "JobName": "MGR500.Manager",
+            "DepartmentId": "3645",
+            "DepartmentName": "Vision Electric",
+            "LocationId": "11523",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "3952,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3952%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/3952%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100017921107",
+            "EffectiveStartDate": "2023-12-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "30030",
+            "PositionName": "30030.QA",
+            "ActiveStatus": "I",
+            "HiringStatus": "Proposed",
+            "JobId": "300100017920969",
+            "JobCode": "20020",
+            "JobName": "20020.Quality Assurance",
+            "DepartmentId": "300100017921069",
+            "DepartmentName": "CA_R&D",
+            "LocationId": "17845",
+            "BusinessUnitId": "300100017920964",
+            "@context": {
+                "key": "300100017921107,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100017921107%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100017921107%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "423",
+            "EffectiveStartDate": "1985-05-05",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD423",
+            "PositionName": "410.Senior Manager",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "29",
+            "JobCode": "JOBCD29",
+            "JobName": "SMR400.Senior Manager",
+            "DepartmentId": "246",
+            "DepartmentName": "Services-East",
+            "LocationId": "208",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "423,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/423%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/423%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "425",
+            "EffectiveStartDate": "2012-02-03",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD425",
+            "PositionName": "510.Principal Consultant",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "84",
+            "JobCode": "JOBCD84",
+            "JobName": "PCN500.Principal Consultant",
+            "DepartmentId": "246",
+            "DepartmentName": "Services-East",
+            "LocationId": "211",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "425,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/425%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/425%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "342",
+            "EffectiveStartDate": "1995-04-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD342",
+            "PositionName": "510.Project Manager",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "16",
+            "JobCode": "JOBCD16",
+            "JobName": "MGR500.Manager",
+            "DepartmentId": "260",
+            "DepartmentName": "Vision Administration",
+            "LocationId": "211",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "342,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/342%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/342%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "424",
+            "EffectiveStartDate": "1985-05-05",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD424",
+            "PositionName": "510.Senior Consultant",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "144",
+            "JobCode": "JOBCD144",
+            "JobName": "SCN500.Senior Consultant",
+            "DepartmentId": "479",
+            "DepartmentName": "Executive Office",
+            "LocationId": "211",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "424,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/424%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/424%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "422",
+            "EffectiveStartDate": "1985-05-05",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD422",
+            "PositionName": "710.Admin Assistant",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "70",
+            "JobCode": "JOBCD70",
+            "JobName": "STA700.Staff Administrator",
+            "DepartmentId": "260",
+            "DepartmentName": "Vision Administration",
+            "LocationId": "208",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "422,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/422%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/422%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100542088075",
+            "EffectiveStartDate": "2010-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "7341_SN1_Consultant1",
+            "PositionName": "7341_SN1_Consultant1",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "300100067907442",
+            "JobCode": "CRFL RRF JOB US1",
+            "JobName": "CRFL RRF JOB US1",
+            "DepartmentId": "300100002751906",
+            "DepartmentName": "CRFL RRF DEP US1",
+            "LocationId": "300100002751510",
+            "BusinessUnitId": "300100002693983",
+            "@context": {
+                "key": "300100542088075,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088075%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088075%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100542088081",
+            "EffectiveStartDate": "2010-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "7341_SN1_Lead1",
+            "PositionName": "7341_SN1_Lead1",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "300100002752216",
+            "JobCode": "CRFL RRF JOB US2",
+            "JobName": "CRFL RRF JOB US2",
+            "DepartmentId": "300100002752002",
+            "DepartmentName": "CRFL RRF DEP US2 updated",
+            "LocationId": "300100002751510",
+            "BusinessUnitId": "300100002693983",
+            "@context": {
+                "key": "300100542088081,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088081%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088081%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100542088078",
+            "EffectiveStartDate": "2010-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "7341_SN1_Manager1",
+            "PositionName": "7341_SN1_Manager1",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "300100067907442",
+            "JobCode": "CRFL RRF JOB US1",
+            "JobName": "CRFL RRF JOB US1",
+            "DepartmentId": "300100002752091",
+            "DepartmentName": "CRFL RRF DEP US3",
+            "LocationId": "300100002751510",
+            "BusinessUnitId": "300100002693983",
+            "@context": {
+                "key": "300100542088078,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088078%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088078%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100542088087",
+            "EffectiveStartDate": "2023-01-03",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "7341_SN7_Consultant1",
+            "PositionName": "7341_SN7_Consultant1",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "300100067907442",
+            "JobCode": "CRFL RRF JOB US1",
+            "JobName": "CRFL RRF JOB US1",
+            "DepartmentId": "300100002751906",
+            "DepartmentName": "CRFL RRF DEP US1",
+            "LocationId": "300100002751510",
+            "BusinessUnitId": "300100002693983",
+            "@context": {
+                "key": "300100542088087,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088087%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088087%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100542088084",
+            "EffectiveStartDate": "2010-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "7341_SN7_Lead1",
+            "PositionName": "7341_SN7_Lead1",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "300100002752216",
+            "JobCode": "CRFL RRF JOB US2",
+            "JobName": "CRFL RRF JOB US2",
+            "DepartmentId": "300100002752002",
+            "DepartmentName": "CRFL RRF DEP US2 updated",
+            "LocationId": "300100002751510",
+            "BusinessUnitId": "300100002693983",
+            "@context": {
+                "key": "300100542088084,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088084%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088084%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "300100542088072",
+            "EffectiveStartDate": "2010-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "7341_SN7_Manager1",
+            "PositionName": "7341_SN7_Manager1",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "300100067907442",
+            "JobCode": "CRFL RRF JOB US1",
+            "JobName": "CRFL RRF JOB US1",
+            "DepartmentId": "300100002752091",
+            "DepartmentName": "CRFL RRF DEP US3",
+            "LocationId": "300100002751510",
+            "BusinessUnitId": "300100002693983",
+            "@context": {
+                "key": "300100542088072,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088072%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/300100542088072%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "2971",
+            "EffectiveStartDate": "2019-09-27",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD2971",
+            "PositionName": "AA900.Administrative Assistant",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "817",
+            "DepartmentName": "Finance & Administration",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "2971,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/2971%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/2971%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "19",
+            "EffectiveStartDate": "1987-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD19",
+            "PositionName": "AA910.Admin\\. Assistant To VP Mfg",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "205",
+            "DepartmentName": "Manufacturing",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "19,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/19%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/19%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "6",
+            "EffectiveStartDate": "1987-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD6",
+            "PositionName": "AA910.Executive Assistant To CEO",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "202",
+            "DepartmentName": "Vision Corporation Enterprise",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "6,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/6%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/6%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "15",
+            "EffectiveStartDate": "1987-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD15",
+            "PositionName": "AA910.Exec\\. Assistant To SVP Mfg",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "204",
+            "DepartmentName": "Vision Operations",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "15,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/15%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/15%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "147",
+            "EffectiveStartDate": "1987-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD147",
+            "PositionName": "AA915.Exec\\. Assistant To SVP F/A",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "260",
+            "DepartmentName": "Vision Administration",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "147,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/147%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/147%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "20",
+            "EffectiveStartDate": "1987-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD20",
+            "PositionName": "AA920.Admin Assistant To Dir  Mfg",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "205",
+            "DepartmentName": "Manufacturing",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "20,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/20%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/20%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        },
+        {
+            "PositionId": "16",
+            "EffectiveStartDate": "1987-01-01",
+            "EffectiveEndDate": "4712-12-31",
+            "PositionCode": "POSCD16",
+            "PositionName": "AA920.Exec Assistant To Pres Mfg",
+            "ActiveStatus": "A",
+            "HiringStatus": "Approved",
+            "JobId": "3",
+            "JobCode": "JOBCD3",
+            "JobName": "AA900.Administrative Assistant",
+            "DepartmentId": "204",
+            "DepartmentName": "Vision Operations",
+            "LocationId": "204",
+            "BusinessUnitId": "202",
+            "@context": {
+                "key": "16,2023-12-12",
+                "links": [
+                    {
+                        "rel": "self",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/16%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    },
+                    {
+                        "rel": "canonical",
+                        "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov/16%2C2023-12-12",
+                        "name": "positionsLov",
+                        "kind": "item"
+                    }
+                ]
+            }
+        }
+    ],
+    "count": 25,
+    "hasMore": true,
+    "limit": 25,
+    "offset": 0,
+    "links": [
+        {
+            "rel": "self",
+            "href": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/positionsLov",
+            "name": "positionsLov",
+            "kind": "collection"
+        }
+    ]
+}

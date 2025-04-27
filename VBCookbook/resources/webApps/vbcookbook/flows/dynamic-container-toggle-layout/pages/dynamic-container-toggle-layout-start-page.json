@@ -1,5 +1,5 @@
 {
-  "title": "Dynamic Container Recipe",
+  "title": "Simple Container",
   "description": "",
   "variables": {
     "employee": {
@@ -14,7 +14,7 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadEmployeeChain",
+            "chain": "loadEmployeeChain",
             "parameters": {
               "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
             }
@@ -75,7 +75,7 @@
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "ToggleLayout"
+          "chain": "toggleLayout"
         }
       ]
     }
@@ -130,10 +130,10 @@
       }
     },
     "containerLayout1-rule1": {
-      "expression": "[[ $variables.layoutFlag == true ? 'case1' : null ]]"
+      "expression": "[[ $variables.layoutFlag === true ? 'case1' : null ]]"
     },
     "containerLayout1-rule2": {
-      "expression": "[[ $variables.layoutFlag == false ? 'case2' : null ]]"
+      "expression": "[[ $variables.layoutFlag === false ? 'case2' : null ]]"
     }
   },
   "templates": {

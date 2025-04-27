@@ -1,0 +1,8 @@
+{
+  "id": "dyn-table-dnd",
+  "description": "Flow main",
+  "defaultPage": "dyn-table-dnd-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

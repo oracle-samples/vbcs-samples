@@ -29,6 +29,25 @@
                     }
                 }
             ]
+        },
+        "HCM": {
+            "servers": [
+                {
+                    "url": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm",
+                    "description": "Default Server",
+                    "x-vb": {
+                        "anonymousAccess": true
+                    }
+                }
+            ]
+        },
+        "ws": {
+            "servers": [
+                {
+                    "url": "https://echo.websocket.org",
+                    "description": "Echo Websocket Org"
+                }
+            ]
         }
     }
 }

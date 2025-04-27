@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -15,12 +15,12 @@
       <div>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-765FB233-EFBC-4841-8F18-27C233125C80">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-765FB233-EFBC-4841-8F18-27C233125C80">Create
               a custom type from the GET /Employee endpoint.</a> Add the appropriate fields (name, job, and so on) to
             the
             Employee custom type.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBPMR-GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Create
               an employees ArrayDataProvider</a> variable that binds to the Employee custom type you just created. </li>
 
           <li>Add a <code>vbEnter</code> event listener to the page that will display the Employees table. </li>
@@ -38,14 +38,14 @@
       <div>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
               a page variable</a> named <code>currentRowBuffer</code> of type EmployeeType.</li>
           <li>Add <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">an
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">an
               ojBeforeRowEdit event listener</a> to the Table component. </li>
           <li>In the <code>TableBeforeRowEditChain</code> action chain, add an <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
-              Variables action</a> named <code>updateCurrentRowBuffer</code> where you assign the current row
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Assign
+              Variables action</a> (JSON chain version <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-55992462-70FE-4C47-BFD0-C77C93C7CF51">here</a>) named <code>updateCurrentRowBuffer</code> where you assign the current row
             data to the <code>currentRowBuffer</code> page variable.</li>
           <li>Add an <code>ojBeforeRowEditEnd</code> event listener to the Table component.</li>
 
@@ -135,7 +135,7 @@
           includes a Call Module Function where the associated function creates a payload of the changes to upload.
           The subsequent Call REST Endpoint action uploads this payload through the business objects Batch REST
           endpoint. The <a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/consume-rest/advanced-tasks.html#GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">Batch
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=ADFRE-GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">Batch
             REST endpoint</a> sends multiple changes in one transaction.</p>
       </div>
     </oj-collapsible>

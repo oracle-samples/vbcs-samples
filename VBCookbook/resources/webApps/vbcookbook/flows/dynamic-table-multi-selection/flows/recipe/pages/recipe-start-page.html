@@ -1,0 +1,198 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Create a Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>
+            In the Page Designer, drag and drop the Dynamic Table component onto the template.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure Layout</strong>.
+          </li>
+          <li>
+            In the Configure Layout dialog that appears, choose the business
+            object or REST endpoint that you want to use as the data source for
+            the form, and click <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure Layout dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>Table Example</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and click
+            <strong>Next</strong>, and then click <strong>Finish</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+              <li><code>salary</code></li>
+            </ul>
+            <p>This creates a new variable named <code>employeeListSDP</code> of type Service Data Provider.</p>
+          </li>
+
+          <li>In the General tab of the Properties pane for the Dynamic Table select <strong>Multiple</strong> for the
+
+            Selection Mode, Row property.</li>
+
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-1494599579-2">
+      <h1 slot="header">Read and Select Rows</h1>
+      <div>
+        <ol>
+          <li>In the Variables tab, create a new variable named <code>selectedRows</code> of type Any.</li>
+          <li>In the Event Listener tab, add the <code>vbEnter</code> event listener to the page and name the associated
+            action chain <code>initializeVariables</code>.
+          </li>
+          <li>In the Code view of the action chain, initialize <code>selectionRows</code> as follows:
+            <pre>$page.variables.selectedRows = { "row": new keySet.KeySetImpl(), "column": new keySet.KeySetImpl() };</pre>
+            Remember to add the definition for <code>'ojs/ojkeyset'</code>.
+          </li>
+          <li>In the Data tab of the Properties pane for Dynamic Table, set the Selected property to
+            <code>{{ $variables.selectedRows }}</code>.
+          </li>
+          <li>To control row selection programmatically, set the <code>selectedRows</code> variable as follows:
+            <pre>// reset the current selection to none
+$page.variables.selectedRows = { "row": new keySet.KeySetImpl(), "column": new keySet.KeySetImpl() };
+
+// select only specific key rows with keys 1,3
+$page.variables.selectedRows = { "row": new keySet.KeySetImpl([1,3]), "column": new keySet.KeySetImpl() };
+
+// access selected row keys
+let rowSelection = $page.variables.selectedRows.row;
+if (rowSelection.isAddAll()) {
+  // all rows are selected and no row keys will be provided
+  // as table may not have all of them displayed anyway.
+  // check also Array.from(rowSelection.deletedValues()) for individual
+  // rows which may have been excluded from "all rows selected" list
+} else {
+  // array of row keys:
+  const rowKeys = Array.from(rowSelection.values());
+}
+
+// to check if any row is selected or not
+let rowSelection = $page.variables.selectedRows.row;
+return rowSelection.isAddAll() || rowSelection.values().size > 0;
+</pre>
+
+
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-1494599579-3">
+      <h1 slot="header">Access Data for the Selected Rows</h1>
+      <div>
+        <p>To access data for the selected rows, we need to fetch it from the data provider. The
+          <code>employeeListSDP</code> is
+          stateless and
+          does not cache row data, so the Dynamic Table cannot be relied on to return up-to-date data without a REST
+          call to the
+          backend service. To avoid unnecessary REST calls, we'll make use of 
+          <a target="_blank" href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/ojdataproviderfactory.html">DataProviderFactory.getEnhancedDataProvider</a> to create an enhanced data provider
+          (<code>enhancedDP</code>)
+          that wraps
+          <code>employeeListSDP</code> and caches row data, so that data for selected rows is returned from an in-memory
+          cache.
+        </p>
+        <ol>
+
+          <li>In the Variables tab, create a new variable named <code>enhancedDP</code> of type Any.
+          </li>
+          <li>In the Code view of the <code>initializeVariables</code> action chain, initialize
+            <code>enhancedDP</code> as follows:
+
+            <pre>
+// initialize the enhancedDP using the employeeListSDP
+$page.variables.enhancedDP = DataProviderFactory.getEnhancedDataProvider( $page.variables.employeeListSDP, {fetchFirst :
+{ caching: 'visitedByCurrentIterator' }});
+</pre>
+            Remember to also add the definition for <code>ojs/ojdataproviderfactory</code> at the start of the action
+            chain:
+            <pre>
+define([
+  . . .
+  'ojs/ojdataproviderfactory',
+  'ojs/ojkeyset'
+], (
+  . . .
+  DataProviderFactory,
+  keySet
+) => {
+            </pre>
+          </li>
+
+          <li>In the All tab of the Properties pane for Dynamic Table, set the Data property to
+            <code>[[$page.variables.enhancedDP]]</code>.
+          </li>
+          <li>In the Events tab of the Properties pane for Dynamic Table, add a <code>selected</code> event listener and
+            name the associated action chain <code>TableSelectedChangeChain</code>.</li>
+
+          <li>In the action chain, access the selected row keys using the <code>selected.row.keys</code> input parameter
+            and access
+            row data using
+            the <code>enhancedDP</code> variable's <code>fetchByKeys</code> method, as shown below:
+            <pre>
+async run(context, { keys, selected }) {
+  const { $page, $flow, $application } = context;
+
+  let isAllSelected = selected.row.keys.all;
+  let selectedKeys = selected.row.keys.keys;
+  let uncheckedKeys = selected.row.keys.deletedKeys;
+
+  if (isAllSelected === true) {
+    let selectionString = "All rows are selected.";
+
+    // check for unselected keys
+    if (uncheckedKeys.size > 0) {
+      selectionString += " except rows with key : " + Array.from(uncheckedKeys).toString();
+    }
+
+    $page.variables.currentSelectionString = selectionString;
+  }
+  else if (selectedKeys.size === 0) {
+    // all check box is not selected, check if any row is selected at all
+    $page.variables.currentSelectionString = "Nothing selected.";
+  }
+  else {
+    // only few specific rows are selected by user, get the row data for each.
+    $page.variables.enhancedDP.fetchByKeys({ keys: keys }).then(fetchResult => {
+      let rowsData = (fetchResult.results);
+
+      let selectionString = "Selected rows data: ";
+
+      rowsData.forEach(rowItem => {
+        selectionString += "\n{'firstName':'" + rowItem.data.firstName;
+        selectionString += "','lastName':'" + rowItem.data.lastName;
+        selectionString += "','email':'" + rowItem.data.email;
+        selectionString += "','phone':'" + rowItem.data.phoneNumber + "'}";
+      });
+
+      // optional - update the text area that shows the selection details
+      $page.variables.currentSelectionString = selectionString;
+    }
+    );
+  }
+}</pre>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

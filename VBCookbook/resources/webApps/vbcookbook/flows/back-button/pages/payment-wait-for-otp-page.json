@@ -8,8 +8,7 @@
     "vbAfterNavigate": {
       "chains": [
         {
-          "chainId": "waitBeforeProceeding",
-          "parameters": {}
+          "chain": "waitBeforeProceeding"
         }
       ],
       "@dt": {

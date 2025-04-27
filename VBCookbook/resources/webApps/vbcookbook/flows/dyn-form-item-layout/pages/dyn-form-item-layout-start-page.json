@@ -1,0 +1,135 @@
+{
+  "title": "Select Single Item Layout",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "object"
+    },
+    "employee2": {
+      "type": "object"
+    },
+    "employee3": {
+      "type": "object"
+    },
+    "employeeEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeEditFormLoadingStatus2": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeEditFormLoadingStatus3": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeEditFormRenderedFields2": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain2",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields2 ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeEditFormRenderedFields3": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain3",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields3 ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeETag": {
+      "type": "string"
+    },
+    "employeeETag2": {
+      "type": "string"
+    },
+    "employeeETag3": {
+      "type": "string"
+    },
+    "fetchedEmployee": {
+      "type": "object"
+    },
+    "fetchedEmployee2": {
+      "type": "object"
+    },
+    "fetchedEmployee3": {
+      "type": "object"
+    }
+  },
+  "metadata": {
+    "businessObjectsUpdateEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Employee"
+      }
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chain": "saveEmployeeChain",
+          "parameters": {}
+        }
+      ]
+    },
+    "saveButtonClicked2": {
+      "chains": [
+        {
+          "chain": "saveEmployeeChain2",
+          "parameters": {}
+        }
+      ]
+    },
+    "saveButtonClicked3": {
+      "chains": [
+        {
+          "chain": "saveEmployeeChain3",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

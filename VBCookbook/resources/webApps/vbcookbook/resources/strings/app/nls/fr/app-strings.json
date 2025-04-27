@@ -19,14 +19,22 @@
     "description" : "",
     "source_text" : "Un salaire"
   },
-  "key_email" : "Email",
+  "key_email" : "E-mail",
   "@key_email" : {
     "description" : "",
-    "source_text" : "Email"
+    "source_text" : "E-mail"
   },
   "key_phonenumber" : "Numéro de téléphone",
   "@key_phonenumber" : {
     "description" : "",
     "source_text" : "Numéro de téléphone"
+  },
+  "key_contactdetails": "Détails du contact",
+    "@key_contactdetails": {
+      "description": ""
+  },
+  "key_review": "Révision nécessaire ?",
+    "@key_review": {
+      "description": ""
   }
 }
