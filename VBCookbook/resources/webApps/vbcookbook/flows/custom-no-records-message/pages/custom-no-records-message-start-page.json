@@ -34,22 +34,14 @@
     "filterButtonOjAction": {
       "chains": [
         {
-          "chainId": "FilterActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "FilterActionChain"
         }
       ]
     },
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "onRefreshQuery",
-          "parameters": {
-            "key": "{{ $current.key }}",
-            "index": "{{ $current.index }}",
-            "current": "{{ $current }}"
-          }
+          "chain": "onRefreshQuery"
         }
       ]
     }

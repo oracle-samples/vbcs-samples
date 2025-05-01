@@ -1,0 +1,418 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>Create a Dynamic Table component that displays editable rows of employees including an empty row to add a record for
+  a new employee. Row data is edited in a form layout which is different for add row and for edit row. All
+  changes are stored in a buffer until the user clicks <strong>Save</strong>, at which time a REST call posts
+  the changes to the backend service. </p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Create a Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>
+            Drag and drop a JET Dynamic Table component from the Component palette on the template in the Page Designer.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure Dynamic UI</strong>.
+          </li>
+          <li>
+            In the Configure Dynamic UI dialog that appears, choose the business
+            object or REST endpoint that you want to use as the data source for
+            the form, and click <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure Dynamic UI dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>dynamicTableFormEdit</code>.
+          </li>
+          <li>
+            In the Fields section, select the following fields, and click
+            <strong>Next</strong>, and then click <strong>Finish</strong>.
+            <ul>
+              <li><code>firstName</code></li>
+              <li><code>lastName</code></li>
+              <li><code>phoneNumber</code></li>
+              <li><code>email</code></li>
+            </ul>
+          </li>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a
+              new variable</a>, <code>employeesCustomBDP</code>, of type <code>Buffering Data Provider</code>.
+            Configure its <code>dataProvider</code> required property to be <code>employeesListSDP</code>.
+            </li>
+          <li>
+            <p>In the
+              Properties pane for the Table component, change the <code>data</code> property to point to
+              <code>[[ $variables.employeesCustomBDP.instance ]]</code> instead of <code>employessListSDP</code>.
+            </p>
+            <p>Note the use of <code>instance</code> at the end of the property value.</p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-3">
+      <h1 slot="header">Make the Dynamic Table Editable</h1>
+      <div>
+        <ol>
+          <li>
+            Select the Dynamic Table and, in the All tab of the
+            Properties pane, set the Edit Mode property as <code>managedRowEdit</code>.
+          </li>
+
+          <li>In the JSON tab of the Designer, set the default endpoint of businessObjectsGetallEmployeeMetadata to
+            <code>businessObjects/update_Employee</code> and remove <code>"metadata-path":"items"</code>, so that the
+            entry is as follows:
+            <pre>
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Employee"
+      }
+    }
+  },
+</pre>
+            <p>When the Quick Start wizard configures the table, it includes these entries that we need to edit to
+              change the endpoint as update.</p>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-4">
+      <h1 slot="header">Add Row Feature</h1>
+      <div>
+        <ol>
+          <li>In the Page Designer, select the Dynamic Table component and, in the All tab of the Properties pane, set
+            the Add Row Display property to <code>top</code>. This adds a new empty row by default on top of the table.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-5">
+      <h1 slot="header">Add a Custom Form Layout for Editing</h1>
+      <div>
+
+        To enable form-based row editing and creation, a
+        dynamic form layout needs to be created. The Add and Edit flow can share the same form layout or have separate
+        layouts.
+        <ol>
+          <li>To add a custom form layout for adding a new row, navigate to the Rule Sets section of Employee and
+            create a new Rule Set named <code>dynamicTableFormAddRow</code> of component type Dynamic Form.</li>
+          <li>Select the fields this new layout (for example, <code>firstName</code>, <code>lastName</code>, and
+            <code>salary</code>). Also set the Direction
+            property of the form to <code>Column</code> and the Max Columns property to <code>3</code>, so that the
+            three fields in the Add Row
+            form layout
+            appear side by side.
+          </li>
+
+          <li>Similarly, to add a new custom form layout for editing the existing rows, navigate to the Rule Sets
+            section of Employee and create a new Rule Set named <code>dynamicTableFormEditRow</code> of component type
+            Dynamic Form.
+          </li>
+          <li>Select the fields for this new layout. Also set the Direction property of the form to
+            <code>Column</code> and
+            the Max Columns property to <code>3</code>.
+          </li>
+          <li>
+            To use these Rule Sets, navigate to the JSON tab of the Employee layout. Search for the
+            <code>dynamicTableFormEdit</code>
+            Rule Set and add the custom rule sets for add and edit row as follows.
+            <pre>
+  "dynamicTableFormEdit": {
+    "type": "businessObjects",
+    "layoutType": "table",
+    "label": "dynamicTableFormEdit",
+    "rules": [
+      "isDefault10"
+    ],
+    "layouts": {
+      "default": {
+        "layoutType": "table",
+        "layout": {
+          <span style="color:red;">"editRowFormLayout" : "dynamicTableFormEditRow", // custom form layout for editing row
+          "addRowFormLayout" : "dynamicTableFormAddRow", // custom form layout for adding new row</span>
+          "displayProperties": [
+            {
+                "firstName": {
+                  "maxWidth": "20%"
+                }
+              },
+            . . . 
+          </pre>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-6">
+      <h1 slot="header">Add a List of Values (LOV)</h1>
+      <div>
+        <p>Dynamic UI components create their UI using server-side metadata that describes the data model. The more
+          complete the
+          server-side metadata, the more possibilities available to you to create a feature-rich UI with dynamic UI
+          components. If
+          server-side metadata is missing or incomplete, you can enhance it on the client-side. In this step, we show
+          how to
+          enhance the metadata to implement a list-of-values UI using the Department business object as an example. In
+          the next
+          step (Add a LOV with a Field Template and Validation), we show an alternative implementation that uses the Job
+          business object.</p>
+        <ol>
+          <li>Click the <strong>Source</strong> tab and locate and open the <code>data-description-overlay.json</code>
+            file under the
+            <strong>dynamicLayouts/Employee</strong>
+            node.
+          </li>
+          <li>Under the <code>replaceMetadata</code> entry in the open file, add the following definition to replace the
+            metadata
+            definition of
+            the <code>department</code> property. Use the <code>oj-select-single</code> component to render the list of
+            values:
+            <oj-collapsible id="JS-code4">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+"replaceMetadata": {
+  "$common": {
+    "department": {
+      "labelHint": "Department",
+      "componentType": "oj-select-single",
+      "dataProvider": {
+        "factory": "vb/types/factories/serviceDataProviderFactory",
+        "parameters": [
+          {
+            "dataProviderOptions": {
+              "endpoint": "businessObjects/getall_Department",
+              "uriParameters": {
+                "onlyData": "[[true]]"
+              },
+              "keyAttributes": "id",
+              "itemsPath": "items"
+            }
+          }
+        ]
+      },
+      "optionsKeys": {
+        "value": "id",
+        "label": "departmentName"
+      }
+    }
+  }
+}</pre>
+              </div>
+            </oj-collapsible>
+            <p>The Dynamic UI now generates a list-of-value component wherever the employee's Department field is
+              rendered.</p>
+          </li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-6-2">
+      <h1 slot="header">Add a LOV with a Field Template and Validation</h1>
+
+      <div>
+        <p>Another way to add a list of values is to use a field template. We use this technique on the
+          <code>job</code> property and store the selected row values for
+          advanced data validation.
+        </p>
+
+        <ol>
+          <li>Click the <strong>Layouts</strong> tab and open the default layout view of the Employee layout's
+            <strong>Add Row Form for editable table</strong> rule set.
+          </li>
+          <li>In the Variables tab, add the following variables:
+            <ul>
+              <li><code>jobListSDP</code> of type
+                <code>ServiceDataProvider</code> that references the <code>getall_Job</code> endpoint.
+              </li>
+              <li><code>minSalary</code> of type <code>Number</code> that holds the value for the mininimum salary for
+                the selected job.</li>
+              <li><code>maxSalary</code> of type <code>Number</code> that holds the value for the maximum salary for the
+                selected job.</li>
+            </ul>
+          </li>
+
+          <li>In the Templates tab, create a new field template named <code>jobSingleSelect</code>.
+
+          </li>
+
+
+          <li>In the template definition for <code>jobSingleSelect</code>, replace the component code with
+            <code>oj-select-single</code> and set the <code>data</code> attribute value to <code>jobListSDP</code>. Also
+            add a value item change listener to <code>oj-select-single</code>:
+            <pre>
+&lt;template id="jobSingleSelect"&gt;
+  &lt;oj-select-single label-hint="[[ $labelHint ]]" value="{{ $value }}" data="[[ $variables.jobListSDP ]]" item-text="jobTitle"
+    on-value-item-changed="[[$listeners.selectValueItem]]"&gt;&lt;/oj-select-single&gt;
+&lt;/template&gt;</pre>
+          </li>
+          <li>In the change listener's action chain, modify the values of the <code>minSalary</code> and
+            <code>maxSalary</code> variables from the selected job row.
+          </li>
+          <li>Finally, for the <code>salary</code> field, add a field template
+            <code>salaryWithRangeValidation</code> and set the <code>min</code>
+            and <code>max</code> attribute values for the Input Number field to the variables shown below:
+            <pre>
+&lt;template id="salaryWithRangeValidation"&gt;
+  &lt;oj-input-number value="{{ $value }}" label-hint="[[ $labelHint ]]" min="[[ $variables.minSalary ]]"
+    max="[[ $variables.maxSalary ]]"
+    converter='{"options":{"style":"currency","currency":"USD","currencyDisplay":"code"},"type":"number"}'&gt;&lt;/oj-input-number&gt;
+&lt;/template&gt;</pre>
+            <p>Similarly, you can set a field template for the <strong>Edit Row Form for editable table</strong> rule
+              set.</p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-7">
+      <h1 slot="header">Track and Save Changes</h1>
+      <div>
+        <p>Saving changes involves collecting them from the Buffering Data Provider instance, creating a single <a
+            href="http://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">batch
+            REST Call payload</a> to store all changes in one transaction.</p>
+        <ol>
+          <li>In the Component Palette, drag a Button component and drop it on the Page Designer above the Dynamic Table
+            component. In the General tab of the Properties pane, set the Text property to <code>Save</code>.</li>
+          <li>In the Events tab of the Properties pane for the Save button, add a Quick Start: 'ojAction' event and a
+            corresponding JS action chain named <code>saveActionChain</code>.</li>
+          <li>In the saveActionChain action chain, add a Call Function action named
+            <code>createBatchPayload</code>. This function creates a payload of the changes to upload and uses the
+            <code>getSubmittableItems()</code> function of the Buffering Data Provider which contains the changes
+            (add, update, and delete).
+
+            <oj-collapsible id="JS-code2">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+    /**
+     * @param {Object} context
+     */
+    async createBatchPayload(context) {
+      const { $page, $flow, $application } = context;
+      const generateBatchSnippet = function (url, payload, operation, id) {
+        return {
+          id: id ? id : "someID",
+          path: url,
+          operation: operation,
+          payload: payload ? payload : {},
+        };
+      };
+      let payloads = [];
+      let uniqueId = new Date().getTime();
+      let editItems = $page.variables.employeesCustomBDP.instance.getSubmittableItems();
+      editItems.forEach((editItem) => {
+        let change = editItem.operation;
+        let key = editItem.item.metadata.key;
+        // clone record - some properties will be deleted from the clone:
+        let record = JSON.parse(JSON.stringify(editItem.item.data));
+        if (change === "remove") {
+          payloads.push(
+            generateBatchSnippet("/Employee/" + key, {}, "delete")
+          );
+        } else if (change === "add") {
+          //delete record.departmentObject;
+          //delete record.jobObject;
+          //delete record.id;
+          // default some required fields:
+          // record.email = 'person' + (++uniqueId) + '@company.com';
+          record.hireDate = new Date();
+          record.department = 1;
+          record.job = 1;
+          payloads.push(
+            generateBatchSnippet("/Employee", record, "create")
+          );
+        } else if (change === "update") {
+          delete record.departmentObject;
+          delete record.jobObject;
+          payloads.push(
+            generateBatchSnippet(
+              "/Employee/" + key,
+              record,
+              "update"
+            )
+          );
+        }
+      });
+      return {
+        parts: payloads,
+      };
+    }
+                </pre>
+              </div>
+            </oj-collapsible>
+
+          </li>
+          <li>Add a Call REST action to upload the payload through the business objects Batch REST
+            endpoint. The <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=ADFRE-GUID-3F3F2D10-CF68-46D1-AF83-A52988CF817B">Batch
+              REST endpoint</a> sends multiple changes in one transaction.</li>
+          <li>On the success outcome of the REST Call action, reset the status of the records using
+            <code>resetAllUnsubmittedItems()</code>
+            and fire a notification with the message that <code>Changes are saved.</code> On the failure path of the
+            REST Call
+            action, fire a notification with the failure message as seen in the code example below.
+            <oj-collapsible id="JS-code3">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <pre>
+    async run(context) {
+      const { $page, $flow, $application } = context;
+
+      // create a batch payload for the unsubmitted items
+      const batchRESTPayload = await this.createBatchPayload(context);
+
+      // check if there is any modified/added data available
+      if (batchRESTPayload.parts.length === 0) {
+        await Actions.fireNotificationEvent(context, {
+          displayMode: 'transient',
+          type: 'info',
+          summary: 'Nothing to save.',
+        });
+      }
+      else {
+        // call the batch rest call
+        const batchPostResult = await Actions.callRest(context, {
+          endpoint: 'businessObjects/batch',
+          body: batchRESTPayload,
+        });
+
+        if (batchPostResult.status === 200) {
+          $page.variables.employeesCustomBDP.instance.resetAllUnsubmittedItems();
+
+          await Actions.fireNotificationEvent(context, {
+            summary: 'Changes are saved.',
+            displayMode: 'transient',
+            type: 'confirmation',
+          });
+        } else {
+          await Actions.fireNotificationEvent(context, {
+            displayMode: 'persist',
+            type: 'error',
+            summary: ' Save failed. Error: ' + batchPostResult.statusText,
+          });
+        }
+      }
+    }
+                </pre>
+              </div>
+            </oj-collapsible>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

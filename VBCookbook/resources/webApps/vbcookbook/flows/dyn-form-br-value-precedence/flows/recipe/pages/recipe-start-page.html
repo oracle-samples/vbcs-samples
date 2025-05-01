@@ -1,0 +1,122 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  <a
+    target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD"
+    >Add a Dynamic Form</a
+  >
+  to display the appropriate fields (Expense Type, Amount in USD, and so on)
+  using the Expense dynamic layout.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Update Dynamic Form Configuration</h1>
+      <div>
+        <ol>
+          <li>
+            In the Variables tab of the Designer,
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B"
+              >create a page variable</a
+            >
+            named <code>expenseObjectContext</code> of type Object, and then add
+            a field named <code>exchangeRate</code> of type Number within this
+            page variable.
+          </li>
+
+          <li>
+            In the JSON tab, update the <code>metadata</code> section to pass
+            <code>expenseObjectContext</code> as the
+            <code>objectContext</code> into the business rules within the page's
+            JSON.
+            <code>
+              <pre>
+  "metadata": {
+    "expenseJsonMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "path": "dynamicLayouts/Expense",
+        "objectContext": "[[ $variables.expenseObjectContext ]]"
+      }
+    }
+  },</pre
+              >
+            </code>
+          </li>
+          <li>
+            In the Page Designer, select the dynamic form component and in the
+            Events tab of the Properties pane add an
+            <code>ojRawValueUpdated</code> event to listen to the current value
+            change so that we can fetch the corresponding current exchange rate.
+          </li>
+          <li>
+            In the action chain associated with the event
+            (<code>FormRawValueUpdatedChain</code>), update the value of the
+            <code>exchangeRate</code> field in the
+            <code>expenseObjectContext</code> page variable if the value of the
+            <code>currency</code> field changes.
+            <code>
+              <pre>
+  if (event.previousValue.currency !== event.value.currency) {
+    $variables.expenseObjectContext.exchangeRate = undefined;
+    // Use setTimeout to simulate that retrieval of exchange rate can be asynchronous.
+    // In a real implementation, you would use REST call here.
+    setTimeout(() => {
+      if (event.value.currency === 'INR') {
+        $variables.expenseObjectContext.exchangeRate = 84.4;
+      } else if (event.value.currency === 'EUR') {
+         $variables.expenseObjectContext.exchangeRate = 0.95;
+        } else {
+            $variables.expenseObjectContext.exchangeRate = 1;
+          }
+     }, 2000);
+  }
+  </pre
+              >
+            </code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create Business Rules</h1>
+      <div>
+        <ol>
+          <li>In the Layouts tab, open the Expense layout.</li>
+          <li>
+            In the Context tab, click
+            <strong>+ Object Context</strong>
+            to create a new object context named <code>exchangeRate</code> of
+            type Number.
+          </li>
+          <li>
+            In the Business Rules tab, click the
+            <strong>+</strong> icon in the Form Rules section to create a new
+            business rule named <code>Currency Change</code> with Rule Type as
+            <code>Regular</code>.
+          </li>
+
+          <li>
+            <p>
+              In the <code>Currency Change</code> rule, set the value of the
+              <code>currencyAmount</code> field to an expression:
+            </p>
+            <p>
+              <code
+                >[[ $objectContext.exchangeRate ? ($fields.baseAmount.value() *
+                $objectContext.exchangeRate) : undefined ]]</code
+              >
+            </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

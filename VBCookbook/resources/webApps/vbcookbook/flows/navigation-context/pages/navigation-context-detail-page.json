@@ -28,10 +28,7 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "goBackChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "goBackChain"
         }
       ]
     }

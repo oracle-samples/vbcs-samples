@@ -1,0 +1,62 @@
+{
+  "title": "Employee Detail",
+  "description": "Displays Employee record",
+  "variables": {
+    "employee": {
+      "type": "getEmployeeResponse"
+    },
+    "employeeId": {
+      "type": "string",
+      "required": true,
+      "input": "fromUrl"
+    }
+  },
+  "metadata": {},
+  "types": {
+    "@decorators.getEmployeeResponse": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "request"
+    },
+    "getEmployeeResponse": {
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string"
+    }
+  },
+  "eventListeners": {
+    "backButtonClicked": {
+      "chains": [
+        {
+          "chain": "goBackChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chain": "loadEmployeeChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-form-layout": {
+        "path": "ojs/ojformlayout"
+      },
+      "oj-input-number": {
+        "path": "ojs/ojinputnumber"
+      },
+      "oj-input-text": {
+        "path": "ojs/ojinputtext"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      }
+    }
+  }
+}

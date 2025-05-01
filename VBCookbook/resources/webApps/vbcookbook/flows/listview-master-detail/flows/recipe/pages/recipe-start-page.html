@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -48,7 +48,7 @@
         <li>Drop a Header above each List View. Set the Text property to <code>Departments</code>          for the first Header and <code>Employees</code> for the second Header.</li>
         <li>Drop a Header into the second Flex Container. Set the Text property to <code>Employee Data</code>.</li>
         <li>Drop to Bind-If components below the Header. Set the condition of the first
-          one to <code>[[ $variables.selectedEmployee == undefined ]]</code>. Set
+          one to <code>[[ $variables.selectedEmployee === undefined ]]</code>. Set
           the Condition of the second one to <code>[[ $variables.employee.id ]]</code>.
           Set both to center-align.</li>
         <li>Add an Avatar component to each Bind-If components. Set the Src property
@@ -102,7 +102,7 @@
           and set it to fire a new page action chain called <code>EmployeeSelectedChain</code>.</li>
         <li>Drop an Assign Variables action to the action chain. Map the <code>keys</code>          action chain variable on the left to <code>selectedEmployee</code> on the
           right.</li>
-        <li>Drop an If action and set the condition to <code>[[ $page.variables.selectedEmployee == null ]]</code></li>
+        <li>Drop an If action and set the condition to <code>[[ $page.variables.selectedEmployee === null ]]</code></li>
         <li>In the true path of the If action, drop a Reset Variable action and select
           <code>$page.variables.employee</code> in the Variable to Reset field.</li>
         <li>In the false path of the If action, drop a Call REST Endpoint action. Set

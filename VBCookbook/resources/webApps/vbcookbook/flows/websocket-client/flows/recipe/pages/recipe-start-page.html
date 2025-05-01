@@ -1,0 +1,272 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  Communication with a WebSocket server from a Visual Builder app follows this
+  code pattern:
+
+  <code>
+    <pre>
+  // Establish a WebSocket connection
+  const ws = new WebSocket("ws://websocket.server.url/");
+
+  // Listen for incoming data:
+  ws.onmessage = async (event) => {
+
+    // Fire Visual Builder app-level custom event
+    // with data received from the WebSocket connection
+    await Actions.fireEvent(context, {
+      event: 'application:wsData',
+      payload: {
+        data: event.data,
+      },
+    });
+
+  };
+
+  // Or send data to the WebSocket server
+  ws.send("{somedata: 123}");
+</pre>
+  </code>
+  where WebSocket messages are turned into Visual Builder custom events. Any page
+  can listen to these events and process the WebSocket data as needed, without
+  being directly aware that the message originated from a WebSocket
+  communication.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Implement WebSocket Communication</h1>
+      <div>
+        <ol>
+          <li>
+            <a
+              target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D4624301-EFF9-4484-9C24-AA979F4F7D86"
+              >Create an app-level custom event</a
+            >
+            named <code>wsData</code> so that any app page can listen for it. If
+            you want a more limited scope, add the event at the page level, as
+            shown in our example.
+          </li>
+          <li>Add a field named <code>data</code> of type <code>Any</code> to the event's payload, or a more specific type if you know the type of 
+            data that the WebSocket server sends. For example, use type of <code>Object</code> for JSON data. </li>
+          
+
+          
+          
+          <li>
+            <p>Add the <code>vbEnter</code> event handler at the page or app level to establish a connection with the WebSocket server.</p>
+<p> In this recipe, we add a JS Code action to the action chain associated with the <code>vbEnter</code> event. The JS Code action references a wrapper class 
+  named <code>resources/ws/vb-websocket-actions.js</code>, which handles reconnection for broken connections. It could be further enhanced with other features.</p>
+
+            <oj-collapsible id="JS-code1">
+              <a href="" slot="header"
+                >Expand to view code</a
+              >
+              <div>
+                <pre>
+define([
+  'vb/action/actions',
+  'vb/helpers/rest'
+], (Actions, RestHelper) => {
+  'use strict';
+
+  /**
+   * Helper class to manage WebSocket connections with automatic reconnection
+   */
+  class VBWebSocket {
+    
+    /**
+     * Creates a new WebSocket connection helper
+     * 
+     * @param {string} url - The WebSocket server URL to connect to
+     * @param {Map} queryParams (optional) specifies the query params before connecting.
+     */
+    constructor(context, url, queryParams, wsDataEventName) {
+        this.url = url;
+        this.queryParams = queryParams;
+        this.shouldReconnect = true;
+        this.ws = null;
+        this.reconnectDelay = 5000;
+        this.isReconnecting = false;
+        this.alreadyEventedDisconnected = false;
+        this.context = context;
+        this.wsDataEventName = wsDataEventName;
+    }
+
+    _connect(updateQueryParams) {
+      if (updateQueryParams)
+        this.queryParams = updateQueryParams;
+
+      // TODO close connection if it exists...
+
+      let url = this.url;
+      if (this.queryParams)
+        url = this._appendQueryParams(this.url, this.queryParams);
+
+      try {
+          this.ws = new WebSocket(url);
+      } catch (error) {
+          throw new Error(`Failed to create WebSocket connection: ${error.message}`);
+      }
+
+      this.ws.onopen = () => {
+          console.log('WebSocket connected');
+          if (this.isReconnecting) {
+            this.alreadyEventedDisconnected = false;
+          }
+          this.isReconnecting = false;
+      };
+
+      this.ws.onmessage = async (event) => {
+        await Actions.fireEvent(this.context, {
+          event: this.wsDataEventName,
+          payload: {
+            data : event.data
+          }
+        });
+      };
+
+      this.ws.onclose = () => {
+          if (this.shouldReconnect) {
+              this.isReconnecting = true;
+              
+              // update the system via events
+              if (!this.alreadyEventedDisconnected) {
+                this.alreadyEventedDisconnected = true;
+                // this.reconnectEvents.forEach(fn => fn.call(null, true));
+              }
+              
+              this._handleReconnect();
+          }
+      };
+
+      this.ws.onerror = (error) => {
+          console.error('WebSocket error:', error);
+          // this.errorEvents.forEach(fn => fn.call(null, error));
+      };
+
+      return this;
+    }
+
+    sendMessage(message) {
+      this.ws.send(message);
+    }
+
+    /**
+     * Sets the time (in ms) before a connection is retried if the connection is lost. Retries
+     * will be attempted at this interval until a successful connection is performed.
+     * 
+     * @param {number} reconnectDelay time in millisecond
+     * @returns the websocket
+     */
+    setReconnectDelayInMs(reconnectDelay) {
+      this.reconnectDelay = reconnectDelay;
+
+      return this;
+    }
+
+
+
+    /**
+     * Cleanly disconnects the WebSocket connection and prevents auto-reconnection
+     */
+    disconnect() {
+        this.shouldReconnect = false;
+        if (this.ws) {
+            this.ws.close();
+            this.ws = null;
+            console.log('Disconnected....');
+        }
+    }
+
+    /**
+     * Handles reconnection attempts
+     * Will attempt to reconnect up to maxReconnectAttempts times with the reconnect delay
+     */
+    _handleReconnect() {
+      if (!this.shouldReconnect) {
+          console.log('Reconnection cancelled');
+          return;
+      }
+
+      console.log('Attempting to reconnect... ');
+      
+      setTimeout(() => {
+          this.connect();
+      }, this.reconnectDelay); 
+    }
+
+    _appendQueryParams(urlString, params) {
+      const url = new URL(urlString);
+      const searchParams = url.searchParams;
+      Object.entries(params).forEach(([key, value]) => {
+          searchParams.append(key, value);
+      });
+      return url.toString();
+   }
+  }
+
+  const VBWebsocketActions = {
+    VBWebSocket
+  };
+
+  VBWebsocketActions.createWebSocket = async (context, websocketURL, queryParams, wsDataEventName) => {
+    return (new VBWebSocket(context, websocketURL, queryParams, wsDataEventName))._connect();
+  };
+
+  VBWebsocketActions.createWebSocketFromEndpoint = async (context, endpointId, queryParams, wsDataEventName) => {
+    // Get the URL from the service and operation - note that OpenAPI does not really support websockets, 
+    // so we will have to extrapolate here, so we replace the protocol with 'ws'
+    let websocketURL = await RestHelper.get(endpointId).toUrl();
+    // todo: handle service not found...
+    return VBWebsocketActions.createWebSocket(context, websocketURL, queryParams, wsDataEventName);
+  };
+
+  return VBWebsocketActions;
+});
+                </pre>
+              </div>
+            </oj-collapsible>
+            Instead of creating a new WebSocket connection as shown in our earlier code example, let's
+            import this wrapper class and use it to start a WebSocket listener:
+            <code>
+              <pre>
+$variables.wsActions = await WebsocketActions.createWebSocket(context, "wss://echo.websocket.org", {}, "wsData");
+            </pre
+              >
+            </code>
+
+              Store a reference to the wrapper class in the Assign Variables action (<code>$variables.wsActions</code>), allowing
+               you to send data to the WebSocket server or close the connection.
+          </li>
+          <li><p>In the Event Listeners tab, add a listener for the <code>wsData</code> event that we created earlier. In the action chain associated 
+            with the event listener, process the WebSocket data.</p>
+          <p> In our example, we print the value received from the WebSockets server in the 
+            Communication Log part of the page prefixed with <code>[recv]</code>.</p>
+          </li>
+          
+          
+          <li>
+            If your WebSocket server supports bidirectional communication, send
+            data to it from an action chain using this call:
+            <code>
+              <pre>
+$variables.wsActions.sendMessage("payload in format expected by the websocket server");
+            </pre
+              >
+            </code>
+          </li>
+          
+          <li>In the Network tab of your browser's developer tools, locate a call to <code>echo.websocket.org</code> to observe that a 
+            connection channel is open between your app and the WebSocket server. This channel exchanges data between your app and the 
+            WebSocket server in a single connection.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

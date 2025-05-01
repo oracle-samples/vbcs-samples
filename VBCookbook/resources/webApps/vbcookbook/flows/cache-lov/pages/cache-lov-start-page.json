@@ -13,8 +13,8 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "flow:populateCountries",
-          "parameters": {}
+          "parameters": {},
+          "chain": "flow:populateCountries"
         }
       ]
     }

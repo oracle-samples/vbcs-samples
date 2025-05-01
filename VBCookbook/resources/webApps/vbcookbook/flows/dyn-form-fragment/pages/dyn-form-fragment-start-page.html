@@ -1,0 +1,61 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  This recipe shows you how to prevent stale values when a drawer closes and opens.
+  This is achieved by removing and re-adding a fragment that contains a dyn-form in
+  DOM using oj-bind-if
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2" style="width: 100%">
+    <div class="oj-flex-item oj-sm-padding-2x">
+      <oj-button label="Edit Record" on-oj-action="[[$listeners.buttonAction]]" id="edit-record"></oj-button>
+    </div>
+    <div class="oj-flex">
+      <oj-dynamic-table data="[[$variables.employeeListSDP]]"
+        metadata="[[ $metadata.businessObjectsGetallEmployeeMetadata.provider ]]" layout="drawerPopupTable"
+        selection-mode.row="single" selection-required="true"
+        on-first-selected-row-changed="[[$listeners.tableFirstSelectedRow]]" style="height: 400px; width:100%" id="emp-dynamic-table">
+      </oj-dynamic-table>
+    </div>
+
+
+
+    <oj-drawer-popup opened="{{ $variables.OpenDrawer }}" edge="end" id="drawer-popup">
+      <oj-sp-create-edit-drawer-template class="oj-flex-item oj-sm-12 oj-md-12" drawer-title="Edit Employee Details"
+        primary-action.label="Update" on-sp-primary-action="[[$listeners.createEditDrawerTemplateSpPrimaryAction]]"
+        on-sp-cancel="[[$listeners.createEditDrawerTemplateSpCancel]]">
+        <div>
+          <oj-bind-if test="[[ $variables.OpenDrawer ]]">
+            <oj-vb-fragment bridge="[[vbBridge]]" name="dyn-form-popup">
+              <oj-vb-fragment-param name="empId" value="[[ $variables.rowId ]]"></oj-vb-fragment-param>
+              <oj-vb-fragment-param name="employee" value="{{ $variables.employee }}"></oj-vb-fragment-param>
+              <oj-vb-fragment-param name="fetchedEmployee" value="{{ $variables.fetchedEmployee }}">
+              </oj-vb-fragment-param>
+              <oj-vb-fragment-param name="employeeEditFormLoadingStatus"
+                value="{{ $variables.employeeEditFormLoadingStatus }}"></oj-vb-fragment-param>
+              <oj-vb-fragment-param name="employeeETag" value="{{ $variables.employeeETag }}"></oj-vb-fragment-param>
+            </oj-vb-fragment>
+          </oj-bind-if>
+        </div>
+
+      </oj-sp-create-edit-drawer-template>
+    </oj-drawer-popup>
+  </div>
+</div>
+
+
+
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

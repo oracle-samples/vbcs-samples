@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -8,10 +8,17 @@
   <span class="vb-icon vb-icon-telephone" style="margin-top:25px"></span>
   <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" data-oj-field="phoneNumber">
   </oj-input-text>
-
+</template>
+<template id="phoneTemplateForEditableTable">
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" data-oj-field="phoneNumber">
+  </oj-input-text>
 </template>
 <template id="emailTemplate">
   <span class="vb-icon vb-icon-envelope" style="margin-top:25px"></span>
+  <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width"
+    data-oj-field="email"></oj-input-text>
+</template>
+<template id="emailTemplateForEditableTable">
   <oj-input-text value="{{ $value }}" label-hint="[[ $metadata.labelHint ]]" class="oj-form-control-full-width"
     data-oj-field="email"></oj-input-text>
 </template>
@@ -64,8 +71,97 @@
   </employee-card>
 </template>
 
-<template id="tableFieldTemplate">
-  <a id="nameLink" href="#" :_empId="[[ $value.id ]]" on-click="[[$listeners.nameLinkClick]]">
-    <oj-bind-text value="[[ $value.firstName ]]"></oj-bind-text>
+<template id="salaryWithRangeValidation">
+  <oj-input-number value="{{ $value }}" label-hint="[[ $labelHint ]]" min="[[ $variables.minSalary ]]"
+    max="[[ $variables.maxSalary ]]"
+    converter='{"options":{"style":"currency","currency":"USD","currencyDisplay":"code"},"type":"number"}'>
+  </oj-input-number>
+</template>
+
+<template id="jobSingleSelect">
+  <oj-select-single label-hint="[[ $labelHint ]]" value="{{ $value }}" data="[[ $variables.jobListSDP ]]"
+    item-text="jobTitle" on-value-item-changed="[[$listeners.selectValueItem]]"></oj-select-single>
+</template>
+
+<template id="fullNameWrapped">
+  <span style="display:flex; white-space:normal; overflow-wrap:break-word; max-width:10%">
+    <oj-bind-text value="{{ $value }}"></oj-bind-text>
+  </span>
+</template>
+
+<template id="trainingVF">
+  <oj-checkboxset label-hint="Completed Training " value="[[ $functions.getTrainingsValue($value) ]]"
+    on-value-changed="[[ function (event) { $functions.storeTrainingsChanges(event, $value) } ]]">
+    <oj-option value="safety">Safety and Wellbing</oj-option>
+    <oj-option value="ethical">Code of Ethics</oj-option>
+    <oj-option value="security">Security Training</oj-option>
+  </oj-checkboxset>
+  <h5>Updated Values in Checkbox Set Component Fields:</h5>
+  <oj-input-text readonly="true" value="[[ $functions.getTrainingsValue($value) ]]"
+    label-hint="Checkbox Set Component Values"></oj-input-text>
+  <oj-input-text readonly="true" value="[[ $value.safetyTraining ]]" label-hint="Safety Training"></oj-input-text>
+  <oj-input-text readonly="true" value="[[ $value.ethicalTraining ]]" label-hint="Ethical Training"></oj-input-text>
+  <oj-input-text readonly="true" value="[[ $value.securityTraining ]]" label-hint="Security Training"></oj-input-text>
+</template>
+
+<template id="phoneNumberAlignment">
+  <div class="oj-helper-text-align-start">
+    <oj-input-text value="{{ $value }}" label-hint="[[ $labelHint ]]"></oj-input-text>
+  </div>
+</template>
+
+<template id="hireDateTemplate">
+  <oj-bind-if test="[[ $cell.mode === 'navigation' ]]">
+    <oj-bind-text value="[[ $functions.formatDateWithFullConverter( $value() ) ]]"></oj-bind-text>
+  </oj-bind-if>
+  <oj-bind-if test="[[ $cell.mode === 'edit' ]]">
+    <div class="oj-helper-text-align-start" id="hireDate">
+      <oj-input-date value="{{ $value }}" date-picker.show-on="userFocus" id="hire-date"></oj-input-date>
+    </div>
+  </oj-bind-if>
+</template>
+
+<template id="firstNameTranslation">
+  <oj-input-text value="{{ $value }}" label-hint="[[ $translations.app.key_firstname ]]"></oj-input-text>
+</template>
+
+<template id="managerTemplate">
+  <oj-select-single label-hint="[[ $labelHint ]]" value="{{ $value }}" data="[[ $variables.managerSDP ]]"
+    item-text="[[$functions.createItemTextFunction($itemLayout.displayValue)]]"></oj-select-single>
+</template>
+
+<template id="firstNameTemplate">
+  <a id="nameLink" href="#" :_empId="[[ $dependentFieldValues.id ]]" on-click="[[$listeners.nameLinkClick]]">
+    <oj-bind-text value="[[ $value ]]"></oj-bind-text>
   </a>
+</template>
+
+<template id="listItemLayoutTemplate">
+  <oj-list-item-layout class="oj-listitemlayout-padding-off">
+    <span class="oj-typography-body-lg oj-text-color-primary">
+      <oj-bind-text value="[[$fields.departmentName.$value()]]"></oj-bind-text>
+    </span>
+    <span slot="secondary" class="oj-typography-body-md oj-text-color-secondary">
+      <oj-bind-text value="[[ $fields.locationObject.$value()?.items[0]?.city ]]">
+      </oj-bind-text>
+    </span>
+    <div slot="metadata" class="oj-typography-body-sm oj-text-color-secondary">
+      <span><oj-bind-text value="[[ $fields.departmentManager.$value()?.items[0]?.firstName ]]"></oj-bind-text></span>
+      <span><oj-bind-text value="[[ $fields.departmentManager.$value()?.items[0]?.lastName ]]"></oj-bind-text></span>
+      <br>
+      <span><oj-bind-text value="[[ $fields.departmentManager.$value()?.items[0]?.phoneNumber ]]"></oj-bind-text></span>
+    </div>
+  </oj-list-item-layout>
+</template>
+
+<template id="customAction">
+  <div >
+    <oj-button display="icons" class="oj-button-sm"
+      on-oj-action="[[$listeners.iconClick]]" chroming="borderless">
+      <span slot="startIcon" class="oj-ux-ico-add-edit-page"></span>
+    </oj-button>
+    <oj-button display="icons" class="oj-button-sm" on-oj-action="[[$listeners.iconClick2]]" chroming="borderless">
+      <span slot="startIcon" class="oj-ux-ico-trash"></span>
+    </oj-button>
+  </div>
 </template>

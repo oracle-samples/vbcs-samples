@@ -1,0 +1,37 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  <p>
+    This example shows you how to preserve the sorting of the columns while navigating away from the page. To test the
+    example, click on any header to sort on that column and then click any of
+    the rows to
+    navigate away from the current page. When you return to the original page, the column sorting state that was applied
+    before navigation is maintained.
+  </p>
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-sm-flex-direction-column sample-box2" style="width:100%;">
+    <oj-table scroll-policy="loadMoreOnScroll" class="oj-flex-item oj-sm-12 oj-md-12"
+      data="[[$variables.employeeListSDP]]" columns='[{"headerText":"First Name","field":"firstName", "template":"Id"},
+    {"headerText":"Last Name","field":"lastName"},
+    {"headerText":"Email","field":"email"},
+    {"headerText":"Salary","field":"salary"}]' style="height: 400px"
+      on-first-selected-row-changed="[[$listeners.tableFirstSelectedRow]]" selection-mode.row="single"
+      selection-mode.column="single" on-oj-sort="[[$listeners.tableSort]]">
+    </oj-table>
+  </div>
+</div>
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

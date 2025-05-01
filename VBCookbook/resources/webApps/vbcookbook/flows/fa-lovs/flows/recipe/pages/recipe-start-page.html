@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -41,7 +41,7 @@
             In the Component Palette, drag the Select Single component and drop it on the page.
           </li>
           <li>
-            Use the Select Single component’s <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+            Use the Select Single component’s <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
                 Data Quick Start</a> to bind your Select Single component to employee data.</li>
 
 
@@ -73,9 +73,7 @@
             When the user selects an employee from the Select Single component, we need to hide the component using a
             condition and display a label with the selected employee name. An icon adjacent
             to the label is used to hide the label and to display the Select Single component again.
-
           </li>
-
 
           <li>
             In the Component Palette, drag an If component (oj-bind-if) and drop it on the page. In the Property
@@ -93,18 +91,15 @@
                 In the General tab, select the Delete icon from the Gallery.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
                 an event listener</a> to the Icon component.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add an Assign Variables action</a> to the action chain named <code>DeSelectEmployeeChain</code> that assigns the
-                <code>selectedEmployee</code> variable in target to Default.
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add an Reset Variables action</a> to the action chain named <code>DeSelectEmployeeChain</code> that resets the
+                <code>selectedEmployee</code> variable.
               </li>
             </ul>
-
           </li>
-
-
         </ol>
       </div>
     </oj-collapsible>
@@ -129,15 +124,11 @@
                 Add an Event Listener to the Icon component.
               </li>
               <li>
-                Add a Call Component action named <code>openDialogComponentMethod</code>                to the action chain named <code>OpenAdvancedSearchDialog</code>.
+                Add a Call Component action to the action chain named <code>OpenAdvancedSearchDialog</code>.
               </li>
               <li>
                 In the Properties pane of the Call Component action, select <b>oj-dialog</b> from the Component dropdown list and <b>open</b> from the Method Name dropdown list.
               </li>
-
-
-
-
             </ul>
           </li>
         </ol>
@@ -176,7 +167,7 @@ new NumberConverter.IntlNumberConverter({
           <li>
             In the Component Palette, drag a Table component and drop it to dialog.
           </li>
-          <li>Use the Table component’s <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+          <li>Use the Table component’s <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
                 Data Quick Start</a> to bind your table to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -194,40 +185,6 @@ new NumberConverter.IntlNumberConverter({
                 In the Data tab, assign the First Selected Row to <code>{{ $variables.selectedRow}}</code>.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-                an event listener</a> with a select event of first-selected-row
-                to the Table component.
-              </li>
-              <li>
-                Add the following actions to the action chain named <code>TableFirstSelectedRowChangeChain</code>:
-                <ul>
-                  <li>
-                    <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-                an Assign Variables action</a> with the <code>selectEmployee</code>                    variable set to default in Target.                  </li>
-                  <li>
-                    Add an If action named <code>tableRowDataIf</code>. In the Property
-                    Inspector of the If action, assign the Condition field to <code>[[ $chain.variables.rowData ]]</code>.
-                  </li>
-
-                  <li>
-                    For the true section of the If condition, <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
-                an Assign Variables action</a> with the Target <code>selectEmployee</code>                    variable set to
-                    <br>
-<pre>{
- "data": {
-  "firstName": "{{$page.variables.selectedRow.data.firstName}}",
-  "id": "{{$page.variables.selectedRow.key}}",
-  "lastName": "{{$page.variables.selectedRow.data.lastName}}"
- },
- "metadata": {
-  "key": "{{$page.variables.selectedRow.key}}"
- },
- "key": "{{$page.variables.selectedRow.key}}"
-}  </pre>
-                  </li>
-                </ul>
-              </li>
-              <li>
                 In the Component Palette, drag a Radio Button Set component (oj-radioset) and drop it in the first column of the table as a cell template. In
                 the Properties pane of the Radio Button Set component, set Value to <code>[[$current.row.id === $page.variables.selectedRow.key ]]</code>.
                 Create one oj-option with an empty label value and Value set to <code>[[true]]</code>.
@@ -238,24 +195,40 @@ new NumberConverter.IntlNumberConverter({
             In the Component Palette, drag a Button component and drop it on the Dialog component.
           </li>
           <li>
-            In the Properties pane of the  Button component:
+            In the Properties pane of the Button component:
             <ul>
               <li>
                 In the General tab, set Text to <b>OK</b> and Disabled to <code>[[ !$variables.selectedEmployee.value ]]</code>.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
-                an event listener</a>.
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
+                an event listener</a> and hence an action chain named <code>OKButtonActionChain</code>.
               </li>
+              <li>In the action chain, drop an <code>If action</code> and check for valid value of variable <code>$page.variables.selectedRow.key</code>.</li>
+              <li>For the true section of the If condition, <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">add
+                an Assign Variables action</a> and set <code>selectEmployee</code> variable to
+                    <br>
+                  <pre>
+{
+  "data": {
+    "firstName": $page.variables.selectedRow.data.firstName,
+    "id": $page.variables.selectedRow.key,
+    "lastName": $page.variables.selectedRow.data.lastName
+  },
+  "metadata": {
+    "key": $page.variables.selectedRow.key
+  },
+  "key": $page.variables.selectedRow.key
+}
+                  </pre>
+                  </li>
               <li>
                 In the action chain named <code>OKButtonActionChain</code>, <a target="_blank"
-                  href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">add
+                  href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-0E25B7E8-0116-461E-8799-E031763F594A">add
                 a Call Component action</a> named <code>closeDialogComponentMethod</code>.
               </li>
               <li>In the Properties pane, select the <strong>oj-dialog</strong> component
-                from the Component dropdown list and
-                <strong>close</strong> from the Method Name dropdown list.</li>
-
+                from the Component dropdown list and <strong>close</strong> from the Method Name dropdown list.</li>
             </ul>
 
           </li>
@@ -269,21 +242,19 @@ new NumberConverter.IntlNumberConverter({
                 In the General tab, set Text to <b>Cancel</b>.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
                 an event listener</a>.
               </li>
               <li>
                 In the action chain named <code>CancelButtonActionChain</code>:
                 <ul>
                   <li>
-                    <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-                an Assign Variables action</a> with Target <code>selectEmployee</code>                    variable set to default.
+                    <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/jsac-add-reset-variables-action.html">Add
+                a Reset Variables action</a> for <code>selectEmployee</code> variable.
                   </li>
                   <li>
-                    <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
-                a Call Component
-                action</a> named <code>closeDialogComponentMethod</code>.
-                    In the Properties pane, select the <strong>oj-dialog</strong>                    component from the Component dropdown list and
+                    <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-0E25B7E8-0116-461E-8799-E031763F594A">Add
+                a Call Component action</a>. In the Properties pane, select the <strong>oj-dialog</strong> component ID from the Component dropdown list and
                     <strong>close</strong> from the Method Name dropdown list.</li>
 
                 </ul>
@@ -303,23 +274,23 @@ new NumberConverter.IntlNumberConverter({
         <p>You'll need to add an Advanced Search dialog to allow users to filter employees and select one of them. </p>
         <ol>
           <li>
-            <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
-                a custom type</a> named <code>filter</code> of type Object with the following fields:
+            <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+                a custom type</a> named <code>filterType</code> of type Object with the following fields:
             <ul>
               <li>
-                <code>attribute</code> of type String
+                <code>op</code> of type String
               </li>
               <li>
                 <code>attribute</code> of type String
               </li>
               <li>
-                <code>of type Any</code>
+                <code>value</code> of type Any
               </li>
             </ul>
           </li>
           <li>
             Create a variable named <code>filters</code> of type Array and Array
-            Items Type <code>filters</code>
+            Items Type <code>filterType</code>
           </li>
           <li>
             Set the Default value of <code>filters</code> variable to:
@@ -358,42 +329,6 @@ new NumberConverter.IntlNumberConverter({
 ]</pre>
           </li>
           <li>
-            Create a function named <code>mapToCriteria</code>:
-            <br>
-<pre>mapToCriteria(filters) {
-  let criteria = [];
-  filters.filter(f =&gt; {
-    if (Array.isArray(f.value) &amp;&amp; f.value.length &gt; 0) {
-      return true;
-    } else if (typeof f.value === 'string' &amp;&amp; f.value) {
-      return true;
-    } else if (typeof f.value === 'number' &amp;&amp; f.value !== null) {
-      return true;
-    } else {
-      return false;
-    }
-  }).forEach(f =&gt; {
-    if (Array.isArray(f.value)) {
-      let arrayCriteria = [];
-      f.value.forEach(val =&gt; {
-        arrayCriteria.push({
-          op: f.op,
-          attribute: f.attribute,
-          value: val
-        })
-      })
-      criteria.push({
-        op: '$or',
-        criteria: arrayCriteria
-      })
-    } else if (f.value) {
-      criteria.push(f)
-    }
-  });
-  return criteria;
-};</pre>
-          </li>
-          <li>
             In the Component Palette, drag a Panel component and drop it on the dialog.
           </li>
           <li>
@@ -418,7 +353,7 @@ new NumberConverter.IntlNumberConverter({
             In the Properties pane of the Select Single component:
             <ul>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
                             Data Quick Start</a> to bind to Department
                 data. In the Bind Data page, select the following <code>departmentObject</code>
                 fields:
@@ -447,7 +382,7 @@ new NumberConverter.IntlNumberConverter({
             In the Properties pane of the Select Many component:
             <ul>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
                         Data Quick Start</a> to bind to Skill data. In
                 the Bind Data page, select the following Skill Object fields:
                 <ul>
@@ -490,32 +425,63 @@ new NumberConverter.IntlNumberConverter({
                 In the General tab, set the Label Hint to <b>Search</b>.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
             an event listener</a>.
               </li>
               <li>
                 In the action chain named <code>ApplyFilterActionChain</code>, add the following actions:
                 <ul>
-                  <li>
-                    <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E7BE6B00-7221-40E4-821D-59BEBBA0D896">
-                   Add a Call Module Function </a> with parameters
-                    from source <code>filters</code> variable map to Target <code>filters</code>
+          <li>
+            Create a function named <code>mapToCriteria</code>:
+            <br>
+<pre>function mapToCriteria(filters) {
+  let criteria = [];
+  filters.filter(f =&gt; {
+    if (Array.isArray(f.value) &amp;&amp; f.value.length &gt; 0) {
+      return true;
+    } else if (typeof f.value === 'string' &amp;&amp; f.value) {
+      return true;
+    } else if (typeof f.value === 'number' &amp;&amp; f.value !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }).forEach(f =&gt; {
+    if (Array.isArray(f.value)) {
+      let arrayCriteria = [];
+      f.value.forEach(val =&gt; {
+        arrayCriteria.push({
+          op: f.op,
+          attribute: f.attribute,
+          value: val
+        })
+      })
+      criteria.push({
+        op: '$or',
+        criteria: arrayCriteria
+      })
+    } else if (f.value) {
+      criteria.push(f)
+    }
+  });
+  return criteria;
+};</pre>
+          </li>
+                  <li>Call the function <code>mapToCriteria</code> with parameter <code>$page.variables.filters</code>.
                   </li>
                   <li>
-                    <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-                    an Assign Variables action</a> named <code>filtercriterionAssignVariable</code>                    with target <code>employeeListSDP</code> to <br>
-<pre>{
-  "filterCriterion": {
-    "op": "$and",
-    "criteria": "{{ $chain.results.filterModuleFunction }}"
-  }
-}</pre>
+                    <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add
+                    an Assign Variables action</a> with <code>AdvanceSearchEmployeeListSDP.filterCriterion</code> set to result of the function.<br>
+<pre>
+$page.variables.AdvanceSearchEmployeeListSDP.filterCriterion = {
+  "op": "$and",
+  "criteria": mapToCriteriaReturn
+};
+</pre>
                   </li>
                 </ul>
               </li>
             </ul>
-
-
           </li>
           <li>
             In the Component Palette, drag a Button component and drop it on the Form Layout componnet in the last row. In the
@@ -525,23 +491,17 @@ new NumberConverter.IntlNumberConverter({
                 In the General tab, set Label Hint to <b>Reset</b>.
               </li>
               <li>
-                <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+                <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
                  an event listener</a>.
               </li>
               <li>
-                Add a Reset Variables action named <code>FilterResetVariables</code>                to the action chain named <code>ResetFiltersActionChain</code>. 
+                Add a Reset Variables action to the action chain named <code>ResetFiltersActionChain</code>. 
               </li>
               <li>In the Properties pane of the Reset Variable action, select <code>$page.variables.employeeListSDP.filterCriterion</code> and <code>$page.variables.filters</code> from the Variables to
-                Reset dropdown list.</li>
-
+                Reset dropdown list.
+                </li>
             </ul>
-
           </li>
-
-
-
-
-
         </ol>
       </div>
     </oj-collapsible>

@@ -1,22 +1,13 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
-define([], function () {
-  "use strict";
+define([], () => {
+  'use strict';
 
   class PageModule {
-    constructor() {}
-
-    generateEmail(transientValue) {
-      transientValue.email =
-        transientValue.firstName.charAt(0) +
-        transientValue.lastName +
-        "@oracle.com";
-      return transientValue;
-    }
   }
-
+  
   return PageModule;
 });

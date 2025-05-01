@@ -1,0 +1,259 @@
+{
+  "name": "input-text-typeahead",
+  "displayName": "Input Text With Type-Ahead",
+  "version": "9.0.0",
+  "description": "Provides a specialized input control intended for search-as-you-type scenarios",
+  "license": "https://opensource.org/licenses/UPL",
+  "jetVersion": ">=13.0.0",
+  "properties": {
+    "describedBy": {
+      "displayName": "Described By",
+      "description": "It is used to establish a relationship between this component and another element. To facilitate correct screen reader behavior, the described-by attribute is copied to the aria-describedby attribute on the component's DOM element",
+      "type": "string"
+    },
+    "labelHint": {
+      "displayName": "Label Text",
+      "description": "Represents a hint for oj-form-layout element to render a label on the editable component. This is used only if the editable component is added as a direct child to an oj-form-layout element",
+      "type": "string",
+      "propertyGroup": "common"
+    },
+    "labelledBy": {
+      "displayName": "Labelled By",
+      "description": "Property which is set automatically when the component is being labelled by an external oj-label. Consumers will not need to set this themselves",
+      "type": "string"
+    },
+    "placeholder": {
+      "displayName": "Placeholder",
+      "description": "The placeholder text to set on the element",
+      "type": "string",
+      "propertyGroup": "common"
+    },
+    "required": {
+      "displayName": "Required",
+      "description": "Whether the component is required or optional",
+      "type": "boolean",
+      "value": false,
+      "propertyGroup": "common"
+    },
+    "disabled": {
+      "displayName": "Disabled",
+      "description": "Whether the component is disabled. The default is false",
+      "type": "boolean",
+      "value": false,
+      "status": [
+        {
+          "type": "deprecated",
+          "since": "1.2.0",
+          "description": "Replaced by the 'disable' property"
+        }
+      ]
+    },
+    "disable": {
+      "displayName": "Disable",
+      "description": "Whether the component is disabled. The default is false",
+      "type": "boolean",
+      "value": false,
+      "propertyGroup": "common"
+    },
+    "readonly": {
+      "displayName": "Readonly",
+      "description": "Dictates component's readonly state",
+      "type": "boolean",
+      "value": false,
+      "propertyGroup": "common",
+      "binding": { "consume": { "name": "readonly" } }
+    },
+    "clearIcon": {
+      "displayName": "Clear Icon",
+      "description": "Specifies if the clear icon should be visible",
+      "type": "string",
+      "value": "never",
+      "enumValues": ["always", "conditional", "never"],
+      "propertyEditorValues": {
+        "always": { "description": "The clear icon is always visible" },
+        "conditional": {
+          "description": "The clear icon is visible under the following conditions: if the component has a non-empty value AND it either has focus OR the mouse is over the field"
+        },
+        "never": { "description": "The clear icon is never visible" }
+      },
+      "propertyGroup": "common"
+    },
+    "help": {
+      "displayName": "Help",
+      "description": "Component help information",
+      "type": "object",
+      "translatable": true,
+      "properties": {
+        "instruction": {
+          "displayName": "Help Instruction",
+          "description": "Represents advisory information for the component, such as would be appropriate for a tooltip. This information is appended to the basic formatting information supplied for the URL type",
+          "type": "string"
+        }
+      },
+      "extension": { "audit": { "ignore": ["jetwc-supproperty-propagation"] } }
+    },
+    "helpHints": {
+      "displayName": "Help Hints",
+      "description": "Represents hints for oj-form-layout element to render help information on the label of the component",
+      "type": "object",
+      "translatable": true,
+      "properties": {
+        "definition": {
+          "displayName": "Help Definition",
+          "description": "Hint for help definition text associated with the label",
+          "type": "string"
+        },
+        "source": {
+          "displayName": "Help Source",
+          "description": "Hint for help source URL associated with the label",
+          "type": "string"
+        }
+      },
+      "extension": { "audit": { "ignore": ["jetwc-supproperty-propagation"] } }
+    },
+    "displayOptions": {
+      "displayName": "Display Options",
+      "description": "Display options for auxilliary content that determines where it should be displayed in relation to the component",
+      "type": "object",
+      "properties": {
+        "converterHint": {
+          "displayName": "Converter Hint",
+          "description": "Display options for auxilliary converter hint text that determines where it should be displayed in relation to the component. When there is already a placeholder set on the component, the converter hint falls back to display type of 'notewindow'",
+          "type": "(Array<('placeholder'|'notewindow'|'none')>|'placeholder'|'notewindow'|'none')"
+        },
+        "helpInstruction": {
+          "displayName": "Help Instruction",
+          "description": "Display options for auxilliary help instruction text that determines where it should be displayed in relation to the component",
+          "type": "(Array<('notewindow'|'none')>|'notewindow'|'none')"
+        },
+        "messages": {
+          "displayName": "Messages",
+          "description": "Display options for auxilliary message text that determines where it should be displayed in relation to the component",
+          "type": "(Array<('inline'|'notewindow'|'none')>|'inline'|'notewindow'|'none')"
+        },
+        "validatorHint": {
+          "displayName": "Validator Hint",
+          "description": "Display options for auxilliary validator hint text that determines where it should be displayed in relation to the component",
+          "type": "(Array<('notewindow'|'none')>|'notewindow'|'none')"
+        }
+      },
+      "extension": { "audit": { "ignore": ["jetwc-supproperty-propagation"] } }
+    },
+    "validators": {
+      "displayName": "Validators",
+      "description": "An optional set of validators to apply to the URL input. If supplied, this set of validators will replace the build-in validation based on the protocol, however, the implmentation of that internal validation is available in oj-ext-utils so that it can be explicitly added to the array here if required.  This allows consumers to have their own custom validators in addition to the default one",
+      "type": "Array<object>"
+    },
+    "value": {
+      "displayName": "Value",
+      "description": "The value of the component",
+      "type": "string",
+      "writeback": true,
+      "propertyGroup": "data"
+    },
+    "rawValue": {
+      "displayName": "As You Type Value",
+      "description": "The read-only intermediate value of the component updated as soon as the user finishes typing. Updates be made once the user stops typing for an interval of time as determined by the typeaheadWait property",
+      "type": "string",
+      "writeback": true,
+      "readOnly": true,
+      "propertyGroup": "data"
+    },
+    "typeaheadWait": {
+      "displayName": "Wait Time",
+      "description": "Determines the length of a pause in typing that will trigger an update of the rawValue, by default, if the user does not press a further key for 400ms then the rawValue will be updated",
+      "type": "number",
+      "value": 400,
+      "propertyGroup": "common"
+    },
+    "valid": {
+      "displayName": "Valid",
+      "description": "The current valid state of the component",
+      "type": "string",
+      "value": "valid",
+      "enumValues": ["invalidHidden", "invalidShown", "pending", "valid"],
+      "propertyEditorValues": {
+        "invalidHidden": {
+          "description": "The component has invalid messages hidden and no invalid messages showing. An invalid message is one with severity 'error' or higher"
+        },
+        "invalidShown": {
+          "description": "The component has invalid messages showing. An invalid message is one with severity 'error' or higher"
+        },
+        "pending": {
+          "description": "The component is waiting for the validation state to be determined"
+        },
+        "valid": { "description": "The component is valid" }
+      },
+      "writeback": true,
+      "readOnly": true,
+      "visible": false
+    },
+    "userAssistanceDensity": {
+      "description": "Specifies the density of the form component's user assistance presentation",
+      "type": "string",
+      "displayName": "User Assistance Density",
+      "value": "reflow",
+      "enumValues": ["compact", "efficient", "reflow"],
+      "propertyEditorValues": {
+        "compact": {
+          "description": "Messages, help, hints, and required will not be shown inline; they will show in a mode that keeps the screen more compact, like a popup for the messages, and a required icon to indicate Required",
+          "displayName": "Compact"
+        },
+        "efficient": {
+          "description": "Messages, help, hints, and required are all shown inline under the field with reserved space",
+          "displayName": "Efficient"
+        },
+        "reflow": {
+          "description": "Messages, help, hints, and required are all shown inline under the field with no reserved space",
+          "displayName": "Reflow"
+        }
+      },
+      "binding": { "consume": { "name": "userAssistanceDensity" } },
+      "extension": { "themes": { "unsupportedThemes": ["Alta"] } }
+    },
+    "labelEdge": {
+      "description": "Defines how the label of a component is created",
+      "type": "string",
+      "displayName": "Label Edge",
+      "enumValues": ["inside", "none", "provided"],
+      "propertyEditorValues": {
+        "inside": {
+          "description": "The component creates the label using the label-hint attribute",
+          "displayName": "Inside"
+        },
+        "none": {
+          "description": "The component will not have a label, regardless of whether it's in an oj-form-layout or not",
+          "displayName": "None"
+        },
+        "provided": {
+          "description": "Label is provided by the parent if the parent is an oj-form-layout",
+          "displayName": "Provided"
+        }
+      },
+      "binding": { "consume": { "name": "labelEdge" } }
+    }
+  },
+  "methods": {
+    "validate": {
+      "displayName": "Validate",
+      "description": "Validates the component's state. Returns Promise resolves to 'valid' if the value passed is valid. The Promise resolves to 'invalid' if the value passed is null, empty or invalid",
+      "return": "Promise<string>"
+    }
+  },
+  "slots": {
+    "contextMenu": {
+      "displayName": "Context Menu",
+      "description": "Allows for the provision of a custom context menu on the input when in editable mode.  The menu is not displayed when the control is read-only. This slot must contain an oj-menu component if used",
+      "status": [
+        {
+          "type": "deprecated",
+          "since": "5.0.0",
+          "description": "No longer supported on the underlying JET component"
+        }
+      ],
+      "visible": false,
+      "maxItems": 1,
+      "preferredContent": ["MenuElement"]
+    }
+  }
+}

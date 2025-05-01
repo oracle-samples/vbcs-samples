@@ -1,0 +1,8 @@
+{
+  "id": "dyn-table-smart-search",
+  "description": "Flow main",
+  "defaultPage": "dyn-table-smart-search-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -1,0 +1,123 @@
+{
+  "title": "Prevent Stale Values",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "object",
+      "required": false,
+      "input": "fromCaller"
+    },
+    "employeeEditFormLoadingStatus": {
+      "type": "string"
+    },
+    "employeeETag": {
+      "type": "string"
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "fetchedEmployee": {
+      "type": "string"
+    },
+    "OpenDrawer": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "rowId": {
+      "type": "any"
+    }
+
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+  },
+  "eventListeners": {
+    "buttonAction": {
+      "chains": [
+        {
+          "chain": "openDrawerChain"
+        }
+      ]
+    },
+    "createEditDrawerTemplateSpCancel": {
+      "chains": [
+        {
+          "chain": "CreateEditDrawerTemplateSpCancelChain"
+        }
+      ]
+    },
+    "createEditDrawerTemplateSpPrimaryAction": {
+      "chains": [
+        {
+          "chain": "CreateEditDrawerTemplateSpPrimaryActionChain",
+          "parameters": {
+            "employeeId": "{{ $variables.rowId }}"
+          }
+        }
+      ]
+    },
+    "tableFirstSelectedRow": {
+      "chains": [
+        {
+          "chain": "TableFirstSelectedRowChangeChain",
+          "parameters": {
+            "rowKey": "{{$event.detail.value.key}}",
+            "rowData": "{{$event.detail.value.data}}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-drawer-popup": {
+        "path": "ojs/ojdrawerpopup"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-sp-collection-container": {
+        "path": "oj-sp/collection-container/loader"
+      },
+      "oj-sp-create-edit-drawer-template": {
+        "path": "oj-sp/create-edit-drawer-template/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+
+    }
+  },
+  "constants": {}
+}

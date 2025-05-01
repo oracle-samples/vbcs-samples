@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -19,7 +19,7 @@
 			<div class="oj-flex oj-sm-flex-direction-column oj-flex-item oj-sm-flex-initial oj-sm-align-items-flex-start"
      style="padding-right:30px;">
 				<hr class="oj-flex-item oj-sm-flex-initial">
-				<h6 class="oj-flex-item oj-sm-flex-initial">Custom Message from Property Value</h6>
+				<h6 class="oj-flex-item oj-sm-flex-initial">Custom Text Using Property</h6>
 				<oj-table scroll-policy="loadMoreOnScroll" data="[[$page.variables.employeeListSDP]]"
 					columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"}]'
 					id="employee-table2" style="max-height: 300px" translations.msg-no-data="My Custom No Data Message"
@@ -29,7 +29,7 @@
 
 			<div class="oj-flex oj-sm-flex-direction-column oj-flex-item oj-sm-flex-initial oj-sm-align-items-flex-start">
 				<hr class="oj-flex-item oj-sm-flex-initial">
-				<h6 class="oj-flex-item oj-sm-flex-initial">Custom Message from a Slot</h6>
+				<h6 class="oj-flex-item oj-sm-flex-initial">Custom HTML Message using noData Slot</h6>
 				<oj-table scroll-policy="loadMoreOnScroll" data="[[$page.variables.employeeListSDP]]"
 					columns='[{"headerText":"First Name","field":"firstName"},{"headerText":"Last Name","field":"lastName"}]'
 					id="employee-table3" style="max-height: 300px" class="oj-flex-item">

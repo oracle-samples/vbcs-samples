@@ -1,0 +1,148 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    },
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallDepartmentResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "departmentName"
+          ]
+        }
+      }
+    },
+    "filterCriterion": {
+      "type": "any"
+    },
+    "searchConfiguration": {
+      "type": "oj-sp/smart-search/strategies/JsonSearchConfigProviderFactory",
+      "defaultValue": {
+        "url": "[[ $application.path + 'resources/search-config/employeeSearchConfig.json' ]]"
+      }
+    },
+    "searchContext": {
+      "type": "object",
+      "defaultValue": {
+        "$search": {
+          "filters": {
+            "SalaryFilter": {
+              "label": "Salary"
+            },
+            "DepartmentsFilter": {
+              "label": "Departments",
+              "options": {
+                "optionsData": "[[ $page.variables.departmentListSDP ]]",
+                "optionsKeys": {
+                  "label": "departmentName",
+                  "value": "id"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "EmpDPV": {
+      "type": "ojs/ojlistdataproviderview",
+      "constructorParams": [
+        "[[ $page.variables.employeeListSDP ]]",
+        {
+          "filterCriterion": "[[ $page.variables.filterCriterion ]]",
+          "dataMapping": {
+            "mapFilterCriterion": "[[ $page.functions.getSearchMapFilterCriterion($page.constants.KEYWORD_FILTER_ATTRIBUTES) ]]"
+          }
+        }
+      ]
+    }
+  },
+  "constants": {
+    "KEYWORD_FILTER_ATTRIBUTES": {
+      "type": "string[]",
+      "defaultValue": [
+        "firstName",
+        "lastName"
+      ]
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallDepartmentResponse": {
+      "endpoint": "getall_Department",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse2": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallDepartmentResponse": {
+      "items": [
+        {
+          "departmentName": "string",
+          "id": "number"
+        }
+      ]
+    },
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "department": "number",
+          "email": "string",
+          "firstName": "string",
+          "id": "number",
+          "job": "number",
+          "lastName": "string",
+          "salary": "number"
+        }
+      ]
+    },
+    "getallEmployeeResponse2": {
+      "items": "object[]"
+    },
+    "ojs/ojlistdataproviderview": {
+      "constructorType": "vb/InstanceFactory"
+    }
+  },
+  "eventListeners": {},
+  "imports": {
+    "components": {
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-sp-smart-search": {
+        "path": "oj-sp/smart-search/loader"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+    }
+  }
+}

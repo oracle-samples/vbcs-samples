@@ -1,0 +1,29 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {},
+  "metadata": {},
+  "types": {},
+  "eventListeners": {
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chain": "HyperlinkClickChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-accordion": {
+        "path": "ojs/ojaccordion"
+      },
+      "oj-collapsible": {
+        "path": "ojs/ojcollapsible"
+      },
+      "oj-list-item-layout": {
+        "path": "ojs/ojlistitemlayout"
+      }
+    }
+  }
+}

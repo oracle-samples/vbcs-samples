@@ -49,7 +49,7 @@
     "filePickerSelect": {
       "chains": [
         {
-          "chainId": "FilePickerSelectChain",
+          "chain": "FilePickerSelectChain",
           "parameters": {
             "files": "[[ Array.prototype.slice.call($event.detail.files) ]]"
           }
@@ -59,7 +59,7 @@
     "downloadClick": {
       "chains": [
         {
-          "chainId": "DownloadAttachment",
+          "chain": "DownloadAttachment",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -71,7 +71,7 @@
     "previewClick": {
       "chains": [
         {
-          "chainId": "PreviewAttachment",
+          "chain": "PreviewAttachment",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",
@@ -83,7 +83,7 @@
     "deleteFileAction": {
       "chains": [
         {
-          "chainId": "DeleteFile",
+          "chain": "DeleteFile",
           "parameters": {
             "detail": "{{ $event.detail }}",
             "key": "{{ $current.key }}",

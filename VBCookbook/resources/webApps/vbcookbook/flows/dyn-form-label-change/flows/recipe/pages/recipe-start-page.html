@@ -1,0 +1,135 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p>
+  <a
+    target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD"
+    >Add a Dynamic Form</a
+  >
+  and use the Configure as Edit Form quick start to display the appropriate
+  fields (Job Title, Currency, and so on) using the Job business object.
+</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Update Label Hint for Minimum and Maximum Salary</h1>
+      <div>
+        <ol>
+          <li>
+            In the Layouts tab, select the <strong>Job</strong> dynamic layout.
+          </li>
+          <li>
+            In the Fields tab for the Job dynamic layout (Job Fields), click
+            <strong>+ Custom Field</strong> to create a new custom field named
+            <code>currency</code> of type String.
+          </li>
+          <li>
+            <p>
+              Still in Job Fields, set the Label Hint values for the
+              <code>minSalary</code> and <code>maxSalary</code> fields as
+              <code
+                >[[ $functions.getMinSalaryLabel($fields.currency.value())
+                ]]</code
+              >
+              and
+              <code
+                >[[ $functions.getMaxSalaryLabel($fields.currency.value())
+                ]]</code
+              >
+              respectively.
+            </p>
+            <p>
+              Also add <code>currency</code> to the Referenced Fields property
+              for both the <code>minSalary</code> and <code>maxSalary</code> fields.
+            </p>
+            <p>
+              As an alternative to using the Properties pane,
+              switch to the JSON view of Job Fields and add the following
+              code in the <code>replaceMetadata</code> section to set the Label
+              Hint and Referenced Fields properties.</p>
+            <code>
+              <pre>
+"replaceMetadata": {
+  "maxSalary": {
+    "labelHint": "[[ $functions.getMaxSalaryLabel($fields.currency.value()) ]]",
+    "referencedFields": [
+        "currency"
+      ]
+  },
+  "minSalary": {
+     "labelHint": "[[ $functions.getMinSalaryLabel($fields.currency.value()) ]]",
+    "referencedFields": [
+        "currency"
+      ]
+  }
+}
+</pre
+              >
+            </code>
+          </li>
+          <li>
+            In the JSON view of Job Fields, set componentType as
+            <code>oj-select-single</code> so that the <code>currency</code> field
+            renders as a dropdown list.
+            <code>
+<pre>
+  . . .
+  "addField": {
+    "currency": {
+      "type": "string",
+      "labelHint": "Currency",
+      "componentType": "oj-select-single",
+      "dataProvider": {
+        "factory": "ojs/ojarraydataprovider",
+        "parameters": [
+          [
+            {
+              "value": "eur",
+              "label": "EUR"
+            },
+            {
+              "value": "inr",
+              "label": "INR"
+            },
+            {
+              "value": "usd",
+              "label": "USD"
+            }
+          ],
+          {
+            "keyAttributes": "value"
+          }
+        ]
+      }
+    }
+  },  
+  . . . 
+</pre>              
+</code>
+          </li>
+          <li>
+            In the JavaScript view of Job Fields, create the following
+            functions to set the label hint values for the
+            <code>minSalary</code> and <code>maxSalary</code> fields.
+            <code>
+              <pre>
+DataDescriptionModule.prototype.getMinSalaryLabel = function (currency) {
+  return "Minimum salary in " + currency?.toUpperCase();
+};
+
+DataDescriptionModule.prototype.getMaxSalaryLabel = function (currency) {
+  return "Maximum salary in " + currency?.toUpperCase();
+};
+</pre
+              >
+            </code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

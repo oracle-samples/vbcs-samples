@@ -1,0 +1,244 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">Add a
+    Dynamic Form</a> and use the Configure as Edit Form quick start to display employee details.
+</p>
+
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Customize a Dropdown List to use a Table Item Layout</h1>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-5B02E88B-27B5-4E75-8720-18C26675BE87">Create
+              an item
+              layout</a> <code>departmentItemTable</code> in the top-level <code>layouts</code> section of the
+            <code>layout.json</code>
+            file with <code>"displayType": "table"</code>.
+            <code>
+            <pre>
+  "departmentItemTable": {
+    "description": "layout for department table",
+    "layoutType": "item",
+      "layout": {
+        "displayValue": [
+          "departmentName"
+        ],
+        "displayType": "table",
+        "displayProperties": [
+          "departmentName",
+          "totalSalary"
+        ]
+      }
+  },
+            </pre>
+            </code>
+          </li>
+          <li>
+            <p>In the same <code>layout.json</code> file, under the display properties of the layout for the dynamic
+              form, set the
+              <code>itemLayout</code> property of the dropdown list field to the
+              item layout <code>departmentItemTable</code> created in the previous step.
+            </p>
+            <p> In the following code snippet, <code>itemLayout</code> is
+              set for
+              <code>department</code> field.
+            </p>
+            <code>
+            <pre>
+    "displayProperties": [
+      "firstName",
+      "lastName",
+      {
+        "department": {
+          "itemLayout": "departmentItemTable"
+        }
+      },
+            </pre></code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Customize a Dropdown List to use a List Item Layout</h1>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-5B02E88B-27B5-4E75-8720-18C26675BE87">Create
+              an item
+              layout</a> <code>departmentItemList</code> in the top-level <code>layouts</code> section of
+            <code>layout.json</code>
+            file
+            <code>
+            <pre>
+    "departmentItemList": {
+      "description": "layout for department item",
+      "layoutType": "item",
+      "layout": {
+        "templateId" : "listItemLayoutTemplate"
+      }
+    },
+            </pre>
+            </code>
+          </li>
+          <li>
+            <p>In the same <code>layout.json</code> file, under the display properties of the layout for the dynamic
+              form, set the
+              <code>itemLayout</code> property of the dropdown list field to the
+              item layout <code>departmentItemList</code> created in the previous step.
+            </p>
+            <p> In the below code snippet, itemLayout is
+              set for
+              <code>department</code> field.
+            </p>
+            <code>
+            <pre>
+    "displayProperties": [
+      "firstName",
+      {
+        "department": {
+          "itemLayout": "departmentItemList"
+        }
+      },
+            </pre></code>
+          </li>
+           <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-6C1F2A3D-46E1-4C45-A01D-878D28C0FBF6">Create
+              a field template</a> for the dropdown field, and
+            configure the <code>oj-list-item-layout</code> component.
+          <code><pre>
+&lt;template id="listItemLayoutTemplate">
+  &lt;oj-list-item-layout class="oj-listitemlayout-padding-off">
+    &lt;span class="oj-typography-body-lg oj-text-color-primary">
+      &lt;oj-bind-text value="[[$fields.departmentName.$value()]]">&lt;/oj-bind-text>
+    &lt;/span>
+    &lt;span slot="secondary" class="oj-typography-body-md oj-text-color-secondary">
+      &lt;oj-bind-text value="[[ $fields.locationObject.$value()?.items[0]?.city ]]">
+      &lt;/oj-bind-text>
+    &lt;/span>
+    &lt;div slot="metadata" class="oj-typography-body-sm oj-text-color-secondary">
+      &lt;span>&lt;oj-bind-text value="[[ $fields.departmentManager.$value()?.items[0]?.firstName ]]">&lt;/oj-bind-text>&lt;/span>
+      &lt;span>&lt;oj-bind-text value="[[ $fields.departmentManager.$value()?.items[0]?.lastName ]]">&lt;/oj-bind-text>&lt;/span>
+      &lt;br>
+      &lt;span>&lt;oj-bind-text value="[[ $fields.departmentManager.$value()?.items[0]?.phoneNumber ]]">&lt;/oj-bind-text>&lt;/span>
+    &lt;/div>
+  &lt;/oj-list-item-layout>
+&lt;/template>
+  </pre></code></li>
+
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-3">
+      <h1 slot="header">Customize a Display Value for a Dropdown List</h1>
+      <div>
+        <ol>
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-5B02E88B-27B5-4E75-8720-18C26675BE87">Create
+              an item layout</a> <code>managerItemLayout</code> in the
+            top-level <code>layouts</code> section of <code>layout.json</code>
+            file
+            <code>
+            <pre>
+  "managerItemLayout": {
+    "description": "template layout for manager lov",
+    "layoutType": "item",
+      "layout": {
+        "displayValue": [
+          "firstName",
+          "email""
+        ]
+      }
+  },
+            </pre>
+            </code>
+          </li>
+          <li>In the same <code>layout.json</code> file, under the display properties of the layout for the dynamic
+            form, set the
+            <code>itemLayout</code> property of the dropdown list field to the
+            item layout <code>managerItemLayout</code> created in the previous step.
+          </li>
+
+          <li><a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-6C1F2A3D-46E1-4C45-A01D-878D28C0FBF6">Create
+              a field template</a> for <code>manager</code> field, and
+            configure the Select Single component (<code>oj-select-single</code>).</li>
+          <code><pre>
+&lt;template id="managerTemplate">
+ &lt;oj-select-single label-hint="[[ $labelHint ]]" value="{{ $value }}" data="[[ $variables.managerSDP ]]"
+    item-text="[[$functions.createItemTextFunction($itemLayout.displayValue)]]">&lt;/oj-select-single>
+&lt;/template>
+  </pre></code>
+          <li>Create a function <code>createItemTextFunction</code> in the JavaScript tab of the dynamic layout to set
+            the
+            item-text property of the select-single component.
+            <code><pre>
+    createItemTextFunction(fieldNames){
+      return function(itemContext) {
+        let ret = "";
+          for (let i = 0; i < fieldNames.length; i++) {
+            if (typeof fieldNames[i] === 'string') {
+              if (i !== 0) {
+                ret += ' : ';
+              }
+              ret += `${itemContext.data[fieldNames[i]]}`;
+            } else if (typeof fieldNames[i] === 'object') {
+              let ct = 0;
+              for (let key in fieldNames[i]) {
+                if (i !== 0 || ct !== 0) {
+                  if (fieldNames[i][key].hasOwnProperty('separator')) {
+                    ret += fieldNames[i][key].separator;
+                  } else {
+                    ret += ' : ';
+                  }
+                }
+                ret += `${itemContext.data[key]}`;
+                ct++;
+              }
+            }
+          }
+        return ret;
+      };
+    }  
+</pre></code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="more-info">
+      <h1 slot="header">Learn More</h1>
+
+      <div>
+
+
+        <p> If you are unfamiliar with the components or concepts used in this example, the following resources may be
+          helpful.</p>
+        <ul>
+          <li>The Select Single component used in this example to render the dropdown lists is an Oracle JET component.
+            Oracle JET provides a <a target="_blank"
+              href="https://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html?component=selectSingle&demo=states">cookbook
+              entry</a>
+            with examples that you can play with, as well as links to <a target="_blank"
+              href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/oj.ojSelectSingle.html">API reference
+              documentation</a>.
+          </li>
+          <li>Information about dynamic forms can be found in the <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-FEC1B504-BE87-4E43-921F-3E576324DE63">documentation</a>.
+          </li>
+        </ul>
+
+
+      </div>
+
+    </oj-collapsible>
+  </oj-accordion>
+  <p> <strong>Note:</strong> For detailed instructions on adding a select-single/dropdown list field in Dynamic UI, see
+    the second-to-last and third-to-last steps in <a target="_blank" on-click="[[$listeners.hyperlinkClick]]">this
+      example</a>.</p>
+</div>

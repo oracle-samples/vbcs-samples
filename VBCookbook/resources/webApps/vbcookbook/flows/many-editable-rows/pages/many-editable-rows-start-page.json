@@ -76,7 +76,7 @@
     "deleteRowButtonAction": {
       "chains": [
         {
-          "chainId": "deleteRowButtonActionChain",
+          "chain": "deleteRowButtonActionChain",
           "parameters": {
             "rowId": "{{ $current.data.id }}"
           }
@@ -86,14 +86,14 @@
     "insertNewRowButtonAction": {
       "chains": [
         {
-          "chainId": "insertRowButtonActionChain"
+          "chain": "insertRowButtonActionChain"
         }
       ]
     },
     "onPhoneNumberChanged": {
       "chains": [
         {
-          "chainId": "phoneNumberValueChangeChain",
+          "chain": "phoneNumberValueChangeChain",
           "parameters": {
             "row": "{{ $current.data }}",
             "newValue": "{{ $event.detail.value }}"
@@ -104,7 +104,7 @@
     "onPhoneTypeChanged": {
       "chains": [
         {
-          "chainId": "phoneTypeValueChangeChain",
+          "chain": "phoneTypeValueChangeChain",
           "parameters": {
             "newValue": "{{ $event.detail.value }}",
             "row": "{{ $current.data }}"

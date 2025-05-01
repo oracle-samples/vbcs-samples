@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -12,7 +12,7 @@
         <ol class="oj-flex-item oj-sm-flex-initial">
           <li>In the Component Palette, drag and drop a Table component onto the
             page.</li>
-          <li>Use the <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add Data Quick Start</a> to configure data for the Table
+          <li>Use the <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add Data Quick Start</a> to configure data for the Table
             component.
             <ul>
               <li>
@@ -103,13 +103,17 @@ handleDropRows(event, ui) {
           </li>
 
           <li>Add an event listener to the custom event <code>dataDropped</code> that creates an action chain <code>handleDrop</code>.</li>
-          <li>Add a Call Module Function named <code>addRows</code>:
+          <li>Add following code in the action chain.
             <pre>
             <code>
-addRows(data, rows, startIndex) {
-  return data.slice(0, startIndex).concat(rows).concat(data.slice(
-    startIndex))
-};
+let data = $page.variables.employeeDropListADP.data;
+
+const newData = data
+  .slice(0, event.startIndex)
+  .concat(event.rows)
+  .concat(data.slice(event.startIndex));
+
+$page.variables.employeeDropListADP.data = newData;
             </code>
             </pre>
           </li>

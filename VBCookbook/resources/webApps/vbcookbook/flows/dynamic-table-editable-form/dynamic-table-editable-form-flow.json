@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-table-editable-form",
+  "description": "Flow main",
+  "defaultPage": "dynamic-table-editable-form-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

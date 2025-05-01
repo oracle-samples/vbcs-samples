@@ -12,7 +12,7 @@
     },
     "showDashboardPanels": {
       "type": "boolean",
-      "defaultValue": "[[ ($variables.filter === undefined || $variables.filter === 'all' || !$application.functions.isValidFilter($variables.filter) ) && ($variables.fullText  === '' || $variables.fullText === undefined) ]]"
+      "defaultValue": "[[ ($variables.filter === undefined || $variables.filter === 'all' || !$application.functions.isValidFilter($variables.filter) ) && ($variables.fullText  === null || $variables.fullText  === '' || $variables.fullText === undefined) ]]"
     }
 
   },
@@ -25,119 +25,120 @@
     "buttonAction3": {
       "chains": [
         {
-          "chainId": "ResetSearchActionChain"
+          "chain": "ResetSearchActionChain"
         }
       ]
     },
     "hyperlinkClick2": {
       "chains": [
         {
-          "chainId": "ResetSearchActionChain"
+          "chain": "ResetSearchActionChain"
         }
       ]
     },
     "myMenu1MenuAction": {
       "chains": [
         {
-          "chainId": "FilterMenuActionChain",
           "parameters": {
             "selectedValue": "{{ $event.detail.selectedValue }}"
-          }
+          },
+          "chain": "FilterMenuActionChain"
         }
       ]
     },
     "buttonAction": {
       "chains": [
         {
-          "chainId": "ScrollRightActionChain"
+          "chain": "ScrollRightActionChain"
         }
       ]
     },
     "buttonAction2": {
       "chains": [
         {
-          "chainId": "ScrollLeftActionChain"
+          "chain": "ScrollLeftActionChain"
         }
       ]
     },
     "fragmentClicked": {
       "chains": [
         {
-          "chainId": "CardActionChain",
+
           "parameters": {
             "recipe": "{{ $event.detail.recipeId }}"
-          }
+          },
+          "chain": "CardActionChain"
         }
       ]
     },
     "hyperlinkClick": {
       "chains": [
         {
-          "chainId": "CardActionChain",
           "parameters": {
             "recipe": "{{ $current.data.id }}"
-          }
+          },
+          "chain": "CardActionChain"
         }
       ]
     },
     "moreApplicationClick": {
       "chains": [
         {
-          "chainId": "OpenCategory",
           "parameters": {
             "category": "Application"
-          }
+          },
+          "chain": "OpenCategory"
         }
       ]
     },
     "moreRestClick": {
       "chains": [
         {
-          "chainId": "OpenCategory",
           "parameters": {
             "category": "REST"
-          }
+          },
+          "chain": "OpenCategory"
         }
       ]
     },
     "morePWAClick": {
       "chains": [
         {
-          "chainId": "OpenCategory",
           "parameters": {
             "category": "PWA"
-          }
+          },
+          "chain": "OpenCategory"
         }
       ]
     },
     "moreDynamicClick": {
       "chains": [
         {
-          "chainId": "OpenCategory",
           "parameters": {
             "category": "Dynamic"
-          }
+          },
+          "chain": "OpenCategory"
         }
       ]
     },
     "moreComponentsClick": {
       "chains": [
         {
-          "chainId": "OpenCategory",
           "parameters": {
             "category": "Components"
-          }
+          },
+          "chain": "OpenCategory"
         }
       ]
     },
     "ojSpWelcomePageSearch1ValueAction": {
       "chains": [
         {
-          "chainId": "InputSearchValueActionChain",
           "parameters": {
             "value": "{{$event.detail.value}}",
             "itemContext": "{{$event.detail.itemContext}}"
-          }
+          },
+          "chain": "InputSearchValueActionChain"
         }
       ]
     },
@@ -147,7 +148,7 @@
           "parameters": {
             "event": "{{ $event }}"
           },
-          "chainId": "UpdateSearchTerm"
+          "chain": "UpdateSearchTerm"
         }
       ]
     }

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -55,11 +55,10 @@
         <ol>
           <li>Create an Event Listener for <code>vbEnter</code> and hence create an action chain named <code>vbEnter</code>.
           </li>
-          <li>Add a Call Function action <code>callFunctionGetRowGridDataProvider</code>.
-          </li>
-          <li>In JavaScript tab of the page, create a new function <code>getRowGridDataProvider</code> having input parameter for underlying SDP. Create an instance of ojRowDataGridProvider in this function backed by the input SDP instance.
+          <li>create a function <code>getRowGridDataProvider</code> having input parameter for underlying SDP. Create an 
+          instance of ojRowDataGridProvider in this function backed by the input SDP instance.
           <pre>
-  getRowGridDataProvider(sdp) {
+  function getRowGridDataProvider(sdp) {
     let EmployeeData = {
       id: Number,
       firstName: String,
@@ -88,16 +87,19 @@
   };
           </pre>
           </li>
-          <li>Select this function in <code>callFunctionGetRowGridDataProvider</code> action and pass on the <code>employeeListSDP</code> as parameter.
+          <li>Call the function and pass on the <code>employeeListSDP</code> as parameter.
+          </li>
+          <li>Create an Assign Variable action in the action chain and set the value of <code>data</code> variable to the 
+          return of the <code>getRowGridDataProvider</code> action.
           </li>
           <li>To style the data grid, add styling functions in the JavaScript code and use them in the <code>oj-data-grid</code> component as header and cell styles. 
           <pre>
   columnHeaderStyle(headerContext) {
-    if (headerContext.index == 3) // if email
+    if (headerContext.index === 3) // if email
     {
       return "width:230px;";
     }
-    else if (headerContext.index == 2) // if phoneNumber
+    else if (headerContext.index === 2) // if phoneNumber
     {
       return "width:160px;";
     }
@@ -108,9 +110,6 @@
     return "oj-helper-justify-content-center";
   };
           </pre>
-          </li>
-          <li>Create an Assign Variable action in the action chain and set the value of <code>data</code> variable to the 
-          return of the <code>callFunctionGetRowGridDataProvider</code> action.
           </li>
         </ol>
       </div>

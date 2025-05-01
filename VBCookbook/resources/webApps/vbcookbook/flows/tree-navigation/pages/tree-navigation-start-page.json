@@ -14,22 +14,21 @@
     "buttonAction": {
       "chains": [
         {
-          "chainId": "ToggleeNavListActionChain"
+          "chain": "ToggleeNavListActionChain"
         }
       ]
     },
     "buttonAction2": {
       "chains": [
         {
-          "chainId": "CloseNavListActionChain"
+          "chain": "CloseNavListActionChain"
         }
       ]
     },
     "navSelection": {
       "chains": [
         {
-          "chainId": "NavigationListSelectionChangeChain",
-          "parameters": {}
+          "chain": "NavigationListSelectionChangeChain" 
         }
       ]
     }

@@ -4,7 +4,15 @@
   "variables": {},
   "metadata": {},
   "types": {},
-  "eventListeners": {},
+  "eventListeners": {
+    "hyperlinkClick": {
+      "chains": [
+        {
+          "chain": "HyperlinkClickChain"
+        }
+      ]
+    }
+  },
   "imports": {
     "components": {
       "oj-accordion": {

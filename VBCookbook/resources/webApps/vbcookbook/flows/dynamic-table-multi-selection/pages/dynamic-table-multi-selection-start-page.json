@@ -1,0 +1,96 @@
+{
+  "title": "Table Multiple Selection",
+  "description": "",
+  "variables": {
+    "currentSelectionString": {
+      "type": "string",
+      "defaultValue": "Nothing Selected."
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "responseType": "getallEmployeeResponse",
+        "itemsPath": "items"
+      }
+    },
+    "enhancedDP": {
+      "type": "any"
+    },
+    "selectedRows": {
+      "type": "any"
+    }
+
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+
+  },
+  "chains": {},
+  "eventListeners": {
+    "dynamicTableFieldTemplateSelected": {
+      "chains": [
+        {
+          "chain": "TableSelectedChangeChain",
+          "parameters": {
+            "keys": "{{ $event.detail.value.row.values ? Array.from($event.detail.value.row.values()) : [] }}",
+            "selected": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    },
+    "onDeselectAllButtonAction": {
+      "chains": [
+        {
+          "chain": "onDeselectAllActionChain"
+        }
+      ]
+    },
+    "onSelectSpecificRowsAction": {
+      "chains": [
+        {
+          "chain": "onSelectSpecificRowsActionChain"
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chain": "initializeVariables",
+          "parameters": {}
+        }
+      ]
+    }
+
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      },
+      "oj-text-area": {
+        "path": "ojs/ojinputtext"
+      }
+
+    }
+  }
+}

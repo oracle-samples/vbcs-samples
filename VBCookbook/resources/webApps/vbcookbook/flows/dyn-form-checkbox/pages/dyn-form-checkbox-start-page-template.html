@@ -1,0 +1,15 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Dynamic Container Templates -->
+
+<template id="template1">
+  <oj-sp-section section-title="[[$labelHint]]">
+    <oj-dyn-form metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]" layout="checkboxSet"
+          value="{{ $variables.employee }}" value-loading="[[ $variables.employeeEditFormLoadingStatus ]]"
+          rendered-fields="{{ $variables.employeeEditFormRenderedFields }}" operation="edit"
+          id="oj-dyn-form--726902187-1"></oj-dyn-form>
+  </oj-sp-section>
+</template>

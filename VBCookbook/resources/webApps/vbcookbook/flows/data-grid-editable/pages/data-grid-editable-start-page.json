@@ -2,8 +2,22 @@
   "title": "",
   "description": "",
   "variables": {
+    "bufferingDP": {
+      "type": "any"
+    },
     "data": {
       "type": "any"
+    },
+    "dataColumnNames": {
+      "type": "string[]",
+      "defaultValue": [
+        "firstName",
+        "lastName",
+        "jobObject",
+        "salary",
+        "jobObject",
+        "review"
+      ]
     },
     "employeeListSDP": {
       "type": "vb/ServiceDataProvider",
@@ -85,26 +99,26 @@
     "checkboxSetValue": {
       "chains": [
         {
+          "chain": "onCheckboxSelection",
           "parameters": {
             "value": "{{ $event.detail.value }}",
             "current": "{{ $current }}"
-          },
-          "chain": "onCheckboxSelection"
+          }
         }
       ]
     },
     "saveAction": {
       "chains": [
         {
-          "chainId": "onSaveButton"
+          "chain": "onSaveButton"
         }
       ]
     },
     "vbEnter": {
       "chains": [
         {
-          "parameters": {},
-          "chainId": "fetchData"
+          "chain": "fetchData",
+          "parameters": {}
         }
       ]
     }

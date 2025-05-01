@@ -1,0 +1,41 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-dynamic-table.html">Add
+    a
+    Dynamic Table</a> to the page. In the Properties pane, click <strong>Configure Layout</strong> in the Quick Start tab 
+to add data to the table.
+
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Disable editing for certain rows</h1>
+      <div>
+        <ol>
+          <li>
+            Create a JS function to disable the Edit action for certain rows using the rows' keys. In this 
+example, 100, 102 and 104 are the keys of the rows for which we want to disable the Edit action:
+            <code>
+              <pre>
+    rowEditable(item) {
+      let disabledKeys = [100, 102, 104];
+      if (disabledKeys.includes(item.metadata.key)) {
+        return 'off';
+      } else {
+        return 'on';
+      }
+    }
+              </pre>
+              </code>
+          </li>
+          <li>Assign the result of the <code>rowEditable</code> function to <code>row.editable</code> property of
+            the dynamic table. The rows with rowKey 100, 102 and 104 now have the Edit action disabled.</li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

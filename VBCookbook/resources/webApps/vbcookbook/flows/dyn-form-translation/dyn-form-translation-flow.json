@@ -1,0 +1,8 @@
+{
+  "id": "dyn-form-translation",
+  "description": "Flow main",
+  "defaultPage": "dyn-form-translation-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

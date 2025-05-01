@@ -1,0 +1,98 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D0C26115-1F0D-46A2-8619-39FD4E3180D8
+">Add a Dynamic Table</a> that displays columns with longer content, such as email, so
+  that the content can be wrapped.</p>
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Column-Level Content Wrapping and Alignment</h1>
+      <div>
+
+        <p>Add the
+          <code><a target="_blank"
+                  href="https://docs.oracle.com/en/middleware/developer-tools/jet/16/reference-api/Helpers.html#oj-helper-overflow-wrap-anywhere">oj-helper-overflow-wrap-anywhere</a> and <a target="_blank"
+                  href="https://docs.oracle.com/en/middleware/developer-tools/jet/16/reference-api/Helpers.html#white-space">oj-helper-white-space-normal</a></code>
+          classes to the field that you want to wrap
+          and add the
+          <code><a target="_blank"
+                  href="https://docs.oracle.com/en/middleware/developer-tools/jet/16/reference-api/Helpers.html#text-align">oj-helper-text-align-end</a></code>
+          class to the field that you want to align in the <code>layout.json</code> file.
+          The following example
+          demonstrates how to content wrap the <code>email</code> field and right align the <code>hireDate</code> field:
+
+        <pre>
+"layouts": {
+  "default": {
+    "layoutType": "table",
+      "layout": {
+        "displayProperties": [
+          "fullName",
+          {
+            "email": {
+              "class": "oj-helper-overflow-wrap-anywhere oj-helper-white-space-normal",
+              "maxWidth": "10%"
+            }
+          },
+          {
+            "hireDate": {
+              "class": "oj-helper-text-align-end"
+            }
+          },
+          "phoneNumber",
+          {
+            "salary": {
+              "readonly": true
+            }
+          }
+        ],
+        "fieldTemplateMap": {
+          "fullName": "fullNameWrapped",
+          "phoneNumber": "phoneNumberAlignment"
+        }
+      },
+      "usedIn": [
+        "isDefault18"
+      ]
+    }
+  },
+
+</pre>
+        </p>
+        <p><strong>Note:</strong> The value of the <code>class</code> attribute will not be applied when the field is
+          used
+          in a field template. The field template is responsible for styling.</p>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Cell-Level Content Wrapping and Alignment</h1>
+      <div>
+        <p>Apply CSS to the field template of the fields that you want to content wrap and align.
+
+          The following examples
+          demonstrate how to content wrap the <code>fullName</code> field and left align the <code>phoneNumber</code> field respectively:</p>
+
+<pre>
+&lt;template id="fullNameWrapped">
+  &lt;span style="white-space: normal; overflow-wrap: break-word">
+  &lt;oj-bind-text value="{{ $value }}">&lt;/oj-bind-text>
+  &lt;/span>
+&lt;/template>
+</pre>
+
+        
+<pre>
+&lt;template id="phoneNumberAlignment">
+  &lt;div class="oj-helper-text-align-start">
+  &lt;oj-input-text value="{{ $value }}" label-hint="[[ $labelHint ]]">&lt;/oj-input-text>
+  &lt;/div>
+&lt;/template>
+</pre>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

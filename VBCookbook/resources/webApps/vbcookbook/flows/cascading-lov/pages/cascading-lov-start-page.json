@@ -109,7 +109,7 @@
     "countrySelectValueItem": {
       "chains": [
         {
-          "chainId": "CountryValueItemChangeChain",
+          "chain": "CountryValueItemChangeChain",
           "parameters": {
             "key": "{{$event.detail.value.key}}",
             "previousKey": "{{ $event.detail.previousValue.key }}"
@@ -120,7 +120,7 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "SelectTokyoActionChain",
+          "chain": "SelectTokyoActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -130,7 +130,7 @@
     "regionSelectValueItem": {
       "chains": [
         {
-          "chainId": "RegionValueItemChangeChain",
+          "chain": "RegionValueItemChangeChain",
           "parameters": {
             "key": "{{$event.detail.value.key}}",
             "previousKey": "{{ $event.detail.previousValue.key }}"
@@ -141,7 +141,7 @@
     "resetAction": {
       "chains": [
         {
-          "chainId": "ResetValues",
+          "chain": "ResetValues",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }

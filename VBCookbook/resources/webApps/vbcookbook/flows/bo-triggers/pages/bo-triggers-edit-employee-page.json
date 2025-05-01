@@ -66,19 +66,6 @@
       "service": "businessObjects",
       "path": "response"
     },
-    "businessObjectsServiceErrorResponseType": {
-      "body": {
-        "status": "string",
-        "title": "string",
-        "o:errorDetails": [
-          {
-            "detail": "string",
-            "o:errorCode": "string"
-          }
-        ]
-      },
-      "status": "number"
-    },
     "getallEmployeeResponse": {
       "items": [
         {
@@ -108,21 +95,21 @@
     "backButtonClicked": {
       "chains": [
         {
-          "chainId": "goBackChain"
+          "chain": "goBackChain"
         }
       ]
     },
     "saveButtonClicked": {
       "chains": [
         {
-          "chainId": "saveEmployeeChain"
+          "chain": "saveEmployeeChain"
         }
       ]
     },
     "vbEnter": {
       "chains": [
         {
-          "chainId": "loadEmployeeChain"
+          "chain": "loadEmployeeChain"
         }
       ]
     }
@@ -150,7 +137,6 @@
       "oj-button": {
         "path": "ojs/ojbutton"
       }
-
     }
   }
 }

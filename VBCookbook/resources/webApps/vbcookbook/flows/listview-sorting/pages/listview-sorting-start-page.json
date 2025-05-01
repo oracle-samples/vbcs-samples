@@ -27,10 +27,7 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "sortOrderChangeChain",
-            "parameters": {
-              "event": "{{ $event }}"
-            }
+            "chain": "sortOrderChangeChain"
           }
         ]
       }

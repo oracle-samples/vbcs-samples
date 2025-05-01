@@ -1,0 +1,41 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Dynamic Container Templates -->
+
+<template id="template1">
+  <oj-sp-section section-title="[[$labelHint]]">
+      <oj-validation-group id="employee-validation-group--702936072-1">
+        <oj-dyn-form metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]" layout="nameSection"
+          value="{{ $variables.employee }}" value-loading="[[ $variables.employeeEditFormLoadingStatus ]]"
+           operation="edit"
+          id="oj-dyn-form-name-section"></oj-dyn-form>
+      </oj-validation-group>
+  </oj-sp-section>
+  
+</template>
+
+<template id="template2">
+  <oj-sp-section section-title="[[$labelHint]]">  
+      <oj-validation-group id="employee-validation-group--702936072-2">
+        <oj-dyn-form metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]" layout="contactForm"
+          value="{{ $variables.employee }}" value-loading="[[ $variables.employeeEditFormLoadingStatus ]]"
+          operation="edit"
+          id="oj-dyn-form-contact-form"></oj-dyn-form>
+      </oj-validation-group> 
+  </oj-sp-section>
+ 
+</template>
+
+<template id="template3">
+  <oj-sp-section section-title="[[$labelHint]]">    
+      <oj-validation-group id="employee-validation-group--702936072-3">
+        <oj-dyn-form metadata="[[ $metadata.businessObjectsUpdateEmployeeMetadata.provider ]]" layout="salaryForm"
+          value="{{ $variables.employee }}" value-loading="[[ $variables.employeeEditFormLoadingStatus ]]"
+          operation="edit"
+          id="oj-dyn-form-salary-form"></oj-dyn-form>
+      </oj-validation-group>   
+  </oj-sp-section>
+</template>

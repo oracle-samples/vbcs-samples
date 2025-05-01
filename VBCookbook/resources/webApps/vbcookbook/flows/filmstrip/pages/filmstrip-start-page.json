@@ -16,7 +16,7 @@
         "itemsPath": "items",
         "responseType": "page:getallEmployeeResponse",
         "uriParameters": {
-          "q": "{{ $variables.jobs.length==0 ?'job='+1 : 'job='+$variables.jobs[$variables.currentJob.index || 0].id }}"
+          "q": "{{ $variables.jobs.length === 0 ?'job='+1 : 'job='+$variables.jobs[$variables.currentJob.index || 0].id }}"
         }
       }
     },
@@ -54,8 +54,8 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "loadJobsChain",
-          "parameters": {}
+          "parameters": {},
+          "chain": "loadJobsChain"
         }
       ]
     }

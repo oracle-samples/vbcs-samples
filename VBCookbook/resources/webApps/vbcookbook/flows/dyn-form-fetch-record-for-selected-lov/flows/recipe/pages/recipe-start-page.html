@@ -1,0 +1,62 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<a target="_blank"
+  href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-D9BB70E9-4293-4D3E-A00D-9609A357C2AD">Add a
+  Dynamic Form</a> and use the Configure as Edit Form quick start to display the Position list of values.
+
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="step-1" expanded="true">
+      <h1 slot="header">Fetch the List of Values Record</h1>
+      <div>
+        <ol>
+          <li>In the Source tab, under the dynamicLayouts node, open the <code>data-description-overlay.json</code> file
+            of the
+            layout
+            (<code>employmentWhenAndWhy</code> in our example) and add a new property named <code>positionsLov</code> of
+            type Object with fields
+            for all the
+            relevant list of value record properties that your application will need to use.
+          </li>
+
+          <li>
+            <p>In the Event Listeners tab of the Designer, add a transient value event listener to the Dynamic Form so
+              that whenever
+              a value in the list of values changes, the whole record is fetched and assigned to the
+              <code>positionsLov</code>
+              property.
+            </p>
+            <p>This makes the list of values record accessible to the Dynamic Form and its business rules. For the
+              transient
+              value
+              event listener to work it needs to store, at the page level, the last value and execute the REST call only
+              when
+              the value
+              changes. See the action chain associated with the event listener for more details.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="step-2">
+      <h1 slot="header">Create Business Rules</h1>
+      <div>
+        <p><a target="_blank"
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-7E7857EE-D9AA-4201-A455-793BD737E4D8">Create
+            business rules</a> that depend on the list of values record's <code>positionsLov</code> property.</p>
+
+        <p>In this example, there are two business rules, <code>ruleOne</code> and <code>ruleTwo</code>. Based on
+          <code>positionsLov.PositionCode</code>, these
+          rules
+          update the value of the <code>DummyField</code> field with values from the fetched list of values record. That
+          is,
+          <code>positionsLov.PositionName</code>.
+        </p>
+
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

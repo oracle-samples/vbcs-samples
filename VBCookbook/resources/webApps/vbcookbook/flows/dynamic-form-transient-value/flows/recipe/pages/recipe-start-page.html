@@ -1,16 +1,8 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
-<p>
-  To use this recipe, you need to install components from the Component
-  Exchange. Your Visual Builder administrator must have configured your Visual
-  Builder instance for you to be able to
-  <a target="_blank"
-    href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-oracle-jet-web-components.html#GUID-1264CE4D-6959-4410-846F-BF1368F09416">work
-    with the Component Exchange</a>.
-</p>
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
     <oj-collapsible id="step-1" expanded="true">
@@ -18,8 +10,7 @@
       <div>
         <ol>
           <li>
-            Install the VDOM based JET Dynamic Form (oj-dyn-form) component from the Component Exchange,
-            then drag and drop it on the template in the Page Designer.
+            Drag and drop the VDOM based JET Dynamic Form (oj-dyn-form) component on the template in the Page Designer.
           </li>
           <li>
             In the Quick Start tab of the Properties pane, click
@@ -69,22 +60,10 @@
           <li>In the generated <code>DynamicFormTransientValueChangeChain</code> action chain, add an If action and set
             the value of the Condition property to:
             <br>
-            <code>[[ $variables.transientValue.firstName && $variables.transientValue.lastName!= null]]</code>
+            <code>transientValue.firstName && transientValue.lastName</code>
           </li>
-          <li>In the true branch, add the following actions:
-            <ul>
-              <li>Call Function action that includes a JavaScript function named <code>generateEmail</code>:
-                <pre>
-generateEmail(transientValue) {
-  transientValue.email = (transientValue.firstName).charAt(0) + transientValue.lastName + "@oracle.com";
-  return transientValue;
-};</pre>
-              </li>
-              <li>Assign Variable action and assign the result of the <code>generateEmail</code> function to the
-                <code>employee</code> page variable. This variable was automatically created when you created the
-                dynamic form.
-              </li>
-            </ul>
+          <li>In the true branch, generate an email using the firstName and lastName and update the <code>employee</code> 
+          page variable. This variable was automatically created when you created the dynamic form.
           </li>
         </ol>
       </div>

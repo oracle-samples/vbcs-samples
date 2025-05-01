@@ -1,0 +1,409 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-dynamic-table.html">Add
+    a
+    Dynamic Table</a> to the page and click <strong>Configure Layout</strong> in the Quick Start tab of the Properties
+  pane to add data to the table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Add Smart Search Component to a Page</h1>
+      <div>
+        <p>You'll find the smart search component in the Components palette if you are <a target="_blank"
+          href="https://blogs.oracle.com/vbcs/post/oracle-redwood-starter-template-release-2401">using the Redwood
+          starter
+          application template</a>, or if you <a target="_blank"
+          href="https://www.youtube.com/watch?v=1sCcw_cb0ug">added the Redwood components to an existing application
+          manually</a>.</p>
+        
+        <p>Drag and drop the smart search component from the Components palette to the page on top of the dynamic table.</p>
+          
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Define Variables and Types</h1>
+      <div>
+        <ol>
+          <li><p>The smart search component has several attributes that bind to  variables in the page. </p>
+            <p>In this example, we define the following variables:</p>
+            <ul>
+              <li><code>filterCriterion</code> of type <code>Any</code> which will contain the filter generated from 
+                the smart search component. Set this variable to the <code>filter-criterion</code> property of the component.</li>
+              <li><code>searchContext</code> of type <code>Object</code> which defines the search filters attached to
+                the field. Set this variable to the <code>search-context</code> property of the component.</li>
+              <li> <code>searchConfiguration</code> of type
+                <code>oj-sp/smart-search/strategies/JsonSearchConfigProviderFactory</code> which defines the filters
+                being used in the field, based on the metadata definition in a JSON file. Set the value as
+                <code>searchConfiguration.provider</code> for the variable <code>search-config</code>.
+              </li>
+            </ul>
+            <p>The HTML code for the smart search component would then be something like this:
+              <code> <pre>&lt;oj-sp-smart-search filter-criterion="{{ $variables.filterCriterion }}"
+    search-config="[[ $variables.searchConfiguration.provider ]]"
+    search-context="[[ $variables.searchContext ]]" slot="search">
+  &lt;/oj-sp-smart-search></pre>
+                </code>
+
+            </p>
+          </li>
+          <li>Create a constant <code>KEYWORD_FILTER_ATTRIBUTES</code> as an array of strings which defines a list of
+            attributes that allows filtering with free text.
+            <code>  <pre>"constants": {
+    "KEYWORD_FILTER_ATTRIBUTES": {
+      "type": "string[]",
+      "defaultValue": [
+        "firstName",
+        "lastName"
+      ]
+    }
+  }
+</pre></code>
+            <p>In this example we allow free text search on the <code>firstName</code> and <code>lastName</code> attributes of employees.</p>
+          </li>
+          <li><p>Create an additional variable <code>EmpDPV</code> that will be the base of the dynamic table component
+            showing the results after filtering.</p>
+            <p> This variable is based on an Oracle JET data type that you need to
+              add to the page's JSON section for types (<a target="_blank"
+                href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/ListDataProviderView.html">ojs/ojlistdataproviderview</a>).</p>
+
+            <p>The code for the type definition in the JSON file is:</p>
+            <code> <pre> 
+"ojs/ojlistdataproviderview": {
+      "constructorType": "vb/InstanceFactory"
+    },
+</pre></code>
+
+            <p>The code for the variable definition in the JSON file is:</p>
+            <code><pre>  
+"EmpDPV": {
+      "type": "ojs/ojlistdataproviderview",
+      "constructorParams": [
+        "[[ $page.variables.employeesListSDP ]]",
+        {
+          "filterCriterion": "[[ $page.variables.filterCriterion ]]",
+          "dataMapping": {
+            "mapFilterCriterion": "[[ $page.functions.getSearchMapFilterCriterion($page.constants.KEYWORD_FILTER_ATTRIBUTES) ]]"
+          }
+        }
+      ]
+    },
+</pre></code>
+<p>The dynamic table uses the Service Data Provider in the <code>constructorParams</code> of the <code>EmpDPV</code> variable.</p>            
+
+          </li>
+          <li>Reset the value for the dynamic table's <code>data</code> property to <code>EmpDPV.instance</code>:
+            <code> <pre>
+  &lt;oj-dynamic-table data="[[ $variables.EmpDPV.instance ]]" ...>
+  &lt;/oj-dynamic-table>
+</pre></code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-3">
+      <h1 slot="header">Add Filter Metadata</h1>
+      <div>
+        <p>The smart search component relies on metadata file that defines the filters that will show up as options inside the
+          search bar. </p>
+        <ol>
+          <li><p>To create this metadata file, switch to the Source tab, right-click the Resources folder and select <strong>Create New File</strong> and enter
+            <code>search-config/employeeSearchConfig.json</code>.</p>
+            <p>This file will be referenced in the <code>searchConfiguration.url</code> variable. The file defines the following filters:</p>
+            <ul>
+              <li>A number range for salary (Numeric range filter)</li>
+              <li>A select single for department (Select single filter)</li>
+            </ul>
+            <p>The smart search component supports multiple other filters such as date range, toggle, select multiple, and so on. 
+              This example does not demonstrate these filters. See the smart search component's documentation. See the code in the <code>employeeSearchConfig.json</code> file that this example uses:</p>
+            
+            <oj-collapsible id="code1">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <code><pre>
+{
+  "description": "Emps BO smart search configuration",
+  "filters": {
+    "DepartmentsFilter": {
+      "type": "oj-sp/smart-search/default-filters/SelectSingleFilter",
+      "label": "Departments",
+      "options": {
+        "field": "department",
+        "optionsData": "[[ $search.filters.DepartmentsFilter.options.optionsData ]]",
+        "optionsKeys": "[[ $search.filters.DepartmentsFilter.options.optionsKeys ]]"
+      },
+      "data": {}
+    },
+    "SalaryFilter": {
+      "type": "oj-sp/smart-search/default-filters/NumericRangeFilter",
+      "label": "Salary",
+      "options": {
+        "field": "salary",
+        "min": 1,
+        "max": 30000
+      },
+      "data": {
+        "start": 1,
+        "end": 5000
+      }
+    }
+  }
+} 
+                 </pre> </code>
+              </div>
+            </oj-collapsible>
+          </li>
+          <li>Use the following code for the <code>searchConfiguration</code> variable definition:
+            <code> <pre>
+  "searchConfiguration": {
+    "type": "oj-sp/smart-search/strategies/JsonSearchConfigProviderFactory",
+     "defaultValue": {
+       "url": "[[ $application.path + 'resources/search-config/employeeSearchConfig.json' ]]"
+     }
+  },
+  </pre> </code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-4">
+      <h1 slot="header">Filter Construction Code</h1>
+      <div>
+
+        <p>Create a page-level JavaScript function named <code>getSearchMapFilterCriterion</code> (already referenced in the
+          <code>EmpDPV</code> variable).</p>
+        <oj-collapsible id="code2">
+          <a href="" slot="header">Expand to view code</a>
+          <div>
+            <code><pre>
+define([], () => {
+'use strict';
+
+class PageModule {
+}
+function _deepClone(fc) {
+return JSON.parse(JSON.stringify(fc));
+}
+
+// Recursively inspects the filterCriterion for TextFilter which are keyword enabled (aka matchBy:¿phrase), removing from the criterion
+function _findKeywordFilters(filterCriterion, keywords) {
+if (!filterCriterion) { return null }
+if (filterCriterion.text && filterCriterion.matchBy === 'phrase') {
+  keywords.push(filterCriterion.text);
+
+  return true;
+}
+if (Array.isArray(filterCriterion.criteria)) {
+  const { criteria } = filterCriterion;
+  for (let i = criteria.length - 1; i > -1; i--) {
+    if (_findKeywordFilters(criteria[i], keywords)) {
+      criteria.splice(i, 1);
+    }
+  }
+}
+
+return false;
+}
+
+// Converts the compound filter into its simplest form.
+function _normalizeCompoundFilter(filter) {
+if (filter.criteria.length === 0) {
+  return null;
+} else if (filter.criteria.length === 1) {
+  return filter.criteria[0];
+} else {
+  return filter;
+}
+}
+
+// Splits the text into words
+function _splitIntoWords(text) {
+let tokens = text.split(/\W/);
+tokens = Array.isArray(tokens) ? tokens : [];
+// remove empty string tokens
+for (let i = tokens.length - 1; i > -1; i--) {
+  if (!tokens[i]) {
+    tokens.splice(i, 1);
+  }
+}
+
+return tokens;
+}
+
+// Builds a contains with string match with the keywords 
+function _buildKeywordToFilter(keywordFilterAttributes, text) {
+const criteria = [];
+const compoundFilter = { op: '$or', criteria };
+keywordFilterAttributes.forEach(attributeName => {
+  const words = _splitIntoWords(text);
+  const attribute = `UPPER(${attributeName})`;
+  words.forEach(val => {
+    const value = val.toUpperCase();
+    criteria.push({ op: '$co', attribute, value });
+  });
+});
+
+return _normalizeCompoundFilter(compoundFilter);
+}
+
+function _convertAttributeFilterToAttributeFilterExpr(fc) {
+if (!fc.op || fc.attribute || typeof fc.value !== 'object') { return fc; }
+const path = [];
+let value = fc.value;
+let done = true;
+do {
+  const keys = Object.keys(value);
+  const key = keys[0];            // only support a single attribute per object
+  value = value[key];
+  path.push(key);
+  done = (value === null || Array.isArray(value) || typeof value !== 'object');
+} while (!done);
+
+return { op: fc.op, attribute: path.join('.'), value };
+}
+
+function _convertToRAMP(fc) {
+// RAMP only supports AttributeFilterExpr which is a deprecated interface
+// Convert from the new syntax to what RAMP transforms understands
+if (!Array.isArray(fc.criteria)) {
+  return _convertAttributeFilterToAttributeFilterExpr(fc);
+}
+if (Array.isArray(fc.criteria) && fc.op) {
+  for (let i = 0; i < fc.criteria.length; i++) {
+    let f = fc.criteria[i];
+    if (Array.isArray(f.criteria)) {
+      f = _convertToRAMP(f);
+    } else {
+      f = _convertAttributeFilterToAttributeFilterExpr(f);
+    }
+    fc.criteria[i] = f;
+  }
+}
+
+return fc;
+}
+
+PageModule.prototype.getSearchMapFilterCriterion = function (keywordFilterAttributes) {
+
+if (!this._searchMapFilterCriterion) {
+  //JS closure capturing the keyword fields.  Transforms keyword TextFilter into a RDBMS friendly search and AttributeFilter to AttributeExprFilter
+  this._searchMapFilterCriterion = fc => {
+    const filterCriterion = _deepClone(fc);
+    const criteria = [];
+    const compoundFilter = { op: '$and', criteria };
+
+    const keywords = [];
+    _findKeywordFilters(filterCriterion, keywords);
+    if (Array.isArray(filterCriterion.criteria) && filterCriterion.$tag === '_root_') {
+      // capture any remaining non-keyword filters
+      filterCriterion.criteria.forEach(f => {
+        criteria.push(f);
+      });
+    } else if (keywords.length === 0) {
+      criteria.push(filterCriterion)
+    }
+
+    // transform into starts with filter criterion
+    keywords.forEach(text => {
+      const filter = _buildKeywordToFilter(keywordFilterAttributes, text);
+      if (filter) { criteria.push(filter); }
+    });
+
+    return _convertToRAMP(_normalizeCompoundFilter(compoundFilter));
+  }
+
+
+  return this._searchMapFilterCriterion;
+}
+}
+return PageModule;
+});
+         </pre> </code>
+          </div>
+        </oj-collapsible>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-5">
+      <h1 slot="header">Define Variables for Filters and Binding searchContext</h1>
+      <div>
+        <ol>
+          <li>
+            Create a Service Data Provider variable required by the filters for the smart search component to populate select single components.
+            The JSON code for the SDP variable is:
+            <code><pre>
+    "departmentListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Department",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallDepartmentResponse",
+        "transformsContext": {
+          "vb-textFilterAttributes": [
+            "department"
+          ]
+        }
+      }
+    }
+           </pre> </code>
+          </li>
+          <li>Define the default value for the <code>searchContext</code> variable as below:
+            <oj-collapsible id="code3">
+              <a href="" slot="header">Expand to view code</a>
+              <div>
+                <code><pre>
+{
+  "$search": {
+    "filters": {
+      "SalaryFilter": {
+        "label": "Salary"
+      },
+      "DepartmentsFilter": {
+        "label": "Departments",
+        "options": {
+          "optionsData": "[[ $page.variables.departmentListSDP ]]",
+          "optionsKeys": {
+            "label": "departmentName",
+            "value": "id"
+          }
+        }
+      }
+    }
+  }
+}
+            </pre></code>
+              </div>
+            </oj-collapsible>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="more-info">
+      <h1 slot="header">Learn More</h1>
+
+<div>
+
+
+<p>  If you are unfamiliar with the components or concepts used in this example, the following resources may be helpful.</p>
+  <ul>
+    <li>Oracle JET provides a <a target="_blank" href="https://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html">cookbook</a>
+      with examples of the Oracle JET components in use that you can play with, as well as links to <a target="_blank" href="https://www.oracle.com/webfolder/technetwork/jet/jsdocs/index.html">API reference documentation</a>.
+      </li>
+    <li>Information about dynamic components can be found in the <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBBVA-GUID-FEC1B504-BE87-4E43-921F-3E576324DE63">documentation</a>.</li>
+  </ul>
+
+
+</div>
+
+    </oj-collapsible>
+
+
+  </oj-accordion>
+</div>

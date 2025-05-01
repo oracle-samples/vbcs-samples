@@ -16,7 +16,7 @@
     },
     "dirtyForm": {
       "type": "boolean",
-      "defaultValue": "[[ ($page.variables.currentTab == 'employee' && $page.functions.unsavedChange($page.variables.cleanEmp, $page.variables.formEmp)) || $page.functions.unsavedChange($page.variables.cleanDept, $page.variables.formDept) ]]"
+      "defaultValue": "[[ ($page.variables.currentTab === 'employee' && $page.functions.unsavedChange($page.variables.cleanEmp, $page.variables.formEmp)) || $page.functions.unsavedChange($page.variables.cleanDept, $page.variables.formDept) ]]"
     },
     "tabToSwitch": {
       "type": "string"
@@ -51,15 +51,14 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "loadData",
-          "parameters": {}
+          "chain": "loadData"
         }
       ]
     },
     "tabBar1BeforeSelect": {
       "chains": [
         {
-          "chainId": "beforeTabChange",
+          "chain": "beforeTabChange",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -70,7 +69,7 @@
     "yesButtonAction": {
       "chains": [
         {
-          "chainId": "YesButtonActionChain",
+          "chain": "YesButtonActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -80,7 +79,7 @@
     "noButtonAction": {
       "chains": [
         {
-          "chainId": "NoButtonActionChain",
+          "chain": "NoButtonActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }
@@ -90,7 +89,7 @@
     "saveButtonAction": {
       "chains": [
         {
-          "chainId": "SaveButtonActionChain",
+          "chain": "SaveButtonActionChain",
           "parameters": {
             "detail": "{{ $event.detail }}"
           }

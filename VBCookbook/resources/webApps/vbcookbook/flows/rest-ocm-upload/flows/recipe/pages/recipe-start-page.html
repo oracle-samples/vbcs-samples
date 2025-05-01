@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -17,7 +17,7 @@
   the mock server with a Content Management instance. If you have access to an
   instance of Content Management, you can use it instead of the mock server by
   editing the VB Cookbook's <code>ocm</code> service connection in the Visual Builder
-  instance where you import the VB Cookbook app. See <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/edit-service-connection.html#GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
+  instance where you import the VB Cookbook app. See <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-F7794333-4FDF-45BE-A3E7-F7486B8DD9BB">Edit
     a Service Connection</a>.
 </p>
 
@@ -30,7 +30,7 @@
         endpoints to get folder and file content. </p>
       <div>
         <ol>
-          <li><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-service-connection.html#GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">Create
+          <li><a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-5765A9F3-B728-486C-8D1A-C69D85ACD413">Create
               a service connection</a> from an endpoint exposed by your instance
             of Content Management.
             <p>
@@ -58,7 +58,7 @@
     <oj-collapsible id="stepb">
       <span slot="header">Create Page Variables</span>
       <div>
-        <p><a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+        <p><a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
             the following page variables:</a></p>
         <ul>
           <li><code>fileBodyForPreview</code> – Any</li>
@@ -75,7 +75,7 @@
 
         <ol>
           <li> In the Components palette, drag a Table component and drop it on the page.</li>
-          <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+          <li>Use the Table component's <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
             Data Quick Start</a> to map your table to the <code>/folders/{folderId}/items</code>            endpoint.</li>
           <li>In the Bind Data page of the Add Data dialog, select the following items
             from the endpoint structure:
@@ -111,7 +111,7 @@
             Preview column in the Table component.
           </li>
           <li>In the Page Structure, select the Hyperlink component and <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">add
             a new event</a>. </li>
           <li>In the <code>PreviewAttachment</code> action chain that you have just created,
             add a Call REST endpoint action and select the <code>GET /files/{fileID}/data</code>            endpoint. </li>
@@ -135,9 +135,9 @@ preview(blobData, contentType) {
           </code>
           </li>
           <li>In the <code>PreviewAttachment</code> action chain, drop an <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Assign
             Variables action</a> after the Call Module Function and assign the result
-            of <code>generatePreview</code> to the <code>fileBodyForPreview</code>            page variable. </li>
+            of <code>generatePreview</code> to the <code>fileBodyForPreview</code> page variable. </li>
           <li>In the Code view of your page, add the following HTML element that binds
             to the
             <code>fileBodyForPreview</code> page variable:

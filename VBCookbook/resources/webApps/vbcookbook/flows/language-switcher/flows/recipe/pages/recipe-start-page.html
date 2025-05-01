@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -50,7 +50,7 @@
           <li>In the Component Palette, drag a Table component and drop it on the page.</li>
 
           <li>Use the Table component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind your table to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -64,7 +64,7 @@
             <strong>Column Detail</strong> (a right arrow icon) to open the Properties pane for Table Columns.
           </li>
           <li>Click <strong>Make String Translatable</strong> (<a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-37B34FC0-66FB-47E2-88BA-144D512D5D43">a
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-37B34FC0-66FB-47E2-88BA-144D512D5D43">a
               globe icon that appears</a> when you hover over the Columns, Header Text field) and set the value of Key
             as follows:
             <ul>
@@ -89,14 +89,14 @@
         </p>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-A1A8C52F-F8E3-43AE-A336-85F90551AD58">Download
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-A1A8C52F-F8E3-43AE-A336-85F90551AD58">Download
               the ARB file</a> that contains all strings that your application currently uses.</li>
           <li>Extract the download file and navigate to the <code>.arb</code> file within the extracted directory.</li>
           <li>Duplicate the <code>app-strings.arb</code> file and save it as <code>app-strings-fr.arb</code> to create a
             translation bundle for French.</li>
           <li>Open the new file and update the text for each of the keys to use French.</li>
           <li>Create a new Zip archive that includes the new language (French, and so on) and <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-translations.html#GUID-E0809FB5-1191-47DA-B977-69C2E7A05E53">upload
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-E0809FB5-1191-47DA-B977-69C2E7A05E53">upload
               it to your application</a>.
             <br>
         On successful upload, you will see a new file created under the following node in your application:
@@ -113,15 +113,6 @@
 }
       </pre>
           </li>
-          <li>In the JavaScript tab of the page, add following code:
-            <pre>
-setAppLanguage(selectedLocale){
-   if (selectedLocale)  {
-      window.localStorage.setItem('vbcs.languageSwitcherApplication.locale',selectedLocale);
-   }
-}
-        </pre>
-          </li>
         </ol>
       </div>
     </oj-collapsible>
@@ -133,23 +124,30 @@ setAppLanguage(selectedLocale){
         <p>Add listeners for events that then invoke action chains to assign the new language to the locale.</p>
         <ol>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
-              a page variable</a> named <code>selectedLocale</code> of type Any.</li>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">Create
+              a page variable</a> named <code>selectedLocale</code> of type Any and set its default value to <code>[[ window.localStorage.getItem('vbcs.languageSwitcherApplication.locale') ]]</code>.</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-69C60635-B452-44B0-BC7C-ABA147B63314">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add
               an event listener</a> to the Select Single component's <strong>value</strong> event</li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/call-module-function.html">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBPMR-GUID-D397E29E-C07F-433C-AA59-600576BE016F">Add
               a call module function action</a> to the action chain named
             <code>SelectSingleValueChangeChain</code> and, in the Properties pane, select
             <strong>setAppLanguage</strong> from the Function Name dropdown list.
           </li>
           <li>Under Input Parameters, map <code>selectedLocale</code> from Source to Target.</li>
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-D8DBF495-6C44-4311-9AC9-F575CE65F869">Add
-              an Open URL
-              action</a> and, in the Properties pane, set URL to
-            <code>index.html?page=shell&shell=language-switcher&language-switcher=language-switcher-start&language-switcher-start=recipe</code>
+          <li>In the action chain, add following code:
+            <pre>
+if ($page.variables.selectedLocale && 
+    $page.variables.selectedLocale !== window.localStorage.getItem(
+    "vbcs.languageSwitcherApplication.locale")) {
+  window.localStorage.setItem(
+    "vbcs.languageSwitcherApplication.locale",
+    $page.variables.selectedLocale
+  );
+  window.location.reload(); // Reload the page.
+}
+        </pre>
           </li>
         </ol>
       </div>

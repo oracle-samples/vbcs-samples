@@ -52,20 +52,14 @@
     "navigateToEditListener": {
       "chains": [
         {
-          "chainId": "NavigateToEditActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "NavigateToEditActionChain"
         }
       ]
     },
     "navigateToDetailListener": {
       "chains": [
         {
-          "chainId": "NavigateToDetailActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "NavigateToDetailActionChain"
         }
       ]
     }

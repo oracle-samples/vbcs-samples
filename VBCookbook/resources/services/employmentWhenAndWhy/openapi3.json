@@ -1,0 +1,748 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "11.13.18.05",
+        "title": "Oracle REST APIs for resources in version 11.13.18.05",
+        "x-vb": {
+            "serviceType": "openapi",
+            "serviceTypeProperties": {
+                "sourceUrl": "vb-catalog://backends/HCM/describe.openapi?metadataMode=minimal&resources=employmentWhenAndWhy"
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "vb-catalog://backends/HCM",
+            "x-vb": {
+                "serviceType": "openapi",
+                "serviceTypeProperties": {
+                    "sourceUrl": "vb-catalog://backends/HCM/describe.openapi?metadataMode=minimal&resources=employmentWhenAndWhy"
+                },
+                "profiles": [
+                    "base_configuration"
+                ]
+            }
+        }
+    ],
+    "tags": [
+        {
+            "name": "employmentWhenAndWhy"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "version representation",
+                "description": "version representation",
+                "operationId": "version_representation",
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "version": {
+                                            "type": "string"
+                                        },
+                                        "lifecycle": {
+                                            "type": "string"
+                                        },
+                                        "isLatest": {
+                                            "type": "boolean"
+                                        },
+                                        "adf:extension": {
+                                            "type": "object",
+                                            "properties": {
+                                                "defaultFrameworkVersion": {
+                                                    "type": "string"
+                                                },
+                                                "allowedFrameworkVersions": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "rel": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "self",
+                                                            "canonical",
+                                                            "predecessor-version",
+                                                            "successor-version",
+                                                            "describe",
+                                                            "openapi"
+                                                        ]
+                                                    },
+                                                    "href": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "self",
+                                                            "canonical",
+                                                            "predecessor-version",
+                                                            "successor-version",
+                                                            "describe",
+                                                            "openapi"
+                                                        ]
+                                                    },
+                                                    "kind": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "item",
+                                                            "describe"
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "batch",
+                "description": "batch",
+                "operationId": "batch",
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/vnd.oracle.adf.batch+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/batch-response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "The following table describes the body parameters in the request for this task.",
+                    "content": {
+                        "application/vnd.oracle.adf.batch+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/batch-request"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employmentWhenAndWhy": {
+            "get": {
+                "tags": [
+                    "employmentWhenAndWhy"
+                ],
+                "summary": "Get all",
+                "description": "Get all",
+                "operationId": "getall_employmentWhenAndWhy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/expand"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/onlyData"
+                    },
+                    {
+                        "$ref": "#/components/parameters/links"
+                    },
+                    {
+                        "$ref": "#/components/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/components/parameters/totalResults"
+                    },
+                    {
+                        "$ref": "#/components/parameters/q"
+                    },
+                    {
+                        "$ref": "#/components/parameters/orderBy"
+                    },
+                    {
+                        "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/parameters/employmentWhenAndWhy-finder"
+                    },
+                    {
+                        "$ref": "#/components/parameters/REST-Framework-Version"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Metadata-Context"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/responses/employmentWhenAndWhy-collection-response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "employmentWhenAndWhy"
+                ],
+                "summary": "Create",
+                "description": "Create or upsert",
+                "operationId": "create_employmentWhenAndWhy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Upsert-Mode"
+                    },
+                    {
+                        "$ref": "#/components/parameters/REST-Framework-Version"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Metadata-Context"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/responses/employmentWhenAndWhy-item-response"
+                    }
+                },
+                "requestBody": {
+                    "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/requestBodies/employmentWhenAndWhy-item-post-request"
+                }
+            }
+        },
+        "/employmentWhenAndWhy/action/performOperationAndValidation": {
+            "post": {
+                "tags": [
+                    "employmentWhenAndWhy"
+                ],
+                "summary": "performOperationAndValidation",
+                "description": "performOperationAndValidation",
+                "operationId": "doall_performOperationAndValidation_employmentWhenAndWhy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/REST-Framework-Version"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Metadata-Context"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/vnd.oracle.adf.actionresult+json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "result"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "result"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "The following table describes the body parameters in the request for this task.",
+                    "content": {
+                        "application/vnd.oracle.adf.action+json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "operation": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "actionOccurrenceAttributes": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "nullable": true
+                                    },
+                                    "hcmParams": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "x-hints": {
+                    "batchEnabled": false
+                }
+            }
+        },
+        "/employmentWhenAndWhy/action/validateActionOccurrence": {
+            "post": {
+                "tags": [
+                    "employmentWhenAndWhy"
+                ],
+                "summary": "validateActionOccurrence",
+                "description": "validateActionOccurrence",
+                "operationId": "doall_validateActionOccurrence_employmentWhenAndWhy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/REST-Framework-Version"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Metadata-Context"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "The following table describes the default response for this task.",
+                        "content": {
+                            "application/vnd.oracle.adf.actionresult+json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "result"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "result"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "The following table describes the body parameters in the request for this task.",
+                    "content": {
+                        "application/vnd.oracle.adf.action+json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "actionOccurrenceAttributeMap": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "nullable": true
+                                    },
+                                    "hcmParamsMap": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "x-hints": {
+                    "batchEnabled": false
+                }
+            }
+        },
+        "/employmentWhenAndWhy/{employmentWhenAndWhy_Id}": {
+            "parameters": [
+                {
+                    "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/parameters/employmentWhenAndWhy_Id"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "employmentWhenAndWhy"
+                ],
+                "summary": "Get",
+                "description": "Get",
+                "operationId": "get_employmentWhenAndWhy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/expand"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/onlyData"
+                    },
+                    {
+                        "$ref": "#/components/parameters/dependency"
+                    },
+                    {
+                        "$ref": "#/components/parameters/links"
+                    },
+                    {
+                        "$ref": "#/components/parameters/REST-Framework-Version"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Metadata-Context"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/responses/employmentWhenAndWhy-item-response"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "employmentWhenAndWhy"
+                ],
+                "summary": "Update",
+                "description": "Update",
+                "operationId": "update_employmentWhenAndWhy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/REST-Framework-Version"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Metadata-Context"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/responses/employmentWhenAndWhy-item-response"
+                    }
+                },
+                "requestBody": {
+                    "$ref": "https://your-hcm-instance.oraclecloud.com:3001/bc/hcm/describe.openapi?partialDescriptionForCatalogOpenAPI=employmentWhenAndWhy#/components/requestBodies/employmentWhenAndWhy-item-patch-request"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "batch-request-part": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "path",
+                    "operation"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "operation": {
+                        "type": "string",
+                        "enum": [
+                            "create",
+                            "delete",
+                            "get",
+                            "invoke",
+                            "update",
+                            "upsert"
+                        ]
+                    },
+                    "ifMatch": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    },
+                    "ifNoneMatch": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    },
+                    "effectiveOf": {
+                        "type": "string"
+                    },
+                    "payload": {
+                        "type": "object"
+                    }
+                }
+            },
+            "batch-response-part": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/batch-request-part"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "preconditionSucceeded": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                ]
+            },
+            "batch-request": {
+                "type": "object",
+                "required": [
+                    "parts"
+                ],
+                "properties": {
+                    "parts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/batch-request-part"
+                        }
+                    }
+                }
+            },
+            "batch-response": {
+                "type": "object",
+                "required": [
+                    "parts"
+                ],
+                "properties": {
+                    "parts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/batch-response-part"
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "expand": {
+                "name": "expand",
+                "description": "When this parameter is provided, the specified children are included in the resource payload (instead of just a link). The value of this query parameter is \"all\" or \"\". More than one child can be specified using comma as a separator. Example: ?expand=Employees,Localizations. Nested children can also be provided following the format \"Child.NestedChild\" (Example: ?expand=Employees.Managers). If a nested child is provided (Example: Employees.Managers), the missing children will be processed implicitly. For example, \"?expand=Employees.Managers\" is the same as \"?expand=Employees,Employees.Managers\" (which will expand Employees and Managers).",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "fields": {
+                "name": "fields",
+                "description": "This parameter filters the resource fields. Only the specified fields are returned, which means that if no fields are specified, no fields are returned (useful to get only the links). If an indirect child resource is provided (Example: Employees.Managers), the missing children will be processed implicitly. For example, \"?fields=Employees.Managers:Empname\" is the same as \"?fields=;Employees:;Employees.Managers:Empname\" (which will only return the \"Empname\" field for Managers). the value of this query parameter is a list of resource fields. The attribute can be a direct (Example: Employees) or indirect (Example: Employees.Managers) child. It cannot be combined with expand query parameter. If both are provided, only fields will be considered.<br><br>Format: ?fields=Attribute1,Attribute2<br><br>Format for fields in child resource: ?fields=Accessor1:Attribute1,Attribute2",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "onlyData": {
+                "name": "onlyData",
+                "description": "The resource item payload will be filtered in order to contain only data (no links section, for example).",
+                "in": "query",
+                "schema": {
+                    "type": "boolean"
+                }
+            },
+            "dependency": {
+                "name": "dependency",
+                "description": "This parameter specifies dependencies which are fields that are set before and rolled back after generating the response. Generally they are used to preview the effects of an attribute change. The fields specified in this parameter are always set in the resource instance in question. When a child resource collection is requested and the parameter is set, the fields will be set in the parent resource instance before generating the resource collection payload. The value of this query parameter is a set of dependency fields.  Example: dependency=ProductId=2<br><br>Format: &lt;attr1&gt;=&lt;val1&gt;,&lt;attr2&gt;=&lt;value2&gt;",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "links": {
+                "name": "links",
+                "description": "This parameter can be used to show only certain links while accessing a singular resource or a resource collection. The parameter value format is a comma-separated list of : &lt;link_relation&gt;<br><br>Example:<br>self,canonical<br>",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "limit": {
+                "name": "limit",
+                "description": "This parameter restricts the number of resources returned inside the resource collection. If the limit exceeds the resource count then the framework will only return the available resources.",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "offset": {
+                "name": "offset",
+                "description": "Used to define the starting position of the resource collection. If offset exceeds the resource count then no resources are returned. Default value is 0.",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "totalResults": {
+                "name": "totalResults",
+                "description": "The resource collection representation will include the \"estimated row count\" when \"?totalResults=true\", otherwise the count is not included.  The default value is \"false\".",
+                "in": "query",
+                "schema": {
+                    "type": "boolean"
+                }
+            },
+            "q": {
+                "name": "q",
+                "description": "This query parameter defines the where clause. The resource collection will be queried using the provided expressions. The value of this query parameter is one or more expressions. Example: ?q=Deptno&gt;=10 and &lt;= 30;Loc!=NY <br><br>Format: ?q=expression1;expression2",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "orderBy": {
+                "name": "orderBy",
+                "description": "This parameter orders a resource collection based on the specified fields.  The parameter value is a comma-separated string of attribute names, each optionally followed by a colon and \"asc\" or \"desc\".  Specify \"asc\" for ascending and \"desc\" for descending. The default value is \"asc\".  For example, ?orderBy=field1:asc,field2:desc",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "effectiveDate": {
+                "name": "effectiveDate",
+                "description": "This query parameter is used to fetch resources which are effective dated as of the specified start date. The value of this query parameter is a string having a date in yyyy-MM-dd format",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "REST-Framework-Version": {
+                "name": "REST-Framework-Version",
+                "description": "The protocol version between a REST client and service. If the client does not specify this header in the request the server will pick a default version for the API.",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9"
+                    ]
+                }
+            },
+            "Upsert-Mode": {
+                "name": "Upsert-Mode",
+                "description": "When set to true, the server will perform an Upsert operation instead of a Create. In an Upsert operation the server attempts to find an existing resource that matches the payload. If found, the server updates the existing resource instead of creating a new one. If not found, or when set to false (the default), a Create is performed.",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "true",
+                        "false"
+                    ]
+                }
+            },
+            "Effective-Of": {
+                "name": "Effective-Of",
+                "description": "This header accepts a string value. The string is a semi-colon separated list of <parameter-name>=<parameter-value>. It is used to perform effective date range operations. The accepted parameters are RangeMode, RangeSpan, RangeStartDate, RangeEndDate, RangeStartSequence and RangeEndSequence. The parameter values are always strings. The possible values for RangeMode are SET_LOGICAL_START, SET_LOGICAL_END, END_DATE, SET_EFFECTIVE_START, SET_EFFECTIVE_END, REPLACE_CORRECTION, REPLACE_UPDATE, RECONCILE_CORRECTION, CORRECTION, RECONCILE_UPDATE, UPDATE, ZAP and DELETE_CHANGES. The possible values for RangeSpan are PHYSICAL_ROW_END_DATE and LOGICAL_ROW_END_DATE. The values for RangeStartDate and RangeEndDate have to be a string representation of a date in yyyy-MM-dd format. The value for RangeStartSequence and RangeEndSequence must be strings such that when parsed they yield positive integers.",
+                "in": "header",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "Metadata-Context": {
+                "name": "Metadata-Context",
+                "description": "If the REST API supports runtime customizations, the shape of the service may change during runtime. The REST client may isolate itself from these changes or choose to interact with the latest version of the API by specifying this header. For example: Metadata-Context:sandbox=\"TrackEmployeeFeature\".",
+                "in": "header",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "headers": {
+            "REST-Framework-Version": {
+                "description": "The protocol version between a REST client and service. If the client does not specify this header in the request the server will pick a default version for the API.",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9"
+                    ]
+                }
+            },
+            "Metadata-Context": {
+                "description": "If the REST API supports runtime customizations, the shape of the service may change during runtime. The REST client may isolate itself from these changes or choose to interact with the latest version of the API by specifying this header. For example: Metadata-Context:sandbox=\"TrackEmployeeFeature\".",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

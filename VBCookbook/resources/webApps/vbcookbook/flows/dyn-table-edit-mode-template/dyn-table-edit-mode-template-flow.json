@@ -1,0 +1,8 @@
+{
+  "id": "dyn-table-edit-mode-template",
+  "description": "Flow main",
+  "defaultPage": "dyn-table-edit-mode-template-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

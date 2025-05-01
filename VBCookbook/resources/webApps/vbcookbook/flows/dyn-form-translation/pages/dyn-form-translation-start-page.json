@@ -1,0 +1,109 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "object"
+    },
+    "employeeDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "languageOptions": {
+      "type": "object[]",
+      "defaultValue": [
+        {
+          "value": "en",
+          "label": "English"
+        },
+        {
+          "value": "fr",
+          "label": "French"
+        }
+      ]
+    },
+    "languageOptionsADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+        "data": "{{ $variables.languageOptions }}",
+        "keyAttributes": "value",
+        "textFilterAttributes": [
+          "label"
+        ]
+      }
+    },
+    "selectedLocale": {
+      "type": "string",
+      "persisted": "none",
+      "defaultValue": "[[ window.localStorage.getItem('vbcs.languageSwitcherApplication.locale') ]]"
+    }
+  },
+  "metadata": {
+    "businessObjectsGetEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/get_Employee"
+      }
+    }
+  },
+  "types": {
+    "getallEmployeeResponse": {
+      "items": [
+        {
+          "email": "string",
+          "firstName": "string",
+          "hireDate": "string",
+          "id": "number",
+          "lastName": "string",
+          "phoneNumber": "string",
+          "salary": "number"
+        }
+      ]
+    }
+  },
+  "eventListeners": {
+    "selectlanguageValue": {
+      "chains": [
+        {
+          "chain": "SelectValueItemChangeChain",
+          "parameters": {
+            "key": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-select-single": {
+        "path": "ojs/ojselectsingle"
+      },
+      "oj-sp-advanced-create-edit": {
+        "path": "oj-sp/advanced-create-edit/loader"
+      },
+      "oj-sp-message-unsaved-changes": {
+        "path": "oj-sp/message-unsaved-changes/loader"
+      },
+      "oj-sp-vertical-anchor-navigator": {
+        "path": "oj-sp/vertical-anchor-navigator/loader"
+      }
+
+    }
+  }
+}

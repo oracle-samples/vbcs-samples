@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -21,7 +21,7 @@
         <ol>
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>Use the component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
               Start</a> to bind your component to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -73,7 +73,7 @@ getName(context){
         <ol>
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>Use the component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
               Start</a> to bind your component to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>
@@ -149,8 +149,8 @@ getName(context){
           <li>In the Types tab of your page, click <strong>+ Type</strong> and <strong>From Endpoint</strong>.</li>
 
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
-              a type from endpoint</a> named <code>getAll_Department</code> based on the GET / Department
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+              a type from endpoint</a> based on the GET / Department
             {Department_ID} endpoint.</li>
 
           <li>Add the following fields to this newly-created type:
@@ -161,9 +161,8 @@ getName(context){
             </ul>
           </li>
 
-
           <li>In the Variables tab, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">create
               a page variable</a> named <code>departmentADP</code> of type ArrayDataProvider.</li>
           <li>
             In the Properties pane of <code>departmentADP</code> variable, under Data, select <b>Assign Variable
@@ -174,19 +173,30 @@ getName(context){
           <li>
             In the Event Listeners tab, click <strong>+ Event Listener</strong>, select <strong>vbEnter</strong> and
             click Next to <a
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-action-chain.html"
-              target="_blank">create an action chain </a> named <code>GetDeptData</code>.
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-F45B4319-9921-4F2D-BA30-F1DEF013859C"
+              target="_blank">create an action chain</a> named <code>GetDeptData</code>.
           </li>
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
-              a Call REST Endpoint action</a> named <code>callgetAllDepartmentRestEndpoint</code> to the action chain
-            and select <code>businessObjects/getall_Department</code> endpoint.</li>
+          <li>Add a <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-154A8060-942A-4B34-8C49-D641BB7DA354">Call REST Endpoint action</a> to the action chain and select 
+              <code>businessObjects/getall_Department</code> endpoint.</li>
 
           <li>
-            In the success path of the Call REST Endpoint action, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">add
-              an Assign Variables action</a> named <code>assignVariableDepartmentADP</code> to assign the results of the
-            REST action from Source to <code>departmentADP</code> in Target.
+            In the success path of the Call REST Endpoint action, add an <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">
+              Assign Variables action</a> to assign the results of the REST action to <code>departmentADP</code>.
+            <pre>
+const response = await Actions.callRest(context, {
+  endpoint: 'businessObjects/getall_Department',
+});
+
+if (response.ok) {
+  $page.variables.departmentADP.data = response.body.items;
+} else {
+  await Actions.fireNotificationEvent(context, {
+    summary: response.message.summary,
+  });
+}
+            </pre>
           </li>
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>In the Data tab of the Properties pane, set Data to <code>departmentADP</code>.</li>
@@ -214,7 +224,7 @@ getName(context){
           </li>
 
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/work-variables-and-types.html#GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-B2337AFE-0FE9-4E44-89DF-AA497883BD44">Create
               a type from custom</a> named <code>childobj</code> of type Object.
           </li>
           <li>Create another variable named <code>obj</code> of type Object and add the following fields:
@@ -226,25 +236,24 @@ getName(context){
           </li>
 
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
               Create a page variable</a> named <code>groupingDept</code> of type Array and Array Item Type of
             <code>obj</code>.
           </li>
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-289776BF-7E21-4B4C-AB1C-31022DA6910B">
               Create a page variable</a> named <code>departmentTDP</code> of type Any. </li>
           <li>In the JavaScript tab, add the following function:
-            <pre>getDepartmentTreeData(data) {
-
-    let treeDataProvider;
-    treeDataProvider = new ArrayTreeDataProvider(
-      data, {
-        keyAttributes: 'value'
-      }
-    );
-    console.log(treeDataProvider);
-    return treeDataProvider;
-  };
+            <pre>
+getDepartmentTreeData(data) {
+  let treeDataProvider;
+  treeDataProvider = new ArrayTreeDataProvider(
+    data, {
+      keyAttributes: 'value'
+    }
+  );
+  return treeDataProvider;
+};
             </pre>
           </li>
           <li>
@@ -253,65 +262,66 @@ getName(context){
           <li>
             In the Event Listeners tab of page, click <strong>+ Event Listener</strong>, select vbEnter and click
             <strong>Next</strong>. <a
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/create-action-chain.html"
-              target="_blank"> Create an action chain </a> named <code>callDepartmentRestEndpoint</code>
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-F45B4319-9921-4F2D-BA30-F1DEF013859C"
+              target="_blank"> Create an action chain </a> named <code>GetDeptMultipleSuggestionGroupsData</code>
           </li>
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
-              a Call REST Endpoint action</a> named <code>callDepartmentRestEndpoint</code> to the action chain and
-            select <code>businessObjects/getall_Department</code> endpoint. </li>
-
+          <li>Add a <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-154A8060-942A-4B34-8C49-D641BB7DA354">Call REST Endpoint action</a> to the action chain and select <code>businessObjects/getall_Department</code> endpoint. </li>
           <li>
-            In the success path of the Call REST Endpoint action, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">
-              add an Assign Variables action</a> named <code>assigngroupingdata</code> to assign the result of the REST
-            action items first index from Source to <code>assigngroupingdata</code> in Target.
-            <br>Target should have following:
-            <pre>[
- {
-  "children": [
-   {
-    "value": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].id }}",
-    "label": "{{ $chain.results.callDepartmentRestEndpoint.body.items[0].departmentName }}"
-   }
-  ],
-  "label": "Commonly Selected",
-  "value": 234567
- }
-]
-              </pre>
+            In the success path of the Call REST Endpoint action, add an <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">
+              Assign Variables action</a> to assign the result of the REST
+            action items first index to <code>groupingDept</code> variable with group heading <strong>Commonly Selected</strong>.
           </li>
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-689A76E9-6B6D-4952-A82D-E8701ACD32E0">Add
-              a Call REST Endpoint action</a> named <code>callDepartmentRestEndpoint</code> to the action chain and
-            select the <code>businessObjects/getall_Department</code> endpoint. </li>
-          <li>
-            In the success path of the Call REST Endpoint action, <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">
-              add an Assign Variables action</a> named <code>assigngroupingdata</code> that assigns the result of the
-            REST action items from Source to <code>assigngroupingdata</code> in Target.
-            <br>Target should have following:
-            <pre>[
- {
-  "children": "{{ $chain.results.callDepartmentRestEndpoint.body.items }}",
-  "label": "All Departments",
-  "value": 1234567
- }
-]
-              </pre>
+          <li>Also assign all items in result of the REST action to <code>groupingDept</code> with group heading <strong>All Departments</strong>.
+          <li>Add new keys in the items data named <code>value</code> as <code>id</code> and <code>label</code> as <code>departmentName</code> attributes 
+          for Single Select component to recognize the key and value in data row.
+          </li>
+            <pre>
+const response = await Actions.callRest(context, {
+  endpoint: 'businessObjects/getall_Department',
+});
+
+if (response.ok) {
+  let renameKey = function (obj) {
+    obj.value = obj.id;
+    obj.label = obj.departmentName;
+  };
+
+  let itemsForSingleSelect = response.body.items;
+  itemsForSingleSelect.forEach(obj => renameKey(obj));
+
+  $page.variables.groupingDept =
+  [
+    {
+      "children": [
+        {
+          "value": response.body.items[0].id,
+          "label": response.body.items[0].departmentName
+        }
+      ],
+      "label": "Commonly Selected",
+      "value": 234567
+    },
+    {
+      "children": itemsForSingleSelect,
+      "label": "All Departments",
+      "value": 1234567
+    }
+  ];
+            </pre>
           </li>
 
           <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/call-module-function.html">Add
-              a Call Module Function</a> named <code>callgetDepartmentTreeDataModuleFunction</code> and, in the Property
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-A1373FEF-B75F-49AC-A573-E05E30A74DC0">Add
+              a Call Module Function</a> and in the Property
             Inspector, select <code>getDepartmentTreeData</code> from the Function Name dropdown list.
           </li>
-          <li>In the Parameters section, assign <code>groupingData</code> from Source to <code>data</code> in Target.
+          <li>In the Parameters section, assign <code>groupingData</code> as <code>data</code> parameter.
           </li>
-          <li><a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Add
-              an Assign Variables action</a> named <code>assignDepartmentTDPVariable</code>. Assign the result of
-            <code>callgetDepartmentTreeDataModuleFunction</code> from Source to <code>departmentTDP</code> in Target.
+          <li>Add an <a target="_blank"
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">
+              Assign Variables action</a> to assign the result of <code>getDepartmentTreeData</code> to <code>departmentTDP</code>.
           </li>
 
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
@@ -321,6 +331,7 @@ getName(context){
     </oj-collapsible>
   </oj-accordion>
 </div>
+
 <!-- Step 5. -->
 <div class="oj-flex">
   <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12">
@@ -404,7 +415,7 @@ getName(context){
         <ol>
           <li>In the Component Palette, drag a Select Single component and drop it on the page.</li>
           <li>Use the component’s <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Quick
               Start</a> to bind your component to employee data.</li>
           <li>In the Bind Data page, select the following employee fields:
             <ul>

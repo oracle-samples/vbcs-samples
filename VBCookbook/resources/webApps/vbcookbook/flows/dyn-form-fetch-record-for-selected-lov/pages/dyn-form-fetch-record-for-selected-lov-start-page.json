@@ -1,0 +1,239 @@
+{
+  "title": "LOV Dependent Business Rules",
+  "description": "",
+  "variables": {
+    "avatar": {
+      "type": {
+        "initials": "string",
+        "src": "string"
+      },
+      "defaultValue": {
+        "initials": "",
+        "src": ""
+      }
+    },
+    "contextualInfoLabelVisible": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "contextualInfoSticky": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "dirtyDataFlag": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "dirtyDialogOpen": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "displayMode": {
+      "type": "string"
+    },
+    "formState1": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "formState2": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "goToParentOption": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "isSaved": {
+      "type": "boolean",
+      "defaultValue": false
+    },
+    "objectId": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "primaryAlwaysOn": {
+      "type": "boolean",
+      "defaultValue": true
+    },
+    "saveOption": {
+      "type": "string",
+      "defaultValue": "off"
+    },
+    "employmentWhenAndWhy": {
+      "type": "object"
+    },
+    "employmentWhenAndWhyEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employmentWhenAndWhyEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmploymentWhenAndWhyChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employmentWhenAndWhyEditFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employmentWhenAndWhyETag": {
+      "type": "string"
+    },
+    "fetchedEmploymentWhenAndWhy": {
+      "type": "object"
+    },
+    "positionId": {
+      "type": "string"
+    }
+  },
+  "metadata": {
+    "employmentWhenAndWhyUpdateEmploymentWhenAndWhyMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "employmentWhenAndWhy/update_employmentWhenAndWhy"
+      }
+    },
+    "dynamicContainerMetadata": {
+      "type": "vb/ContainerMetadataProviderDescriptor"
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "confirmNoOjAction": {
+      "chains": [
+        {
+          "chain": "dialogResponseChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "response": "NO"
+          }
+        }
+      ]
+    },
+    "confirmYesOjAction": {
+      "chains": [
+        {
+          "chain": "dialogResponseChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}",
+            "response": "YES"
+          }
+        }
+      ]
+    },
+    "ojSpCancel": {
+      "chains": [
+        {
+          "chain": "spCancelChain",
+          "parameters": {
+            "detail": "{{ $event.detail }}"
+          }
+        }
+      ]
+    },
+    "ojSpGoToParent": {
+      "chains": [
+        {
+          "chain": "goToParent",
+          "parameters": {}
+        }
+      ]
+    },
+    "ojSpSubmit": {
+      "chains": [
+{
+          "chain": "saveEmploymentWhenAndWhyChain",
+          "parameters": {
+          }
+        }
+      ]
+    },
+    "vbBeforeExit": {
+      "chains": [
+        {
+          "chain": "checkBeforeExit",
+          "parameters": {}
+        }
+      ]
+    },
+    "vbEnter": {
+      "chains": [
+        {
+          "chain": "firePageLayoutEventChain"
+        }
+      ]
+    },
+    "ojDynForm21203018311TransientValue": {
+      "chains": [
+        {
+          "chain": "FormTransientValueChangeChain",
+          "parameters": {
+            "transientValue": "{{ $event.detail.value }}"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-sp-advanced-create-edit": {
+        "path": "oj-sp/advanced-create-edit/loader"
+      },
+      "oj-sp-message-unsaved-changes": {
+        "path": "oj-sp/message-unsaved-changes/loader"
+      },
+      "oj-sp-vertical-anchor-navigator": {
+        "path": "oj-sp/vertical-anchor-navigator/loader"
+      }
+    }
+  },
+  "layouts": {
+    "containerLayout1": {
+      "label": "Container Rule Set 1",
+      "layoutType": "container",
+      "layouts": {
+        "case1": {
+          "label": "Case 1",
+          "layoutType": "container",
+          "layout": {
+            "sectionTemplateMap": {
+              "template1": "template1"
+            },
+            "displayProperties": [
+              "template1"
+            ]
+          }
+        }
+      },
+      "rules": [
+        "containerLayout1-rule1"
+      ]
+    },
+    "containerLayout1-rule1": {
+      "expression": "case1"
+    }
+  },
+  "templates": {
+    "template1": {
+      "title": "Section 1",
+      "description": "Sample Section 1",
+      "extensible": "byReference",
+      "@dt": {
+        "type": "section",
+        "layout": "containerLayout1"
+      },
+      "dependencies": [
+        "oj-dyn/form/loader",
+        "oj-dynamic/form/loader",
+        "oj-sp/section/loader",
+        "ojs/ojbutton",
+        "ojs/ojtoolbar",
+        "ojs/ojvalidationgroup"
+      ],
+      "labelHint": "Select Employee Position"
+    }
+  }
+}

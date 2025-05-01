@@ -1,0 +1,38 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+
+    <p>
+      This recipe shows you how to apply a field template to a field in an in-line editable Dynamic Table, when the field is
+      selected to edit. In this example, the field template has been applied to the <code>hireDate</code> field so that when the user
+      selects it for inline editing, it displays as <code>mm/dd/yy</code> with a Calendar component to update the date instead of displaying
+      the date with <code>IntlDateTimeConverter</code> (<code>dateFormat</code> as <code>full</code>), which is what appears when the field is in navigation mode.
+    </p>
+  
+
+
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-sm-flex-direction-column sample-box2" style="width:100%;">
+    <oj-dynamic-table data="[[ $variables.employeeCustomBDP.instance ]]"
+      metadata="[[ $metadata.businessObjectsGetallEmployeeMetadata.provider ]]" layout="editModeTemplate"
+      style="width: 100%; height: 400px" edit-mode="managedRowEdit" id="dyn-table-edit-mode-template">
+    </oj-dynamic-table>
+  </div>
+</div>
+
+
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

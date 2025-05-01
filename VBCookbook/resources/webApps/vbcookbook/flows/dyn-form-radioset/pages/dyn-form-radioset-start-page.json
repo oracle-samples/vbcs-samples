@@ -1,0 +1,67 @@
+{
+  "title": "Radioset Field Template",
+  "description": "",
+  "variables": {
+    "employee": {
+      "type": "object"
+    },
+    "employeeEditFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "employeeEditFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadEmployeeChain",
+            "parameters": {
+              "fetchedFields": "[[ $variables.employeeEditFormRenderedFields ]]"
+            }
+          }
+        ]
+      }
+    },
+    "employeeETag": {
+      "type": "string"
+    },
+    "fetchedEmployee": {
+      "type": "object"
+    }
+  },
+  "metadata": {
+    "businessObjectsUpdateEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/update_Employee"
+      }
+    }
+  },
+  "types": {},
+  "eventListeners": {
+    "saveButtonClicked": {
+      "chains": [
+        {
+          "chain": "saveEmployeeChain",
+          "parameters": {}
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      },
+      "oj-toolbar": {
+        "path": "ojs/ojtoolbar"
+      },
+      "oj-validation-group": {
+        "path": "ojs/ojvalidationgroup"
+      }
+    }
+  }
+}

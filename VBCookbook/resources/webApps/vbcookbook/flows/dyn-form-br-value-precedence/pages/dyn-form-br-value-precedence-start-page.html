@@ -1,0 +1,41 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  <p>
+    This recipe demonstrates the value precedence property (JsonMetadata.valuePrecedence) of a field in a dynamic form. This property controls how an
+    editable field behaves when both user input and system calculations can update its value.
+<br>
+    In this example, the <code>currencyAmountVP</code> field in the Expense layout is initially assigned an incorrect
+    value. Since its <code>valuePrecedence</code> property is set to <code>calculation</code>, Business Rules do not
+    recalculate it, and the incorrect value remains unchanged—unless the value of <code>currency</code> field is modified.
+<br>
+    Users can also manually update the value of <code>currencyAmountVP</code> field. When they do, Business Rules will respect
+    their input and will not overwrite it—unless the value of <code>currency</code> field changes again.
+  </p>
+</div>
+
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2" style="width: 100%;">
+    <h3>Expense Details</h3>
+    <oj-dyn-form class="oj-flex-item oj-sm-12 oj-md-12" metadata="[[ $page.metadata.expenseJsonMetadata.provider ]]"
+      layout="valuePrecedence" value="{{ $page.variables.formValue }}"
+      value-loading="[[ $page.variables.getExpenseByIdDetailFormLoadingStatus ]]"
+      rendered-fields="{{ $page.variables.getExpenseByIdDetailFormRenderedFields }}"
+      on-oj-raw-value-updated="[[$listeners.formRawValueUpdated]]"></oj-dyn-form>
+  </div>
+
+  <oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+    <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+      :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+      <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+        <h1 class="oj-typography-heading-lg">Recipe</h1>
+        <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+          <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+        </div>
+      </div>
+    </div>
+  </oj-bind-if>
+</div>

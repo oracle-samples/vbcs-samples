@@ -1,0 +1,8 @@
+{
+  "id": "dyn-form-br-value-precedence",
+  "description": "Flow main",
+  "defaultPage": "dyn-form-br-value-precedence-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

@@ -1,0 +1,18 @@
+{
+  "id": "dyn-form-fetch-record-for-selected-lov",
+  "description": "Flow main",
+  "defaultPage": "dyn-form-fetch-record-for-selected-lov-start",
+  "services": {},
+  "types": {},
+  "variables": {},
+  "@dt": {
+    "chains": {
+      "validateFormChain": {
+        "autowire": {
+          "contextKey": "vb-quickstarts-js",
+          "name": "validateFormChain"
+        }
+      }
+    }
+  }
+}

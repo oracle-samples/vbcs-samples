@@ -1,0 +1,55 @@
+{
+  "layoutTypes": {
+    "businessObjects": {
+      "kind": "operationRef",
+      "serviceId": "businessObjects",
+      "operations": [
+        "update_Job"
+      ]
+    }
+  },
+  "layouts": {
+    "isDefault": {
+      "description": "Default Rule",
+      "type": "businessObjects",
+      "expression": "default"
+    },
+    "editJobSalaryForm": {
+      "type": "businessObjects",
+      "layoutType": "form",
+      "label": "editJobSalaryForm",
+      "rules": [
+        "isDefault"
+      ],
+      "layouts": {
+        "default": {
+          "layoutType": "form",
+          "layout": {
+            "displayProperties": [
+              {
+                "jobTitle": {
+                  "readonly": true
+                }
+              },
+              "currency",
+              {
+                "maxSalary": {
+                  "readonly": true
+                }
+              },
+              {
+                "minSalary": {
+                  "readonly": true
+                }
+              }
+            ]
+          },
+          "usedIn": [
+            "isDefault"
+          ]
+        }
+      }
+    }
+  },
+  "templates": {}
+}

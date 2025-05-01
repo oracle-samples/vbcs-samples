@@ -5,15 +5,15 @@
     "employeeListSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
-        "keyAttributes": "id",
-        "itemsPath": "items",
         "responseType": "getallEmployeeResponse",
+        "itemsPath": "items",
         "transformsContext": {
           "vb-textFilterAttributes": [
             "email"
           ]
         },
-        "fetchChainId": "getall_EmployeeFetchAction"
+        "keyAttributes": "id",
+        "fetchChain": "getall_EmployeeFetchAction"
       }
     }
   },

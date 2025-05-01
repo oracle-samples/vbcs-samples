@@ -1,0 +1,8 @@
+{
+  "id": "dynamic-table-content-wrapping",
+  "description": "Flow main",
+  "defaultPage": "dynamic-table-content-wrapping-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

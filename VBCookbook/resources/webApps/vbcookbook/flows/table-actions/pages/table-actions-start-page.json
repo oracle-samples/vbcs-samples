@@ -53,30 +53,33 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "UpdateEmployeeChain",
+
           "parameters": {
             "detail": "{{ $event.detail }}"
-          }
+          },
+          "chain": "UpdateEmployeeChain"
         }
       ]
     },
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "CloseDialogActionChain",
+
           "parameters": {
             "detail": "{{ $event.detail }}"
-          }
+          },
+          "chain": "CloseDialogActionChain"
         }
       ]
     },
     "spanClick": {
       "chains": [
         {
-          "chainId": "OpenDialogChain",
+
           "parameters": {
             "current": "{{ $current.row }}"
-          }
+          },
+          "chain": "OpenDialogChain"
         }
       ]
     }

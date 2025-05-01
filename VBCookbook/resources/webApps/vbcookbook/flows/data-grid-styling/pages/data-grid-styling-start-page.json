@@ -12,8 +12,7 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "vbEnter",
-          "parameters": {}
+          "chain": "vbEnter"
         }
       ]
     }

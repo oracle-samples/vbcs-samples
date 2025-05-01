@@ -1,0 +1,40 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  This recipe shows you how to implement case-insensitive search in a dynamic form's field. The New Job field in the
+  following dynamic form demonstrates this capability.
+</div>
+<div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
+  <div class="oj-flex-item oj-sm-flex-direction-column sample-box2" style="width: 100%">
+    <oj-sp-advanced-create-edit id="oj_ssce1" page-title="Employee Detail Form" avatar="{{$page.variables.avatar}}"
+      primary-action.disabled="{{!($page.variables.primaryAlwaysOn || ($page.variables.dirtyDataFlag ? true : $page.variables.isSaved))}}"
+      display-options.save="{{$page.variables.saveOption!=='off'?$page.variables.dirtyDataFlag?'on':'disabled':'off'}}"
+      display-options.go-to-parent="{{$page.variables.goToParentOption }}"
+      display-options.contextual-info-sticky="{{ $page.variables.contextualInfoSticky }}"
+      display-options.contextual-info-label="{{$page.variables.contextualInfoLabelVisible}}"
+      display-options.responsive-padding="on" display-options.bottom-actions="on"
+      display-mode="[[$page.variables.displayMode]]" on-sp-cancel="[[$listeners.ojSpCancel]]"
+      on-sp-go-to-parent="[[$listeners.ojSpGoToParent]]" on-sp-primary-action="[[$listeners.ojSpSubmit]]">
+      <oj-sp-vertical-anchor-navigator layout="containerLayout1"
+        layout-provider="[[ $metadata.dynamicContainerMetadata.provider ]]" slot="main">
+      </oj-sp-vertical-anchor-navigator>
+    </oj-sp-advanced-create-edit>
+    <oj-sp-message-unsaved-changes id="dirtyDataWarningDialog" open-dialog="[[ $page.variables.dirtyDialogOpen ]]"
+      on-oj-sp-discard-changes="[[ $listeners.confirmYesOjAction ]]"
+      on-oj-sp-cancel="[[ $listeners.confirmNoOjAction ]]"></oj-sp-message-unsaved-changes>
+  </div>
+</div>
+<oj-bind-if test="[[ $application.variables.isThisVBDesigner === false ]]">
+  <div class="oj-flex oj-sm-flex-1 oj-md-flex-1"
+    :style.min-width="[[ $application.responsive.smOnly ? '360px' : '500px' ]]">
+    <div class="recipe-box oj-bg-neutral-20 oj-flex-item">
+      <h1 class="oj-typography-heading-lg">Recipe</h1>
+      <div class="recipe-body oj-helper-overflow-wrap-anywhere">
+        <oj-vb-content config="[[ vbRouterFlow ]]" class="oj-flex-item oj-sm-12 oj-md-12"></oj-vb-content>
+      </div>
+    </div>
+  </div>
+</oj-bind-if>

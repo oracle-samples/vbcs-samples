@@ -1,5 +1,5 @@
 {
-  "title": "Template Event Recipe",
+  "title": "Link Field Template",
   "description": "",
   "variables": {
     "employeeListSDP": {
@@ -35,7 +35,7 @@
     "tableEmpDetail": {
       "chains": [
         {
-          "chainId": "TableEmpDetailChain",
+          "chain": "TableEmpDetailChain",
           "parameters": {
             "empId": "{{ $event.detail.empId }}"
           }

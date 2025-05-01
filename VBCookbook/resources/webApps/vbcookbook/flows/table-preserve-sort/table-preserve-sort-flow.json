@@ -1,0 +1,8 @@
+{
+  "id": "table-preserve-sort",
+  "description": "Flow main",
+  "defaultPage": "table-preserve-sort-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

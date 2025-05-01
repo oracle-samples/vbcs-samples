@@ -1,0 +1,95 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Create Tree Structure Data for the Dynamic Table</h1>
+      <div>
+        <ol>
+          <li>In the Variables tab of the Designer, create a page variable named <code>employeeTreeData</code> of type
+            Any to
+            store the tree structure data.</li>
+          <li>In the Event Listeners tab, create a <code>vbEnter</code> event and an associated action chain named
+            <code>loadEmployeeData</code>.
+          </li>
+          <li>In Code view of the Action Chains tab, include the following dependency:
+            <pre>define([
+    'vb/action/actionChain',
+      . . . 	
+    "ojs/ojarraytreedataprovider"
+   ], (
+    ActionChain,
+    . . . 
+    ArrayTreeDataProvider
+  ) => {
+. . .</pre>
+          </li>
+
+          <li>In Design view of the Action Chains tab, add a Call REST action to the endpoint (<code>Employee</code> in
+            our example),
+            and set
+            the appropriate <code>Response Type</code> to fetch the desired fields.
+          </li>
+          <li>Assign the result of the Call REST action to an Assign Variable action named <code>employeeArray</code>.
+          </li>
+          <li>Add a Call Function named <code>convertArrayIntoTree</code> with an input parameter to convert the
+            employee array data
+            into a tree
+            structure format.</li>
+          <li>Call the <code>convertArrayIntoTree</code> function and pass the <code>employeeArray</code> variable as a
+            parameter and store the
+            result of the
+            function in a local variable named <code>tree</code>.</li>
+          <li>Use an Assign Variable action that creates an instance of <code>ArrayTreeDataProvider</code> to convert
+            the data from
+            <code>tree</code>
+            variable into a format which represents hierarchical data available from the array and stores the result
+            into the
+            <code>employeeTreeData</code> page variable.
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Create a Dynamic Table that uses Tree Structure Data</h1>
+      <div>
+
+        <ol>
+          <li>
+            In the Page Designer, drag and drop the Dynamic Table component onto the page.
+          </li>
+          <li>
+            In the Quick Start tab of the Properties pane, click
+            <strong>Configure Layout</strong>.
+          </li>
+          <li>
+            In the Configure Layout dialog that appears, choose the business
+            object or REST endpoint that you want to use as the data source for
+            the form, and click <strong>Next</strong>.
+          </li>
+          <li>
+            In the Select Rule Set page of the Configure Layout dialog,
+            click <strong>New Rule Set</strong> to define your own display
+            logic, and enter a rule set label and ID, such as
+            <code>rowExpanderTableLayout RuleSet</code>.
+          </li>
+          <li>
+            In the Fields section, select the fields that the Dynamic Table component displays (<code>fullName</code>
+            and so on), and click
+            <strong>Next</strong>, and then click <strong>Finish</strong>.
+          </li>
+          <li>
+            <p>In Code view of the Page Designer, replace the value assigned to the <code>data</code> property with the
+              page
+              variable <code>employeeTreeData</code>:</p>
+            <p><code>&lt;oj-dynamic-table data="[[$variables.employeeTreeData]]" . . .</code></p>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

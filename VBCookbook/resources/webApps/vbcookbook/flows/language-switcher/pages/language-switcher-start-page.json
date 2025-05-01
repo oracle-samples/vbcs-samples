@@ -35,7 +35,8 @@
       }
     },
     "selectedLocale": {
-      "type": "any"
+      "type": "any",
+      "defaultValue": "[[ window.localStorage.getItem('vbcs.languageSwitcherApplication.locale') ]]"
     }
   },
   "metadata": {},
@@ -64,7 +65,7 @@
     "ojSelectSingleValue": {
       "chains": [
         {
-          "chainId": "SelectSingleValueChangeChain",
+          "chain": "SelectSingleValueChangeChain",
           "parameters": {
             "value": "{{ $event.detail.value }}"
           }

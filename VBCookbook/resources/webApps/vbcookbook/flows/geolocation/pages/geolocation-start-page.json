@@ -18,7 +18,7 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "GetLocationActionChain"
+          "chain": "GetLocationActionChain"
         }
       ]
     }

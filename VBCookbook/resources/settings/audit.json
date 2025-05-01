@@ -1,16 +1,21 @@
 {
   "paths": {
     "exclude": [
-      "scripts/**", "tests/**", "webApps/vbcookbook/resources/js/**", "webApps/vbcookbook/flows/home/pages/home-redwood-page.*", "services/**", "dynamicLayouts/**"
+      "build/**",
+      "docs/**",
+      "scripts/**",
+      "tests/**",
+      "**/private",
+      "+(web|mobile)Apps/**/resources/components/**/lib/*",
+      "webApps/vbcookbook/resources/js/**", 
+      "webApps/vbcookbook/flows/home/pages/home-redwood-page.*", 
+      "services/**", 
+      "dynamicLayouts/**"
     ]
   },
   "rules": {
     "oj-sp-pageTemplate-notFound-in-vbPage": {
        "description": "Page template missing in back-button-start-page.html. Supported page templates are: oj-sp-dashboard-landing-page,oj-sp-data-management-page,oj-sp-guided-process,oj-sp-item-overview-page,oj-sp-simple-create-edit,oj-sp-advanced-create-edit,oj-sp-foldout-layout,oj-sp-general-overview-page,oj-sp-welcome-page,oj-sp-smart-filter-search,oj-sp-smart-filter-search-2,oj-sp-smart-search-page,oj-sp-collection-detail-page.",
-      "enabled": false
-    },
-    "oj-html-cspexpr": {
-       "description": "Attribute 'value' contains an expression that may not be compatible with all Content Security policies: Expected expression after = at attribute value -> the csp expression evaluator does not support arrow function syntax",
       "enabled": false
     },
     "translations.audit.propertyNotTranslated": {
@@ -64,6 +69,14 @@
     },
     "oj-sp-welcome-page-search-contents": {
       "description": "Ensure correct contents for oj-sp-welcome-page",
+      "enabled": false
+    },
+    "oj-html-ojtag-ns": {
+      "description": "Web component namespaces starting with prefixes 'oj-' or 'ns-' must be registered.",
+      "enabled": false
+    },
+    "oj-html-slot-pref-content": {
+      "description": "When component metadata defines 'preferredContent' for a slot, child elements placed into that slot should implement one or more of the requested interfaces and document that through their 'implements' metadata. This rule applies to components that are directly allocated to a slot, or which are direct children of a template allocated to that slot.",
       "enabled": false
     }
   },

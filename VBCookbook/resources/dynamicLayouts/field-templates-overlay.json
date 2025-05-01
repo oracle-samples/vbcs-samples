@@ -4,12 +4,25 @@
       "title": "Global Salary Template",
       "description": "Global Salary Template",
       "extensible": "byReference"
+    },
+    "globalCaseInsensitiveJobLOV": {
+      "title": "Global Case Insensitive Job LOV Template",
+      "description": "Global Case Insensitive Job LOV Template",
+      "extensible": "byReference"
     }
   },
   "addTemplateMap": {
     "singleValue": {
       "$byLayoutDiscriminant": {
-        "globalTmplSalary": "globalSalaryTmpl"
+        "globalTmplSalary": "globalSalaryTmpl",
+        "globalJobLOV": "globalCaseInsensitiveJobLOV"
+      }
+    }
+  },
+  "imports": {
+    "modules": {
+      "helperFunctions": {
+        "path": "./helper-functions"
       }
     }
   }

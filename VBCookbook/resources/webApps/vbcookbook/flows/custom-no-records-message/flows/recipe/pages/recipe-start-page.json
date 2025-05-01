@@ -9,11 +9,17 @@
   "eventListeners": {},
   "imports": {
     "components": {
+      "oj-button": {
+        "path": "ojs/ojbutton"
+      },
       "oj-collapsible": {
         "path": "ojs/ojcollapsible"
       },
       "oj-accordion": {
         "path": "ojs/ojaccordion"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
       }
     }
   }

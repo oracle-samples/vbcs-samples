@@ -1,0 +1,60 @@
+{
+  "metadataRules": [
+    {
+      "id": "checkDepartment",
+      "label": "Check Department",
+      "description": "",
+      "condition": {
+        "expression": "[[ $fields.department.$numberValue() === 8 ]]",
+        "referencedFields": {
+          "generated": [
+            "department"
+          ]
+        }
+      },
+      "status": "active",
+      "addMessages": {},
+      "metadataRules": [
+        {
+          "id": "commissionPercentRange",
+          "label": "Commission Percent Range",
+          "description": "",
+          "condition": {
+            "expression": "[[ $fields.commissionPct.$numberValue() < 5 || $fields.commissionPct.$numberValue() > 20 ]]",
+            "referencedFields": {
+              "generated": [
+                "commissionPct"
+              ]
+            }
+          },
+          "status": "active",
+          "addMessages": {
+            "messages": [
+              {
+                "summary": "Commission Percent Range",
+                "detail": "Commission should be between 5 to 20",
+                "severity": "warning",
+                "targetFields": [
+                  "commissionPct"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "metadataRulesVersion": "17.0.8",
+  "@dt": {
+    "conditionFieldLabels": {
+      "$fields.department.$numberValue()": {
+        "8": []
+      }
+    }
+  },
+  "collectionMetadataRules": {
+    "metadataRules": [],
+    "collectionOnly": true
+  },
+  "imports": {}
+}

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -17,8 +17,7 @@
           <oj-bind-if test="[[ (null) !== undefined ]]">
             <oj-dyn-form metadata="[[ $page.metadata.businessObjectsGetEmployeeMetadata.provider ]]"
               layout="employeeListViewLayout" value="{{ $current.data }}"
-              value-loading="[[ $variables.employeeDetailFormLoadingStatus ]]"
-              rendered-fields="{{ $variables.employeeDetailFormRenderedFields }}" context="[[ $variables.path ]]"
+              context="[[ $variables.path ]]"
               :id="[['dynamic-form-list-' + $current.index]]">
             </oj-dyn-form>
           </oj-bind-if>

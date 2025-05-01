@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -40,7 +40,7 @@
           <li>Add a Switch component and bind it to a Boolean page variable named <code>ascending</code>. Make
             <code>ascending's</code> default value <code>true</code>.</li>
           <li>Add a List View to the page. Use the <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-34A69EF1-56C0-462A-83FB-D3F5948CFA3D">Add
               Data Quick Start</a> to bind it to the Country business object. Display the countryCode and countryName
             fields in the list.</li>
           <li>Drop an Image into the <code>image</code> slot in the List View. Set the <code>src</code> value to
@@ -66,9 +66,9 @@
           <li>In the Variables tab, select the <code>ascending</code> variable and set an event listener on value
             change.</li>
           <li>In the Action Chain, add an <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-E87B6675-D7E4-49BC-B4E4-2B477FBE4B8D">Assign
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Assign
               Variables</a> action that maps <code>$variables.countryListSDP.sortCriteria[0].direction</code> to
-            <code>"direction": "{{ $page.variables.ascending ? 'ascending' : 'descending' }}"</code>.</li>
+            <code>$page.variables.ascending ? 'ascending' : 'descending'</code>.</li>
         </ol>
       </div>
     </oj-collapsible>

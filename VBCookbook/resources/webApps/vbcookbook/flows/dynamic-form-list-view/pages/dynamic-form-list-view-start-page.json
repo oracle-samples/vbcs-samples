@@ -1,34 +1,16 @@
 {
-  "title": "Dynamic Form List View Recipe",
+  "title": "List View Form",
   "description": "",
   "variables": {
-    "employee": {
-      "type": "page:getEmployeeResponse"
-    },
-    "employeeDetailFormLoadingStatus": {
-      "type": "string",
-      "defaultValue": "pending"
-    },
-    "employeeDetailFormRenderedFields": {
-      "type": "any[]",
-      "onValueChanged": {
-        "chains": [
-          {
-            "chainId": "loadEmployeeChain",
-            "parameters": {
-              "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
-            }
-          }
-        ]
-      }
-    },
+
     "employeeListSDP": {
       "type": "vb/ServiceDataProvider",
       "defaultValue": {
-        "endpoint": "businessObjects/getall_Employee",
+
         "keyAttributes": "id",
         "itemsPath": "items",
-        "responseType": "getallEmployeeResponse"
+        "responseType": "getallEmployeeResponse",
+        "fetchChain": "getall_EmployeeFetch"
       }
     },
     "path": {
@@ -54,11 +36,6 @@
       "service": "businessObjects",
       "path": "response"
     },
-    "@decorators.getEmployeeResponse": {
-      "endpoint": "get_Employee",
-      "service": "businessObjects",
-      "path": "response"
-    },
     "getallEmployeeResponse": {
       "items": [
         {
@@ -71,8 +48,7 @@
           "salary": "number"
         }
       ]
-    },
-    "getEmployeeResponse": "object"
+    }
   },
   "chains": {},
   "eventListeners": {},

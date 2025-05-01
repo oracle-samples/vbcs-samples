@@ -1,5 +1,5 @@
 {
-  "title": "Component Context Recipe",
+  "title": "Component Context",
   "description": "",
   "variables": {
     "employee": {
@@ -14,7 +14,7 @@
       "onValueChanged": {
         "chains": [
           {
-            "chainId": "loadEmployeeChain",
+            "chain": "loadEmployeeChain",
             "parameters": {
               "fetchedFields": "[[ $variables.employeeDetailFormRenderedFields ]]"
             }

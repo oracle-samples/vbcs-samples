@@ -13,7 +13,7 @@
     "confirmYesOjAction": {
       "chains": [
         {
-          "chainId": "dialogResponseChain",
+          "chain": "dialogResponseChain",
           "parameters": {
             "response": "YES"
           }
@@ -23,7 +23,7 @@
     "confirmNoOjAction": {
       "chains": [
         {
-          "chainId": "dialogResponseChain",
+          "chain": "dialogResponseChain",
           "parameters": {
             "response": "NO"
           }
@@ -33,21 +33,21 @@
     "buttonAction": {
       "chains": [
         {
-          "chainId": "onCompletePaymentButton"
+          "chain": "onCompletePaymentButton"
         }
       ]
     },
     "buttonAction3": {
       "chains": [
         {
-          "chainId": "onCancelTransaction"
+          "chain": "onCancelTransaction"
         }
       ]
     },
     "vbBeforeExit": {
       "chains": [
         {
-          "chainId": "pageNavigatingAway"
+          "chain": "pageNavigatingAway"
         }
       ],
       "@dt": {

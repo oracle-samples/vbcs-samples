@@ -1,74 +1,40 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <p>
-  A Select (Single) component displays a list of employees. You configure the application so that list of employees
-  displayed by the component is filtered by a specific department. The user can
-  further filter the list of employees that the application retrieves by typing letters of an employee's name in the
-  Select (Single) component.
+Create a boolean variable to control the Button component's <code>disabled</code> property and a string variable to change the Button component's label to a message for the user. Use an Assign Variables action in the action chain to disable the Button component and display a status message while the action chain performs its other actions. On completion of these actions, use another Assign Variables action to enable the Button component again.
 </p>
-
 <oj-accordion id="accordionPage" multiple="true">
   <oj-collapsible id="step1" expanded="true">
-    <span slot="header">Create a Select (Single) Component</span>
-    <div>
-      <ol>
-        <li>In the Component Palette, drag a Select (Single) component and drop it on the page. </li>
-        <li>Use the Select (Single) component's <a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/design-pages.html#GUID-CC4E6D70-8EE4-4660-B3F9-4FF5714B42EF">Add
-            Options Quick Start</a> to select the employee ID field as the Value and
-          the employee's email as the Label field. </li>
-
-        <p>The Select (Single) component will display the list of all employees from all departments.</p>
-      </ol>
-
-    </div>
+  <span slot="header">Create a Form with a Button Component</span>
+  <div>
+    <ol>
+      <li>Add an Input Text and a Button component to the page.</li>
+      <li><p>Create a variable <code>disableButton</code> of type Boolean to control the Button component's <code>disabled </code> property. </p>
+      <p>Default <code>disableButton</code>  to <code>false</code>. When <code>true</code>, it disables the Button component. </p>
+      </li>
+      <li>Create another variable <code>buttonText</code> of type String and use it to set the <code>Label</code> property of the Button component.
+      </li>
+    </ol>
+  </div>
   </oj-collapsible>
   <oj-collapsible id="step2">
-    <span slot="header">Customize Fetch Action Chain to Apply Department Filter</span>
-    <div>
-      <ol>
-        <li>In the Variables tab, select the <code>employeeListSDP</code> variable and, in the Properties pane, click
-          <strong>Customize Fetch Action Chain</strong>.
-        </li>
-        <li>In the newly-created <code>getall_EmployeeFetchAction</code> action chain, select the Call REST action that
-          is the first action in the action chain.</li>
-        <li>In the Properties pane, select <strong>requestTransformOptions</strong>.</li>
-        <li>Expand the filter parameter and set the attribute, operator, and value properties to filter results for the
-          Sales department (id=8).
-          <pre>
-  "requestTransformOptions": {
-  "filter": {
-    "criteria": [
-      {
-        "attribute": "department",
-        "op": "$eq",
-        "value": "8"
-      }
-    ]
-  }
-  }
-          </pre>
-        </li>
-        <li>Drag and drop a Call Function action after the Call REST action. In properties create a new function 
-          <strong>transformData</strong> with a parameter <strong>data</strong> and set its value to <strong>{{ $chain.results.callRestEndpoint1 }}</strong>. In the function add the following code to capitalize the email in the data.
-          <pre>
-transformData(data) {
-// as part of transforming data, lets capitalize the email id
-if (data.body.items) {
-  data.body.items.forEach(element => {
-    element.email = element.email.toUpperCase();
-  });
-}
+  <span slot="header">Add an Event Listener and an Action Chain to Prevent Double Click</span>
+  <div>
+    <ol>
+      <li>In the Events tab of the Properties pane for the Button component, click <strong>New Event</strong> to create
+      an ojAction event listener.</li>
+      <li>In the action chain editor, add an <a target="_blank" href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">
+      Assign Variables action</a> to map the two page variables that you created previously. Assign <code>'Processing...'</code> to the
+      <code>buttonText</code> variable and disable the Button component by setting the <code>disableButton</code> variable to <code>true</code>. </li>
+      <li><p>Add the other actions to the action chain.</p>
+      <p>In our example, we use a Call Function action that sets a timeout.</p>
+      </li>
 
-return data;
-};
-          </pre>
-        </li>
-        <p>The Select (Single) component now displays the list of employees' email in uppercase from the Sales department.</p>
-      </ol>
-    </div>
+      <li>Add another Assign Variable action as the last action in the chain to re-enable the Button component and use its default label (Add). </li>
+    </ol>
+  </div>
   </oj-collapsible>
 </oj-accordion>

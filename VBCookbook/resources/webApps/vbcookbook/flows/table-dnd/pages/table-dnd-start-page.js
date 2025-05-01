@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -27,21 +27,6 @@ define([], function () {
           startIndex: ui.rowIndex,
         });
       }
-    }
-
-    /**
-     *
-     * @param {Array} data
-     * @param {Array} rows
-     * @param {Number} startIndex
-     *
-     * @return {Array}
-     */
-    addRows(data, rows, startIndex) {
-      return data
-        .slice(0, startIndex)
-        .concat(rows)
-        .concat(data.slice(startIndex));
     }
   }
 

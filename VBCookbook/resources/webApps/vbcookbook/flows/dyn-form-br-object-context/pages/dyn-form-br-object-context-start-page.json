@@ -1,0 +1,82 @@
+{
+  "title": "",
+  "description": "",
+  "variables": {
+    "expenseObjectContext": {
+      "type": {
+        "exchangeRate": "number"
+      }
+    },
+
+    "getExpenseByIdDetailFormLoadingStatus": {
+      "type": "string",
+      "defaultValue": "pending"
+    },
+    "getExpenseByIdDetailFormRenderedFields": {
+      "type": "any[]",
+      "onValueChanged": {
+        "chains": [
+          {
+            "chain": "loadFormValueChain",
+            "parameters": {
+              "fetchedFields": "[[ $page.variables.getExpenseByIdDetailFormRenderedFields ]]",
+              "fetchFields": "{{ $page.variables.getExpenseByIdDetailFormRenderedFields }}"
+            }
+          }
+        ]
+      }
+    },
+    "formValue": {
+      "type": "object"
+    },
+    "expenseValue": {
+      "type": {
+        "baseAmount": "number",
+        "currencyAmount": "number",
+        "currency": "string",
+        "exchangeRate": "number",
+        "expenseID": "number",
+        "expenseType": "string"
+
+      },
+      "defaultValue": {
+        "expenseID": 1,
+        "expenseType": "Wifi",
+        "baseAmount": 1000,
+        "currency": "USD",
+        "currencyAmount": 1234
+      }
+    }
+
+  },
+  "metadata": {
+    "expenseJsonMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "path": "dynamicLayouts/Expense",
+        "objectContext": "[[ $variables.expenseObjectContext ]]"
+      }
+    }
+  },
+  "types": {
+  },
+  "eventListeners": {
+    "formRawValueUpdated": {
+      "chains": [
+        {
+          "chain": "FormRawValueUpdatedChain",
+          "parameters": {
+            "event": "[[ $event.detail ]]"
+          }
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-dyn-form": {
+        "path": "oj-dyn/form/loader"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-dynamic-table.html">Add
+    a
+    Dynamic Table</a> to the page and click <strong>Configure Layout</strong> in the Quick Start tab of the Properties pane to add data to the table. To create the field template in edit mode (<code>hireDate</code> in our example), 
+    use <code>$cell.editMode</code> to check if the table is in edit mode and apply the template if it is:
+
+</p>
+<code>
+<pre>
+&lt;template id="hireDateTemplate">
+  &lt;oj-bind-if test="[[ $cell.mode === 'navigation' ]]">
+    &lt;oj-bind-text value="{{ $value }}">&lt;/oj-bind-text>
+  &lt;/oj-bind-if>
+  &lt;oj-bind-if test="[[ $cell.mode === 'edit' ]]">
+    &lt;div class="oj-helper-text-align-start" id="hireDate">
+      &lt;oj-input-date value="{{ $value }}" date-picker.show-on="userFocus" id="hire-date">&lt;/oj-input-date>
+    &lt;/div>
+  &lt;/oj-bind-if>
+&lt;/template>
+</pre>
+          </code>

@@ -1,0 +1,65 @@
+{
+  "labelHint": "Expense",
+  "type": "object",
+  "properties": {
+    "currencyAmountVP": {
+      "type": "number",
+       "labelHint": "[[ 'Currency Amount in ' + $fields.currency.value()]]",
+      "valuePrecedence": "calculation"
+    },
+    "expenseID": {
+      "type": "number",
+      "labelHint": "Id"
+    },
+    "expenseType": {
+      "type": "string",
+      "labelHint": "Expense Type"
+    },
+    "exchangeRate": {
+      "type": "number",
+      "labelHint": "Exchange Rate"
+    },
+    "currencyAmount": {
+      "type": "number",
+      "labelHint": "[[ 'Amount in ' + $fields.currency.value()]]",
+      "valuePrecedence": "alwaysCalculation"
+    },
+    "baseAmount": {
+      "type": "number",
+      "labelHint": "Amount in USD"
+    },
+    "currency": {
+      "type": "string",
+      "labelHint": "Currency",
+      "componentType": "oj-select-single",
+      "dataProvider": {
+        "factory": "ojs/ojarraydataprovider",
+        "parameters": [
+          [
+            {
+              "value": "INR",
+              "label": "INR"
+            },
+            {
+              "value": "USD",
+              "label": "USD"
+            },
+            {
+              "value": "EUR",
+              "label": "EUR"
+            }
+          ],
+          {
+            "keyAttributes": "value"
+          }
+        ]
+      }
+    },
+    "expenseDate": {
+      "type": "string",
+      "format": "date",
+      "labelHint": "Expense Date"
+    }
+
+  }
+}

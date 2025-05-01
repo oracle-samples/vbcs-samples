@@ -1,0 +1,8 @@
+{
+  "id": "dyn-table-disable-edit",
+  "description": "Flow main",
+  "defaultPage": "dyn-table-disable-edit-start",
+  "services": {},
+  "types": {},
+  "variables": {}
+}

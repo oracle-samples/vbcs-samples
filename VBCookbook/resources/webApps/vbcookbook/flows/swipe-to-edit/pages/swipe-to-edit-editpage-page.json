@@ -29,22 +29,21 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "SaveEmployeeDataActionChain"
+          "chain": "SaveEmployeeDataActionChain"
         }
       ]
     },
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "navigateBackActionChain"
+          "chain": "navigateBackActionChain"
         }
       ]
     },
     "vbEnter": {
       "chains": [
         {
-          "chainId": "getDataFromMainPage",
-          "parameters": {}
+          "chain": "getDataFromMainPage"
         }
       ]
     }

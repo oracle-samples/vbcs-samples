@@ -1,0 +1,26 @@
+/**
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ */
+define([
+  'vb/action/actionChain',
+  'vb/action/actions',
+], (
+  ActionChain,
+  Actions
+) => {
+  'use strict';
+
+  class firePageLayoutEventChain extends ActionChain {
+
+    /**
+     * @param {Object} context
+     */
+    async run(context) {
+      
+    }
+  }
+
+  return firePageLayoutEventChain;
+});

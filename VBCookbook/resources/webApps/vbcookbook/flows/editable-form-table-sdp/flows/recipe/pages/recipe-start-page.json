@@ -11,8 +11,14 @@
       "oj-accordion": {
         "path": "ojs/ojaccordion"
       },
+      "oj-bind-dom": {
+        "path": "ojs/ojbinddom"
+      },
       "oj-collapsible": {
         "path": "ojs/ojcollapsible"
+      },
+      "oj-table": {
+        "path": "ojs/ojtable"
       }
     }
   }

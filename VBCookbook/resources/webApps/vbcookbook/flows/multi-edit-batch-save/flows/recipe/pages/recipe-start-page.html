@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -16,7 +16,7 @@
       <span slot="header">Create Response Type</span>
       <div>
         <p><a target="_blank"
-            href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
+            href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Create
             a custom type</a> <code>employee</code> from the GET /Employee endpoint and add these fields:</p>
         <ul>
           <li><code>Id</code></li>
@@ -34,7 +34,7 @@
         <ol>
           <li>Create the following page variables:
             <ul>
-              <li><code>departmentId</code> – String with a hardcoded value of 2 for the purposes of this demo.</li>
+              <li><code>departmentId</code> – String with a hardcoded value of 8 for the purposes of this demo.</li>
               <li><code>departmentName</code> - String.</li>
               <li><code>originalDepartmentName</code> - String.</li>
               <li><code>idForNewEmployee</code> – Number. A temporary ID for new employee rows. Default value set to -1.
@@ -45,7 +45,7 @@
             </ul>
           </li>
           <li>Add an <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/understand-page-model.html#GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Array
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBPMR-GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">Array
               Data Provider</a> <code>employeeListADP</code> variable of item type <code>employee</code>.</li>
           <li>Set the filterCriterion in <code>employeeListADP</code> to filter employees based on department ID.</li>
         </ol>
@@ -81,7 +81,7 @@
       <div>
         <ol>
           <li> <a target="_blank"
-              href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-actions-and-action-chains.html#GUID-95CF14CA-6C15-42A2-A5B9-35DA0AFDFD81">Create
+              href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-F45B4319-9921-4F2D-BA30-F1DEF013859C">Create
               an action chain</a> <code>FetchDepartment</code> to fetch the department details.
 
             <ul>
@@ -140,7 +140,7 @@
           <li>For the <strong>Save (Batch)</strong> button, add an event and configure the generated action chain as
             follows:
             <ul>
-              <li>Write JavaScript functions to prepare the batch payload for <code>department</code> and
+              <li>Write functions in action chain to prepare the batch payload for <code>department</code> and
                 <code>employeeListADP</code> updates.</li>
               <li>Add a Create Call REST Endpoint action that invokes the <code>POST /businessObjects/batch</code>
                 endpoint and uploads the payload.</li>

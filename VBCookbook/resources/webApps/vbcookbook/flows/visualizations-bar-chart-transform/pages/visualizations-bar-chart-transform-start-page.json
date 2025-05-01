@@ -13,8 +13,9 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "fetchDataFromService",
-          "parameters": {}
+
+          "parameters": {},
+          "chain": "fetchDataFromService"
         }
       ]
     }

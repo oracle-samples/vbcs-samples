@@ -1,0 +1,90 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+
+<p><a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-dynamic-table.html">Add
+    two
+    Dynamic Tables</a> to the page and click <strong>Configure Layout</strong> in the Quick Start tab of the Properties pane to add data to
+    both tables. Use the same metadata
+    and layout for both tables.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Configure the Drag Table</h1>
+      <div>
+        <ol>
+          <li>In the General tab of the Properties pane, select <strong>Multiple</strong> for the Selection Mode, Row field.
+          </li>
+          <li>In Code view, add the following property to the table:<br>
+          <code>dnd.drag.rows.data-types="application/ojtablerows+json"</code>
+          </li>
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-2">
+      <h1 slot="header">Configure the Drop Table</h1>
+      <div>
+        <ol>
+          <li>In the Variables tab, create a page variable named <code>employeeDropListADP</code> of type Array Data Provider.</li>
+          <li>In the All tab of the Properties pane of the Page Designer, set the dynamic table Data property to <code>[[ $variables.employeeDropListADP ]]</code>.</li>
+          <li>In Code view, add the following properties to the table:<br>
+          <code><pre>. . . dnd.drop.rows.data-types="application/ojtablerows+json" dnd.drop.rows.drop="[[$functions.handleDropRows]]" . . </pre></code> </li>
+          
+        </ol>
+      </div>
+    </oj-collapsible>
+    <oj-collapsible id="oj-collapsible-step-3">
+      <h1 slot="header">Create the Drag Handler</h1>
+      <div>
+        <ol>
+          <li>In the JavaScript tab, add a module function named <code>handleDropRows</code>:
+            <pre>
+            <code>
+handleDropRows(event, ui) {
+  let dragData = event.dataTransfer.getData(
+    'application/ojtablerows+json');
+
+  if (dragData) {
+    this.eventHelper.fireCustomEvent('dataDropped', {
+      rows: JSON.parse(dragData).map(function(i) {
+        return i.data
+      }),
+      startIndex: ui.rowIndex
+    })
+  }
+};
+            </code>
+            </pre>
+          </li>
+          <li>In the Events tab, create a page custom event named <code>dataDropped</code> with the following payload:
+            <ul>
+              <li><code>rows</code> of type Array (object)</li>
+              <li><code>startIndex</code> of type Number</li>
+            </ul>
+          </li>
+          <li>In the Event Listener's tab, add an event listener to the custom event <code>dataDropped</code> that creates an action chain named 
+            <code>TableDropChain</code>.</li>
+          <li>Add Assign Variable actions to the action chain for each of the following variables.
+            <pre>
+            <code>
+let data = $page.variables.employeeDropListADP.data;
+
+const addData = data
+  .slice(0, event.startIndex)
+  .concat(event.rows)
+  .concat(data.slice(event.startIndex));
+
+$page.variables.employeeDropListADP.data = addData;
+            </code>
+            </pre>
+          </li>
+          
+        </ol>
+      </div>
+    </oj-collapsible>
+  </oj-accordion>
+</div>

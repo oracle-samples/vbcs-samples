@@ -22,5 +22,14 @@
     "key_phonenumber": "Phone number",
     "@key_phonenumber": {
         "description": ""
-    }
+    },
+    "key_review": "Review Needed?",
+    "@key_review": {
+        "description": ""
+    },
+    "key_contactdetails": "Contact Details",
+    "@key_contactdetails": {
+        "description": ""
+    },
+    "app_title_navigation_drawer":"page header"
    }

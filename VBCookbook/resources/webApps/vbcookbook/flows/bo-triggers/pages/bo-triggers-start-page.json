@@ -11,7 +11,7 @@
         "responseType": "page:getallEmployeeResponse"
       }
     },
-    "oj_table_11161435_1SelectedId": {
+    "selectedEmployeeId": {
       "type": "string",
       "defaultValue": ""
     }
@@ -54,9 +54,9 @@
     "editEmployeeButtonClicked": {
       "chains": [
         {
-          "chainId": "navigateToEditEmployeeChain",
+          "chain": "navigateToEditEmployeeChain",
           "parameters": {
-            "employeeId": "[[ $page.variables.oj_table_11161435_1SelectedId ]]"
+            "employeeId": "[[ $page.variables.selectedEmployeeId ]]"
           }
         }
       ]
@@ -64,7 +64,7 @@
     "oj_table_11161435_1SelectionChanged": {
       "chains": [
         {
-          "chainId": "oj_table_11161435_1ChangeSelectionChain",
+          "chain": "ChangeSelectionChain",
           "parameters": {
             "employeeId": "[[ $event.detail.value.key || '' ]]"
           }

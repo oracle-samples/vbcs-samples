@@ -1,0 +1,63 @@
+{
+  "metadataRules": [
+    {
+      "id": "ruleOne",
+      "label": "First Rule",
+      "description": "",
+      "condition": {
+        "expression": "[[ $modules.ruleOne.runCondition({ $componentContext: $componentContext, $fields: $fields, $modules: $modules, $user: $user }) ]]"
+      },
+      "status": "active",
+      "overlay": {
+        "fields": {
+          "DummyField": {
+            "value": {
+              "value": "[[ $modules.ruleOne.getDummyField({ $componentContext: $componentContext, $fields: $fields, $modules: $modules, $user: $user }) ]]"
+            },
+            "referencedFields": {
+              "generated": [
+                "positionsLov.PositionCode",
+                "positionsLov.PositionName"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruleTwo",
+      "label": "Second Rule",
+      "description": "",
+      "condition": {
+        "expression": "[[ $modules.ruleTwo.runCondition({ $componentContext: $componentContext, $fields: $fields, $modules: $modules, $user: $user }) ]]"
+      },
+      "status": "active",
+      "overlay": {
+        "fields": {
+          "DummyField": {
+            "value": {
+              "value": "[[ $modules.ruleTwo.getDummyField({ $componentContext: $componentContext, $fields: $fields, $modules: $modules, $user: $user }) ]]"
+            },
+            "referencedFields": {
+              "generated": [
+                "positionsLov.PositionCode",
+                "positionsLov.PositionName"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "imports": {
+    "modules": {
+      "ruleOne": {
+        "path": "./metadataRules/ruleOne"
+      },
+      "ruleTwo": {
+        "path": "./metadataRules/ruleTwo"
+      }
+    }
+  },
+  "metadataRulesVersion": "16.0.14"
+}

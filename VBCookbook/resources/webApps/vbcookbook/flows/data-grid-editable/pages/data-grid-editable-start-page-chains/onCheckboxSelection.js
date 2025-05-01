@@ -1,5 +1,5 @@
 /**
- * Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ * Copyright (c)2020, 2025, Oracle and/or its affiliates.
  * Licensed under The Universal Permissive License (UPL), Version 1.0
  * as shown at https://oss.oracle.com/licenses/upl/
  */
@@ -29,7 +29,7 @@ define([
       const reviewTicked = value.length > 0 ? 'yes' : 'no';
       rowData.review = reviewTicked;
 
-      const callFunctionResult = await $page.functions.updateReview(rowData);
+      await $page.variables.bufferingDP.updateItem({ data: rowData, metadata: { key: rowData.id } });
     }
   }
 

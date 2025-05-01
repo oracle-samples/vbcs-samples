@@ -1,12 +1,12 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
-  This recipe shows dynamic choice list renders in combox-box with an advance
-  search
-  where user can select filtered record.
+  This recipe shows a dynamic choice list rendered in a combox-box and an 
+  advanced search dialog where the user can select a filtered record using 
+  many different options.
 </div>
 <div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box2" style="overflow-x: auto">
@@ -123,8 +123,6 @@
                 </oj-bind-text>
               </template>
 
-
-
               <template slot="departmentNameCellTemplate3">
                 <oj-bind-text
                   value="[[ $current.data.items.map(function(r){return r.departmentName}).join(', ') ]]">
@@ -137,22 +135,15 @@
               </template>
 
               <template slot="cellTemplate">
-
                 <oj-radioset
                   value="[[$current.row.id === $page.variables.selectedRow.key ]]">
-
                   <oj-option value="[[true]]"></oj-option>
-
                 </oj-radioset>
-
               </template>
-
             </oj-table>
           </div>
         </div>
-
       </div>
-
     </oj-dialog>
   </div>
 

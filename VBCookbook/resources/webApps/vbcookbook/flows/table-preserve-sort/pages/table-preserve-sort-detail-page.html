@@ -1,0 +1,22 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-flex">
+  <h1 class="oj-flex-item oj-sm-12 oj-md-12">Employee Detail</h1>
+</div>
+<div class="oj-flex">
+  <div class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-form-layout>
+      <oj-input-number value="[[ $variables.employee.id ]]" readonly="true" label-hint="Id"></oj-input-number>
+      <oj-input-text value="[[ $variables.employee.firstName ]]" readonly="true" label-hint="First Name"></oj-input-text>
+      <oj-input-text value="[[ $variables.employee.lastName ]]" readonly="true" label-hint="Last Name"></oj-input-text>
+    </oj-form-layout>
+  </div>
+</div>
+<div class="oj-flex">
+  <oj-toolbar chroming="solid" class="oj-flex-item oj-sm-12 oj-md-12">
+    <oj-button label="Back" on-oj-action="[[$listeners.backButtonClicked]]"></oj-button>
+  </oj-toolbar>
+</div>

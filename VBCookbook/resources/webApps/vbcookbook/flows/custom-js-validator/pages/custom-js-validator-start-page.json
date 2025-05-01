@@ -13,18 +13,14 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "SubmitActionChain",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "SubmitActionChain"
         }
       ]
     },
     "vbEnter": {
       "chains": [
         {
-          "chainId": "onPageLoad",
-          "parameters": {}
+          "chain": "onPageLoad"
         }
       ]
     }

@@ -1,19 +1,20 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
 <div class="oj-sm-padding-2x oj-md-padding-8x recipe-desc">
+  <p style="color: red" class="oj-typography-heading-md">  &gt;&gt;&gt; DO NOT FOLLOW THIS RECIPE &lt;&lt;&lt;  </p>
+      <p class="oj-typography-body-md oj-typography-semi-bold"><i>This recipe's code does not demonstrate our recommended
+          best practice and has not been updated in recent releases. Its code used Release 21.10. It will be deleted
+          soon.</i></p>
+  
+      <p class="oj-typography-body-md oj-typography-semi-bold"><i>We recommend that you instead use the <a
+            on-click="[[$listeners.hyperlinkClick]]">Batch Editable Table (BDP) Recipe</a>, which has been updated and
+          simplified using JavaScript action chains. If you require usage of the
+          Array Data Provider (ADP), start with the BDP recipe and replace the Service Data Provider with an instance of
+          the Array Data Provider as needed.</i></p>
 
-  <p><strong>Note:</strong> This recipe describes how to implement an editable table with an ArrayDataProvider using
-    Release 21.10.
-    Please follow the newer editable table recipe that uses Buffering Data Provider with Service Data Provider. </p>
-  <p>
-    This recipe shows you how to implement an editable table where users can edit multiple existing rows
-    or create new rows, before they submit all their changes in one transaction to the backend service.
-    The recipe also demonstrates how to implement validation. It ensures, for example, that a change to an
-    employee's salary remains within the minimum and maximum values for that employee’s job classification.
-  </p>
 </div>
 <div class="oj-flex oj-md-margin-8x-start oj-md-margin-8x-end sample-box">
   <div class="oj-flex-item oj-sm-flex-direction-column sample-box2">

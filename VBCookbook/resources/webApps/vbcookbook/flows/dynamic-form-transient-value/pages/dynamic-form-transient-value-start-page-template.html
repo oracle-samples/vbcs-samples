@@ -1,0 +1,24 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- Dynamic Container Templates -->
+
+<template id="template1">
+  <oj-sp-section section-title="[[$labelHint]]">
+    <oj-validation-group id="employee-validation-group--1209804167-1">
+      <oj-dyn-form id="oj-dyn-form-transient" metadata="[[ $metadata.businessObjectsCreateEmployeeMetadata.provider ]]"
+        layout="formTransientValueChange" value="{{ $variables.employee }}"
+        on-transient-value-changed="[[$listeners.ojDynFormTransientValue]]">
+      </oj-dyn-form>
+    </oj-validation-group>
+  </oj-sp-section>
+
+  <div class="oj-flex">
+    <oj-label class="oj-flex-item oj-sm-12 oj-md-12 oj-sm-padding-4x-top">Form Transient Value:</oj-label>
+    <div class="oj-flex-item oj-sm-12 oj-md-12" id="transient-value">
+      <oj-bind-text value="[[ $variables.formTransientValueText ]]"></oj-bind-text>
+    </div>
+  </div>
+</template>

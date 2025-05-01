@@ -1,0 +1,9 @@
+{
+  "id": "dynamic-table-multi-selection",
+  "description": "Flow main",
+  "defaultPage": "dynamic-table-multi-selection-start",
+  "chains": {},
+  "services": {},
+  "types": {},
+  "variables": {}
+}

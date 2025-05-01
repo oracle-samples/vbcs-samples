@@ -2,8 +2,8 @@
   "title": "Table Row Expander Recipe",
   "description": "",
   "variables": {
-    "employee": {
-      "type": "get_Employee[]"
+    "dataSource": {
+      "type": "any"
     }
   },
   "metadata": {},
@@ -12,22 +12,6 @@
       "endpoint": "getall_Employee",
       "service": "businessObjects",
       "path": "response"
-    },
-    "get_Employee": {
-      "firstName": "string",
-      "id": "number",
-      "job": "number",
-      "jobObject": {
-        "items": [
-          {
-            "jobTitle": "string"
-          }
-        ]
-      },
-      "lastName": "string",
-      "manager": "number",
-      "phoneNumber": "string",
-      "salary": "number"
     },
     "getall_Employee": {
       "items": [
@@ -55,15 +39,15 @@
     "vbEnter": {
       "chains": [
         {
-          "chainId": "fetchEmployees",
-          "parameters": {}
+          "parameters": {},
+          "chain": "fetchEmployees"
         }
       ]
     },
     "anchorClick": {
       "chains": [
         {
-          "chainId": "callEmployee",
+          "chain": "callEmployee",
           "parameters": {
             "key": "{{ $current.key }}",
             "index": "{{ $current.index }}",

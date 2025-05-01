@@ -21,10 +21,7 @@
     "onButtonClick": {
       "chains": [
         {
-          "chainId": "callRestEndpointAction",
-          "parameters": {
-            "detail": "{{ $event.detail }}"
-          }
+          "chain": "callRestEndpointAction"
         }
       ]
     }

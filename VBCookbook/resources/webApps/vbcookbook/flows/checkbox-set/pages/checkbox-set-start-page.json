@@ -44,14 +44,14 @@
     "ojButtonOjAction": {
       "chains": [
         {
-          "chainId": "resetAllActionChain"
+          "chain": "resetAllActionChain"
         }
       ]
     },
     "ojButtonOjAction2": {
       "chains": [
         {
-          "chainId": "selectAsiaActionChain"
+          "chain": "selectAsiaActionChain"
         }
       ]
     }

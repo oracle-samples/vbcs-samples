@@ -1,32 +1,30 @@
 {
   "component-dependencies": {
-    "oj-sample": {
-      "version": "8.0.0",
-      "components": {
-        "input-text-typeahead": "8.0.0"
-      }
-    },
     "oj-dyn": {
-      "version": "14.1.2",
+      "version": "16.1.6",
       "components": {
-        "form": "14.1.2",
-        "bind-field": "14.1.2",
-        "container": "14.1.2"
+        "form": "16.1.6",
+        "bind-field": "16.1.6",
+        "container": "16.1.6"
       }
     },
     "oj-dynamic": {
-      "version": "14.1.2",
+      "version": "16.1.6",
       "components": {
-        "table": "14.1.2"
+        "table": "16.1.6"
       }
     },
     "oj-sp": {
-      "version": "2310.0.1",
+      "version": "2410.0.3",
       "components": {
-        "header-general-overview": "2310.0.1",
-        "smart-filter-search": "2310.0.1",
-        "collection-container": "2310.0.1",
-        "welcome-page": "2310.0.1"
+        "collection-container": "2410.0.3",
+        "welcome-page": "2410.0.3",
+        "section": "2410.0.3",
+        "advanced-create-edit": "2410.0.3",
+        "vertical-anchor-navigator": "2410.0.3",
+        "message-unsaved-changes": "2410.0.3",
+        "create-edit-drawer-template": "2410.0.3",
+        "smart-search": "2410.0.3"
       }
     }
   }

@@ -73,7 +73,7 @@
     "departmentSelectedRow": {
       "chains": [
         {
-          "chainId": "DepartmentSelectedChain",
+          "chain": "DepartmentSelectedChain",
           "parameters": {
             "rowKey": "{{$event.detail.value.key}}"
           }
@@ -83,7 +83,7 @@
     "employeeSelectedRow": {
       "chains": [
         {
-          "chainId": "EmployeeSelectedChain",
+          "chain": "EmployeeSelectedChain",
           "parameters": {
             "rowData": "{{$event.detail.value.data}}"
           }

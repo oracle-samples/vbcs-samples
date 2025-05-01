@@ -1,0 +1,83 @@
+{
+  "title": "Drag and Drop",
+  "description": "",
+  "variables": {
+    "employeeDropListADP": {
+      "type": "vb/ArrayDataProvider2",
+      "defaultValue": {
+
+        "itemType": "get_Employee",
+        "keyAttributes": "id"
+      }
+    },
+    "employeeListSDP": {
+      "type": "vb/ServiceDataProvider",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "keyAttributes": "id",
+        "itemsPath": "items",
+        "responseType": "getallEmployeeResponse"
+      }
+    }
+  },
+  "metadata": {
+    "businessObjectsGetallEmployeeMetadata": {
+      "type": "vb/DynamicLayoutMetadataProviderDescriptor",
+      "defaultValue": {
+        "endpoint": "businessObjects/getall_Employee",
+        "metadataPath": "items"
+      }
+    }
+  },
+  "types": {
+    "@decorators.get_Employee": {
+      "endpoint": "get_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "@decorators.getallEmployeeResponse": {
+      "endpoint": "getall_Employee",
+      "service": "businessObjects",
+      "path": "response"
+    },
+    "get_Employee": {
+      "email": "string",
+      "firstName": "string",
+      "id": "number",
+      "lastName": "string",
+      "phoneNumber": "string",
+      "salary": "number"
+
+    },
+    "getallEmployeeResponse": {
+      "items": "object[]"
+    }
+  },
+  "eventListeners": {
+    "dataDropped": {
+      "chains": [
+        {
+          "parameters": {
+            "event": "{{ $event }}"
+          },
+          "chain": "TableDropChain"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "components": {
+      "oj-dynamic-table": {
+        "path": "oj-dynamic/table/loader"
+      }
+   }
+  },
+  "events": {
+    "dataDropped": {
+      "payloadType": {
+        "rows": "object[]",
+        "startIndex": "number"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <!--
- Copyright (c)2020, 2023, Oracle and/or its affiliates.
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
  Licensed under The Universal Permissive License (UPL), Version 1.0
  as shown at https://oss.oracle.com/licenses/upl/
  -->
@@ -21,8 +21,8 @@
       <ol>
         <li>Create a cache-lov flow with a page called cache-lov-demo.</li>
         <li>Click the cache-lov node to open the flow editor. In the flow editor, create
-          a <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/work-variables-and-types.html#GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Type from Endpoint</a>          based on the Country business object.</li>
-        <li>Create an <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/array-data-provider.html">ArrayDataProvider</a>          called countryADP. Mark the Item Type as get_Country and the Key Attribute
+          a <a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-8014DB84-0DBF-4A01-B243-6E82525224EC">Type from Endpoint</a> based on the Country business object.</li>
+        <li>Create an <a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBPMR-GUID-66F6D714-AFC8-4CC9-8680-2024E82C6FAA">ArrayDataProvider</a> called countryADP. Mark the Item Type as get_Country and the Key Attribute
           as id.</li>
       </ol>
     </div>
@@ -31,14 +31,14 @@
     <span slot="header">Step 2: Creating the Event and Action Chain</span>
     <div>
       <ol>
-        <li>In the populateCountries action chain, add an If action and set the condition
-          to {{ $flow.variables.countryADPInitialized === false }}</li>
-        <li><a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/add-call-rest-endpoint-action.html">Drop a Call REST Endpoint action</a>.
+        <li>Create an action chain named <strong>populateCountries</strong> in the flow. Add an If action and set the condition
+          to <code>{{ $flow.variables.countryADPInitialized === false }}</code></li>
+        <li><a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-154A8060-942A-4B34-8C49-D641BB7DA354">Drop a Call REST Endpoint action</a>.
           Set it to call the getall_Country REST endpoint. Set the limit parameter
           to a high number like 500 so that it fetches all records. Customize the
           requestTransformOption to sort the response by the countryName attribute.</li>
-        <li>In the success path, <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/add-assign-variables-action.html">add an Assign Variables action</a>.
-          Assign body.items from the previous REST call action to countryADP.data</li>
+        <li>In the success path, <a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-99A7767D-A191-4F5C-9DBB-9E944A577809">Add an Assign Variables action</a>.
+          Assign body.items from the REST call action response to countryADP.data</li>
       </ol>
     </div>
   </oj-collapsible>
@@ -48,11 +48,10 @@
       <ol>
         <li>Open the cache-lov-demo page and drop an oj-select-single component on the page.</li>
         <li>In the Data tab of the Properties pane, set the Item Text to countryName.</li>
-        <li>In the Data tab of the Properties pane, set the Data property to [[ $flow.variables.countryADP
-          ]].</li>
+        <li>In the Data tab of the Properties pane, set the Data property to <code>[[ $flow.variables.countryADP ]]</code>.</li>
         <li>Optionally, create a String page variable <code>value</code> and set the oj-select-single's
           Value property to variables.value. </li>
-        <li>In the cache-lov-demo page, <a href="https://docs.oracle.com/en/cloud/paas/integration-cloud/visual-developer/start-action-chains-events.html">add a vbEnter event</a>          and set it to fire a new flow-level action chain called populateCountries.</li>
+        <li>In the cache-lov-demo page, <a href="https://docs.oracle.com/pls/topic/lookup?ctx=cloud&id=VBCDG-GUID-63CE1FF8-3B4C-4DC0-BDED-42460E872F9B">Add a vbEnter event</a>          and set it to fire a new flow-level action chain called populateCountries.</li>
       </ol>
     </div>
   </oj-collapsible>

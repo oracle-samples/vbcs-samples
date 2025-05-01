@@ -1,0 +1,42 @@
+<!--
+ Copyright (c)2020, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<p><a target="_blank"
+    href="https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/create-dynamic-table.html">Add
+    a
+    Dynamic Table</a> to the page and click <strong>Configure Layout</strong> in the Quick Start tab of the Properties pane to add data to the table.
+</p>
+<div class="oj-flex">
+  <oj-accordion class="oj-flex-item oj-sm-12 oj-md-12" multiple="true">
+    <oj-collapsible id="oj-collapsible-step-1" expanded="true">
+      <h1 slot="header">Save and Restore the Scroll Position</h1>
+      <div>
+        <ol>
+          <li>
+            In the Designer's left navigator select the flow that contains your page and, in the Variables tab for the flow, create a flow-level variable named <code>scrollPosition</code> to save the scroll position across the flow.
+          </li>
+          <li>In the Designer's left navigator select the page where the user will navigate from and, in the Event Listeners tab, add an event listener named <code>on-scroll-position-changed</code> to track the scroll position. </li>
+          <li>In the action chain for the <code>on-scroll-position-changed</code> listener, use an Assign Variable action to save the sub-properties  of <code>scroll-position</code> to the <code>scrollPosition</code> flow-level variable.
+            For example:
+            <code>
+<pre>$flow.variables.scrollPosition.rowIndex = scrollPosition.rowIndex;
+$flow.variables.scrollPosition.offsetY = scrollPosition.offsetY;</pre>  
+</code>
+          </li>
+          <li>
+            In the Variables tab, create a page-level variable named <code>scrollPositionPage</code> and use it to set the
+            <code>scroll-position</code>
+            attribute of the dynamic table. Set the default value of this variable to the flow-level variable,
+            <code>scrollPosition</code>.
+          </li>
+          
+          
+        </ol>
+      </div>
+    </oj-collapsible>
+
+
+  </oj-accordion>
+</div>

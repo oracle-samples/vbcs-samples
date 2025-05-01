@@ -112,18 +112,18 @@
     "buttonAction": {
       "chains": [
         {
-          "chainId": "ToggleActionsBarChain"
+          "chain": "ToggleActionsBarChain"
         }
       ]
     },
     "vbEnter": {
       "chains": [
         {
-          "chainId": "ToggleActionsBarChain",
+          "chain": "ToggleActionsBarChain",
           "parameters": {}
         },
         {
-          "chainId": "FadeInMainContent",
+          "chain": "FadeInMainContent",
           "parameters": {}
         }
       ]
